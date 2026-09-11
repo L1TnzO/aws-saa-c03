@@ -3,7 +3,8 @@
 Paquete completo para preparar el examen **AWS Certified Solutions Architect – Associate (SAA-C03)**.
 Es la **fusión de dos versiones previas** del material (un curso curado por fases y una guía extendida
 con biblioteca masiva), unificadas conservando lo mejor de cada una y con todos los enlaces internos
-verificados (0 rotos).
+
+> 🌐 **Sitio web desplegado (GitHub Pages):** [https://l1tnzo.github.io/aws-saa-c03/](https://l1tnzo.github.io/aws-saa-c03/)
 
 ## Qué contiene
 
