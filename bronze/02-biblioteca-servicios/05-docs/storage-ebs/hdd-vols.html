@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon EBS Throughput Optimized HDD and Cold HDD volumes - Amazon EBS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="hdd-vols" /><meta name="default_state" content="hdd-vols" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ebs/latest/userguide/hdd-vols.html" /><meta name="description" content="Learn about the performance characteristics of Amazon EBS Throughput Optimized HDD (st1) and Cold HDD (sc1) volumes." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EBS" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Insert abstract text" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ebs/latest/userguide/hdd-vols.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/ebs/latest/userguide/hdd-vols.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/ebs/latest/userguide/hdd-vols.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/ebs/latest/userguide/hdd-vols.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/ebs/latest/userguide/hdd-vols.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/hdd-vols.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/hdd-vols.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/ebs/latest/userguide/hdd-vols.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/ebs/latest/userguide/hdd-vols.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/ebs/latest/userguide/hdd-vols.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/ebs/latest/userguide/hdd-vols.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/ebs/latest/userguide/hdd-vols.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/ebs/latest/userguide/hdd-vols.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/ebs/latest/userguide/hdd-vols.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/ebs/latest/userguide/hdd-vols.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/ebs/latest/userguide/hdd-vols.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/ebs/latest/userguide/hdd-vols.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/ebs/latest/userguide/hdd-vols.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/ebs/latest/userguide/hdd-vols.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/ebs/latest/userguide/hdd-vols.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/ebs/latest/userguide/hdd-vols.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/hdd-vols.html" hreflang="x-default" /><meta name="feedback-item" content="EBS" /><meta name="this_doc_product" content="Amazon EBS" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ebs'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Amazon EBS Throughput Optimized HDD and Cold HDD volumes" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="hdd-vols.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon EBS Throughput Optimized HDD and Cold HDD volumes - Amazon EBS</title><meta name="pdf" content="/pdfs/ebs/latest/userguide/ebs-ug.pdf#hdd-vols" /><meta name="rss" content="amazon-ebs-user-guide-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAQngny0JOSqmKzdPtGiZZ2w" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/hdd-vols.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/hdd-vols.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/hdd-vols.html" /><meta name="keywords" content="Amazon EBS,ebs,EBS volume,EBS storage,Block storage for EC2 instance,Block-level storage for EC2,hard drive for EC2 instance,EBS volume types,gp3,gp2,io2,Block Express,io1,st1,sc1,SSD EBS storage,HDD EBS storage,EBS Throughput Optimized,EBS Throughput Optimized HDD volumes,Throughput Optimized HDD volumes,st1 volumes,EBS Cold HDD volume,EBS Cold HDD volumes,Cold HDD volumes,sc1 volumes" /><link rel="alternate" type="text/markdown" href="hdd-vols.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EBS",
+        "item" : "https://docs.aws.amazon.com/ebs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon EBS volumes",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon EBS volume types",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon EBS Throughput Optimized HDD and Cold HDD volumes",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/ebs/latest/userguide/ebs-ug.pdf#hdd-vols" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/ebs/index.html">Amazon EBS</a><a href="what-is-ebs.html">User Guide</a></div><div id="page-toc-src"><a href="#throughput-limitations">Limitations on per-instance throughput</a><a href="#EBSVolumeTypes_st1">Throughput Optimized HDD volumes</a><a href="#EBSVolumeTypes_sc1">Cold HDD volumes</a><a href="#EBSVolumeTypes_considerations">Performance considerations when using HDD volumes</a><a href="#monitoring_burstbucket-hdd">Monitor the burst bucket balance for volumes</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="hdd-vols">Amazon EBS Throughput Optimized HDD and Cold HDD volumes</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The HDD-backed volumes provided by Amazon EBS fall into these categories:</p><div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Throughput Optimized HDD — A low-cost HDD designed for frequently accessed,
+            throughput-intensive workloads.</p>
+        </li><li class="listitem">
+          <p>Cold HDD — The lowest-cost HDD designed for less frequently accessed
+            workloads.</p>
+        </li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#throughput-limitations">Limitations on per-instance throughput</a></p></li><li><p><a href="#EBSVolumeTypes_st1">Throughput Optimized HDD volumes</a></p></li><li><p><a href="#EBSVolumeTypes_sc1">Cold HDD volumes</a></p></li><li><p><a href="#EBSVolumeTypes_considerations">Performance considerations when using HDD volumes</a></p></li><li><p><a href="#monitoring_burstbucket-hdd">Monitor the burst bucket balance for volumes</a></p></li></ul></div>
+        <h2 id="throughput-limitations">Limitations on per-instance throughput</h2>
+        <p>Throughput for <code class="code">st1</code> and <code class="code">sc1</code> volumes is always determined by the smaller of the
+          following:</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Throughput limits of the volume</p>
+          </li><li class="listitem">
+            <p>Throughput limits of the instance</p>
+          </li></ul></div>
+        <p>As for all Amazon EBS volumes, we recommend that you select an appropriate EBS-optimized
+          EC2 instance to avoid network bottlenecks.</p>
+       
+      <h2 id="EBSVolumeTypes_st1">Throughput Optimized HDD volumes</h2>
+      <p>Throughput Optimized HDD (<code class="code">st1</code>) volumes provide low-cost magnetic storage that defines performance
+        in terms of throughput rather than IOPS. This volume type is a good fit for large,
+        sequential workloads such as Amazon EMR, ETL, data warehouses, and log processing. Bootable <code class="code">st1</code>
+        volumes are not supported. </p>
+      <p>Throughput Optimized HDD (<code class="code">st1</code>) volumes, though similar to Cold HDD (<code class="code">sc1</code>) volumes, are designed to
+        support <em>frequently</em> accessed data.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This volume type is optimized for workloads involving large, sequential I/O, and we
+        recommend that customers with workloads performing small, random I/O use <a href="./general-purpose.html">Amazon EBS General Purpose SSD volumes</a> or <a href="./provisioned-iops.html">Amazon EBS Provisioned IOPS SSD volumes</a>. 
+        For more information, see <a href="#inefficiency">Inefficiency of small read/writes on HDD</a>.</p></div></div>
+      
+      <p>Throughput Optimized HDD (<code class="code">st1</code>) volumes attached to EBS-optimized instances are designed to offer
+          consistent performance, delivering at least 90 percent of the expected throughput
+          performance 99 percent of the time in a given year.</p>
+       
+        <h3 id="ST1ThroughputBurst">Throughput credits and burst performance</h3>
+        <p>Like <code class="code">gp2</code>, <code class="code">st1</code> uses a burst bucket model for performance. Volume size determines
+            the baseline throughput of your volume, which is the rate at which the volume
+            accumulates throughput credits. Volume size also determines the burst throughput of your
+            volume, which is the rate at which you can spend credits when they are available. Larger
+            volumes have higher baseline and burst throughput. The more credits your volume has, the
+            longer it can drive I/O at the burst level.</p>
+        <p>The following diagram shows the burst bucket behavior for <code class="code">st1</code>.</p>
+        <div class="mediaobject">
+           
+            <img src="/images/ebs/latest/userguide/images/st1-burst-bucket.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="st1 burst bucket" />
+           
+           
+        </div>
+        <p>Subject to throughput and throughput-credit caps, the available throughput of an <code class="code">st1</code>
+          volume is expressed by the following formula:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">(Volume size) × (Credit accumulation rate per TiB) = Throughput</code></pre>
+        <p>For a 1-TiB <code class="code">st1</code> volume, burst throughput is limited to 250 MiB/s, the bucket fills
+          with credits at 40 MiB/s, and it can hold up to 1 TiB-worth of credits.</p>
+        <p>Larger volumes scale these limits linearly, with throughput capped at a maximum of 500
+          MiB/s. After the bucket is depleted, throughput is limited to the baseline rate of 40
+          MiB/s per TiB. </p>
+        <p>On volume sizes ranging from 0.125 TiB to 16 TiB, baseline throughput varies from 5
+          MiB/s to a cap of 500 MiB/s, which is reached at 12.5 TiB as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">            40 MiB/s
+12.5 TiB × ---------- = 500 MiB/s
+             1 TiB                                                                 </code></pre>
+        <p>Burst throughput varies from 31 MiB/s to a cap of 500 MiB/s, which is reached at 2 TiB
+          as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">         250 MiB/s
+2 TiB × ---------- = 500 MiB/s
+          1 TiB                                                                 </code></pre>
+        <p>The following table states the full range of base and burst throughput values for
+            <code class="code">st1</code>.</p>
+        <div class="table-container"><div class="table-contents"><table id="w160aac11c21c23c11c11c27"><thead>
+              <tr>
+                <th>Volume size (TiB)</th>
+                <th>ST1 base throughput (MiB/s)</th>
+                <th>ST1 burst throughput (MiB/s)</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">0.125</td>
+                <td tabindex="-1">5</td>
+                <td tabindex="-1">31</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">0.5</td>
+                <td tabindex="-1">20</td>
+                <td tabindex="-1">125</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">1</td>
+                <td tabindex="-1">40</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">2</td>
+                <td tabindex="-1">80</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">3</td>
+                <td tabindex="-1">120</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">4</td>
+                <td tabindex="-1">160</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">5</td>
+                <td tabindex="-1">200</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">6</td>
+                <td tabindex="-1">240</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">7</td>
+                <td tabindex="-1">280</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">8</td>
+                <td tabindex="-1">320</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">9</td>
+                <td tabindex="-1">360</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">10</td>
+                <td tabindex="-1">400</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">11</td>
+                <td tabindex="-1">440</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">12</td>
+                <td tabindex="-1">480</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">12.5</td>
+                <td tabindex="-1">500</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">13</td>
+                <td tabindex="-1">500</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">14</td>
+                <td tabindex="-1">500</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">15</td>
+                <td tabindex="-1">500</td>
+                <td tabindex="-1">500</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">16</td>
+                <td tabindex="-1">500</td>
+                <td tabindex="-1">500</td>
+              </tr>
+            </table></div></div>
+        <p>The following diagram plots the table values:</p>
+        <div class="mediaobject">
+           
+            <img src="/images/ebs/latest/userguide/images/st1_base_v_burst.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Comparing st1 base and burst throughput" />
+           
+           
+        </div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you create a snapshot of a Throughput Optimized HDD (<code class="code">st1</code>) volume, performance may drop as
+            far as the volume's baseline value while the snapshot is in progress.</p></div></div>
+        <p>For information about using CloudWatch metrics and alarms to monitor your burst bucket
+            balance, see <a href="#monitoring_burstbucket-hdd">Monitor the burst bucket balance for volumes</a>.</p>
+       
+     
+      <h2 id="EBSVolumeTypes_sc1">Cold HDD volumes</h2>
+      <p>Cold HDD (<code class="code">sc1</code>) volumes provide low-cost magnetic storage that defines performance in
+        terms of throughput rather than IOPS. With a lower throughput limit than <code class="code">st1</code>, <code class="code">sc1</code> is a
+        good fit for large, sequential cold-data workloads. If you require infrequent access to your
+        data and are looking to save costs, <code class="code">sc1</code> provides inexpensive block storage. Bootable <code class="code">sc1</code>
+        volumes are not supported.</p>
+      <p>Cold HDD (<code class="code">sc1</code>) volumes, though similar to Throughput Optimized HDD (<code class="code">st1</code>) volumes, are designed to
+        support <em>infrequently</em> accessed data.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This volume type is optimized for workloads involving large, sequential I/O, and we recommend 
+          that customers with workloads performing small, random I/O use <a href="./general-purpose.html">Amazon EBS General Purpose SSD volumes</a> or <a href="./provisioned-iops.html">Amazon EBS Provisioned IOPS SSD volumes</a>. 
+          For more information, see <a href="#inefficiency">Inefficiency of small read/writes on HDD</a>.</p></div></div>
+      <p>Cold HDD (<code class="code">sc1</code>) volumes attached to EBS-optimized instances are designed to offer
+          consistent performance, delivering at least 90 percent of the expected throughput
+          performance 99 percent of the time in a given year.</p>
+      
+       
+        <h3 id="SC1ThroughputBurst">Throughput credits and burst performance</h3>
+        <p>Like <code class="code">gp2</code>, <code class="code">sc1</code> uses a burst bucket model for performance. Volume size determines
+            the baseline throughput of your volume, which is the rate at which the volume
+            accumulates throughput credits. Volume size also determines the burst throughput of your
+            volume, which is the rate at which you can spend credits when they are available. Larger
+            volumes have higher baseline and burst throughput. The more credits your volume has, the
+            longer it can drive I/O at the burst level.</p>
+        <div class="mediaobject">
+           
+            <img src="/images/ebs/latest/userguide/images/sc1-burst-bucket.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="sc1 burst bucket" />
+           
+           
+        </div>
+        <p>Subject to throughput and throughput-credit caps, the available throughput of an <code class="code">sc1</code>
+          volume is expressed by the following formula:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">(Volume size) × (Credit accumulation rate per TiB) = Throughput</code></pre>
+        <p>For a 1-TiB <code class="code">sc1</code> volume, burst throughput is limited to 80 MiB/s, the bucket fills
+          with credits at 12 MiB/s, and it can hold up to 1 TiB-worth of credits.</p>
+        <p>Larger volumes scale these limits linearly, with throughput capped at a maximum of 250
+          MiB/s. After the bucket is depleted, throughput is limited to the baseline rate of 12
+          MiB/s per TiB. </p>
+        <p>On volume sizes ranging from 0.125 TiB to 16 TiB, baseline throughput varies from 1.5
+          MiB/s to a maximum of 192 MiB/s, which is reached at 16 TiB as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">           12 MiB/s
+16 TiB × ---------- = 192 MiB/s
+            1 TiB                                                                 </code></pre>
+        <p>Burst throughput varies from 10 MiB/s to a cap of 250 MiB/s, which is reached at 3.125
+          TiB as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">             80 MiB/s
+3.125 TiB × ----------- = 250 MiB/s
+              1 TiB                                                                 </code></pre>
+        <p>The following table states the full range of base and burst throughput values for
+          <code class="code">sc1</code>:</p>
+        <div class="table-container"><div class="table-contents"><table id="w160aac11c21c23c13c11c25"><thead>
+              <tr>
+                <th>Volume Size (TiB)</th>
+                <th>SC1 Base Throughput (MiB/s)</th>
+                <th>SC1 Burst Throughput (MiB/s)</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">0.125</td>
+                <td tabindex="-1">1.5</td>
+                <td tabindex="-1">10</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">0.5</td>
+                <td tabindex="-1">6</td>
+                <td tabindex="-1">40</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">1</td>
+                <td tabindex="-1">12</td>
+                <td tabindex="-1">80</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">2</td>
+                <td tabindex="-1">24</td>
+                <td tabindex="-1">160</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">3</td>
+                <td tabindex="-1">36</td>
+                <td tabindex="-1">240</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">3.125</td>
+                <td tabindex="-1">37.5</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">4</td>
+                <td tabindex="-1">48</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">5</td>
+                <td tabindex="-1">60</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">6</td>
+                <td tabindex="-1">72</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">7</td>
+                <td tabindex="-1">84</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">8</td>
+                <td tabindex="-1">96</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">9</td>
+                <td tabindex="-1">108</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">10</td>
+                <td tabindex="-1">120</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">11</td>
+                <td tabindex="-1">132</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">12</td>
+                <td tabindex="-1">144</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">13</td>
+                <td tabindex="-1">156</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">14</td>
+                <td tabindex="-1">168</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">15</td>
+                <td tabindex="-1">180</td>
+                <td tabindex="-1">250</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">16</td>
+                <td tabindex="-1">192</td>
+                <td tabindex="-1">250</td>
+              </tr>
+            </table></div></div>
+        <p>The following diagram plots the table values:</p>
+        <div class="mediaobject">
+           
+            <img src="/images/ebs/latest/userguide/images/sc1_base_v_burst.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Comparing sc1 base and burst throughput" />
+           
+           
+        </div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you create a snapshot of a Cold HDD (<code class="code">sc1</code>) volume, performance may drop as far
+            as the volume's baseline value while the snapshot is in progress.</p></div></div>
+        <p>For information about using CloudWatch metrics and alarms to monitor your burst bucket
+          balance, see <a href="#monitoring_burstbucket-hdd">Monitor the burst bucket balance for volumes</a>.</p>
+       
+     
+        <h2 id="EBSVolumeTypes_considerations">Performance considerations when using HDD volumes</h2>
+        <p>For optimal throughput results using HDD volumes, plan your workloads with the following
+          considerations in mind.</p>
+         
+          <h3 id="ST1vSC1"><b>Comparing Throughput Optimized HDD and Cold HDD</b></h3>
+          <p>The <code class="code">st1</code> and <code class="code">sc1</code> bucket sizes vary according to volume size, and a full bucket
+            contains enough tokens for a full volume scan. However, larger <code class="code">st1</code> and <code class="code">sc1</code> volumes
+            take longer for the volume scan to complete because of per-instance and per-volume
+            throughput limits. Volumes attached to smaller instances are limited to the per-instance
+            throughput rather than the <code class="code">st1</code> or <code class="code">sc1</code> throughput limits.</p>
+          <p>Both <code class="code">st1</code> and <code class="code">sc1</code> are designed for performance consistency of 90 percent of burst
+            throughput 99 percent of the time. Non-compliant periods are approximately uniformly
+            distributed, targeting 99 percent of expected total throughput each hour.</p>
+          <p>In general, scan times are expressed by this formula:</p>
+          <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight"> Volume size
+------------ = Scan time
+ Throughput</code></pre>
+          <p>For example, taking the performance consistency guarantees and other optimizations
+            into account, an <code class="code">st1</code> customer with a 5-TiB volume can expect to complete a full volume
+            scan in 2.91 to 3.27 hours. </p>
+          
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Optimal scan time</p>
+              <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">   5 TiB            5 TiB
+----------- = ------------------ = 10,486 seconds = 2.91 hours 
+ 500 MiB/s     0.00047684 TiB/s</code></pre>
+            </li><li class="listitem">
+              <p>Maximum scan time</p>
+              <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">  2.91 hours
+-------------- = 3.27 hours
+ (0.90)(0.99) &lt;-- From expected performance of 90% of burst 99% of the time</code></pre>
+            </li></ul></div>
+          
+          <p>Similarly, an <code class="code">sc1</code> customer with a 5-TiB volume can expect to complete a full volume
+            scan in 5.83 to 6.54 hours.</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Optimal scan time</p>
+              <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">
+   5 TiB             5 TiB
+----------- = ------------------- = 20972 seconds = 5.83 hours 
+ 250 MiB/s     0.000238418 TiB/s</code></pre>
+            </li><li class="listitem">
+              <p>Maximum scan time</p>
+              <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">  5.83 hours
+-------------- = 6.54 hours
+ (0.90)(0.99)</code></pre>
+            </li></ul></div>
+          
+          <p>The following table shows ideal scan times for volumes of various size, assuming full
+            buckets and sufficient instance throughput.</p>
+          <div class="table-container"><div class="table-contents"><table id="w160aac11c21c23c15b5c21"><thead>
+                <tr>
+                  <th>Volume size (TiB)</th>
+                  <th>ST1 scan time with burst (hours)*</th>
+                  <th>SC1 scan time with burst (hours)*</th>
+                </tr>
+              </thead>
+                <tr>
+                  <td tabindex="-1">1</td>
+                  <td tabindex="-1">1.17</td>
+                  <td tabindex="-1">3.64</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">2</td>
+                  <td tabindex="-1">1.17</td>
+                  <td tabindex="-1">3.64</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">3</td>
+                  <td tabindex="-1">1.75</td>
+                  <td tabindex="-1">3.64</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">4</td>
+                  <td tabindex="-1">2.33</td>
+                  <td tabindex="-1">4.66</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">5</td>
+                  <td tabindex="-1">2.91</td>
+                  <td tabindex="-1">5.83</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">6</td>
+                  <td tabindex="-1">3.50</td>
+                  <td tabindex="-1">6.99</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">7</td>
+                  <td tabindex="-1">4.08</td>
+                  <td tabindex="-1">8.16</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">8</td>
+                  <td tabindex="-1">4.66</td>
+                  <td tabindex="-1">9.32</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">9</td>
+                  <td tabindex="-1">5.24</td>
+                  <td tabindex="-1">10.49</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">10</td>
+                  <td tabindex="-1">5.83</td>
+                  <td tabindex="-1">11.65</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">11</td>
+                  <td tabindex="-1">6.41</td>
+                  <td tabindex="-1">12.82</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">12</td>
+                  <td tabindex="-1">6.99</td>
+                  <td tabindex="-1">13.98</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">13</td>
+                  <td tabindex="-1">7.57</td>
+                  <td tabindex="-1">15.15</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">14</td>
+                  <td tabindex="-1">8.16</td>
+                  <td tabindex="-1">16.31</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">15</td>
+                  <td tabindex="-1">8.74</td>
+                  <td tabindex="-1">17.48</td>
+                </tr>
+                <tr>
+                  <td tabindex="-1">16</td>
+                  <td tabindex="-1">9.32</td>
+                  <td tabindex="-1">18.64</td>
+                </tr>
+              </table></div></div>
+          <p> * These scan times assume an average queue depth (rounded to the nearest whole
+            number) of four or more when performing 1 MiB of sequential I/O.</p>
+          <p>Therefore if you have a throughput-oriented workload that needs to complete scans
+            quickly (up to 500 MiB/s), or requires several full volume scans a day, use <code class="code">st1</code>. If you
+            are optimizing for cost, your data is relatively infrequently accessed, and you don’t need
+            more than 250 MiB/s of scanning performance, then use <code class="code">sc1</code>.</p>
+         
+         
+          <h3 id="inefficiency">Inefficiency of small read/writes on HDD</h3>
+          <p>The performance model for <code class="code">st1</code> and <code class="code">sc1</code> volumes is optimized for sequential I/Os,
+            favoring high-throughput workloads, offering acceptable performance on workloads with
+            mixed IOPS and throughput, and discouraging workloads with small, random I/O.</p>
+          <p>For example, an I/O request of 1 MiB or less counts as a 1 MiB I/O credit. However, if
+            the I/Os are sequential, they are merged into 1 MiB I/O blocks and count only as a 1 MiB
+            I/O credit. </p>
+         
+        
+       
+        <h2 id="monitoring_burstbucket-hdd">Monitor the burst bucket balance for volumes</h2>
+        <p>You can monitor the burst bucket level for <code class="code">st1</code> and <code class="code">sc1</code> volumes using the Amazon EBS
+            <code class="code">BurstBalance</code> metric available in Amazon CloudWatch. This metric shows the throughput
+          credits for <code class="code">st1</code> and <code class="code">sc1</code> remaining in the burst bucket. For more information about the
+            <code class="code">BurstBalance</code> metric and other metrics related to I/O, see <a href="./ebs-io-characteristics.html">Amazon EBS I/O characteristics and monitoring</a>. CloudWatch also
+          allows you to set an alarm that notifies you when the <code class="code">BurstBalance</code> value
+          falls to a certain level. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html">Creating CloudWatch Alarms</a>.</p>
+        
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./provisioned-iops.html">Provisioned IOPS SSD volumes</div><div id="next" class="next-link" accesskey="n" href="./volume_constraints.html">EBS volume constraints</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/hdd-vols.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/hdd-vols.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

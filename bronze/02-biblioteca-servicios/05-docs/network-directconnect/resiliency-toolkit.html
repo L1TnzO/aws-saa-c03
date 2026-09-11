@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS Direct Connect Resiliency Toolkit - AWS Direct Connect</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="resiliency_toolkit" /><meta name="default_state" content="resiliency_toolkit" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/resiliency_toolkit.html" /><meta name="description" content="Use the AWS Direct Connect Resiliency Toolkit to configure, test, and monitor your connectivity to AWS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Direct Connect" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Direct Connect links your internal network to a Direct Connect location over fiber-optic cable. One end of the cable is connected to your router and the other to a Direct Connect router. With this connection in place, you can create virtual interfaces directly to the AWS cloud (for example, to Amazon EC2 and Amazon S3), bypassing Internet service providers in your network path." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/resiliency_toolkit.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/resiliency_toolkit.html" hreflang="x-default" /><meta name="feedback-item" content="Direct Connect" /><meta name="this_doc_product" content="AWS Direct Connect" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'directconnect'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="AWS Direct Connect Resiliency Toolkit" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="resiliency_toolkit.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS Direct Connect Resiliency Toolkit - AWS Direct Connect</title><meta name="pdf" content="/pdfs/directconnect/latest/UserGuide/dc-ug.pdf#resiliency_toolkit" /><meta name="rss" content="direct-connect-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAUXv9yROwR7mwDCP95yyx6Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct%20Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/resiliency_toolkit.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/resiliency_toolkit.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/resiliency_toolkit.html" /><meta name="keywords" content="Direct Connect,Direct Connect location,internal network,virtual interface connection,use the AWS Direct Connect Resiliency Toolkit to configure, test, and monitor your connectivity to AWS,maximum resiliency,high resiliency,development and test,classic connection" /><link rel="alternate" type="text/markdown" href="resiliency_toolkit.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Direct Connect",
+        "item" : "https://docs.aws.amazon.com/directconnect/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Direct Connect connection options",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide/connection_options.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS Direct Connect Resiliency Toolkit",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide/connection_options.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/directconnect/latest/UserGuide/dc-ug.pdf#resiliency_toolkit" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/directconnect/index.html">AWS Direct Connect</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#available_models">Available resiliency models</a><a href="#prerequisites">AWS Direct Connect Resiliency Toolkit prerequisites</a><a href="#maximum_resiliency">Maximum resiliency</a><a href="#high_resiliency">High resiliency</a><a href="#dev-test-resiliency">Development and test</a><a href="#toolkit-failover-test">Failover test</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="resiliency_toolkit">AWS Direct Connect Resiliency Toolkit</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS offers customers the ability to achieve highly resilient network connections between
+        Amazon Virtual Private Cloud (Amazon VPC) and their on-premises infrastructure. The AWS Direct Connect Resiliency Toolkit provides a
+        connection wizard with multiple resiliency models. These models help you to determine, and
+        then place an order for the number of dedicated connections to achieve your SLA objective.
+        You select a resiliency model, and then the AWS Direct Connect Resiliency Toolkit guides you through the
+        dedicated connection ordering process. The resiliency models are designed to ensure that you
+        have the appropriate number of dedicated connections in multiple locations. </p><p>The AWS Direct Connect Resiliency Toolkit has the following benefits:</p><div class="itemizedlist">
+         
+        
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Provides guidance on how you determine and then order the appropriate redundant
+                Direct Connect dedicated connections.</p>
+        </li><li class="listitem">
+            <p>Ensures that the redundant dedicated connections have the same speed.</p>
+        </li><li class="listitem">
+            <p>Automatically configures the dedicated connection names.</p>
+        </li><li class="listitem">
+            <p>Automatically approves your dedicated connections when you have an existing AWS
+                account and you select a known AWS Direct Connect Partner. The Letter of Authority (LOA) is
+                available for immediate download.</p>
+        </li><li class="listitem">
+            <p>Automatically creates a support ticket for the dedicated connection approval when
+                you are a new AWS customer, or you select an unknown (<b>Other</b>)
+                partner.</p>
+        </li><li class="listitem">
+            <p>Provides an order summary for your dedicated connections, with the SLA that you
+                can achieve and the port-hour cost for the ordered dedicated connections.</p>
+        </li><li class="listitem">
+            <p>Creates link aggregation groups (LAGs), and adds the appropriate number of
+                dedicated connections to the LAGs when you choose a speed other than 1 Gbps, 10
+                Gbps, 100 Gbps, or 400 Gbps.</p>
+        </li><li class="listitem">
+            <p>Provides a LAG summary with the dedicated connection SLA that you can achieve, and
+                the total port-hour cost for each ordered dedicated connection as part of the
+                LAG.</p>
+        </li><li class="listitem">
+            <p>Prevents you from terminating the dedicated connections on the same Direct Connect
+                device.</p>
+        </li><li class="listitem">
+            <p>Provides a way for you to test your configuration for resiliency. You work with
+                AWS to bring down the BGP peering session in order to verify that traffic routes
+                to one of your redundant virtual interfaces. For more information, see <a href="./resiliency_failover.html">Direct Connect Failover Test</a>.</p>
+        </li><li class="listitem">
+            <p>Provides Amazon CloudWatch metrics for connections and virtual interfaces. For more
+                information, see <a href="./monitoring-overview.html">Monitoring and visibility with Direct Connect</a>.</p>
+        </li></ul></div><p>After you select the resiliency  model, the AWS Direct Connect Resiliency Toolkit steps you through the following
+        procedures:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Selecting the number of dedicated connections</p>
+        </li><li class="listitem">
+            <p>Selecting the connection capacity, and the dedicated connection location</p>
+        </li><li class="listitem">
+            <p>Ordering the dedicated connections</p>
+        </li><li class="listitem">
+            <p>Verifying that the dedicated connections are ready to use</p>
+        </li><li class="listitem">
+            <p>Downloading your Letter of Authority (LOA-CFA) for each dedicated
+                connection</p>
+        </li><li class="listitem">
+            <p>Verifying that your configuration meets your resiliency requirements</p>
+        </li></ul></div>
+        <h2 id="available_models">Available resiliency models</h2>
+            
+    <p>The following resiliency models are available in the AWS Direct Connect Resiliency Toolkit:</p>
+    <div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>Maximum resiliency</b>: This model provides you a way to order
+                    dedicated connections to achieve an SLA of 99.99%. It requires you to meet all
+                    of the requirements for achieving the SLA that are specified in the <a href="https://aws.amazon.com/directconnect/sla/" rel="noopener noreferrer" target="_blank"><span>Direct Connect Service Level
+                        Agreement</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+        </li><li class="listitem">
+            <p><b>High resiliency</b>: This model provides you a way to order
+                    dedicated connections to achieve an SLA of 99.9%. It requires you to meet all of
+                    the requirements for achieving the SLA that are specified in the <a href="https://aws.amazon.com/directconnect/sla/" rel="noopener noreferrer" target="_blank"><span>Direct Connect Service Level
+                        Agreement</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+        </li><li class="listitem">
+            <p><b>Development and test</b>: This model provides you a way to
+                    achieve development and test resiliency for non-critical workloads, by using
+                    separate connections that terminate on separate devices in one location.</p>
+        </li></ul></div>
+    
+    
+   <p>The best practice is to use the <b>Connection wizard</b> in the AWS Direct Connect Resiliency Toolkit
+            to order to achieve your SLA objective.</p>
+ <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you do not want to create a resiliency model using the AWS Direct Connect Resiliency Toolkit, you can create
+                a Classic connection. For more information about Classic connections, see <a href="./classic_connection.html">Classic connection</a>.</p></div></div>
+        
+     
+        <h2 id="prerequisites">AWS Direct Connect Resiliency Toolkit prerequisites</h2>
+
+        <p>Note the following information before you begin your configuration:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Familiarize yourself with the <a href="./connection_options.html#connect-prereqs.title">Connection prerequisites</a>.</p>
+            </li><li class="listitem">
+                <p>The available resiliency model that you want to use.</p>
+            </li></ul></div>
+     
+        <h2 id="maximum_resiliency">Maximum resiliency</h2>
+        <p>You can achieve maximum resiliency for critical workloads by using separate
+            connections that terminate on separate devices in more than one location (as shown in
+            the following figure). This model provides resiliency against device, connectivity, and
+            complete location failures. The following figure shows both connections from each
+            customer data center going to the same Direct Connect locations. You can optionally
+            have each connection from a customer data center going to different locations.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/directconnect/latest/UserGuide/images/dc-max-resiliency.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Maximum resiliency model" style="max-width:100%" />
+             
+             
+        </div>
+        <p>For the procedure for using the AWS Direct Connect Resiliency Toolkit to configure a
+            maximum resiliency model, see <a href="./max-resiliency-set-up.html">Configure maximum resiliency</a>.</p>
+      
+     
+        <h2 id="high_resiliency">High resiliency</h2>
+        <p>You can achieve high resiliency for critical workloads by using two single connections
+            to multiple locations (as shown in the following figure). This model provides resiliency
+            against connectivity failures caused by a fiber cut or a device failure. It also helps
+            prevent a complete location failure.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/directconnect/latest/UserGuide/images/dc-high-resiliency.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="High resiliency model" style="max-width:100%" />
+             
+             
+        </div>
+        <p>For the procedure for using the AWS Direct Connect Resiliency Toolkit to configure a
+            high resiliency model, see <a href="./high-resiliency-set-up.html">Configure high resiliency</a>.</p>
+     
+        <h2 id="dev-test-resiliency">Development and test</h2>
+        <p>You can achieve development and test resiliency for non-critical workloads by using
+            separate connections that terminate on separate devices in one location (as shown in the
+            following figure). This model provides resiliency against device failure, but does not
+            provide resiliency against location failure.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/directconnect/latest/UserGuide/images/dc-devtest.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Development and Test Model" style="max-width:100%" />
+             
+             
+        </div>
+        <p>For the procedure for using the AWS Direct Connect Resiliency Toolkit to configure a
+            maximum resiliency model, see <a href="./devtest-resiliency-set-up.html">Configure development and test resiliency</a>.</p>
+     
+        <h2 id="toolkit-failover-test">AWS Direct Connect FailoverTest</h2>
+        
+        <p>Use the AWS Direct Connect Resiliency Toolkit to verify traffic routes and that those routes meet your resiliency requirements.</p>
+        
+        <p>For the procedures for using the AWS Direct Connect Resiliency Toolkit to perform failover tests, see <a href="./resiliency_failover.html">Direct Connect failover test</a>.</p>    
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./connection_options.html">Connection options</div><div id="next" class="next-link" accesskey="n" href="./max-resiliency-set-up.html">Configure maximum resiliency</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/resiliency_toolkit.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/resiliency_toolkit.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

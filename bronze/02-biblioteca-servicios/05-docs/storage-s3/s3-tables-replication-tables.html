@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Replicating S3 tables - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="s3-tables-replication-tables" /><meta name="default_state" content="s3-tables-replication-tables" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-replication-tables.html" /><meta name="description" content="Learn about S3 Tables replication." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-replication-tables.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-replication-tables.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Replicating S3 tables" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="s3-tables-replication-tables.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Replicating S3 tables - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#s3-tables-replication-tables" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/s3-tables-replication-tables.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/s3-tables-replication-tables.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/s3-tables-replication-tables.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,table storage,table optimization,Amazon S3 table storage,Apache Iceberg storage,S3 Tables,S3 Tables replication,S3 Tables replicas" /><link rel="alternate" type="text/markdown" href="s3-tables-replication-tables.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with Amazon S3 Tables and table buckets",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Replicating S3 tables",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#s3-tables-replication-tables" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#s3-tables-replication-tables-when-to-use">When to use S3 Tables replication</a><a href="#s3-tables-replication-tables-features">Features</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="s3-tables-replication-tables">Replicating S3 tables</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon S3 Tables support automatic replication of Apache Iceberg tables stored in Amazon S3 table buckets. Replication destinations can be within the same AWS Region,
+  across multiple AWS Regions, the same account, or to other AWS accounts. By configuring replication for your tables, you can maintain read-only replicas of your
+  data across multiple locations. You can use replicas to enhance data availability, meet compliance requirements and increase access performance for distributed applications.</p><p>S3 Tables replication maintains data consistency by committing all table updates, including snapshots, metadata, and data files, to the destination table in the same order as the source table.</p>
+  <h2 id="s3-tables-replication-tables-when-to-use">When to use S3 Tables replication</h2>
+  <p>You can use S3 Tables replication for the following purposes:</p>
+  <div class="itemizedlist">
+    
+    
+    
+    
+  <ul class="itemizedlist"><li class="listitem">
+    <p><span class="topcom">Minimize latency</span> – If your customers are in two geographic locations, you can minimize latency when accessing tables by
+        maintaining read replicas in AWS Regions that are geographically closer to your users.</p>
+   </li><li class="listitem">
+    <p><span class="topcom">Regulatory compliance</span> – You can maintain read replicas in specific geographic locations or AWS accounts, which might help
+        you meet certain regulatory or compliance requirements. You can configure the replication destination table bucket to encrypt tables with different AWS KMS keys than the source.</p>
+   </li><li class="listitem">
+    <p><span class="topcom">Centralized analytics</span> – If you have data distributed across
+     multiple AWS Regions, you can replicate Region-specific datasets to a centralized Region for
+     unified reporting, cross-Region analysis, and machine learning model training. This eliminates
+     the need to query across Regions or build custom data aggregation pipelines.</p>
+   </li><li class="listitem">
+    <p><span class="topcom">Testing and development environments</span> – You can create read replicas of production tables in separate AWS accounts or table buckets to provide realistic test data for development and QA teams. This isolates testing workloads from production systems while ensuring test environments have current, production-like data without manual exports or data synchronization processes.</p>
+   </li></ul></div>
+  
+  <h2 id="s3-tables-replication-tables-features">Features</h2>
+  <p>S3 Tables replication offers the following features.</p>
+   
+   <h6>Read-only replicas for S3 Tables</h6>
+   <p>S3 Tables replication creates read-only replicas of your Apache Iceberg tables across table buckets. You can query replicas independently using any Iceberg-compatible engine.</p>
+   
+   
+   <h6>Automatically maintained replicas</h6>
+   <p>The S3 Tables replication service automatically maintains replica tables. Replication
+    typically updates replicas within minutes of updates to the source. S3 Tables commits all
+    updates in the same order as the source table to maintain consistency.</p>
+   
+   
+   <h6>Replication to multiple destinations</h6>
+   <p>You can replicate the same table to multiple destination table buckets. Replication 
+    destinations can be within the same AWS Region, across multiple AWS Regions, in the same AWS account, or in other AWS accounts.</p>
+   
+   
+   <h6>Independent snapshot retention</h6>
+   <p>Snapshot expiration for replica tables is independent of the source table, allowing you to set different retention periods on replica tables if needed. For example, you can
+    configure your source table to retain snapshots for 30 days while setting a 90-day retention period for replica tables. If you configure a longer retention period on replicas,
+    snapshots that expire at the source remain available and queryable in replicas. This configuration provides extended time-travel capabilities for historical analysis.</p>
+   
+   
+   <h6>Maintain replica tables in lower-cost storage tiers</h6>
+   <p>You can configure destination table buckets to use the S3 Intelligent-Tiering  storage
+    class, which automatically optimizes storage costs based on access patterns without performance
+    impact or operational overhead. S3 Intelligent-Tiering  is well-suited for replica tables that
+    may be accessed less frequently.</p>
+   
+ <p>For more information about S3 Tables replication, see the following topics.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="./s3-tables-replication-how-replication-works.html">How S3 Tables replication works</a></p></li><li><p><a href="./s3-tables-replication-setting-up.html">Setting up S3 Tables replication</a></p></li><li><p><a href="./s3-tables-replication-managing.html">Managing S3 Tables replication</a></p></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./working-with-apache-iceberg-v3.html">Working with Apache Iceberg V3</div><div id="next" class="next-link" accesskey="n" href="./s3-tables-replication-how-replication-works.html">How S3 Tables replication works</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/s3-tables-replication-tables.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/s3-tables-replication-tables.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

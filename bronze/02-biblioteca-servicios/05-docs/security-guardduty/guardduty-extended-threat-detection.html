@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>GuardDuty Extended Threat Detection - Amazon GuardDuty</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="guardduty-extended-threat-detection" /><meta name="default_state" content="guardduty-extended-threat-detection" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html" /><meta name="description" content="GuardDuty Extended Threat Detection automatically detects multi-stage attacks that span multiple types of data sources and AWS resources, and time, within an AWS account. Learn more about understanding and remediating these correlated attack sequences." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon GuardDuty" /><meta name="guide" content="Amazon GuardDuty User Guide" /><meta name="abstract" content="Use Amazon GuardDuty to continuously monitor the security of your AWS environment." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html" hreflang="x-default" /><meta name="feedback-item" content="GuardDuty" /><meta name="this_doc_product" content="Amazon GuardDuty" /><meta name="this_doc_guide" content="Amazon GuardDuty User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'guardduty'}"></script><meta id="panorama-serviceSubSection" value="Amazon GuardDuty User Guide" /><meta id="panorama-serviceConsolePage" value="GuardDuty Extended Threat Detection" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="guardduty-extended-threat-detection.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>GuardDuty Extended Threat Detection - Amazon GuardDuty</title><meta name="pdf" content="/pdfs/guardduty/latest/ug/guardduty-ug.pdf#guardduty-extended-threat-detection" /><meta name="rss" content="amazon-guardduty-doc-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAkQ_AMw65SICuEGEmuUXv4g" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=GuardDuty&amp;topic_url=https://docs.aws.amazon.com/en_us/guardduty/latest/ug/guardduty-extended-threat-detection.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/guardduty/latest/ug/guardduty-extended-threat-detection.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/guardduty/latest/ug/guardduty-extended-threat-detection.html" /><meta name="keywords" content="GuardDuty,Amazon GuardDuty,GuardDuty data source,GuardDuty finding types,GuardDuty protection,GuardDuty attack sequences,GuardDuty multi-stage threat intelligence,detect multiple attacks in GuardDuty" /><link rel="alternate" type="text/markdown" href="guardduty-extended-threat-detection.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon GuardDuty",
+        "item" : "https://docs.aws.amazon.com/guardduty/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Amazon GuardDuty User Guide",
+        "item" : "https://docs.aws.amazon.com/guardduty/latest/ug"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "GuardDuty Extended Threat Detection",
+        "item" : "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-extended-threat-detection.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/guardduty/latest/ug/guardduty-ug.pdf#guardduty-extended-threat-detection" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/guardduty/index.html">Amazon GuardDuty</a><a href="what-is-guardduty.html">Amazon GuardDuty User Guide</a></div><div id="page-toc-src"><a href="#extended-threat-detection-scenario-examples">Attack sequence threat scenario examples</a><a href="#extended-threat-detection-how-it-works">How Extended Threat Detection works</a><a href="#extended-threat-detection-related-gdu-protection-plans">Enabling protection plans to maximize threat detection</a><a href="#extended-threat-detection-in-guardduty-console">Extended Threat Detection in GuardDuty console</a><a href="#extended-threat-detection-understanding-attack-sequence-findings">Understanding and managing attack sequence findings</a><a href="#guardduty-extended-threat-detection-additional-resources">Additional resources</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="guardduty-extended-threat-detection">GuardDuty Extended Threat Detection</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>GuardDuty Extended Threat Detection automatically detects multi-stage attacks that span 
+  data sources, multiple types of AWS resources, and time, within an AWS account. With this capability, GuardDuty
+  focuses on the sequence of multiple events that it observes by monitoring different types of data sources. Extended Threat Detection correlates 
+ these events to identify scenarios that present themselves as a potential threat
+ to your AWS environment, and then generates an attack sequence finding. </p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#extended-threat-detection-scenario-examples">Attack sequence threat scenario examples</a></p></li><li><p><a href="#extended-threat-detection-how-it-works">How it works</a></p></li><li><p><a href="#extended-threat-detection-related-gdu-protection-plans">Enabling protection plans to maximize threat detection</a></p></li><li><p><a href="#extended-threat-detection-in-guardduty-console">Extended Threat Detection in GuardDuty console</a></p></li><li><p><a href="#extended-threat-detection-understanding-attack-sequence-findings">Understanding and managing attack sequence findings</a></p></li><li><p><a href="#guardduty-extended-threat-detection-additional-resources">Additional resources</a></p></li></ul></div>
+  <h2 id="extended-threat-detection-scenario-examples">Attack sequence threat scenario examples</h2>
+  <p>Extended Threat Detection covers threat scenarios that involve compromise related to AWS credentials misuse, data 
+   compromise attempts in Amazon S3 buckets, and container and Kubernetes resource compromise in 
+   Amazon EKS clusters. A single finding can encompass an entire attack sequence. For example, the 
+   following list describes the scenarios
+   that GuardDuty might detect:</p>
+  <div class="variablelist">
+    
+    
+  <dl>
+    <dt><span class="term"><b>Example 1 - AWS credentials and Amazon S3 bucket data compromise</b></span></dt>
+    <dd>
+     <div class="itemizedlist">
+       
+       
+       
+     <ul class="itemizedlist"><li class="listitem">
+       <p>A threat actor gaining unauthorized access to a compute workload.</p>
+      </li><li class="listitem">
+       <p>The actor then performing a series of actions such as privilege escalation and establishing persistence.</p>
+      </li><li class="listitem">
+       <p>Finally, the actor exfiltrating data from an Amazon S3 resource.</p>
+      </li></ul></div>
+    </dd>
+    
+    <dt><span class="term"><b>Example 2 - Amazon EKS cluster compromise</b></span></dt>
+    <dd>
+     <div class="itemizedlist">
+       
+       
+       
+     <ul class="itemizedlist"><li class="listitem">
+       <p>A threat actor attempts to exploit a container application within an Amazon EKS cluster.</p>
+      </li><li class="listitem">
+       <p>The actor uses that compromised container to obtain privileged service account tokens.</p>
+      </li><li class="listitem">
+       <p>The actor then leverages these elevated privileges to access sensitive Kubernetes secrets or AWS
+        resources through pod identities.</p>
+      </li></ul></div>
+    </dd>
+   </dl></div>
+  
+  <p>Because of the nature of 
+   the associated threat scenarios, GuardDuty considers all <a href="./guardduty-attack-sequence-finding-types.html">Attack sequence finding
+   types</a> 
+   as <b>Critical</b>.</p>
+  <p>The following video provides a demonstration of how you can use Extended Threat Detection.</p>
+  <div class="mediaobject">
+    
+    <iframe width="480" height="390" frameborder="0" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" sandbox="allow-scripts allow-same-origin allow-popups" src="https://www.youtube-nocookie.com/embed/xLqGwoSaoPw"></iframe>
+    
+  </div>
+  
+  
+  
+   <h2 id="extended-threat-detection-how-it-works">How it works</h2>
+   <p>When you enable Amazon GuardDuty in your account in a specific AWS Region, Extended Threat Detection is also enabled by default. 
+    There is no additional cost associated with the usage of Extended Threat Detection. By default, it correlates events across all <a href="./guardduty_data-sources.html">Foundational data sources</a>. However,
+    when you enable more GuardDuty protection plans, such as S3 Protection, EKS Protection, and Runtime Monitoring, this will open additional types of 
+    attack sequence detections by widening the range of event sources. This will potentially
+    help with a more comprehensive threat analysis and better detection of attack sequences. 
+    For more information, see <a href="#extended-threat-detection-related-gdu-protection-plans">Enabling protection plans to maximize threat detection</a>.</p>
+   <p>GuardDuty correlates multiple events, including API activities and GuardDuty findings. These events are called
+    <b>Signals</b>.
+    Sometimes, there might be events in your environment that, on their own, don't present themselves
+    as a clear potential threat. GuardDuty terms them as <em>weak</em> signals. With Extended Threat Detection, GuardDuty identifies when
+    a sequence of multiple actions align to a potentially suspicious activity, and generates an attack sequence finding in your
+    account. These multiple actions can include weak signals and already identified GuardDuty findings in your account.</p>
+   <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When correlating events for attack sequences, Extended Threat Detection doesn't consider archived findings, 
+     including those findings that are automatically archived because of
+     <a href="./findings_suppression-rule.html">Suppression rules</a>. This behavior ensures
+     that only active, relevant signals contribute to attack sequence detection. To ensure that you're
+     not impacted by this, review existing suppression rules in your account. For more information,
+     see <a href="./findings_suppression-rule.html#using-suppression-rules-with-extended-threat-detection">Using suppression rules with Extended Threat Detection</a>.</p></div></div>
+   
+   <p>GuardDuty is also designed to identify potential in-progress or recent attack behaviors (within a 24-hour rolling time window)
+    in your account. For example, an attack could start by an actor gaining unintended access to a compute workload. The
+    actor would then perform a series of steps, including enumeration, escalation of privileges, and exfiltration
+    of AWS credentials. These credentials could potentially be used for further compromise or malicious access
+    to data. </p>
+   
+   
+  <h2 id="extended-threat-detection-related-gdu-protection-plans">Enabling protection plans to maximize threat detection</h2>
+  <p>Extended Threat Detection is enabled automatically for all GuardDuty accounts, evaluating by default signals from all protection plans enabled in the account. GuardDuty <a href="./guardduty_data-sources.html">Foundational data sources</a> provide important signals for several attack sequence detections. For example, 
+   with foundational threat detection, GuardDuty can identify a potential attack sequence starting from IAM privilege
+   discovery activity on Amazon S3 APIs, and detect subsequent S3 control plane alterations, such as changes that make
+   bucket resource policy more permissive. However, other attack sequences require advanced signals that are only available from advanced protection plans such as <span>Runtime monitoring, </span>S3 protection and EKS Audit Log Monitoring.</p>
+  <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#extended-threat-detection-eks-clusters">Detecting attack sequences in Amazon EKS clusters</a></p></li><li><p><a href="#extended-threat-detection-s3-buckets">Detecting attack sequences in Amazon S3 buckets</a></p></li><li><p><a href="#extended-threat-detection-ecs-clusters">Detecting attack sequences in Amazon ECS clusters</a></p></li><li><p><a href="#extended-threat-detection-ec2-instances">Detecting attack sequences in Amazon EC2 instance groups</a></p></li></ul></div>
+   
+   <h3 id="extended-threat-detection-eks-clusters">Detecting attack sequences in Amazon EKS clusters</h3>
+   <p>GuardDuty correlated multiple security signals across EKS audit logs, runtime behavior of processes, and 
+   AWS API activity to detect sophisticated attack patterns. To benefit from Extended Threat Detection for EKS, you must
+   enable at least one of these features – EKS Protection or Runtime Monitoring (with EKS add-on). EKS Protection monitors
+   control plane activities through audit logs, while Runtime Monitoring observes behaviors within containers.</p>
+   
+   <p>For maximum coverage and comprehensive threat detection, GuardDuty recommends enabling both protection plans. Together,
+   they create a complete view of your EKS clusters, enabling GuardDuty to detect complex attack patterns. For example, 
+   it can identify an anomalous deployment of a privileged
+   container (detected with EKS Protection), followed by persistence attempts, crypto-mining, and reverse shell
+   creation within that container (detected with Runtime Monitoring). GuardDuty represents these related events as a single, critical-severity
+   finding, called <a href="./guardduty-attack-sequence-finding-types.html#attack-sequence-eks-compromised-cluster">AttackSequence:EKS/CompromisedCluster</a>. When you enable both the protection plans,
+   the attack sequence finding covers the following threat scenarios:</p>
+   
+   <div class="itemizedlist">
+     
+     
+     
+     
+     
+   <ul class="itemizedlist"><li class="listitem">
+     <p>Compromise of containers running vulnerable web applications</p>
+    </li><li class="listitem">
+     <p>Unauthorized access through misconfigured credentials</p>
+    </li><li class="listitem">
+     <p>Attempts to escalate privileges</p>
+    </li><li class="listitem">
+     <p>Suspicious API requests</p>
+    </li><li class="listitem">
+     <p>Attempts to access data maliciously</p>
+    </li></ul></div>
+   <p>The following list provides details when these dedicated protection plans are enabled individually:</p>
+   <div class="variablelist">
+     
+     
+   <dl>
+     <dt><span class="term"><b>EKS Protection</b></span></dt>
+     <dd>
+      <p>Enabling EKS Protection gives GuardDuty an ability to detect attack sequences involving Amazon EKS cluster control 
+       plane activities. This allows GuardDuty to correlate EKS audit logs and AWS API activity. For example,
+      GuardDuty can detect an attack sequence where an actor attempts unauthorized access to cluster secrets,
+      modifies Kubernetes role-based access control (RBAC) permissions, and creates privileged pods. For 
+      more information about enabling this protection plan, see <a href="./kubernetes-protection.html">EKS Protection</a>.</p>
+     </dd>
+     
+     <dt><span class="term"><b>Runtime Monitoring for Amazon EKS</b></span></dt>
+     <dd>
+      <p>Enabling Runtime Monitoring for Amazon EKS clusters gives GuardDuty an ability to enhance EKS attack sequence detection
+      with container-level visibility. This helps GuardDuty detect potential malicious processes, suspicious runtime behaviors,
+      and potential malware execution. For example, GuardDuty can detect an attack sequence where a container starts exhibiting
+      suspicious behavior, such as cryptomining processes or establishing connections
+      to known malicious endpoints. For more information about enabling this protection plan, 
+      see <a href="./runtime-monitoring.html">Runtime Monitoring</a>.</p></dd>
+    </dl></div>
+   
+   <p>If you don't enable EKS Protection<span> or Runtime Monitoring</span>, GuardDuty will not be able to generate individual 
+    <a href="./guardduty-finding-types-eks-audit-logs.html">EKS Protection finding
+            types</a><span>
+    or <a href="./findings-runtime-monitoring.html">Runtime Monitoring finding types</a></span>. Therefore,
+   GuardDuty will not be able to detect multi-stage attack sequences that involve associated findings.</p>
+   
+   
+   <h3 id="extended-threat-detection-s3-buckets">Detecting attack sequences in Amazon S3 buckets</h3>
+   <p>Enabling S3 Protection gives GuardDuty an ability to detect attack sequences involving attempts to data compromise in your Amazon S3
+    buckets. Without S3 Protection, GuardDuty can detect when your S3 bucket resource policy becomes overly permissive. When you enable
+   S3 Protection, GuardDuty gains the ability to detect potential data exfiltration activities that may occur after your 
+   S3 bucket becomes overly permissive.</p>
+   <p>If S3 Protection is not enabled, GuardDuty will not be able to generate individual 
+    <a href="./guardduty_finding-types-s3.html">S3 Protection finding types</a>. Therefore, GuardDuty will not be able to detect multi-stage attack sequences
+    that involve associated findings. For more information about enabling this protection plan, see <a href="./s3-protection.html">S3 Protection</a>.</p>
+   
+   
+   <h3 id="extended-threat-detection-ecs-clusters">Detecting attack sequences in Amazon ECS clusters</h3>
+   <p>GuardDuty can identify attack sequences such as malicious processes, connections to malicious endpoints, 
+   or crypto-mining behaviors within ECS containers. By correlating diverse signals across network activity, process runtime behavior, and 
+   AWS API activity, GuardDuty can identify complex attack patterns that might be missed by individual detections and map the complete attack vector.</p>
+   <p>GuardDuty represents these related events as a single, critical-severity
+   finding, called <code class="code">AttackSequence:ECS/CompromisedCluster</code>. The attack sequence finding covers the following threat scenarios:</p>
+   <div class="itemizedlist">
+     
+     
+     
+     
+   <ul class="itemizedlist"><li class="listitem">
+     <p>Compromise of containers running vulnerable services</p>
+    </li><li class="listitem">
+     <p>Unauthorized execution of suspicious tools, malware, or cryptomining processes</p>
+    </li><li class="listitem">
+     <p>Attempts to escalate privileges</p>
+    </li><li class="listitem">
+     <p>Communication with suspicious endpoints</p>
+    </li></ul></div>
+   <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Extended Threat Detection for ECS requires Runtime Monitoring for Fargate or EC2, depending on your ECS infrastructure type. Runtime Monitoring observes behaviors within ECS containers running on both Fargate and EC2 instances. ECS on Managed EC2 instances is not supported.</p></div></div>
+   
+   
+   <h3 id="extended-threat-detection-ec2-instances">Detecting attack sequences in Amazon EC2 instance groups</h3>
+   <p>GuardDuty can identify attack sequences affecting individual instances or groups of instances that share common attributes such as Auto Scaling groups, IAM instance profiles, launch templates, CloudFormation stacks, AMIs, or VPC IDs. These instances may exhibit suspicious behaviors like malicious processes, connections to malicious endpoints, crypto-mining, or abnormal usage of EC2 instance credentials.</p>
+   <p>The attack sequence finding detects the following threat scenarios:</p>
+   <div class="itemizedlist">
+     
+     
+     
+     
+     
+   <ul class="itemizedlist"><li class="listitem">
+     <p>Compromise of instances running vulnerable services</p>
+    </li><li class="listitem">
+     <p>Use of Amazon EC2 instance credentials obtained via IMDS from outside the AWS account the credentials were issued to</p>
+    </li><li class="listitem">
+     <p>Use as infrastructure for attacks such as proxy, scanning, or denial of service</p>
+    </li><li class="listitem">
+     <p>Unauthorized execution of suspicious tools, malware, or cryptomining processes</p>
+    </li><li class="listitem">
+     <p>Communication with suspicious endpoints</p>
+    </li></ul></div>
+   <p>Extended Threat Detection helps identify these threats. GuardDuty represents these related events as a single, critical-severity finding, called <code class="code">AttackSequence:EC2/CompromisedInstanceGroup</code>.</p>
+   <p>To enhance Extended Threat Detection for EC2 detection capabilities, enable Runtime Monitoring. The combination of foundational GuardDuty, which monitors CloudTrail and network activity, and Runtime Monitoring, which observes process behaviors and system calls within instances, provides more comprehensive threat detection. This integrated monitoring allows GuardDuty to detect sophisticated attack sequences such as unauthorized access through misconfigured credentials, privilege escalation attempts, and unauthorized access to sensitive data. By correlating these diverse signals, GuardDuty can identify complex attack patterns that might be missed by individual detections and map the complete attack vector.</p>
+   
+  
+  <h2 id="extended-threat-detection-in-guardduty-console">Extended Threat Detection in GuardDuty console</h2>
+  <p>By default, the Extended Threat Detection page in GuardDuty 
+   console displays the <b>Status</b> as <b>Enabled</b>. With foundational threat detection,
+   the status represents that GuardDuty can detect a potential attack sequence involving IAM privilege discovery activity on Amazon S3
+   APIs and detecting subsequent S3 control plane alterations.</p>
+   <p>Use the following steps to access the Extended Threat Detection page in GuardDuty console:</p>
+  <div class="orderedlist">
+    
+    
+    
+  <ol><li>
+    <p>You can open GuardDuty console at <a href="https://console.aws.amazon.com/guardduty/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/guardduty/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+   </li><li>
+    <p>In the left navigation pane, choose <b>Extended Threat Detection</b>. </p>
+    <p>This page provides details about the threat scenarios that Extended Threat Detection covers.</p>
+   </li><li>
+    <p>On the <b>Extended Threat Detection</b> page, view the <b>Related protection plans</b> section. 
+     If you <b>want to</b> enable dedicated protection plans to enhance threat detection coverage in your
+     account, select <b>Configure</b> option for that protection plan.</p>          
+   </li></ol></div>
+  
+  <h2 id="extended-threat-detection-understanding-attack-sequence-findings">Understanding and managing attack sequence findings</h2>
+  <p>Attack sequence findings are just like other GuardDuty findings in your account. 
+   You can view them on the <b>Findings</b> page in the GuardDuty console. For information about
+   viewing findings, see <a href="./guardduty_working-with-findings.html">Findings page in GuardDuty
+                console</a>.</p>
+  <p>Similar to other GuardDuty findings, attack sequence findings are also automatically sent to Amazon EventBridge. 
+   Based on your settings, attack sequence findings are also exported
+   to a publishing destination (Amazon S3 bucket). To set a new publishing destination or update an existing one, see
+   <a href="./guardduty_exportfindings.html">Exporting generated findings to
+            Amazon S3</a>.</p>
+  
+  <h2 id="guardduty-extended-threat-detection-additional-resources">Additional resources</h2>
+  <p>View the following sections to gain more understanding about attack sequences:</p>
+  <div class="itemizedlist">
+    
+    
+    
+    
+  <ul class="itemizedlist"><li class="listitem">
+    <p>After learning about Extended Threat Detection and attack sequences, you can generate sample attack sequence
+     finding types by following the steps in <a href="./sample_findings.html">Sample findings</a>.</p>
+   </li><li class="listitem"><p>Learn about <a href="./guardduty-attack-sequence-finding-types.html">Attack sequence finding
+   types</a>.</p>
+   </li><li class="listitem">
+    <p>Review findings and explore finding details associated with 
+     <a href="./guardduty_findings-summary.html#guardduty-extended-threat-detection-attack-sequence-finding-details">Attack sequence
+     finding details</a>.</p>
+   </li><li class="listitem">
+    <p>Prioritize and address attack sequence finding types by following the steps for the associated impacted resources in
+     <a href="./guardduty_remediate.html">Remediating findings</a>.</p>
+   </li></ul></div>
+ <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./guardduty_data-sources.html">Foundational data sources</div><div id="next" class="next-link" accesskey="n" href="./protection-plans.html">Protection plans</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=GuardDuty&amp;topic_url=https://docs.aws.amazon.com/en_us/guardduty/latest/ug/guardduty-extended-threat-detection.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=GuardDuty&amp;topic_url=https://docs.aws.amazon.com/en_us/guardduty/latest/ug/guardduty-extended-threat-detection.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

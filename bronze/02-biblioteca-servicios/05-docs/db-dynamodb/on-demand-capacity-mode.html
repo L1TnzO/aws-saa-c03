@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>DynamoDB on-demand capacity mode - Amazon DynamoDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="on-demand-capacity-mode" /><meta name="default_state" content="on-demand-capacity-mode" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" /><meta name="description" content="Use DynamoDB on-demand capacity mode, a serverless, pay-per-request billing option, which automatically scales to your workload’s traffic volume without capacity planning." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DynamoDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon DynamoDB is a fast, fully managed NoSQL database as a service that makes it simple and cost-effective to store and retrieve any amount of data, and serve any level of request traffic." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" hreflang="x-default" /><meta name="feedback-item" content="DynamoDB" /><meta name="this_doc_product" content="Amazon DynamoDB" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dynamodb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="DynamoDB on-demand capacity mode" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="on-demand-capacity-mode.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>DynamoDB on-demand capacity mode - Amazon DynamoDB</title><meta name="pdf" content="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#on-demand-capacity-mode" /><meta name="rss" content="dynamodbupdates.rss" /><meta name="forums" content="https://repost.aws/tags/TAljkKQ0MDQJCjDdxSeDQBJw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html" /><meta name="keywords" content="DynamoDB,Amazon DynamoDB,database,NoSQL database,nonrelational database,managed database,DynamoDB capacity modes,on-demand mode,provisioned mode,throughput capacity,read/write capacity units,burst capacity,adaptive capacity,cost optimization,scalability,performance,DynamoDB capacity mode,DynamoDB capacity planning,DynamoDB ondemand mode,ondemand capacity mode,DynamoDB ondemand tables" /><link rel="alternate" type="text/markdown" href="on-demand-capacity-mode.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DynamoDB",
+        "item" : "https://docs.aws.amazon.com/dynamodb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "DynamoDB throughput capacity",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/capacity-mode.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "DynamoDB on-demand capacity mode",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/capacity-mode.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#on-demand-capacity-mode" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/dynamodb/index.html">Amazon DynamoDB</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#read-write-request-units">Read request units and write request units</a><a href="#on-demand-capacity-mode-initial">Initial throughput and scaling properties</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="on-demand-capacity-mode">DynamoDB on-demand capacity mode</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon DynamoDB on-demand offers a truly serverless database experience that automatically
+            scales to accommodate the most demanding workloads without capacity planning. On-demand
+            simplifies the setup process, eliminates capacity management and monitoring, and
+            provides fast, automatic scaling. With pay-per-request pricing, you don’t have to worry
+            about idle capacity because you only pay for the throughput you actually use. You are
+            billed per read or write request, so your costs directly reflect your actual usage. </p><p>When you choose on-demand mode, DynamoDB instantly accommodates your workloads as they
+            ramp up or down to any previously reached traffic level. If a workload’s traffic level
+            hits a new peak, DynamoDB automatically scales to accommodate the increased throughput
+            requirements. On-demand mode is the default and recommended throughput option because it
+            simplifies building modern, serverless applications that can start small and scale to
+            millions of requests per second. After your on-demand table is scaled out, you can
+            instantly achieve the same throughput again in the future without throttling. If you are
+            driving zero traffic to your table, then with on-demand, you are not charged for any
+            throughput. For more information about on-demand mode's scaling properties, see <a href="#on-demand-capacity-mode-initial">Initial throughput and scaling properties</a>. </p><p>Tables that use on-demand mode deliver the same single-digit millisecond latency,
+            service-level agreement (SLA), and security that DynamoDB provisioned mode offers.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>By default, DynamoDB protects you from unintended, runaway usage. To scale beyond the
+                40,000 table-level read and write throughput limits for all tables in your account,
+                you can request an increase for this quota. Throughput requests that exceed the
+                default table throughput quota are throttled. For more information, see <a href="./ServiceQuotas.html#default-limits-throughput">Throughput default quotas</a>.</p></div></div><p>Optionally, you can also configure maximum read or write (or both) throughput per
+            second for individual on-demand tables and global secondary indexes. By configuring
+            throughput, you can keep table-level usage and costs bounded, protect against an
+            inadvertent surge in consumed resources, and prevent excessive use for predictable cost
+            management. Throughput requests that exceed the maximum table throughput are throttled.
+            You can modify the table-specific maximum throughput at any time based on your
+            application requirements. For more information, see <a href="./on-demand-capacity-mode-max-throughput.html">DynamoDB maximum throughput for on-demand tables</a>.</p><p>To get started, create or update a table to use on-demand mode. For more information,
+            see <a href="./WorkingWithTables.Basics.html">Basic operations on DynamoDB tables</a>.</p><p>You can switch tables from provisioned capacity mode to on-demand mode up to four times in a 24-hour rolling window.
+        You can switch tables from on-demand mode to provisioned capacity mode at any time. </p><p>For more information about switching between read and write capacity modes, see <a href="./bp-switching-capacity-modes.html">Considerations when switching capacity modes in DynamoDB</a>.
+            For on-demand table quotas, see <a href="./ServiceQuotas.html#default-limits-throughput-capacity-modes">Read/write throughput</a>.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#read-write-request-units">Read request units and write request units</a></p></li><li><p><a href="#on-demand-capacity-mode-initial">Initial throughput and scaling properties</a></p></li><li><p><a href="./on-demand-capacity-mode-max-throughput.html">DynamoDB maximum throughput for on-demand tables</a></p></li></ul></div>
+            <h2 id="read-write-request-units">Read request units and write request units</h2>
+
+            <p>DynamoDB charges you for the reads and writes that your application performs on your
+                tables in terms of <em>read request units</em> and <em>write
+                    request units</em>.</p>
+
+
+            <p>One <em>read request unit</em> represents one strongly consistent read
+                operation per second, or two eventually consistent read operations per second, for
+                an item up to 4 KB in size. For more information about DynamoDB read consistency
+                models, see <a href="./HowItWorks.ReadConsistency.html">DynamoDB read consistency</a>.</p>
+
+
+            <p>One <em>write request unit</em> represents one write operation per
+                second, for an item up to 1 KB in size.</p>
+
+
+            <p>For more information about how read and write units are consumed, see <a href="./read-write-operations.html">DynamoDB read and write operations</a>.</p>
+
+
+         
+            <h2 id="on-demand-capacity-mode-initial">Initial throughput and scaling properties</h2>
+
+
+            <p>DynamoDB tables using on-demand capacity mode automatically adapt to your
+                application’s traffic volume. New on-demand tables will be able to sustain up to
+                4,000 writes per second and 12,000 reads per second. On-demand capacity mode
+                instantly accommodates up to double the previous peak traffic on a table. For
+                example, say that your application’s traffic pattern varies between 25,000 and
+                50,000 strongly consistent reads per second. 50,000 reads per second is the previous
+                traffic peak. On-demand capacity mode instantly accommodates sustained traffic of up
+                to 100,000 reads per second. If your application sustains traffic of 100,000 reads
+                per second, that peak becomes your new previous peak. This previous peak enables
+                subsequent traffic to reach up to 200,000 reads per second.</p>
+
+            <p>If your workload generates more than double your previous peak on a table, DynamoDB
+                automatically allocates more capacity as your traffic volume increases. This
+                capacity allocation helps make sure that your workload doesn't experience throttling.
+                However, throttling can occur if you exceed double your previous peak within 30
+                minutes. For example, say that your application’s traffic pattern varies between
+                25,000 and 50,000 strongly consistent reads per second. 50,000 reads per second is
+                the previously reached traffic peak. We recommend that you either pre-warm your
+                table or space your traffic growth over at least 30 minutes before driving more than
+                100,000 reads per second. For more information about pre-warming, see <a href="./warm-throughput.html">Understanding DynamoDB warm throughput</a>.</p>
+
+            <p>DynamoDB doesn’t place the 30 minute throttling restriction if your workload’s peak
+                traffic remains within double your previous peak. If your peak traffic exceeds
+                double the peak, make sure that this growth occurs 30 minutes after you last reached
+                the peak.</p>
+
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./capacity-mode.html">DynamoDB throughput capacity</div><div id="next" class="next-link" accesskey="n" href="./on-demand-capacity-mode-max-throughput.html">DynamoDB maximum throughput for on-demand tables</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

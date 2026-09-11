@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating tasks for ongoing replication using AWS DMS - AWS Database Migration Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="CHAP_Task.CDC" /><meta name="default_state" content="CHAP_Task.CDC" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html" /><meta name="description" content="Perform continuous replication using AWS DMS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Database Migration Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Migrate databases to AWS easily and securely using AWS Database Migration Service (AWS DMS) with this User Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html" hreflang="x-default" /><meta name="feedback-item" content="DMS" /><meta name="this_doc_product" content="AWS Database Migration Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dms'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Creating tasks for ongoing replication using AWS DMS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="CHAP_Task.CDC.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating tasks for ongoing replication using AWS DMS - AWS Database Migration Service</title><meta name="pdf" content="/pdfs/dms/latest/userguide/dms-ug.pdf#CHAP_Task.CDC" /><meta name="rss" content="aws-dms-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAloTfMMIZRtqwjRAie3cDVg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DMS&amp;topic_url=https://docs.aws.amazon.com/en_us/dms/latest/userguide/CHAP_Task.CDC.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/dms/latest/userguide/CHAP_Task.CDC.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/dms/latest/userguide/CHAP_Task.CDC.html" /><meta name="keywords" content="Amazon Database Migration Service,Amazon DMS,Importing Data to Amazon Web Services,replication instance" /><link rel="alternate" type="text/markdown" href="CHAP_Task.CDC.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Database Migration Service",
+        "item" : "https://docs.aws.amazon.com/dms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/dms/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with AWS DMS tasks",
+        "item" : "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating tasks for ongoing replication using AWS DMS",
+        "item" : "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/dms/latest/userguide/dms-ug.pdf#CHAP_Task.CDC" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/dms/index.html">AWS Database Migration Service</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#CHAP_Task.CDC.StartPoint">Replication starting from a CDC start point</a><a href="#CHAP_Task.CDC.Bidirectional">Performing bidirectional replication</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="CHAP_Task.CDC">Creating tasks for ongoing replication using AWS DMS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can create an AWS DMS task that captures ongoing changes from the source data store.
+            You can do this capture while you are migrating your data. You can also create a task
+            that captures ongoing changes after you complete your initial (full-load) migration to a
+            supported target data store. This process is called ongoing replication or change data
+            capture (CDC). AWS DMS uses this process when replicating ongoing changes from a source
+            data store. This process works by collecting changes to the database logs using the
+            database engine's native API. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>AWS DMS CDC does not provide real-time replication. Replication latency varies
+                based on source workload, network conditions, replication instance resources, target
+                ingestion capacity, and data characteristics. There are no SLAs for CDC latency.
+                Latency can increase to several minutes or longer depending on these factors. For
+                more information, see
+                <a href="./CHAP_BestPractices.html#CHAP_BestPractices.OnGoingReplication">Ongoing replication</a>.</p></div></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can migrate views using full-load tasks only. If your task is either a
+                CDC-only task or a full-load task that starts CDC after it completes, the migration
+                includes only tables from the source. Using a full-load-only task, you can migrate
+                views or a combination of tables and views. For more information, see <a href="./CHAP_Tasks.CustomizingTasks.TableMapping.SelectionTransformation.html">Specifying table selection and transformations rules using JSON</a>.</p></div></div><p>Each source engine has specific configuration requirements for exposing this change
+            stream to a given user account. Most engines require some additional configuration to
+            make it possible for the capture process to consume the change data in a meaningful way,
+            without data loss. For example, Oracle requires the addition of supplemental logging,
+            and MySQL requires row-level binary logging (bin logging). </p><p> To read ongoing changes from the source database, AWS DMS uses engine-specific API
+            actions to read changes from the source engine's transaction logs. Following are some
+            examples of how AWS DMS does that: </p><div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For Oracle, AWS DMS uses either the Oracle LogMiner API or binary reader API
+                    (bfile API) to read ongoing changes. AWS DMS reads ongoing changes from the online
+                    or archive redo logs based on the system change number (SCN). </p>
+            </li><li class="listitem">
+                <p>For Microsoft SQL Server, AWS DMS uses MS-Replication or MS-CDC to write
+                    information to the SQL Server transaction log. It then uses the
+                        <code class="code">fn_dblog()</code> or <code class="code"> fn_dump_dblog()</code> function in SQL
+                    Server to read the changes in the transaction log based on the log sequence
+                    number (LSN). </p>
+            </li><li class="listitem">
+                <p>For MySQL, AWS DMS reads changes from the row-based binary logs (binlogs) and
+                    migrates those changes to the target.</p>
+            </li><li class="listitem">
+                <p>For PostgreSQL, AWS DMS sets up logical replication slots and uses the
+                    test_decoding plugin to read changes from the source and migrate them to the
+                    target.</p>
+            </li><li class="listitem">
+                <p>For Amazon RDS as a source, we recommend ensuring that backups are enabled to set
+                    up CDC. We also recommend ensuring that the source database is configured to
+                    retain change logs for a sufficient time—24 hours is usually
+                    enough. For specific settings for each endpoint, see the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem"><p><b>Amazon RDS for Oracle: </b>
+                        <a href="./CHAP_Source.Oracle.html#CHAP_Source.Oracle.Amazon-Managed.Configuration">Configuring an AWS-managed Oracle source for AWS DMS</a>.</p></li><li class="listitem"><p><b>Amazon RDS for MySQL and Aurora MySQL:</b>
+                        <a href="./CHAP_Source.MySQL.html#CHAP_Source.MySQL.AmazonManaged">Using an AWS-managed MySQL-compatible database as a source for AWS DMS</a>.</p></li><li class="listitem"><p><b>Amazon RDS for SQL Server:</b>
+                        <a href="./CHAP_Source.SQLServer.CDC.html#CHAP_Source.SQLServer.Configuration">Setting up ongoing replication on a cloud SQL Server DB instance</a>.</p></li><li class="listitem"><p><b>Amazon RDS for PostgreSQL and Aurora PostgreSQL:</b> 
+                        PostgreSQL automatically keeps the required WAL.
+                    </p></li></ul></div>
+            </li></ul></div><p>There are two types of ongoing replication tasks:</p><div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Full load plus CDC – The task migrates existing data and then updates
+                    the target database based on changes to the source database.</p>
+            </li><li class="listitem">
+                <p>CDC only – The task migrates ongoing changes after you have data on
+                    your target database.</p>
+            </li></ul></div>
+            <h2 id="CHAP_Task.CDC.StartPoint">Performing replication starting from a CDC start point</h2>
+            <p>You can start an AWS DMS ongoing replication task (change data capture only) from
+                several points. These include the following: </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        <b>From a custom CDC start time</b> – You
+                        can use the AWS Management Console or AWS CLI to provide AWS DMS with a timestamp where you
+                        want the replication to start. AWS DMS then starts an ongoing replication task
+                        from this custom CDC start time. AWS DMS converts the given timestamp (in UTC)
+                        to a native start point, such as an LSN for SQL Server or an SCN for Oracle.
+                        AWS DMS uses engine-specific methods to determine where to start the migration
+                        task based on the source engine's change stream. </p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Only by setting the <code class="code">StartFromContext</code> extra connection attribute
+                        to the required timestamp does Db2 as a source offer a customized CDC start
+                        time.</p><p>PostgreSQL as a source doesn't support a custom CDC start time. This
+                            is because the PostgreSQL database engine doesn't have a way to map a
+                            timestamp to an LSN or SCN as Oracle and SQL Server do. </p></div></div>
+                </li><li class="listitem">
+                    <p><b>From a CDC native start point</b> –
+                        You can also start from a native point in the source engine's transaction
+                        log. In some cases, you might prefer this approach because a timestamp can
+                        indicate multiple native points in the transaction log. AWS DMS supports this
+                        feature for the following source endpoints: </p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>SQL Server</p>
+                        </li><li class="listitem">
+                            <p>PostgreSQL</p>
+                        </li><li class="listitem">
+                            <p>Amazon Aurora PostgreSQL</p>
+                        </li><li class="listitem">
+                            <p>Oracle</p>
+                        </li><li class="listitem">
+                            <p>MySQL</p>
+                        </li><li class="listitem">
+                            <p>Amazon Aurora MySQL</p>
+                        </li><li class="listitem">
+                            <p>MariaDB</p>
+                        </li></ul></div>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following database endpoints do not support CDC native start point functionality:</p><div class="itemizedlist">
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem"><p>Amazon DocumentDB (with MongoDB compatibility)</p></li><li class="listitem"><p>Amazon S3</p></li><li class="listitem"><p>IBM Db2 for z/OS</p></li><li class="listitem"><p>IBM Db2 LUW</p></li><li class="listitem"><p>Microsoft Azure SQL Database</p></li><li class="listitem"><p>Microsoft Azure SQL Managed Instance</p></li><li class="listitem"><p>MongoDB</p></li><li class="listitem"><p>SAP Sybase ASE</p></li></ul></div></div></div>
+                </li></ul></div>
+            <p>When the task is created, AWS DMS marks the CDC start point, and it can't be changed. To
+            use a different CDC start point, create a new task.</p>
+            
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    When specifying a CDC (Change Data Capture) start point, the premigration assessment will still 
+                    perform a complete analysis of existing metadata and parameters in the current environment. This 
+                    ensures that all current configurations and settings are evaluated, regardless of the designated CDC 
+                    starting point.
+                </p><p>
+                    Important: If no assessments have been performed within the last 7 days for a given task, the 
+                    premigration assessment will automatically execute in both resume and reload modes to ensure data 
+                    completeness and consistency.
+                </p><div class="itemizedlist">
+                    <h6>Technical Details:</h6>
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>
+                            Metadata analysis remains comprehensive.
+                        </p>
+                    </li><li class="listitem">
+                        <p>
+                            Parameter evaluation covers current state.
+                        </p>
+                    </li><li class="listitem">
+                        <p>
+                            CDC start point does not limit assessment scope.
+                        </p>
+                    </li><li class="listitem">
+                        <p>
+                            Full system configuration review is maintained.
+                        </p>
+                    </li><li class="listitem">
+                        <p>
+                            Auto-execution in resume and reload modes if:
+                        </p>
+                        <p>
+                            Last assessment &gt; 7 days ago.
+                        </p>
+                        <p>
+                            No previous assessment records found.
+                        </p>
+                    </li></ul></div><p>
+                    This helps ensure accurate migration planning while maintaining data consistency between the specified 
+                    CDC point and current system state.
+                </p></div></div>
+            
+             
+                <h3 id="CHAP_Task.CDC.StartPoint.Native">Determining a CDC native start point</h3>
+                <p>A <em>CDC native start point</em> is a point in the
+                    database engine's log that defines a time where you can begin CDC. 
+                    As an example, suppose that a bulk data dump has already been applied to the target. 
+                    You can look up the native start point for the ongoing replication-only task. To avoid 
+                    any data inconsistencies, carefully choose the start point for the replication-only task. 
+                    DMS captures transactions that started after the chosen CDC start point.</p>
+                <p>Following are examples of how you can find the CDC native start point from
+                    supported source engines:</p>
+                <div class="variablelist">
+                     
+                     
+                     
+                     
+                    
+                <dl>
+                        <dt><b><span class="term">SQL Server</span></b></dt>
+                        <dd>
+                            <p>In SQL Server, a log sequence number (LSN) has three parts:</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>Virtual log file (VLF) sequence number</p>
+                                </li><li class="listitem">
+                                    <p>Starting offset of a log block</p>
+                                </li><li class="listitem">
+                                    <p>Slot number</p>
+                                </li></ul></div>
+                            <p> An example LSN is as follows: <code class="code">00000014:00000061:0001</code>
+                            </p>
+                            <p>To get the start point for a SQL Server migration task based on
+                                your transaction log backup settings, use the
+                                    <code class="code">fn_dblog()</code> or <code class="code">fn_dump_dblog()</code> function
+                                in SQL Server. </p>
+                            <p>To use CDC native start point with SQL Server, create a
+                                publication on any table participating in ongoing replication.  AWS DMS
+                                creates the publication automatically when you use CDC without using
+                                a CDC native start point.</p>
+                        </dd>
+                    
+                        <dt><b><span class="term">PostgreSQL</span></b></dt>
+                        <dd>
+                            <p>You can use a CDC recovery checkpoint for your PostgreSQL source
+                                database. This checkpoint value is generated at various points as an
+                                ongoing replication task runs for your source database (the parent
+                                task). For more information about checkpoints in general, see <a href="#CHAP_Task.CDC.StartPoint.Checkpoint">Using a checkpoint as a CDC start point</a>. </p>
+                            <p>To identify the checkpoint to use as your native start point, use
+                                your database <code class="code">pg_replication_slots</code> view or your parent
+                                task's overview details from the AWS Management Console</p>
+                            <div class="procedure"><h6>To find the overview details for your parent task on the console</h6><ol><li>
+                                    <p>Sign in to the AWS Management Console and open the AWS DMS console at <a href="https://console.aws.amazon.com/dms/v2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/dms/v2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+                                    <p>If you are signed in as an IAM user, make sure that you have the
+                                        appropriate permissions to access AWS DMS. For more information about the permissions
+                                        required, see <a href="./security-iam.html#CHAP_Security.IAMPermissions">IAM permissions needed to use AWS DMS</a>.</p>
+                                </li><li>
+                                    <p>On the navigation pane, choose <b>Database migration tasks</b>.</p>
+                                </li><li>
+                                    <p>Choose your parent task from the list on the <b>Database migration tasks</b> page.
+                                        Doing this opens your parent task page, showing the overview
+                                        details.</p>
+                                </li><li>
+                                    <p>Find the checkpoint value under <b>Change data capture (CDC)</b>, <b>Change data capture (CDC) start
+                                            position</b>, and <b>Change
+                                            data capture (CDC) recovery checkpoint</b>. </p>
+                                    <p>The value appears similar to the following.</p>
+                                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">checkpoint:V1#1#000004AF/B00000D0#0#0#*#0#0</code></pre>
+                                    <p>Here, the <code class="code">4AF/B00000D0</code> component is what you
+                                        need to specify this native CDC start point. Set the DMS API
+                                            <code class="code">CdcStartPosition</code> parameter to this value
+                                        when you create the CDC task to begin replication at this
+                                        start point for your PostgreSQL source. For information on
+                                        using the AWS CLI to create this CDC task, see <a href="./CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.RDSPostgreSQL.CDC">Enabling CDC with an AWS-managed PostgreSQL DB instance with AWS DMS</a>.</p>
+                                </li></ol></div>
+                        </dd>
+                    
+                        <dt><b><span class="term">Oracle</span></b></dt>
+                        <dd>
+                            <p>A system change number (SCN) is a logical, internal time stamp
+                                used by Oracle databases. SCNs order events that occur within the
+                                database, which is necessary to satisfy the ACID properties of a
+                                transaction. Oracle databases use SCNs to mark the location where
+                                all changes have been written to disk so that a recovery action
+                                doesn't apply already written changes. Oracle also uses SCNs to
+                                mark the point where no redo exists for a set of data so that
+                                recovery can stop. </p>
+                            <p>To get the current SCN in an Oracle database, run the
+                                following command.</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">SELECT CURRENT_SCN FROM V$DATABASE</code></pre>
+                            <p>If you use the SCN or timestamp to start a CDC task, you miss the
+                                results of any open transactions and fail to migrate these results.
+                                    <em>Open transactions</em> are
+                                transactions that were started before the start position of the task 
+                                and committed after task start position. You
+                                can identify the SCN and timestamp to start a CDC task at a point
+                                that includes all open transactions. For more information, see
+                                    <a href="https://docs.oracle.com/database/121/CNCPT/transact.htm#CNCPT016" rel="noopener noreferrer" target="_blank" class="unchecked"><span>Transactions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the Oracle online documentation.
+                                With version 3.5.1 and higher, AWS DMS supports open transactions for a CDC-only task
+                                using the <code class="code">openTransactionWindow</code> endpoint setting if you use the SCN or Timestamp
+                                to start the task. </p>
+                            <p>
+                                When using the <code class="code">openTransactionWindow</code> setting, you must provide the window, in 
+                                number of minutes, to handle the open transactions. AWS DMS shifts the capture position 
+                                and finds the new position to start the data capture. AWS DMS uses the new start position 
+                                for scanning any open transactions from the required Oracle redo or archived redo logs.</p>
+                        </dd>
+                    
+                        <dt><b><span class="term">MySQL</span></b></dt>
+                        <dd>
+                            <p>Before the release of MySQL version 5.6.3, the log sequence number
+                                (LSN) for MySQL was a 4-byte unsigned integer. In MySQL version
+                                5.6.3, when the redo log file size limit increased from 4 GB to 512
+                                GB, the LSN became an 8-byte unsigned integer. The increase reflects
+                                that additional bytes were required to store extra size information.
+                                Applications built on MySQL 5.6.3 or higher that use LSN values
+                                should use 64-bit rather than 32-bit variables to store and compare
+                                LSN values. For more information about MySQL LSNs, see the <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_lsn" rel="noopener noreferrer" target="_blank" class="unchecked"><span>MySQL documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+                            <p> To get the current LSN in a MySQL database, run the following
+                                command.</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">mysql&gt; show master status;</code></pre>
+                            <p> The query returns a binlog file name, the position, and several
+                                other values. The CDC native start point is a combination of the
+                                binlogs file name and the position, for example
+                                    <code class="code">mysql-bin-changelog.000024:373</code>. In this example,
+                                    <code class="code">mysql-bin-changelog.000024</code> is the binlogs file name
+                                and <code class="code">373</code> is the position where AWS DMS needs to start
+                                capturing changes. </p>
+                        </dd>
+                    </dl></div>
+             
+             
+                <h3 id="CHAP_Task.CDC.StartPoint.Checkpoint">Using a checkpoint as a CDC start point</h3>
+                <p> An ongoing replication task migrates changes, and AWS DMS caches checkpoint
+                    information specific to AWS DMS from time to time. The checkpoint that AWS DMS
+                    creates contains information so the replication engine knows the recovery point
+                    for the change stream. You can use the checkpoint to go back in the timeline of
+                    changes and recover a failed migration task. You can also use a checkpoint to
+                    start another ongoing replication task for another target at any given point in
+                    time.</p>
+                <p>You can get the checkpoint information in one of the following three ways: </p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Run the API operation <code class="code">DescribeReplicationTasks</code> and view
+                            the results. You can filter the information by task and search for the
+                            checkpoint. You can retrieve the latest checkpoint when the task is in
+                            stopped or failed state. This information is lost if the task is
+                            deleted.</p>
+                    </li><li class="listitem">
+                        <p>View the metadata table named <code class="code">awsdms_txn_state</code> on the
+                            target instance. You can query the table to get checkpoint information.
+                            To create the metadata table, set the
+                                <code class="code">TaskRecoveryTableEnabled</code> parameter to <code class="code">Yes</code>
+                            when you create a task. This setting causes AWS DMS to continuously write
+                            checkpoint information to the target metadata table. This information is
+                            lost if a task is deleted.</p>
+                        <p>For example, the following is a sample checkpoint in the metadata
+                            table:
+                            <code class="code">checkpoint:V1#34#00000132/0F000E48#0#0#*#0#121</code></p>
+                    </li><li class="listitem">
+                        <p>From the navigation pane, choose<b> Database migration tasks</b>, and 
+                            choose your parent task from the list that appears on the Database migration tasks page. 
+                            Your parent task page opens, showing the overview details. Find the checkpoint value under 
+                            Change data capture (CDC), Change data capture (CDC) start position, and Change data
+                            capture (CDC) recovery checkpoint. The checkpoint value appears similar to the following:</p>
+                        <p><code class="code">checkpoint:V1#1#000004AF/B00000D0#0#0#*#0#0</code></p>
+                    </li></ul></div>
+             
+             
+                <h3 id="CHAP_Task.CDC.StopPoint">Stopping a task at a commit or server time point</h3>
+                <p> With the introduction of CDC native start points, AWS DMS can also stop a task
+                    at the following points: </p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>A commit time on the source</p>
+                    </li><li class="listitem">
+                        <p>A server time on the replication instance</p>
+                    </li></ul></div>
+                <p> You can modify a task and set a time in UTC to stop as needed. The task
+                    automatically stops based on the commit or server time that you set. Or, if you
+                    know an appropriate time to stop the migration task at task creation, you can
+                    set a stop time when you create the task. </p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>It can take up to 40 minutes to initialize all the resources the first time 
+                    you start a new AWS DMS Serverless replication. Note that the <code class="code">server_time</code> option is
+                    only applicable once the resource initialization has completed.</p></div></div>
+             
+             
+                <h3 id="CHAP_Task.CDC.Start.Task">Starting a task with target reload</h3>
+                <p>
+                    You can start an AWS DMS migrate existing data and replicate ongoing changes task with the reload 
+                    option (“reload-target” in DMS API). In this case the migration will start from the beginning, 
+                    reload each tables data and continue data replication using full-load and CDC-enabled tasks settings.                    
+                </p>
+                <p>
+                    To use task start with reload option, the following conditions must apply:
+                </p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>
+                            The task must be stopped.
+                        </p>
+                    </li><li class="listitem">
+                        <p>
+                            The migration method for the task must be either full load or full load with CDC.
+                        </p>
+                    </li></ul></div>
+                <p>
+                    DMS applies the TargetTablePrepMode setting before reloading the tables. If you set 
+                    <code class="code">TargetTablePrepMode</code> to <code class="code">DO_NOTHING</code>, you must manually truncate the tables first.
+                </p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                        When a DMS task is started with the target reload option, the premigration assessment will perform a complete 
+                        analysis of existing metadata and parameters in the current environment. This ensures that all current 
+                        configurations and settings are evaluated, regardless of the actual task status.
+                    </p></div></div>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>
+                        If no assessments have been performed within the last 7 days for a given task, the premigration assessment 
+                        will automatically execute to ensure data completeness and consistency.
+                    </p></div></div>
+             
+         
+            <h2 id="CHAP_Task.CDC.Bidirectional">Performing bidirectional replication</h2>
+            <p>You can use AWS DMS tasks to perform bidirectional replication between two systems.
+                In <em>bidirectional replication</em>, you replicate data
+                from the same table (or set of tables) between two systems in both directions. </p>
+            <p>For example, you can copy an EMPLOYEE table from database A to database B and
+                replicate changes to the table from database A to database B. You can also replicate
+                changes to the EMPLOYEE table from database B back to A. Thus, you're performing
+                bidirectional replication. </p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>AWS DMS bidirectional replication isn't intended as a full multi-master solution
+                    including a primary node, conflict resolution, and so on.</p></div></div>
+            <p>Use bidirectional replication for situations where data on different nodes is
+                operationally segregated. In other words, suppose that you have a data element
+                changed by an application operating on node A, and that node A performs
+                bidirectional replication with node B. That data element on node A is never changed
+                by any application operating on node B.</p>
+            <p>AWS DMS supports bidirectional replication on these
+                database engines: </p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Oracle </p>
+                </li><li class="listitem">
+                    <p>SQL Server </p>
+                </li><li class="listitem">
+                    <p>MySQL </p>
+                </li><li class="listitem">
+                    <p>PostgreSQL </p>
+                </li><li class="listitem">
+                    <p>Amazon Aurora MySQL-Compatible Edition</p>
+                </li><li class="listitem">
+                    <p>Aurora PostgreSQL-Compatible Edition</p>
+                </li></ul></div>
+             
+                <h3 id="CHAP_Task.CDC.Bidirectional.Tasks">Creating bidirectional replication tasks</h3>
+                <p>To enable AWS DMS bidirectional replication, configure source and target
+                    endpoints for both databases (A and B). For example, configure a source endpoint
+                    for database A, a source endpoint for database B, a target endpoint for database
+                    A, and a target endpoint for database B. </p>
+                <p>Then create two tasks: one task for source A to move data to target B, and
+                    another task for source B to move data to target A. Also, make sure that each
+                    task is configured with loopback prevention. Doing this prevents identical
+                    changes from being applied to the targets of both tasks, thus corrupting the
+                    data for at least one of them. For more information, see <a href="#CHAP_Task.CDC.Bidirectional.Loopback">Preventing loopback</a>.</p>
+                <p>For the easiest approach, start with identical datasets on both database A and
+                    database B. Then create two CDC only tasks, one task to replicate data from A to
+                    B, and another task to replicate data from B to A.</p>
+                <p>To use AWS DMS to instantiate a new dataset (database) on node B from node A, do
+                    the following:</p>
+                <div class="orderedlist">
+                     
+                     
+                     
+                <ol><li>
+                        <p>Use a full load and CDC task to move data from database A to B. Make
+                            sure that no applications are modifying data on database B during this
+                            time.</p>
+                    </li><li>
+                        <p>When the full load is complete and before applications are allowed to
+                            modify data on database B, note the time or CDC start position of
+                            database B. For instructions, see <a href="#CHAP_Task.CDC.StartPoint">Performing replication starting from a CDC start point</a>.</p>
+                    </li><li>
+                        <p>Create a CDC only task that moves data from database B back to A using
+                            this start time or CDC start position.</p>
+                    </li></ol></div>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Only one task in a bidirectional pair can be full load and CDC.</p></div></div>
+             
+             
+                <h3 id="CHAP_Task.CDC.Bidirectional.Loopback">Preventing loopback</h3>
+                <p>To show preventing loopback, suppose that in a task T1 AWS DMS reads change logs
+                    from source database A and applies the changes to target database B. </p>
+                <p>Next, a second task, T2, reads change logs from source database B and applies
+                    them back to target database A. Before T2 does this, DMS must make sure that the
+                    same changes made to target database B from source database A aren't made
+                    to source database A. In other words, DMS must make sure that these changes
+                    aren't echoed (looped) back to target database A. Otherwise, the data in
+                    database A can be corrupted. </p>
+                
+                <p>To prevent loopback of changes, add the following task settings to each
+                    bidirectional replication task. Doing this makes sure that loopback data
+                    corruption doesn't occur in either direction.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+. . .
+
+  "LoopbackPreventionSettings": <span>{</span>
+    "EnableLoopbackPrevention": <code class="replaceable">Boolean</code>,
+    "SourceSchema": <code class="replaceable">String</code>,
+    "TargetSchema": <code class="replaceable">String</code>
+  },
+
+. . .
+}</code></pre>
+                <p>The <code class="code">LoopbackPreventionSettings</code> task settings determine if a
+                    transaction is new or an echo from the opposite replication task. When AWS DMS
+                    applies a transaction to a target database, it updates a DMS table
+                        (<code class="code">awsdms_loopback_prevention</code>) with an indication of the change.
+                    Before applying each transaction to a target, DMS ignores any transaction that
+                    includes a reference to this <code class="code">awsdms_loopback_prevention</code> table.
+                    Therefore, it doesn't apply the change. </p>
+                <p>Include these task settings with each replication task in a bidirectional
+                    pair. These settings enable loopback prevention. They also specify the schema
+                    for each source and target database in the task that includes the
+                        <code class="code">awsdms_loopback_prevention</code> table for each endpoint.</p>
+                <p>To enable each task to identify such an echo and discard it, set
+                        <code class="code">EnableLoopbackPrevention</code> to <code class="code">true</code>. To specify a
+                    schema at the source that includes <code class="code">awsdms_loopback_prevention</code>, set
+                        <code class="code">SourceSchema</code> to the name for that schema in the source
+                    database. To specify a schema at the target that includes the same table, set
+                        <code class="code">TargetSchema</code> to the name for that schema in the target
+                    database.</p>
+                <p>In the example following, the <code class="code">SourceSchema</code> and
+                        <code class="code">TargetSchema</code> settings for a replication task T1 and its
+                    opposite replication task T2 are specified with opposite settings.</p>
+                <p>Settings for task T1 are as follows.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+. . .
+
+  "LoopbackPreventionSettings": <span>{</span>
+    "EnableLoopbackPrevention": true,
+    "SourceSchema": "LOOP-DATA",
+    "TargetSchema": "loop-data"
+  },
+
+. . .
+}</code></pre>
+                <p>Settings for opposite task T2 are as follows.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+. . .
+
+  "LoopbackPreventionSettings": <span>{</span>
+    "EnableLoopbackPrevention": true,
+    "SourceSchema": "loop-data",
+    "TargetSchema": "LOOP-DATA"
+  },
+
+. . .
+}</code></pre>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When using the AWS CLI, use only the <code class="code">create-replication-task</code> or
+                            <code class="code">modify-replication-task</code> commands to configure
+                            <code class="code">LoopbackPreventionSettings</code> in your bidirectional
+                        replications tasks. </p></div></div>
+             
+             
+                <h3 id="CHAP_Task.CDC.Bidirectional.Limitations">Limitations of bidirectional replication</h3>
+                <p>Bidirectional replication for AWS DMS has the following limitations:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                 
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Loopback prevention tracks only data manipulation language (DML)
+                            statements. AWS DMS doesn't support preventing data definition language
+                            (DDL) loopback. To do this, configure one of the tasks in a
+                            bidirectional pair to filter out DDL statements.</p>
+                    </li><li class="listitem">
+                        <p>Tasks that use loopback prevention don't support committing
+                            changes in batches. To configure a task with loopback prevention, make
+                            sure to set <code class="code">BatchApplyEnabled</code> to <code class="code">false</code>.</p>
+                    </li><li class="listitem">
+                        <p>DMS bidirectional replication doesn't include conflict detection
+                            or resolution. To detect data inconsistencies, use data validation on
+                            both tasks. </p>
+                    </li><li class="listitem">
+                    <p><code class="code">setUpMsCdcForTables</code> must be set to <code class="code">true</code> for SQL
+                        Server source endpoint to set bidirectional replication.</p>
+                </li></ul></div>
+             
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./CHAP_Tasks.ReplicationTasks.MultipleTasks.html">Creating multiple tasks</div><div id="next" class="next-link" accesskey="n" href="./CHAP_Tasks.Modifying.html">Modifying a task</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DMS&amp;topic_url=https://docs.aws.amazon.com/en_us/dms/latest/userguide/CHAP_Task.CDC.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DMS&amp;topic_url=https://docs.aws.amazon.com/en_us/dms/latest/userguide/CHAP_Task.CDC.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

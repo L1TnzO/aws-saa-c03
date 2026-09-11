@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migración e híbrido · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Migración e híbrido</div>
+        <h1>Migración e híbrido<span class="dom-weight">Apéndice · D3-D4</span></h1>
+        <p class="page-lead">Mover cargas y datos a AWS — o mantener un pie en cada mundo — tiene su propia caja de
+        herramientas: las 6R, <span class="term-en">DMS</span>, <span class="term-en">DataSync</span>,
+        <span class="term-en">Snow Family</span> y <span class="term-en">MGN</span>. El examen te pone un volumen de
+        datos, un plazo y una ventana de downtime, y espera que elijas la herramienta exacta en segundos.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 4.1</div>
+        <div class="tb-title">Design cost-optimized storage solutions</div>
+        <div class="tb-meta">Skills: determining the lowest cost method of transferring data to AWS storage · selecting the appropriate service for data migration — Knowledge (3.3/4.3): database engines with appropriate use cases (homogeneous vs heterogeneous migrations)</div>
+      </div>
+
+      <!-- ================= 1. LAS 6R ================= -->
+      <h2 id="estrategia-6r"><span class="h2-num">1</span>Estrategia: las 6R de la migración</h2>
+      <p>Antes de elegir herramientas, AWS enmarca toda migración en seis estrategias — las famosas
+      <strong>6R</strong>. Ninguna es "la correcta" en abstracto: la elección depende de la urgencia, el presupuesto
+      y cuánto valor estratégico tiene modernizar cada aplicación. Un portafolio real combina varias a la vez, porque
+      no todas las apps merecen la misma inversión. En el examen, el enunciado suele dar la pista con frases como
+      <span class="term-en">as quickly as possible</span> (rehost) o <span class="term-en">take advantage of
+      cloud-native features</span> (refactor).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estrategia</th><th>Qué significa</th><th>Cuándo elegirla</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Rehost</span> — lift-and-shift</td><td>Mover la app tal cual a IaaS (EC2), sin tocar código</td><td>Plazos cortos, presupuesto ajustado, hyperscale rápido; se ejecuta con <strong>AWS MGN</strong></td></tr>
+            <tr><td><span class="term-en">Replatform</span> — lift-tinker-and-shift</td><td>Cambios puntuales sin re-arquitectura (self-managed MySQL → RDS, VMs → contenedores)</td><td>Algo de margen temporal y ganas de bajar carga operativa ya</td></tr>
+            <tr><td><span class="term-en">Refactor</span> / re-architect</td><td>Rediseñar para cloud-native (monolito → microservicios + serverless)</td><td>Modernización estratégica; el mayor costo y el mayor beneficio a largo plazo</td></tr>
+            <tr><td><span class="term-en">Repurchase</span></td><td>Abandonar la app y comprar SaaS equivalente</td><td>CRMs, HR, mail: la funcionalidad ya existe como servicio</td></tr>
+            <tr><td><span class="term-en">Retire</span></td><td>Apagar lo que ya nadie usa</td><td>AWS estima que ~20% del portafolio empresarial es candidato; elimina costo puro</td></tr>
+            <tr><td><span class="term-en">Retain</span> (revisit)</td><td>Dejarlo on-prem por ahora</td><td>Regulatorio, dependencias duras o TCO que no compensa; "no todo se migra"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Marco de referencia de migración de AWS (6R) — base de las preguntas de estrategia.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  M["Portafolio<br>de aplicaciones"] --> Q1["¿La app aporta valor<br>de negocio hoy?"]
+  Q1 -->|"no"| RT["Retire<br>o Repurchase (SaaS)"]
+  Q1 -->|"sí"| Q2["¿Cuánto tiempo<br>y presupuesto hay?"]
+  Q2 -->|"mínimo"| RH["Rehost<br>(MGN / lift-and-shift)"]
+  Q2 -->|"algo de margen"| RP["Replatform<br>(cambios puntuales)"]
+  Q2 -->|"proyecto<br>estratégico"| RF["Refactor<br>(re-arquitectura)"]
+  Q2 -->|"regulación /<br>TCO no compensa"| KV["Retain<br>(se queda on-prem)"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Las 6R como árbol de decisión: el calificador del enunciado te dice la rama.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">migrate quickly with the least effort / no code changes</span> → rehost (MGN).
+        <span class="term-en">move to managed database with minimal changes</span> → replatform (RDS/Aurora).
+        <span class="term-en">decouple and modernize into microservices</span> → refactor. Y ojo: si la pregunta da
+        una fecha límite y pide <em>cero</em> cambios de aplicación, la respuesta nunca es refactor — por atractiva que
+        parezca la arquitectura propuesta.</p>
+      </div>
+
+      <p class="bronze-link">La estrategia 6R se apoya en las guías oficiales de migración de la capa bronze;
+      para el detalle de herramientas sigue leyendo: <code>../../bronze/05-docs/migration-mgn/what-is-mgn.md</code>
+      (rehost automatizado) y <code>../../bronze/05-docs/migration-dms/chap-introduction-sources.md</code>
+      (replatform de bases de datos).</p>
+
+      <!-- ================= 2. DMS ================= -->
+      <h2 id="dms"><span class="h2-num">2</span>AWS DMS: migrar bases de datos con mínimo downtime</h2>
+      <p><span class="term-en">AWS Database Migration Service (DMS)</span> mueve datos entre bases de origen y destino
+      casi siempre distintas: motores relacionales, NoSQL, data warehouses e incluso S3 o Kinesis como destino. Su
+      arquitectura tiene tres piezas: un <strong>replication instance</strong> (EC2 administrado), los
+      <strong>endpoints</strong> de origen y destino, y las <strong>tasks</strong> que definen qué tablas mover. La
+      distinción clave del examen es <span class="term-en">homogeneous</span> vs
+      <span class="term-en">heterogeneous</span>: si el motor no cambia (Oracle → Oracle, MySQL → Aurora MySQL), la
+      migración es homogénea y DMS basta; si el motor cambia (Oracle → Aurora PostgreSQL), el esquema y el código
+      deben convertirlos antes con otra herramienta.</p>
+      <p>Esa herramienta es la <span class="term-en">AWS Schema Conversion Tool (SCT)</span>: analiza el esquema
+      origen, convierte tipos y objetos (PL/SQL → PL/pgSQL), estima el esfuerzo con un assessment report y también
+      convierte warehouses (Teradata/Oracle → Redshift). SCT prepara el terreno; DMS transporta los datos. Para
+      volúmenes enormes, SCT puede extraer a S3 y DMS cargar desde ahí — pero ese es un matiz avanzado que rara vez
+      decide la respuesta.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Homogénea (mismo motor)</th><th>Heterogénea (otro motor)</th></tr></thead>
+          <tbody>
+            <tr><td>Ejemplo típico</td><td>Oracle on-prem → RDS Oracle; MySQL → Aurora MySQL</td><td>Oracle → Aurora PostgreSQL; SQL Server → RDS MySQL</td></tr>
+            <tr><td>¿Necesita SCT?</td><td>No (esquema ya compatible; opcional para assessment)</td><td>Sí: convierte esquema, tipos y código almacenado antes de mover datos</td></tr>
+            <tr><td>Rol de DMS</td><td>Mover datos (full load ± CDC)</td><td>Mover datos una vez el esquema destino existe</td></tr>
+            <tr><td>Riesgo típico</td><td>Bajo</td><td>Incompatibilidades de tipos/features sin equivalente</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/migration-dms/chap-introduction-sources.md, chap-introduction-targets.md.</p>
+
+      <h3 id="dms-cdc">CDC: la magia del mínimo downtime</h3>
+      <p>La característica que convierte a DMS en la respuesta estrella es el
+      <span class="term-en">change data capture (CDC)</span>. DMS lee los cambios directamente de los
+      <strong>logs de transacciones nativos</strong> del motor (redo logs de Oracle, binlogs de MySQL, WAL de
+      PostgreSQL) y los replica al destino. Con el modo <span class="term-en">full load + CDC</span>, DMS copia primero
+      todos los datos existentes y luego mantiene el destino sincronizado con los cambios que siguen llegando a
+      producción: la app sigue funcionando contra el origen hasta el momento elegido. El
+      <span class="term-en">cutover</span> final es solo redirigir la aplicación — una ventana de minutos, no de horas.
+      Por eso, ante <span class="term-en">migrate a database with minimal downtime</span>, la respuesta es DMS con CDC
+      (y SCT delante si hay cambio de motor).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Modo de task</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+          <tbody>
+            <tr><td>Full load only</td><td>Copia los datos existentes una vez</td><td>Migraciones con ventana de mantenimiento amplia</td></tr>
+            <tr><td>Full load + CDC</td><td>Copia inicial + replicación continua de cambios</td><td><strong>Mínimo downtime</strong> (la respuesta típica del examen)</td></tr>
+            <tr><td>CDC only</td><td>Replica solo los cambios posteriores a un punto dado</td><td>Tras una carga hecha con otra herramienta (dump previo)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/migration-dms/chap-task-cdc.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  S["Oracle on-premises<br>(producción activa)"] --> SCT["AWS SCT:<br>convierte esquema a PostgreSQL"]
+  SCT --> T["Aurora PostgreSQL<br>(esquema listo)"]
+  S -->|"full load: tablas<br>existentes"| DMS["AWS DMS<br>replication instance"]
+  S -->|"CDC: cambios leídos<br>de los redo logs"| DMS
+  DMS --> T
+  T --> VAL["Validación y pruebas<br>de la app"]
+  VAL -->|"cutover en minutos"| DNS["La app apunta<br>a Aurora"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Migración heterogénea con mínimo downtime: SCT + DMS full load + CDC.</figcaption>
+      </figure>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Elegir DMS para "convertir" el esquema en una migración heterogénea: DMS mueve datos, no traduce esquemas
+        ni procedimientos almacenados — eso es SCT. La trampa inversa también existe: usar SCT solo y esperar que
+        mueva los datos en vivo. La pareja completa es SCT (esquema/código) + DMS (datos).</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/migration-dms/chap-task-cdc.md</code>
+      (CDC a fondo), <code>../../bronze/05-docs/migration-dms/chap-introduction-sources.md</code>,
+      <code>../../bronze/05-docs/migration-dms/chap-introduction-targets.md</code> y
+      <code>../../bronze/04-faqs/aws-database-migration-service.md</code>.</p>
+
+      <!-- ================= 3. DATASYNC + TRANSFER FAMILY ================= -->
+      <h2 id="datasync-transfer"><span class="h2-num">3</span>DataSync y Transfer Family: mover archivos por la red</h2>
+      <p><span class="term-en">AWS DataSync</span> automatiza transferencias de archivos/objetos entre
+      <span class="term-en">NFS</span>, <span class="term-en">SMB</span>, <span class="term-en">HDFS</span> u object
+      storage on-premises (u otras nubes) y servicios AWS: S3, EFS y toda la familia FSx. El
+      <span class="term-en">agente</span> — una VM que despliegas junto a tus datos, cuando el origen es on-premises —
+      mueve hasta <strong>10 Gbps por agente</strong> con un protocolo paralelo propio. Las
+      <span class="term-en">tasks</span> definen origen, destino, filtros y <span class="term-en">scheduling</span>
+      (recurrente, tipo cron) y pueden <strong>verificar la integridad</strong> de todo lo transferido con checksums
+      en tránsito y opcionalmente al final. Entre servicios de AWS (p. ej. S3 → EFS) no hace falta agente. Es la
+      respuesta estándar a <span class="term-en">move active datasets over the network into AWS</span>.</p>
+      <p><span class="term-en">AWS Transfer Family</span> resuelve un problema distinto: terceros o partners que
+      <em>siguen usando protocolos FTP</em>. Crea endpoints <span class="term-en">SFTP</span>,
+      <span class="term-en">FTPS</span> o <span class="term-en">FTP</span> totalmente administrados cuyos usuarios
+      autentican contra usuarios gestionados del servicio, IAM o tu IdP (AD/LDAP vía Directory Service) — y cuyos
+      archivos caen directamente en S3 o EFS. Es la respuesta a <span class="term-en">third parties deliver files
+      over SFTP, no code changes</span>: mantienes el protocolo, cambias el backend a S3.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>AWS DataSync</th><th>AWS Transfer Family</th></tr></thead>
+          <tbody>
+            <tr><td>Problema</td><td>Mover grandes volúmenes de datos de A a B</td><td>Aceptar archivos por protocolos FTP/SFTP gestionados</td></tr>
+            <tr><td>Protocolos</td><td>NFS, SMB, HDFS, object storage ↔ S3/EFS/FSx</td><td>SFTP, FTPS, FTP (endpoints públicos o en tu VPC)</td></tr>
+            <tr><td>Componente clave</td><td>Agente on-premises (10 Gbps c/u; sin agente AWS↔AWS)</td><td>Endpoint + usuarios autenticados (servicio, IAM o AD/IdP)</td></tr>
+            <tr><td>Garantías</td><td>Cifrado en tránsito + verificación de integridad; tasks programables</td><td>Gestión de identidad y archivos entregados en S3/EFS</td></tr>
+            <tr><td>Señal del examen</td><td><span class="term-en">bulk migration / scheduled copy / verify integrity</span></td><td><span class="term-en">partners still use SFTP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/migration-datasync/what-is-datasync.md + bronze/04-faqs/aws-transfer-family.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  NFS["On-premises<br>NFS / SMB / HDFS"] --> AG["Agente DataSync<br>(hasta 10 Gbps)"]
+  TSK["Task programada:<br>filtros + horario"] --> AG
+  AG -->|"cifrado TLS +<br>verificación checksum"| DST["Amazon S3 / EFS / FSx"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — DataSync: agente, tasks programadas y transferencia verificada.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">ongoing nightly copy between on-premises NFS and EFS</span> → DataSync con
+        scheduling. <span class="term-en">validate that all files arrived intact</span> → DataSync (integrity
+        verification). <span class="term-en">existing SFTP workflow, want storage in S3</span> → Transfer Family.
+        Distinción rápida: DataSync <em>mueve</em> datos; Transfer Family <em>expone un protocolo</em> sobre
+        almacenamiento AWS.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/migration-datasync/what-is-datasync.md</code>,
+      <code>../../bronze/05-docs/migration-datasync/do-i-need-datasync-agent.md</code>,
+      <code>../../bronze/05-docs/migration-datasync/task-scheduling.md</code>,
+      <code>../../bronze/05-docs/migration-datasync/configure-bandwidth.md</code>,
+      <code>../../bronze/04-faqs/aws-datasync.md</code> y
+      <code>../../bronze/04-faqs/aws-transfer-family.md</code>.</p>
+
+      <!-- ================= 4. SNOW FAMILY ================= -->
+      <h2 id="snow"><span class="h2-num">4</span>Snow Family: cuando la red no llega</h2>
+      <p>Cuando el volumen de datos es tan grande que la red se vuelve el cuello de botella, AWS lo resuelve con
+      logística: <span class="term-en">Snow Family</span> son dispositivos físicos que AWS te envía por mensajería,
+      llenas <em>offline</em> en tu data center y devuelves — los datos aparecen en tu bucket S3 sin consumir tu
+      ancho de banda. Todos cifran los datos en reposo y en tránsito físico (KMS), y soportan jobs de
+      <strong>import</strong> (a S3) y <strong>export</strong> (desde S3). La regla que repite el examen: si por la
+      red tardarías <em>más de una semana</em>, muévelo con Snow.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dispositivo</th><th>Capacidad</th><th>Su señal del examen</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Snowcone</span></td><td>8 TB utilizables (HDD); ~2 kg, cabe en una mochila, puede correr con batería</td><td>Pocos TB, sitios remotos o sin espacio/rack; edge computing ligero</td></tr>
+            <tr><td><span class="term-en">Snowball Edge Storage Optimized</span></td><td>80 TB utilizables (dato canónico del examen; los dispositivos actuales llegan a 210 TB), 40 vCPU</td><td><strong>El clásico</strong>: decenas de TB o la red tardaría &gt; 1 semana</td></tr>
+            <tr><td><span class="term-en">Snowball Edge Compute Optimized</span></td><td>42 TB utilizables + opción de GPU y más vCPU</td><td>Computo local intensivo además del transporte (edge, pre-procesado en el dispositivo)</td></tr>
+            <tr><td><span class="term-en">Snowmobile</span></td><td>Hasta 100 PB por contenedor rodante; exabytes agregando viajes</td><td>Migraciones de data center completo; videotecas, genómica</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/migration-snow/whatisedge.md (nota: la guía indica que Snowball Edge
+      ya no acepta clientes nuevos a favor de DataSync/alternativas — el examen sigue usando el canon clásico).</p>
+
+      <h3 id="snow-calculo">¿Cuánto tarda subir X TB a Y Mbps?</h3>
+      <p>El examen te lo pide con números: la fórmula es <strong>tiempo = TB × 8 × 10¹² bits ÷ (velocidad en bit/s)</strong>.
+      Un truco rápido: a 1 Gbps <em>teóricos</em>, 10 TB tardan ~22 horas; como el rendimiento real ronda el 80%,
+      calcula con margen. La tabla muestra el razonamiento que espera la pregunta — y por qué 100 TB con enlaces
+      modestos se convierte en trabajo para Snowball.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Volumen</th><th>Enlace</th><th>Tiempo teórico</th><th>Herramienta razonable</th></tr></thead>
+          <tbody>
+            <tr><td>10 TB</td><td>1 Gbps</td><td>~22 h</td><td>DataSync online</td></tr>
+            <tr><td>100 TB</td><td>1 Gbps</td><td>~9,3 días &gt; 1 semana</td><td><strong>Snowball Edge</strong></td></tr>
+            <tr><td>100 TB</td><td>100 Mbps</td><td>~93 días</td><td><strong>Snowball Edge</strong> (ni lo intentes online)</td></tr>
+            <tr><td>100 TB</td><td>10 Gbps (Direct Connect)</td><td>~22 h</td><td>DataSync online</td></tr>
+            <tr><td>5 PB</td><td>cualquiera razonable</td><td>meses</td><td><strong>Snowmobile</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Cálculo: segundos = TB × 8 × 10¹² ÷ Mbps × 10⁶. Ejemplo 100 TB @ 1 Gbps: 800.000 s ≈ 9,3 días.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  V["¿Cuántos TB y con qué<br>ancho de banda?"] --> C1{"¿La red tardaría más<br>de ~1 semana?"}
+  C1 -->|"no"| DS["DataSync<br>(transferencia online)"]
+  C1 -->|"sí: hasta ~PB"| SB["Snowball Edge<br>(80 TB usable c/u)"]
+  C1 -->|"cientos de PB<br>o exabytes"| SM["Snowmobile<br>(hasta 100 PB)"]
+  V -->|"2-8 TB en sitio<br>remoto sin rack"| SC["Snowcone<br>(8 TB, 2 kg)"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Decisión por volumen y ancho de banda: la semana es la frontera Snow.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">move 100 TB within one week, limited bandwidth</span> → Snowball Edge.
+        <span class="term-en">migrate an entire data center (petabytes)</span> → Snowmobile. <span class="term-en">
+        small site, no rack space, few TB</span> → Snowcone. Si el enunciado da un enlace potente y tiempo de
+        sobra, la respuesta pasa a ser DataSync — Snow cobra por job y días de posesión, así que no lo elijas si la
+        red llega.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/migration-snow/whatisedge.md</code>,
+      <code>../../bronze/05-docs/migration-snow/snowball-prereqs.md</code>,
+      <code>../../bronze/05-docs/migration-snow/exporttype.md</code> y
+      <code>../../bronze/05-docs/migration-snow/monitor-status.md</code>.</p>
+
+      <!-- ================= 5. MGN + DISCOVERY ================= -->
+      <h2 id="mgn"><span class="h2-num">5</span>AWS MGN y el descubrimiento del portafolio</h2>
+      <p><span class="term-en">AWS Application Migration Service (MGN)</span> — rebautizado recientemente como
+      <em>AWS Transform MGN</em>, aunque el examen lo sigue llamando MGN — es la herramienta oficial del
+      <span class="term-en">rehost</span>. Instalas un agente en cada servidor (físico, virtual o incluso en otra
+      nube) y MGN inicia una <strong>replicación continua a nivel de bloque</strong> hacia un
+      <span class="term-en">staging area</span> de bajo costo en AWS (volúmenes EBS baratos + snapshots). La producción
+      no se detiene. Cuando quieras, lanzas <strong>instancias de test</strong> desde las réplicas para validar
+      aplicaciones sin tocar nada, y el día del <span class="term-en">cutover</span> real solo cortas el tráfico: la
+      ventana es de <strong>minutos</strong>. Tres templates (replication, launch y post-launch) controlan el
+      comportamiento por servidor, y los servidores se agrupan en aplicaciones y <span class="term-en">waves</span>
+      para operar migraciones de miles de máquinas.</p>
+      <p>Antes de migrar hay que saber <em>qué</em> se migra: <span class="term-en">AWS Application Discovery
+      Service</span> recoge el inventario on-premises de dos formas — el
+      <span class="term-en">Discovery Connector</span> (agentless, se conecta a VMware vCenter y levanta inventario de
+      VMs) y el <span class="term-en">Discovery Agent</span> (se instala en cada máquina para datos más finos de uso
+      de CPU/memoria/red). Todos los hallazgos confluyen en <span class="term-en">AWS Migration Hub</span>, el panel
+      único que agrega el estado de las migraciones aunque uses MGN para servidores, DMS para bases de datos y
+      DataSync para archivos — un solo lugar para seguir el progreso de todo el portafolio.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  ON["Servidor on-prem<br>(físico, VM o nube)"] -->|"agente MGN"| AGT["Replicación continua<br>a nivel de bloque"]
+  AGT --> STG["Staging area<br>(EBS bajo costo)"]
+  STG -->|"lanza test<br>cuantas veces quieras"| TEST["Validación sin<br>tocar producción"]
+  STG -->|"cutover: ventana<br>de minutos"| EC2["Instancia EC2<br>en producción"]
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Lift-and-shift con MGN: replicar, probar, cortar. El downtime son minutos.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Herramienta</th><th>Rol en la migración</th><th>Dato que la delata</th></tr></thead>
+          <tbody>
+            <tr><td>Application Discovery Service</td><td>Inventario y dependencias del data center</td><td>Connector (agentless, vCenter) vs Agent (por servidor)</td></tr>
+            <tr><td>Migration Hub</td><td>Panel agregado de todo el programa de migración</td><td>Una sola vista aunque mezcles MGN + DMS + DataSync</td></tr>
+            <tr><td>AWS MGN</td><td>Rehost automatizado de servidores a EC2</td><td>Replicación continua + cutover de minutos; sustituyó a Server Migration Service</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/migration-mgn/what-is-mgn.md + bronze/04-faqs/aws-application-migration-service-mgn.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">migrate 500 servers to EC2 with minimal downtime, test before cutover</span> → MGN.
+        <span class="term-en">discover on-premises environment / build inventory</span> → Application Discovery
+        Service. <span class="term-en">single view of migration status across tools</span> → Migration Hub. Trampa: DMS
+        migra <em>bases de datos</em>, MGN migra <em>servidores completos</em> — si la pregunta habla de la app entera
+        sobre EC2, es MGN.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/migration-mgn/what-is-mgn.md</code>,
+      <code>../../bronze/05-docs/migration-mgn/replication-settings-template.md</code>,
+      <code>../../bronze/05-docs/migration-mgn/launching-test-gs.md</code>,
+      <code>../../bronze/05-docs/migration-mgn/configuring-target-gs.md</code> y
+      <code>../../bronze/04-faqs/aws-application-migration-service-mgn.md</code>.</p>
+
+      <!-- ================= 6. HIBRIDO ================= -->
+      <h2 id="hibrido"><span class="h2-num">6</span>El mundo híbrido: Outposts, DX y VPN</h2>
+      <p>Para cerrar, la pieza de conectividad. <span class="term-en">AWS Outposts</span> es hardware físico de AWS
+      instalado <em>en tu</em> data center y administrado por AWS: ejecuta servicios nativos (EC2, EBS, S3 on
+      Outposts, RDS en variantes rack) con las mismas APIs, consola y herramientas que usas en la Región. Se elige
+      cuando necesitas <strong>latencias de milisegundo único</strong> hacia sistemas on-premises o requisitos de
+      <span class="term-en">data residency</span> que obligan a procesar los datos en tu edificio, manteniendo la
+      experiencia operativa de la nube. Existe en formato <span class="term-en">rack</span> (42U) y
+      <span class="term-en">servers</span> (1U/2U) para oficinas o tiendas pequeñas.</p>
+      <p>Para el enlace de red entre tu data center y tu VPC, todo el detalle — <span class="term-en">Site-to-Site
+      VPN</span>, <span class="term-en">Direct Connect</span> (dedicado 1/10 Gbps), DX Gateway, y los patrones de
+      failover VPN+DX — lo tratamos a fondo en la página <a href="redes.html">Redes y conectividad</a> del apéndice.
+      Y para los datos, este mismo capítulo te acaba de dar el resto del mapa: Storage Gateway para acceso continuo
+      de baja latencia, DataSync para mover por la red, Snow para volúmenes que no caben en el calendario.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Necesidad híbrida</th><th>Herramienta</th></tr></thead>
+          <tbody>
+            <tr><td>App on-prem leyendo archivos que deben vivir en S3</td><td>Storage Gateway (S3 File Gateway)</td></tr>
+            <tr><td>Mover/copiar archivos programadamente por la red</td><td>DataSync</td></tr>
+            <tr><td>Transferencia puntual de decenas-cientos de TB</td><td>Snowball Edge / Snowmobile</td></tr>
+            <tr><td>Replicar servidores completos y cortar en minutos</td><td>AWS MGN</td></tr>
+            <tr><td>Migrar/replicar bases de datos con CDC</td><td>AWS DMS (+ SCT si cambia motor)</td></tr>
+            <tr><td>Compute AWS dentro de tu edificio</td><td>AWS Outposts</td></tr>
+            <tr><td>Enlace privado de alta capacidad a AWS</td><td><a href="redes.html">Direct Connect</a> / VPN (ver redes)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis operativa de toda esta página: cada fila es un reflejo de examen.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Los reflejos de migración del SAA-C03</div>
+        <p><strong>1)</strong> <span class="term-en">"move 100 TB in a week, the WAN is slow"</span> → Snowball
+        Edge. <strong>2)</strong> <span class="term-en">"migrate the database with minimal downtime"</span> → DMS con
+        CDC (full load + ongoing replication). <strong>3)</strong> <span class="term-en">"partners already use SFTP"</span>
+        → Transfer Family sobre S3. <strong>4)</strong> <span class="term-en">"migrate hundreds of servers, test
+        first, minutes of cutover"</span> → MGN. <strong>5)</strong> <span class="term-en">"scheduled copy with
+        integrity verification"</span> → DataSync. Con estos cinco reflejos respondes casi cualquier pregunta de
+        migración del blueprint.</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Los números de Snow Family (8 / 42 / 80 TB, 100 PB) y los tiempos de recuperación de Glacier de la página
+        anterior son el tipo de dato que el examen asume "sabido": no aparece en el enunciado, solo en las opciones.
+        Dedícales una tarjeta de memoria propia a la pareja Snow↔volumen y otra a la pareja herramienta↔señal de
+        esta sección.</p>
+      </div>
+
+      <p class="bronze-link">Cierre del apéndice de migración — documentación oficial relacionada:
+      <code>../../bronze/04-faqs/aws-outposts.md</code> (híbrido físico),
+      <code>../../bronze/04-faqs/aws-direct-connect.md</code> y
+      <code>../../bronze/04-faqs/aws-site-to-site-vpn.md</code> (conectividad, tratados en redes), y
+      <code>../../bronze/04-faqs/aws-storage-gateway.md</code> (híbrido de storage).</p>
+
+      <nav class="pager">
+        <a href="analitica-datos.html"><span class="p-dir">← Anterior</span><br>Analítica y big data</a>
+        <a class="p-next" href="gestion-gobernanza.html"><span class="p-dir">Siguiente →</span><br>Gestión y gobernanza</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

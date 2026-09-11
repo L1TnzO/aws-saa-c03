@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Choose between REST APIs and HTTP APIs - Amazon API Gateway</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="http-api-vs-rest" /><meta name="default_state" content="http-api-vs-rest" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html" /><meta name="description" content="Learn the differences between REST APIs and HTTP APIs." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon API Gateway" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Build, deploy, maintain and call cloud-based APIs using Amazon API Gateway with this Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html" hreflang="x-default" /><meta name="feedback-item" content="API Gateway" /><meta name="this_doc_product" content="Amazon API Gateway" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'apigateway'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Choose between REST APIs and HTTP APIs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="http-api-vs-rest.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Choose between REST APIs and HTTP APIs - Amazon API Gateway</title><meta name="pdf" content="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#http-api-vs-rest" /><meta name="rss" content="amazon-apigateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAx94GNHn2R3Ot5Ab_HCvlng" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API%20Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/http-api-vs-rest.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/http-api-vs-rest.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/http-api-vs-rest.html" /><meta name="keywords" content="API Gateway,Amazon API Gateway,serverless,cloud computing,REST API,HTTP API,WebSocket API,REST APIs,HTTP APIs,WebSocket APIs,REST API vs HTTP API,different product offerings" /><link rel="alternate" type="text/markdown" href="http-api-vs-rest.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "What is Amazon API Gateway?",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Choose between REST APIs and HTTP APIs",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#http-api-vs-rest" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/apigateway/index.html">Amazon API Gateway</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#http-api-vs-rest.differences.endpoint-type">Endpoint type</a><a href="#http-api-vs-rest.differences.security">Security</a><a href="#http-api-vs-rest.differences.authorization">Authorization</a><a href="#http-api-vs-rest.differences.management">API management</a><a href="#http-api-vs-rest.differences.development">Development</a><a href="#http-api-vs-rest.differences.monitoring">Monitoring</a><a href="#http-api-vs-rest.differences.integrations">Integrations</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="http-api-vs-rest">Choose between REST APIs and HTTP APIs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>REST APIs and HTTP APIs are both RESTful API products. REST APIs support more
+      features than HTTP APIs, while HTTP APIs are designed with minimal features so that they can be offered
+      at a lower price. Choose REST APIs if you need features such as API keys, per-client throttling, request
+      validation, AWS WAF integration, or private API endpoints. Choose HTTP APIs if you don't need the features
+      included with REST APIs.</p><p>The following sections summarize core features that are available in REST APIs and
+      HTTP APIs. When necessary, additional links are provided to navigate between the REST API and
+      HTTP API sections of the API Gateway Developer Guide.</p>
+    <h2 id="http-api-vs-rest.differences.endpoint-type">Endpoint type</h2>
+    <p>The endpoint type refers to the endpoint that API Gateway creates for your API. For more information, see <a href="./api-gateway-api-endpoint-types.html">API endpoint types for REST APIs in API Gateway</a>. </p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34b7b5"><thead>
+          <tr>
+            <th>Endpoint types</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-endpoint-types.html#api-gateway-api-endpoint-types-edge-optimized">Edge-optimized</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-endpoint-types.html#api-gateway-api-endpoint-types-regional">Regional</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-endpoint-types.html#api-gateway-api-endpoint-types-private">Private</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="http-api-vs-rest.differences.security">Security</h2>
+    <p>API Gateway provides a number of ways to protect your API from certain threats, like malicious actors or spikes in
+      traffic. To learn more, see <a href="./rest-api-protect.html">Protect your REST APIs in API Gateway</a> and <a href="./http-api-protect.html">Protect your HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34b9b5"><thead>
+          <tr>
+            <th>Security features</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./rest-api-mutual-tls.html">Mutual TLS authentication</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./rest-api-mutual-tls.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-mutual-tls.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./getting-started-client-side-ssl-authentication.html">Certificates for backend authentication</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-control-access-aws-waf.html">AWS WAF</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="http-api-vs-rest.differences.authorization">Authorization</h2>
+    <p>API Gateway supports multiple mechanisms for controlling and managing access to your API. For more information, see
+        <a href="./apigateway-control-access-to-api.html">Control and manage access to REST APIs in API Gateway</a> and <a href="./http-api-access-control.html">Control and manage access to HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34c11b5"><thead>
+          <tr>
+            <th>Authorization options</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./permissions.html">IAM</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./permissions.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-access-control-iam.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-resource-policies.html">Resource policies</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+              <p></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-integrate-with-cognito.html">Amazon Cognito</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes <sup>1</sup></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-use-lambda-authorizer.html">Custom authorization with an AWS Lambda function</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./apigateway-use-lambda-authorizer.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-lambda-authorizer.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./http-api-jwt-authorizer.html">JSON Web Token (JWT)</a> <sup>2</sup></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p><sup>1</sup> You can use Amazon Cognito with a <a href="./http-api-jwt-authorizer.html">JWT authorizer</a>.</p>
+    <p><sup>2</sup> You can use a <a href="./apigateway-use-lambda-authorizer.html">Lambda authorizer</a> to validate JWTs for REST APIs.</p>
+   
+    <h2 id="http-api-vs-rest.differences.management">API management</h2>
+    <p>Choose REST APIs if you need API management capabilities such as API keys and per-client rate limiting.
+      For more information, see <a href="./rest-api-distribute.html">Distribute your REST APIs to clients in API Gateway</a>, <a href="./how-to-custom-domains.html">Custom domain name for public REST APIs in API Gateway</a>, and
+        <a href="./http-api-custom-domain-names.html">Custom domain names for HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34c13b5"><thead>
+          <tr>
+            <th>Features</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./how-to-custom-domains.html">Custom domains</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./how-to-custom-domains.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-custom-domain-names.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-usage-plans.html">API keys</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-request-throttling.html">Per-client rate limiting</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-usage-plans.html">Per-client usage throttling</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-portals.html">Developer portal</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="http-api-vs-rest.differences.development">Development</h2>
+    <p>As you're developing your API Gateway API, you decide on a number of characteristics of your API. These
+      characteristics depend on the use case of your API. For more information see <a href="./rest-api-develop.html">Develop REST APIs in API Gateway</a>
+      and <a href="./http-api-develop.html">Develop HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34c15b5"><thead>
+          <tr>
+            <th>Features</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./how-to-cors.html">CORS configuration</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./how-to-cors.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-cors.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./how-to-test-method.html">Test invocations</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-caching.html">Caching</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./how-to-deploy-api.html">User-controlled deployments</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./how-to-deploy-api.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-stages.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./http-api-stages.html">Automatic deployments</a></p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-gatewayResponse-definition.html">Custom gateway responses</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./canary-release.html">Canary release deployments</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-method-request-validation.html">Request validation</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./rest-api-data-transformations.html">Request parameter transformation</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./rest-api-data-transformations.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-parameter-mapping.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./rest-api-data-transformations.html">Request body transformation</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="http-api-vs-rest.differences.monitoring">Monitoring</h2>
+    <p>API Gateway supports several options to log API requests and monitor your APIs. For more information, see <a href="./rest-api-monitor.html">Monitor REST APIs in API Gateway</a> and <a href="./http-api-monitor.html">Monitor HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34c17b5"><thead>
+          <tr>
+            <th>Feature</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./monitoring-cloudwatch.html">Amazon CloudWatch metrics</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./monitoring-cloudwatch.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-metrics.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./set-up-logging.html">Access logs to CloudWatch Logs</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./set-up-logging.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-logging.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-logging-to-kinesis.html">Access logs to Amazon Data Firehose</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./rest-api-execution-logging.html">Execution logs</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./apigateway-xray.html">AWS X-Ray tracing</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="http-api-vs-rest.differences.integrations">Integrations</h2>
+    <p>Integrations connect your API Gateway API to backend resources. For more information, see <a href="./how-to-integration-settings.html">Integrations for REST APIs in API Gateway</a> and <a href="./http-api-develop-integrations.html">Create integrations for HTTP APIs in API Gateway</a>.</p>
+    <div class="table-container"><div class="table-contents"><table id="w287aab5c34c19b5"><thead>
+          <tr>
+            <th>Feature</th>
+            <th>REST API</th>
+            <th>HTTP API</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./setup-http-integrations.html">Public HTTP endpoints</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./setup-http-integrations.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-develop-integrations-http.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./api-gateway-api-integration-types.html">AWS services</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./api-gateway-api-integration-types.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-develop-integrations-aws-services.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./set-up-lambda-integrations.html">AWS Lambda functions</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./set-up-lambda-integrations.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-develop-integrations-lambda.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./set-up-private-integration.html">Private integrations with Network Load Balancers</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./set-up-private-integration.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./http-api-develop-integrations-private.html">Yes</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./http-api-develop-integrations-private.html">Private integrations with Application Load Balancers</a></p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-positive" variant="success"></awsui-icon> <a href="./set-up-private-integration.html">Yes</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./http-api-develop-integrations-private.html">Private integrations with AWS Cloud Map</a></p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+              <p></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./how-to-mock-integration.html">Mock integrations</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p><a href="./response-transfer-mode.html">Response streaming</a></p>
+            </td>
+            <td tabindex="-1">
+              <p><awsui-icon name="status-positive" variant="success"></awsui-icon> Yes</p>
+            </td>
+            <td tabindex="-1"><p><awsui-icon name="status-negative" variant="warning"></awsui-icon> No</p>
+            </td>
+          </tr>
+        </table></div></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./api-gateway-basic-concept.html">API Gateway concepts</div><div id="next" class="next-link" accesskey="n" href="./getting-started-rest-new-console.html">Get started with the REST API console</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/http-api-vs-rest.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/http-api-vs-rest.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFS y FSx (file storage) — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>EFS y FSx <span class="en">Amazon Elastic File System · Amazon FSx</span></h1>
+<p class="subtitle">Los sistemas de archivos compartidos de AWS: cuando muchas instancias necesitan montar el mismo volumen a la vez, la respuesta no es EBS, es EFS o alguna variante de FSx.</p>
+<div class="chips">
+  <span class="chip">Fase 4 · Almacenamiento</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>El <span class="tag-en">block storage</span> de EBS sirve a una instancia cada vez: un volumen no se comparte. Pero hay cargas — directorios home, shares de empresa, builds de código, render y HPC — donde decenas de máquinas deben leer y escribir el mismo árbol de archivos simultáneamente. Para eso existe el <span class="tag-en">shared file storage</span>: <strong>Amazon EFS</strong> ofrece un sistema NFS serverless que crece y encoge solo, y <strong>Amazon FSx</strong> es una familia de sistemas de archivos gestionados "purpose-built": FSx for Windows File Server para cargas SMB con Active Directory, FSx for Lustre para cómputo de alto rendimiento, y variantes como FSx for NetApp ONTAP y FSx for OpenZFS para casos de compatibilidad específicos.</p>
+
+<p>La pregunta del examen casi nunca es "describe EFS": es "¿qué servicio de archivos elijo para este workload?". La regla de decisión tiene tres ramas: si tus servidores son Linux y hablan NFS, EFS; si tu empresa vive en Windows con SMB y Active Directory, FSx for Windows File Server; si el workload es HPC o machine learning con datasets masivos y latencia sub-milisegundo, FSx for Lustre. El costo de equivocarse es real: montar una share de Windows en decenas de instancias Linux, o intentar escalar HPC sobre NFS genérico, son soluciones frágiles que el examen penaliza.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    C1["EC2 en AZ 1"] --> MT1["Mount target AZ 1"]
+    C2["EKS en AZ 2"] --> MT2["Mount target AZ 2"]
+    C3["Lambda en AZ 3"] --> MT3["Mount target AZ 3"]
+    MT1 --> EFS["EFS: NFSv4<br>datos replicados en 3 AZ"]
+    MT2 --> EFS
+    MT3 --> EFS
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class C1,C2,C3 navy
+    class MT1,MT2,MT3 amber
+    class EFS green
+</div>
+<figcaption>Figura 1 — EFS Regional visto desde tres AZs: cada AZ tiene su mount target y el mismo file system crece a petabytes sin aprovisionar.</figcaption>
+</figure>
+
+<h2>Amazon EFS: el NFS serverless y elástico</h2>
+
+<p>EFS es <strong>totalmente elástico y sin servidores que gestionar</strong>: crece hasta petabytes a medida que añades archivos y se contrae al borrarlos, sin aprovisionar capacidad ni parchear nada. Habla <strong>NFSv4.1 y NFSv4.0</strong>, de modo que las herramientas Linux existentes funcionan sin cambios, y es accesible desde prácticamente todo el cómputo de AWS: EC2, ECS, EKS, Lambda y Fargate. Cada AZ de la VPC recibe un <span class="tag-en">mount target</span> que evita el tráfico cruzado entre AZs al montar. Para el acceso, combina IAM con security groups, y puedes cifrar los datos en descanso (con claves KMS, activado al crear el file system) y en tránsito (al montar), además de soportar permisos POSIX a nivel de archivo.</p>
+
+<p>En diseño hay dos elecciones. La primera es el <strong>tipo de file system</strong>: <em>Regional</em> — el recomendado — replica los datos redundántemente en múltiples AZs separadas geográficamente, de modo que la pérdida de una AZ no interrumpe el servicio; <em>One Zone</em> guarda todo en una sola AZ y es la opción de ahorro cuando los datos son reproducibles. La segunda es el <strong>modo de rendimiento</strong>: para la mayoría de workloads la guía oficial recomienda General Purpose (latencia baja para web serving, CMS y home directories) con throughput <em>Elastic</em>, que escala automáticamente con la actividad. Las <span class="tag-en">lifecycle policies</span> de EFS añaden un ahorro importante: mueven archivos poco accedidos a tiers IA y Archive dentro del propio file system, reduciendo el costo por GB.</p>
+
+<h2>FSx for Windows File Server: SMB nativo y Active Directory</h2>
+
+<p>FSx for Windows File Server es un <strong>file server de Windows completamente gestionado y nativo</strong>, con soporte del protocolo SMB (versiones 2.0 a 3.1.1), NTFS real y <span class="tag-en">Active Directory</span> para autenticar usuarios y aplicar ACLs de Windows a archivos y carpetas. Es la respuesta a "lift and shift" de aplicaciones empresariales: business apps, home directories de usuarios Windows, content management y shares departamentales siguen funcionando sin cambios porque la compatibilidad es a nivel de herramienta y permisos. La familia ofrece discos SSD — para bases de datos y media processing con latencias sub-milisegundo consistentes — y HDD más económicos para shares generales, con storage, SSD IOPS y throughput aprovisionables de forma independiente.</p>
+
+<p>En disponibilidad, FSx para Windows replica el patrón Multi-AZ que ya conoces de RDS: los file systems <strong>Multi-AZ</strong> mantienen un file server standby en otra AZ con failover automático, mientras que los <strong>Single-AZ</strong> solo se protegen contra fallos de componentes dentro de la AZ. Los backups son diarios, automáticos por defecto, incrementales y consistentes a nivel de file system gracias a VSS. Se cifra en descanso con KMS y en tránsito con Kerberos de SMB, y se puede acceder desde on-premises a través de Direct Connect o Site-to-Site VPN, o desde otras VPCs, cuentas o regiones mediante VPC peering o Transit Gateway. Ese acceso híbrido es la clave de muchas preguntas de migración.</p>
+
+<h2>FSx for Lustre y la familia FSx</h2>
+
+<p><strong>FSx for Lustre</strong> es el file system para <span class="tag-en">high performance computing</span>: cómputo masivamente paralelo con latencias sub-milisegundo y throughput de cientos de GB/s, usado en simulaciones, render y entrenamiento de modelos de machine learning. Su truco estrella es la <span class="tag-en">integración con S3</span>: enlazas el file system a un bucket S3, Lustre materializa los objetos como archivos a alta velocidad, las miles de workers procesan en paralelo, y los resultados vuelven a escribirse en S3. Los despliegues <em>scratch</em> son temporales y óptimos en costo para procesado corto; los <em>persistent</em> mantienen réplicas de datos y sirven para cargas de más larga vida. La familia completa — NetApp ONTAP para migrar NAS con protocolos múltiples, OpenZFS para snapshots y clones con compatibilidad ZFS — amplía la matriz de elección, pero en SAA-C03 el foco es la tríada Windows/Lustre/EFS.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Característica</th><th>Amazon EFS</th><th>FSx for Windows</th><th>FSx for Lustre</th></tr></thead>
+<tbody>
+<tr><td>Protocolo</td><td>NFS v4.1 / v4.0</td><td>SMB 2.0–3.1.1</td><td>POSIX / Lustre</td></tr>
+<tr><td>Workload típico</td><td>Linux, containers, serverless</td><td>Apps empresariales Windows, home dirs</td><td>HPC, ML, render, video</td></tr>
+<tr><td>Autenticación</td><td>IAM + security groups, POSIX</td><td>Active Directory + ACLs Windows</td><td>Credenciales POSIX / NFS</td></tr>
+<tr><td>Elasticidad</td><td>Crece hasta PB automáticamente</td><td>Capacidad e IOPS que aprovisionas</td><td>Persistente o scratch efímero</td></tr>
+<tr><td>Alta disponibilidad</td><td>Regional multi-AZ o One Zone</td><td>Multi-AZ con standby o Single-AZ</td><td>Datos replicados según tipo</td></tr>
+<tr><td>Enlace con S3</td><td>Transfer/ DataSync</td><td>—</td><td>Nativo: carga y descarga del bucket</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q{"¿Qué necesitan tus cargas?"}
+    Q -->|"NFS, Linux, POSIX"| E["Amazon EFS<br>serverless elástico"]
+    Q -->|"SMB y Active Directory"| W["FSx Windows<br>SMB nativo"]
+    Q -->|"HPC con datasets en S3"| L["FSx Lustre<br>latencia sub-ms"]
+    Q -->|"Solo objetos vía API"| S["Amazon S3<br>otra página del pack"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q navy
+    class E,W,L green
+    class S amber
+</div>
+<figcaption>Figura 2 — Árbol de decisión de file storage: el protocolo y el tipo de workload deciden el servicio.</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"shared file system for hundreds of Linux web servers"</td><td>EFS Regional con mount targets</td></tr>
+<tr><td>"lower cost, data can be recreated if an AZ fails"</td><td>EFS One Zone</td></tr>
+<tr><td>"move cold EFS data to a cheaper tier automatically"</td><td>EFS lifecycle policies a IA/Archive</td></tr>
+<tr><td>"Windows shares with Active Directory users and ACLs"</td><td>FSx for Windows File Server</td></tr>
+<tr><td>"file system must survive the loss of an AZ" (Windows)</td><td>FSx Windows Multi-AZ con standby</td></tr>
+<tr><td>"HPC or ML workload, dataset in S3, sub-ms latency"</td><td>FSx for Lustre</td></tr>
+<tr><td>"temporary processing, delete afterwards" (HPC)</td><td>FSx Lustre scratch</td></tr>
+<tr><td>"shared directory available to Lambda and containers"</td><td>EFS (VPC con mount targets)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+"Shared file system across many Linux instances / containers" → <strong>EFS</strong> (Regional si piden HA, One Zone si priorizan costo). "Windows workloads, SMB shares, Active Directory users and ACLs" → <strong>FSx for Windows File Server</strong> (Multi-AZ si mencionan failover). "High performance computing / machine learning over data in S3" → <strong>FSx for Lustre</strong>. "Block storage for a single EC2 instance" → EBS, que no es compartible — el distractor favorito.
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+EBS Multi-Attach existe, pero es una excepción para instancias concretas, no un file system compartido: cuando el enunciado dice "many instances must read and write the same files simultaneously", la respuesta de arquitectura es EFS o FSx, no "attach the EBS volume to all instances". Y si el escenario menciona "Windows domain users and file-level permissions", Active Directory + ACLs descartan EFS.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>EFS = NFS serverless</strong>: crece a petabytes solo; recomendado Regional y General Purpose + Elastic throughput.</li>
+<li>Cada AZ tiene su <strong>mount target</strong>; el acceso se controla con IAM + security groups y cifrado en tránsito y en descanso.</li>
+<li><strong>EFS One Zone</strong> para ahorrar con datos reproducibles; <strong>Regional</strong> para alta disponibilidad real.</li>
+<li><strong>FSx Windows = SMB + Active Directory + ACLs</strong>, con backups VSS diarios y acceso híbrido vía DX/VPN.</li>
+<li><strong>FSx Lustre</strong> para HPC/ML: latencia sub-ms y carga del dataset desde S3; scratch vs persistent.</li>
+<li>File storage compartido ≠ EBS: el volumen EBS es de una instancia (salvo Multi-Attach puntual).</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">STG-12</span> Amazon EFS — What is (NFS, Elastic, Regional/One Zone) · <a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html" target="_blank" rel="noopener">docs.aws.amazon.com/efs/latest/ug/whatisefs.html</a></li>
+<li><span class="id">STG-13</span> Amazon FSx for Windows File Server — What is (SMB, AD, Multi-AZ) · <a href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html" target="_blank" rel="noopener">docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/s3.html"><span class="dir">← Anterior</span>S3 y Glacier</a><a class="next" href="../temas/storage-hibrido.html"><span class="dir">Siguiente →</span>Storage Gateway / DataSync / Transfer</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

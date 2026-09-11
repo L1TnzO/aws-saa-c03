@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Load balancers: ALB/NLB/GWLB — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Elastic Load Balancing <span class="en">ALB · NLB · GWLB</span></h1>
+<p class="subtitle">Un load balancer por cada capa del modelo OSI: HTTP inteligente (L7), TCP/UDP masivo (L4) e inspección inline de appliances (L3).</p>
+<div class="chips">
+  <span class="chip">Fase 2 · Redes y conectividad</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p><strong>Elastic Load Balancing (ELB)</strong> es la recepción del hospital: el <span class="tag-en">single point of contact</span> al que llegan los pacientes y que los reparte entre los médicos disponibles, sin mandarlos a consulta cerrada. Técnicamente, distribuye el tráfico entrante entre múltiples <span class="tag-en">targets</span> — instancias EC2, contenedores, IPs — en una o varias AZs, comprueba su salud con <strong>health checks</strong> y enruta solo hacia los sanos, escalando automáticamente. Los beneficios oficiales: aumenta disponibilidad y fault tolerance, permite añadir y quitar recursos sin cortar el flujo de peticiones, y puede asumir el cifrado (terminar TLS) para liberar de ese trabajo a los servidores.</p>
+
+<p>La familia actual tiene tres miembros — y elegirlos es la pregunta. El <strong>Application Load Balancer</strong> (ALB) opera en la capa 7 y entiende HTTP: rutas, hosts, headers. El <strong>Network Load Balancer</strong> (NLB) opera en la capa 4, mueve <span class="tag-en">millones de peticiones por segundo</span> y reparte por direcciones y puertos. El <strong>Gateway Load Balancer</strong> (GWLB) opera en la capa 3 y se incrusta <em>en el camino</em> del tráfico para repartirlo entre appliances virtuales — firewalls, IDS/IPS, deep packet inspection. El <strong>Classic Load Balancer</strong> es la generación anterior y la documentación recomienda migrar a los actuales. ELB trabaja además con el ecosistema: Auto Scaling registra/desregistra instancias automáticamente, ACM provee los certificados de los listeners HTTPS, CloudWatch lo monitorea y Route 53 lo apunta por DNS.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    C["Clientes"] --> ALB["ALB listener<br>reglas por path y host"]
+    ALB -->|"/api"| TA["Target group<br>servicio API"]
+    ALB -->|"default"| TB["Target group<br>servicio web"]
+    subgraph AZS["Dos AZs con targets sanos"]
+        T1["Target en AZ A"]
+        T2["Target en AZ B"]
+    end
+    TA --> T1
+    TB --> T2
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class C,ALB navy
+    class TA,TB green
+    class T1,T2 amber
+</div>
+<figcaption>Figura 1 — ALB: un listener con reglas enruta a dos target groups (API y web) con targets saludables repartidos entre AZs.</figcaption>
+</figure>
+
+<h2>Conceptos comunes: listener, target group, health check</h2>
+
+<p>Los tres load balancers comparten vocabulario. El <strong>load balancer</strong> es el punto de contacto único de los clientes; añades uno o más <strong>listeners</strong> que vigilan peticiones de conexión en el protocolo y puerto que configuras (443 HTTPS, por ejemplo). El listener decide, con sus reglas, hacia qué <strong>target group</strong> enviar cada petición; y cada target group enruta a uno o más <strong>targets</strong> registrados — instancias por ID, IPs (incluyendo fuera de la VPC), contenedores de ECS o incluso un ALB como target de un NLB — usando el protocolo y puerto especificados. Los <strong>health checks</strong> se configuran por target group y se ejecutan sobre todos sus targets; solo los sanos reciben tráfico. Un mismo target puede registrarse en varios target groups, lo que permite health checks y métricas CloudWatch independientes por servicio.</p>
+
+<p>La integración con <strong>Auto Scaling</strong> cierra el círculo: las instancias que lanza el ASG se registran solas con el load balancer y las que termina se desregistran — y sus health checks, combinables con los del ASG, reemplazan instancias enfermas. El escalado del propio balanceador es automático y absorbe la vasta mayoría de las cargas. Para TLS, ACM despacha los certificados: el listener HTTPS termina la conexión y descifra las peticiones, descargando ese trabajo de los servidores — el patrón <em>SSL termination</em> del examen.</p>
+
+<h2>ALB: capa 7 y microservicios</h2>
+
+<p>El ALB entiende las peticiones HTTP, y esa lectura es su superpoder: cada regla de listener se compone de <strong>prioridad, acciones y condiciones</strong> — cuando las condiciones se cumplen, se ejecutan las acciones (forward a un target group, redirect, fixed-response). Debe existir una regla default por listener y puedes añadir las que quieras. Con condiciones sobre path, host header, headers HTTP o query strings, un solo ALB rutea <em>/api/*</em> a la API, <em>/images/*</em> a los assets y cada subdominio a su grupo — la navaja suiza de los microservicios y de las apps en contenedores de ECS, donde cada tarea se registra en su target group. Cada target group con su health check independiente es también el mecanismo de aislamiento de fallos por servicio.</p>
+
+<p>Sus compañeros naturales de examen: <strong>AWS WAF</strong> se despliega delante del ALB (reglas de web ACL sobre las peticiones que ya puede inspeccionar), los certificados ACM con SNI sirven múltiples dominios en el mismo listener HTTPS, y las respuestas se personalizan (redirects HTTP→HTTPS, fixed responses de mantenimiento). El ALB reparte entre AZs con <span class="tag-en">cross-zone load balancing</span> activado por defecto, y es la elección canónica cuando el enunciado menciona "route based on URL", "microservices", "containerized" o "HTTP headers".</p>
+
+<h2>NLB: capa 4 y rendimiento extremo</h2>
+
+<p>El NLB funciona en la capa 4 del modelo OSI y está dimensionado para manejar <strong>millones de peticiones por segundo</strong>. Su selección de target es determinista: un <span class="tag-en">flow hash</span> sobre protocolo, IPs y puertos (y el número de secuencia TCP) — cada conexión individual va a un único target durante toda su vida, y las distintas conexiones del mismo cliente pueden acabar en targets distintos. Escucha TCP, UDP, TCP_UDP, TLS y QUIC en los target groups, y registra instancias, IPs — incluso fuera de la VPC del balanceador — o un ALB como target. Para tráfico UDP o QUIC, el flujo se enruta de forma consistente al mismo target mientras vive el flujo.</p>
+
+<p>Su segunda firma es la dirección: <strong>una IP estática por AZ habilitada</strong>, con opción de fijar una Elastic IP por subnet — la respuesta a "static IP address for the load balancer" que el ALB no puede dar (salvo por delante un Global Accelerator). El cross-zone load balancing está desactivado por defecto en NLB (cada nodo reparte entre los targets de su AZ; se activa explícitamente si quieres reparto entre todas las AZs). Si un AZ se queda sin targets sanos, se retira la IP de esa subnet del DNS. En el capítulo de fiabilidad fina: el NLB preserva la IP del cliente por defecto (los targets ven al cliente real, útil para logs y reglas), con opción de desactivarlo. Es el LB de gaming, IoT, alta frecuencia y cualquier workload TCP/UDP de rendimiento brutal.</p>
+
+<h2>GWLB: capa 3 y appliances inline</h2>
+
+<p>El GWLB existe para una topología: poner <strong>appliances virtuales</strong> — firewalls, intrusion detection/prevention, deep packet inspection — <em>en el camino</em> del tráfico, y escalarlos como targets. Combina dos funciones: gateway de red <strong>transparente</strong> (punto único de entrada y salida de todo el tráfico) y load balancer de los appliances con la demanda. Opera en la capa 3: escucha <em>todos</em> los paquetes IP en todos los puertos y los reenvía al target group del listener, manteniendo <span class="tag-en">flow stickiness</span> — por 5-tuple por defecto, o 3-tuple/2-tuple — para que cada flujo lo inspeccione siempre el mismo appliance. El intercambio con los appliances usa el protocolo <strong>GENEVE sobre el puerto 6081</strong>.</p>
+
+<p>La pieza de examen es el <strong>GWLB endpoint</strong>: un tipo de VPC endpoint que cruza los límites de VPC de forma privada (sobre PrivateLink) para conectar los appliances de la VPC del proveedor de seguridad con los servidores de aplicación de la VPC consumidora — sin peering ni gateways. El montaje: GWLB en la misma VPC que los appliances y estos registrados en el target group; en la VPC de apps, el GWLB endpoint como <em>siguiente salto</em> de la route table (endpoint y servidores en subnets distintas). El tráfico entra y sale de la inspección de forma transparente. Cuando el enunciado dice "inline firewall", "inspect all traffic", "security appliance" o "third-party virtual appliance", la respuesta es GWLB.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Dimensión</th><th>ALB</th><th>NLB</th><th>GWLB</th></tr></thead>
+<tbody>
+<tr><td>Capa OSI</td><td>7 — HTTP/HTTPS</td><td>4 — TCP, UDP, TLS, QUIC</td><td>3 — todos los paquetes y puertos</td></tr>
+<tr><td>Ruteo inteligente</td><td>Reglas: path, host, headers, query; redirect y fixed-response</td><td>Flow hash por conexión/flujo</td><td>Flow stickiness 5/3/2-tuple</td></tr>
+<tr><td>Targets</td><td>Instancias, IPs, Lambda, contenedores</td><td>Instancias, IPs (también fuera de VPC), ALB</td><td>Appliances virtuales (GENEVE 6081)</td></tr>
+<tr><td>IPs</td><td>DNS dinámico por AZ</td><td>IP estática por AZ; EIP por subnet</td><td>Vía GWLB endpoints (PrivateLink)</td></tr>
+<tr><td>Cross-zone</td><td>Siempre activo</td><td>Desactivado por defecto</td><td>—</td></tr>
+<tr><td>Protocolo especial</td><td>HTTP semántico, WAF, autenticación</td><td>UDP/QUIC, millones req/s, preserva IP cliente</td><td>Inspección inline transparente</td></tr>
+<tr><td>Caso estrella</td><td>Microservicios y apps web</td><td>Gaming, IoT, TCP/UDP de alto rendimiento</td><td>Firewalls e IDS/IPS de terceros</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    A["App subnet<br>ruta 0.0.0.0/0"] -->|"siguiente salto"| GWE["GWLB endpoint<br>VPC de apps"]
+    GWE -->|"GENEVE 6081<br>cruza VPCs"| GWLB["Gateway Load Balancer<br>VPC de seguridad"]
+    GWLB --> F1["Firewall 1"]
+    GWLB --> F2["Firewall 2"]
+    F1 -.->|"trafico inspeccionado<br>retorna"| A
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class A,GWE navy
+    class GWLB green
+    class F1,F2 amber
+</div>
+<figcaption>Figura 2 — Inspección inline con GWLB: la route table de la VPC de apps envía el tráfico al GWLB endpoint, que lo lleva al GWLB y sus appliances, y lo devuelve inspeccionado.</figcaption>
+</figure>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q1{"Ruteo HTTP por<br>path o host"}
+    Q1 -->|"si"| ALB["Application LB"]
+    Q1 -->|"no"| Q2{"TCP o UDP<br>millones req/s o IP estatica"}
+    Q2 -->|"si"| NLB["Network LB"]
+    Q2 -->|"no"| Q3{"Inspeccionar con<br>appliances inline"}
+    Q3 -->|"si"| GWLB["Gateway LB"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q1,Q2,Q3 navy
+    class ALB green
+    class NLB,GWLB amber
+</div>
+<figcaption>Figura 3 — ¿Qué load balancer? Capa 7 → ALB; capa 4 con extremos → NLB; inspección inline → GWLB.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+"Route based on URL path / host headers" → <strong>ALB</strong> (listener rules + target groups). "Static IP for clients" → <strong>NLB</strong> (IP por AZ / EIP por subnet) o Global Accelerator por delante. "UDP, gaming, millions of requests per second" → <strong>NLB</strong>. "Deploy a third-party firewall inline with automatic scaling" → <strong>GWLB</strong> + GWLB endpoints. "Terminar TLS y descifrar en el borde" → ALB/NLB listener + certificados ACM. "Reemplazo automático de instancias enfermas" → health checks de ELB + Auto Scaling.
+</div>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"distribute to two microservices by URL path"</td><td>ALB con listener rules y dos target groups</td></tr>
+<tr><td>"Lambda functions as targets"</td><td>ALB (target group tipo Lambda)</td></tr>
+<tr><td>"preserve client IP, extreme TCP throughput"</td><td>NLB con client IP preservation</td></tr>
+<tr><td>"fixed IP allowlisted by partners"</td><td>NLB con EIPs (o Global Accelerator)</td></tr>
+<tr><td>"route traffic through virtual appliances"</td><td>GWLB con GWLB endpoints y GENEVE 6081</td></tr>
+<tr><td>"register targets outside the VPC"</td><td>NLB target group tipo IP</td></tr>
+<tr><td>"offload SSL/TLS from instances"</td><td>Listener HTTPS con ACM en el ALB/NLB</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+No todo lo que reparte es ALB: si el enunciado menciona <strong>UDP</strong>, millones de peticiones por segundo, IPs estáticas o targets fuera de la VPC, el ALB se queda corto — es NLB. Y a la inversa: si el requisito es "inspección inline" y contestas NLB, te falta el GWLB, el único que se incrusta en la ruta con GENEVE y endpoints PrivateLink. Última trampa: el cross-zone "gratis" del ALB no existe por defecto en el NLB — activarlo cruza tráfico entre AZs.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>ELB es el <strong>single point of contact</strong>: reparte entre targets en varias AZs, health-checkea y escala solo.</li>
+<li>Vocabulario común: <strong>listener</strong> (protocolo+puerto), <strong>target group</strong> (targets + health checks), <strong>targets</strong>.</li>
+<li>Auto Scaling registra/desregistra instancias automáticamente; ACM termina el TLS del listener HTTPS.</li>
+<li><strong>ALB</strong> (L7): reglas de prioridad+condiciones+acciones; path/host/header; microservicios, ECS, WAF.</li>
+<li><strong>NLB</strong> (L4): millones de req/s, flow hash, IP estática por AZ y EIP por subnet, UDP/TLS/QUIC, preserva IP cliente.</li>
+<li>Cross-zone: activo por defecto en ALB; desactivado por defecto en NLB.</li>
+<li><strong>GWLB</strong> (L3): gateway transparente + LB de appliances; GENEVE 6081; flow stickiness 5/3/2-tuple.</li>
+<li>Los <strong>GWLB endpoints</strong> cruzan VPCs por PrivateLink y se configuran como siguiente salto en la route table.</li>
+<li>Classic LB = generación anterior: migra a ALB/NLB.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">NET-16</span> Elastic Load Balancing — What is load balancing · <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html" target="_blank" rel="noopener">docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html</a></li>
+<li><span class="id">NET-17</span> Application Load Balancer — Introduction (Layer 7) · <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html" target="_blank" rel="noopener">docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html</a></li>
+<li><span class="id">NET-18</span> Network Load Balancer — Introduction (Layer 4) · <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html" target="_blank" rel="noopener">docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html</a></li>
+<li><span class="id">NET-19</span> Gateway Load Balancer — Introduction (Layer 3, appliances) · <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html" target="_blank" rel="noopener">docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/cloudfront.html"><span class="dir">← Anterior</span>CloudFront y Global Accelerator</a><a class="next" href="../temas/ec2.html"><span class="dir">Siguiente →</span>EC2: instancias y compra</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

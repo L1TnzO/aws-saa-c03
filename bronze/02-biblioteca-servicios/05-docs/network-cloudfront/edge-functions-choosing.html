@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Differences between CloudFront Functions and Lambda@Edge - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="edge-functions-choosing" /><meta name="default_state" content="edge-functions-choosing" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" /><meta name="description" content="Learn about the differences between CloudFront Functions and Lambda@Edge functions. Both these types of functions let you customize processing of HTTP requests and responses by CloudFront distributions." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Differences between CloudFront Functions and Lambda@Edge" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="edge-functions-choosing.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Differences between CloudFront Functions and Lambda@Edge - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#edge-functions-choosing" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,customize the edge,edge computing,–Lambda,CloudFront Functions,Lambda@Edge,differences CloudFront Functions and Lambda@Edge" /><link rel="alternate" type="text/markdown" href="edge-functions-choosing.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Customize at the edge with functions",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Differences between CloudFront Functions and Lambda@Edge",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#edge-functions-choosing" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="edge-functions-choosing">Differences between CloudFront Functions and Lambda@Edge</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>CloudFront Functions and Lambda@Edge both provide a way to run code in response to CloudFront
+            events. </p><p>CloudFront Functions is ideal for lightweight, short-running functions for the following use
+            cases:</p><div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>Cache key normalization</b> – Transform
+                    HTTP request attributes (headers, query strings, cookies, and even the URL path)
+                    to create an optimal <a href="./understanding-the-cache-key.html">cache
+                        key</a>, which can improve your cache hit ratio.</p>
+            </li><li class="listitem">
+                <p><b>Header manipulation</b> – Insert, modify,
+                    or delete HTTP headers in the request or response. For example, you can add a
+                        <code class="code">True-Client-IP</code> header to every request.</p>
+            </li><li class="listitem">
+                <p><b>URL redirects or rewrites</b> – Redirect
+                    viewers to other pages based on information in the request, or rewrite all
+                    requests from one path to another.</p>
+            </li><li class="listitem">
+                <p><b>Request authorization</b> – Validate
+                    hashed authorization tokens, such as JSON web tokens (JWT), by inspecting
+                    authorization headers or other request metadata.</p>
+            </li></ul></div><p>To get started with CloudFront Functions, see <a href="./cloudfront-functions.html">Customize at the edge with CloudFront Functions</a>.</p><p>Lambda@Edge is ideal for the following use cases:</p><div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Functions that take several milliseconds or more to complete</p>
+            </li><li class="listitem">
+                <p>Functions that require adjustable CPU or memory</p>
+            </li><li class="listitem">
+                <p>Functions that depend on third-party libraries (including the AWS SDK, for
+                    integration with other AWS services)</p>
+            </li><li class="listitem">
+                <p>Functions that require network access to use external services for
+                    processing</p>
+            </li><li class="listitem">
+                <p>Functions that require file system access or access to the body of HTTP
+                    requests</p>
+            </li></ul></div><p>To get started with Lambda@Edge, see <a href="./lambda-at-the-edge.html">Customize at the edge with Lambda@Edge</a>.</p><p>To help you choose the option for your use case, use the following table to understand
+            the differences between CloudFront Functions and Lambda@Edge. For information about differences that apply for origin modification helper methods, see <a href="./helper-functions-origin-modification.html#origin-modification-considerations">Choose between CloudFront Functions and Lambda@Edge</a>.</p><div class="table-container"><div class="table-contents disable-scroll"><table id="w303aac40c13c19"><thead>
+                    <tr>
+                        <th></th>
+                        <th>CloudFront Functions</th>
+                        <th>Lambda@Edge</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Programming languages</td>
+                        <td tabindex="-1">JavaScript (ECMAScript 5.1 compliant)</td>
+                        <td tabindex="-1">Node.js and Python</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Event sources</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>Viewer request</p>
+                                </li><li class="listitem">
+                                    <p>Viewer response</p>
+                                </li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>Viewer request</p>
+                                </li><li class="listitem">
+                                    <p>Viewer response</p>
+                                </li><li class="listitem">
+                                    <p>Origin request</p>
+                                </li><li class="listitem">
+                                    <p>Origin response</p>
+                                </li></ul></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Supports <a href="./kvs-with-functions.html">Amazon CloudFront KeyValueStore</a></p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                            <p>CloudFront KeyValueStore only supports <a href="./functions-javascript-runtime-20.html">JavaScript runtime
+                                    2.0</a></p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Scale</td>
+                        <td tabindex="-1">Up to millions of requests per second</td>
+                        <td tabindex="-1">Up to 10,000 requests per second per Region</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Function duration</td>
+                        <td tabindex="-1">Submillisecond</td>
+                        <td tabindex="-1">
+                            <p>Up to 30 seconds (viewer request and viewer response)</p>
+                            <p>Up to 30 seconds (origin request and origin response)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Maximum function memory size</p>
+                        </td>
+                        <td tabindex="-1">2 MB</td>
+                        <td tabindex="-1">
+                            <p>128 MB (viewer request and viewer response)</p>
+                            <p>10,240 MB (10 GB) (origin request and origin response)</p>
+                            <p>For more information, see <a href="./cloudfront-limits.html#limits-lambda-at-edge">Quotas on Lambda@Edge</a>.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Maximum size of the function code and included libraries</td>
+                        <td tabindex="-1">10 KB</td>
+                        <td tabindex="-1">
+                            <p>50 MB (viewer request and viewer response)</p>
+                            <p>50 MB (origin request and origin response)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Network access</td>
+                        <td tabindex="-1">No</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">File system access</td>
+                        <td tabindex="-1">No</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Access to the request body</td>
+                        <td tabindex="-1">No</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Access to geolocation and device data</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">
+                            <p>No (viewer request and viewer response)</p>
+                            <p>Yes (origin request and origin response)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Can build and test entirely within CloudFront</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">No</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Function logging and metrics</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+
+                </table></div></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./edge-functions.html">Use functions to customize at the
+            edge</div><div id="next" class="next-link" accesskey="n" href="./cloudfront-functions.html">Customize with
+            CloudFront Functions</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/edge-functions-choosing.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

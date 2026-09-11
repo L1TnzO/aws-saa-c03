@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating an SMB server in a workgroup - FSx for ONTAP</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-smb-server-workgroup" /><meta name="default_state" content="create-smb-server-workgroup" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" /><meta name="description" content="Learn how to create an SMB server on an SVM in FSx for ONTAP using the ONTAP CLI vserver cifs create command, specifying the workgroup it belongs to." /><meta name="deployment_region" content="IAD" /><meta name="product" content="FSx for ONTAP" /><meta name="guide" content="ONTAP User Guide" /><meta name="abstract" content="This is the official Amazon Web Services documentation for Amazon FSx for NetApp ONTAP. Amazon FSx for NetApp ONTAP is an AWS service that makes it easier to launch and run fully-featured NetApp ONTAP file systems in the AWS Cloud. The Amazon FSx for NetApp ONTAP User Guide describes key concepts for FSx for ONTAP and provides instructions for launching and using your file system." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" hreflang="x-default" /><meta name="feedback-item" content="FSx" /><meta name="this_doc_product" content="FSx for ONTAP" /><meta name="this_doc_guide" content="ONTAP User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'fsx'}"></script><meta id="panorama-serviceSubSection" value="ONTAP User Guide" /><meta id="panorama-serviceConsolePage" value="Creating an SMB server in a workgroup" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="create-smb-server-workgroup.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating an SMB server in a workgroup - FSx for ONTAP</title><meta name="pdf" content="/pdfs/fsx/latest/ONTAPGuide/ONTAPGuide.pdf#create-smb-server-workgroup" /><meta name="rss" content="ONTAPGuide.rss" /><meta name="forums" content="https://repost.aws/tags/TA74tGK04VRAGj9SRHphNQrA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html" /><meta name="keywords" content="fsx ontap file system,managing file systems,svm,managing storage virtual machines,fsx ontap storage virtual machines,managing volumes,fsx ontap volumes,FSx for ONTAP storage virtual machines,Create additional SVMs,SVM endpoint access,Join SVM to Active Directory,Maximum SVMs per file system,SVM throughput capacity limits,Configure SMB server workgroup,Create local users groups SMB,Add workgroup members SMB,SMB workgroup mode limitations,Set up SMB server on SVM,ONTAP CLI SMB configuration,Create SMB server in workgroup,Configure SMB server ONTAP CLI,Verify SMB server configuration,CIFS server workgroup setup,SMB server authentication style,Manage FSx for ONTAP SMB server,ONTAP CLI SMB server creation" /><link rel="alternate" type="text/markdown" href="create-smb-server-workgroup.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon FSx",
+        "item" : "https://docs.aws.amazon.com/fsx/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ONTAP User Guide",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Administering FSx for ONTAP resources",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/administering-file-systems.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Managing FSx for ONTAP storage virtual machines",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-svms.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Setting up an SMB server in a workgroup",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/smb-server-workgroup-setup.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Creating an SMB server in a workgroup",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/smb-server-workgroup-setup.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/fsx/latest/ONTAPGuide/ONTAPGuide.pdf#create-smb-server-workgroup" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/fsx/index.html">Amazon FSx</a><a href="what-is-fsx-ontap.html">ONTAP User Guide</a></div><div id="page-toc-src"><a href="#before-you-begin-smb-create">Before you begin</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-smb-server-workgroup">Creating an SMB server in a workgroup</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use the <a href="https://docs.netapp.com/us-en/ontap-cli/vserver-cifs-create.html" rel="noopener noreferrer" target="_blank"><span><b>vserver cifs create</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> ONTAP CLI 
+      command to create an SMB server on the SVM and specify the workgroup to which it belongs.</p>
+      <h2 id="before-you-begin-smb-create">Before you begin</h2>
+      <p>The SVM and volumes (and interfaces) that you are using to serve data must have been configured to allow the SMB protocol.</p> 
+        <p>The LIFs must be able to connect to the DNS servers that are configured on the SVM. A CIFS license may be required on the file system, however 
+        a CIFS license is not required if the SMB server will be used for authentication only.</p>
+    <div class="procedure"><h6>To create an SMB server in a workgroup</h6><ol><li><p>To access the ONTAP CLI, establish an SSH session on the management port of the
+     Amazon FSx for NetApp ONTAP file system or SVM by running the following command. Replace
+       <code class="code"><code class="replaceable">management_endpoint_ip</code></code> with the IP address of the file system's
+     management port.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">[~]$ </code><code class="userinput">ssh fsxadmin@<code class="replaceable">management_endpoint_ip</code></code></code></pre>
+    <p>For more information, see <a href="./managing-resources-ontap-apps.html#fsxadmin-ontap-cli">Managing file systems with the ONTAP CLI</a>. </p>
+   </li><li>
+        <p>Create the SMB server in a workgroup:</p>
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">FSxIdabcde123456::&gt; </code>vserver cifs create -vserver <code class="replaceable">vserver_name</code> -cifs-server <code class="replaceable">cifs_server_name</code> -workgroup <code class="replaceable">workgroup_name</code> [-comment <code class="replaceable">workgroup_description</code>]</code></pre>
+        <p>The following command creates the SMB server <code class="code">smb_server01</code> in the workgroup <code class="code">workgroup01</code>:</p>
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">FSxIdabcde123456::&gt; </code>vserver cifs create -vserver svm1 -cifs-server SMB_SERVER01 -workgroup workgroup01</code></pre>
+        <p>If you are connected to management port of the SVM, you do not need to specify a <code class="code">-vserver</code>.</p>
+      </li><li><p>Verify the SMB server configuration by using the <code class="code">vserver cifs show</code> command.</p>
+        <p>In the following example, the command output shows that a SMB server named <code class="code">smb_server01</code> was created on SVM <code class="code">svm1</code> in the workgroup 
+          <code class="code">workgroup01</code>:</p>
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">FSxIdabcde123456::&gt; </code><code class="userinput">vserver cifs show -vserver svm1</code>
+
+                                               <code class="computeroutput" copy="false">Vserver: svm1
+                              CIFS Server NetBIOS Name: SMB_SERVER01
+                          NetBIOS Domain/Workgroup Name: workgroup01
+                           Fully Qualified Domain Name: -
+                                   Organizational Unit: -
+     Default Site Used by LIFs Without Site Membership: -
+                                        Workgroup Name: workgroup01
+                                  Authentication Style: workgroup
+                     CIFS Server Administrative Status: up
+                               CIFS Server Description:
+                               List of NetBIOS Aliases: -</code></code></pre>
+      </li></ol></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./smb-server-workgroup-setup.html">Setting up workgroups</div><div id="next" class="next-link" accesskey="n" href="./smb-workgroup-create-local-accounts.html">Creating a local user account on the SMB server</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/create-smb-server-workgroup.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

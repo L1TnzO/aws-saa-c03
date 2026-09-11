@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Getting started with AWS Transfer Family server endpoints - AWS Transfer Family</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="getting-started" /><meta name="default_state" content="getting-started" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/getting-started.html" /><meta name="description" content="Walk through creating an SFTP server, creating a service-managed user, and performing a file transfer with AWS Transfer Family." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Transfer Family" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Transfer Family is a secure transfer service that stores your data in Amazon Simple Storage Service or Amazon Elastic File System and simplifies the migration of Secure File Transfer Protocol (SFTP), File Transfer Protocol Secure (FTPS), File Transfer Protocol (FTP), and Applicability Statement 2 (AS2) workflows to AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/getting-started.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/getting-started.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/getting-started.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/getting-started.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/getting-started.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/getting-started.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/getting-started.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/getting-started.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/getting-started.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/getting-started.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/getting-started.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/getting-started.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/getting-started.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/getting-started.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/getting-started.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/getting-started.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/getting-started.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/getting-started.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/getting-started.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/transfer/latest/userguide/getting-started.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/transfer/latest/userguide/getting-started.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/getting-started.html" hreflang="x-default" /><meta name="feedback-item" content="transfer" /><meta name="this_doc_product" content="AWS Transfer Family" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'transfer'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Getting started with AWS Transfer Family server endpoints" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="getting-started.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Getting started with AWS Transfer Family server endpoints - AWS Transfer Family</title><meta name="pdf" content="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#getting-started" /><meta name="forums" content="https://repost.aws/tags/TAtf43W5cjQ3CIFYTKipVfGg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/getting-started.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/getting-started.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/getting-started.html" /><meta name="keywords" content="getting started, tutorials, walkthroughs,getting started,sign in to AWS Directory Service for Microsoft Active Directory console,create a server,service managed user,Transfer Family user,transfer a file with Transfer Family,Cyberduck,OpenSSH" /><link rel="alternate" type="text/markdown" href="getting-started.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Transfer Family",
+        "item" : "https://docs.aws.amazon.com/transfer/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Transfer Family tutorials",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tutorials-transfer.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Getting started with AWS Transfer Family server endpoints",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tutorials-transfer.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#getting-started" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/transfer/index.html">AWS Transfer Family</a><a href="what-is-aws-transfer-family.html">User Guide</a></div><div id="page-toc-src"><a href="#getting-started-prerequisites">Prerequisites</a><a href="#getting-started-logging-in">Step 1: Sign in to the AWS Transfer Family console</a><a href="#getting-started-server">Step 2: Create an SFTP-enabled server</a><a href="#getting-started-user">Step 3: Add a service managed user</a><a href="#getting-started-transfer-file">Step 4: Transfer a file using a client</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="getting-started">Getting started with AWS Transfer Family server endpoints</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Use this tutorial to get started with AWS Transfer Family (Transfer Family). You'll learn how to create
+            an SFTP-enabled server with publicly accessible endpoint using Amazon S3 storage, add a user
+            with service-managed authentication, and transfer a file with Cyberduck.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#getting-started-prerequisites">Prerequisites</a></p></li><li><p><a href="#getting-started-logging-in">Step 1: Sign in to the AWS Transfer Family console</a></p></li><li><p><a href="#getting-started-server">Step 2: Create an SFTP-enabled server</a></p></li><li><p><a href="#getting-started-user">Step 3: Add a service managed user</a></p></li><li><p><a href="#getting-started-transfer-file">Step 4: Transfer a file using a client</a></p></li></ul></div>
+            <h2 id="getting-started-prerequisites">Prerequisites</h2>
+
+            <p>Before you begin, be sure to complete the requirements in <a href="./setting-up.html">Prerequisites</a>. As part of this setup, you
+                create an Amazon Simple Storage Service (Amazon S3) bucket and an AWS Identity and Access Management (IAM) user role.</p>
+            <p>There are permissions required for using the AWS Transfer Family console, and there are
+                permissions required for configuring other AWS services that Transfer Family uses, such as
+                Amazon Simple Storage Service, AWS Certificate Manager, Amazon Elastic File System, and Amazon Route 53. For example, for users that are
+                transferring files into and out of AWS using Transfer Family,
+                    <b>AmazonS3FullAccess</b> grants permissions to setup and use an
+                Amazon S3 bucket. Some of the permissions in this policy are needed to create Amazon S3
+                buckets.</p>
+            <p>To use the Transfer Family console, you require the following:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>AWSTransferConsoleFullAccess</b> grants permissions for
+                        your SFTP user to create Transfer Family resources.</p>
+                </li><li class="listitem">
+                    <p><b>IAMFullAccess</b> (or specifically a policy that allows
+                        creation of IAM roles) is only needed if you want Transfer Family to automatically
+                        create a logging role for your server in Amazon CloudWatch Logs or a user role for a user
+                        logging into a server. </p>
+                </li><li class="listitem">
+                    <p>To create and delete VPC server types, you need to add the actions
+                            <b>ec2:CreateVpcEndpoint</b> and
+                            <b>ec2:DeleteVpcEndpoints</b> to your policy. For
+                        information about limiting VPC endpoint access for security purposes, see
+                            <a href="./create-server-in-vpc.html#limit-vpc-endpoint-access">Limiting VPC endpoint access for Transfer Family servers</a>.</p>
+                </li></ul></div>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The <b>AmazonS3FullAccess</b> and
+                        <b>IAMFullAccess</b> polices are, themselves, not needed for
+                    general usage of AWS Transfer Family. They are presented here as a simple way to make sure
+                    that all of the permissions that you need are covered. Additionally, these are
+                    AWS managed policies, which are standard policies that are available to all
+                    AWS customers. You can view the individual permissions in these policies and
+                    determine a minimal set that you need for your purposes.</p></div></div>
+         
+            <h2 id="getting-started-logging-in">Step 1: Sign in to the AWS Transfer Family console</h2>
+
+            
+
+            <div class="procedure"><h6>To sign in to Transfer Family</h6><ol><li>
+                    <p>Sign in to the AWS Management Console and open the AWS Transfer Family console at <a href="https://console.aws.amazon.com/transfer/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/transfer/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li>
+                    <p>For <b>Account ID or alias</b>, enter the ID for your
+                        AWS account.</p>
+                </li><li>
+                    <p>For <b>IAM user name</b>, enter the name of the user role
+                        that you created for Transfer Family.</p>
+                </li><li>
+                    <p>For <b>Password</b>, enter your AWS account
+                        password.</p>
+                </li><li>
+                    <p>Choose <b>Sign in</b>.</p>
+                </li></ol></div>
+         
+            <h2 id="getting-started-server">Step 2: Create an SFTP-enabled server</h2>
+
+            <p>Secure Shell (SSH) File Transfer Protocol (SFTP) is a network protocol used for
+                secure transfer of data over the internet. The protocol supports the full security
+                and authentication functionality of SSH. It is widely used to exchange data,
+                including sensitive information between business partners in a variety of industries
+                such as financial services, healthcare, retail, and advertising.</p>
+
+            
+
+            <div class="procedure"><h6>To create an SFTP-enabled server</h6><ol><li>
+                    <p>Select <b>Servers</b> from the Navigation pane then choose
+                            <b>Create server</b>.</p>
+                </li><li>
+                    <p>In <b>Choose protocols</b>, select
+                        <b>SFTP</b>, and then choose <b>Next</b>.</p>
+                </li><li>
+                    <p>In <b>Choose an identity provider</b>, choose
+                            <b>Service managed</b> to store user identities and keys
+                        in Transfer Family, and then choose <b>Next</b>.</p>
+                </li><li>
+                    <p>In <b>Choose an endpoint</b>, do the following:</p>
+
+                    <ol><li>
+                            <p>For <b>Endpoint type</b>, choose the
+                                    <b>Publicly accessible</b> endpoint type.</p>
+                        </li><li>
+                            <p>For <b>Custom hostname</b>, choose
+                                    <b>None</b>.</p>
+                        </li><li>
+                            <p>Choose <b>Next</b>.</p>
+                        </li></ol>
+                </li><li>
+                    <p>In <b>Choose a domain</b>, choose <b>Amazon
+                            S3</b>.</p>
+                </li><li>
+                    <p>In <b>Configure additional details</b>, for
+                            <b>Cryptographic algorithm options</b>, choose a security
+                        policy that contains the cryptographic algorithms enabled for use by your
+                        server. Our latest security policy is the default: for details, see
+    <a href="./security-policies.html">Security policies for AWS Transfer Family servers</a>.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Only if you are adding a managed workflow for your server, choose
+                                <b>Create a new role</b> for <b>CloudWatch
+                                logging</b>. To log server events, you do not need to create
+                            an IAM role.</p></div></div>
+
+                </li><li>
+                    <p>In <b>Review and create</b>, choose <b>Create
+                            server</b>. You are taken to the <b>Servers</b>
+                        page.</p>
+                </li></ol></div>
+             <p>It can take a couple of minutes before the status for your new server changes to
+                <b>Online</b>. At that point, your server can perform file operations,
+            but you'll need to create a user first. For details on creating users, see 
+            <a href="./create-user.html">Managing users for server endpoints</a>.</p>
+         
+            <h2 id="getting-started-user">Step 3: Add a service managed user</h2>
+
+            <div class="procedure"><h6>To add a user to the SFTP-enabled server</h6><ol><li>
+                    <p>On the <b>Servers</b> page, select the server that you want
+                        to add a user to.</p>
+                </li><li>
+                    <p>Choose <b>Add user</b>.</p>
+                </li><li>
+                    <p>In the <b>User configuration</b> section, for
+                            <b>Username</b>, enter the username. This
+                        username must be a minimum of 3 and a maximum of 100 characters. You can use the following
+    characters in the username: a–z, A-Z, 0–9, underscore '_',
+    hyphen '-', period '.' and at sign '@'. The username can't start with
+    a hyphen '-', period '.' or at sign '@'.</p>
+                </li><li>
+                    <p>For <b>Access</b>, choose the IAM role that you created in
+                            <a href="./requirements-roles.html">Create an IAM role and policy</a>.
+                        This IAM role includes an IAM policy that contains permissions to access
+                        your Amazon S3 bucket, as well as a trust relationship with the AWS Transfer Family service.
+                        The procedure outlined in <a href="./requirements-roles.html#establish-trust-transfer">To establish a trust relationship</a> shows how to establish the
+                        proper trust relationship.</p>
+                </li><li>
+                    <p>For <b>Policy</b>, choose <b>None</b>.</p>
+                </li><li>
+                    <p>For <b>Home directory</b>, choose the Amazon S3 bucket where you
+                        want to store the data that you transfer using AWS Transfer Family. Enter the path to
+                        the <code class="code">home</code> directory. This is the directory that your users see
+                        when they log in using their client.</p>
+                    <p>We recommend using a directory path that contains the username so that you
+                        have the option to use a session policy. A session policy limits a user's
+                        access in the Amazon S3 bucket to that user's <code class="code">home</code> directory.
+                        For more information about using session policies, see <a href="./requirements-roles.html#session-policy">How session policies work</a>.</p>
+                    <p>If you prefer, you can keep this parameter blank to use your Amazon S3 bucket's
+                            <code class="code">root</code> directory. If you choose this option, make sure that
+                        your IAM role provides access to the<code class="code">root</code> directory.</p>
+                </li><li>
+                    <p>Select the <b>Restricted</b> check box to prevent your users
+                        from accessing anything outside of their <code class="code">home</code> directory. This
+                        also prevents users from seeing the Amazon S3 bucket name or folder name. </p>
+                </li><li>
+                    <p>For <b>SSH public key</b>, enter the public SSH key portion
+                        of the SSH key pair in <code class="code">ssh-rsa
+                                <code class="replaceable">&lt;string&gt;</code></code> format.</p>
+                    <p>Your key must be validated by the service before you can add your new
+                        user. For more information about how to generate an SSH key pair, see <a href="./sshkeygen.html">Generate SSH keys for service-managed users</a>.</p>
+                </li><li>
+                    <p>(Optional) For <b>Key</b> and <b>Value</b>,
+                        enter one or more tags as key-value pairs, and choose <b>Add
+                            tag</b>.</p>
+                </li><li>
+                    <p>Choose <b>Add</b> to add your new user to the server that
+                        you chose.</p>
+
+                    <p>The new user appears in the <b>Users</b> section of the
+                            <b>Server details</b> page.</p>
+                </li></ol></div>
+         
+            <h2 id="getting-started-transfer-file">Step 4: Transfer a file using a client</h2>
+
+            <p>You transfer files over the AWS Transfer Family service by specifying the transfer operation
+                in a client. AWS Transfer Family supports several clients. For details, see <a href="./transfer-file.html">Transferring files over a server endpoint using a client</a></p>
+
+            <p>This section contains procedures for using Cyberduck and OpenSSH.</p>
+
+            <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#cyberduck">Use Cyberduck</a></p></li><li><p><a href="#openssh">Use OpenSSH</a></p></li></ul></div>
+
+            
+
+             
+                <h3 id="cyberduck">Use Cyberduck</h3>
+
+
+                <div class="procedure"><h6>To transfer files over AWS Transfer Family using Cyberduck</h6><ol><li>
+                        <p>Open the <a href="https://cyberduck.io/download/" rel="noopener noreferrer" target="_blank"><span>Cyberduck</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                            client.</p>
+
+                    </li><li>
+                        <p>Choose <b>Open Connection</b>.</p>
+                    </li><li>
+                        <p>In the <b>Open Connection</b> dialog box, choose
+                                <b>SFTP (SSH File Transfer Protocol)</b>.</p>
+                    </li><li>
+                        <p>For <b>Server</b>, enter your server endpoint. The
+                            server endpoint is located on the <b>Server details</b>
+                            page, see <a href="./configuring-servers-view-info.html">View SFTP, FTPS, and FTP server details</a>.</p>
+                    </li><li>
+                        <p>For <b>Port number</b>, enter <code class="userinput">22</code>
+                            for SFTP.</p>
+                    </li><li>
+                        <p>For <b>Username</b>, enter the name for the user that
+                            you created in <a href="./create-user.html">Managing users for server endpoints</a>.</p>
+                    </li><li>
+                        <p>For <b>SSH Private Key</b>, choose or enter the SSH
+                            private key.</p>
+                    </li><li>
+                        <p>Choose <b>Connect</b>.</p>
+                    </li><li>
+                        <p>Perform your file transfer.</p>
+
+                        <p>Depending on where your files are, do one of the following:</p>
+
+                        <div class="itemizedlist">
+                             
+
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>In your local directory (the source), choose the files that
+                                    you want to transfer, and drag and drop them into the Amazon S3
+                                    directory (the target).</p>
+                            </li><li class="listitem">
+                                <p>In the Amazon S3 directory (the source), choose the files that you
+                                    want to transfer, and drag and drop them into your local
+                                    directory (the target).</p>
+                            </li></ul></div>
+                    </li></ol></div>
+
+             
+
+            
+
+             
+                <h3 id="openssh">Use OpenSSH</h3>
+
+                <p>Use the instructions that follow to transfer files from the command line using
+                    OpenSSH.</p>
+
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This client works only with an SFTP-enabled server.</p></div></div>
+
+                
+
+                <div class="procedure"><h6>To transfer files over AWS Transfer Family using the OpenSSH command line utility</h6><ol><li>
+                        <p>On Linux or Macintosh, open a command terminal.</p>
+                    </li><li>
+                        <p>At the prompt, enter the following command: <code class="code">% sftp -i
+                                transfer-key sftp_user@service_endpoint</code></p>
+
+                        <p>In the preceding command, <code class="code">sftp_user</code> is the username and
+                                <code class="code">transfer-key</code> is the SSH private key. Here,
+                                <code class="code">service_endpoint</code> is the server's endpoint as shown
+                            in the AWS Transfer Family console for the selected server.</p>
+
+                        <p>An <code class="code">sftp</code> prompt should appear.</p>
+                    </li><li>
+                        <p>(Optional) To view the user's home directory, enter the following
+                            command at the <code class="code">sftp</code> prompt: <code class="code">sftp&gt; pwd</code></p>
+                    </li><li>
+                        <p>On the next line, enter the following text: <code class="code">sftp&gt; cd
+                                    /<code class="replaceable">amzn-s3-demo-bucket</code>/home/sftp_user</code></p>
+
+                        <p>In this getting-started exercise, this Amazon S3 bucket is the target of
+                            the file transfer.</p>
+                    </li><li>
+                        <p>On the next line, enter the following command: <code class="code">sftp&gt; put
+                                filename.txt</code></p>
+
+                        <p>The <code class="code">put</code> command transfers the file into the Amazon S3
+                            bucket.</p>
+
+                        <p>A message like the following appears, indicating that the file
+                            transfer is in progress, or complete.</p>
+
+                        <p><code class="code">Uploading filename.txt to
+                                /amzn-s3-demo-bucket/home/sftp_user/filename.txt</code></p>
+
+                        <p><code class="code">some-file.txt 100% 127 0.1KB/s 00:00</code></p>
+                    </li></ol></div>
+             
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorials-transfer.html">Transfer Family tutorials</div><div id="next" class="next-link" accesskey="n" href="./workflow-decrypt-tutorial.html">Create a decryption Workflow</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/getting-started.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/getting-started.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

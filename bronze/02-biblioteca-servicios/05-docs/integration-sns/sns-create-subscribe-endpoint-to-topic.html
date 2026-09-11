@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating a subscription to an Amazon SNS topic - Amazon Simple Notification Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sns-create-subscribe-endpoint-to-topic" /><meta name="default_state" content="sns-create-subscribe-endpoint-to-topic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" /><meta name="description" content="Learn how to subscribe an endpoint to an Amazon SNS topic using the AWS Management Console, detailing the selection of a topic ARN, choosing an endpoint type (such as HTTP/HTTPS, email, Amazon SQS, or Lambda), and optionally configure settings such as raw message delivery, filter policies, and dead-letter queues. This process allows you to receive messages published to the Amazon SNS topic on your chosen endpoints, enabling seamless integration with various AWS services." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Notification Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Coordinate and manage the delivery or sending of messages to subscribing endpoints or clients using Amazon SNS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" hreflang="x-default" /><meta name="feedback-item" content="SNS" /><meta name="this_doc_product" content="Amazon Simple Notification Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sns'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Creating a subscription to an Amazon SNS topic" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sns-create-subscribe-endpoint-to-topic.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating a subscription to an Amazon SNS topic - Amazon Simple Notification Service</title><meta name="pdf" content="/pdfs/sns/latest/dg/sns-dg.pdf#sns-create-subscribe-endpoint-to-topic" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAyateCXj5QMiBTHtJZlF3Gw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html" /><meta name="keywords" content="Getting started in Amazon SNS,Creating an Amazon SNS topic,Email subscription setup,Publishing an Amazon SNS message,Amazon SNS console guide,Subscribe to an Amazon SNS topic,Amazon SNS endpoint subscription,Amazon SNS message delivery,Amazon SNS filter policy,Amazon SNS dead-letter queue,Amazon SNS topic subscription,Amazon SNS endpoint setup,AWS Amazon SNS integration,Amazon SNS filter policy configuration" /><link rel="alternate" type="text/markdown" href="sns-create-subscribe-endpoint-to-topic.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Notification Service",
+        "item" : "https://docs.aws.amazon.com/sns/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Create an Amazon SNS topic and publish messages",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating a subscription to an Amazon SNS topic",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sns/latest/dg/sns-dg.pdf#sns-create-subscribe-endpoint-to-topic" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sns/index.html">Amazon Simple Notification Service</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#subscribe-topic-aws-console">To subscribe an endpoint to an Amazon SNS topic</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sns-create-subscribe-endpoint-to-topic">Creating a subscription to an Amazon SNS topic</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To receive messages published to <a href="./sns-create-topic.html">a topic</a>, you must
+			<em>subscribe</em> an <a href="#sns-endpoints">endpoint</a> to the
+		topic. When you subscribe an endpoint to a topic, the endpoint begins to receive messages
+		published to the associated topic.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>HTTP(S) endpoints, email addresses, and AWS resources in other AWS accounts
+			require confirmation of the subscription before they can receive messages.</p></div></div>
+		<h2 id="subscribe-topic-aws-console">To subscribe an endpoint to an Amazon SNS topic</h2>
+		<p>Subscribing an endpoint to an Amazon SNS topic enables message delivery to the specified
+			endpoint, ensuring the right systems or users receive notifications when a message is
+			published to the topic. This step is essential for linking the topic to
+			consumers—whether they are applications, email recipients, or other services—allowing
+			for seamless communication across systems.</p>
+		<div class="procedure"><ol><li><p>Sign in to the <a href="https://console.aws.amazon.com/sns/home" rel="noopener noreferrer" target="_blank"><span>Amazon SNS console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+				<p>In the left navigation pane, choose <b>Subscriptions</b>.</p>
+			</li><li>
+				<p>On the <b>Subscriptions</b> page, choose <b>Create
+						subscription</b>.</p>
+			</li><li>
+				<p>On the <b>Create subscription</b> page, in the
+						<b>Details</b> section, do the following:</p>
+				<ol><li>
+						<p>For <b>Topic ARN</b>, choose the Amazon Resource Name
+							(ARN) of a topic. This value is the AWS ARN that was
+							generated when you created the Amazon SNS topic, for example
+								<code class="code">arn:aws:sns:us-east-2:123456789012:your_topic</code>.</p>
+					</li><li>
+						<p>For <b>Protocol</b>, choose an endpoint type. <span id="sns-endpoints"></span> The available endpoint types are:</p>
+						<div class="itemizedlist">
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p><a href="./sns-http-https-endpoint-as-subscriber.html">HTTP/HTTPS</a></p>
+							</li><li class="listitem">
+								<p><a href="./sns-email-notifications.html">Email/Email-JSON</a></p>
+							</li><li class="listitem">
+								<p><a href="./sns-firehose-as-subscriber.html"></a></p>
+							</li><li class="listitem">
+								<p><a href="./sns-sqs-as-subscriber.html">Amazon SQS</a></p>
+								<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To subscribe to an <a href="./sns-fifo-topics.html">SNS
+											FIFO topic</a>, choose this option.</p></div></div>
+							</li><li class="listitem">
+								<p><a href="./sns-lambda-as-subscriber.html">AWS Lambda</a></p>
+							</li><li class="listitem">
+								<p><a href="./sns-mobile-application-as-subscriber.html">Platform application
+										endpoint</a></p>
+							</li><li class="listitem">
+								<p><a href="./sns-mobile-phone-number-as-subscriber.html">SMS</a>
+								</p>
+							</li></ul></div>
+					</li><li>
+						<p>For <b>Endpoint</b>, enter the endpoint value, such as
+							an email address or the ARN of an Amazon SQS queue.</p>
+					</li><li>
+						<p>Firehose endpoints only: For <b>Subscription role ARN</b>,
+							specify the ARN of the IAM role that you created for writing to Firehose
+							delivery streams. For more information, see <a href="./prereqs-kinesis-data-firehose.html">Prerequisites for subscribing Firehose delivery streams to Amazon SNS topics</a>.</p>
+					</li><li>
+						<p>(Optional) For Firehose, Amazon SQS, HTTP/S endpoints, you can also enable raw
+							message delivery. For more information, see <a href="./sns-large-payload-raw-message-delivery.html">Amazon SNS raw message delivery</a>.</p>
+					</li><li>
+						<p>(Optional) To configure a filter policy, expand the
+								<b>Subscription filter policy</b> section. For more
+							information, see <a href="./sns-subscription-filter-policies.html">Amazon SNS subscription filter policies</a>.</p>
+					</li><li>
+						<p>(Optional) To enable payload-based filtering, configure <code class="code">Filter
+								Policy Scope</code> to <code class="code">MessageBody</code>. For more
+							information, see <a href="./sns-message-filtering-scope.html">Amazon SNS subscription filter policy scope</a>.</p>
+					</li><li>
+						<p>(Optional) To configure a dead-letter queue for the subscription,
+							expand the <b>Redrive policy (dead-letter queue)</b>
+							section. For more information, see <a href="./sns-dead-letter-queues.html">Amazon SNS dead-letter queues</a>.</p>
+					</li><li>
+						<p>Choose <b>Create subscription</b>.</p>
+						<p>The console creates the subscription and opens the subscription's
+								<b>Details</b> page.</p>
+					</li></ol>
+			</li></ol></div>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sns-create-topic.html">Step 1: Creating a topic</div><div id="next" class="next-link" accesskey="n" href="./sns-publishing.html">Step 3: Publishing a message</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

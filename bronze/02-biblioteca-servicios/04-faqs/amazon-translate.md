@@ -1,0 +1,136 @@
+[Skip to main content](#aws-page-content-main)
+
+Amazon Translate
+
+- [Overview](/translate/)
+
+- [Features](/translate/details/)
+
+- [Pricing](/translate/pricing/)
+
+- [Getting Started](/translate/getting-started/)
+
+- [Resources](/translate/resources/)
+
+- More
+
+- [Products](/products/)›
+- [Machine Learning](/machine-learning/)›
+- [Amazon Translate](/translate/faqs/)
+
+# Amazon Translate FAQs
+
+## Page topics
+
+- [General](#topic-0)
+  4
+- [Using Amazon Translate](#topic-1)
+  6
+- [Pricing and Availability](#topic-2)
+  3
+- [Data Privacy](#topic-3)
+  6
+
+## General
+
+[Open all](#)
+
+### What is Amazon Translate?
+
+Amazon Translate is a Neural Machine Translation (MT) service for translating text between supported languages. Powered by deep learning methods, the service provides high-quality, affordable, and customizable language translation, enabling developers to translate company and user-authored content, or build applications requiring support across multiple languages. The service can be used via an API, enabling either real-time or batch translation of text from the source language to the target language.
+
+### What languages are covered?
+
+Amazon Translate supports translation between the following 75 languages: Afrikaans, Albanian, Amharic, Arabic, Armenian, Azerbaijani, Bengali, Bosnian, Bulgarian, Chinese (Simplified), Catalan, Chinese (Traditional), Croatian, Czech, Danish, Dari, Dutch, English, Estonian, Finnish, French, French (Canada), Georgian, German, Greek, Gujarati, Haitian Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Indonesian, Irish, Italian, Japanese, Kannada, Kazakh, Korean, Latvian, Lithuanian, Macedonian, Malay, Malayalam, Maltese, Mongolian, Marathi, Norwegian, Farsi (Persian), Pashto, Polish, Portuguese, Portuguese (Portugal), Punjabi, Romanian, Russian, Serbian, Sinhala, Slovak, Slovenian, Somali, Spanish, Spanish (Mexico), Swahili, Swedish, Filipino Tagalog, Tamil, Telugu, Thai, Turkish, Ukrainian, Urdu, Uzbek, Vietnamese, and Welsh. See this [documentation page](https://docs.aws.amazon.com/translate/latest/dg/pairs.html) for more details.
+
+### Why should I use Amazon Translate?
+
+You should use Amazon Translate because it enables you to reach more customers, communicate with them more effectively, and decrease your TCO. Many businesses have large volumes of content, user or company authored; the only way to make all of it accessible in multiple languages in a timely manner is to use Machine Translation. Because Amazon Translate costs a fraction of the cost of human translation (0.05% at \$15/1M characters for Amazon Translate vs \$30K for human translation on average), businesses can now afford to translate content they could not before.
+
+For Language Service Providers (LSP) and value-added resellers, Amazon Translate supports business growth and expansion. With Amazon Translate, LSPs can increase productivity by as much as 50% and produce larger volumes of translation, freeing professional translators to focus on high-end creative content. Amazon Translate also allows you to customize your translation output using Active Custom Translation, as LSPs, you protect your IP when you use ACT provide customized translation. Translation Resellers can broaden their service portfolio without building new infrastructure or hiring staff.
+
+### What are the most common use cases for Amazon Translate?
+
+Amazon Translate is a great solution in cases where the volume of content is high, speed is critical, and a certain level of translation imperfection (usually minor) is acceptable. For example, if you need to extract insights from large volumes of text in many languages, enable customers to search your application in their language of choice, make user-authored content such as forums and support content accessible in languages other than the source, get the gist out of responses to questionnaires and surveys, or publish a first draft – you can use Amazon Translate’s raw output.
+
+With light human post-editing, Amazon Translate can be applied to enabling customer service agents to support anyone, and translating company authored information such as specifications, comparisons of alternatives, FAQs, and support content. With more extensive post-editing, you can also use Amazon Translate to translate high-value, branded content, such as advertising and marketing materials, contracts, etc.  
+
+## Using Amazon Translate
+
+[Open all](#)
+
+### How can I use the service?
+
+The easiest way to get started with Amazon Translate is to use the console to translate some text. You can also call the service directly from the AWS Command Line Interface, or use one of the SDKs in the programming language of your choice to integrate with your applications. Either way, you can start using Amazon Translate for multilingual text capabilities to translate text with just a few lines of code.
+
+You can pass source text to the API and indicate the source and target languages. Amazon Translate return the text translated into the target language. There are three main ways to use the API – first, you can integrate the API into your application to localize highly dynamic application components such as multi-participant chat, for example. Second, you can string it with other services to enable language-independent processing. For example, Database services such as Amazon Relational Database Service (RDS) can be called through AWS Lambda blueprints to enable website localization of moderately-dynamic content such as user generated reviews and forum posts. Finally, you can translate batches of documents. For example, financial services companies can translate and monitor news articles in any language; legal teams can discover materials in multiple languages related to a lawsuit (known as eDiscovery); patent attorneys can search patent repositories anywhere in the world in IP cases.
+
+### Does the service provide automatic source language detection?
+
+Amazon Translate takes plain text input and language flags to indicate the language of the source text and desired target. If the source language is unknown, Amazon Translate will identify the source language using Amazon Comprehend behind the scenes, and report that language back along with the translation to the target language.
+
+### What kind of inputs does the service support?
+
+Amazon Translate supports plain text input in UTF-8 format.
+
+### What are the limits on the API?
+
+Amazon Translate real-time service calls are limited to 5,000 bytes per API call. We provide instructions on how to break up large documents into sections and paragraphs so that customers can translate text of any length. See instructions [here](https://docs.aws.amazon.com/translate/latest/dg/examples-split.html).
+
+Amazon Translate asynchronous Batch Translation service accepts a batch of up to 5 GB in size per API call with each document not exceeding 20 MB in size, each document containing no more than 1,000,000 characters, and the number of documents in the S3 bucket folder not exceeding 1,000,000 per batch.
+
+The Amazon Translate service is highly scalable. The default limits can be found [here](https://docs.aws.amazon.com/translate/latest/dg/what-is-limits.html).
+
+### Am I required to attribute the translation to Amazon? To Machine Translation?
+
+You are not required to attribute translations, but we do suggest that you attribute the translation to Machine Translation to inform your own customers.
+
+### Where can I get technical support? How do I submit feedback?
+
+For technical support, please contact [AWS Customer Service](https://aws.amazon.com/contact-us/). You can submit feedback through Customer Service, or by going to the Amazon Translate console and selecting the feedback option.
+
+## Pricing and Availability
+
+[Open all](#)
+
+### What does it cost?
+
+Refer to the [Amazon Translate pricing page](https://aws.amazon.com/translate/pricing/) to learn more.
+
+### What AWS regions are available for Amazon Translate?
+
+Please refer to the [AWS Global Infrastructure Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
+
+Amazon Translate Batch Translation is available in US East 1 (Northern Virginia), US East 2 (Ohio), US West 2 (Oregon), EU West 1 (Ireland), EU West 2 (London), EU Central 1 (Frankfurt), and Asia Pacific North East 2 (Seoul).
+
+### Are requests in which no translation occurs charged for?
+
+Requests where the source language equals the target language (whether user designated or automatically identified), and when an error occurs and no translation is returned, are not charged for. Requests where the content is non-translatable (e.g., “&\*^%((\*\*&(^”) are charged for.
+
+## Data Privacy
+
+[Open all](#)
+
+### Are text inputs processed by Amazon Translate stored, and how are they used by AWS?
+
+Amazon Translate may store and use text inputs processed by the service solely to provide and maintain the service and to improve and develop the quality of Amazon Translate and other Amazon machine-learning/artificial-intelligence technologies. Use of your content is important for continuous improvement of your Amazon Translate customer experience, including the development and training of related technologies. We do not use any personally identifiable information that may be contained in your content to target products, services or marketing to you or your end users. Your trust, privacy, and the security of your content are our highest priority, and we implement appropriate and sophisticated technical and physical controls, including encryption at rest and in transit, designed to prevent unauthorized access to, or disclosure of, your content and ensure that our use complies with our commitments to you. Please see [https://aws.amazon.com/compliance/data-privacy-faq/](https://aws.amazon.com/compliance/data-privacy-faq/) for more information. You may opt out of having your content used to improve and develop the quality of Amazon Translate and other Amazon machine-learning/artificial-intelligence technologies by using an AWS Organizations opt-out policy. For information about how to opt out, see [Managing AI services opt-out policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html).
+
+### Who has access to my content that is processed and stored by Amazon Translate?
+
+Only authorized employees will have access to your content that is processed by Amazon Translate. Your trust, privacy, and the security of your content are our highest priority and we implement appropriate and sophisticated technical and physical controls, including encryption at rest and in transit, designed to prevent unauthorized access to, or disclosure of, your content and ensure that our use complies with our commitments to you. Please see <https://aws.amazon.com/compliance/data-privacy-faq/> for more information.
+
+### Do I still own my content that is processed and stored by Amazon Translate?
+
+You always retain ownership of your content, and we will only use your content with your consent.
+
+### Is the content processed by Amazon Translate moved outside the AWS region where I am using Amazon Translate?
+
+Any content processed by Amazon Translate is encrypted and stored at rest in the AWS region where you are using Amazon Translate. Some portion of content processed by Amazon Translate may be stored in another AWS region solely in connection with the continuous improvement and development of your Amazon Translate customer experience and other Amazon machine-learning/artificial-intelligence technologies. Your trust, privacy, and the security of your content are our highest priority, and we implement appropriate and sophisticated technical and physical controls, including encryption at rest and in transit, designed to prevent unauthorized access to, or disclosure of, your content and ensure that our use complies with our commitments to you. Please see [https://aws.amazon.com/compliance/data-privacy-faq/](https://aws.amazon.com/compliance/data-privacy-faq/) for more information.
+
+### Can I use Amazon Translate in connection with websites, programs or other applications that are directed or targeted to children under age 13 and subject to the Children’s Online Privacy Protection Act (COPPA)?
+
+Yes, subject to your compliance with the [AWS Service Terms](https://aws.amazon.com/service-terms/), including your obligation to provide any required notices and obtain any required verifiable parental consent under COPPA, you may use Amazon Translate in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13.
+
+### How do I determine whether my website, program, or application is subject to COPPA?
+
+For information about the requirements of COPPA and guidance for determining whether your website, program, or other application is subject to COPPA, please refer directly to the resources provided and maintained by the United States Federal Trade Commission. This site also contains information regarding how to determine whether a service is directed or targeted, in whole or in part, to children under age 13.

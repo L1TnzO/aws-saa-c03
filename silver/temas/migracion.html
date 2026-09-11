@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Migración: DMS, MGN, Snow — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Migración: DMS, MGN y Snow Family <span class="en">AWS Database Migration Service · AWS Application Migration Service · AWS Snow Family</span></h1>
+<p class="subtitle">Del datacenter propio a AWS con el mínimo downtime: qué servicio mueve qué cosa, y cuándo la carretera —la red— obliga a contratar el camión físico.</p>
+<div class="chips">
+  <span class="chip">Fase 7 · Seguridad y DR</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>Una migración a AWS es una mudanza con tres tipos de empresa de transporte. <strong>AWS DMS</strong> embala y traslada los muebles valiosos —los datos— mientras la familia sigue viviendo en la casa vieja: la réplica continua mantiene ambas casas sincronizadas hasta el día del corte, que dura minutos. <strong>AWS MGN</strong> es la mudanza integral: traslada la casa entera tal cual está, con sus servidores y su lógica, y la reconstruye en EC2 sin rediseñar nada (<span class="tag-en">lift-and-shift</span>). Y <strong>Snow Family</strong> se contrata cuando la carretera entre ciudades es tan lenta —el enlace de red es el cuello de botella— que conviene un camión físico que se lleve todo de una vez. El examen reparte los tres servicios por esas mismas señales.</p>
+
+<p>Cada decisión de migración se resuelve con tres variables: <em>qué</em> se mueve (¿solo datos, o servidores completos?), <em>cuánto downtime</em> tolera el corte final y <em>qué ancho de banda real</em> hay entre el datacenter y AWS. Sobre esas variables, el marco oficial de las <strong>6 R</strong> decide el estilo de la migración de cada aplicación, y los servicios de esta página ejecutan el plan. La regla que más se repite en el examen es de costo-eficiencia: si no hay razón para rediseñar, <span class="tag-en">rehost</span> con MGN es la salida más rápida y barata; rediseñar (refactor) solo se justifica cuando la aplicación necesita algo que la nube da y el datacenter no.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    M["Estrategias 6R<br>una por aplicacion"]
+    RH["Rehost<br>lift and shift"]
+    RP["Replatform<br>capa de datos o runtime"]
+    RF["Refactor<br>rediseno cloud native"]
+    RC["Repurchase<br>mover a SaaS"]
+    RT["Retire<br>apagar lo que sobra"]
+    RR["Retain<br>quedarse on-prem"]
+    M --> RH
+    M --> RP
+    M --> RF
+    M --> RC
+    M --> RT
+    M --> RR
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class M amber
+    class RH,RP,RF navy
+    class RC,RT,RR green
+</div>
+<figcaption>Figura 1 — Las 6 R: la estrategia se elige aplicación por aplicación, no para todo el portfolio.</figcaption>
+</figure>
+
+<h2>Las 6 R: el mapa de toda estrategia de migración</h2>
+
+<p>El marco de las 6 R clasifica qué hacer con cada aplicación: <span class="tag-en">rehost</span> (subirla tal cual a EC2), <span class="tag-en">replatform</span> (cambios de fondo moderados, como mover la base de datos a RDS sin tocar el código), <span class="tag-en">refactor</span> (redisear para ser cloud-native, por ejemplo descomponer en microservicios y Lambda), <span class="tag-en">repurchase</span> (abandonar el producto propio y comprar SaaS), <span class="tag-en">retire</span> (apagar lo que ya no se usa) y <span class="tag-en">retain</span> (dejarlo on-premises, temporal o definitivamente). El portfolio rara vez elige una sola R: se mezclan, y por eso AWS ofrece un lugar central donde planificar y seguir cada aplicación.</p>
+
+<p>Ese lugar era <strong>AWS Migration Hub</strong>, que orquestaba la migración y daba <em>strategy recommendations</em> por aplicación; la documentación oficial indica que Migration Hub cerró a nuevos clientes el 7 de noviembre de 2025 y que sus capacidades se absorbieron en <strong>AWS Transform</strong>, la marca actual para planificar, agilizar y orquestar migraciones y modernización. Para el examen, el concepto no cambia: un servicio central que recomienda estrategia por aplicación y consolida el estado del portfolio, mientras DMS, MGN y Snow ejecutan el traslado de cada pieza. Si el enunciado menciona "track migration progress across the portfolio", piensa en ese plano central.</p>
+
+<h2>AWS DMS: migrar datos con la casa habitada</h2>
+
+<p><strong>AWS Database Migration Service</strong> migra bases de datos relacionales, data warehouses, NoSQL y otros data stores: hacia AWS, desde AWS o entre combinaciones de nube y on-premises. Su mecánica es simple: es un servidor de replicación que corre en la nube, al que le defines una conexión de origen, una de destino y una tarea programada que mueve los datos. La clave del examen está en el modo de la tarea: puede ser una migración puntual (<em>one-time</em>) o una <span class="tag-en">replicación continua</span> que mantiene origen y destino sincronizados —carga inicial más cambios posteriores— hasta el corte final con minutos de downtime. Antes de mover nada, <strong>DMS Fleet Advisor</strong> inventaría servidores, bases y esquemas del datacenter, y si el motor cambia, <strong>DMS Schema Conversion</strong> convierte los esquemas y el código almacenado al motor de destino (alternativamente, la herramienta descargable AWS SCT).</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    SRC["Base de datos origen<br>on-premises"]
+    DMS["AWS DMS<br>instancia de replicacion"]
+    TGT["Base de datos destino<br>RDS o Aurora"]
+    SCT["DMS Schema Conversion<br>esquemas y codigo"]
+    SRC -->|"carga inicial"| DMS
+    SRC -.->|"cambios continuos"| DMS
+    DMS --> TGT
+    SCT -.-> TGT
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class SRC,TGT green
+    class DMS navy
+    class SCT amber
+</div>
+<figcaption>Figura 2 — DMS: carga inicial más replicación continua hacia el destino; Schema Conversion solo cuando el motor cambia.</figcaption>
+</figure>
+
+<p>La distinción homogéneo/heterogéneo decide el esfuerzo del proyecto. En una migración <strong>homogénea</strong> (mismo motor: Oracle hacia RDS para Oracle, MySQL hacia Aurora MySQL) los tipos y el código son compatibles y DMS solo traslada datos. En una <strong>heterogénea</strong> (motor distinto: Oracle hacia Aurora PostgreSQL, SQL Server hacia RDS) el schema, los tipos de datos, los procedimientos almacenados y las vistas deben convertirse primero, y esa conversión es donde vive el riesgo del proyecto. El examen formula el heterogéneo con señales como "change the database engine" o "different engine"; la respuesta correcta siempre empareja DMS con Schema Conversion o SCT, nunca DMS solo.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Aspecto</th><th>Homogeneous (mismo motor)</th><th>Heterogeneous (motor distinto)</th></tr></thead>
+<tbody>
+<tr><td>Ejemplos típicos</td><td>Oracle on-premises → RDS para Oracle; MySQL → Aurora MySQL</td><td>Oracle → Aurora PostgreSQL; SQL Server → RDS para PostgreSQL</td></tr>
+<tr><td>Conversión de esquemas</td><td>No necesaria: tipos y código compatibles</td><td>Obligatoria: DMS Schema Conversion o AWS SCT</td></tr>
+<tr><td>Esfuerzo y riesgo</td><td>Bajo: el grueso es la réplica de datos</td><td>Alto: tipos, procedimientos y código almacenado a convertir</td></tr>
+<tr><td>Señal en el enunciado</td><td>"same engine", "minimal effort"</td><td>"different engine", "change the database engine"</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>AWS MGN: lift-and-shift de servidores completos</h2>
+
+<p><strong>AWS Application Migration Service (MGN)</strong> es el servicio recomendado para el <span class="tag-en">rehost</span>: mover servidores físicos o virtuales tal cual a EC2 sin convertir la aplicación. Se instala un agente de replicación en cada servidor de origen y el servicio replica los bloques del disco de forma continua a un área de staging en AWS; antes del corte puedes lanzar instancias de prueba desde esa réplica para validar la aplicación, y el día del corte solo lanzas la instancia definitiva y cambias el DNS. El downtime se mide en minutos, la aplicación no se rediseña y el riesgo de conversión es mínimo — exactamente el paquete que describe un enunciado tipo "migrate 200 servers with minimal downtime and no changes to the application". La documentación actual renombró la experiencia hacia <strong>AWS Transform MGN</strong>, que añade análisis y modernización posterior, pero el mecanismo de replicación por bloques sigue siendo el corazón del servicio.</p>
+
+<h2>Snow Family: cuando la red es el cuello de botella</h2>
+
+<p>Hay mudanzas que no caben por la carretera de datos: mover decenas o cientos de TB por un enlace corporativo lento puede tomar semanas. Ahí entra la transferencia física: <strong>Snowball Edge</strong> son dispositivos robustos y portátiles —decenas de TB por unidad— que AWS te envía, cargas tus datos en local y devuelves por mensajería; <strong>Snowmobile</strong> es literalmente un semirremolque que traslada hasta 100 PB por dispositivo para migraciones de escala de exabytes. Ambos sirven tanto para importar datos a S3 como para exportarlos, y Snowball Edge además ejecuta computación en el borde cuando el dispositivo está desconectado. La señal de examen es aritmética pura: si el enunciado da volumen de datos, ancho de banda y plazo, y la red no da abasto, la respuesta es Snow; si la red da abasto o el flujo debe ser continuo, la respuesta es online (DataSync o transferencias directas).</p>
+
+<div class="callout warn">
+<div class="co-title">Estado del servicio (bronze)</div>
+La documentación oficial indica que <strong>Snowball Edge ya no se ofrece a clientes nuevos</strong>, que apuntan a <strong>AWS DataSync</strong> para transferencias online, a <strong>AWS Data Transfer Terminal</strong> para transferencia física segura o a soluciones de partners, y a AWS Outposts para computación en el edge. En el SAA-C03, sin embargo, Snow Family sigue siendo la respuesta clásica a "grandes volúmenes con red insuficiente": reconoce el patrón, y si el enunciado ofrece DataSync como opción con red suficiente, prefiérela — es la transferencia online gestionada.
+</div>
+
+<h2>¿Qué servicio para qué migración?</h2>
+
+<p>La tabla siguiente es el resumen que debes poder reconstruir de memoria: cada servicio de migración tiene un "para qué" único y el examen casi siempre ofrece tres de ellos como distractores. Fíjate en los verbos: <em>migrar una base de datos</em> → DMS; <em>mover servidores completos</em> → MGN; <em>trasladar volúmenes masivos sin red</em> → Snow; <em>transferencias online programadas</em> → DataSync. Si el enunciado habla de mantener sincronía hasta el corte, piensa primero en replicación continua (DMS o MGN), porque ese requisito descarta de raíz cualquier transferencia en un solo envío.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Necesitas…</th><th>Servicio</th><th>Nota clave</th></tr></thead>
+<tbody>
+<tr><td>Migrar una base de datos y sincronizar hasta el corte</td><td><strong>AWS DMS</strong></td><td>Carga inicial más replicación continua de cambios</td></tr>
+<tr><td>Cambiar de motor de base de datos</td><td><strong>DMS + DMS Schema Conversion</strong></td><td>Migración heterogénea: convierte esquemas y código</td></tr>
+<tr><td>Descubrir el parque de datos antes de planificar</td><td><strong>DMS Fleet Advisor</strong></td><td>Inventario de servidores, bases y esquemas</td></tr>
+<tr><td>Rehost de servidores físicos o virtuales a EC2</td><td><strong>AWS MGN</strong></td><td>Replicación continua por bloques, corte de minutos</td></tr>
+<tr><td>Mover decenas de TB sin enlace de red suficiente</td><td><strong>Snowball Edge / Snowmobile</strong></td><td>Transferencia física; Snowmobile hasta 100 PB</td></tr>
+<tr><td>Transferencias online programadas y gestionadas</td><td><strong>AWS DataSync</strong></td><td>Agente en origen, NFS/SMB/HDFS/S3, con cifrado y validación</td></tr>
+<tr><td>Planificar y seguir el portfolio de migración</td><td><strong>Mig. Hub → AWS Transform</strong></td><td>Strategy recommendations y estado centralizado</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q1{"Volumen masivo y red<br>insuficiente o inestable"}
+    Q2{"Es una base<br>de datos"}
+    Q3{"El motor de destino<br>es distinto"}
+    Q4{"Son servidores<br>completos a EC2"}
+    SW["Snowball Edge<br>o Snowmobile"]
+    SC["DMS con<br>Schema Conversion"]
+    DM["AWS DMS"]
+    MG["AWS MGN"]
+    MH["AWS Transform<br>plan del portfolio"]
+    Q1 -->|"Si"| SW
+    Q1 -->|"No"| Q2
+    Q2 -->|"Si"| Q3
+    Q3 -->|"Si"| SC
+    Q3 -->|"No"| DM
+    Q2 -->|"No"| Q4
+    Q4 -->|"Si"| MG
+    Q4 -->|"No"| MH
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q1,Q2,Q3,Q4 amber
+    class SW,SC,DM,MG,MH navy
+</div>
+<figcaption>Figura 3 — Árbol de decisión: qué servicio de migración elijo según qué muevo y qué red tengo.</figcaption>
+</figure>
+
+<h2>Cómo cae en el examen: señales y trampas</h2>
+
+<p>Las preguntas de migración dan casi siempre un escenario con tres datos: tipo de carga (base de datos, servidores, datos en frío), restricción de downtime y estado de la red. Las señales de la tabla siguiente cubren la inmensa mayoría de los casos. La trampa más frecuente es la omisión: ofrecer DMS solo, sin Schema Conversion, para una migración heterogénea; la segunda es la confusión de propósito: Snow para sincronía continua (Snow es un envío puntual, no una réplica) o MGN para replatform (MGN rehostea tal cual, no rediseña).</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"migrate Oracle to Aurora PostgreSQL with minimal downtime"</td><td>DMS + DMS Schema Conversion (heterogénea)</td></tr>
+<tr><td>"keep the source database in sync until cutover"</td><td>DMS con replicación continua</td></tr>
+<tr><td>"move 100 TB to S3 over a 100 Mbps link within a week"</td><td>Snowball Edge (transferencia física)</td></tr>
+<tr><td>"rehost 200 virtual servers without modifying the application"</td><td>AWS MGN (lift-and-shift)</td></tr>
+<tr><td>"assess and inventory the data estate before migrating"</td><td>DMS Fleet Advisor</td></tr>
+<tr><td>"track the progress of all migrations in one place"</td><td>Migration Hub / AWS Transform</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+<strong>DMS solo no convierte nada.</strong> En migraciones heterogéneas, DMS mueve datos entre motores distintos, pero los esquemas, tipos y procedimientos convertidos llegan de DMS Schema Conversion o AWS SCT. El distractor "AWS DMS por sí solo" es la respuesta incorrecta más frecuente del tema. Y al revés: si el enunciado pide "the fastest, least disruptive way to move the entire application", MGN rehostea los servidores tal cual — el rediseño no entra en esa pregunta.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>6 R</strong>: rehost, replatform, refactor, repurchase, retire, retain — se elige por aplicación, no por portfolio.</li>
+<li><strong>DMS</strong> migra datos con carga inicial más <span class="tag-en">replicación continua</span> hasta el corte.</li>
+<li><strong>Homogeneous</strong> = mismo motor, sin conversión; <strong>heterogeneous</strong> = motor distinto, con Schema Conversion o SCT.</li>
+<li><strong>Fleet Advisor</strong> descubre; <strong>Schema Conversion</strong> convierte; <strong>DMS</strong> traslada.</li>
+<li><strong>MGN</strong> = rehost de servidores completos a EC2, con corte de minutos y sin rediseño.</li>
+<li><strong>Snow</strong> = transferencia física cuando la red no da abasto; Snowmobile hasta 100 PB por dispositivo.</li>
+<li><strong>DataSync</strong> es la alternativa online gestionada cuando la red sí alcanza.</li>
+<li>El plano central del portfolio era <strong>Migration Hub</strong>, hoy absorbido en <strong>AWS Transform</strong>.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">MIG-02</span> AWS Database Migration Service — Welcome (homogeneous/heterogeneous) · <a href="https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/dms/latest/userguide/Welcome.html</a></li>
+<li><span class="id">MIG-03</span> AWS Application Migration Service — What is (lift-and-shift) · <a href="https://docs.aws.amazon.com/mgn/latest/ug/what-is-mgn.html" target="_blank" rel="noopener">docs.aws.amazon.com/mgn/latest/ug/what-is-mgn.html</a></li>
+<li><span class="id">MIG-04</span> AWS Migration Hub — What is (strategy recommendations) · <a href="https://docs.aws.amazon.com/migrationhub/latest/ug/what-is-aws-migration-hub.html" target="_blank" rel="noopener">docs.aws.amazon.com/migrationhub/latest/ug/what-is-aws-migration-hub.html</a></li>
+<li><span class="id">CMP-25</span> AWS Snow Family — What is Snowball Edge (edge data migration) · <a href="https://docs.aws.amazon.com/snowball/latest/developer-guide/whatis-snowball.html" target="_blank" rel="noopener">docs.aws.amazon.com/snowball/latest/developer-guide</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/dr.html"><span class="dir">← Anterior</span>Disaster Recovery (RTO/RPO)</a><a class="next" href="../temas/cloudwatch.html"><span class="dir">Siguiente →</span>CloudWatch y X-Ray</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

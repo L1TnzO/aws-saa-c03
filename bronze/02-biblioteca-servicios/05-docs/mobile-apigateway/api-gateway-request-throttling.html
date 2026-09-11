@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Throttle requests to your REST APIs for better throughput in API Gateway - Amazon API Gateway</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="api-gateway-request-throttling" /><meta name="default_state" content="api-gateway-request-throttling" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html" /><meta name="description" content="Understand and change API request throttling limits on an account level, stage level, and method level." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon API Gateway" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Build, deploy, maintain and call cloud-based APIs using Amazon API Gateway with this Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html" hreflang="x-default" /><meta name="feedback-item" content="API Gateway" /><meta name="this_doc_product" content="Amazon API Gateway" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'apigateway'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Throttle requests to your REST APIs for better throughput in API Gateway" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="api-gateway-request-throttling.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Throttle requests to your REST APIs for better throughput in API Gateway - Amazon API Gateway</title><meta name="pdf" content="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#api-gateway-request-throttling" /><meta name="rss" content="amazon-apigateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAx94GNHn2R3Ot5Ab_HCvlng" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API%20Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-request-throttling.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-request-throttling.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-request-throttling.html" /><meta name="keywords" content="API Gateway,Amazon API Gateway,serverless,cloud computing,REST API,HTTP API,WebSocket API,REST APIs,create an API,protect,throttling and quotas" /><link rel="alternate" type="text/markdown" href="api-gateway-request-throttling.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "API Gateway REST APIs",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Protect your REST APIs in API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/rest-api-protect.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Throttle requests to your REST APIs for better throughput in API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/rest-api-protect.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#api-gateway-request-throttling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/apigateway/index.html">Amazon API Gateway</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#apigateway-how-throttling-limits-are-applied">How throttling limit settings are applied</a><a href="#apig-request-throttling-account-level-limits">Account-level throttling per Region</a><a href="#apigateway-api-level-throttling-in-usage-plan">Configuring API-level and stage-level throttling targets in a usage plan</a><a href="#apigateway-stage-level-throttling">Configuring stage-level throttling targets</a><a href="#apigateway-method-level-throttling-in-usage-plan">Configuring method-level throttling targets in a usage plan</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="api-gateway-request-throttling">Throttle requests to your REST APIs for better throughput in API Gateway</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can configure throttling and quotas for your APIs to help protect them from being overwhelmed by too many
+    requests. Both throttles and quotas are applied on a best-effort basis and should be thought of as targets rather
+    than guaranteed request ceilings.</p><p>API Gateway throttles requests to your API using the token bucket algorithm, where a token counts for a request.
+    Specifically, API Gateway examines the rate and a burst of request submissions against all APIs in your account, per
+    Region. In the token bucket algorithm, a burst can allow pre-defined overrun of those limits, but other factors can
+    also cause limits to be overrun in some cases.</p><p>When request submissions exceed the steady-state request rate and burst limits, API Gateway begins to throttle
+    requests. Clients may receive <code class="code">429 Too Many Requests</code> error responses at this point. Upon catching such
+    exceptions, the client can resubmit the failed requests in a way that is rate limiting.</p><p>As an API developer, you can set the target limits for individual API stages or methods to improve overall
+    performance across all APIs in your account. Alternatively, you can enable usage plans to set throttles on client
+    request submissions based on specified requests rates and quotas.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#apigateway-how-throttling-limits-are-applied">How throttling limit settings are applied in API Gateway</a></p></li><li><p><a href="#apig-request-throttling-account-level-limits">Account-level throttling per Region</a></p></li><li><p><a href="#apigateway-api-level-throttling-in-usage-plan">Configuring API-level and stage-level throttling targets in a usage plan</a></p></li><li><p><a href="#apigateway-stage-level-throttling">Configuring stage-level throttling targets</a></p></li><li><p><a href="#apigateway-method-level-throttling-in-usage-plan">Configuring method-level throttling targets in a usage plan</a></p></li></ul></div>
+    <h2 id="apigateway-how-throttling-limits-are-applied">How throttling limit settings are applied in API Gateway</h2>
+
+    <p>Before you configure throttle and quota settings for your API, it's useful to understand the types of
+      throttling-related settings for your API and how API Gateway applies them.</p>
+
+    <p>Amazon API Gateway provides four basic types of throttling-related settings:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><em>AWS throttling limits</em> are applied across all accounts and clients in a Region.
+          These limit settings exist to prevent your API—and your account—from being overwhelmed by too many requests.
+          These limits are set by AWS and can't be changed by a customer.</p>
+      </li><li class="listitem">
+        <p>Per-account limits are applied to all APIs in an account in a specified Region. The account-level rate
+          limit can be increased upon request - higher limits are possible with APIs that have shorter timeouts and
+          smaller payloads. To request an increase of account-level throttling limits per Region, contact the <a href="https://console.aws.amazon.com/support/home#/" rel="noopener noreferrer" target="_blank"><span>AWS Support Center</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. For more information, see <a href="./limits.html">Amazon API Gateway quotas</a>. Note that these limits can't be higher than the AWS throttling limits.</p>
+      </li><li class="listitem">
+        <p>Per-API, per-stage throttling limits are applied at the API method level for a stage. You
+          can configure the same settings for all methods, or configure different throttle settings for each method.
+          Note that these limits can't be higher than the AWS throttling limits.</p>
+      </li><li class="listitem">
+        <p><em>Per-client throttling limits</em> are applied to clients that use API keys associated with
+          your usage plan as client identifier. Note that these limits can't be higher than the per-account limits.</p>
+      </li></ul></div>
+
+    <p>API Gateway applies your throttling-related settings in the following order:</p>
+    <div class="orderedlist">
+      
+       
+       
+       
+       
+    <ol><li>
+        <p><a href="#apigateway-method-level-throttling-in-usage-plan">Per-client or per-method throttling
+            limits</a> that you set for an API stage in a <a href="./api-gateway-create-usage-plans.html#api-gateway-usage-plan-create">usage
+            plan</a></p>
+      </li><li>
+        <p><a href="./set-up-stages.html#how-to-stage-settings">Per-method throttling limits that you set for an API stage</a></p>
+      </li><li>
+        <p><a href="#apig-request-throttling-account-level-limits">Account-level throttling per
+          Region</a></p>
+      </li><li>
+        <p>AWS Regional throttling</p>
+      </li></ol></div>
+   
+    <h2 id="apig-request-throttling-account-level-limits">Account-level throttling per Region</h2>
+
+    <p>By default, API Gateway limits the steady-state requests per second (RPS) across all APIs within an AWS
+      account, per Region. It also limits the burst (that is, the maximum bucket size) across all APIs within an AWS
+      account, per Region. In API Gateway, the burst limit represents the target maximum number of concurrent request
+      submissions that API Gateway will fulfill before returning <code class="code">429 Too Many Requests</code> error responses. For more
+      information on throttling quotas, see <a href="./limits.html">Amazon API Gateway quotas</a>.</p>
+   
+    
+   
+    <h2 id="apigateway-api-level-throttling-in-usage-plan">Configuring API-level and stage-level throttling targets in a usage plan</h2>
+    <p>In a <a href="./api-gateway-api-usage-plans.html">usage plan</a>, you can set a per-method throttling target
+      for all methods at the API or stage level. You can specify a <em>throttling rate</em>, which is the rate, in requests per second, that tokens are added to the token bucket.
+    You can also specify a <em>throttling burst</em>, which is the capacity of the token bucket.</p>
+    <p>You can use the AWS CLI, SDKs, and the AWS Management Console to create a usage plan. For more information about how to create a usage plan, see <a href="./api-gateway-api-usage-plans.html">Usage plans and API keys for REST APIs in API Gateway</a>. </p>
+   
+    <h2 id="apigateway-stage-level-throttling">Configuring stage-level throttling targets</h2>
+    <p>You can use the AWS CLI, SDKs, and the AWS Management Console to create stage-level throttling targets.</p>
+    <p>For more
+      information about how to use the AWS Management Console to create stage-level throttling targets, see <a href="./set-up-stages.html#how-to-stage-settings">Modify stage settings</a>. For more information
+      about how to use the AWS CLI to create stage-level throttling targets, see <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-stage.html">create-stage</a>.</p>
+   
+    <h2 id="apigateway-method-level-throttling-in-usage-plan">Configuring method-level throttling targets in a usage plan</h2>
+    <p>You can set additional throttling targets at the method level in <b>Usage Plans</b> as shown in
+        <a href="./api-gateway-create-usage-plans.html#api-gateway-usage-plan-create">Create a usage plan</a>. In the API Gateway
+      console, these are set by specifying <code class="code">Resource=<code class="replaceable">&lt;resource&gt;</code></code>,
+          <code class="code">Method=<code class="replaceable">&lt;method&gt;</code></code> in the <b>Configure Method
+        Throttling</b> setting. For example, for the <a href="./api-gateway-create-api-step-by-step.html">PetStore
+        example</a>, you might specify <code class="code">Resource=/pets</code>, <code class="code">Method=GET</code>.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./apigateway-control-access-aws-waf.html">AWS WAF</div><div id="next" class="next-link" accesskey="n" href="./apigateway-private-apis.html">Private REST APIs</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-request-throttling.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-request-throttling.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

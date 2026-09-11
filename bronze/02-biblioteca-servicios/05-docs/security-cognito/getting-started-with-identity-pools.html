@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Getting started with Amazon Cognito identity pools - Amazon Cognito</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="getting-started-with-identity-pools" /><meta name="default_state" content="getting-started-with-identity-pools" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html" /><meta name="description" content="Learn about Amazon Cognito identity pools by creating your first identity pool, adding an identity provider, and setting up the fundamentals of your first application." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Cognito" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Cognito is a service that you can use to sign in users, federate with identity providers, control permissions to access your backend resources, and save mobile user data in the AWS Cloud. This guide provides an overview of Amazon Cognito and includes development instructions for its features." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html" hreflang="x-default" /><meta name="feedback-item" content="Cognito" /><meta name="this_doc_product" content="Amazon Cognito" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cognito'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Getting started with Amazon Cognito identity pools" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="getting-started-with-identity-pools.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Getting started with Amazon Cognito identity pools - Amazon Cognito</title><meta name="pdf" content="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#getting-started-with-identity-pools" /><meta name="forums" content="https://repost.aws/tags/TAkhAE7QaGSoKZwd6utGhGDA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/getting-started-with-identity-pools.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/getting-started-with-identity-pools.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/getting-started-with-identity-pools.html" /><meta name="keywords" content="Cognito,Amazon Cognito,identity pools tutorial,identity pools get started,identity pools getting started,federated identities" /><link rel="alternate" type="text/markdown" href="getting-started-with-identity-pools.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Cognito",
+        "item" : "https://docs.aws.amazon.com/cognito/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started with Amazon Cognito identity pools",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#getting-started-with-identity-pools" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cognito/index.html">Amazon Cognito</a><a href="what-is-amazon-cognito.html">Developer Guide</a></div><div id="page-toc-src"><a href="#create-identity-pool">Create an identity pool in Amazon Cognito</a><a href="#install-the-mobile-or-javascript-sdk">Set up an SDK</a><a href="#integrate-the-identity-providers">Integrate the identity providers</a><a href="#get-credentials">Get credentials</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="getting-started-with-identity-pools">Getting started with Amazon Cognito identity pools</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>With Amazon Cognito identity pools, you can create unique identities and assign permissions for
+        users. Your identity pool can bring in identities from the following types of authentication
+        services:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Users in an Amazon Cognito user pool</p>
+        </li><li class="listitem">
+            <p>Users who authenticate with external identity providers such as Facebook, Google,
+                Apple, or an OIDC or SAML identity provider.</p>
+        </li><li class="listitem">
+            <p>Users authenticated via your own existing authentication process</p>
+        </li></ul></div><p>After users authenticate with their provider and present authorization to an identity
+        pool, they get temporary AWS credentials. Users' credentials have permissions that you
+        define for access to other AWS services.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#create-identity-pool">Create an identity pool in Amazon Cognito</a></p></li><li><p><a href="#install-the-mobile-or-javascript-sdk">Set up an SDK</a></p></li><li><p><a href="#integrate-the-identity-providers">Integrate the identity providers</a></p></li><li><p><a href="#get-credentials">Get credentials</a></p></li><li><p><a href="./getting-started-identity-pools-application.html">Example application for identity pools</a></p></li></ul></div>
+        <h2 id="create-identity-pool">Create an identity pool in Amazon Cognito</h2>
+        <p>You can create an identity pool through the Amazon Cognito console, or you can use the
+            AWS Command Line Interface (CLI) or the Amazon Cognito APIs. The following procedure is a general guide to create
+            a new identity pool in the console. You can also <a href="https://console.aws.amazon.com/cognito/v2/identity/identity-pools" rel="noopener noreferrer" target="_blank"><span>skip straight to the console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and
+            follow the guided experience and inline help content.</p>
+        <div class="procedure"><h6>To create a new identity pool in the console</h6><ol><li>
+                <p>Sign in to the <a href="https://console.aws.amazon.com/cognito/home" rel="noopener noreferrer" target="_blank"><span>Amazon Cognito
+                        console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and select <b>Identity pools</b>. To assign
+                    permissions to your IAM principal so that they can create and manage Amazon Cognito
+                    resources, refer to <a href="./security-iam-awsmanpol.html">AWS managed policies for Amazon Cognito</a>. The <code class="code">AmazonCognitoPowerUser</code>
+                    policy is sufficient for the creation of identity pools.</p>
+            </li><li>
+                <p>Choose <b>Create identity pool</b>.</p>
+            </li><li>
+                <p>In <b>Configure identity pool trust</b>, choose to set up your
+                    identity pool for <b>Authenticated access</b>, <b>Guest
+                        access</b>, or both.</p>
+                <ol><li>
+                        <p>If you chose <b>Authenticated access</b>, select one or more
+                            <b>Identity types</b> that you want to set as the source of
+                            authenticated identities in your identity pool. If you configure a <b>Custom
+                                developer provider</b>, you can't modify or delete it after you create your
+                            identity pool.</p>
+                    </li></ol>
+            </li><li>
+                <p>In <b>Configure permissions</b>, choose a default IAM role for
+                    authenticated or guest users in your identity pool.</p>
+                <ol><li>
+                        <p>Choose to <b>Create a new IAM role</b> if you want Amazon Cognito to
+                            create a new role for you with basic permissions and a trust relationship with your
+                            identity pool. Enter an <b>IAM role name</b> to identify your new
+                            role, for example <code class="code">myidentitypool_authenticatedrole</code>. Select
+                            <b>View policy document</b> to review the permissions that Amazon Cognito
+                            will assign to your new IAM role.</p>
+                    </li><li>
+                        <p>You can choose to <b>Use an existing IAM role</b> if you already
+                            have a role in your AWS account that you want to use. You must configure your
+                            IAM role trust policy to include <code class="code">cognito-identity.amazonaws.com</code>.
+                            Configure your role trust policy to only allow Amazon Cognito to assume the role when it
+                            presents evidence that the request originated from an authenticated user in your
+                            specific identity pool. For more information, see <a href="./iam-roles.html#role-trust-and-permissions">Role trust and permissions</a>.</p>
+                    </li></ol>
+            </li><li>
+                <p>In <b>Connect identity providers</b>, enter the details of the
+                    identity providers (IdPs) that you chose in <b>Configure identity pool
+                        trust</b>. You might be asked to provide OAuth app client information, choose
+                    an Amazon Cognito user pool, choose an IAM IdP, or enter a custom identifier for a developer
+                    provider.</p>
+                <ol><li>
+                        <p>Choose the <b>Role settings</b> for each IdP. You can assign users
+                            from that IdP the <b>Default role</b> that you set up when you
+                            configured your <b>Authenticated role</b>, or you can <b>Choose
+                                role with rules</b>. With an Amazon Cognito user pool IdP, you can also
+                            <b>Choose role with preferred_role in tokens</b>. For more
+                            information about the <code class="code">cognito:preferred_role</code> claim, see <a href="./cognito-user-pools-user-groups.html#assigning-precedence-values-to-groups">Assigning precedence values to groups</a>.</p>
+                        <ol><li>
+                                <p>If you chose <b>Choose role with rules</b>, enter the source
+                                    <b>Claim</b> from your user's authentication, the
+                                    <b>Operator</b> that you want to compare the claim by, the
+                                    <b>Value</b> that will cause a match to this role choice, and
+                                    the <b>Role</b> that you want to assign when the <b>Role
+                                        assignment</b> matches. Select <b>Add another</b> to
+                                    create an additional rule based on a different condition.</p>
+                            </li><li>
+                                <p>Choose a <b>Role resolution</b>. When your user's claims don't
+                                    match your rules, you can deny credentials or issue credentials for your
+                                    <b>Authenticated role</b>.</p>
+                            </li></ol>
+                    </li><li>
+                        <p>Configure <b>Attributes for access control</b> for each IdP.
+                            Attributes for access control maps user claims to <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">principal tags</a> that Amazon Cognito
+                            applies to their temporary session. You can build IAM policies to filter user
+                            access based on the tags that you apply to their session.</p>
+                        <ol><li>
+                                <p>To apply no principal tags, choose <b>Inactive</b>.</p>
+                            </li><li>
+                                <p>To apply principal tags based on <code class="code">sub</code> and <code class="code">aud</code>
+                                    claims, choose <b>Use default mappings</b>.</p>
+                            </li><li>
+                                <p>To create your own custom schema of attributes to principal tags, choose
+                                    <b>Use custom mappings</b>. Then enter a <b>Tag
+                                        key</b> that you want to source from each <b>Claim</b>
+                                    that you want to represent in a tag.</p>
+                            </li></ol>
+                    </li></ol>
+            </li><li>
+                <p>In <b>Configure properties</b>, enter a <b>Name</b>
+                    under <b>Identity pool name</b>.</p>
+            </li><li>
+                <p>Under <b>Basic (classic) authentication</b>, choose whether you want
+                    to <b>Activate basic flow</b>. With the basic flow active, you can bypass
+                    the role selections you made for your IdPs and call <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html">AssumeRoleWithWebIdentity</a> directly. For more information, see <a href="./authentication-flow.html">Identity pools authentication flow</a>.</p>
+            </li><li>
+                <p>Under <b>Tags</b>, choose <b>Add tag</b> if you want to
+                    apply <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">tags</a>
+                    to your identity pool.</p>
+            </li><li>
+                <p>In <b>Review and create</b>, confirm the selections that you made for
+                    your new identity pool. Select <b>Edit</b> to return to the wizard and
+                    change any settings. When you're done, select <b>Create identity
+                        pool</b>.</p>
+            </li></ol></div>
+     
+        <h2 id="install-the-mobile-or-javascript-sdk">Set up an SDK</h2>
+        <p>To use Amazon Cognito identity pools, set up AWS Amplify, the AWS SDK for Java, or the SDK for .NET. For
+            more information, see the following topics.</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up.html">Setting up the
+                        SDK for JavaScript</a> in the <em>AWS SDK for JavaScript
+                            Developer Guide</em></p>
+            </li><li class="listitem">
+                <p><a href="https://docs.amplify.aws/" rel="noopener noreferrer" target="_blank"><span>Amplify Documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the
+                    <em>Amplify Dev Center</em></p>
+            </li><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/cognito-creds-provider.html">Amazon Cognito credentials provider</a> in the <em>SDK for .NET Developer Guide</em></p>
+            </li></ul></div>
+     
+        <h2 id="integrate-the-identity-providers">Integrate the identity providers</h2>
+        <p>Amazon Cognito identity pools (federated identities) support user authentication through Amazon Cognito
+            user pools, federated identity providers—including Amazon, Facebook, Google, Apple,
+            and SAML identity providers—and unauthenticated identities. This feature also
+            supports <a href="./developer-authenticated-identities.html">Developer-authenticated identities</a>, which lets you register and authenticate
+            users via your own backend authentication process.</p>
+        <p>To learn more about using an Amazon Cognito user pool to create your own user directory, see
+            <a href="./cognito-user-pools.html">Amazon Cognito user pools</a>
+            and <a href="./amazon-cognito-integrating-user-pools-with-identity-pools.html">Accessing AWS services using an identity pool after sign-in</a>.</p>
+        <p>To learn more about using external identity providers, see <a href="./external-identity-providers.html">Identity pools third-party identity providers</a>.</p>
+        <p>To learn more about integrating your own backend authentication process, see <a href="./developer-authenticated-identities.html">Developer-authenticated identities</a>.</p>
+     
+        <h2 id="get-credentials">Get credentials</h2>
+        <p>Amazon Cognito identity pools provide temporary AWS credentials for users who are guests
+            (unauthenticated) and for users who have authenticated and received a token. With those
+            AWS credentials, your app can securely access a backend in AWS or outside AWS through
+            Amazon API Gateway. See <a href="./getting-credentials.html">Getting credentials</a>.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorial-create-user-pool-saml-idp.html">Add a SAML IdP</div><div id="next" class="next-link" accesskey="n" href="./getting-started-identity-pools-application.html">Example application</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/getting-started-with-identity-pools.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/getting-started-with-identity-pools.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring an SFTP, FTPS, or FTP server endpoint - AWS Transfer Family</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sftp-for-transfer-family" /><meta name="default_state" content="sftp-for-transfer-family" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html" /><meta name="description" content="Provide details for using the SFTP, FTPS, and FTP protocols with Transfer Family." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Transfer Family" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Transfer Family is a secure transfer service that stores your data in Amazon Simple Storage Service or Amazon Elastic File System and simplifies the migration of Secure File Transfer Protocol (SFTP), File Transfer Protocol Secure (FTPS), File Transfer Protocol (FTP), and Applicability Statement 2 (AS2) workflows to AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html" hreflang="x-default" /><meta name="feedback-item" content="transfer" /><meta name="this_doc_product" content="AWS Transfer Family" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'transfer'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Configuring an SFTP, FTPS, or FTP server endpoint" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sftp-for-transfer-family.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring an SFTP, FTPS, or FTP server endpoint - AWS Transfer Family</title><meta name="pdf" content="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#sftp-for-transfer-family" /><meta name="forums" content="https://repost.aws/tags/TAtf43W5cjQ3CIFYTKipVfGg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-for-transfer-family.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-for-transfer-family.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-for-transfer-family.html" /><meta name="keywords" content="SFTP for Transfer Family,FTPS for Transfer Family,FTP for Transfer Family,create a Transfer Family server,identity providers,lambda,managed AD,API gateway,active directory,FTP,FTPS,Network Load Balancer,health checks,TLS session resumption,port 8192-8200,performance optimization,TlsSessionResumptionMode" /><link rel="alternate" type="text/markdown" href="sftp-for-transfer-family.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Transfer Family",
+        "item" : "https://docs.aws.amazon.com/transfer/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configuring an SFTP, FTPS, or FTP server endpoint",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#sftp-for-transfer-family" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/transfer/index.html">AWS Transfer Family</a><a href="what-is-aws-transfer-family.html">User Guide</a></div><div id="page-toc-src"><a href="#identity-provider-details">Identity provider options</a><a href="#endpoint-matrix">AWS Transfer Family endpoint type matrix</a><a href="#ftp-ftps-nlb-considerations">FTP/FTPS NLB considerations</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sftp-for-transfer-family">Configuring an SFTP, FTPS, or FTP server endpoint</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This topic provides details for creating and using AWS Transfer Family server endpoints that use one
+        or more of the SFTP, FTPS, and FTP protocols.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#identity-provider-details">Identity provider options</a></p></li><li><p><a href="#endpoint-matrix">AWS Transfer Family endpoint type matrix</a></p></li><li><p><a href="./tf-server-endpoint.html">Configuring an SFTP, FTPS, or FTP server endpoint</a></p></li><li><p><a href="#ftp-ftps-nlb-considerations">FTP and FTPS Network Load Balancer considerations</a></p></li><li><p><a href="./transfer-file.html">Transferring files over a server endpoint using a client</a></p></li><li><p><a href="./create-user.html">Managing users for server endpoints</a></p></li><li><p><a href="./logical-dir-mappings.html">Using logical directories to simplify your Transfer Family directory structures</a></p></li><li><p><a href="./fsx-s3-access-points.html">Access your FSx for NetApp ONTAP file systems with Transfer Family</a></p></li></ul></div>
+        <h2 id="identity-provider-details">Identity provider options</h2>
+        <p>AWS Transfer Family provides several methods for authenticating and managing
+            users. The following table compares the available identity providers that you can use
+            with Transfer Family.</p>
+        <div class="table-container"><div class="table-contents disable-scroll"><table id="w90aac11b7b5"><thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>AWS Transfer Family service managed</th>
+                        <th>AWS Managed Microsoft AD</th>
+                        <th>Amazon API Gateway</th>
+                        <th>AWS Lambda</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Supported protocols</td>
+                        <td tabindex="-1">SFTP</td>
+                        <td tabindex="-1">SFTP, FTPS, FTP</td>
+                        <td tabindex="-1">SFTP, FTPS, FTP</td>
+                        <td tabindex="-1">SFTP, FTPS, FTP</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Key-based authentication</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Password authentication</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>AWS Identity and Access Management (IAM) and POSIX</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Logical home directory</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Parameterized access (username-based)</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">Yes</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Ad hoc access structure</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>AWS WAF</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Yes</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>No</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+        <p>Notes:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>IAM is used to control access for Amazon S3 backing storage, and POSIX is used
+                    for Amazon EFS.</p>
+            </li><li class="listitem">
+                <p><em>Ad hoc</em> refers to the ability to send the user profile at
+                    runtime. For example, you can land users in their home directories by passing
+                    the username as a variable.</p>
+            </li><li class="listitem">
+                <p>For details about AWS WAF, see <a href="./web-application-firewall.html">Add a web application firewall</a>.</p>
+            </li><li class="listitem">
+                <p>There is a blog post that describes using a Lambda function integrated with
+                    Microsoft Entra ID (formerly Azure AD) as your Transfer Family identity provider. For
+                    details, see <a href="https://aws.amazon.com/blogs/storage/authenticating-to-aws-transfer-family-with-azure-active-directory-and-aws-lambda/" rel="noopener noreferrer" target="_blank"><span> Authenticating to AWS Transfer Family with Azure Active Directory and
+                        AWS Lambda</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li class="listitem">
+                <p>We provide several CloudFormation templates to help you quickly deploy a Transfer Family server
+                    that uses a custom identity provider. For details, see <a href="./custom-lambda-idp.html#lambda-idp-templates">Lambda function templates</a>.</p>
+            </li></ul></div>
+
+        <p>In the following procedures, you can create an SFTP-enabled server, FTPS-enabled
+            server, FTP-enabled server, or AS2-enabled server.</p>
+
+        <p><span class="topcom">Next step</span></p>
+
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="./create-server-sftp.html">Create an SFTP-enabled server</a></p>
+            </li><li class="listitem">
+                <p><a href="./create-server-ftps.html">Create an FTPS-enabled server</a></p>
+            </li><li class="listitem">
+                <p><a href="./create-server-ftp.html">Create an FTP-enabled server</a></p>
+            </li><li class="listitem">
+                <p><a href="./create-b2b-server.html">Configuring AS2</a></p>
+            </li></ul></div>
+     
+        <h2 id="endpoint-matrix">AWS Transfer Family endpoint type matrix</h2>
+        <p>When you create a Transfer Family server, you choose the type of endpoint to use. The following
+            table describes characteristics for each type of endpoint.</p>
+        <div class="table-container"><div class="table-contents disable-scroll"><table id="w90aac11b9b5"><caption>Endpoint type matrix</caption><thead>
+                    <tr>
+                        <th>Characteristic</th>
+                        <th>Public</th>
+                        <th>VPC - Internet</th>
+                        <th>VPC - Internal</th>
+                        <th>VPC_Endpoint (deprecated)</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">Supported protocols</span></td>
+                        <td tabindex="-1">SFTP</td>
+                        <td tabindex="-1">SFTP, FTPS, AS2</td>
+                        <td tabindex="-1">SFTP, FTP, FTPS, AS2</td>
+                        <td tabindex="-1">SFTP</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">Access</span></td>
+                        <td tabindex="-1">From over the internet. This endpoint type doesn't require any
+                            special configuration in your VPC.</td>
+                        <td tabindex="-1">Over the internet and from within VPC and VPC-connected environments,
+                            such as an on-premises data center over Direct Connect or VPN.</td>
+                        <td tabindex="-1">From within VPC and VPC-connected environments, such as an
+                            on-premises data center over Direct Connect or VPN.</td>
+                        <td tabindex="-1">From within VPC and VPC-connected environments, such as an
+                            on-premises data center over Direct Connect or VPN.</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">Static IP address</span></td>
+                        <td tabindex="-1">You can’t attach a static IP address. AWS provides IP addresses
+                            that are subject to change.</td>
+                        <td tabindex="-1">
+                            <p>You can attach Elastic IP addresses to the endpoint. These can be
+                                AWS-owned IP addresses or your own IP addresses (<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring your own IP
+                                    addresses</a>). Elastic IP addresses attached to the
+                                endpoint don't change.</p>
+                            <p>Private IP addresses attached to the server also don't
+                                change.</p>
+                        </td>
+                        <td tabindex="-1">Private IP addresses attached to the endpoint don't change.</td>
+                        <td tabindex="-1">Private IP addresses attached to the endpoint don't change.</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">Source IP allow list</span></td>
+                        <td tabindex="-1">
+                            <p>This endpoint type does not support allow lists by source IP
+                                addresses.</p>
+                            <p>The endpoint is publicly accessible and listens for traffic over
+                                port 22.</p>
+                            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For VPC-hosted endpoints, SFTP Transfer Family servers can operate over
+                                    port 22 (the default), 2222, 2223, or 22000.</p></div></div>
+                        </td>
+                        <td tabindex="-1">
+                            <p>To allow access by source IP address, you can use security groups
+                                attached to the server endpoints and network ACLs attached to the
+                                subnet that the endpoint is in.</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>To allow access by source IP address, you can use security groups
+                                attached to the server endpoints and network access control lists
+                                (network ACLs) attached to the subnet that the endpoint is
+                                in.</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>To allow access by source IP address, you can use security groups
+                                attached to the server endpoints and network ACLs attached to the
+                                subnet that the endpoint is in.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">Client firewall allow list</span></td>
+                        <td tabindex="-1">
+                            <p>You must allow the DNS name of the server.</p>
+                            <p>Because IP addresses are subject to change, avoid using IP
+                                addresses for your client firewall allow list.</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>You can allow the DNS name of the server or the Elastic IP
+                                addresses attached to the server.</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>You can allow the private IP addresses or the DNS name of the
+                                endpoints.</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>You can allow the private IP addresses or the DNS name of the
+                                endpoints.</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1"><span class="topcom">IP address type</span></td>
+                        <td tabindex="-1">IPv4 (default) or dual-stack (IPv4 and IPv6)</td>
+                        <td tabindex="-1">IPv4 only (dual-stack not supported)</td>
+                        <td tabindex="-1">IPv4 (default) or dual-stack (IPv4 and IPv6)</td>
+                        <td tabindex="-1">IPv4 only (dual-stack not supported)</td>
+                    </tr>
+                </table></div></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The <code class="code">VPC_ENDPOINT</code> endpoint type is now deprecated and cannot be used
+                to create new servers. Instead of using <code class="code">EndpointType=VPC_ENDPOINT</code>, use
+                the VPC endpoint type (<code class="code">EndpointType=VPC</code>), which you can use as either
+                    <b>Internal</b> or <b>Internet Facing</b>, as
+                described in the preceding table.</p><div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For details about the deprecation, see <a href="./create-server-in-vpc.html#deprecate-vpc-endpoint">Discontinuing the use of VPC_ENDPOINT</a>.</p>
+                </li><li class="listitem">
+                    <p>For information about managing VPC endpoint permissions, see <a href="./create-server-in-vpc.html#limit-vpc-endpoint-access">Limiting VPC endpoint access for Transfer Family servers</a>.</p>
+                </li></ul></div></div></div>
+        <p>Consider the following options to increase the security posture of your AWS Transfer Family
+            server:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Use a VPC endpoint with internal access, so that the server is accessible only
+                    to clients within your VPC or VPC-connected environments such as an on-premises
+                    data center over Direct Connect or VPN.</p>
+            </li><li class="listitem">
+                <p>To allow clients to access the endpoint over the internet and protect your
+                    server, use a VPC endpoint with internet-facing access. Then, modify the VPC's
+                    security groups to allow traffic only from certain IP addresses that host your
+                    users' clients.</p>
+            </li><li class="listitem">
+                <p>If you require password-based authentication and you use a custom identity
+                    provider with your server, it's a best practice that your password policy
+                    prevents users from creating weak passwords and limits the number of failed
+                    login attempts.</p>
+            </li><li class="listitem"><p>AWS Transfer Family is a managed service, and so it doesn't provide shell access. You cannot
+            directly access the underlying SFTP server to run OS native commands on Transfer Family
+            servers.</p></li><li class="listitem">
+                <p>Use a Network Load Balancer in front of a VPC endpoint with internal access.
+                    Change the listener port on the load balancer from port 22 to a different port.
+                    This can reduce, but not eliminate, the risk of port scanners and bots probing
+                    your server, because port 22 is most commonly used for scanning. For details,
+                    see the blog post <a href="https://aws.amazon.com/blogs/containers/network-load-balancers-now-support-security-groups/" rel="noopener noreferrer" target="_blank"><span>Network
+                        Load Balancers now support Security groups</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use a Network Load Balancer, the AWS Transfer Family CloudWatch logs show the IP
+                        address for the NLB, rather than the actual client IP address.</p></div></div>
+            </li></ul></div>
+     
+        <h2 id="ftp-ftps-nlb-considerations">FTP and FTPS Network Load Balancer considerations</h2>
+        <p>Although we recommend avoiding Network Load Balancers in front of AWS Transfer Family servers, if
+            your FTP or FTPS implementation requires an NLB or NAT in the communication route from
+            the client, follow these recommendations:</p>
+
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For an NLB, use port 21 for health checks, instead of ports 8192-8200.</p>
+            </li><li class="listitem">
+                <p>For the AWS Transfer Family server, enable TLS session resumption by setting
+                        <code class="code">TlsSessionResumptionMode = ENFORCED</code>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is the recommended mode, as it provides enhanced security:</p><div class="itemizedlist">
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Requires clients to use TLS session resumption for subsequent
+                                connections.</p>
+                        </li><li class="listitem">
+                            <p>Provides stronger security guarantees by ensuring consistent
+                                encryption parameters.</p>
+                        </li><li class="listitem">
+                            <p>Helps prevent potential downgrade attacks.</p>
+                        </li><li class="listitem">
+                            <p>Maintains compliance with security standards while optimizing
+                                performance.</p>
+                        </li></ul></div></div></div>
+            </li><li class="listitem">
+                <p>If possible, migrate away from using an NLB to take full advantage of AWS Transfer Family
+                    performance and connection limits.</p>
+            </li></ul></div>
+
+        <p>For additional guidance on NLB alternatives, contact the AWS Transfer Family Product Management
+            team through AWS Support. For more information about improving your security posture,
+            see the blog post <a href="https://aws.amazon.com/blogs/security/six-tips-to-improve-the-security-of-your-aws-transfer-family-server/" rel="noopener noreferrer" target="_blank"><span>Six tips to improve the security of your AWS Transfer Family server</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        <p> Security guidance for NLBs is provided in <a href="./infrastructure-security.html#nlb-considerations">Avoid placing NLBs and NATs in front of AWS Transfer Family servers</a>. </p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./webapp-s3-tutorial.html">Set up web app with selective multi-bucket access</div><div id="next" class="next-link" accesskey="n" href="./tf-server-endpoint.html">Configure a Transfer Family server endpoint</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-for-transfer-family.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-for-transfer-family.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

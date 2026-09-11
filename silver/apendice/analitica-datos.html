@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analítica y big data · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Analítica y big data</div>
+        <h1>Analítica y big data<span class="dom-weight">D3 · data solutions</span></h1>
+        <p class="page-lead">Del evento en vivo al dashboard: ingesta con Kinesis, lago en S3, transformación con Glue,
+        cómputo con EMR y consumo con Athena, Redshift, QuickSight y OpenSearch. Esta página es el mapa completo de
+        <span class="term-en">data ingestion and transformation</span> que examina el Dominio 3.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.5</div>
+        <div class="tb-title">Determine high-performing data ingestion and transformation solutions</div>
+        <div class="tb-meta">Knowledge: data analytics and visualization services (Amazon Athena, AWS Lake Formation, Amazon Quick), data ingestion patterns, data transformation services (AWS Glue), streaming data services (Amazon Kinesis) · Skills: building and securing data lakes, designing data streaming architectures, implementing visualization strategies, selecting compute for data processing (EMR), transforming data between formats (csv a parquet)</div>
+      </div>
+
+      <!-- ============ 1. EL STACK ============ -->
+      <h2 id="stack"><span class="h2-num">1</span>El stack analítico de AWS</h2>
+      <p>Una arquitectura analítica madura se lee de izquierda a derecha como una cadena de valor. Las
+      <strong>fuentes</strong> (aplicaciones, logs, IoT, <span class="term-en">clickstream</span>, bases de datos
+      operacionales) generan datos continuamente. La <strong>ingesta</strong> los mueve a AWS: en tiempo real con
+      Kinesis, por lotes con jobs de Glue o transferencias puntuales. El <strong>data lake</strong> central es S3 —
+      barato, durable e ilimitado — con capas típicas <span class="term-en">raw</span> (datos como llegaron) y
+      <span class="term-en">curated</span> (limpios, particionados, en <span class="term-en">parquet</span>). El
+      <strong>procesamiento</strong> transforma y enriquece (Glue, EMR), y el <strong>consumo</strong> lo pone frente
+      a humanos: Athena para SQL ad-hoc, Redshift para BI intensivo, QuickSight para dashboards.</p>
+      <p>El examen casi nunca pregunta un servicio aislado: te da un punto de la cadena y te pide el siguiente con el
+      calificador de siempre — <span class="term-en">least operational overhead</span> empuja a lo
+      <span class="term-en">serverless</span> (Kinesis, Glue, Athena, Redshift Serverless); <span class="term-en">most
+      cost-effective</span> te lleva a particiones y parquet; <span class="term-en">real-time</span> te manda directo
+      a Kinesis. Ten este pipeline en la cabeza y cada pregunta de datos se vuelve «¿qué eslabón me están señalando?».</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  subgraph F["Fuentes"]
+    A["Apps y logs"]
+    B["IoT / clickstream"]
+  end
+  A --> K["Ingesta: Kinesis<br>Streams / Firehose"]
+  B --> K
+  K --> S3["Data lake en S3<br>raw a curated"]
+  S3 --> G["Procesamiento:<br>Glue / EMR"]
+  G --> S3
+  S3 --> BI["Consumo: Athena,<br>Redshift, QuickSight"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El stack analítico: fuentes → ingesta → lago S3 → procesamiento → consumo BI.</figcaption>
+      </figure>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Aprende la cadena por <em>velocidad</em>: datos que no pueden esperar → Kinesis (segundos); datos que
+        llegan en lotes → Glue; datos que ya están en S3 y quieres preguntarles → Athena. La velocidad de negocio del
+        enunciado («real-time», «daily», «ad-hoc») decide el servicio.</p>
+      </div>
+
+      <!-- ============ 2. KINESIS ============ -->
+      <h2 id="kinesis"><span class="h2-num">2</span>Amazon Kinesis: streaming en tiempo real</h2>
+      <p>Kinesis es la familia de <span class="term-en">streaming</span> de AWS. <strong>Kinesis Data Streams</strong>
+      es el núcleo: un stream se divide en <span class="term-en">shards</span> y cada shard ingiere 1 MB/s y sirve
+      2 MB/s de lectura. El productor envía cada registro con una <span class="term-en">partition key</span>; Kinesis
+      le aplica un hash y lo asigna a un shard, de modo que <strong>todos los registros con la misma clave van al
+      mismo shard</strong> y conservan el orden. El retención es de 24 horas por defecto y puede extenderse hasta
+      <strong>365 días</strong>, lo que permite a un consumidor nuevo <span class="term-en">replay</span> (releer el
+      pasado). El retraso entre escribir y poder leer (<span class="term-en">put-to-get delay</span>) es menor a un
+      segundo.</p>
+      <p>Cada stream se dimensiona en modo <span class="term-en">provisioned</span> (tú eliges el número de shards y
+      pagas por ellos) o <span class="term-en">on-demand</span> (escala automáticamente según el tráfico, ideal si
+      este es impredecible). Para consumir hay dos modelos: los consumidores <span class="term-en">shared</span>
+      clásicos (todos comparten los 2 MB/s por shard, se reparten las particiones vía KCL, el <span class="term-en">Kinesis
+      Client Library</span>) y el <span class="term-en">enhanced fan-out</span>, donde cada consumidor registrado
+      recibe sus propios 2 MB/s por shard con <em>push</em> — más throughput por consumidor y latencia menor, a
+      cambio de costo adicional.</p>
+      <p><strong>Amazon Data Firehose</strong> (antes Kinesis Data Firehose) es el camión de entrega: un servicio
+      totalmente administrado que lee un stream (o recibe eventos directamente) y los entrega
+      <span class="term-en">near-real-time</span> a S3, Redshift (vía S3 + <code>COPY</code>), OpenSearch, Splunk,
+      terceros o endpoints HTTP. No escribes consumidores: configuras <span class="term-en">buffering hints</span>
+      (tamaño MB / intervalo de 60–900 segundos) que acumulan datos antes de escribir, una transformación opcional
+      con Lambda por registro y la conversión de formato a <span class="term-en">parquet</span>/<span class="term-en">ORC</span>
+      antes de aterrizar en S3. Es la respuesta «entregar mi stream en S3/Redshift <span class="term-en">with the
+      least operational overhead</span>». Completan la familia <strong>Managed Service for Apache Flink</strong>
+      (antes Kinesis Data Analytics: SQL y Flink sobre los streams) y <strong>Kinesis Video Streams</strong>
+      (video de cámaras y analítica en vivo).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  P["Productores con<br>partition key"] --> S1["Shard 1"]
+  P --> S2["Shard 2"]
+  S1 --> C1["Consumidores:<br>KCL o enhanced fan-out"]
+  S2 --> C1
+  S1 --> FH["Data Firehose:<br>buffer + transform<br>a S3 / Redshift"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Data Streams: la partition key agrupa por shard; Firehose entrega con búfer y formato.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Kinesis Data Streams</th><th>Amazon Data Firehose</th><th>Amazon SQS</th></tr></thead>
+          <tbody>
+            <tr><td>Paradigma</td><td>Streaming (replay)</td><td>Entrega continua a destino</td><td>Queueing (cola)</td></tr>
+            <tr><td>Retención</td><td>24 h → 365 días</td><td>Búfer corto (buffering hints)</td><td>1 min → 14 días</td></tr>
+            <tr><td>Consumo</td><td>N apps releen el mismo stream</td><td>1 destino configurado</td><td>1 consumidor por mensaje</td></tr>
+            <tr><td>Orden</td><td>Por shard / partition key</td><td>Según llegada al destino</td><td>FIFO: por MessageGroup</td></tr>
+            <tr><td>Caso</td><td>Tiempo real, replay, analítica viva</td><td>Volcar stream a S3/Redshift</td><td>Work queue, desacople</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Streaming vs queueing: el stream se relee; la cola borra al consumir.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"real-time"</span>, <span class="term-en">"sub-second"</span> o
+        <span class="term-en">"replay data"</span> → Kinesis Data Streams, nunca SQS. <span class="term-en">"deliver
+        to S3 with no infrastructure"</span> → Firehose. ¿Varios consumidores cada uno a plena velocidad?
+        <span class="term-en">enhanced fan-out</span>. ¿Volumen impredecible y no quieres gestionar shards?
+        <span class="term-en">on-demand mode</span>. La trampa: usar SQS cuando el enunciado pide que <em>varias</em>
+        aplicaciones consuman los <em>mismos</em> datos históricos.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/analytics-kinesis-streams/introduction.md</code> ·
+      <code>../../bronze/05-docs/analytics-kinesis-streams/kinesis-extended-retention.md</code> ·
+      <code>../../bronze/05-docs/analytics-kinesis-firehose/what-is-this-service.md</code> ·
+      <code>../../bronze/05-docs/analytics-kinesis-firehose/buffering.md</code></p>
+
+      <!-- ============ 3. MSK ============ -->
+      <h2 id="msk"><span class="h2-num">3</span>Amazon MSK: Kafka administrado</h2>
+      <p>Apache Kafka es el estándar <em>de facto</em> del streaming open source, y <strong>Amazon MSK</strong>
+      (Managed Streaming for Apache Kafka) lo opera por ti: crea y mantiene el <span class="term-en">control
+      plane</span> — clústeres, brokers por <span class="term-en">Availability Zone</span> (mínimo un broker por AZ,
+      despliegue típico en tres), parches y versiones — mientras tú sigues usando las APIs y el ecosistema de Kafka
+      sin tocar el código. Los clústeres <span class="term-en">MSK Provisioned</span> usan hoy controladores
+      <span class="term-en">KRaft</span> (el reemplazo moderno de ZooKeeper para metadatos, incluido sin costo extra),
+      y <span class="term-en">MSK Serverless</span> elimina incluso la gestión de capacidad. <span class="term-en">MSK
+      Connect</span> añade conectores de entrada/salida listos para usar. En el examen MSK aparece como la respuesta
+      cuando el escenario ya habla Kafka explícitamente (equipos, tools o dependencias Kafka) o exige su ecosistema;
+      para lo demás, Kinesis es más simple y está más integrado con los servicios AWS.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon Kinesis</th><th>Amazon MSK</th></tr></thead>
+          <tbody>
+            <tr><td>Origen</td><td>Servicio nativo AWS</td><td>Apache Kafka administrado</td></tr>
+            <tr><td>Unidad de escala</td><td><span class="term-en">shards</span></td><td><span class="term-en">partitions</span> sobre brokers</td></tr>
+            <tr><td>Gestión</td><td>Mínima; on-demand total</td><td>Brokers/AZ en Provisioned; o Serverless</td></tr>
+            <tr><td>Ecosistema</td><td>SDKs e integración AWS</td><td>Tools, plugins y clients de Kafka estándar</td></tr>
+            <tr><td>Elígelo si…</td><td>Quieres simplicidad AWS nativa</td><td>Ya usas Kafka o su ecosistema</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/analytics-msk/what-is-msk.md (síntesis propia).</p>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/analytics-msk/what-is-msk.md</code> ·
+      <code>../../bronze/05-docs/analytics-msk/create-cluster.md</code></p>
+
+      <!-- ============ 4. DATA LAKE: S3 + LAKE FORMATION + GLUE ============ -->
+      <h2 id="datalake"><span class="h2-num">4</span>Data lake: S3, Lake Formation y AWS Glue</h2>
+      <p>El <span class="term-en">data lake</span> es el patrón de almacenamiento central: todo tipo de datos
+      (estructurados, semi, no) a costo de S3, sin esquema rígido de entrada. Pero un lago sin gobierno es un
+      <span class="term-en">data swamp</span>: nadie sabe qué hay ni quién puede verlo. <strong>AWS Lake
+      Formation</strong> aporta el gobierno centralizado: sobre el <strong>Glue Data Catalog</strong> aplica un modelo
+      de permisos propio con <span class="term-en">grants</span> y <span class="term-en">revokes</span> estilo RDBMS,
+      con control <span class="term-en">fine-grained</span> a nivel de columna, fila y celda, y lo comparte incluso
+      entre cuentas. Los servicios analíticos (Athena, Redshift Spectrum, EMR, Glue) consultan el catálogo y respetan
+      esos permisos. Recuerda la imagen mental: <strong>S3 guarda los datos, el Catálogo los describe, Lake Formation
+      decide quién los ve</strong>.</p>
+      <p><strong>AWS Glue</strong> es la navaja suiza de la integración: un servicio de ETL
+      <span class="term-en">serverless</span> con tres piezas que caen en examen. Primera, los
+      <span class="term-en">crawlers</span>: recorren tus datos en S3 (o bases de datos), <strong>infieren el
+      esquema</strong> y crean/actualizan tablas en el <strong>Data Catalog</strong> — el inventario técnico central
+      de tus datos. Segunda, los <span class="term-en">ETL jobs</span>: transformaciones Spark que se ejecutan sin
+      que administres clústeres, con <span class="term-en">job bookmarks</span> que recuerdan lo ya procesado para no
+      duplicar trabajo incremental, <span class="term-en">triggers</span> (por schedule, evento o demanda) y autogeneración
+      de código desde <span class="term-en">Glue Studio</span> (el editor visual); hay también jobs
+      <span class="term-en">Python Shell</span> ligeros. Tercera, las herramientas de preparación:
+      <span class="term-en">AWS Glue DataBrew</span> permite a analistas limpiar y preparar datos con recetas visuales
+      <em>sin escribir código</em>. Cuando el enunciado dice <span class="term-en">"serverless ETL"</span> o
+      <span class="term-en">"convert CSV to parquet"</span>, la respuesta es Glue.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  S3R["S3: datos raw"] --> CR["Glue crawler<br>infiere el schema"]
+  CR --> DC["Glue Data Catalog<br>tablas + permisos LF"]
+  DC --> ET["Glue ETL job<br>Spark + bookmarks"]
+  ET --> S3C["S3: parquet<br>particionado"]
+  S3C --> AT["Athena: SQL<br>sobre el catalogo"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Glue: crawler descubre, catálogo describe, ETL transforma, Athena consulta.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>AWS Glue</th><th>Amazon EMR</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>ETL serverless</td><td>Clúster administrado de big data</td></tr>
+            <tr><td>Motores</td><td>Spark administrado + Python Shell</td><td>Spark, Hadoop, Hive, Presto/Trino, HBase</td></tr>
+            <tr><td>Control</td><td>Poco: enfócate en la transformación</td><td>Mucho: tuning, apps, steps del clúster</td></tr>
+            <tr><td>Uso</td><td>ETL recurrente, catálogo, preparación</td><td>Batch pesado, ML, jobs custom de larga vida</td></tr>
+            <tr><td>Pago</td><td>Por DPU-hora de job</td><td>Por instancias del clúster (o Serverless)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Regla: Glue = managed ETL con menor overhead; EMR = control total del cómputo big data.</p>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/analytics-glue/what-is-glue.md</code> ·
+      <code>../../bronze/05-docs/analytics-glue/add-crawler.md</code> ·
+      <code>../../bronze/05-docs/analytics-glue/start-data-catalog.md</code> ·
+      <code>../../bronze/05-docs/analytics-lake-formation/what-is-lake-formation.md</code></p>
+
+      <!-- ============ 5. EMR ============ -->
+      <h2 id="emr"><span class="h2-num">5</span>Amazon EMR: big data con clústeres</h2>
+      <p>Amazon EMR (ex Elastic MapReduce) es la plataforma administrada de clústeres para frameworks de big data:
+      <strong>Spark</strong> (el caballo de batalla), Hadoop, Hive, Pig, Presto/Trino y HBase, con datos que suelen
+      vivir en S3. Un clúster EMR tiene tres tipos de nodo con roles distintos: el <span class="term-en">master
+  node</span> coordina y ejecuta el gestor de recursos (YARN); los <span class="term-en">core nodes</span> almacenan
+  datos en HDFS <em>y</em> computan; y los <span class="term-en">task nodes</span> solo computan — al no llevar datos,
+  son perfectos para <span class="term-en">Spot Instances</span> que puedes perder sin corromper el clúster. Para
+  elegir instancias hay <span class="term-en">instance groups</span> (tipos fijos por rol) o
+  <span class="term-en">instance fleets</span> (mezcla de tipos y de On-Demand + Spot con objetivos de capacidad),
+  y On-Demand/Reserved para lo crítico con Spot para lo interrumpible.</p>
+      <p>El costo-optimización clásico de examen: <strong>task nodes con Spot</strong> para absorber picos de cómputo
+      barato, master/core en On-Demand. Y el comodín moderno es <span class="term-en">EMR Serverless</span>: ejecutas
+      jobs de Spark y Hive <em>sin crear ni gestionar clúster</em> — paga por uso, cero operación. La dicotomía que
+      debes recitar: si el escenario pide ETL administrado sin fricción → Glue; si exige control del runtime, trabajos
+      custom, ML pesado o frameworks específicos → EMR (Serverless si además pide <span class="term-en">least
+      overhead</span>).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  subgraph CL["Cluster EMR multi-AZ"]
+    M["Master node<br>coordina YARN"]
+    CO["Core nodes<br>HDFS + computo"]
+    TA["Task nodes<br>computo (Spot)"]
+  end
+  M --> CO
+  CO --> TA
+  CO --> S3["S3: entrada<br>y resultados"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Nodos de un clúster EMR: master coordina, core almacena y computa, task solo computa.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"run Spark jobs without managing clusters"</span> → EMR Serverless (o Glue si es ETL
+        de catálogo). <span class="term-en">"cost-effective batch"</span> con interrupciones tolerables → task nodes
+        en Spot. <span class="term-en">"existing Hive/Pig/Spark workload on EC2"</span> → migrar a EMR, no reescribir.
+        Y recuerda: salida y entrada grandes viven en S3, no en HDFS del clúster efímero.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/analytics-emr/emr-what-is-emr.md</code> ·
+      <code>../../bronze/05-docs/analytics-emr/emr-overview.md</code> ·
+      <code>../../bronze/05-docs/analytics-emr/emr-instance-group-configuration.md</code> ·
+      <code>../../bronze/05-docs/analytics-emr/emr-instance-fleet.md</code></p>
+
+      <!-- ============ 6. CONSULTA Y BI ============ -->
+      <h2 id="bi"><span class="h2-num">6</span>Consulta y BI: Athena, Redshift, QuickSight y OpenSearch</h2>
+      <p><strong>Amazon Athena</strong> es SQL <span class="term-en">serverless</span> sobre S3 (motor
+      Presto/Trino): apuntas a los datos y consultas, sin infraestructura, pagando por TB escaneados. Ese precio por
+      escaneo es la palanca de diseño: con <strong>formato columnar parquet</strong>, <strong>compresión</strong> y
+      <strong>particiones</strong> (<span class="term-en">partitioning</span>), Athena lee solo las columnas y
+      particiones que la query necesita (<span class="term-en">partition pruning</span>) y el costo cae órdenes de
+      magnitud frente a CSV plano. Los <span class="term-en">workgroups</span> agrupan y controlan queries por
+      equipo (límites y destinos de resultados), y los <span class="term-en">federated queries</span> extienden el
+      SQL a otras fuentes (RDS, DynamoDB…) vía conectores Lambda, usando el Glue Data Catalog como metastore.</p>
+      <p><strong>Amazon Redshift</strong> es el <span class="term-en">data warehouse</span> columnar para BI pesado:
+      un clúster con <span class="term-en">leader node</span> que planifica y <span class="term-en">compute nodes</span>
+      que ejecutan. Con nodos <span class="term-en">RA3</span> el almacenamiento es <span class="term-en">managed
+      storage</span> desacoplado del cómputo (los bloques fríos van a S3). Sus tres trucos de examen:
+      <span class="term-en">Redshift Spectrum</span> consulta datos <em>directamente en S3</em> con tablas externas
+      — sin cargarlos al clúster —; <span class="term-en">Concurrency Scaling</span> añade clústeres transitorios
+      para picos de queries concurrentes; y <span class="term-en">Redshift Serverless</span> elimina el clúster y
+      factura por unidades de procesamiento (RPU) — la opción cuando el patrón de uso es intermitente.</p>
+      <p><strong>Amazon QuickSight</strong> (hoy parte de la suite <span class="term-en">Amazon Quick</span>) es el BI
+      serverless de AWS: dashboards con SPICE — su motor in-memory <span class="term-en">Super-fast Parallel
+      In-memory Calculation Engine</span> que cachea datasets para responder al instante — además de
+      <span class="term-en">ML Insights</span> (detección de anomalías y forecasting automáticos) y paga por
+      usuario/sesión. Finalmente <strong>Amazon OpenSearch Service</strong> opera clústeres del motor open source
+      OpenSearch (dominios con instancias que eliges): es la respuesta para búsqueda <span class="term-en">full-text</span>,
+      analítica de <span class="term-en">logs</span> y monitoring en tiempo real, con OpenSearch Dashboards para
+      visualizar y capas <span class="term-en">UltraWarm</span>/cold para datos de solo lectura.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon Athena</th><th>Amazon Redshift</th><th>Amazon OpenSearch</th></tr></thead>
+          <tbody>
+            <tr><td>Naturaleza</td><td>SQL serverless sobre S3</td><td>Data warehouse columnar</td><td>Motor de búsqueda/analítica</td></tr>
+            <tr><td>Infraestructura</td><td>Ninguna</td><td>Clúster (o Serverless)</td><td>Dominio con instancias</td></tr>
+            <tr><td>Pago</td><td>Por TB escaneado</td><td>Nodos por hora / RPU</td><td>Instancias por hora</td></tr>
+            <tr><td>Óptimo para</td><td>Ad-hoc sobre el lago</td><td>BI intensivo, joins complejos</td><td>Full-text, logs, métricas</td></tr>
+            <tr><td>Truco</td><td>Particiones + parquet = ahorro</td><td>Spectrum consulta S3 sin cargar</td><td>UltraWarm para logs fríos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/analytics-athena/what-is.md, analytics-redshift/overview.md, analytics-opensearch/what-is.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"query data in S3 without infrastructure"</span> → Athena.
+        <span class="term-en">"reduce Athena cost"</span> → parquet + compresión + particiones. Un <em>warehouse</em>
+        con reporting diario y joins pesados → Redshift; si además aparece S3 enorme sin cargar → Spectrum.
+        <span class="term-en">"dashboards"</span> → QuickSight con SPICE. <span class="term-en">"search logs /
+        full-text"</span> → OpenSearch. La trampa: elegir Redshift cuando todo está en S3 y basta SQL puntual.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/analytics-athena/what-is.md</code> ·
+      <code>../../bronze/05-docs/analytics-athena/understanding-tables-databases-and-the-data-catalog.md</code> ·
+      <code>../../bronze/05-docs/analytics-redshift/overview.md</code> ·
+      <code>../../bronze/05-docs/analytics-redshift/performance-metrics-concurrency-scaling.md</code> ·
+      <code>../../bronze/05-docs/analytics-quicksight/welcome.md</code> ·
+      <code>../../bronze/05-docs/analytics-opensearch/what-is.md</code></p>
+
+      <!-- ============ 7. CASO INTEGRADOR ============ -->
+      <h2 id="caso"><span class="h2-num">7</span>Caso integrador: el lago de punta a punta</h2>
+      <p>Junta todo en un diseño real de examen. Una aplicación web emite eventos de interacción; Kinesis Data
+      Streams los ingiere en segundos (partition key = user id, shards en modo on-demand para absorber picos).
+      Cada evento viaja de dos formas: un consumidor en vivo calcula métricas inmediatas, y un
+      <strong>Data Firehose</strong> aplica una transformación Lambda que limpia y valida registros, convierte a
+      <span class="term-en">parquet</span> y aterriza en S3 con layout <em>particionado</em>:
+      <code>s3://lake/events/year=2025/month=09/day=11/</code>. Un <strong>crawler de Glue</strong> actualiza el
+      Data Catalog con las nuevas particiones, y los permisos finos por columna los define
+      <strong>Lake Formation</strong>. Los analistas lanzan Athena con <code>WHERE year='2025' AND
+      month='09'</code>: el <span class="term-en">partition pruning</span> hace que solo se escaneen esos prefijos
+      — y como parquet es columnar, solo las columnas del SELECT. El resultado: queries de segundos y facturas
+      mínimas por TB escaneado. QuickSight sirve dashboards sobre SPICE para dirección; un job semanal de
+  Glue consolida el histórico para el equipo de ML.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  E["Eventos de la app"] --> KS["Kinesis Data Streams"]
+  KS --> FH["Firehose + Lambda<br>convierte a parquet"]
+  FH --> S3["S3 particionado<br>year / month / day"]
+  S3 --> CR["Glue crawler<br>actualiza catalogo"]
+  S3 --> AT["Athena con filtro<br>partition pruning"]
+  AT --> QS["QuickSight<br>dashboards SPICE"]
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Lago end-to-end: ingesta, formato parquet particionado, catálogo y pruning.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>El enunciado dice…</th><th>La pieza correcta</th></tr></thead>
+          <tbody>
+            <tr><td>Ingesta <span class="term-en">real-time</span> con replay</td><td>Kinesis Data Streams</td></tr>
+            <tr><td>Entrega administrada a S3/Redshift</td><td>Data Firehose</td></tr>
+            <tr><td>Descubrir esquema / catálogo central</td><td>Glue crawler + Data Catalog</td></tr>
+            <tr><td>ETL serverless / csv a parquet</td><td>AWS Glue</td></tr>
+            <tr><td>Spark pesado con control</td><td>Amazon EMR (Serverless si sin clúster)</td></tr>
+            <tr><td>SQL ad-hoc sobre S3</td><td>Amazon Athena</td></tr>
+            <tr><td>BI intensivo / warehouse</td><td>Amazon Redshift</td></tr>
+            <tr><td>Dashboards y ML insights</td><td>QuickSight</td></tr>
+            <tr><td>Búsqueda y logs</td><td>OpenSearch</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Tu tabla de decisión final para cualquier pregunta de datos en el SAA-C03.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Los 5 reflejos finales</div>
+        <p><strong>1)</strong> «SQL serverless sobre S3» = Athena. <strong>2)</strong> «ETL administrado / transformar
+        formatos» = Glue. <strong>3)</strong> «ML / frameworks / control del cómputo sobre datasets enormes» = EMR
+        (o SageMaker si el foco es entrenar modelos). <strong>4)</strong> «real-time / streaming» = Kinesis.
+        <strong>5)</strong> Reducir costo de Athena = <span class="term-en">columnar + compressed + partitioned</span>:
+        si una opción ofrece parquet particionado, es casi siempre la correcta.</p>
+      </div>
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Lecturas oficiales recomendadas: <code>analytics-kinesis-firehose/what-is-this-service.md</code> (flujo de
+        Firehose a cada destino), <code>analytics-glue/what-is-glue.md</code> (las tres categorías de capacidades) y
+        <code>analytics-athena/what-is.md</code> (el modelo de pago por escaneo).</p>
+      </div>
+
+      <nav class="pager">
+        <a href="integracion-mensajeria.html"><span class="p-dir">← Anterior</span><br>Integración y mensajería</a>
+        <a class="p-next" href="migracion-hibrido.html"><span class="p-dir">Siguiente →</span><br>Migración e híbrido</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

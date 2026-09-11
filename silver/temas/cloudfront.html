@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudFront y Global Accelerator — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>CloudFront y Global Accelerator <span class="en">Amazon CloudFront · AWS Global Accelerator</span></h1>
+<p class="subtitle">Los dos servicios que acercan tu carga al usuario: CloudFront mueve el contenido hacia la edge network; Global Accelerator mueve el tráfico del usuario hacia AWS por la red global.</p>
+<div class="chips">
+  <span class="chip">Fase 2 · Redes y conectividad</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p><strong>Amazon CloudFront</strong> es la franquicia de tu restaurante: sirve el menú desde un local junto al cliente (la <span class="tag-en">edge location</span>) en lugar de hacerle viajar a la cocina central (el <em>origin</em>). Es un servicio web que acelera la distribución de contenido estático y dinámico — .html, .css, .js, imágenes — a través de una red mundial de data centers de borde. <strong>AWS Global Accelerator</strong>, en cambio, no cachea nada: es el carril VIP por la red privada global de AWS — dos IPs anycast estáticas que llevan el tráfico del usuario, por la red troncal de AWS, hasta el endpoint de la Region más cercana. Uno optimiza <em>contenido</em>; el otro optimiza <em>rutas</em>.</p>
+
+<p>El examen los enfrenta constantemente porque ambos se venden como "mejora la latencia global". La frontera real: si la carga es web y cacheable, CloudFront reduce además la carga del origin (el contenido se sirve desde decenas de ciudades); si la carga es TCP/UDP no HTTP — gaming, IoT, VoIP — o necesitas IPs fijas y enrutado regional con health checking, Global Accelerator es la herramienta. Ambos se combinan: GA por delante de endpoints CloudFront/ALB/NLB, y GA es también el motor de las <span class="tag-en">accelerated VPNs</span>. Con el vocabulario en inglés — <span class="tag-en">edge location</span>, <span class="tag-en">origin</span>, <span class="tag-en">distribution</span>, <span class="tag-en">anycast</span> — los enunciados se leen a la primera.</p>
+
+<h2>CloudFront: distribuir contenido desde la edge</h2>
+
+<p>El mecanismo canónico: cuando un usuario pide contenido servido por CloudFront, la petición se enruta a la edge location que proporciona <strong>la menor latencia</strong>; si el contenido ya está cacheado ahí, se entrega inmediatamente (<span class="tag-en">cache hit</span>); si no, CloudFront lo recupera de un <strong>origin</strong> que tú has definido — un bucket S3, un canal MediaPackage o un servidor HTTP — y lo cachea para las siguientes peticiones (<span class="tag-en">cache miss</span>). El objeto de configuración se llama <strong>distribution</strong>: le dices a CloudFront desde dónde quieres que se sirva el contenido y cómo gestionar el delivery. La ventaja de rendimiento no es solo la cercanía: cada petición viaja por la <strong>red troncal de AWS</strong> en lugar de cruzar la colección caótica de redes interconectadas de internet — menos saltos, menos latencia de primer byte y mayor tasa de transferencia.</p>
+
+<p>El segundo beneficio es estructural: como copias de tus objetos (caché) viven en múltiples edge locations, ganas <strong>fiabilidad y disponibilidad</strong> — el fallo de un camino de red no derriba el servicio, y los picos de demanda se absorben en el borde. El contenido estático es el caso perfecto (assets, imágenes, vídeos, paquetes de software); el dinámico también se beneficia de la ruta optimizada y de la reutilización de conexiones TLS hacia el origin. La vida útil de cada objeto en caché la gobierna el <span class="tag-en">TTL</span> — y cuando publicas algo urgente, la invalidación de caché echa abajo el objeto antes de que expire. Para orígenes S3, el patrón de examen manda mantener el bucket privado y permitir el acceso solo desde CloudFront, de modo que nadie bypase la CDN.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    U["Usuario"] -->|"peticion"| E["Edge location<br>mas cercana"]
+    E -->|"cache MISS<br>recupera"| O["Origin<br>S3 · HTTP server"]
+    O -->|"responde y se cachea"| E
+    E -->|"cache HIT<br>entrega inmediata"| U
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class U,O navy
+    class E green
+</div>
+<figcaption>Figura 1 — Edge caching: la petición llega a la edge location con menor latencia; MISS recupera del origin y cachea, HIT entrega al instante.</figcaption>
+</figure>
+
+<h2>Global Accelerator: IPs anycast sobre la red global</h2>
+
+<p><strong>AWS Global Accelerator</strong> es un servicio global en el que creas <span class="tag-en">accelerators</span> para mejorar el rendimiento de tus aplicaciones ante usuarios locales y globales. Su pieza visible son las <strong>direcciones IP estáticas anycast</strong> desde la edge network de AWS: dos direcciones IPv4 estáticas por accelerator — o cuatro en dual-stack (dos IPv4 y dos IPv6) — que puedes traer de tu propio rango si usas <span class="tag-en">BYOIP</span>. El usuario final entra por la edge location más cercana y desde ahí el tráfico viaja por la red global de AWS hasta el endpoint de la Region más próxima. En su variante estándar, mejora la disponibilidad de aplicaciones de internet con audiencia global; en la variante <span class="tag-en">custom routing</span>, mapea usuarios concretos a destinos concretos entre muchos.</p>
+
+<p>Dos rasgos que lo hacen único en el examen. Primero, las IPs <em>estáticas</em>: tus clientes o firewalls corporativos pueden fijar reglas a esas dos direcciones mientras tú conmutas endpoints, Regions o load balancers detrás — algo imposible con los DNS de un ALB/NLB solos (ahí las IPs cambian). Segundo, el enrutado por la red AWS con health checking de endpoints: si los endpoints de una Region fallan, el tráfico se desvía a endpoints sanos en otra, y la IP de entrada no cambia. Por eso GA también es el motor de la <span class="tag-en">accelerated Site-to-Site VPN</span> — AWS crea y gestiona dos accelerators por ti en ese caso. Endpoint típico: un ALB o NLB multi-AZ, o instancias EC2 directamente.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Dimensión</th><th>CloudFront</th><th>Global Accelerator</th></tr></thead>
+<tbody>
+<tr><td>Naturaleza</td><td>CDN — caché de contenido HTTP/HTTPS en edge locations</td><td>Enrutado de tráfico por la red global AWS (TCP/UDP)</td></tr>
+<tr><td>Direcciones</td><td>Nombres de dominio (distributions); sin IP fija para el cliente</td><td>2 IPs IPv4 anycast estáticas (4 en dual-stack), BYOIP opcional</td></tr>
+<tr><td>Qué optimiza</td><td>Latencia de contenido + offload del origin vía caché</td><td>Ruta de red y disponibilidad regional de los endpoints</td></tr>
+<tr><td>Protocolos</td><td>HTTP/HTTPS (contenido estático y dinámico)</td><td>TCP/UDP — incluido tráfico no HTTP como gaming o VoIP</td></tr>
+<tr><td>Cacheo</td><td>Sí — TTL, invalidación, HIT/MISS</td><td>No — no cachea nada</td></tr>
+<tr><td>Caso estrella</td><td>Sitio web/app global con assets distribuidos</td><td>IPs fijas globales + failover regional de endpoints</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>¿Cuál elijo? La frontera práctica</h2>
+
+<p>La pregunta decana: "serve users worldwide with the lowest latency". Si la carga es HTTP/S — web, API con respuestas cacheables, descargas, streaming — la respuesta es <strong>CloudFront</strong>: caché en el borde, invalidaciones y precios por transferencia de edge. Si el enunciado nombra TCP o UDP puro, gaming, IoT o "must not change the IP addresses" o "static IP addresses required", la respuesta es <strong>Global Accelerator</strong>. Los escenarios híbridos aceptan ambos en capas: GA delante para ruta global y failover entre Regions, CloudFront detrás para el contenido. Cuando aparece "accelerate VPN connections", GA está implicado por diseño.</p>
+
+<p>Mira también el matiz de disponibilidad: la caché de CloudFront sigue sirviendo contenido aunque el origin esté caído (hasta que expire el TTL), mientras que la disponibilidad de GA viene de health checks y desvío entre Regions sin tocar las IPs. Para el dominio de costes, recuerda que ambos se cobran por tráfico (transferencia procesada), no por horas de instancia — otro argumento para servir lo cacheable desde la edge y reservar GA para tráfico sensible a la ruta. Estas páginas cierran el bloque global junto a Route 53: DNS elige el endpoint, GA transporta la conexión y CloudFront entrega el contenido.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q{"Que quieres acelerar"}
+    Q -->|"sitio o API web<br>contenido cacheable"| CF["CloudFront<br>CDN HTTP y HTTPS"]
+    Q -->|"app TCP o UDP<br>o IPs estaticas"| GA["Global Accelerator<br>anycast y red AWS"]
+    CF -.->|"se combinan:<br>CF entrega · GA enruta"| GA
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q navy
+    class CF green
+    class GA amber
+</div>
+<figcaption>Figura 2 — CloudFront vs Global Accelerator: contenido web cacheable frente a tráfico TCP/UDP con IPs estáticas; en escenarios exigentes se combinan.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+"Serve static and dynamic web content globally with low latency" → <strong>CloudFront</strong>. "Static IP addresses that never change" / "clients allowlist specific IPs" → <strong>Global Accelerator</strong>. "Improve availability of a global TCP/UDP application" → <strong>Global Accelerator</strong> (endpoints en varias Regions). "Reduce load on the origin for cacheable assets" → <strong>CloudFront</strong> (TTL + edge cache). "Accelerate Site-to-Site VPN" → <strong>accelerated VPN</strong> (GA por debajo). Distractor favorito: responder GA a un escenario puramente HTTP cacheable — GA no cachea nada.
+</div>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"deliver .html, .css, .js and images worldwide"</td><td>CloudFront distribution con origen S3/HTTP</td></tr>
+<tr><td>"users report slow first byte from distant Regions"</td><td>CloudFront (edge + red troncal AWS)</td></tr>
+<tr><td>"application uses UDP; users need the nearest Region"</td><td>Global Accelerator</td></tr>
+<tr><td>"corporate firewall needs fixed addresses"</td><td>Global Accelerator (2 IPs anycast estáticas)</td></tr>
+<tr><td>"serve cached content even if origin degrades"</td><td>CloudFront con TTLs adecuados</td></tr>
+<tr><td>"failover between Regional endpoints without DNS changes"</td><td>Global Accelerator con health checking</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+"Global" no es sinónimo de Global Accelerator: si el enunciado habla de contenido, caché, TTL, origins o .js/.css, la palabra "global" describe al público, no al servicio — CloudFront manda. Y la inversa: CloudFront no da IPs estáticas a tu aplicación ni enruta TCP/UDP arbitrarios; sus activos son distributions y caché. El lío nace de leer "mejorar latencia global" sin clasificar primero el protocolo y la cacheabilidad.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>CloudFront</strong> = CDN: edge locations, origins (S3, HTTP server, MediaPackage) y distributions como objeto de configuración.</li>
+<li>La petición va a la edge de <strong>menor latencia</strong>; HIT entrega inmediato, MISS recupera y cachea; el TTL gobierna la vigencia.</li>
+<li>Cache = latencia + <strong>offload del origin</strong> + disponibilidad (el borde sirve aunque el origin sufra).</li>
+<li>La red troncal de AWS reduce saltos frente a la internet pública — mejor primer byte y más throughput.</li>
+<li><strong>Global Accelerator</strong>: 2 IPs IPv4 anycast estáticas (4 dual-stack), BYOIP opcional; enruta TCP/UDP por la red AWS.</li>
+<li>GA <strong>no cachea</strong>: optimiza ruta y disponibilidad, con endpoints en varias Regions y desvío sin cambiar IPs.</li>
+<li>CloudFront para HTTP cacheable; GA para TCP/UDP, IPs fijas y failover regional; ambos combinables en capas.</li>
+<li>La <span class="tag-en">accelerated VPN</span> monta dos accelerators de GA — conexión directa con el bloque de conectividad.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">NET-14</span> Amazon CloudFront — Introduction (CDN, edge locations) · <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html</a></li>
+<li><span class="id">NET-15</span> AWS Global Accelerator — What is (static anycast IPs) · <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html" target="_blank" rel="noopener">docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/route53.html"><span class="dir">← Anterior</span>Route 53 (DNS)</a><a class="next" href="../temas/elb.html"><span class="dir">Siguiente →</span>Load balancers: ALB/NLB/GWLB</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

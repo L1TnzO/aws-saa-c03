@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating and managing traffic policies - Amazon Route 53</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="traffic-policies" /><meta name="default_state" content="traffic-policies" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-policies.html" /><meta name="description" content="To create a traffic policy, perform the following procedure. Route 53 is updating the Traffic Flow console. During the transition period, you can continue to use the old console. New console Old console Design your configuration. For information about how complex DNS routing configurations work, see" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Route 53" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="With Route 53, you can register domains, route traffic to the resources where your domains are hosted, and check the health of your resources. You can also route traffic based on the health of your resources. This guide explains how to register domains, configure DNS, and configure health checks by using the Route 53 console." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-policies.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-policies.html" hreflang="x-default" /><meta name="feedback-item" content="Route53" /><meta name="this_doc_product" content="Amazon Route 53" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'route53'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Creating and managing traffic policies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="traffic-policies.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating and managing traffic policies - Amazon Route 53</title><meta name="pdf" content="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#traffic-policies" /><meta name="rss" content="amazon-route-53-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAceSYwryvTxuK8Uw1UKOTVA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/traffic-policies.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/traffic-policies.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/traffic-policies.html" /><meta name="keywords" content="Route 53,Amazon Route 53,domain,health check,DNS,routing policy,resource record set,hosted zone,name server,register,registration,transfer,Traffic Flow,Route 53 VPC Resolver" /><link rel="alternate" type="text/markdown" href="traffic-policies.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/route53/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Using Traffic Flow to route DNS traffic",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating and managing traffic policies",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#traffic-policies" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/route53/index.html">Amazon Route 53</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#traffic-policies-creating">Creating a traffic policy</a><a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a><a href="#traffic-flow-geoproximity-map">Viewing a map that shows the effect of geoproximity settings</a><a href="#traffic-policies-creating-versions">Creating additional versions of a traffic policy</a><a href="#traffic-policy-import">Creating a traffic policy by using a JSON document</a><a href="#traffic-policies-viewing">Viewing traffic policy versions and the associated policy records</a><a href="#traffic-policies-deleting">Deleting traffic policy versions and traffic policies</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="traffic-policies">Creating and managing traffic policies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p></p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#traffic-policies-creating">Creating a traffic policy</a></p></li><li><p><a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a></p></li><li><p><a href="#traffic-flow-geoproximity-map">Viewing a map that shows the effect of geoproximity settings</a></p></li><li><p><a href="#traffic-policies-creating-versions">Creating additional versions of a traffic policy</a></p></li><li><p><a href="#traffic-policy-import">Creating a traffic policy by using a JSON document</a></p></li><li><p><a href="#traffic-policies-viewing">Viewing traffic policy versions and the associated policy records</a></p></li><li><p><a href="#traffic-policies-deleting">Deleting traffic policy versions and traffic policies</a></p></li></ul></div><h2 id="traffic-policies-creating">Creating a traffic policy</h2>
+			
+			<p>To create a traffic policy, perform the following procedure.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-policies-creating-new">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-policies-creating-old">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				<dt>New console</dt><dd tab-id="traffic-policies-creating-new">
+						<div class="procedure" id="traffic-policies-creating-procedure"><h6 id="traffic-policies-creating-procedure.title">To create a traffic policy</h6><ol><li><p>Design your configuration. For information about how complex DNS routing configurations work, see 
+								<a href="./dns-failover-configuring.html">Configuring DNS failover</a> in  
+								<a href="./dns-failover.html">Creating Amazon Route 53 health checks</a>.</p>
+							</li><li><p>Based on the design for your configuration, create the health checks that you want to use for your endpoints.</p></li><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose <b>Create traffic policy</b>.</p></li><li><p>Enter a name and an optional description, and then choose <b>Next</b>.</p></li><li><p>On the editor, choose the DNS resource record type in the <b>Properties</b>
+									pane. This type will be assigned to all resource records that
+									you create for this traffic policy.</p>
+								<p>Choose <b>Confirm</b>. For more information, see 
+								<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p></li><li><p>In the editor page, choose <b>Connect to</b> and then choose one of 
+								<b>New routing rule</b>, <b>New endpoint</b>, <b>Existing routing rule</b>, 
+								or <b>Existing endpoint</b>. If you selected a <b>New routing rule</b>, in the <b>Properties</b> pane select the routing rule and choose 
+								<b>Confirm</b>.
+								Then, in the <b>Properties</b> pane, 
+								enter the appropriate values. Repeat this process until your policy is done.
+								For more information about the values for each connection type, see 
+								<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+								<p>You can delete rules, endpoints, and branches of a traffic policy in the following ways:</p>
+								<div class="itemizedlist">
+									 
+									 
+								<ul class="itemizedlist"><li class="listitem"><p>To delete a rule or an endpoint, select the rule or the endpoint in the editor, and then
+											choose <b>Delete</b> in
+												<b>Properties</b> pane.</p>
+										<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete a rule that has child rules and endpoints, Amazon Route 53 also deletes all of the children. </p></div></div>
+									</li><li class="listitem"><p>If you connect two rules to the same child rule or endpoint and you want to delete one of the
+											connections, select the connection that you want to
+											delete, and chose the <b>Delete</b> in the
+												<b>Properties</b> pane for that
+											connection.</p></li></ul></div>
+							</li><li><p>Choose <b>Create policy</b>.</p></li><li><p>On the <b>Create policy records</b> page, use the new traffic policy to create
+									one or more policy records in one hosted zone. For more
+									information, see <a href="./traffic-policy-records.html#traffic-policy-records-creating-values">Values that you specify when you create or update a policy record</a>.
+									You can also create policy records later, either in the same
+									hosted zone or in additional hosted zones.</p>
+								<p>If you don't want to create policy records now, choose <b>Cancel</b>, and the console displays 
+									the list of traffic policies and policy records that you have created by using the current AWS account.</p>
+							</li><li><p>If you specified settings for policy records in the preceding step, choose <b>Create policy records</b>.</p></li></ol></div>
+					</dd>
+				<dt>Old console</dt><dd tab-id="traffic-policies-creating-old">
+						<div class="procedure" id="traffic-policies-creating-procedure-old"><h6 id="traffic-policies-creating-procedure-old.title">To create a traffic policy</h6><ol><li><p>Design your configuration. For information about how complex DNS routing configurations work, see 
+								<a href="./dns-failover-configuring.html">Configuring DNS failover</a> in  
+								<a href="./dns-failover.html">Creating Amazon Route 53 health checks</a>.</p>
+							</li><li><p>Based on the design for your configuration, create the health checks that you want to use for your endpoints.</p></li><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose <b>Create traffic policy</b>.</p></li><li><p>On the <b>Name policy</b> page, specify the applicable values. For more information, see 
+								<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+							</li><li><p>Choose <b>Next</b>.</p></li><li><p>On the <b>Create traffic policy</b> <em>policy name</em> <b>v1</b> page, 
+								specify the applicable values. For more information, see 
+								<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+								<p>You can delete rules, endpoints, and branches of a traffic policy in the following ways:</p>
+								<div class="itemizedlist">
+									 
+									 
+								<ul class="itemizedlist"><li class="listitem"><p>To delete a rule or an endpoint, choose the <b>x</b> in the upper-right corner 
+										of the box.</p>
+										<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete a rule that has child rules and endpoints, Amazon Route 53 also deletes all of the children. </p></div></div>
+									</li><li class="listitem"><p>If you connect two rules to the same child rule or endpoint and you want to delete one of the 
+										connections, pause your cursor on the connection that you want to delete, and choose the <b>x</b> 
+										for that connection.</p></li></ul></div>
+							</li><li><p>Choose <b>Create traffic policy</b>.</p></li><li><p><em>Optional</em>: On the <b>Create policy records with traffic policy</b> page, 
+								use the new traffic policy to create one or more policy records in one hosted zone. For more information, see 
+								<a href="./traffic-policy-records.html#traffic-policy-records-creating-values">Values that you specify when you create or update a policy record</a>. 
+								You can also create policy records later, either in the same hosted zone or in additional hosted zones.</p>
+								<p>If you don't want to create policy records now, choose <b>Skip this step</b>, and the console displays 
+									the list of traffic policies and policy records that you have created by using the current AWS account.</p>
+							</li><li><p>If you specified settings for policy records in the preceding step, choose <b>Create policy record</b>.</p></li></ol></div>
+					</dd>
+			</dl></awsdocs-tabs>
+		 
+			<h2 id="traffic-policies-creating-values">Values that you specify when you create a traffic policy</h2>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console. The following list applies for both console, except where noted.</p></div></div>
+			<p>When you create a traffic policy, you specify the following values.</p>
+			
+			<div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p><a href="#traffic-policies-creating-values-policy-name">Policy name</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-version">Version</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-version-description">Version description</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-dns-type">DNS type</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-connect-to">Connect to</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-value-type">Value type</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-value">Value</a></p></li><li class="listitem"><p><a href="#traffic-policies-creating-values-key">Key (new console only)</a></p></li></ul></div>
+			
+			 
+				<h3 id="traffic-policies-creating-values-policy-name">Policy name</h3>
+				<p>Enter a name that describes the traffic policy. This value appears in the list of traffic policies 
+					in the console. You can't change the name of a traffic policy after you create it.</p>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-version">Version</h3>
+				<p>This value is assigned automatically by Amazon Route 53 when you create a traffic policy or a new version of an existing policy.</p>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-version-description">Version description</h3>
+				<p>Enter a description that applies to this version of the traffic policy. This value appears in the list of 
+					traffic policy versions in the console.</p>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-dns-type">DNS type</h3>
+				<p>Choose the DNS type that you want Amazon Route 53 to assign to all of the records 
+					when you create a policy record by using this traffic policy version. For a list of supported types, see 
+					<a href="./ResourceRecordTypes.html">Supported DNS record types</a>.</p> 
+				
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you're creating a new version of an existing traffic policy, you can change the DNS type. 
+					However, you can't edit a policy record and choose a traffic policy version that has a DNS type that is 
+					different from the traffic policy version that you used to create the policy record. For example, if you 
+					created a policy record by using a traffic policy version that has a <b>DNS type</b> of A, you can't 
+					edit the policy record and choose a traffic policy version that has any other value for <b>DNS type</b>.
+				</p></div></div>
+				
+				<p>If you want to route traffic to the following AWS resources, choose the applicable value:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem"><p><b>CloudFront distribution</b> – Choose <b>A: IP address in
+								IPv4 format</b> or <b>AAAA: IP address in IPv6
+								format</b>.</p>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>CloudFront alias endpoints don't support evaluate health check. You can however, create a health check to monitor CloudFront endpoints. For more information, see
+							<a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div></li><li class="listitem"><p><b>ELB Application load balancer</b> – Choose either
+								<b>A: IP address in IPv4 format</b> or <b>AAAA:
+								IP address in IPv6 format</b>.</p></li><li class="listitem"><p><b>ELB Classic load balancer</b> – Choose either <b>A:
+								IP address in IPv4 format</b> or <b>AAAA: IP address
+								in IPv6 format</b>.</p></li><li class="listitem"><p><b>ELB Network load balancer</b> – Choose either
+						<b>A: IP address in IPv4 format</b> or <b>AAAA:
+							IP address in IPv6 format</b>.</p></li><li class="listitem"><p><b>Elastic Beanstalk environment</b>: 
+						Choose <b>A: IP address in IPv4 format</b>.</p></li><li class="listitem"><p><b>Amazon S3 bucket configured as a website endpoint</b>: 
+						Choose <b>A: IP address in IPv4 format</b>.</p></li></ul></div>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-connect-to">Connect to</h3>
+				<p>Choose the applicable rule or endpoint based on the design for your configuration. </p>
+				<div class="variablelist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<dl>
+						<dt><b><span class="term">Failover rule</span></b></dt>
+						<dd><p>Choose this option when you want to configure active-passive failover, in which one resource 
+							takes all traffic when it's available and the other resource takes all traffic when the first resource isn't available.</p>
+							<p>For more information, see <a href="./dns-failover-types.html#dns-failover-types-active-passive">Active-passive failover</a>.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Geolocation rule</span></b></dt>
+						<dd><p>Choose this option when you want Amazon Route 53 to respond to DNS queries based on the location of your users.</p>
+							<p>For more information, see <a href="./routing-policy-geo.html">Geolocation routing</a>.</p>
+							<p>When you choose <b>Geolocation rule</b>, you also choose the country or the state in the 
+								United States that requests originate from.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Latency rule</span></b></dt>
+						<dd><p>Choose this option when you have resources in multiple Amazon EC2 data centers that perform the same function, 
+							and you want Route 53 to respond to DNS queries with the resources that provide the best latency.</p>
+							<p>When you choose <b>Latency rule</b>, you also choose an AWS Region.</p>
+							<p>For more information, see <a href="./routing-policy-latency.html">Latency-based routing</a>.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Geoproximity rule</span></b></dt>
+						<dd><p>Choose this option when you want Route 53 to respond to DNS queries based on the location of 
+							your resources and, optionally, on a bias that you specify. The bias allows you to send more traffic 
+							to a resource or more traffic away from a resource.</p>
+							<p>When you choose <b>Geoproximity rule</b>, enter the following values:</p>
+							<div class="variablelist">
+								 
+								 
+								 
+							<dl>
+									<dt><b><span class="term">Endpoint location</span></b></dt>
+									<dd><p>Choose the applicable value:</p>
+										<div class="itemizedlist">
+											 
+											 
+											 
+										<ul class="itemizedlist"><li class="listitem"><p><b>Custom (enter coordinates)</b> – If your endpoint is not an AWS resource, 
+												choose <b>Custom (enter coordinates)</b>.</p></li><li class="listitem"><p><b>An AWS Region</b> – If your endpoint is an AWS resource, choose
+												the AWS Region that you created the resource in.</p></li><li class="listitem"><p><b>An AWS Local Zone</b> – If your endpoint is an AWS resource, choose
+												the AWS Local Zone that you created the resource in.</p></li></ul></div>
+										<p>If you use AWS Local Zones, you must first enable them. For more information, see
+											<a href="https://docs.aws.amazon.com/local-zones/latest/ug/getting-started.html">Getting started with Local Zones</a> in the
+											<em>AWS Local Zones User Guide</em>.</p>
+										<p>For available Local Zones, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/localzones/locations/" rel="noopener noreferrer" target="_blank"><span>AWS Local Zones locations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+										<p>To learn about the difference between AWS Regions and Local Zones, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">Regions and Zones</a> in the <em>Amazon EC2 User Guide</em>.</p>
+										<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>A single geoproximity routing policy cannot contain two or more locations that are geographically situated within the same metropolitan area. </p><p>Additionally, some AWS Regions and Local Zones, such as US West (Oregon) and Portland, US, are situated too close to one another to be used 
+												within the same geoproximity routing policy. If you require traffic routing to more than one location within the same metropolitan area, 
+												instead define a geoproximity routing policy that results in a 50/50 weighted routing rule (WRR) for two different endpoints in the area, 
+												thereby distributing traffic evenly between those endpoints.</p></div></div>
+									</dd>
+								
+									<dt><b><span class="term">Coordinates</span></b></dt>
+									<dd><p>If you chose <b>Custom (enter coordinates)</b> for <b>Endpoint location</b>, 
+										enter the latitude and longitude of the location of the resource. Note the following:</p>
+										<div class="itemizedlist">
+											 
+											 
+											 
+											 
+										<ul class="itemizedlist"><li class="listitem"><p>Latitude represents the location south (negative) or north (positive) of the equator. 
+												Valid values are -90 degrees to 90 degrees.</p></li><li class="listitem"><p>Longitude represents the location west (negative) or east (positive) of the prime meridian. 
+												Valid values are -180 degrees to 180 degrees.</p></li><li class="listitem"><p>You can get latitude and longitude from some online mapping applications. For example, in 
+												Google Maps, the URL for a location specifies the latitude and longitude:</p>
+												<p>https://www.google.com/maps/@<b>47.6086111</b>,-<b>122.3409953</b>,20z</p>
+											</li><li class="listitem"><p>You can enter up to two decimals of precision, for example, <b>47.63</b>. If you specify 
+												a value with greater precision, Route 53 truncates the value to two places after the decimal. For latitude and 
+												for longitude at the equator, 0.01 degree is approximately 0.69 miles.</p></li></ul></div>
+									</dd>
+								
+									<dt><b><span class="term">Bias</span></b></dt>
+									<dd><p>To optionally change the size of the geographic region from which Route 53 routes traffic to a resource, 
+										specify the applicable value for <b>Bias</b>:</p>
+										<div class="itemizedlist">
+											 
+											 
+										<ul class="itemizedlist"><li class="listitem"><p>To expand the size of the geographic region from which Route 53 routes traffic to a resource, 
+												specify a positive integer from 1 to 99 for the bias. Route 53 shrinks the size of adjacent regions.</p></li><li class="listitem"><p>To shrink the size of the geographic region from which Route 53 routes traffic to a resource, 
+												specify a negative bias of -1 to -99. Route 53 expands the size of adjacent regions.</p></li></ul></div>
+										<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The effect of changing the value of <b>Bias</b> is relative, based on the location 
+											of other resources, rather than absolute, based on distance. As a result, the effect of a change is difficult to predict. 
+											For example, depending on where your resources are, changing the bias from 10 to 15 can mean the difference 
+											between adding or subtracting a significant amount of traffic from the New York City metropolitan area. 
+											We recommend that you change the bias in small increments and evaluate the results, and then make additional changes 
+											if appropriate.</p></div></div>
+										<p>For more information, see <a href="./routing-policy-geoproximity.html">Geoproximity routing</a>.</p>
+									</dd>
+								</dl></div>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+						
+					
+						<dt><b><span class="term">Multivalue answer rule</span></b></dt>
+						<dd><p>Choose this option when you want Route 53 to respond to DNS queries with up to eight healthy answers, 
+							selected approximately at random. </p>
+							<p>For more information, see <a href="./routing-policy-multivalue.html">Multivalue answer routing</a>.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Weighted rule</span></b></dt>
+						<dd><p>Choose this option when you have multiple resources that perform the same function 
+							(for example, web servers that serve the same website) and you want Route 53 to route traffic to those resources 
+							in proportions that you specify (for example, 1/3 to one server and 2/3 to the other).</p>
+							<p>When you choose <b>Weighted rule</b>, enter the weight that you want to apply to this rule.</p>
+							<p>For more information, see <a href="./routing-policy-weighted.html">Weighted routing</a>.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Evaluate target health is checked by default and it will evaluate the health of the target endpoint to which traffic is routed through an alias record.
+								If your endpoint doesn't receive DNS traffic through an alias record, clear this option and create a health check if you want to monitor the endpoint health. 
+								For more information, see <a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Endpoint</span></b></dt>
+						<dd><p>Choose this option to specify the resource, such as a CloudFront distribution or an Elastic Load Balancing load balancer, 
+							that you want to route DNS queries to.</p></dd>
+					
+						<dt><b><span class="term">Existing rule</span></b></dt>
+						<dd><p>Choose this option when you want to route DNS queries to an existing rule in this traffic policy. 
+							For example, you might create two or more geolocation rules that route queries for different countries to the same 
+							failover rule. The failover rule might then routes queries to two Elastic Load Balancing load balancers.</p>
+							<p>This option isn't available if the traffic policy doesn't include any rules.</p>
+						</dd>
+					
+						<dt><b><span class="term">Existing endpoint</span></b></dt>
+						<dd><p>Choose this option when you want to route DNS queries to an existing endpoint. For example, 
+							if you have two failover rules, you might want to route DNS queries for both <b>On failover</b>
+							(secondary) options to the same Elastic Load Balancing load balancer.</p>
+							<p>This option isn't available if the traffic policy doesn't include any endpoints.</p>
+						</dd>
+					</dl></div>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-value-type">Value type</h3>
+				
+				<p>Choose the applicable option:</p>
+				<div class="variablelist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<dl>
+						<dt><b><span class="term">CloudFront distribution</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to a CloudFront distribution. The option is
+								available only if you chose <b>A: IP address in IPv4
+									format</b> for <b>DNS type</b> or
+									<b>AAAA: IP address in IPv6 format</b> for
+									<b>DNS type</b>. </p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>CloudFront alias endpoints don't support evaluate health check. You can however, create a health check to monitor CloudFront endpoints. For more information, see
+								<a href="./health-checks-creating.html">Creating and updating health checks</a>.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">ELB Application load balancer</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to an Elastic Load Balancing Application load balancer. The
+								option is available only if you chose either <b>A: IP address
+									in IPv4 format</b> or <b>AAAA: IP address in IPv6
+									format</b> for <b>DNS type</b>. </p>
+						</dd>
+					
+						<dt><b><span class="term">ELB Classic load balancer</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to an Elastic Load Balancing Classic load balancer. The option
+								is available only if you chose either <b>A: IP address in
+									IPv4 format</b> or <b>AAAA: IP address in IPv6
+									format</b> for <b>DNS type</b>. </p>
+						</dd>
+					
+						<dt><b><span class="term">ELB Network load balancer</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to an Elastic Load Balancing Network load balancer. The option
+								is available only if you chose either <b>A: IP address in
+									IPv4 format</b> or <b>AAAA: IP address in IPv6
+									format</b> for <b>DNS type</b>. </p>
+						</dd>
+					
+					<dt><b><span class="term">Elastic Beanstalk environment</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to an Elastic Beanstalk environment.  The option is available only if you chose <b>A: IP address in IPv4 format</b> 
+						for <b>DNS type</b>. </p>
+					</dd>
+					
+						<dt><b><span class="term">S3 website endpoint</span></b></dt>
+						<dd><p>Choose this option if you want to route traffic to an Amazon S3 bucket that is configured as a 
+							website endpoint. The option is available only if you chose <b>A: IP address in IPv4 format</b> 
+							for <b>DNS type</b>. </p>
+						</dd>
+					
+						<dt><b><span class="term">Type <em>DNS type</em> value</span></b></dt>
+						<dd><p>Choose this option if you want Route 53 to respond to DNS queries using the value in the 
+							<b>Value</b> field. For example, if you chose <b>A</b> for the value of 
+							<b>DNS type</b> when you created this traffic policy, this option in the <b>Value type</b> 
+							list will be <b>Type A value</b>. This requires that you enter an IP address in IPv4 format 
+							in the <b>Value</b> field. Route 53 will respond to DNS queries that are routed to this 
+							endpoint with the IP address in the <b>Value</b> field.</p></dd>
+					</dl></div>
+			 
+			
+			 
+				<h3 id="traffic-policies-creating-values-value">Value</h3>
+				
+				<p>Choose or enter a value based on the option that you chose for <b>Value type</b>:</p>
+				<div class="variablelist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<dl>
+						<dt><b><span class="term">CloudFront distribution</span></b></dt>
+						<dd><p>Choose a CloudFront distribution from the list of distributions that are associated with the 
+							current AWS account.</p></dd>
+					
+						<dt><b><span class="term">ELB Application load balancer</span></b></dt>
+						<dd><p>Choose an Elastic Load Balancing Application load balancer from the list of load balancers that are associated with the 
+							current AWS account.</p></dd>
+					
+						<dt><b><span class="term">ELB Classic load balancer</span></b></dt>
+						<dd><p>Choose an Elastic Load Balancing Classic load balancer from the list of load balancers that are associated with the 
+							current AWS account.</p></dd>
+					
+						<dt><b><span class="term">ELB Network load balancer</span></b></dt>
+						<dd><p>Choose an Elastic Load Balancing Network load balancer from the list of load balancers that are associated with the 
+							current AWS account.</p></dd>
+					
+						<dt><b><span class="term">Elastic Beanstalk environment</span></b></dt>
+						<dd><p>Choose an Elastic Beanstalk environment from the list of environments 
+							that are associated with the current AWS account.</p></dd>
+					
+						<dt><b><span class="term">S3 website endpoint</span></b></dt>
+						<dd><p>Choose an Amazon S3 bucket from the list of Amazon S3 buckets that are configured as website endpoints 
+							and that are associated with the current AWS account.</p>
+							<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you create a policy record based on this traffic policy, the bucket that you choose here 
+									must match the domain name (such as www.example.com) that you specify for 
+									<a href="./traffic-policy-records.html#traffic-policy-records-creating-values-policy-record-dns-name">Policy record DNS name</a> 
+									in the policy record. If <b>Value</b> and <b>Policy record DNS name</b> don't match, 
+									Amazon S3 won't respond to DNS queries for the domain name.</p></div></div>
+						</dd>
+					
+						<dt><b><span class="term">Type <em>DNS type</em> value</span></b></dt>
+						<dd><p>Enter a value that corresponds with the value that you specified for <b>DNS type</b> 
+							when you started this traffic policy. For example, if you chose <b>MX</b> for <b>DNS type</b>, 
+							enter two values: the priority that you want to assign to a mail server and the domain name of the mail server, such as 
+							<code class="code">10 sydney.mail.example.com</code>.</p>
+							<p>For more information about supported DNS types, see 
+								<a href="./ResourceRecordTypes.html">Supported DNS record types</a>.</p>
+						</dd>
+					</dl></div>
+			 
+			 
+				<h3 id="traffic-policies-creating-values-key">Key (new console only)</h3>
+				
+				<p>Enter a friendly name for a routing rule or an endpoint for <b>Key</b>. This value displays as the name of a node in the editor.</p>
+				
+			 
+		 
+			<h2 id="traffic-flow-geoproximity-map">Viewing a map that shows the effect of geoproximity settings</h2>
+			
+			<p>A <em>geoproximity rule</em> lets you specify the locations of your resources,
+				both in AWS Regions , or Local Zones, and, using latitude and longitude, in
+				non-AWS locations. When you create a geoproximity rule, by default, Route 53 routes
+				internet traffic to the resource that is closest to your users. You can also choose
+				to route more traffic or less traffic to a resource by specifying a
+					<em>bias</em>, which expands or shrinks the geographic area from
+				which traffic is routed to a resource. For more information about geoproximity
+				routing, see <a href="./routing-policy-geoproximity.html">Geoproximity routing</a>.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-flow-geoprox-map-new">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-flow-geoprox-map-old">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				
+					<dt>New console</dt><dd tab-id="traffic-flow-geoprox-map-new">
+							<p>You can display a map that shows the effect of your current geoproximity settings. For example, if you have resources in the 
+								US West (Oregon), Europe (Frankfurt), and Asia Pacific (Tokyo) Regions, and if you don't specify a bias, the map looks like this.</p>
+							<div class="mediaobject">
+								 
+									<img src="/images/Route53/latest/DeveloperGuide/images/traffic-flow-geoproximity-map-new.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Map of the world that shows three regions approximately divided into North and South America; Europe, Africa, and western Asia; and the rest of Asia and Australia." style="max-width:100%" />
+								 
+								 
+							</div>
+							
+							<p>The map for a geoproximity rule automatically displays in the <b>Properties</b> and updates as you add or delete regions.</p>
+							<p>Note the following:</p>
+							<div class="itemizedlist">
+								 
+								 
+								 
+								 
+								
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem"><p>The map is accurate to within approximately 10 miles (16 kilometers).</p></li><li class="listitem"><p>The map automatically adjusts when you add, edit, or delete Regions, or when you change the bias setting for a Region.</p></li><li class="listitem"><p>The Region number and color in each rule definition correspond with numbers and colors on the map.</p></li><li class="listitem"><p>You can zoom in and zoom out to see more or less detail. Use the + and - buttons on the map, a
+									touchpad, or the wheel on a mouse to change the zoom level. If
+									you don't see the Region, or the Region number, you can enlarge the
+										<b>Properties</b> pane and they will
+									appear.</p></li><li class="listitem"><p>You can move the map around inside the map window to see specific areas. Use a touchpad or drag the map to navigate. 
+									You can also move the map window in a browser window.</p></li><li class="listitem"><p>If you have more than one geoproximity rule in a policy, you can view the map for only one rule at a time.</p></li></ul></div>
+						</dd>
+				<dt>Old console</dt><dd tab-id="traffic-flow-geoprox-map-old">
+			<p>You can display a map that shows the effect of your current geoproximity settings. For example, if you have resources in the 
+				US West (Oregon), Europe (Frankfurt), and Asia Pacific (Tokyo) Regions, and if you don't specify a bias, the map looks like this.</p>
+			<div class="mediaobject">
+				 
+					<img src="/images/Route53/latest/DeveloperGuide/images/traffic-flow-geoproximity-map.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Map of the world that shows three regions approximately divided into North and South America; Europe, Africa, and western Asia; and the rest of Asia and Australia." style="max-width:100%" />
+				 
+				 
+			</div>
+			
+			<p>To display the map for a geoproximity rule, choose the graph icon next to <b>Show geoproximity map</b>. 
+				(This icon appears at the top of the rule.) To hide the map, choose the icon again or choose the <b>x</b> in the 
+				upper right corner of the map.</p>
+			<p>Note the following:</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+				 
+				
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p>The map is accurate to within approximately 10 miles (16 kilometers).</p></li><li class="listitem"><p>The map automatically adjusts when you add, edit, or delete Regions, or when you change the bias setting for a Region.</p></li><li class="listitem"><p>The Region number and color in each rule definition correspond with numbers and colors on the map.</p></li><li class="listitem"><p>You can zoom in and zoom out to see more or less detail. Use the + and - buttons on the map, a touchpad, or the wheel on a mouse 
+					to change the zoom level.</p></li><li class="listitem"><p>You can move the map around inside the map window to see specific areas. Use a touchpad or drag the map to navigate. 
+					You can also move the map window in a browser window.</p></li><li class="listitem"><p>If you have more than one geoproximity rule in a policy, you can view the map for only one rule at a time.</p></li></ul></div>
+					</dd>
+			</dl></awsdocs-tabs>
+		 
+			<h2 id="traffic-policies-creating-versions">Creating additional versions of a traffic policy</h2>
+			
+			<p>When you edit a traffic policy, Amazon Route 53 automatically creates another version of the traffic policy and retains the previous 
+				versions unless you choose to delete them. The new version has the same name as the traffic policy that you're editing; 
+				it's distinguished from the original version by a version number that Route 53 increments automatically. You can base the 
+				new version of a traffic policy on any existing version of a traffic policy that has the same name.</p>
+				
+			<p>Route 53 doesn't reuse version numbers for new versions of a given traffic policy. For example, if you create three versions of 
+				<b>MyTrafficPolicy</b>, delete the last two versions, and then create another version, the new version is version 4. 
+				By retaining the previous versions, Route 53 ensures that you can roll back to a previous configuration if a new configuration 
+				doesn't route traffic as you wanted it to. </p>
+			
+			<p>To create a new traffic policy version, perform the following procedure.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-policies-creating-versions-new-console">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-policies-creating-versions-old-console">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				
+				<dt>New console</dt><dd tab-id="traffic-policies-creating-versions-new-console">
+			
+			<div class="procedure" id="traffic-policies-creating-versions-procedure"><h6 id="traffic-policies-creating-versions-procedure.title">To create another version of a traffic policy</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of the traffic policy that you want to create a new version of.</p></li><li><p>In the <b>Traffic policy versions</b> table at the top of the page, select the check box 
+					for the traffic policy version that you want to use as a basis for the new traffic policy version.</p></li><li><p>Choose <b>Edit policy as new version</b>.</p></li><li><p>On the <b>Edit policy as a new version</b> dialog box, 
+					enter a description for the new traffic policy version. 
+					Specify a description that distinguishes this version from other versions of the same 
+					traffic policy. When you create a new policy record, the value that you specify appears in the list of available 
+					versions for this traffic policy.</p>
+				</li><li><p>Choose <b>Next</b>.</p></li><li><p>Update the configuration as applicable. For more information, see 
+					<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+					<p>You can delete rules, endpoints, and branches of a traffic policy in the following ways:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p>To delete a rule or an endpoint, choose it in the editor and then choose 
+							<b>Delete</b> in the <b>Properties</b> pane.</p>
+							<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete a rule that has child rules and endpoints, Route 53 also deletes all of the children. </p></div></div>
+						</li><li class="listitem"><p>If you connect two rules to the same child rule or endpoint and you want to delete one of the
+											connections, select the connection that you want to
+											delete, and then choose <b>Delete</b> in
+											the <b>Properties</b> pane.</p></li></ul></div>
+				</li><li><p>When you're finished editing, choose <b>Save as new version</b>.</p></li><li><p><em>Optional</em>: Specify the settings to create one or more policy records in one hosted zone 
+					by using the new traffic policy version. For more information, see 
+					<a href="./traffic-policy-records.html#traffic-policy-records-creating-values">Values that you specify when you create or update a policy record</a>. 
+					You can also create policy records later, either in the same hosted zone or in additional hosted zones.</p>
+					<p>If you don't want to create policy records now, choose <b>Cancel</b>, and the console displays 
+						the list of traffic policies and policy records that you have created by using the current AWS account.</p>
+				</li><li><p>If you specified settings for policy records in the preceding step, choose 
+					<b>Create policy record</b>.</p></li></ol></div>
+					</dd>
+				<dt>Old console</dt><dd tab-id="traffic-policies-creating-versions-old-console">
+						
+						<div class="procedure" id="traffic-policies-creating-versions-procedure-old"><h6 id="traffic-policies-creating-versions-procedure-old.title">To create another version of a traffic policy</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of the traffic policy that you want to create a new version of.</p></li><li><p>In the <b>Traffic policy versions</b> table at the top of the page, select the check box 
+								for the traffic policy version that you want to use as a basis for the new traffic policy version.</p></li><li><p>Choose <b>Edit policy as new version</b>.</p></li><li><p>On the <b>Update description</b> page, enter a description for the new traffic policy version. 
+								Specify a description that distinguishes this version from other versions of the same 
+								traffic policy. When you create a new policy record, the value that you specify appears in the list of available 
+								versions for this traffic policy.</p>
+							</li><li><p>Choose <b>Next</b>.</p></li><li><p>Update the configuration as applicable. For more information, see 
+								<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+								<p>You can delete rules, endpoints, and branches of a traffic policy in the following ways:</p>
+								<div class="itemizedlist">
+									 
+									 
+								<ul class="itemizedlist"><li class="listitem"><p>To delete a rule or an endpoint, choose the <b>x</b> in the upper-right corner 
+										of the box.</p>
+										<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete a rule that has child rules and endpoints, Route 53 also deletes all of the children. </p></div></div>
+									</li><li class="listitem"><p>If you connect two rules to the same child rule or endpoint and you want to delete one of the 
+										connections, pause your cursor on the connection that you want to delete, and choose the <b>x</b> 
+										for that connection.</p></li></ul></div>
+							</li><li><p>When you're finished editing, choose <b>Save as new version</b>.</p></li><li><p><em>Optional</em>: Specify the settings to create one or more policy records in one hosted zone 
+								by using the new traffic policy version. For more information, see 
+								<a href="./traffic-policy-records.html#traffic-policy-records-creating-values">Values that you specify when you create or update a policy record</a>. 
+								You can also create policy records later, either in the same hosted zone or in additional hosted zones.</p>
+								<p>If you don't want to create policy records now, choose <b>Skip this step</b>, and the console displays 
+									the list of traffic policies and policy records that you have created by using the current AWS account.</p>
+							</li><li><p>If you specified settings for policy records in the preceding step, choose 
+								<b>Create policy record</b>.</p></li></ol></div>
+					</dd>
+			</dl></awsdocs-tabs>
+			
+		 
+			<h2 id="traffic-policy-import">Creating a traffic policy by using a JSON document</h2>
+			
+			<p>You can create a new traffic policy or a new version of an existing traffic policy by importing a document in JSON format 
+				that describes all of the endpoints and rules that you want to include in the traffic policy. For information about the 
+				format of the JSON document and several examples that you can copy and revise, see 
+				<a href="https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html">Traffic policy document format</a> 
+				in the <em>Amazon Route 53 API Reference</em>.</p>
+			<p>The easiest way to get the JSON-formatted document for an existing traffic policy version is to use the 
+				<code class="code">get-traffic-policy</code> command in the AWS CLI. For more information, see 
+				<a href="https://docs.aws.amazon.com/cli/latest/reference/route53/get-traffic-policy.html">get-traffic-policy</a> in the <em>AWS CLI Command Reference</em>. </p>
+			<p>The JSON file created by the <code class="code">get-traffic-policy</code> command includes backward slashes (\) as escape characters. Before you import the 
+			JSON file, replace all the backward slashes with null characters.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-policy-import-new-console">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-policy-import-old-console">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				
+				<dt>New console</dt><dd tab-id="traffic-policy-import-new-console">
+			
+						<div class="procedure" id="traffic-policy-import-procedure"><h6 id="traffic-policy-import-procedure.title">To create a traffic policy by importing a JSON document</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>To create a new traffic policy by importing a JSON document, perform the following steps:</p>
+								<ol><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose <b>Create traffic policy</b>.</p></li><li><p>On the <b>Name policy</b> page, specify the applicable values. For more information, see 
+										<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+									</li><li><p>Skip to step 4.</p></li></ol>
+							</li><li>
+								<p>To create a new version of an existing traffic policy by importing a JSON document, perform the following steps:</p>
+								<ol><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of the traffic policy that you want to base the new version on. </p></li><li><p>In the <b>Traffic policy versions</b> table, select the check box for the version that 
+										you want to base the new version on.</p></li><li><p>Choose <b>Edit policy as new version</b>.</p></li><li><p>On the <b>Update description</b> page, enter a description for the new version.</p></li><li><p>Skip to step 4.</p></li></ol>
+							</li><li><p>Choose <b>Next</b>.</p></li><li><p>On the editor page choose the json editor (<span class="inlinemediaobject">
+								 
+									<img src="/images/Route53/latest/DeveloperGuide/images/jsoneditor.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" alt="json editor icon" />
+								 
+								 
+							</span>) icon on the upper right corner of the editor.
+							</p></li><li><p>Enter a new traffic policy, paste an example traffic policy, or paste an existing traffic policy. </p>
+								<p>For example policies, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html#traffic-policy-document-format-examples">Traffic Flow policy JSON examples</a>.</p></li><li><p>Choose <b>Update</b>.</p></li></ol></div>
+					</dd>
+				<dt>Old console</dt><dd tab-id="traffic-policy-import-old-console">
+						
+						<div class="procedure" id="traffic-policy-import-procedure-old"><h6 id="traffic-policy-import-procedure-old.title">To create a traffic policy by importing a JSON document</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>To create a new traffic policy by importing a JSON document, perform the following steps:</p>
+							<ol><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose <b>Create traffic policy</b>.</p></li><li><p>On the <b>Name policy</b> page, specify the applicable values. For more information, see 
+									<a href="#traffic-policies-creating-values">Values that you specify when you create a traffic policy</a>.</p>
+								</li><li><p>Skip to step 4.</p></li></ol>
+						</li><li>
+							<p>To create a new version of an existing traffic policy by importing a JSON document, perform the following steps:</p>
+							<ol><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of the traffic policy that you want to base the new version on. </p></li><li><p>In the <b>Traffic policy versions</b> table, select the check box for the version that 
+									you want to base the new version on.</p></li><li><p>Choose <b>Edit policy as new version</b>.</p></li><li><p>On the <b>Update description</b> page, enter a description for the new version.</p></li><li><p>Skip to step 4.</p></li></ol>
+						</li><li><p>Choose <b>Next</b>.</p></li><li><p>Choose <b>Import traffic policy</b>.</p></li><li><p>Enter a new traffic policy, paste an example traffic policy, or paste an existing traffic policy. </p>
+							<p>For example policies, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html#traffic-policy-document-format-examples">Traffic Flow policy JSON examples</a></p></li><li><p>Choose <b>Import traffic policy</b>.</p>
+							</li></ol></div>
+					</dd>
+			</dl></awsdocs-tabs>
+		 
+			<h2 id="traffic-policies-viewing">Viewing traffic policy versions and the associated policy records</h2>
+			
+			<p>You can view all of the versions that you've created for a traffic policy as well as all of the policy records 
+				that you've created by using each of the versions of the traffic policy.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-policy-view-new-console">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-policy-view-old-console">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				
+				<dt>New console</dt><dd tab-id="traffic-policy-view-new-console">
+			
+			<div class="procedure" id="traffic-policies-viewing-procedure"><h6 id="traffic-policies-viewing-procedure.title">To view traffic policy versions and the associated policy records</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the linked name of a traffic policy.</p></li><li><p>The top table lists all of the versions that you've created of a traffic policy. The table includes the following 
+					information:</p>
+					<div class="variablelist">
+						 
+						 
+						 
+						 
+					<dl>
+							<dt><b><span class="term">Version number</span></b></dt>
+							<dd><p>The number of each version of a traffic policy that you've created. If you choose the version number, 
+								the console displays the configuration for that version.</p></dd>
+						
+							<dt><b><span class="term">Number of policy records</span></b></dt>
+							<dd><p>The number of policy records that you've created by using this traffic policy version.</p></dd>
+						
+							<dt><b><span class="term">DNS type</span></b></dt>
+							<dd><p>The DNS type that you specified when you created the traffic policy version.</p></dd>
+						
+							<dt><b><span class="term">Version descriptions</span></b></dt>
+							<dd><p>The description that you specified when you created the traffic policy version.</p></dd>
+						</dl></div>
+				</li><li><p>The bottom table lists all of the policy records that you've created by using the traffic policy versions in the 
+					top table. The table includes the following information:</p>
+					<div class="variablelist">
+						 
+						 
+						 
+						 
+						
+						 
+					<dl>
+							<dt><b><span class="term">DNS name</span></b></dt>
+							<dd><p>The DNS names that you've associated the traffic policy with.</p></dd>
+						
+							<dt><b><span class="term">Status</span></b></dt>
+							<dd><p>Possible values include the following:</p>
+								<div class="variablelist">
+									 
+									 
+									 
+									 
+									 
+								<dl>
+										<dt><b><span class="term">Applied</span></b></dt>
+										<dd><p>Route 53 has finished creating or updating a policy record and the corresponding records.</p>
+										</dd>
+									
+										<dt><b><span class="term">Creating</span></b></dt>
+										<dd><p>Route 53 is creating the records for a new policy record.</p></dd>
+									
+										<dt><b><span class="term">Updating</span></b></dt>
+										<dd><p>You have updated a policy record and Route 53 is in the process of creating a new group of 
+											records that will replace the existing group of records 
+											for the specified DNS name.</p></dd>
+									
+										<dt><b><span class="term">Deleting</span></b></dt>
+										<dd><p>Route 53 is in the process of deleting a policy record and the associated records.</p></dd>
+									
+										<dt><b><span class="term">Failed</span></b></dt>
+										<dd><p>Route 53 wasn't able to create or update the policy record and the associated records. </p></dd>
+									</dl></div>
+							</dd>
+						
+							<dt><b><span class="term">DNS type</span></b></dt>
+							<dd><p>The DNS type of all of the records that Route 53 created for this policy record. When you 
+								edit a policy record, you must specify a traffic policy version that has the same DNS type as the DNS type for the 
+								policy record that you're editing.</p></dd>
+						
+							<dt><b><span class="term">Version</span></b></dt>
+							<dd><p>Indicates the version of the traffic policy that you used to create the policy record.</p></dd>
+						
+							<dt><b><span class="term">TTL (in seconds)</span></b></dt>
+							<dd><p>The amount of time, in seconds, that you want DNS recursive resolvers to cache information 
+								about this record. If you specify a longer value (for example, 172,800 seconds, or two days), 
+								you pay less for Route 53 service because recursive resolvers send requests to Route 53 less often. However, it takes 
+								longer for changes to the records (for example, a new IP address) to take effect because 
+								recursive resolvers use the values in their cache for longer periods instead of asking Route 53 for the latest information.</p></dd>
+						</dl></div>
+				</li></ol></div>
+					</dd>
+				<dt>Old console</dt><dd tab-id="traffic-policy-view-old-console">
+						
+						<div class="procedure" id="traffic-policies-viewing-procedure-old"><h6 id="traffic-policies-viewing-procedure-old.title">To view traffic policy versions and the associated policy records</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of a traffic policy.</p></li><li><p>The top table lists all of the versions that you've created of a traffic policy. The table includes the following 
+								information:</p>
+								<div class="variablelist">
+									 
+									 
+									 
+									 
+								<dl>
+										<dt><b><span class="term">Version number</span></b></dt>
+										<dd><p>The number of each version of a traffic policy that you've created. If you choose the version number, 
+											the console displays the configuration for that version.</p></dd>
+									
+										<dt><b><span class="term">Number of policy records</span></b></dt>
+										<dd><p>The number of policy records that you've created by using this traffic policy version.</p></dd>
+									
+										<dt><b><span class="term">DNS type</span></b></dt>
+										<dd><p>The DNS type that you specified when you created the traffic policy version.</p></dd>
+									
+										<dt><b><span class="term">Version description</span></b></dt>
+										<dd><p>The description that you specified when you created the traffic policy version.</p></dd>
+									</dl></div>
+							</li><li><p>The bottom table lists all of the policy records that you've created by using the traffic policy versions in the 
+								top table. The table includes the following information:</p>
+								<div class="variablelist">
+									 
+									 
+									 
+									 
+									 
+								<dl>
+										<dt><b><span class="term">Policy record DNS name</span></b></dt>
+										<dd><p>The DNS names that you've associated the traffic policy with.</p></dd>
+									
+										<dt><b><span class="term">Status</span></b></dt>
+										<dd><p>Possible values include the following:</p>
+											<div class="variablelist">
+												 
+												 
+												 
+												 
+												 
+											<dl>
+													<dt><b><span class="term">Applied</span></b></dt>
+													<dd><p>Route 53 has finished creating or updating a policy record and the corresponding records.</p>
+													</dd>
+												
+													<dt><b><span class="term">Creating</span></b></dt>
+													<dd><p>Route 53 is creating the records for a new policy record.</p></dd>
+												
+													<dt><b><span class="term">Updating</span></b></dt>
+													<dd><p>You have updated a policy record and Route 53 is in the process of creating a new group of 
+														records that will replace the existing group of records 
+														for the specified DNS name.</p></dd>
+												
+													<dt><b><span class="term">Deleting</span></b></dt>
+													<dd><p>Route 53 is in the process of deleting a policy record and the associated records.</p></dd>
+												
+													<dt><b><span class="term">Failed</span></b></dt>
+													<dd><p>Route 53 wasn't able to create or update the policy record and the associated records. </p></dd>
+												</dl></div>
+										</dd>
+									
+										<dt><b><span class="term">Version used</span></b></dt>
+										<dd><p>Indicates the version of the traffic policy that you used to create the policy record.</p></dd>
+									
+										<dt><b><span class="term">DNS type</span></b></dt>
+										<dd><p>The DNS type of all of the records that Route 53 created for this policy record. When you 
+											edit a policy record, you must specify a traffic policy version that has the same DNS type as the DNS type for the 
+											policy record that you're editing.</p></dd>
+									
+										<dt><b><span class="term">TTL (in seconds)</span></b></dt>
+										<dd><p>The amount of time, in seconds, that you want DNS recursive resolvers to cache information 
+											about this record. If you specify a longer value (for example, 172,800 seconds, or two days), 
+											you pay less for Route 53 service because recursive resolvers send requests to Route 53 less often. However, it takes 
+											longer for changes to the records (for example, a new IP address) to take effect because 
+											recursive resolvers use the values in their cache for longer periods instead of asking Route 53 for the latest information.</p></dd>
+									</dl></div>
+							</li></ol></div>
+					</dd>
+			</dl></awsdocs-tabs>
+		 
+			<h2 id="traffic-policies-deleting">Deleting traffic policy versions and traffic policies</h2>
+			
+			<p>To delete a traffic policy, you must delete all of the versions (including the original) that you've created for the traffic policy. 
+				In addition, to delete a traffic policy version, you must delete all of the policy records that you created by using the 
+				traffic policy version.</p>
+
+			<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete policy records that Amazon Route 53 is using to respond to DNS queries, Route 53 stops responding to 
+				queries for the corresponding DNS names. For example, if Route 53 is using the policy record for www.example.com to respond to 
+				DNS queries for www.example.com and you delete the policy record, users can't access your website or 
+				web application by using the domain name www.example.com. </p></div></div>
+			
+			<p>To delete traffic policy versions and, optionally, a traffic policy, perform the following procedure:</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Route 53 is updating the Traffic Flow console. During the transition period, you can continue
+				to use the old console.</p></div></div>
+			<p>Choose the tab for the console you are using.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#traffic-policy-delete-new-console">New console</a></p>
+				</li><li class="listitem">
+					<p><a href="#traffic-policy-delete-old-console">Old console</a></p>
+				</li></ul></div>
+			<awsdocs-tabs><dl style="display: none">
+				
+				<dt>New console</dt><dd tab-id="traffic-policy-delete-new-console">
+			
+			<div class="procedure" id="traffic-policies-deleting-procedure"><h6 id="traffic-policies-deleting-procedure.title">To delete traffic policy versions and a traffic policy</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the linked name of the traffic policy for which you want to delete traffic policy versions and that, 
+					optionally, you want to delete completely.</p></li><li><p>If the traffic policy versions that you want to delete in the top table appear in the <b>Version</b> 
+					column in the <b>Policy records</b> table, select the check boxes for the corresponding policy records in the bottom table. </p>
+					<p>For example, if you want to delete version 3 of a traffic policy but you created one of the policy records in the bottom table 
+						by using version 3, select the check box for that policy record. </p>
+				</li><li><p>Choose <b>Delete policy records</b> and in the <b>Delete policy record</b> dialog box, choose <b>Confirm</b>.</p></li><li><p>Refresh the page until the policy records that you deleted 
+					no longer appear in the table.</p></li><li><p>In the top table, select the check boxes for the traffic policy versions that you want to delete. </p></li><li><p>Choose <b>Delete</b>.</p></li><li><p>If you deleted all traffic policy versions in the preceding step and you want to delete the traffic policy, too, 
+					refresh the page to refresh the display until the table is empty.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>. </p></li><li><p>In the list of traffic policies, select the check box for the traffic policy that you want to delete.</p></li><li><p>Choose <b>Delete traffic policy</b>.</p></li></ol></div>
+					</dd>
+				<dt>Old console</dt><dd tab-id="traffic-policy-delete-old-console">
+						
+						<div class="procedure" id="traffic-policies-deleting-procedure-old"><h6 id="traffic-policies-deleting-procedure-old.title">To delete traffic policy versions and a traffic policy</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>.</p></li><li><p>Choose the name of the traffic policy for which you want to delete traffic policy versions and that, 
+								optionally, you want to delete completely.</p></li><li><p>If the traffic policy versions that you want to delete in the top table appear in the <b>Version used</b> 
+								column in the bottom table, select the check boxes for the corresponding policy records in the bottom table. </p>
+								<p>For example, if you want to delete version 3 of a traffic policy but you created one of the policy records in the bottom table 
+									by using version 3, select the check box for that policy record. </p>
+							</li><li><p>Choose <b>Delete policy records</b>.</p></li><li><p>Choose the refresh button for the bottom table to refresh the display until the policy records that you deleted 
+								no longer appear in the table.</p></li><li><p>In the top table, select the check boxes for the traffic policy versions that you want to delete. </p></li><li><p>Choose <b>Delete version</b>.</p></li><li><p>If you deleted all traffic policy versions in the preceding step and you want to delete the traffic policy, too, 
+								choose the refresh button for the top table to refresh the display until the table is empty.</p></li><li><p>In the navigation pane, choose <b>Traffic policies</b>. </p></li><li><p>In the list of traffic policies, select the check box for the traffic policy that you want to delete.</p></li><li><p>Choose <b>Delete traffic policy</b>.</p></li></ol></div>
+					</dd>
+			</dl></awsdocs-tabs>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./traffic-flow.html">Traffic Flow</div><div id="next" class="next-link" accesskey="n" href="./traffic-policy-records.html">Creating and managing policy records</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/traffic-policies.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/traffic-policies.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

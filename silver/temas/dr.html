@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disaster Recovery (RTO/RPO) — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Disaster Recovery: RTO, RPO y las 4 estrategias <span class="en">Disaster recovery options in the cloud</span></h1>
+<p class="subtitle">La pregunta de diseño resiliente que más se repite en el Dominio 2 (26%): dados un RTO y un RPO, elegir la estrategia de recuperación con el menor costo que los cumpla.</p>
+<div class="chips">
+  <span class="chip">Fase 7 · Seguridad y DR</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip core">Tema muy preguntado</span>
+</div>
+
+<p>Un plan de <span class="tag-en">disaster recovery</span> (DR) es el seguro de incendios de tu arquitectura: esperas no usarlo jamás, pero el día en que la Región se degrada, un AZ completo cae o alguien borra la tabla crítica, lo que compraste de antemano determina cuánto tardas en reabrir y cuánto se pierde por el camino. Dos números gobiernan ese contrato. El <span class="tag-en">RTO</span> (Recovery Time Objective) es el tiempo máximo que el negocio tolera estar fuera de servicio; el <span class="tag-en">RPO</span> (Recovery Point Objective) es la cantidad máxima de datos que puedes perder, medida como la ventana entre la última copia o réplica viable y el desastre. En el examen ambos llegan como requisitos del enunciado, y tu trabajo es elegir la arquitectura más barata que los cumpla.</p>
+
+<p>El whitepaper oficial de AWS ordena las estrategias de DR en la nube en una escalera de cuatro peldaños: <span class="tag-en">backup and restore</span>, <span class="tag-en">pilot light</span>, <span class="tag-en">warm standby</span> y <span class="tag-en">multi-site active/active</span>. Las tres primeras son patrones <em>activo/pasivo</em>: una Región activa sirve el tráfico y la pasiva no atiende nada hasta que se dispara un <em>failover</em>; la cuarta es <em>activo/activo</em> y ambas Regiones sirven tráfico simultáneamente. A cada paso hacia la derecha el RTO y el RPO se reducen y el costo sube, así que la regla de diseño es una sola: elige el peldaño más bajo que cumpla los requisitos del negocio. Aplicada a una tabla de cuatro filas, esa regla responde media docena de preguntas del examen.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    subgraph AP["Estrategias activo/pasivo"]
+        BR["Backup and Restore<br>solo copias en S3"]
+        PL["Pilot Light<br>nucleo minimo encendido"]
+        WS["Warm Standby<br>copia reducida activa"]
+    end
+    subgraph ACT["Estrategia activo/activo"]
+        AA["Multi-site Active-Active<br>dos regiones en trafico"]
+    end
+    BR --> PL
+    PL --> WS
+    WS --> AA
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    class BR,PL,WS navy
+    class AA green
+</div>
+<figcaption>Figura 1 — La escalera de DR del whitepaper oficial: hacia la derecha el costo y la complejidad suben mientras RTO y RPO bajan.</figcaption>
+</figure>
+
+<h2>RTO y RPO: los dos números que gobiernan el diseño</h2>
+
+<p>Antes de elegir tecnología hay que fijar los objetivos con el negocio, porque son decisiones de negocio y no de infraestructura. El RTO se mide en tiempo de indisponibilidad: ¿cuánto puede estar la tienda cerrada antes de que duela en facturación o en multas? El RPO se mide en datos: ¿cuántos minutos de transacciones puedes permitirte perder? Si el sistema tolera perder una hora de datos, basta un backup horario replicado a otra Región; si tolera perder segundos, necesitas replicación casi continua entre Regiones. Estos dos números, junto al presupuesto disponible, definen la única variable que el arquitecto controla: cuánta infraestructura de recuperación corre permanentemente en la segunda Región.</p>
+
+<p>AWS insiste en que la estrategia se evalúe y se pruebe con regularidad para tener confianza en invocarla el día del incidente, y apunta a <strong>AWS Resilience Hub</strong> para validar y hacer seguimiento continuo de la resiliencia de los workloads, incluyendo la probabilidad de cumplir los objetivos de RTO y RPO. Es una señal diferencial de examen: cuando el enunciado pregunta cómo "validar que la aplicación cumplirá el RTO acordado", la respuesta apunta a Resilience Hub antes que a montar a mano un banco de pruebas de failover. Recuerda también que DR se planifica para eventos de Región: problemas dentro de una sola zona de disponibilidad se resuelven con alta disponibilidad, que es un problema distinto y más barato.</p>
+
+<h2>Las cuatro estrategias y su tabla de decisión</h2>
+
+<p>Las cuatro estrategias se distinguen con una sola pregunta: ¿cuánto de la arquitectura de la Región de recuperación existe y está corriendo <em>antes</em> del desastre? En <strong>backup and restore</strong> no existe nada: solo hay copias de datos replicadas a otra Región, y toda la infraestructura se provisiona al momento del incidente con templates y AMIs listos. En <strong>pilot light</strong> existe lo mínimo indispensable: la capa de datos crítica (por ejemplo, una réplica de RDS) siempre encendida, mientras el cómputo se lanza bajo demanda durante la recuperación. En <strong>warm standby</strong> existe una copia completa del entorno corriendo permanentemente a escala reducida, lista para ampliarse. En <strong>multi-site active/active</strong> existe todo, a plena escala y sirviendo tráfico real: no hay "recuperación", hay continuidad.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Estrategia</th><th>Qué existe antes del desastre</th><th>RPO típico</th><th>RTO típico</th><th>Costo relativo</th></tr></thead>
+<tbody>
+<tr><td><strong>Backup and restore</strong></td><td>Solo copias de datos en otra Región; infraestructura por provisionar</td><td>Horas</td><td>Horas</td><td>El más bajo</td></tr>
+<tr><td><strong>Pilot light</strong></td><td>Capa de datos crítica replicada y encendida; cómputo bajo demanda</td><td>Minutos</td><td>Decenas de minutos</td><td>Bajo</td></tr>
+<tr><td><strong>Warm standby</strong></td><td>Entorno completo corriendo a escala mínima</td><td>Segundos</td><td>Minutos</td><td>Medio-alto</td></tr>
+<tr><td><strong>Multi-site active/active</strong></td><td>Entorno completo a plena escala, sirviendo tráfico</td><td>Prácticamente cero</td><td>Casi inmediato</td><td>El más alto</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Conviene memorizar la tabla por filas y no por servicios, porque el examen no pregunta "¿qué es pilot light?" sino "la empresa tolera una hora de downtime y treinta minutos de pérdida de datos con el menor costo: ¿qué estrategia?" La respuesta es la fila cuyos RTO y RPO típicos encajen sin holgura innecesaria: tolerar horas apunta a backup and restore; minutos de pérdida y decenas de minutos de parada apuntan a pilot light; segundos y pocos minutos a warm standby; y "prácticamente cero" o "sin downtime perceptible" a multi-site. La columna de costo actúa como criterio de desempate: entre dos filas que cumplen, gana siempre la más barata. Ese "menor costo que cumpla" es exactamente el lenguaje de la opción correcta.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Estrategia</th><th>Piezas típicas en AWS</th></tr></thead>
+<tbody>
+<tr><td><strong>Backup and restore</strong></td><td>AWS Backup y snapshots de EBS, RDS y AMIs; S3 con versionado y <span class="tag-en">cross-region replication</span>; plantillas de CloudFormation para reconstruir la infraestructura</td></tr>
+<tr><td><strong>Pilot light</strong></td><td>RDS cross-region read replica o DMS con replicación continua; AMIs y Auto Scaling groups listos para lanzar</td></tr>
+<tr><td><strong>Warm standby</strong></td><td>Stack completo reducido: Auto Scaling group con capacidad mínima, balanceador y réplica de base de datos promovible</td></tr>
+<tr><td><strong>Multi-site active/active</strong></td><td>Route 53 con health checks y routing por latencia; Aurora Global Database o DynamoDB global tables; colas y CDN como colchón</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Cómo elegir: del requisito del negocio a la arquitectura</h2>
+
+<p>El árbol de decisión de la Figura 2 traduce el enunciado en estrategia. Empieza siempre por el RPO, porque define la capa de datos: si el negocio acepta perder horas de datos, ningún componente necesita replicación continua y el backup programado basta; si acepta minutos, la capa de datos debe replicarse de forma casi continua y el resto puede esperar al corte. Después entra el RTO a decidir cuánto cómputo vive permanentemente en la Región pasiva: a más infraestructura pre-desplegada, menos tiempo de recuperación y más factura mensual. El presupuesto cierra el diseño por abajo: si con el dinero disponible no alcanza warm standby, negocia el RTO con el negocio antes que comprometer la arquitectura.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    S["Requisitos acordados:<br>RTO y RPO del negocio"]
+    Q1{"Tolera horas<br>de RTO y RPO"}
+    Q2{"Tolera RPO en minutos<br>y RTO en decenas de minutos"}
+    Q3{"Necesita RTO en pocos<br>minutos tras el failover"}
+    BR["Backup and Restore"]
+    PL["Pilot Light"]
+    WS["Warm Standby"]
+    AA["Multi-site Active-Active"]
+    S --> Q1
+    Q1 -->|"Si"| BR
+    Q1 -->|"No"| Q2
+    Q2 -->|"Si"| PL
+    Q2 -->|"No"| Q3
+    Q3 -->|"Si"| WS
+    Q3 -->|"No"| AA
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class S green
+    class Q1,Q2,Q3 amber
+    class BR,PL,WS,AA navy
+</div>
+<figcaption>Figura 2 — Árbol de decisión: del RTO/RPO tolerado a la estrategia más barata que lo cumple.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+Los números de RTO y RPO del enunciado son la materia prima de la decisión, no decoración: subráyalos y clasifícalos en horas, minutos o segundos. La opción correcta suele formularse como "the most cost-effective solution that meets the RTO/RPO requirements". Si dos opciones cumplen, gana la más barata; si solo una cumple los dos números, esa es la respuesta aunque parezca cara. Y si el enunciado pide "validar" o "testear" el cumplimiento, piensa en AWS Resilience Hub.
+</div>
+
+<h2>Multi-site active/active y el rol de Route 53</h2>
+
+<p>En el peldaño más alto no hay failover espectacular: las dos Regiones sirven tráfico simultáneamente y el desastre solo cambia el reparto. <strong>Route 53</strong> es la pieza que orquesta esa distribución, con <em>health checks</em> que retiran endpoints caídos y políticas de routing por latencia o ponderadas que mandan a cada usuario a la Región más cercana o reparten la carga. La capa de datos es el reto real: escribir en dos Regiones a la vez exige tecnología específica, como <strong>Aurora Global Database</strong> o <strong>DynamoDB global tables</strong>, y a menudo colas intermedias que absorben la divergencia durante una partición de red. Por eso el examen suele aceptar multi-site como respuesta solo cuando el enunciado menciona "near-zero RTO", "zero downtime" o tráfico de usuarios en varias geografías.</p>
+
+<p>La Figura 3 muestra la forma madura de este patrón: usuarios, Route 53 decidiendo por latencia y salud, y cada Región con su balanceador y su capa de aplicación a plena escala, con réplica de datos entre ambas. Observa que nada está "apagado esperando": el costo es el máximo de la escalera, pero la recuperación es imperceptible porque no hay nada que encender. Como contrapartida, la complejidad de aplicación sube (consistencia, colisiones de escritura, rutas de failback), y esa es exactamente la disyuntiva que el examen quiere que veas: resiliencia y simplicidad no crecen juntas.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    U["Usuarios"]
+    R53["Route 53<br>latency routing con health checks"]
+    subgraph RA["Region A - activa"]
+        LA["Balanceador y app<br>a plena escala"]
+    end
+    subgraph RB["Region B - activa"]
+        LB["Balanceador y app<br>a plena escala"]
+    end
+    DB["Replica de datos<br>Aurora Global o global tables"]
+    U --> R53
+    R53 --> LA
+    R53 --> LB
+    LA -.-> DB
+    LB -.-> DB
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class U,LA,LB green
+    class R53 navy
+    class DB amber
+</div>
+<figcaption>Figura 3 — Multi-site active/active: Route 53 reparte tráfico entre dos Regiones plenamente operativas con datos replicados.</figcaption>
+</figure>
+
+<h2>Cómo cae en el examen: señales y trampas</h2>
+
+<p>Las preguntas de DR casi siempre visten el escenario con un incidente (una Región caída, un borrado accidental) y dos números (RTO y RPO). Tu primera tarea es traducir los números a la fila de la tabla; la segunda es descartar los distractores que hablan de alta disponibilidad dentro de una Región cuando la pregunta es de desastre regional. Esta tabla resume las señales que más se repiten en enunciados reales del SAA-C03 y la respuesta a la que apuntan.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"most cost-effective DR, tolerates 1 hour of data loss and hours of downtime"</td><td>Backup and restore a otra Región</td></tr>
+<tr><td>"critical data core replicated, the rest provisioned only on failover"</td><td>Pilot light</td></tr>
+<tr><td>"a scaled-down copy of the full environment always running"</td><td>Warm standby</td></tr>
+<tr><td>"near-zero RPO/RTO, users served from both Regions"</td><td>Multi-site active/active</td></tr>
+<tr><td>"validate the workload will meet the RTO/RPO targets"</td><td>AWS Resilience Hub</td></tr>
+<tr><td>"database must survive the failure of an AZ"</td><td>Multi-AZ (alta disponibilidad, no DR regional)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+<strong>Multi-AZ no es disaster recovery regional.</strong> Una base de datos RDS Multi-AZ sobrevive a la caída de una zona de disponibilidad con failover automático, pero vive en una sola Región: si la Región entera cae, Multi-AZ no te salva. Para eventos de Región piensa en <span class="tag-en">cross-region</span> read replicas, backups copiados a otra Región o Aurora Global Database. El distractor "Multi-AZ" aparece constantemente en preguntas de "regional disaster": es alta disponibilidad barata, no recuperación ante desastres.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>RTO</strong> = tiempo de recuperación tolerado; <strong>RPO</strong> = datos perdidos tolerados. Son requisitos del negocio.</li>
+<li>Escalera de costo: <strong>backup and restore</strong> &lt; <strong>pilot light</strong> &lt; <strong>warm standby</strong> &lt; <strong>multi-site active/active</strong>.</li>
+<li>RTO y RPO bajan a cada peldaño; elige siempre el más barato que cumpla ambos.</li>
+<li><strong>Pilot light</strong>: la capa de datos siempre encendida, el cómputo se lanza al fallar.</li>
+<li><strong>Warm standby</strong>: entorno completo reducido corriendo siempre; se amplía en el failover.</li>
+<li><strong>Active/active</strong>: Route 53 con health checks más réplica global de datos; recuperación imperceptible.</li>
+<li><strong>Multi-AZ</strong> es alta disponibilidad dentro de una Región, nunca la respuesta a un desastre regional.</li>
+<li><strong>AWS Resilience Hub</strong> valida y hace seguimiento del cumplimiento de RTO/RPO.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">MIG-01</span> Disaster Recovery of Workloads on AWS — DR options (backup/restore, pilot light, warm standby, active-active, RTO/RPO) · <a href="https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html" target="_blank" rel="noopener">docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/cloudtrail.html"><span class="dir">← Anterior</span>CloudTrail y Config</a><a class="next" href="../temas/migracion.html"><span class="dir">Siguiente →</span>Migración: DMS, MGN, Snow</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

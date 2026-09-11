@@ -1,0 +1,713 @@
+<!--
+BRONZE RAW — MIG-01
+URL: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+Dominios: D2
+Título doc: Disaster recovery options in the cloud
+Fase: 7
+Servicio: Whitepaper DR
+Descargado: 2026-09-11T03:32:42
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p> Disaster recovery strategies available to you within AWS can be broadly categorized into
+    four approaches, ranging from the low cost and low complexity of making backups to more complex
+    strategies using multiple active Regions. Active/passive strategies use an active site (such as
+    an AWS Region) to host the workload and serve traffic. The passive site (such as a different AWS
+    Region) is used for recovery. The passive site does not actively serve traffic until a failover
+    event is triggered. </p><p>It is critical to regularly assess and test your disaster recovery strategy so that you
+    have confidence in invoking it, should it become necessary. Use <a href="https://aws.amazon.com/resilience-hub/" rel="noopener noreferrer" target="_blank"><span>AWS Resilience Hub</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> to continuously validate and track the
+    resilience of your AWS workloads, including whether you are likely to meet your RTO and RPO
+    targets. </p><div class="mediaobject">
+     
+      <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/disaster-recovery-strategies.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Graph showing disaster recovery strategies and highlights of each strategy." style="max-width:100%">
+     
+     
+  <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4k:" type="submit" data-analytics-performance-mark="29-1789097560039-5270"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p><em>Figure 6 - Disaster recovery strategies </em></p><p>
+    For a disaster event based on disruption or loss of one physical
+    data center for a
+    <a href="https://aws.amazon.com/architecture/well-architected/" rel="noopener noreferrer" target="_blank"><span>well-architected</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>,
+    highly available workload, you may only require a backup and restore
+    approach to disaster recovery. If your definition of a disaster goes
+    beyond the disruption or loss of a physical data center to that of a
+    Region or if you are subject to regulatory requirements that require
+    it, then you should consider Pilot Light, Warm Standby, or
+    Multi-Site Active/Active.
+  </p><p>When choosing your strategy, and the AWS resources to implement it, keep in mind that within
+    AWS, we commonly divide services into the <em>data plane</em> and the
+      <em>control plane</em>. The data plane is responsible for delivering real-time
+    service while control planes are used to configure the environment. For maximum resiliency, you
+    should use only data plane operations as part of your failover operation. This is because the
+    data planes typically have higher availability design goals than the control planes. </p>
+
+  <h2 id="backup-and-restore">Backup and restore<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="backup-and-restore" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789097560031-6237"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+      
+    <p> Backup and restore is a suitable approach for mitigating against data loss or corruption.
+      This approach can also be used to mitigate against a regional disaster by replicating data to
+      other AWS Regions, or to mitigate lack of redundancy for workloads deployed to a single
+      Availability Zone. In addition to data, you must redeploy the infrastructure, configuration,
+      and application code in the recovery Region. To enable infrastructure to be redeployed quickly
+      without errors, you should always deploy using infrastructure as code (IaC) using services
+      such as <a href="https://aws.amazon.com/cloudformation" rel="noopener noreferrer" target="_blank"><span>AWS CloudFormation</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> or the <a href="https://aws.amazon.com/cdk" rel="noopener noreferrer" target="_blank"><span>AWS Cloud Development Kit (AWS CDK)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. Without IaC, it may be complex to restore workloads in the
+      recovery Region, which will lead to increased recovery times and possibly exceed your RTO. In
+      addition to user data, be sure to also back up code and configuration, including <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">Amazon Machine Images
+        (AMIs)</a> you use to create Amazon EC2 instances. You can use <a href="https://aws.amazon.com/codepipeline" rel="noopener noreferrer" target="_blank"><span>AWS CodePipeline</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> to automate redeployment of application code and
+      configuration. </p>
+    
+      <div class="mediaobject">
+       
+        <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/backup-restore-architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Architecture diagram showing backup and restore architecture" style="max-width:100%">
+       
+       
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4o:" type="submit" data-analytics-performance-mark="30-1789097560040-150"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+    <p><em>Figure 7 - Backup and restore architecture </em></p>
+     
+
+  <h3 id="aws-services">AWS services</h3>
+
+      
+      <p>
+        Your workload data will require a backup strategy that runs
+        periodically or is continuous. How often you run your backup
+        will determine your achievable recovery point (which should
+        align to meet your RPO). The backup should also offer a way to
+        restore it to the point in time in which it was taken. Backup
+        with point-in-time recovery is available through the following
+        services and resources:
+      </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+             
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon Elastic Block Store (Amazon EBS) snapshot</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.html">Amazon DynamoDB backup</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.BackupRestore.html">Amazon RDS snapshot</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CreateSnapshotCluster.html">Amazon Aurora DB snapshot</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html">Amazon EFS backup</a> (when using AWS Backup)
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">Amazon Redshift snapshot</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/neptune/latest/userguide/backup-restore-overview.html">Amazon Neptune snapshot</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/backup_restore.html">Amazon DocumentDB</a>
+          </p>
+        </li><li class="listitem">
+  
+         
+              <p>
+            <a href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/using-backups.html">
+              Amazon FSx for Windows File Server</a>, <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/using-backups-fsx.html">Amazon
+              FSx for Lustre</a>, <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/using-backups.html">Amazon FSx
+              for NetApp ONTAP</a>, and <a href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/using-backups.html">Amazon
+              FSx for OpenZFS </a>
+          </p>
+            
+            </li></ul></div>
+      <p>
+        For Amazon Simple Storage Service (Amazon S3), you can use
+        <a href="https://aws.amazon.com/s3/features/replication/" rel="noopener noreferrer" target="_blank"><span>Amazon S3 Cross-Region Replication (CRR)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> to asynchronously copy
+        objects to an S3 bucket in the DR region continuously, while
+        providing versioning for the stored objects so that you can
+        choose your restoration point. Continuous replication of data
+        has the advantage of being the shortest time (near zero) to back
+        up your data, but may not protect against disaster events such
+        as data corruption or malicious attack (such as unauthorized
+        data deletion) as well as point-in-time backups. Continuous
+        replication is covered in the <a href="#aws-services-1">AWS
+        Services for Pilot Light</a> section.
+      </p>
+      <p>
+        <a href="https://aws.amazon.com/backup" rel="noopener noreferrer" target="_blank"><span>AWS Backup</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> provides a centralized location to configure,
+        schedule, and monitor AWS backup capabilities for the following
+        services and resources:
+      </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/ebs/" rel="noopener noreferrer" target="_blank"><span>Amazon Elastic Block Store (Amazon EBS)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> volumes
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>Amazon EC2</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> instances
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/rds/" rel="noopener noreferrer" target="_blank"><span>Amazon Relational Database Service (Amazon RDS)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> databases
+            (including
+            <a href="https://aws.amazon.com/rds/aurora/" rel="noopener noreferrer" target="_blank"><span>Amazon Aurora</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> databases)
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/dynamodb/" rel="noopener noreferrer" target="_blank"><span>Amazon DynamoDB</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> tables
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/efs/" rel="noopener noreferrer" target="_blank"><span>Amazon Elastic File System (Amazon EFS)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> file systems
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/storagegateway/" rel="noopener noreferrer" target="_blank"><span>AWS Storage Gateway</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> volumes
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/using-backups.html">Amazon FSx for Windows File Server</a>, <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/using-backups-fsx.html">Amazon
+              FSx for Lustre</a>, <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/using-backups.html">Amazon FSx
+              for NetApp ONTAP</a>, and <a href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/aws-backup-and-fsx.html">Amazon FSx for OpenZFS</a></p>
+        </li></ul></div>
+      <p>
+        AWS Backup supports copying backups across Regions, such as to a
+        disaster recovery Region.
+      </p>
+      <p>
+        As an additional disaster recovery strategy for your Amazon S3
+        data, enable
+        <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html">S3
+        object versioning</a>. Object versioning protects your data
+        in S3 from the consequences of deletion or modification actions
+        by retaining the original version before the action. Object
+        versioning can be a useful mitigation for human-error type
+        disasters. If you are using S3 replication to back up data to
+        your DR region, then, by default, when an object is deleted in
+        the source bucket,
+        <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html">Amazon S3 adds a delete marker in the source bucket only</a>. This
+        approach protects data in the DR Region from malicious deletions
+        in the source Region.
+      </p>
+      <p>
+        In addition to data, you must also back up the configuration and
+        infrastructure necessary to redeploy your workload and meet your
+        Recovery Time Objective (RTO).
+        <a href="https://aws.amazon.com/cloudformation" rel="noopener noreferrer" target="_blank"><span>AWS CloudFormation</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> provides Infrastructure as Code (IaC), and
+        enables you to define all of the AWS resources in your workload
+        so you can reliably deploy and redeploy to multiple AWS accounts
+        and AWS Regions. You can back up Amazon EC2 instances used by
+        your workload as Amazon Machine Images (AMIs). The AMI is
+        created from snapshots of your instance's root volume and any
+        other EBS volumes attached to your instance. You can use this
+        AMI to launch a restored version of the EC2 instance. An
+        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html">AMI
+        can be copied</a> within or across Regions. Or, you can use
+        <a href="https://aws.amazon.com/backup" rel="noopener noreferrer" target="_blank"><span>AWS Backup</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> to copy backups across accounts and to other AWS
+        Regions. The cross-account backup capability helps protect from
+        disaster events that include insider threats or account
+        compromise. AWS Backup also adds additional capabilities for EC2
+        backup—in addition to the instance’s individual EBS volumes, AWS Backup also stores and tracks the following metadata: instance
+        type, configured virtual private cloud (VPC), security group,
+        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM
+        role</a>, monitoring configuration, and tags. However, this
+        additional metadata is only used when restoring the EC2 backup
+        to the same AWS Region.
+      </p>
+      <p> Any data stored in the disaster recovery Region as backups must be restored at time of
+        failover. AWS Backup offers restore capability, but does not currently enable scheduled or
+        automatic restoration. You can implement automatic restore to the DR region using the AWS
+        SDK to call APIs for AWS Backup. You can set this up as a regularly recurring job or trigger
+        restoration whenever a backup is completed. The following figure shows an example of
+        automatic restoration using <a href="https://aws.amazon.com/sns/" rel="noopener noreferrer" target="_blank"><span>Amazon Simple Notification Service (Amazon SNS)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> and
+          <a href="https://aws.amazon.com/lambda/" rel="noopener noreferrer" target="_blank"><span>AWS Lambda</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. Implementing a scheduled periodic
+        data restore is a good idea as data restore from backup is a control plane operation. If
+        this operation was not available during a disaster, you would still have operable data
+        stores created from a recent backup. </p>
+      
+        <div class="mediaobject">
+         
+          <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/restore-test-backups.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Diagram showing workflow of restoring and testing backups." style="max-width:100%">
+         
+         
+      <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4s:" type="submit" data-analytics-performance-mark="31-1789097560041-4489"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+      <p><em>Figure 8 - Restoring and testing backups </em></p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Your backup strategy must include testing your backups. See the <a href="./testing-disaster-recovery.html">Testing Disaster Recovery</a> section for more
+          information. Refer to the <a href="https://wellarchitectedlabs.com/reliability/200_labs/200_testing_backup_and_restore_of_data/" rel="noopener noreferrer" target="_blank"><span>AWS Well-Architected Lab: Testing Backup and Restore of Data</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> for a hands-on
+          demonstration of implementation. </p></div></div>
+     
+   
+
+  <h2 id="pilot-light">Pilot light<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="pilot-light" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789097560032-850"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+      
+    <p>
+      With the <em>pilot light</em> approach, you replicate
+      your data from one Region to another and provision a copy of your
+      core workload infrastructure. Resources required to support data
+      replication and backup, such as databases and object storage, are
+      always on. Other elements, such as application servers, are loaded
+      with application code and configurations, but are "switched off" and
+      are only used during testing or when disaster recovery failover is
+      invoked. In the cloud, you have the flexibility to deprovision resources
+      when you do not need them, and provision them when you do. A best practice for “switched off” is to
+      not deploy the resource, and then create the configuration and capabilities to deploy it (“switch on”)
+      when needed.
+      Unlike the backup and restore approach, your core
+      infrastructure is always available and you always have the option
+      to quickly provision a full scale production environment by
+      switching on and scaling out your application servers.
+    </p>
+    
+      <div class="mediaobject">
+       
+        <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/pilot-light-architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Reference architecture diagram for pilot light architecture" style="max-width:100%">
+       
+       
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r50:" type="submit" data-analytics-performance-mark="32-1789097560041-4222"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+    <p><em>Figure 9 - Pilot light architecture</em>
+    </p>
+    <p>
+      A pilot light approach minimizes the ongoing cost of disaster
+      recovery by minimizing the active resources, and simplifies
+      recovery at the time of a disaster because the core infrastructure
+      requirements are all in place. This recovery option requires you
+      to change your deployment approach. You need to make core
+      infrastructure changes to each Region and deploy workload
+      (configuration, code) changes simultaneously to each Region. This
+      step can be simplified by automating your deployments and using
+      infrastructure as code (IaC) to deploy infrastructure across
+      multiple accounts and Regions (full infrastructure deployment to
+      the primary Region and scaled down/switched-off infrastructure
+      deployment to DR regions). It is recommended you use a different
+      account per Region to provide the highest level of resource and
+      security isolation (in the case compromised credentials are part
+      of your disaster recovery plans as well).
+    </p>
+    <p>
+      With this approach, you must also mitigate against a data
+      disaster. Continuous data replication protects you against some
+      types of disaster, but it may not protect you against data
+      corruption or destruction unless your strategy also includes
+      versioning of stored data or options for point-in-time recovery.
+      You can back up the replicated data in the disaster Region to
+      create point-in-time backups in that same Region.
+    </p>
+     
+
+  <h3 id="aws-services-1">AWS services</h3>
+
+      
+      <p>
+        In addition to using the AWS services covered in the
+        <a href="#backup-and-restore">Backup and Restore</a>
+        section to create point-in-time backups, also consider the
+        following services for your pilot light strategy.
+      </p>
+      <p>
+        For pilot light, continuous data replication to live databases
+        and data stores in the DR region is the best approach for low
+        RPO (when used in addition to the point-in-time backups
+        discussed previously). AWS provides continuous, cross-region,
+        asynchronous data replication for data using the following
+        services and resources:
+      </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>
+            <a href="https://aws.amazon.com/s3/features/replication/" rel="noopener noreferrer" target="_blank"><span>Amazon Simple Storage Service (Amazon S3) Replication</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html#USER_ReadRepl.XRgn.Cnsdr">Amazon RDS read replicas</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html">Amazon Aurora global databases</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">Amazon DynamoDB global tables</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/global-clusters.html">Amazon DocumentDB global clusters</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Redis-Global-Datastore.html">Global Datastore for Amazon ElastiCache (Redis OSS)</a>
+          </p>
+        </li></ul></div>
+      <p> With continuous replication, versions of your data are available almost immediately in
+        your DR Region. Actual replication times can be monitored using service features like <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-time-control.html">S3
+          Replication Time Control (S3 RTC)</a> for S3 objects and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-managing.html">management
+          features of Amazon Aurora global databases</a>. </p>
+      <p>
+        When failing over to run your read/write workload from the
+        disaster recovery Region, you must promote an RDS read replica
+        to become the primary instance. For
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html#USER_ReadRepl.Promote">DB
+        instances other than Aurora, the process</a> takes a few
+        minutes to complete and rebooting is part of the process. For
+        Cross-Region Replication (CRR) and failover with RDS, using
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html">Amazon Aurora global database</a> provides several advantages.
+        Global database uses dedicated infrastructure that leaves your
+        databases entirely available to serve your application, and can
+        replicate to the secondary Region with typical latency of under
+        a second (and within an AWS Region is much less than 100
+        milliseconds). With Amazon Aurora global database, if your
+        primary Region suffers a performance degradation or outage, you
+        can promote one of the secondary regions to take read/write
+        responsibilities in less than one minute even in the event of a
+        complete regional outage. You can also configure
+        Aurora to monitor the RPO lag time of all secondary clusters to make sure that at least one secondary
+        cluster stays within your target RPO window.
+      </p>
+      <p> A scaled down version of your core workload infrastructure with fewer or smaller
+        resources must be deployed in your DR Region. Using AWS CloudFormation, you can define your
+        infrastructure and deploy it consistently across AWS accounts and across AWS Regions.
+        AWS CloudFormation uses predefined <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html">pseudo
+          parameters</a> to identify the AWS account and AWS Region in which it is deployed.
+        Therefore, you can implement <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html">condition logic
+          in your CloudFormation templates</a> to deploy only the scaled-down version of your
+        infrastructure in the DR Region. For EC2 instance deployments, an Amazon Machine Image (AMI)
+        supplies information such as hardware configuration and installed software. You can
+        implement an <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html">Image Builder</a>
+        pipeline that creates the AMIs you need and copy these to both your primary and backup
+        Regions. This helps to ensure that these <em>golden AMIs</em> have everything
+        you need to re-deploy or scale-out your workload in a new region, in case of a disaster
+        event. Amazon EC2 instances are deployed in a scaled-down configuration (less instances than in
+        your primary Region).  
+        To scale-out the infrastructure to support production traffic, see <a href="https://aws.amazon.com/ec2/autoscaling" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 Auto Scaling</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> in the <a href="#warm-standby">Warm Standby</a> section. </p>
+      <p>For an active/passive configuration such as pilot light, all traffic initially goes to
+        the primary Region and switches to the disaster recovery Region if the primary Region is no
+        longer available. This failover operation can be initiated either automatically or manually.
+        Automatically initiated failover based on health checks or alarms should be used with
+        caution. Even using the best practices discussed here, recovery time and recovery point will
+        be greater than zero, incurring some loss of availability and data. If you fail over when
+        you don’t need to (false alarm), then you incur those losses. Manually initiated failover is
+        therefore often used. In this case, you should still automate the steps for failover, so
+        that the manual initiation is like the push of a button.</p>
+      <p>
+        There are several traffic management options to consider when using AWS services.</p>
+      <p>One option is to use <a href="https://aws.amazon.com/route53" rel="noopener noreferrer" target="_blank"><span>Amazon Route&nbsp;53</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. Using
+        Amazon Route&nbsp;53, you can associate multiple IP endpoints in one or more AWS Regions with a Route&nbsp;53
+        domain name. Then, you can route traffic to the appropriate endpoint under that domain name.
+        On failover you need to switch traffic to the recovery endpoint, and away from the primary
+        endpoint. Amazon Route&nbsp;53 health checks monitor these endpoints. Using these health checks, you
+        can configure automatically initiated DNS failover to ensure traffic is sent only to healthy
+        endpoints, which is a highly reliable operation done on the data plane. To implement this
+        using manually initiated failover you can use <a href="https://aws.amazon.com/route53/application-recovery-controller/" rel="noopener noreferrer" target="_blank"><span>Amazon Application Recovery Controller (ARC)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. With ARC, you
+        can create Route&nbsp;53 health checks that do not actually check health, but instead act as on/off
+        switches that you have full control over. Using the AWS CLI or AWS SDK, you can script
+        failover using this highly available, data plane API. Your script toggles these switches
+        (the Route&nbsp;53 health checks) telling Route&nbsp;53 to send traffic to the recovery Region instead of
+        the primary Region. Another option for manually initiated failover that some have used is to
+        use a weighted routing policy and change the weights of the primary and recovery Regions so
+        that all traffic goes to the recovery Region. However, be aware this is a control plane
+        operation and therefore not as resilient as the data plane approach using Amazon Application Recovery Controller (ARC). </p><p>
+          Another option is to use <a href="https://aws.amazon.com/global-accelerator/" rel="noopener noreferrer" target="_blank"><span>AWS Global Accelerator</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. Using AnyCast IP, you can associate multiple endpoints
+          in one or more AWS Regions with the same static public IP address or addresses. AWS Global Accelerator then
+          routes traffic to the appropriate endpoint associated with that address. <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-health-check-options.html">Global Accelerator health checks</a>
+        monitor endpoints. Using these health checks, AWS Global Accelerator checks the health of your
+        applications and routes user traffic automatically to the healthy application endpoint. For manually
+        initiated failover, you can adjust which endpoint receives traffic using traffic dials, but note this is a
+        control plane operation. Global Accelerator offers lower latencies to the application endpoint since it
+        makes use of the extensive AWS edge network to put traffic on the AWS network backbone as soon as
+        possible. Global Accelerator also avoids caching issues that can occur with DNS systems (like Route&nbsp;53).
+        </p><p>
+          <a href="https://aws.amazon.com/cloudfront/" rel="noopener noreferrer" target="_blank"><span>Amazon CloudFront</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> offers origin failover, where if a given request to the primary endpoint fails,
+        CloudFront routes the request to the secondary endpoint. Unlike the failover operations described
+        previously, all subsequent requests still go to the primary endpoint, and failover is done per each
+        request.
+      </p>
+     
+     
+
+      <h3 id="cloudendure-disaster-recovery">AWS Elastic Disaster Recovery</h3>
+
+      
+      <p>
+        <a href="https://aws.amazon.com/disaster-recovery/" rel="noopener noreferrer" target="_blank"><span>AWS Elastic Disaster Recovery</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>
+        (DRS) continuously replicates server-hosted applications and server- hosted databases from
+        any source into AWS using block-level replication of the underlying server. Elastic
+        Disaster Recovery enables you to use a Region in AWS Cloud as a disaster recovery target
+        for a workload hosted on-premises or on another cloud provider, and its environment. It can
+        also be used for disaster recovery of AWS hosted workloads if they consist only of
+        applications and databases hosted on EC2 (that is, not RDS). Elastic Disaster Recovery uses
+        the Pilot Light strategy, maintaining a copy of data and “switched-off” resources in an
+          <a href="https://aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>Amazon Virtual Private Cloud (Amazon VPC)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> used as a staging area. When
+        a failover event is triggered, the staged resources are used to automatically create a
+        full-capacity deployment in the target Amazon VPC used as the recovery location. </p>
+      
+        <div class="mediaobject">
+         
+          <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/disaster-recovery-architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Architecture diagram showing AWS Elastic Disaster Recovery architecture." style="max-width:100%">
+         
+         
+      <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r54:" type="submit" data-analytics-performance-mark="33-1789097560041-7454"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+      <p><em>Figure 10 - AWS Elastic Disaster Recovery architecture</em></p>
+
+     
+   
+
+  <h2 id="warm-standby">Warm standby<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="warm-standby" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789097560032-5670"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+      
+    <p>
+      The <em>warm standby</em> approach involves ensuring
+      that there is a scaled down, but fully functional, copy of your
+      production environment in another Region. This approach extends
+      the pilot light concept and decreases the time to recovery because
+      your workload is always-on in another Region. This approach also
+      allows you to more easily perform testing or implement continuous
+      testing to increase confidence in your ability to recover from a
+      disaster.
+    </p>
+    
+      <div class="mediaobject">
+       
+        <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/warm-standby-architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Architecture diagram showing warm standby architecture." style="max-width:100%">
+       
+       
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r58:" type="submit" data-analytics-performance-mark="34-1789097560042-7796"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+    <p><em>Figure 11 - Warm standby architecture </em></p>
+    <p>
+      <b>Note:</b> The difference between <a href="#pilot-light">pilot light</a> and warm standby can sometimes be
+      difficult to understand. Both include an environment in your DR Region with copies of your
+      primary Region assets. The distinction is that pilot light cannot process requests without
+      additional action taken first, whereas warm standby can handle traffic (at reduced capacity
+      levels) immediately. The pilot light approach requires you to “turn on” servers, possibly
+      deploy additional (non-core) infrastructure, and scale up, whereas warm standby only requires
+      you to scale up (everything is already deployed and running). Use your RTO and RPO needs to
+      help you choose between these approaches. </p>
+     
+
+  <h3 id="aws-services-2">AWS services</h3>
+
+      
+      <p> All of the AWS services covered under <a href="#backup-and-restore">backup and
+          restore</a> and <a href="#pilot-light">pilot light</a> are also used in warm
+        standby for data backup, data replication, active/passive traffic routing, and deployment of
+        infrastructure including EC2 instances. </p>
+      <p>
+        <a href="https://aws.amazon.com/ec2/autoscaling/" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 Auto Scaling</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> is used to scale resources
+        including Amazon EC2 instances, Amazon ECS tasks, Amazon DynamoDB throughput, and Amazon Aurora replicas within
+        an AWS Region. <a href="https://aws.amazon.com/ec2/autoscaling/" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 Auto Scaling</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> scales
+        deployment of EC2 instance across Availability Zones within an AWS Region, providing
+        resiliency within that Region. Use Auto Scaling to scale out your DR Region to full
+        production capability, as part of a pilot light or warm standby strategies. For example, for
+        EC2, increase the <em>desired capacity</em> setting on the Auto Scaling group.
+        You can adjust this setting manually through the AWS Management Console, automatically through the AWS
+        SDK, or by redeploying your AWS CloudFormation template using the new desired capacity value. You can
+        use AWS CloudFormation parameters to make redeploying the CloudFormation template easier. Ensure that
+          <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">service
+          quotas</a> in your DR Region are set high enough so as to not limit you from scaling
+        up to production capacity. </p>
+      <p>Because Auto Scaling is a control plane activity, taking a dependency on it will lower
+        the resiliency of your overall recovery strategy. It is a trade-off. You can choose to
+        provision sufficient capacity such that the recovery Region can handle the full production
+        load as deployed. This statically stable configuration is called <em>hot
+          standby</em> (see the next section). Or you may choose to provision fewer resources
+        which will cost less, but take a dependency on Auto Scaling. Some DR implementations will
+        deploy enough resources to handle initial traffic, ensuring low RTO, and then rely on Auto
+        Scaling to ramp up for subsequent traffic.</p>
+     
+   
+
+  <h2 id="multi-site-activeactive">Multi-site active/active<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="multi-site-activeactive" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789097560033-8086"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+      
+    <p>
+      You can run your workload simultaneously in multiple Regions as
+      part of a <em>multi-site active/active</em> or
+      <em>hot standby active/passive</em> strategy.
+      Multi-site active/active serves traffic from all regions to which
+      it is deployed, whereas hot standby serves traffic only from a
+      single region, and the other Region(s) are only used for disaster
+      recovery. With a multi-site active/active approach, users are able
+      to access your workload in any of the Regions in which it is
+      deployed. This approach is the most complex and costly approach to
+      disaster recovery, but it can reduce your recovery time to near
+      zero for most disasters with the correct technology choices and
+      implementation (however data corruption may need to rely on
+      backups, which usually results in a non-zero recovery point). Hot
+      standby uses an active/passive configuration where users are only
+      directed to a single region and DR regions do not take traffic.
+      Most customers find that if they are going to stand up a full
+      environment in the second Region, it makes sense to use it
+      active/active. Alternatively, if you do not want to use both
+      Regions to handle user traffic, then Warm Standby offers a more
+      economical and operationally less complex approach.
+    </p>
+    
+      <div class="mediaobject">
+       
+        <img src="/images/whitepapers/latest/disaster-recovery-workloads-on-aws/images/multi-site-active-active-architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Architecture diagram showing multi-site active/active architecture (change one Active path to Inactive for hot standby)" style="max-width:100%">
+       
+       
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5c:" type="submit" data-analytics-performance-mark="35-1789097560042-6657"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+    <p><em>Figure 12 - Multi-site active/active architecture (change one Active path to
+        Inactive for hot standby) </em></p>
+    <p>
+      With multi-site active/active, because the workload is running in
+      more than one Region, there is no such thing as failover in this
+      scenario. Disaster recovery testing in this case would focus on
+      how the workload reacts to loss of a Region: Is traffic routed
+      away from the failed Region? Can the other Region(s) handle all
+      the traffic? Testing for a data disaster is also required. Backup
+      and recovery are still required and should be tested regularly. It
+      should also be noted that recovery times for a data disaster
+      involving data corruption, deletion, or obfuscation will always be
+      greater than zero and the recovery point will always be at some
+      point before the disaster was discovered. If the additional
+      complexity and cost of a multi-site active/active (or hot standby)
+      approach is required to maintain near zero recovery times, then
+      additional efforts should be made to maintain security and to
+      prevent human error to mitigate against human disasters.
+    </p>
+     
+
+  <h3 id="aws-services-3">AWS services</h3>
+
+      
+      <p> All of the AWS services covered under <a href="#backup-and-restore">backup and
+          restore</a>, <a href="#pilot-light">pilot light</a>, and <a href="#warm-standby">warm standby</a> also are used here for point-in-time data
+        backup, data replication, active/active traffic routing, and deployment and scaling of
+        infrastructure including EC2 instances. </p>
+      <p>
+        For the active/passive scenarios discussed earlier (Pilot Light
+        and Warm Standby), both Amazon Route&nbsp;53 and AWS Global Accelerator can be used for route network traffic to the active
+        region. For the active/active strategy here, both of these
+        services also enable the definition of policies that determine
+        which users go to which active regional endpoint. With AWS Global Accelerator you set a
+        <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-traffic-dial.html">traffic
+        dial to control the percentage of traffic</a> that is
+        directed to each application endpoint. Amazon Route&nbsp;53 supports
+        this percentage approach, and also
+        <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">multiple
+        other available policies</a> including geoproximity and
+        latency based ones.
+        <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-ip-ranges.html">Global Accelerator automatically leverages the extensive network of AWS
+        edge servers</a>, to onboard traffic to the AWS network
+        backbone as soon as possible, resulting in lower request
+        latencies.
+      </p>
+      <p>
+        Asynchronous data replication with this strategy enables near-zero RPO. AWS
+        services like
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html">Amazon Aurora global database</a> use dedicated infrastructure that
+        leaves your databases entirely available to serve your
+        application, and can replicate to up to five secondary Region with
+        typical latency of under a second. With active/passive
+        strategies, writes occur only to the primary Region. The
+        difference with active/active is designing how data consistency with writes to each
+        active Region are handled. It is common to design user reads to
+        be served from the Region closest to them, known as
+        <em>read local</em>. With writes, you have several
+        options:
+      </p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>
+            A <em>write global</em> strategy routes all
+            writes to a single Region. In case of failure of that
+            Region, another Region would be promoted to accept writes.
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html">Aurora
+            global database</a> is a good fit for <em>write
+            global</em>, as it supports synchronization with
+            read-replicas across Regions, and you can promote one of the
+            secondary Regions to take read/write responsibilities in
+            less than one minute. Aurora also supports write forwarding, which lets secondary clusters in an Aurora global
+            database forward SQL statements that perform write operations to the primary cluster.
+          </p>
+        </li><li class="listitem">
+          <p>
+            A <em>write local</em> strategy routes writes to
+            the closest Region (just like reads).
+            <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html">Amazon DynamoDB global tables</a> enables such a strategy,
+            allowing read and writes from every region your global table
+            is deployed to. Amazon DynamoDB global tables use a
+            <em>last writer wins</em> reconciliation between
+            concurrent updates.
+          </p>
+        </li><li class="listitem">
+          <p>
+            A <em>write partitioned</em> strategy assigns
+            writes to a specific Region based on a partition key (like
+            user ID) to avoid write conflicts. Amazon S3 replication
+            <a href="https://wellarchitectedlabs.com/reliability/200_labs/200_bidirectional_replication_for_s3/" rel="noopener noreferrer" target="_blank"><span>configured
+            bi-directionally</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> can be used for this case, and
+            currently supports replication between two Regions. When
+            implementing this approach, make sure to enable
+            <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-for-metadata-changes.html">replica
+            modification sync</a> on both buckets A and B to
+            replicate replica metadata changes like object access
+            control lists (ACLs), object tags, or object locks on the
+            replicated objects. You can also configure whether or not to
+            <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html">replicate
+            delete markers</a> between buckets in your active
+            Regions. In addition to replication, your strategy must also
+            include point-in-time backups to protect against data
+            corruption or destruction events.
+          </p>
+        </li></ul></div>
+      <p>
+        AWS CloudFormation is a powerful tool to enforce consistently
+        deployed infrastructure among AWS accounts in multiple AWS
+        Regions.
+        <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html">AWS CloudFormation StackSets</a> extends this functionality by
+        enabling you to create, update, or delete CloudFormation stacks
+        across multiple accounts and Regions with a single operation.
+        Although AWS CloudFormation uses YAML or JSON to define
+        Infrastructure as Code,
+        <a href="https://aws.amazon.com/cdk/" rel="noopener noreferrer" target="_blank"><span>AWS Cloud Development Kit (AWS CDK)</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> allows you to define Infrastructure
+        as Code using familiar programming languages. Your code is
+        converted to CloudFormation which is then used to deploy
+        resources in AWS.
+      </p>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./disaster-recovery-is-different-in-the-cloud.html">Disaster recovery is different in the cloud</div><div id="next" class="next-link" accesskey="n" href="./detection.html">Detection</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=https://docs.aws.amazon.com/en_us/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=https://docs.aws.amazon.com/en_us/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789097559861-5698"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#backup-and-restore"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Backup and restore</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#pilot-light"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Pilot light</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#warm-standby"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Warm standby</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#multi-site-activeactive"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Multi-site active/active</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5g:" type="submit" data-analytics-performance-mark="36-1789097560044-1276"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5i:" type="submit" data-analytics-performance-mark="37-1789097560045-2368"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r5l:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r5k:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fwhitepapers%2Flatest%2Fdisaster-recovery-workloads-on-aws%2Fdisaster-recovery-options-in-the-cloud.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./detection.html"><span>Detection</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./disaster-recovery-is-different-in-the-cloud.html"><span>Disaster recovery is different in the cloud</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Working with the configuration recorder - AWS Config</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="stop-start-recorder" /><meta name="default_state" content="stop-start-recorder" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html" /><meta name="description" content="Working with the configuration recorder" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Config" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="AWS Config provides a detailed view of the configuration of AWS resources in your AWS account. This includes how the resources are related to one another and how they were configured in the past so that you can see how the configurations and relationships change over time." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/config/latest/developerguide/stop-start-recorder.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/config/latest/developerguide/stop-start-recorder.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/config/latest/developerguide/stop-start-recorder.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/config/latest/developerguide/stop-start-recorder.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/config/latest/developerguide/stop-start-recorder.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/config/latest/developerguide/stop-start-recorder.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/config/latest/developerguide/stop-start-recorder.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/config/latest/developerguide/stop-start-recorder.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/config/latest/developerguide/stop-start-recorder.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/config/latest/developerguide/stop-start-recorder.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/config/latest/developerguide/stop-start-recorder.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/config/latest/developerguide/stop-start-recorder.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/config/latest/developerguide/stop-start-recorder.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/config/latest/developerguide/stop-start-recorder.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/config/latest/developerguide/stop-start-recorder.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/config/latest/developerguide/stop-start-recorder.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/config/latest/developerguide/stop-start-recorder.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/config/latest/developerguide/stop-start-recorder.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Config" /><meta name="this_doc_product" content="AWS Config" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'config'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Working with the configuration recorder" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="stop-start-recorder.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Working with the configuration recorder - AWS Config</title><meta name="pdf" content="/pdfs/config/latest/developerguide/config-dg.pdf#stop-start-recorder" /><meta name="rss" content="aws-config-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAh2aOShjeSGiuPX-5ga8tOQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/stop-start-recorder.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/stop-start-recorder.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/stop-start-recorder.html" /><meta name="keywords" content="AWS Config,Config,Rule,Aggregator,AWS Config recorder,configuration management,resource tracking,cloud configuration,drift detection" /><link rel="alternate" type="text/markdown" href="stop-start-recorder.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Config",
+        "item" : "https://docs.aws.amazon.com/config/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with the configuration recorder",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/config/latest/developerguide/config-dg.pdf#stop-start-recorder" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/config/index.html">AWS Config</a><a href="WhatIsConfig.html">Developer Guide</a></div><div id="page-toc-src"><a href="#stop-start-recorder-considerations">Considerations for the customer managed configuration recorder</a><a href="#stop-start-recorder-considerations-service-linked">Considerations for service-linked configuration recorders</a><a href="#drift-detection">Drift detection for the configuration recorder</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="stop-start-recorder">Working with the configuration recorder</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The <em>configuration recorder</em> stores the configuration changes to the
+    resource types in scope as <a href="https://docs.aws.amazon.com/config/latest/developerguide/config-item-table.html">configuration items
+      (CIs)</a>. </p><p>There are two types of configuration recorders.</p><div class="table-container"><div class="table-contents"><table id="w485aac10b7"><thead>
+        <tr>
+          <th><b>Type</b></th>
+          <th><b>Description</b></th>
+        </tr>
+      </thead>
+        <tr>
+          <td tabindex="-1">Customer managed configuration recorder</td>
+          <td tabindex="-1">A configuration recorder that you managed. The resource types in scope are set by
+            you. By default, a customer managed configuration recorder records all supported
+            resources in the AWS Region where AWS Config is running.</td>
+        </tr>
+        <tr>
+          <td tabindex="-1">Service-linked configuration recorder</td>
+          <td tabindex="-1">A configuration recorder that is linked to a specific AWS service. The resource
+            types in scope are set by the linked service.</td>
+        </tr>
+
+      </table></div></div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#stop-start-recorder-considerations">Considerations for the customer managed configuration recorder</a></p></li><li><p><a href="#stop-start-recorder-considerations-service-linked">Considerations for service-linked configuration recorders</a></p></li><li><p><a href="#drift-detection">Drift detection for the configuration recorder</a></p></li><li><p><a href="./managing-recorder_console-start.html">Starting the customer managed configuration recorder</a></p></li><li><p><a href="./managing-recorder_console-stop.html">Stopping the customer managed configuration recorder</a></p></li><li><p><a href="./managing-recorder_console-change-recording-frequency.html">Changing the recording frequency for the customer managed configuration recorder</a></p></li><li><p><a href="./managing-recorder_console-rename.html">Renaming the customer managed configuration recorder</a></p></li><li><p><a href="./configuration-recorder-view.html">Viewing your configuration recorders</a></p></li><li><p><a href="./managing-recorder_console-delete.html">Deleting your configuration recorders</a></p></li></ul></div>
+    <h2 id="stop-start-recorder-considerations">Considerations for the customer managed configuration recorder</h2>
+
+    <p><b>One customer managed configuration recorder per account per
+      Region</b></p>
+
+    <p>You can have only one customer managed configuration recorder for each AWS account for
+      each AWS Region.</p>
+
+    <p><b>Default is to record all supported resource types, excluding the global IAM
+        resource types</b></p>
+
+    <p>The default for a customer managed configuration recorder is to record all supported
+      resource types, excluding the following global IAM resource types:
+        <code class="code">AWS::IAM::Group</code>, <code class="code">AWS::IAM::Policy</code>, <code class="code">AWS::IAM::Role</code>,
+      and <code class="code">AWS::IAM::User</code> You can specify which resource types you want to include or
+      exclude from recording.</p>
+    <p>For more information, see <a href="./select-resources.html">Recording AWS Resources with AWS Config</a>.</p>
+
+    <p><b>You are charged service usage fees for using the customer managed configuration
+        recorder</b></p>
+
+    <p>You are charged service usage fees when AWS Config starts recording configurations with the
+      customer managed configuration recorder.</p>
+
+    <p>For pricing information, see <a href="https://aws.amazon.com/config/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS Config
+        Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+    <p></p>
+
+    <p><b>Use AWS Systems Manager to create a customer managed configuration recorder across an
+        organization</b></p>
+
+    <p>You can use AWS Systems Manager Quick Setup to create a customer managed configuration recorder
+      across multiple organizational units (OUs) and AWS Regions using AWS best
+      practices.</p>
+
+    <p>For more information, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-config.html">Create an AWS Config configuration
+        recorder using Quick Setup</a> in the <em>Systems Manager User Guide</em>.</p>
+    <p></p>
+
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p><b>Policies and compliance results</b></p><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html">IAM
+          policies</a> and <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html">other policies managed in
+          AWS Organizations</a> can impact whether AWS Config has permissions to record configuration changes
+        for your resources. Additionally, rules directly evaluate the configuration of a resource
+        and rules don't take into account these policies when running evaluations. Make sure that
+        the policies in effect align with how you intend to use AWS Config.</p><p><b>Stale evaluation results for deleted resources can persist if the
+          configuration recorder is turned off</b></p><p>If the customer managed configuration recorder is turned off, it disables the ability of
+        AWS Config Config to track changes to the configuration of the resources you specified, including
+        their deletions. This means you might see stale evaluation results for resources that are
+        deleted when the customer managed configuration recorder is turned off since AWS Config cannot
+        capture deletion events if recording is not on.</p></div></div>
+   
+    <h2 id="stop-start-recorder-considerations-service-linked">Considerations for service-linked configuration recorders</h2>
+
+    <p><b>The AWS Config service-linked role must be used</b></p>
+
+    <p>The AWS Config service-linked role is required for service-linked configuration
+      recorders.</p>
+
+    <p>For more information, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/using-service-linked-roles.html">Using
+        Service-Linked Roles for AWS Config</a>.</p>
+
+
+    <p><b>Service-linked configuration recorders are always recording</b></p>
+
+    <p>Service-linked recorders are fixed. You can't directly change the settings in a
+      service-linked recorder. To modify recorder settings such as starting, stopping, or updating
+      the recorder, make these changes through the associated AWS service that uses the
+      service-linked recorder.</p>
+
+    <p>For more information, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/managing-recorder_console-delete.html">Deleting the Configuration Recorder</a>.</p>
+
+    <p><b>The recording scope determines if you receive configuration
+      items</b></p>
+
+    <p>The recording scope is set by the AWS service that is linked to the configuration
+      recorder and determines whether you receive configuration items (CIs) in the delivery channel.
+      If the recording scope is INTERNAL, you will not receive CIs in the delivery channel.</p>
+
+    <p><b>The recording scope determines if you are charged a service
+      fee</b></p>
+
+    <p>The recording scope is set by the AWS service that is linked to the configuration
+      recorder and determines whether the configuration items (CIs) in scope are recorded for free
+      (INTERNAL) or if it impacts the costs of your bill (PAID).</p>
+
+    <p><b>Recording frequency precedence between recorders</b></p>
+
+    <p>When you have both a customer managed configuration recorder and a service-linked configuration recorder with a recording scope of 'PAID' that record the same resource types, the recorder with the higher recording frequency takes precedence. For example, if your customer managed recorder is set to daily recording, but you enable an AWS service that uses a service-linked recorder with a recording scope of 'PAID' and continuous recording, the affected resource types will be recorded continuously.</p>
+
+    <p>This means that even though your customer managed recorder settings still show "Daily recording," you will be charged for continuous recording for the resource types that are in scope for both recorders. This only affects resource types that are being recorded by both recorders.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You are charged only once per configuration item, regardless of the number of
+        configuration items generated by a customer managed configuration recorder or service-linked
+        configuration recorders that you pay for.</p></div></div>
+    <div class="example"><h6>Example: Recording frequency precedence</h6><div class="example-contents"><p>You have configured your customer managed recorder to record Amazon EC2 instances with daily
+        recording frequency. Later, you enable an AWS service feature that uses a service-linked
+        recorder with a recording scope of 'PAID' and continuous recording that also records Amazon EC2
+        instances. In this scenario:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Your customer managed recorder settings will still show "Daily recording"</p></li><li class="listitem"><p>Amazon EC2 instances will be recorded continuously and provides additional CIs because the
+            service-linked recorder with a recording scope of 'PAID' has a higher recording
+            frequency</p></li><li class="listitem"><p>You will be charged for continuous recording of Amazon EC2 instances</p></li><li class="listitem"><p>Other resource types that are only recorded by your customer managed recorder will continue to
+            be recorded in a daily recording frequency</p></li></ul></div></div></div>
+    
+     
+      <h3 id="stop-start-recorder-considerations-service-linked-supported">Supported services</h3>
+      
+        <p>Service-linked configuration recorders are supported for the following services:</p>
+
+      <div class="table-container"><div class="table-contents"><table id="w485aac10c13c33b5"><thead>
+            <tr>
+              <th><b>AWS service</b></th>
+              <th><b>Service principal</b></th>
+              <th><b>Recorder name</b></th>
+              <th><b>Benefits of using with AWS Config</b></th>
+              <th><b>Learn more</b></th>
+            </tr>
+          </thead>
+            <tr>
+              <td tabindex="-1">Amazon CloudWatch</td>
+              <td tabindex="-1"><code class="code">observabilityadmin.amazonaws.com,
+                  telemetry-enablement.observabilityadmin.amazonaws.com</code></td>
+              <td tabindex="-1"><code class="code">AWSConfigurationRecorderForObservabilityAdmin,
+                  AWSConfigurationRecorderForObservabilityAdmin_TelemetryEnablement</code></td>
+              <td tabindex="-1">You can use Amazon CloudWatch Observability Admin to discover and understand the state of telemetry configuration in CloudWatch for your AWS Organization or account.</td>
+              <td tabindex="-1">For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/telemetry-config-cloudwatch.html">Auditing CloudWatch telemetry configurations </a> in the <em>CloudWatch User Guide</em>.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">AWS Security Hub</td>
+              <td tabindex="-1"><code class="code">securityhubv2.amazonaws.com</code></td>
+              <td tabindex="-1"><code class="code">AWSConfigurationRecorderForSecurityHubAssets,
+                  AWSConfigurationRecorderForSecurityHubAssetsGlobal</code></td>
+              <td tabindex="-1">You can use AWS Security Hub to generate security findings and perform
+                security assessments across your AWS accounts. The service-linked recorder enables
+                the collection of resource configuration items required for asset visibility and
+                analysis across regional and global resource types.</td>
+              <td tabindex="-1">For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/what-are-securityhub-services.html">Enabling Security Hub</a> in the <em>Security Hub and Security Hub
+                CSPM User Guide</em>.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">AWS Security Hub CSPM</td>
+              <td tabindex="-1"><code class="code">securityhub.amazonaws.com</code></td>
+              <td tabindex="-1"><code class="code">AWSConfigurationRecorderForSecurityHubCSPM</code></td>
+              <td tabindex="-1">You can use AWS Security Hub CSPM to generate security findings and perform assessments
+                across your AWS accounts. The service-linked recorder enables the collection of
+                resource configuration items required to support these evaluations.</td>
+              <td tabindex="-1">For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/what-are-securityhub-services.html">Enabling Security Hub CSPM</a> in the <em>Security Hub and Security
+                Hub CSPM User Guide</em>.</td>
+            </tr>            
+          </table></div></div>
+      
+     
+    
+   
+    <h2 id="drift-detection">Drift detection for the configuration recorder</h2>
+
+    <p>The <code class="code">AWS::Config::ConfigurationRecorder</code> resource type is a
+        <em>configuration item</em> (CI) for the configuration recorder that tracks all
+      changes to the state of configuration recorder. You can use this CI to check if the state of
+      the configuration recorder differs, or has <em>drifted</em>, from its previous
+      state.</p>
+
+    <p>For example, this CI tracks if there are updates to resource types that you have enabled
+      AWS Config to track, if you have stopped or started the configuration recorder, or if you have
+      deleted or uninstalled the configuration recorder. A drifted configuration recorder indicates
+      that you are not accurately detecting changes to your intended resource types. If your
+      configuration recorder has been drifted, this can result in false negative or false positive
+      compliance results.</p>
+
+    <p>The <code class="code">AWS::Config::ConfigurationRecorder</code> resource type is a system resource
+      type of AWS Config and recording of this resource type is enabled by default in all supported
+      Regions. Recording for the <code class="code">AWS::Config::ConfigurationRecorder</code> resource type comes
+      with no additional charge.</p>
+
+    
+
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sdk-general-information-section.html">Working with AWS SDKs</div><div id="next" class="next-link" accesskey="n" href="./managing-recorder_console-start.html">Starting the customer managed configuration recorder</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/stop-start-recorder.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/stop-start-recorder.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

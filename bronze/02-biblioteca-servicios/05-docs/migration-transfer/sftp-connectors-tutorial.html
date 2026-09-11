@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Setting up and using SFTP connectors - AWS Transfer Family</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sftp-connectors-tutorial" /><meta name="default_state" content="sftp-connectors-tutorial" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-connectors-tutorial.html" /><meta name="description" content="Learn how to create an SFTP connector to send and retrieve files using both service managed and VPC egress types" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Transfer Family" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Transfer Family is a secure transfer service that stores your data in Amazon Simple Storage Service or Amazon Elastic File System and simplifies the migration of Secure File Transfer Protocol (SFTP), File Transfer Protocol Secure (FTPS), File Transfer Protocol (FTP), and Applicability Statement 2 (AS2) workflows to AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-connectors-tutorial.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/sftp-connectors-tutorial.html" hreflang="x-default" /><meta name="feedback-item" content="transfer" /><meta name="this_doc_product" content="AWS Transfer Family" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'transfer'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Setting up and using SFTP connectors" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sftp-connectors-tutorial.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Setting up and using SFTP connectors - AWS Transfer Family</title><meta name="pdf" content="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#sftp-connectors-tutorial" /><meta name="forums" content="https://repost.aws/tags/TAtf43W5cjQ3CIFYTKipVfGg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-connectors-tutorial.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-connectors-tutorial.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-connectors-tutorial.html" /><meta name="keywords" content="getting started, tutorials, walkthroughs,AWS Transfer Family connectors,SFTP connectors,transfer files between SFTP servers for Transfer Family,VPC connectivity,Cross-VPC Resource Access,VPC Lattice,Resource Gateway,Resource Configuration,private endpoint connectivity,hybrid connectivity" /><link rel="alternate" type="text/markdown" href="sftp-connectors-tutorial.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Transfer Family",
+        "item" : "https://docs.aws.amazon.com/transfer/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Transfer Family tutorials",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tutorials-transfer.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Setting up and using SFTP connectors",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tutorials-transfer.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#sftp-connectors-tutorial" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/transfer/index.html">AWS Transfer Family</a><a href="what-is-aws-transfer-family.html">User Guide</a></div><div id="page-toc-src"><a href="#connector-egress-types">Connector egress types</a><a href="#create-prereq-resources">Step 1: Create the necessary supporting resources</a><a href="#create-connector-tutorial">Step 2: Create and test an SFTP connector</a><a href="#use-connector-tutorial">Step 3: Send and retrieve files using the SFTP connector</a><a href="#non-standard-tutorial-procedures">Procedures to create a Transfer Family server to use as your remote SFTP server</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sftp-connectors-tutorial">Setting up and using SFTP connectors</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The purpose of a connector is to establish a relationship between your AWS storage
+    and a partner's SFTP server. You can send files from Amazon S3 to an external, partner-owned
+    destination. You can also use an SFTP connector to retrieve files from a partner's SFTP
+    server.</p><p>This tutorial illustrates how to set up an SFTP connector with both service managed and
+        VPC_LATTICE egress types, and then transfer files between Amazon S3 storage and an SFTP
+        server.</p><p>An SFTP connector retrieves SFTP credentials from AWS Secrets Manager to authenticate into a remote
+        SFTP server and establish a connection. The connector sends files to or retrieves files from
+        the remote server, and stores the files in Amazon S3. You can choose between service managed
+        egress (using AWS managed infrastructure) or VPC egress (routing through your VPC using
+        Cross-VPC Resource Access). An IAM role is used to allow access to the Amazon S3 bucket and to
+        the credentials stored in Secrets Manager. And you can log to Amazon CloudWatch.</p><div class="mediaobject">
+         
+         
+            <img src="/images/transfer/latest/userguide/images/sftp-connector-arch-diag.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="An architecture diagram for how the SFTP connector interacts with Secrets Manager, Amazon S3, CloudWatch logs, IAM roles, and the remote SFTP server." style="max-width:80%" />
+         
+    </div><p>The following blog post provides a reference architecture to build an MFT workflow using SFTP connectors, including encryption of files using PGP before sending them to a remote SFTP server using SFTP connectors:
+   <a href="https://aws.amazon.com/blogs/storage/architecting-secure-and-compliant-managed-file-transfers-with-aws-transfer-family-sftp-connectors-and-pgp-encryption/" rel="noopener noreferrer" target="_blank"><span>Architecting secure and compliant managed
+   file transfers with AWS Transfer Family SFTP connectors and PGP encryption.</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+        <h2 id="connector-egress-types">Connector egress types</h2>
+        <p>SFTP connectors support two egress types that determine how your connector routes
+            traffic to remote SFTP servers:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>SERVICE_MANAGED</b> (default): Uses AWS
+                    Transfer Family managed infrastructure with static IP addresses for outbound
+                    connections.</p>
+            </li><li class="listitem">
+                <p><b>VPC</b>: Routes traffic through your VPC using
+                    Cross-VPC Resource Access, enabling private endpoint connectivity and use of
+                    your own NAT gateways.</p>
+            </li></ul></div>
+
+        <p>This tutorial covers both egress types. Choose VPC egress type when you need
+            to:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Connect to private SFTP servers in your VPC (private IP addresses)</p>
+            </li><li class="listitem">
+                <p>Connect to on-premises SFTP servers via Direct Connect or VPN</p>
+            </li><li class="listitem">
+                <p>Route public endpoint traffic through your VPC for security controls</p>
+            </li><li class="listitem">
+                <p>Use your own Elastic IP addresses for outbound connections</p>
+            </li></ul></div>
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#create-prereq-resources">Step 1: Create the necessary supporting resources</a></p></li><li><p><a href="#create-connector-tutorial">Step 2: Create and test an SFTP connector</a></p></li><li><p><a href="#use-connector-tutorial">Step 3: Send and retrieve files using the SFTP connector</a></p></li><li><p><a href="#non-standard-tutorial-procedures">Procedures to create a Transfer Family server to use as your remote SFTP server</a></p></li></ul></div>
+        <h2 id="create-prereq-resources">Step 1: Create the necessary supporting resources</h2>
+
+        <p>You can use SFTP connectors to copy files between Amazon S3 and any remote SFTP server. For
+            this tutorial, we are using an AWS Transfer Family server as our remote SFTP server. We need to
+            create and configure the following resources:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Create Amazon S3 buckets to store files in your AWS environment, and to send and
+                    retrieve files from the remote SFTP server: <a href="#sftp-tutorial-s3-bucket">Create Amazon S3 buckets</a>.</p>
+            </li><li class="listitem">
+                <p>Create an AWS Identity and Access Management role for accessing Amazon S3 storage and our secret in
+                    Secrets Manager: <a href="#sftp-tutorial-role">Create an IAM role with the necessary permissions</a>.</p>
+            </li><li class="listitem">
+                <p>Create a Transfer Family server that uses the SFTP protocol, and a service-managed user
+                    that uses the SFTP connector to transfer files to or from the SFTP server: <a href="#sftp-tutorial-server">Create a Transfer Family SFTP server and a user</a>.</p>
+            </li><li class="listitem">
+                <p>Create an AWS Secrets Manager secret that stores the credentials used by the SFTP
+                    connector to log in to the remote SFTP server: <a href="#sftp-tutorial-secret">Create and store a secret in AWS Secrets Manager</a>.</p>
+            </li></ul></div>
+
+        <p>For VPC egress type connectors, you also need:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>A VPC with appropriate subnets and security groups</p>
+            </li><li class="listitem">
+                <p>A Resource Gateway (minimum 2 Availability Zones required): <a href="#sftp-tutorial-resource-gateway">Create a Resource Gateway (VPC egress type only)</a>.</p>
+            </li><li class="listitem">
+                <p>A Resource Configuration pointing to your SFTP server: <a href="#sftp-tutorial-resource-config">Create a Resource Configuration (VPC egress type only)</a>. For more information, see
+                        <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/resource-configuration.html">Resource configurations</a> in the <em>Amazon VPC Lattice User
+                        Guide</em>.</p>
+            </li></ul></div>
+
+         
+            <h3 id="sftp-tutorial-s3-bucket">Create Amazon S3 buckets</h3>
+            <div class="procedure"><h6>To create an Amazon S3 bucket</h6><ol><li>
+                    <p>Sign in to the AWS Transfer Family console at <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li>
+                    <p>Choose a Region and enter a name.</p>
+                    <p> For this tutorial, our bucket is in <code class="userinput">US East (N. Virginia)
+                            us-east-1</code>, and the name is
+                            <code class="userinput">sftp-server-storage-east</code>.</p>
+                </li><li>
+                    <p>Accept the defaults and choose <b>Create bucket</b>.</p>
+                </li></ol></div>
+
+            <p>For complete details about creating Amazon S3 buckets, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket-overview.html">How do I create an
+                    S3 bucket?</a> in the <em>Amazon Simple Storage Service User Guide</em>.</p>
+         
+
+         
+            <h3 id="sftp-tutorial-role">Create an IAM role with the necessary permissions</h3>
+            <p>For the access role, create a policy with the following permissions.</p>
+            <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="a87ec237616b1e427c8539aef4a4ca1a43afe36c5075dd4f14aa443b6bb1b7c4"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+        "Sid": "AllowListingOfUserFolder",
+        "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+        ],
+        "Effect": "Allow",
+        "Resource": [
+            "arn:aws:s3:::amzn-s3-demo-bucket"
+        ]
+    },
+    <span>{</span>
+        "Sid": "HomeDirObjectAccess",
+        "Effect": "Allow",
+        "Action": [
+            "s3:PutObject",
+            "s3:GetObject",
+            "s3:DeleteObject",
+            "s3:DeleteObjectVersion",
+            "s3:GetObjectVersion",
+            "s3:GetObjectACL",
+            "s3:PutObjectACL"
+        ],
+        "Resource": "arn:aws:s3:::amzn-s3-demo-bucket/*"
+    },
+    <span>{</span>
+        "Sid": "GetConnectorSecretValue",
+        "Effect": "Allow",
+        "Action": [
+            "secretsmanager:GetSecretValue"
+        ],
+        "Resource": "arn:aws:secretsmanager:<code class="replaceable">us-west-2</code>:<code class="replaceable">111122223333</code>:secret:aws/transfer/<code class="replaceable">SecretName-6RandomCharacters</code>"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+            <p>Replace items as follows:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For <code class="code">amzn-s3-demo-bucket</code>, the tutorial uses
+                            <code class="userinput">sftp-server-storage-east</code>.</p>
+                </li><li class="listitem">
+                    <p>For <code class="replaceable">region</code>, the tutorial uses
+                            <code class="userinput">us-east-1</code>.</p>
+                </li><li class="listitem">
+                    <p>For <code class="replaceable">account-id</code>, use your AWS account
+                        ID.</p>
+                </li><li class="listitem">
+                    <p>For <code class="replaceable">SecretName-6RandomCharacters</code>, we are
+                            <code class="userinput">using sftp-connector1</code> for the name (you will have
+                        your own six random characters for your secret).</p>
+                </li></ul></div>
+            <p>You must also make sure that this role contains a trust relationship that allows
+                the connector to access your resources when servicing your users' transfer
+                requests. For details on establishing a trust relationship, see <a href="./requirements-roles.html#establish-trust-transfer">To establish a trust relationship</a>.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To see the details for the role that we are using for the tutorial, see <a href="#sftp-tutorial-combined-role">Combined user and access role</a>.</p></div></div>
+         
+
+         
+            <h3 id="sftp-tutorial-secret">Create and store a secret in AWS Secrets Manager</h3>
+            <p>We need to store a secret in Secrets Manager to store user credentials for your SFTP
+                connector. You can use a password, SSH private key, or both. For the tutorial, we
+                are using a private key.</p>
+
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you store secrets in Secrets Manager, your AWS account incurs charges. For information about
+          pricing, see <a href="https://aws.amazon.com/secrets-manager/pricing" rel="noopener noreferrer" target="_blank"><span>AWS Secrets Manager Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+
+            <p>Before you begin the procedure to store the secret, retrieve and format your
+                private key. The private key must correspond to the public key that is configured
+                for the user on the remote SFTP server. For our tutorial, the private key must
+                correspond to the public key that is stored for our test user on the Transfer Family SFTP
+                server that we are using as remote server.</p>
+            <p>To do this, run the following command:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">jq -sR . <code class="replaceable">path-to-private-key-file</code></code></pre>
+            <p>For example, if your private key file is located in
+                    <code>~/.ssh/sftp-testuser-privatekey</code>, the command is as
+                follows.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">jq -sR . ~/.ssh/sftp-testuser-privatekey</code></pre>
+            <p>This outputs the key in the correct format (with embedded newline characters) to
+                standard output. Copy this text somewhere, as you need to paste it in the following
+                procedure (in step 6).</p>
+
+
+            <div class="procedure"><h6>To store user credentials in Secrets Manager for an SFTP connector</h6><ol><li>
+                    <p>Sign in to the AWS Management Console and open the AWS Secrets Manager console at <a href="https://console.aws.amazon.com/secretsmanager/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/secretsmanager/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li>
+                    <p>In the left navigation pane, choose <b>Secrets</b>. </p>
+                </li><li>
+                    <p>On the <b>Secrets</b> page, choose <b>Store a new
+                        secret</b>.</p>
+                </li><li>
+                    <p>On the <b>Choose secret type</b> page, for <b>Secret
+                        type</b>, choose <b>Other type of secret</b>.</p>
+                </li><li>
+                    <p>In the <b>Key/value pairs</b> section, choose the
+                            <b>Key/value</b> tab.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><b>Key</b> — Enter
+                                    <code class="userinput">Username</code>.</p>
+                        </li><li class="listitem">
+                            <p><b>value</b> — Enter the name of our user,
+                                    <code class="userinput">sftp-testuser</code>.</p>
+                        </li></ul></div>
+                </li><li>
+                    <p>To enter the key, we recommend that you use the
+                            <b>Plaintext</b> tab. </p>
+                    <ol><li>
+                            <p>Choose <b>Add row</b>, then enter
+                                    <code class="userinput">PrivateKey</code>.</p>
+                        </li><li>
+                            <p>Choose the <b>Plaintext</b> tab. The field now
+                                contains the following text:</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>"Username":"sftp-testuser","PrivateKey":""}</code></pre>
+                        </li><li>
+                            <p>Paste in the text for your private key (saved earlier) between the
+                                empty double quotes ("").</p>
+                            <p>Your screen should look as follows (key data is grayed
+                                out).</p>
+                            <div class="mediaobject">
+                                 
+                                    <img src="/images/transfer/latest/userguide/images/sftp-tutorial-secret.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The secret in plain text, showing the user name and private key." style="max-width:100%" />
+                                 
+                                 
+                            </div>
+                        </li></ol>
+                </li><li>
+
+                    <p>Choose <b>Next</b>.</p>
+                </li><li>
+                    <p>On the <b>Configure secret</b> page, enter a name for your
+                        secret. For this tutorial, we name the secret
+                            <code class="userinput">aws/transfer/sftp-connector1</code>.</p>
+                </li><li>
+                    <p>Choose <b>Next</b>, and then accept the defaults on the
+                            <b>Configure rotation</b> page. Then choose
+                            <b>Next</b>.</p>
+                </li><li>
+                    <p>On the <b>Review</b> page, choose <b>Store</b>
+                        to create and store the secret.</p>
+                </li></ol></div>
+         
+
+         
+            <h3 id="sftp-tutorial-resource-gateway">Create a Resource Gateway (VPC egress type only)</h3>
+            <p>For VPC egress type connectors, you need to create a Resource Gateway in your VPC.
+                The Resource Gateway serves as the entry point for Cross-VPC Resource Access.</p>
+
+            <div class="procedure"><h6>To create a Resource Gateway</h6><ol><li>
+                    <p>Run the following command to create a Resource Gateway (replace the VPC ID
+                        and subnet IDs with your values):</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws vpc-lattice create-resource-gateway \
+    --name my-sftp-resource-gateway \
+    --vpc-identifier vpc-12345678 \
+    --subnet-ids subnet-12345678 subnet-87654321</code></pre>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Resource Gateways require subnets in at least 2 Availability
+                            Zones.</p></div></div>
+                </li><li>
+                    <p>Note the Resource Gateway ID from the response for use in the next
+                        step.</p>
+                </li></ol></div>
+         
+
+         
+            <h3 id="sftp-tutorial-resource-config">Create a Resource Configuration (VPC egress type only)</h3>
+            <p>Create a Resource Configuration that points to your SFTP server. This can be a
+                private IP address for servers in your VPC, or a public DNS name for external
+                servers. For more information about Resource Configurations, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/resource-configuration.html">Resource configurations</a> in the <em>Amazon VPC Lattice User
+                    Guide</em>.</p>
+
+            <div class="procedure"><h6>To create a Resource Configuration</h6><ol><li>
+                    <p>For a private SFTP server, run:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws vpc-lattice create-resource-configuration \
+    --name my-sftp-resource-config \
+    --port-ranges 22 \
+    --type SINGLE \
+    --resource-gateway-identifier rgw-12345678 \
+    --resource-configuration-definition ipResource=<span>{</span>ipAddress="10.0.1.100"}</code></pre>
+                </li><li>
+                    <p>For a public SFTP server (DNS name only), run:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws vpc-lattice create-resource-configuration \
+    --name my-public-sftp-resource-config \
+    --port-ranges 22 \
+    --type SINGLE \
+    --resource-gateway-identifier rgw-12345678 \
+    --resource-configuration-definition dnsResource=<span>{</span>domainName="sftp.example.com"}</code></pre>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Public endpoints must use DNS names, not IP addresses.</p></div></div>
+                </li><li>
+                    <p>Note the Resource Configuration ARN from the response for use when
+                        creating the connector.</p>
+                </li></ol></div>
+         
+
+     
+        <h2 id="create-connector-tutorial">Step 2: Create and test an SFTP connector</h2>
+        <p>In this section, we create an SFTP connector that uses all of the resources that we
+            created earlier. For more details, see <a href="./configure-sftp-connector.html">Creating SFTP connectors</a>.</p>
+        <div class="procedure"><h6>To create an SFTP connector</h6><ol><li>
+                <p>Open the AWS Transfer Family console at <a href="https://console.aws.amazon.com/transfer/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/transfer/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+                <p>In the left navigation pane, choose <b>SFTP Connectors</b>, then
+                    choose <b>Create SFTP connector</b>.</p>
+            </li><li>
+                <p>For <b>Egress type</b>, choose one of the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Service managed</b> (default): Uses AWS Transfer
+                            Family managed infrastructure with static IP addresses for outbound
+                            connections.</p>
+                    </li><li class="listitem">
+                        <p><b>VPC Lattice</b>: Routes traffic through your VPC using
+                            Cross-VPC Resource Access. Choose this option for private endpoint
+                            connectivity or to use your own NAT gateways.</p>
+                    </li></ul></div>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You cannot change the egress type after creating the connector. Choose
+                        carefully based on your connectivity requirements.</p></div></div>
+            </li><li>
+                <p>In the <b>Connector configuration</b> section, provide the
+                    following information:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                    
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>For the <b>URL</b>, enter the URL of the remote SFTP
+                            server. For the tutorial, we enter the URL of the Transfer Family server that we
+                            are using as the remote SFTP server.</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">sftp://s-<code class="replaceable">1111aaaa2222bbbb3</code>.server.transfer.us-east-1.amazonaws.com</code></pre>
+                        <p>Replace <code class="replaceable">1111aaaa2222bbbb3</code> with your Transfer Family
+                            server ID.</p>
+
+                    </li><li class="listitem">
+                        <p>For the <b>Access role</b>, enter the role we created
+                            earlier, <code class="userinput">sftp-connector-role</code>.</p>
+
+                    </li><li class="listitem">
+                        <p>For <b>Resource Configuration ARN</b> (VPC Lattice egress
+                            type only), enter the ARN of the Resource Configuration you created
+                            earlier:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">arn:aws:vpc-lattice:us-east-1:<code class="replaceable">account-id</code>:resourceconfiguration/rcfg-<code class="replaceable">12345678</code></code></pre>
+                    </li><li class="listitem">
+                        <p>For the <b>Logging role</b>, choose a role that includes
+                            a trust policy with <code class="code">transfer.amazonaws.com</code> in the Principal
+                            element.</p>
+
+                        <p><b>Tip: </b>In addition to adding Transfer Family as a
+                            trusted entity, you can add the
+                                <b>AWSTransferLoggingAccess</b> AWS managed policy
+                            to the role. This policy is described in detail in <a href="https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSTransferLoggingAccess.html">AWSTransferLoggingAccess</a>. </p>
+                    </li></ul></div>
+                <div class="mediaobject">
+                     
+                     
+                        <img src="/images/transfer/latest/userguide/images/create-connector-example-config.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Transfer Family SFTP connector console, showing the Connector configuration settings." style="max-width:100%" />
+                     
+                </div>
+            </li><li>
+                <p>In the <b>SFTP Configuration</b> section, provide the following
+                    information:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>For <b>Connector credentials</b>, choose the name of
+                            your Secrets Manager resource that contains SFTP credentials. For the
+                            tutorial, choose
+                            <code class="userinput">aws/transfer/sftp-connector1</code>.</p>
+                    </li><li class="listitem">
+                        <p>For <b>Trusted host keys </b>, paste in the public
+                            portion of the host key. You can retrieve this key by running
+                                <code class="code">ssh-keyscan</code> for your SFTP server. For details on how to
+                            format and store the trusted host key, see the <a href="https://docs.aws.amazon.com/transfer/latest/APIReference/API_SftpConnectorConfig.html">SftpConnectorConfig</a> data type
+                            documentation.</p>
+                    </li><li class="listitem">
+                        <p>For <b>Maximum concurrent connections</b>, select an
+                            integer value from 1 to 5: the default value is 5.</p>
+                    </li></ul></div>
+                <div class="mediaobject">
+                     
+                     
+                        <img src="/images/transfer/latest/userguide/images/create-connector-example-sftp-config.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Transfer Family SFTP connector console, showing the SFTP configuration settings." style="max-width:100%" />
+                     
+                </div>
+            </li><li>
+                <p>After you have confirmed all of your settings, choose <b>Create
+                        connector</b> to create the SFTP connector.</p>
+            </li></ol></div>
+
+        <p>You can also create connectors using the AWS Command Line Interface.</p>
+
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>To create an SFTP connector with service-managed egress run the following
+                    command:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws transfer create-connector \
+    --url "sftp://s-1111aaaa2222bbbb3.server.transfer.us-east-1.amazonaws.com" \
+    --access-role "arn:aws::iam::account-id:role/sftp-connector-role" \
+    --sftp-config UserSecretId="aws/transfer/sftp-connector1",TrustedHostKeys="ssh-rsa AAAAB3NzaC..."</code></pre>
+            </li><li class="listitem">
+                <p>To create an SFTP connector with VPC-based egress run the following
+                    command:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws transfer create-connector \
+   --url "sftp://my.sftp.server.com:22" \
+   --access-role "arn:aws::iam::account-id:role/sftp-connector-role" \
+   --sftp-config UserSecretId="aws/transfer/sftp-connector1",TrustedHostKeys="ssh-rsa AAAAB3NzaC..." \
+   --egress-config VpcLattice=<span>{</span>ResourceConfigurationArn="arn:aws:vpc-lattice:us-east-1:account-id:resourceconfiguration/rcfg-12345678",PortNumber=22}</code></pre>
+            </li></ul></div>
+
+        
+        <p>After you create an SFTP connector, we recommend that you test it before you attempt
+            to transfer any files using your new connector.</p>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For VPC egress type connectors, DNS resolution may take several minutes after
+                creation. During this time, the connector status will be <code class="code">PENDING</code> and
+                    <code class="code">TestConnection</code> will return "Connector not available". Wait for the
+                status to become <code class="code">ACTIVE</code> before attempting file transfers.</p></div></div>
+
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Test a connector using the console</dt><dd tab-id="test-a-connector-using-the-console"> <div class="procedure"><h6>To test an SFTP connector</h6><ol><li>
+                    <p>Open the AWS Transfer Family console at <a href="https://console.aws.amazon.com/transfer/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/transfer/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li>
+                    <p>In the left navigation pane, choose <b>SFTP Connectors</b>, and
+                        select a connector.</p>
+                   
+                </li><li>
+                    <p>From the <b>Actions</b> menu, choose <b>Test connection</b>.</p>
+                    <div class="mediaobject">
+                         
+                            <img src="/images/transfer/latest/userguide/images/connector-test-choose.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Transfer Family console, showing an SFTP connector selected, and the Test connectionTest connection action highlighted." style="max-width:100%" />
+                         
+                         
+                    </div>
+                </li></ol></div>
+            
+            <p>The system returns a message, indicating whether the test passes or fails. If the test fails, the system provides an error message based on the reason the test failed.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/transfer/latest/userguide/images/connector-test-success.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The SFTP connector test connection panel, showing a successful test." style="max-width:100%" />
+                 
+                 
+            </div>
+            <div class="mediaobject">
+                 
+                    <img src="/images/transfer/latest/userguide/images/connector-test-fail-role.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The SFTP connector test connection panel, showing a failed test: the error message indicates that the access role for the connector is incorrect." style="max-width:100%" />
+                 
+                 
+            </div> </dd>
+            <dt>Test a connector using the CLI</dt><dd tab-id="test-a-connector-using-the-cli">
+                    <p>To test a connector using the AWS Command Line Interface, run the following command at a
+                        command prompt (replace <code class="replaceable">connector-id</code> with your
+                        actual connector ID):</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws transfer test-connection --connector-id c-<code class="replaceable">connector-id</code></code></pre>
+                    <p>If the test is successful, the following lines are returned:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+   "Status": "OK",
+   "StatusMessage": "Connection succeeded"
+}</code></pre>
+                    <p>If the test is unsuccessful, you receive a descriptive error message, for
+                        example:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+   "Status": "ERROR",
+   "StatusMessage": "Unable to assume the configured access role"
+}</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+
+        <p>When you describe a VPC egress type connector, the response includes the new
+            fields:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+   "Connector": <span>{</span> 
+      "AccessRole": "arn:aws:iam::219573224423:role/sftp-connector-role",
+      "Arn": "arn:aws:transfer:us-east-1:219573224423:connector/c-5dfa309ccabf40759",
+      "ConnectorId": "c-5dfa309ccabf40759",
+      "Status": "ACTIVE",
+      "EgressConfig": <span>{</span>
+        "ResourceConfigurationArn": "arn:aws:vpc-lattice:us-east-1:025066256552:resourceconfiguration/rcfg-079259b27a357a190"
+      },
+      "EgressType": "VPC",
+      "ServiceManagedEgressIpAddresses": null,
+      "SftpConfig": <span>{</span> 
+         "TrustedHostKeys": [ "ssh-rsa AAAAB3NzaC..." ],
+         "UserSecretId": "aws/transfer/sftp-connector1"
+      },
+      "Url": "sftp://my.sftp.server.com:22"
+   }
+}</code></pre>
+        <p>Note that <code class="code">ServiceManagedEgressIpAddresses</code> is null for VPC egress type
+            connectors since traffic routes through your VPC instead of AWS managed
+            infrastructure.</p>
+     
+        <h2 id="use-connector-tutorial">Step 3: Send and retrieve files using the SFTP connector</h2>
+        <p>For simplicity, we assume that you already have files in your Amazon S3 bucket.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The tutorial is using Amazon S3 buckets for both source and destination storage
+                locations. If your SFTP server doesn't use Amazon S3 storage, then wherever you see
+                    <code>sftp-server-storage-east</code> in the following commands, you can
+                replace the path with a path to file locations accessible from your SFTP
+                server.</p></div></div>
+
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>We send a file named <code>SEND-to-SERVER.txt</code> from Amazon S3 storage
+                    to the SFTP server.</p>
+            </li><li class="listitem">
+                <p>We retrieve a file named <code>RETRIEVE-to-S3.txt</code> from the SFTP
+                    server to Amazon S3 storage.</p>
+            </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>In the following commands, replace <code class="replaceable">connector-id</code> with
+                your connector ID.</p></div></div>
+        <p>First, we send a file from our Amazon S3 bucket to the remote SFTP server. From a command
+            prompt, run the following command:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws transfer start-file-transfer --connector-id c-<code class="replaceable">connector-id</code> --send-file-paths "/sftp-server-storage-east/SEND-to-SERVER.txt" /
+   --remote-directory-path "/sftp-server-storage-east/incoming"</code></pre>
+        <p>Your <code>sftp-server-storage-east</code> bucket should now look like
+            this.</p>
+        <div class="mediaobject">
+             
+             
+                <img src="/images/transfer/latest/userguide/images/sftp-tutorial-bucket-2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The SFTP server bucket with the newly transferred file." style="max-width:100%" />
+             
+        </div>
+        <p>If you don't see the file as expected, check your CloudWatch logs.</p>
+        <div class="procedure"><h6>To check your CloudWatch logs</h6><ol><li>
+                <p>Open the Amazon CloudWatch console at <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+            </li><li>
+                <p>Select <b>Log groups</b> from the left navigation menu.</p>
+            </li><li>
+                <p>Enter your connector ID in the search bar to find your logs.</p>
+            </li><li>
+                <p>Select the Log stream that is returned from the search.</p>
+            </li><li>
+                <p>Expand the most recent log entry. </p>
+            </li></ol></div>
+
+        <p>If successful, the log entry looks like the following:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+    "operation": "SEND",
+    "timestamp": "2023-12-18T15:26:57.346283Z",
+    "connector-id": "<code class="replaceable">connector-id</code>",
+    "transfer-id": "<code class="replaceable">transfer-id</code>",
+    "file-transfer-id": "<code class="replaceable">transfer-id</code>/<code class="replaceable">file-transfer-id</code>",
+    "url": "sftp://<code class="replaceable">server-id</code>.server.transfer.us-east-1.amazonaws.com",
+    "file-path": "/sftp-server-storage-east/SEND-to-SERVER.txt",
+    "status-code": "COMPLETED",
+    "start-time": "2023-12-18T15:26:56.915864Z",
+    "end-time": "2023-12-18T15:26:57.298122Z",
+    "account-id": "<code class="replaceable">account-id</code>",
+    "connector-arn": "arn:aws:transfer:us-east-1:<code class="replaceable">account-id</code>:connector/<code class="replaceable">connector-id</code>",
+    "remote-directory-path": "/sftp-server-storage-east/incoming"
+}</code></pre>
+        <p>If the file transfer failed, the log entry contains an error message that specifies
+            the issue. Common causes for errors are problems with the IAM permissions and
+            incorrect file paths.</p>
+
+
+        <p>Next, we retrieve a file from the SFTP server into an Amazon S3 bucket. From a command
+            prompt, run the following command:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws transfer start-file-transfer --connector-id c-<code class="replaceable">connector-id</code> --retrieve-file-paths "/sftp-server-storage-east/RETRIEVE-to-S3.txt" --local-directory-path "/sftp-server-storage-east/incoming"</code></pre>
+        <p>If the transfer succeeds, your Amazon S3 bucket contains the transferred file, as shown
+            here.</p>
+        <div class="mediaobject">
+             
+             
+                <img src="/images/transfer/latest/userguide/images/sftp-tutorial-bucket-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Amazon S3 bucket with the newly transferred file." style="max-width:100%" />
+             
+        </div>
+
+        <p>If successful, the log entry looks like the following:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+    "operation": "RETRIEVE",
+    "timestamp": "2023-12-18T15:36:40.017800Z",
+    "connector-id": "c-<code class="replaceable">connector-id</code>",
+    "transfer-id": "<code class="replaceable">transfer-id</code>",
+    "file-transfer-id": "<code class="replaceable">transfer-id</code>/<code class="replaceable">file-transfer-id</code>",
+    "url": "sftp://s-<code class="replaceable">server-id</code>.server.transfer.us-east-1.amazonaws.com",
+    "file-path": "/sftp-server-storage-east/RETRIEVE-to-S3.txt",
+    "status-code": "COMPLETED",
+    "start-time": "2023-12-18T15:36:39.727626Z",
+    "end-time": "2023-12-18T15:36:39.895726Z",
+    "account-id": "<code class="replaceable">account-id</code>",
+    "connector-arn": "arn:aws:transfer:us-east-1:<code class="replaceable">account-id</code>:connector/c-<code class="replaceable">connector-id</code>",
+    "local-directory-path": "/sftp-server-storage-east/incoming"
+}</code></pre>
+
+         
+            <h3 id="vpc-connector-troubleshooting">Troubleshooting VPC egress type connectors</h3>
+            <p>If you're experiencing issues with VPC egress type connectors, check the
+                following:</p>
+
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Connector status is PENDING</b>: DNS
+                        resolution for VPC connectors can take several minutes. Wait for the status
+                        to become ACTIVE before attempting connections.</p>
+                </li><li class="listitem">
+                    <p><b>Connection timeouts</b>: Verify that security
+                        groups allow traffic on port 22 between your Resource Gateway subnets and
+                        the target SFTP server.</p>
+                </li><li class="listitem">
+                    <p><b>Resource Configuration errors</b>: Ensure
+                        your Resource Configuration points to the correct IP address or DNS name,
+                        and that the Resource Gateway is in the same VPC as your SFTP server (for
+                        private endpoints). For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/resource-configuration.html">Resource configurations</a> in the <em>Amazon VPC Lattice User
+                            Guide</em>.</p>
+                </li><li class="listitem">
+                    <p><b>Public endpoint issues</b>: For public
+                        endpoints, ensure you're using a DNS name, not an IP address, in your
+                        Resource Configuration. Verify that your VPC has a NAT Gateway for outbound
+                        internet access.</p>
+                </li><li class="listitem">
+                    <p><b>AZ availability</b>: Resource Gateways
+                        require subnets in at least 2 Availability Zones. Not all AZs support VPC
+                        Lattice - check the supported AZs in your region.</p>
+                </li></ul></div>
+
+            <p><b>Cost considerations for VPC egress type:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>VPC Lattice charges $0.006/GB for data processing as the resource provider
+                        (billed directly by VPC Lattice)</p>
+                </li><li class="listitem">
+                    <p>AWS Transfer Family absorbs the $0.01/GB resource consumer costs (first
+                        1 PB)</p>
+                </li><li class="listitem">
+                    <p>For public endpoints via VPC, additional NAT Gateway and data transfer
+                        charges may apply</p>
+                </li><li class="listitem">
+                    <p>No additional Transfer Family charges beyond the standard $0.40/GB data
+                        processing fee</p>
+                </li></ul></div>
+         
+     
+        <h2 id="non-standard-tutorial-procedures">Procedures to create a Transfer Family server to use as your remote SFTP server</h2>
+        <p>Following, we outline the steps to create a Transfer Family server that serves as your remote
+            SFTP server for this tutorial. Note the following:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>We use a Transfer Family server to represent a remote SFTP server. Typical SFTP connector
+                    users have their own remote SFTP server. See <a href="#sftp-tutorial-server">Create a Transfer Family SFTP server and a user</a>.</p>
+            </li><li class="listitem">
+                <p>Because we're using a Transfer Family server, we're also using a service-managed SFTP
+                    user. And, for simplicity, we combined the permissions that this user needs to
+                    access the Transfer Family server with permissions they need to use our connector. Again,
+                    most SFTP connector use cases have a separate SFTP user that is not associated
+                    with a Transfer Family server. See <a href="#sftp-tutorial-server">Create a Transfer Family SFTP server and a user</a>.</p>
+            </li><li class="listitem">
+                <p>For the tutorial, because we are using Amazon S3 storage for our remote SFTP
+                    server, we need to create a second bucket,
+                        <code class="userinput">sftp-server-storage-east</code>, so that we can transfer
+                    files from one bucket to another.</p>
+            </li></ul></div>
+
+        
+         
+            <h3 id="sftp-tutorial-server">Create a Transfer Family SFTP server and a user</h3>
+            <p>Most users won't need to create a Transfer Family SFTP server and a user, as you already have
+                an SFTP server with users, and you can use this server to transfer files to and
+                from. However, for this tutorial, for simplicity, we are using a Transfer Family server to
+                function as the remote SFTP server.</p>
+            <p>Follow the procedure described in <a href="./create-server-sftp.html">Create an SFTP-enabled server</a> to create a server, and <a href="./getting-started.html#getting-started-user">Step 3: Add a service managed user</a> to add a
+                user. These are the user details that we are using for the tutorial:</p>
+            <div class="itemizedlist">
+                 
+
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Create your service-managed user, <code>sftp-testuser</code>. </p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Set the home directory to
+                                    <code>/sftp-server-storage-east/sftp-testuser</code></p>
+                        </li><li class="listitem">
+                            <p>When you create the user, you store a public key. Later, when you
+                                create the secret in Secrets Manager, you need to provide the corresponding
+                                private key.</p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p>Role: <code>sftp-connector-role</code>. For the tutorial, we are
+                        using the same IAM role for both our SFTP user and for accessing the SFTP
+                        connector. When you create connectors for your organization, you might have
+                        separate user and access roles.</p>
+                </li><li class="listitem">
+                    <p><span id="sftp-connector-al" xreflabel="Server host key instructions"></span>Server host key: You need to use the server host key when you create the
+                        connector. You can retrieve this key by running <code class="code">ssh-keyscan</code> for
+                        your server. For example, if your server ID is
+                            <code class="code">s-1111aaaa2222bbbb3</code>, and its endpoint is in
+                            <code class="code">us-east-1</code>, the following command retrieves the server host
+                        key:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">ssh-keyscan s-1111aaaa2222bbbb3.server.transfer.us-east-1.amazonaws.com</code></pre>
+                    <p>Copy this text somewhere, as you need to paste it in the <a href="#create-connector-tutorial">Step 2: Create and test an SFTP connector</a> procedure.</p>
+                </li></ul></div>
+         
+
+        
+         
+            <h3 id="sftp-tutorial-combined-role">Combined user and access role</h3>
+            <p>For the tutorial, we are using a single, combined role. We use this role both for
+                our SFTP user, as well as for access to the connector. The following example
+                contains the details for this role, in case you want to perform the tasks in the
+                tutorial.</p>
+
+            <p>The following example grants the necessary permissions to access our two buckets
+                in Amazon S3, and the secret named <code>aws/transfer/sftp-connector1</code>
+                stored in Secrets Manager. For the tutorial, this role is named
+                    <code>sftp-connector-role</code>.</p>
+
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="728ed6e5602bfca1413e220df766ae0d4153f0ca35dcccc8b97dcb067381c150"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowListingOfUserFolder",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::sftp-server-storage-east",
+                "arn:aws:s3:::sftp-server-storage-east"
+            ]
+        },
+        <span>{</span>
+            "Sid": "HomeDirObjectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion",
+                "s3:GetObjectVersion",
+                "s3:GetObjectACL",
+                "s3:PutObjectACL"
+            ],
+            "Resource": [
+                "arn:aws:s3:::sftp-server-storage-east/*",
+                "arn:aws:s3:::sftp-server-storage-east/*"
+            ]
+        },
+        <span>{</span>
+            "Sid": "GetConnectorSecretValue",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": "arn:aws:secretsmanager:us-east-1:<code class="replaceable">111122223333</code>:secret:aws/transfer/sftp-connector1-<code class="replaceable">6RandomCharacters</code>"
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+            <p>For complete details about creating roles for Transfer Family, follow the procedure described
+                in <a href="./requirements-roles.html#role-create-procedure">Create a user role</a> to
+                create a role.</p>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./workflow-decrypt-tutorial.html">Create a decryption Workflow</div><div id="next" class="next-link" accesskey="n" href="./gateway-api-tutorial.html">Use a custom identity provider</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-connectors-tutorial.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/sftp-connectors-tutorial.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

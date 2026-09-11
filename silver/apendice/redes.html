@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redes y conectividad: VPC y más allá · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Redes</div>
+        <h1>Redes y conectividad: VPC y más allá<span class="dom-weight">D2 · D3</span></h1>
+        <p class="page-lead">Redes es el área más densa del examen: casi ninguna pregunta escapa a una <span class="term-en">VPC</span>,
+        un <span class="term-en">subnet</span> o una decisión de conectividad. Esta página recorre todo el mapa — de la VPC
+        regional al edge global — con las tablas de decisión que el examen te va a pedir.</p>
+      </header>
+
+      <!-- ================= BANNER DE TASK OFICIAL ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 2.1</div>
+        <div class="tb-title">Design high-performing and/or efficient networking solutions</div>
+        <div class="tb-meta">Knowledge: connectivity to AWS, DNS, network performance · Skills: Route 53, CloudFront, Global Accelerator, VPC endpoints, hybrid connectivity (VPN / Direct Connect / Transit Gateway)</div>
+      </div>
+
+      <!-- ================= 1 · MAPA MENTAL ================= -->
+      <h2 id="mapa-mental"><span class="h2-num">1</span>El mapa mental de redes AWS</h2>
+      <p>Antes de memorizar servicios, necesitas un mapa: las redes de AWS se organizan en <strong>capas concéntricas</strong>
+      y cada pregunta del examen vive en una capa concreta. La capa regional contiene tus
+      <span class="term-en">VPCs</span> con sus <span class="term-en">subnets</span> y <span class="term-en">route tables</span>.
+      Dentro de cada VPC decides cómo salir a internet (<span class="term-en">internet gateway</span>,
+      <span class="term-en">NAT gateway</span>), cómo llegar a servicios AWS sin internet (<span class="term-en">VPC endpoints</span>)
+      y cómo distribuir carga (<span class="term-en">load balancers</span>). Hacia afuera están la capa híbrida
+      (<span class="term-en">VPN</span>, <span class="term-en">Direct Connect</span>, <span class="term-en">Transit Gateway</span>)
+      y la capa global (<span class="term-en">Route 53</span>, <span class="term-en">CloudFront</span>,
+      <span class="term-en">Global Accelerator</span>).</p>
+      <p>Este orden no es casual: es exactamente el orden en que se diseña una arquitectura. Primero defines el espacio
+      de direcciones (<span class="term-en">CIDR</span>), luego segmentas por <span class="term-en">Availability Zone</span>
+      y función, luego el enrutamiento, y solo al final añades conectividad externa. Si una pregunta menciona dos servicios
+      de capas distintas, casi siempre preguntan por el <em>límite</em> entre ellas — por ejemplo, cómo llega tráfico de un
+      usuario global hasta una instancia en una subnet privada.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  R["Región AWS<br>conjunto de VPCs"] --> V["VPC<br>CIDR propio"]
+  V --> S["Subnets<br>una por AZ"]
+  S --> RT["Routing<br>route tables"]
+  RT --> EP["Endpoints y balanceadores<br>VPC endpoints · ELB"]
+  EP --> G["Edge y global<br>CloudFront · Route 53 · GA"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Las capas de una arquitectura de red AWS: cada capa responde a una pregunta del diseño.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capa</th><th>Pregunta clave del diseño</th><th>Servicios protagonistas</th></tr></thead>
+          <tbody>
+            <tr><td>VPC y subnets</td><td>¿Qué espacio de IPs tengo y cómo lo segmento?</td><td>VPC, subnets, IPAM</td></tr>
+            <tr><td>Routing</td><td>¿Por dónde sale cada paquete?</td><td>Route tables, IGW, NAT gateway</td></tr>
+            <tr><td>Seguridad L4</td><td>¿Quién puede hablar con quién?</td><td>Security groups, NACLs</td></tr>
+            <tr><td>Conectividad privada a AWS</td><td>¿Cómo llego a S3 o a un SaaS sin internet?</td><td>VPC endpoints, PrivateLink</td></tr>
+            <tr><td>Híbrida</td><td>¿Cómo conecto on-premises y muchas VPCs?</td><td>Site-to-Site VPN, Client VPN, Direct Connect, Transit Gateway</td></tr>
+            <tr><td>Global / edge</td><td>¿Cómo bajo la latencia y soy resiliente a nivel mundial?</td><td>Route 53, CloudFront, Global Accelerator</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: documentación oficial (bronze · network-vpc, network-tgw y demás guías).</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Cuando leas una pregunta de redes, ubica primero la capa: si el escenario habla de "users connecting from
+        anywhere", es capa híbrida (<span class="term-en">Client VPN</span>); si habla de "global audience" y
+        <span class="term-en">latency</span>, es capa edge. La capa te elimina la mitad de las opciones al instante.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-vpc/what-is-amazon-vpc.md</code> ·
+      <code>../../bronze/05-docs/network-tgw/what-is-transit-gateway.md</code> ·
+      <code>../../bronze/05-docs/network-elb/what-is-load-balancing.md</code></p>
+
+      <!-- ================= 2 · AMAZON VPC A FONDO ================= -->
+      <h2 id="vpc"><span class="h2-num">2</span>Amazon VPC a fondo: CIDR, subnets y routing</h2>
+      <p>Amazon <span class="term-en">VPC</span> (Virtual Private Cloud) es tu red privada y lógicamente aislada dentro de
+      una región de AWS. Cada VPC se define con un bloque <span class="term-en">CIDR</span>
+      (<span class="term-en">Classless Inter-Domain Routing</span>): una dirección IP más una máscara, como
+      <code>10.0.0.0/16</code>, que representa 65.536 direcciones. En la práctica casi todos los rangos de VPC caen dentro
+      de los espacios privados del estándar <span class="term-en">RFC 1918</span>, que no son enrutables desde internet —
+      exactamente lo que quieres para una red interna. Recuerda el detalle de cobro moderno: AWS cobra hoy todas las IPs
+      públicas IPv4 (incluidas las <span class="term-en">Elastic IP</span> sin uso), mientras que las privadas de
+      <span class="term-en">RFC 1918</span> son gratis.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rango RFC 1918</th><th>Bloque</th><th>Tamaño</th><th>Uso típico en AWS</th></tr></thead>
+          <tbody>
+            <tr><td>10.0.0.0/8</td><td>10.0.0.0 – 10.255.255.255</td><td>16.7M IPs</td><td>VPCs corporativas grandes, default de muchos diseños</td></tr>
+            <tr><td>172.16.0.0/12</td><td>172.16.0.0 – 172.31.255.255</td><td>1M IPs</td><td>El rango de la <span class="term-en">default VPC</span> (172.31.0.0/16)</td></tr>
+            <tr><td>192.168.0.0/16</td><td>192.168.0.0 – 192.168.255.255</td><td>65K IPs</td><td>Redes pequeñas, laboratorios, solapamiento frecuente con on-prem</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-vpc/vpc-ip-addressing.md</code>.</p>
+
+      <h3>2.1 El tamaño de las subnets y las 5 IPs reservadas</h3>
+      <p>Una <span class="term-en">subnet</span> es una porción del CIDR de la VPC y <strong>vive siempre en una sola
+      <span class="term-en">Availability Zone</span></strong> — nunca cruza AZs. El tamaño permitido para una subnet IPv4
+      va de <code>/16</code> (65.536 direcciones) hasta <code>/28</code> (16 direcciones), el mínimo. En cada subnet AWS
+      reserva 5 direcciones que no puedes usar: la dirección de red (x.x.x.0), la del <span class="term-en">VPC router</span>
+      (.1), la del servidor <span class="term-en">Amazon DNS</span> (.2), una para futuro (.3) y la de broadcast (.255,
+      aunque el broadcast no se soporta en VPC). La consecuencia aritmética que adora el examen: una subnet
+      <code>/28</code> solo ofrece <strong>11 IPs utilizables</strong>, y una <code>/24</code> ofrece 251.</p>
+
+      <h3>2.2 Public vs private: lo decide la route table</h3>
+      <p>Que una subnet sea <span class="term-en">public</span> o <span class="term-en">private</span> no es un checkbox:
+      lo determina su <span class="term-en">route table</span>. Cada VPC nace
+      con la <span class="term-en">main route table</span>; toda subnet sin asociación explícita la hereda. Cada subnet se
+      asocia a <strong>una sola route table a la vez</strong>, aunque una misma route table puede servir a muchas subnets.
+      La regla práctica: subnet pública = tiene ruta <code>0.0.0.0/0 → igw</code> hacia el
+      <span class="term-en">internet gateway</span>; subnet privada = no la tiene, y su salida a internet (si existe) pasa
+      por un <span class="term-en">NAT gateway</span> colocado en una subnet pública.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Public subnet</th><th>Private subnet</th></tr></thead>
+          <tbody>
+            <tr><td>Ruta 0.0.0.0/0</td><td>Apunta al <span class="term-en">internet gateway</span></td><td>No existe, o apunta a un NAT</td></tr>
+            <tr><td>Recibe IPs públicas</td><td>Sí (si el atributo auto-assign está activo)</td><td>No; solo IPs privadas RFC 1918</td></tr>
+            <tr><td>Entrada desde internet</td><td>Posible (con IP pública + SG abierto)</td><td>Imposible directamente</td></tr>
+            <tr><td>Salida a internet</td><td>Directa vía IGW</td><td>Vía <span class="term-en">NAT gateway</span> (IPv4) o <span class="term-en">egress-only IGW</span> (IPv6)</td></tr>
+            <tr><td>Qué se despliega aquí</td><td>ALB, NAT GW, bastion hosts</td><td>App servers, RDS, caches, todo lo importante</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-vpc/vpc-route-tables.md</code>.</p>
+
+      <h3>2.3 Los cuatro dispositivos de salida</h3>
+      <p>El <span class="term-en">internet gateway</span> es el canal bidireccional entre tu VPC e internet: se despliega
+      con redundancia y disponibilidad por diseño, no tiene límite de ancho de banda y no se cobra. El
+      <span class="term-en">NAT gateway</span> es el servicio administrado que permite <em>salida iniciada desde dentro</em>
+      en IPv4: los recursos de subnets privadas alcanzan internet pero nadie puede iniciar conexión hacia ellos. La
+      <span class="term-en">NAT instance</span> es su ancestro: un EC2 tú mismo configurado como router NAT. Por último, el
+      <span class="term-en">egress-only internet gateway</span> hace el papel de NAT pero para IPv6: permite la salida iniciada desde dentro
+      y bloquea toda entrada no solicitada, de forma <span class="term-en">stateful</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Internet gateway</th><th>NAT gateway</th><th>NAT instance</th><th>Egress-only IGW</th></tr></thead>
+          <tbody>
+            <tr><td>Rol</td><td>Puerta bidireccional a internet</td><td>Salida IPv4 desde subnets privadas</td><td>Salida IPv4 self-managed</td><td>Salida IPv6 desde VPC</td></tr>
+            <tr><td>Administración</td><td>Completamente administrado</td><td>Completamente administrado</td><td>Tú: parches, tamaño, failover</td><td>Completamente administrado</td></tr>
+            <tr><td>Disponibilidad / escala</td><td>Redundante por diseño, sin límite</td><td>Por AZ, escala hasta ~100 Gbps</td><td>Limitada por el tamaño del EC2</td><td>Stateful, redundante</td></tr>
+            <tr><td>Costo</td><td>Gratis</td><td>Por hora + datos procesados</td><td>Solo el EC2 (más tu trabajo)</td><td>Por GB procesados</td></tr>
+            <tr><td>Regla de examen</td><td>Requerido para IP públicas</td><td>Estándar moderno, un GW por AZ</td><td>Legacy; trampa de "menor costo"</td><td>IPv6 = nunca uses NAT GW</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-vpc/vpc-nat.md</code> y FAQ bronze de Amazon VPC.</p>
+
+      <p>El patrón canónico del examen es la <strong>VPC multi-AZ de 3 capas</strong>: el balanceador en subnets públicas
+      de dos AZs, la aplicación en subnets privadas y la base de datos en subnets privadas sin ruta de salida. Para que
+      las instancias privadas actualicen software o llamen APIs externas, cada AZ lleva su NAT gateway en su subnet pública
+      — un NAT por AZ evita el tráfico cross-AZ, que se cobra. El IGW único atiende toda la VPC.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  U["Usuarios"] --> IGW["Internet gateway<br>uno por VPC"]
+  subgraph PUB["public subnets · AZ-A y AZ-B"]
+    ALB["ALB"]
+    NAT["NAT gateway por AZ"]
+  end
+  subgraph APP["private subnets · capa de aplicación"]
+    SRV["App servers"]
+  end
+  subgraph DATA["private subnets · capa de datos"]
+    DB["RDS multi-AZ"]
+  end
+  IGW --> ALB
+  ALB --> SRV
+  SRV --> DB
+  SRV -->|"0.0.0.0/0"| NAT
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — La VPC 3-tier multi-AZ canónica: ALB público, app privada, datos aislados, NAT por AZ.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Resources in private subnets need to download patches from the internet</em>" →
+        <span class="term-en">NAT gateway</span> (no "assign public IPs" ni NAT instance si el calificador es
+        <span class="term-en">least operational overhead</span>). "<em>IPv6 egress only</em>" →
+        <span class="term-en">egress-only internet gateway</span>, nunca NAT gateway. Y ojo: la
+        <span class="term-en">default VPC</span> existe en cada región con subnets públicas — varios escenarios parten
+        de ella.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Asociar subnets de distintas AZs a rutas que atraviesan el NAT de otra AZ: funciona, pero el
+        <span class="term-en">cross-AZ traffic</span> se cobra en ambas direcciones. La respuesta "correcta" en
+        preguntas de costo incluye <strong>un NAT gateway por AZ</strong> o, mejor aún, un
+        <span class="term-en">gateway endpoint</span> si el destino es S3 o DynamoDB.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-vpc/subnet-sizing.md</code> ·
+      <code>../../bronze/05-docs/network-vpc/vpc-ip-addressing.md</code> ·
+      <code>../../bronze/04-faqs/amazon-vpc-subnets-route-tables-sg-nacl-nat.md</code></p>
+
+      <!-- ================= 3 · SEGURIDAD DE CAPA 4 ================= -->
+      <h2 id="seguridad-l4"><span class="h2-num">3</span>Seguridad de capa 4: dos muros y un registrador</h2>
+      <p>La seguridad de red clásica en AWS vive en capa 4: IP y puerto. Tiene dos muros complementarios — el
+      <span class="term-en">security group</span> (SG) y la <span class="term-en">network ACL</span> (NACL) — y un
+      registrador de todo lo que pasa: los <span class="term-en">VPC Flow Logs</span>. El SG es un firewall
+      <span class="term-en">stateful</span> que se asocia a <span class="term-en">network interfaces</span> (a la
+      instancia, en la práctica); la NACL es <span class="term-en">stateless</span> y se asocia a la subnet completa,
+      evaluando reglas numeradas en orden. El detalle que aparece una y otra vez: el SG <strong>solo tiene reglas
+      allow</strong> (todo lo no permitido está negado, y las respuestas de conexiones permitidas vuelven solas gracias a
+      su estado), mientras que la NACL tiene allow y deny explícitos y necesitas abrir también el tráfico de retorno.
+      La profundidad completa de este tema está en <a href="../dominios/dominio-1-deep-dive.html">D1 · Secure Architectures</a>; aquí basta
+      la tabla de decisión rápida.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Security group</th><th>Network ACL</th></tr></thead>
+          <tbody>
+            <tr><td>Nivel</td><td>ENI / instancia</td><td>Subnet (aplica a todo lo que está dentro)</td></tr>
+            <tr><td>Estado</td><td><span class="term-en">stateful</span>: las respuestas pasan solas</td><td><span class="term-en">stateless</span>: hay que abrir ida y vuelta</td></tr>
+            <tr><td>Reglas</td><td>Solo allow; se evalúan todas</td><td>Allow y deny; se evalúan por número, de menor a mayor</td></tr>
+            <tr><td>Return traffic</td><td>Automático</td><td>Manual (regla ephemeral 1024-65535)</td></tr>
+            <tr><td>Uso típico</td><td>Filtro por defecto para todo</td><td>Bloquear IPs maliciosas explícitamente, capa de defensa extra</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-vpc/vpc-security-groups.md</code> y <code>vpc-network-acls.md</code>.</p>
+
+      <p>Los <span class="term-en">VPC Flow Logs</span> capturan metadatos del tráfico IP que entra y sale de las
+      interfaces de red: quién habló con quién, en qué puerto y si la conexión fue <span class="term-en">ACCEPT</span> o
+      <span class="term-en">REJECT</span>. Se pueden crear a nivel de VPC, subnet o ENI, y el tipo de captura es
+      <code>all</code> (todo), <code>accept</code> o <code>reject</code>. Tienen tres destinos posibles:
+      <strong>Amazon S3</strong>, <strong>CloudWatch Logs</strong> y <strong>Amazon Data Firehose</strong> (KDF) para
+      llevarlo a analítica externa. Como se recolectan fuera del camino del tráfico, no afectan latencia ni throughput —
+      dato que el examen menciona como ventaja frente a un IDS casero. No son tiempo real: son evidencia
+      <em>a posteriori</em>.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Troubleshoot why traffic is not reaching an instance</em>" o "<em>audit connectivity between
+        subnets</em>" → <span class="term-en">VPC Flow Logs</span> (a S3 o CloudWatch según pidan analítica o
+        alarmas). "<em>Block a specific IP address at the subnet level</em>" → NACL, porque un SG no puede denegar IPs
+        explícitamente. Recuerda también <span class="term-en">Reachability Analyzer</span> para pruebas de conectividad
+        puntual sin generar tráfico.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-vpc/flow-logs.md</code> ·
+      <code>../../bronze/05-docs/network-vpc/reachability-analyzer.md</code></p>
+
+      <!-- ================= 4 · HÍBRIDO ================= -->
+      <h2 id="hibrido"><span class="h2-num">4</span>Híbrido: VPN, Direct Connect y Transit Gateway</h2>
+      <p>Cuando el escenario dice <span class="term-en">hybrid</span> — un data center on-premises, oficinas o usuarios
+      remotos — aparecen tres familias de servicios. La <span class="term-en">AWS Site-to-Site VPN</span> conecta tu red
+      corporativa con AWS por internet, cifrada con <span class="term-en">IPsec</span>. Del lado tuyo defines el
+      <span class="term-en">customer gateway</span> (CGW, el recurso que describe tu dispositivo); del lado AWS el extremo
+      es una <span class="term-en">virtual private gateway</span> (VGW) asociada a <em>una</em> VPC, o mejor, un
+      <span class="term-en">Transit Gateway</span>. Cada conexión incluye <strong>dos túneles</strong> por alta
+      disponibilidad, y el enrutamiento puede ser estático o dinámico con <span class="term-en">BGP</span> — dinámico casi
+      siempre que el examen lo ofrezca. La variante <span class="term-en">accelerated Site-to-Site VPN</span> usa
+      <span class="term-en">Global Accelerator</span> para entrar por el edge más cercano y viajar por la red troncal de
+      AWS; solo se soporta sobre Transit Gateway, no sobre VGW.</p>
+
+      <p>La <span class="term-en">AWS Client VPN</span> resuelve el otro extremo híbrido: <strong>usuarios
+      individuales</strong>, no redes. Es un servicio administrado basado en OpenVPN: creas un
+      <span class="term-en">Client VPN endpoint</span>, le asocias subnets de una o más VPCs (o un TGW), y los usuarios se
+      autentican con <span class="term-en">Active Directory</span>, <span class="term-en">federated authentication</span>
+      (SAML 2.0) o certificados mutuos. Las <span class="term-en">authorization rules</span> controlan qué grupos de
+      identidades acceden a qué redes, y el <span class="term-en">self-service portal</span> deja que cada usuario
+      descargue su cliente y configuración. La señal del examen es inequívoca: "users connect from anywhere to resources
+      in the VPC" → Client VPN; "connect the entire on-premises network" → Site-to-Site.</p>
+
+      <p><span class="term-en">AWS Direct Connect</span> (DX) es la conexión física y dedicada entre tu infraestructura y
+      AWS: se contrata en una <span class="term-en">DX location</span> y viaja por fibra privada, no por internet, dando
+      latencia consistente y ancho de banda garantizado. Las conexiones <span class="term-en">dedicated</span> te reservan
+      un puerto físico (1, 10, 100 o 400 Gbps), mientras que las <span class="term-en">hosted</span> te vende capacidad
+      sobre un puerto compartido de un <span class="term-en">Direct Connect Partner</span> (desde 50 Mbps hasta 10 Gbps,
+      e incluso 25 Gbps con partners concretos). Para resiliencia se usa el
+      <span class="term-en">Direct Connect Resiliency Toolkit</span> con modelos de 99.9% (High) y 99.99% (Maximum),
+      y el patrón de examen por excelencia: <strong>DX como primario + Site-to-Site VPN como backup</strong>. Un
+      <span class="term-en">LAG</span> (agregación de enlaces) combina varias conexiones en una lógica, y
+      <span class="term-en">MACsec</span> añade cifrado de capa 2 en conexiones dedicadas de 10 Gbps o más en las
+      locations que lo soportan.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Site-to-Site VPN</th><th>Client VPN</th><th>Direct Connect</th></tr></thead>
+          <tbody>
+            <tr><td>Conecta</td><td>Redes enteras on-prem ↔ AWS</td><td>Usuarios individuales ↔ AWS</td><td>Data center ↔ AWS, dedicado</td></tr>
+            <tr><td>Medio</td><td>Internet cifrado (IPsec)</td><td>Internet cifrado (OpenVPN/TLS)</td><td>Fibra privada en DX location</td></tr>
+            <tr><td>Ancho de banda</td><td>~1.25 Gbps por túnel</td><td>Variable por sesión</td><td>50 Mbps a 400 Gbps</td></tr>
+            <tr><td>Latencia</td><td>Inconsistente (internet)</td><td>Inconsistente</td><td>Consistente y baja</td></tr>
+            <tr><td>Costo</td><td>Por hora de conexión + salida</td><td>Por asociación de cliente activa</td><td>Puerto + salida de datos</td></tr>
+            <tr><td>Cuándo el examen la elige</td><td>"quick", "encrypted over internet", backup de DX</td><td>"users", "remote workers", "anywhere"</td><td>"consistent latency", "large data transfers", "hybrid critical"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuentes bronze: <code>network-s2svpn/vpc-vpn.md</code>, <code>network-clientvpn/what-is.md</code>, <code>network-directconnect/welcome.md</code>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Dedicated connection</th><th>Hosted connection</th></tr></thead>
+          <tbody>
+            <tr><td>Velocidades</td><td>1 / 10 / 100 / 400 Gbps</td><td>50 Mbps – 10 Gbps (hasta 25 Gbps con partners)</td></tr>
+            <tr><td>Quién la contrata</td><td>Tú, directamente en la DX location</td><td>Solo vía <span class="term-en">Direct Connect Partner</span></td></tr>
+            <tr><td>El puerto</td><td>Físico y exclusivo para ti</td><td>Compartido en el puerto del partner</td></tr>
+            <tr><td>Extras</td><td>Soporta <span class="term-en">MACsec</span> (10G+), LAG</td><td>Aprovisionamiento más ágil</td></tr>
+            <tr><td>Uso típico</td><td>Cargas críticas de alto ancho de banda</td><td>Empezar rápido o necesidades intermedias</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-directconnect/connection-options.md</code>.</p>
+
+      <p>¿Y cómo se une todo sin construir una malla? Con <span class="term-en">AWS Transit Gateway</span> (TGW), el
+      <span class="term-en">hub-and-spoke</span> de AWS. Un TGW regional acepta <span class="term-en">attachments</span>
+      de VPCs, conexiones Site-to-Site VPN, <span class="term-en">Direct Connect gateways</span> (mediante
+      <span class="term-en">transit VIF</span>) e incluso <span class="term-en">peering</span> con otros TGWs — incluyendo
+      <span class="term-en">inter-region peering</span> que viaja cifrado (AES-256) por la red troncal global de AWS. Cada
+      attachment se asocia a una <span class="term-en">TGW route table</span> y puede propagar rutas dinámicamente (BGP
+      desde VPN y DX; estáticas hacia las VPCs), lo que permite segmentar: por ejemplo, una tabla para producción y otra
+      para dev, compartiendo el mismo DX. El contraste clásico con <span class="term-en">VPC peering</span>: el peering es
+      no transitivo y crece como n(n-1)/2; el TGW centraliza con un solo punto de gestión.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  DC["Data center<br>on-premises"] -->|"DX · private VIF"| DXG["Direct Connect<br>gateway"]
+  DC -->|"backup site-to-site VPN"| VPN["VPN · 2 túneles"]
+  DXG --> TGW["Transit Gateway<br>TGW route tables"]
+  VPN --> TGW
+  TGW --> A["VPC producción"]
+  TGW --> B["VPC servicios<br>compartidos"]
+  TGW --> C["VPC dev"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Topología híbrida clásica: DX primario, VPN de respaldo, Transit Gateway como hub de VPCs.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Connect 15 VPCs and an on-premises data center with minimal operational overhead</em>" →
+        <span class="term-en">Transit Gateway</span> (no malla de peering). "<em>Primary connection fails → traffic must
+        fail over automatically</em>" → <strong>DX + backup VPN</strong> con BGP/ failover. "<em>Encrypt all traffic over
+        Direct Connect at layer 2</em>" → <span class="term-en">MACsec</span>. Y la trampa favorita: "accelerated VPN"
+        solo existe con TGW, no con VGW.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-s2svpn/vpc-vpn.md</code> ·
+      <code>../../bronze/05-docs/network-s2svpn/accelerated-vpn.md</code> ·
+      <code>../../bronze/05-docs/network-clientvpn/what-is.md</code> ·
+      <code>../../bronze/05-docs/network-directconnect/connection-options.md</code> ·
+      <code>../../bronze/05-docs/network-directconnect/lags.md</code> ·
+      <code>../../bronze/05-docs/network-tgw/how-transit-gateways-work.md</code> ·
+      <code>../../bronze/05-docs/network-tgw/tgw-peering.md</code></p>
+
+      <!-- ================= 5 · ENDPOINTS Y PRIVATELINK ================= -->
+      <h2 id="endpoints-privatelink"><span class="h2-num">5</span>VPC endpoints y PrivateLink: privado hasta el hueso</h2>
+      <p>Hay dos formas de que una instancia en una subnet privada hable con S3: pagar el peaje del NAT o ir por el
+      camino privado. Los <span class="term-en">VPC endpoints</span> son ese camino: conectividad privada a servicios de
+      AWS sin atravesar internet, sin IGW, sin NAT y sin IP pública. Vienen en dos familias muy distintas. El
+      <span class="term-en">gateway endpoint</span> existe solo para <strong>Amazon S3 y DynamoDB</strong>: se configura
+      como una ruta especial en la <span class="term-en">route table</span> (un <span class="term-en">prefix list</span>
+      apuntando al endpoint) y es <strong>gratuito</strong>. El <span class="term-en">interface endpoint</span> usa
+      <span class="term-en">AWS PrivateLink</span>: crea una <span class="term-en">ENI</span> con una IP privada de tu
+      subnet, uno por AZ para resiliencia, y sí se cobra (hora por endpoint por AZ más GB procesados). Con
+      <span class="term-en">private DNS</span> activado, el nombre público del servicio (p. ej.
+      <code>s3.us-east-1.amazonaws.com</code>) resuelve dentro de la VPC a la IP del endpoint, sin tocar una línea de
+      código.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Gateway endpoint</th><th>Interface endpoint</th></tr></thead>
+          <tbody>
+            <tr><td>Servicios</td><td>Solo S3 y DynamoDB</td><td>Decenas: SQS, KMS, CloudWatch, API Gateway, S3…</td></tr>
+            <tr><td>Mecanismo</td><td>Ruta en la route table (prefix list)</td><td>ENI con IP privada de tu subnet, vía PrivateLink</td></tr>
+            <tr><td>Costo</td><td><strong>Gratis</strong></td><td>Por hora + por GB procesados</td></tr>
+            <tr><td>Alcance</td><td>Solo desde la VPC, misma región</td><td>Accesible también vía VPN, DX y VPC peering/TGW</td></tr>
+            <tr><td>Resiliencia</td><td>Regional, sin AZs</td><td><span class="term-en">AZ-resilient</span>: endpoint por AZ + SG propio</td></tr>
+            <tr><td>Señal de examen</td><td>"cost-effective access to S3 from private subnets"</td><td>"privately connect to any AWS service / on-prem"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-privatelink/gateway-endpoints.md</code> y <code>interface-endpoints.md</code>.</p>
+
+      <p><span class="term-en">AWS PrivateLink</span> es la tecnología general que hay debajo y también el nombre del
+      producto cuando el extremo <em>no</em> es un servicio AWS sino un <strong>servicio de terceros o de otra cuenta
+      AWS</strong>: un SaaS expone su servicio tras un <span class="term-en">Network Load Balancer</span> y publica un
+      <span class="term-en">VPC endpoint service</span>; tú consumes desde tu VPC con un interface endpoint. El tráfico
+      nunca sale de la red de AWS y no hay solapamiento de CIDRs, a diferencia del peering. Es LA respuesta cuando el
+      enunciado insiste en "<em>private connectivity</em>", "<em>without traversing the internet</em>" o
+      "<em>connect to a SaaS provider securely</em>".</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  EC2["EC2 en subnet<br>privada"] -->|"opción A: NAT"| NAT["NAT gateway + IGW<br>paga hora + GB"]
+  EC2 -->|"opción B: endpoint"| GW["Gateway endpoint S3<br>ruta prefix list · gratis"]
+  NAT --> S3["Amazon S3"]
+  GW --> S3
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Acceso a S3 desde una subnet privada: la ruta NAT cuesta por datos; la ruta endpoint es gratuita.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Reduce NAT gateway costs for S3 traffic</em>" → <span class="term-en">gateway endpoint</span> (gratis,
+          regional). "<em>Instances must access SQS/KMS without internet and with no code changes</em>" →
+        <span class="term-en">interface endpoint</span> + <span class="term-en">private DNS</span>. "<em>Access a
+        partner's application over private connectivity</em>" → <span class="term-en">PrivateLink</span> al endpoint
+        service del partner. Trampa: el gateway endpoint <strong>no</strong> se puede usar desde otra VPC peered ni desde
+        on-prem — para eso, interface endpoint.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-privatelink/what-is-privatelink.md</code> ·
+      <code>../../bronze/05-docs/network-privatelink/gateway-endpoints.md</code> ·
+      <code>../../bronze/05-docs/network-privatelink/interface-endpoints.md</code></p>
+
+      <!-- ================= 6 · ROUTE 53 ================= -->
+      <h2 id="route53"><span class="h2-num">6</span>Route 53 a fondo: DNS global con política de enrutamiento</h2>
+      <p>Amazon <span class="term-en">Route 53</span> (53 por el puerto de DNS) es un servicio DNS <strong>global</strong>
+      con un SLA de disponibilidad del 100%. Sus registros viven en <span class="term-en">hosted zones</span>: la
+      <span class="term-en">public hosted zone</span> define cómo resuelve el mundo exterior para tu dominio, y la
+      <span class="term-en">private hosted zone</span> lo hace solo dentro de tus VPCs asociadas — perfecta para
+      resolver <code>api.internal</code> hacia IPs privadas. Además de DNS, Route 53 es un
+      <span class="term-en">domain registrar</span>: puedes registrar y transferir dominios desde la misma consola, lo
+      que en el examen aparece como "register a domain with the least overhead". La pieza que convierte a Route 53 en
+      herramienta de arquitectura es la combinación de <span class="term-en">routing policies</span> +
+      <span class="term-en">health checks</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Routing policy</th><th>Qué decide</th><th>Caso de uso típico</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">simple</span></td><td>Devuelve el registro tal cual</td><td>Un solo recurso por función: el clásico "un web server para example.com"</td></tr>
+            <tr><td><span class="term-en">weighted</span></td><td>Reparte en proporciones que tú defines</td><td>Canary / blue-green: 95% a v1, 5% a v2 para probar la nueva versión</td></tr>
+            <tr><td><span class="term-en">latency</span></td><td>Envía a la región con mejor latencia al usuario</td><td>Misma app desplegada en varias regiones, la más cercana gana</td></tr>
+            <tr><td><span class="term-en">failover</span></td><td>Activo-pasivo: primario si está sano, secundario si no</td><td>DR multi-Region: us-east-1 activa, eu-west-1 de repuesto</td></tr>
+            <tr><td><span class="term-en">geolocation</span></td><td>Según el país/continente/estado del usuario</td><td>Cumplimiento regulatorio: contenidos distintos en la UE vs. otros países</td></tr>
+            <tr><td><span class="term-en">geoproximity</span></td><td>Según la ubicación de los <em>recursos</em> y un <span class="term-en">bias</span></td><td>Desplazar tráfico gradualmente hacia una región nueva</td></tr>
+            <tr><td><span class="term-en">IP-based</span></td><td>Según las IPs de origen de los clientes</td><td>Cuando conoces los rangos de salida de tus usuarios (sedes, proveedores)</td></tr>
+            <tr><td><span class="term-en">multivalue answer</span></td><td>Hasta 8 registros sanos, devueltos al azar</td><td>Pseudo-round-robin con salud; no sustituye a un load balancer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-route53/routing-policy.md</code> — las ocho políticas oficiales.</p>
+
+      <p>Los <span class="term-en">health checks</span> son sondas independientes que monitorizan un endpoint (IP o
+      dominio, con path, puerto e intervalo configurables), un <span class="term-en">CloudWatch alarm</span>, o incluso
+      <strong>otros health checks</strong> — los <span class="term-en">calculated health checks</span>, que combinan
+      varios con lógica AND/OR para implementar quórum ("failover solo si fallan dos de tres regiones"). La variante
+      <span class="term-en">string match</span> considera sano al endpoint solo si el cuerpo de la respuesta HTTP
+      contiene un texto concreto, ideal para detectar que la app sirve la página de error. Con alias records hacia ALBs,
+      CloudFront distributions o buckets de sitio web, el <span class="term-en">evaluate target health</span> hereda la
+      salud del objetivo sin health check propio. Y para recuperación por encima de DNS existe
+      <span class="term-en">AWS Application Recovery Controller</span> (ARC), con <span class="term-en">routing
+      controls</span> y <span class="term-en">zonal shift</span> para apartar el tráfico de una AZ dañada en segundos
+      — la mención moderna en preguntas de recuperación.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  U["Usuario consulta<br>api.example.com"] --> R53{"Route 53<br>failover routing"}
+  HC["Health check<br>monitoriza el primario"] -.-> R53
+  R53 -->|"PRIMARY healthy"| P["ALB us-east-1<br>activo"]
+  R53 -->|"PRIMARY unhealthy"| S["ALB eu-west-1<br>pasivo"]
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Failover activo-pasivo multi-Region: el health check decide qué registro se responde.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Route users to the closest Region</em>" → <span class="term-en">latency</span>; "<em>based on the user's
+        country</em>" → <span class="term-en">geolocation</span> (¡no latency!). "<em>Gradually shift traffic between
+        regions based on resource location</em>" → <span class="term-en">geoproximity</span> con bias.
+        "<em>Automatically route to a standby if the primary is unhealthy</em>" → <span class="term-en">failover</span>
+        + health check. Distingue siempre <em>latency</em> (récord: velocidad) de <em>geolocation</em> (regla:
+        ubicación del usuario).</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-route53/routing-policy.md</code> ·
+      <code>../../bronze/05-docs/network-route53/routing-policy-failover.md</code> ·
+      <code>../../bronze/05-docs/network-route53/welcome-domain-registration.md</code> ·
+      <code>../../bronze/05-docs/network-route53/traffic-policies.md</code></p>
+
+      <!-- ================= 7 · EDGE Y GLOBAL ================= -->
+      <h2 id="edge-global"><span class="h2-num">7</span>Edge y global: CloudFront, Elastic IP y Global Accelerator</h2>
+      <p><span class="term-en">Amazon CloudFront</span> es la <span class="term-en">CDN</span> de AWS: una
+      <span class="term-en">distribution</span> define orígenes (<span class="term-en">origins</span>) — un bucket S3, un
+      ALB, un EC2 o cualquier servidor HTTP (<span class="term-en">custom origin</span>) — y los
+      <span class="term-en">cache behaviors</span> deciden qué rutas se cachean, con qué TTL y a qué headers se hace caso.
+      Las peticiones de tus usuarios entran por la <span class="term-en">edge location</span> más cercana de una red de
+      cientos de <span class="term-en">POPs</span> y viajan hacia el origen por la red troncal de AWS; si el objeto está
+      en caché (<span class="term-en">cache HIT</span>) ni siquiera se toca el origen. El TTL por defecto es 24 horas,
+      el mínimo 0 segundos y no hay máximo — el examen pregunta "¿cuánto vive un objeto en la caché?" con esa respuesta.
+      El <span class="term-en">price class</span> limita qué POPs usas para bajar factura (solo NA+Europa, o NA+EU+regiones
+      seleccionadas, o todo el mundo), y el <span class="term-en">Origin Shield</span> añade una capa de caché
+      intermedia que protege al origen de ráfagas.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  V["Viewer<br>usuario global"] --> E["Edge location<br>POP cercano"]
+  E -->|"cache HIT"| R["Respuesta inmediata<br>desde la caché"]
+  E -->|"cache MISS"| O["Origin<br>S3 · ALB · custom"]
+  O --> C["Objeto se cachea<br>y se entrega"]
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — El circuito de CloudFront: la primera petición paga el MISS; las siguientes viajan al edge.</figcaption>
+      </figure>
+
+      <p>Para contenido privado, CloudFront ofrece dos mecanismos: las <span class="term-en">signed URLs</span> y las
+      <span class="term-en">signed cookies</span>, firmadas por <span class="term-en">trusted key groups</span>. Y para
+      que <strong>nadie</strong> rodee CloudFront hacia un bucket S3, se usa
+      <span class="term-en">Origin Access Control</span> (OAC, el sucesor del viejo OAI): el bucket queda privado y solo
+      la distribución autorizada lee de él. La personalización en el edge se escribe con dos runtimes: las
+      <span class="term-en">CloudFront Functions</span> — ligeras, submilisegundo, solo eventos de viewer — y
+      <span class="term-en">Lambda@Edge</span> — funciones Lambda completas que también interceptan eventos de origin.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Signed URLs</th><th>Signed cookies</th></tr></thead>
+          <tbody>
+            <tr><td>Alcance</td><td>Un archivo concreto</td><td>Todos los que casen con un <span class="term-en">cache behavior</span></td></tr>
+            <tr><td>Cómo se entrega</td><td>URL firmada por solicitud</td><td>Headers <code>Set-Cookie</code> en el navegador</td></tr>
+            <tr><td>Cuándo elegirla</td><td>Descargas de pago, un objeto por vez</td><td>Vídeo HLS/DASH: miles de segmentos con una autorización</td></tr>
+            <tr><td>Caduca</td><td>Fecha de expiración en la firma</td><td>Ídem, pero para toda la sesión</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-cloudfront/privatecontent.md</code>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudFront Functions</th><th>Lambda@Edge</th></tr></thead>
+          <tbody>
+            <tr><td>Runtime</td><td>JavaScript (ES 5.1), en el POP</td><td>Node.js / Python, en la región</td></tr>
+            <tr><td>Eventos</td><td>Solo viewer request / response</td><td>Viewer + origin request / response</td></tr>
+            <tr><td>Duración / escala</td><td>Submilisegundo · millones de req/s</td><td>Hasta 30 s · ~10.000 req/s por región</td></tr>
+            <tr><td>Red, body, sistema de archivos</td><td>No</td><td>Sí (con límites)</td></tr>
+            <tr><td>Uso típico</td><td>Cache key, headers, redirects, JWT ligero</td><td>Lógica pesada: llamar otros servicios, transformar el body</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-cloudfront/edge-functions-choosing.md</code>.</p>
+
+      <p>Fuera del mundo HTTP quedan dos piezas finales. La <span class="term-en">Elastic IP</span> (EIP) es una IPv4
+      pública estática de tu propiedad que asocias y desasocias de recursos a voluntad — pero hoy <strong>se cobra si
+      no está asociada a un recurso en uso</strong>, así que "reservar EIPs por si acaso" ya no es la respuesta
+      correcta; y con <span class="term-en">BYOIP</span> puedes traer tus propios rangos públicos a AWS. El
+      <span class="term-en">AWS Global Accelerator</span> (GA) usa <span class="term-en">anycast</span>: te da
+      <strong>dos IP estáticas</strong> que se anuncian desde todos los edges del mundo; el usuario entra por la más
+      cercana y su tráfico viaja por la red global de AWS hasta un <span class="term-en">endpoint</span> (ALB, NLB, EC2
+      o EIP) en la región que elijas. Con <span class="term-en">traffic dials</span> ajustas el porcentaje de tráfico
+      por grupo de endpoints, y el failover basado en salud es instantáneo — también respeta los
+      <span class="term-en">zonal shifts</span> de ARC. Cuando el examen dice "static IPs + TCP/UDP global + no HTTP",
+      la respuesta es GA, no CloudFront.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  U["Usuarios<br>Lima · Madrid · Tokio"] --> IP["2 IP estáticas anycast<br>entrada por el edge cercano"]
+  IP --> GA["Red global AWS<br>accelerator"]
+  GA -->|"sano"| R1["ALB us-east-1"]
+  GA -->|"failover"| R2["ALB eu-west-1"]
+          </pre>
+        </div>
+        <figcaption>Fig. 7 — Global Accelerator: una IP global, entrada por anycast, failover de endpoints por salud.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudFront</th><th>Global Accelerator</th></tr></thead>
+          <tbody>
+            <tr><td>Protocolo</td><td>HTTP / HTTPS</td><td>Cualquiera: TCP y UDP también</td></tr>
+            <tr><td>Caché</td><td>Sí, en edge locations</td><td>No — es solo encaminamiento</td></tr>
+            <tr><td>IPs</td><td>Dominio de la distribución</td><td>2 IP estáticas anycast (BYOIP posible)</td></tr>
+            <tr><td>Caso estrella</td><td>Contenido web estático/dinámico global, baja latencia de primer byte</td><td>Apps no HTTP, juegos, IoT, mobile APIs que necesitan IP fija</td></tr>
+            <tr><td>Señal del examen</td><td>"cache", "static content", "HTTP"</td><td>"static IP", "TCP/UDP", "non-HTTP", "client IP preservation"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../../bronze/05-docs/network-globalaccelerator/what-is-global-accelerator.md</code>.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Serve a video library globally with the lowest cost</em>" → CloudFront con
+        <span class="term-en">price class</span> ajustado. "<em>Restrict access to an S3 origin so users can only
+        access it through CloudFront</em>" → <span class="term-en">OAC</span>. "<em>The application uses TCP on port
+        8080 and needs static IP addresses in front of an NLB</em>" → <span class="term-en">Global Accelerator</span>.
+        "<em>Modify headers and cache keys for millions of requests per second</em>" →
+        <span class="term-en">CloudFront Functions</span>, no Lambda@Edge.</p>
+      </div>
+
+      <p class="bronze-link">Bronze: <code>../../bronze/05-docs/network-cloudfront/introduction.md</code> ·
+      <code>../../bronze/05-docs/network-cloudfront/privatecontent.md</code> ·
+      <code>../../bronze/05-docs/network-cloudfront/edge-functions-choosing.md</code> ·
+      <code>../../bronze/05-docs/network-cloudfront/origin-shield.md</code> ·
+      <code>../../bronze/05-docs/network-globalaccelerator/what-is-global-accelerator.md</code> ·
+      <code>../../bronze/05-docs/network-globalaccelerator/about-endpoint-groups-traffic-dial.md</code></p>
+
+      <!-- ================= CIERRE ================= -->
+      <h2 id="cierre">Del requisito al servicio: la tabla final</h2>
+      <p>Las preguntas de redes del SAA-C03 son, en el fondo, búsquedas en esta tabla: el escenario describe un
+      requisito de conectividad y las opciones ofrecen cuatro servicios. Memorízala como cierre de la página y
+      verás cómo casi todo el apéndice se reduce a emparejar la frase clave con el servicio correcto. Las señales en
+      inglés (<span class="term-en">private connectivity</span>, <span class="term-en">static IP</span>,
+      <span class="term-en">least latency</span>) son la mitad del trabajo: reconocerlas es elegir la fila correcta
+      antes de leer las opciones.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Requisito de red (señal en el enunciado)</th><th>Servicio</th></tr></thead>
+          <tbody>
+            <tr><td>Conectar la red on-premises por internet cifrado</td><td><span class="term-en">Site-to-Site VPN</span> (VGW/CGW, 2 túneles, BGP)</td></tr>
+            <tr><td>Usuarios remotos individuales desde cualquier lugar</td><td><span class="term-en">Client VPN</span></td></tr>
+            <tr><td>Ancho de banda dedicado y latencia consistente</td><td><span class="term-en">Direct Connect</span> (+ VPN de backup para failover)</td></tr>
+            <tr><td>Interconectar muchas VPCs sin malla de peering</td><td><span class="term-en">Transit Gateway</span></td></tr>
+            <tr><td>Acceso privado y gratuito a S3 / DynamoDB</td><td><span class="term-en">Gateway endpoint</span></td></tr>
+            <tr><td>Acceso privado a otros servicios AWS o SaaS de terceros</td><td><span class="term-en">Interface endpoint / PrivateLink</span></td></tr>
+            <tr><td>Salida a internet desde subnets privadas IPv4</td><td><span class="term-en">NAT gateway</span> (uno por AZ)</td></tr>
+            <tr><td>DNS global con routing policies y health checks</td><td><span class="term-en">Route 53</span></td></tr>
+            <tr><td>Latencia HTTP global con caché en el edge</td><td><span class="term-en">CloudFront</span></td></tr>
+            <tr><td>IP estática + protocolos no HTTP (TCP/UDP)</td><td><span class="term-en">Global Accelerator</span></td></tr>
+            <tr><td>IP pública fija reasignable para un recurso</td><td><span class="term-en">Elastic IP</span> (se cobra si no se usa)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis transversal de toda la página — contrasta cada fila con su sección.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Tips transversales de redes</div>
+        <p>1) "<em>Private connectivity</em>" casi siempre significa <span class="term-en">PrivateLink</span> /
+        VPC endpoint — no VPN. 2) El tráfico <span class="term-en">cross-AZ</span> se cobra: coloca recursos
+        redundantes en la misma AZ cuando la pregunta hable de <span class="term-en">data transfer cost</span>, y
+        multi-AZ cuando hable de <span class="term-en">high availability</span>. 3) "<em>Edge</em> +
+        <span class="term-en">low latency</span>" = CloudFront; añade "<span class="term-en">static IP</span>" o
+        protocolos no HTTP = Global Accelerator. 4) La subnet vive en una sola AZ y una subnet usa una sola route
+        table a la vez. 5) Los CIDRs de VPCs que se van a conectar (peering, TGW, VPN) <strong>no deben
+        solaparse</strong> — distractor recurrente con el rango 172.31.0.0/16 de la default VPC.</p>
+      </div>
+
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Las guías completas por servicio están en
+        <code>../../bronze/05-docs/network-vpc/</code>, <code>network-tgw/</code>, <code>network-directconnect/</code>,
+        <code>network-s2svpn/</code>, <code>network-clientvpn/</code>, <code>network-privatelink/</code>,
+        <code>network-route53/</code>, <code>network-cloudfront/</code>, <code>network-globalaccelerator/</code> y
+        <code>network-elb/</code>, además de la FAQ <code>../../bronze/04-faqs/amazon-vpc-subnets-route-tables-sg-nacl-nat.md</code>.</p>
+      </div>
+
+      <nav class="pager">
+        <a href="almacenamiento.html"><span class="p-dir">← Anterior</span><br>Apéndice · Almacenamiento</a>
+        <a class="p-next" href="bases-datos.html"><span class="p-dir">Siguiente →</span><br>Apéndice · Bases de datos</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

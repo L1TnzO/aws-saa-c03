@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión, gobernanza y observabilidad · SAA-C03 Guía de estudio</title>
+  <!-- EN SUBCARPETA (apendice/): usar ../assets/... -->
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Gestión y gobernanza</div>
+        <h1>Gestión, gobernanza y observabilidad<span class="dom-weight">apéndice · ops</span></h1>
+        <p class="page-lead">Cómo ves tu sistema (CloudWatch, X-Ray), cómo demuestras qué pasó (CloudTrail, Config) y cómo
+        operas a escala sin escribir todo a mano (CloudFormation, Systems Manager, Organizations). Estos servicios son
+        el pegamento transversal del examen: aparecen como <span class="term-en">distractor</span> y como respuesta
+        correcta en los cuatro dominios.</p>
+      </header>
+
+      <!-- ================= BANNER ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Exam Guide v1.1 · servicios in scope</div>
+        <div class="tb-title">Management and Governance</div>
+        <div class="tb-meta">CloudWatch · CloudTrail · Config · CloudFormation · Systems Manager · Organizations · Control Tower · Service Catalog · Trusted Advisor · Compute Optimizer · License Manager · Proton · Managed Grafana · Managed Prometheus · Health Dashboard · Well-Architected Tool · AWS CLI · Management Console</div>
+      </div>
+
+      <!-- ================================================== -->
+      <!-- 1. MAPA DEL ÁREA -->
+      <!-- ================================================== -->
+      <h2 id="mapa-area"><span class="h2-num">1</span>Mapa del área: tres familias, una sola pregunta</h2>
+      <p>Toda la familia <span class="term-en">Management and Governance</span> responde a una de tres preguntas
+      operativas. <strong>Observabilidad</strong>: ¿cómo está mi sistema <em>ahora mismo</em>? La responden Amazon
+      CloudWatch (métricas, logs y alarmas) y AWS X-Ray (<span class="term-en">distributed tracing</span>).
+      <strong>Auditoría y cumplimiento</strong>: ¿quién hizo qué, cuándo, y la configuración sigue siendo la esperada?
+      La responden AWS CloudTrail (registro de llamadas API) y AWS Config (registro de configuraciones).
+      <strong>Automatización y gobernanza</strong>: ¿cómo aprovisiono y opero decenas de cuentas y miles de recursos
+      sin errores manuales? La responden AWS CloudFormation (<span class="term-en">infrastructure as code</span>),
+      AWS Systems Manager (operación de nodos sin SSH) y AWS Organizations (multi-cuenta y políticas).</p>
+      <p>Para el examen, este mapa mental es más útil que memorizar features: cuando la pregunta describe un síntoma
+      (latencia, un cambio sospechoso, "acceder sin abrir puertos"), clasifícalo primero en una de las tres familias
+      y solo entonces elige el servicio. Muchos <span class="term-en">distractors</span> son de la familia
+      equivocada — p. ej., ofrecer CloudWatch Logs cuando lo pedido es evidencia de auditoría (CloudTrail).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  F1["OBSERVABILIDAD<br>¿cómo va el sistema?"] --> CW["CloudWatch"]
+  F1 --> XR["AWS X-Ray"]
+  F2["AUDITORÍA Y CUMPLIMIENTO<br>¿quién hizo qué?"] --> CT["CloudTrail"]
+  F2 --> CF["AWS Config"]
+  F3["AUTOMATIZACIÓN<br>¿cómo opero a escala?"] --> CFN["CloudFormation"]
+  F3 --> SSM["Systems Manager"]
+  F3 --> ORG["Organizations"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Las tres familias de Management &amp; Governance: telemetría, evidencia y automatización.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Si la pregunta contiene <span class="term-en">monitor</span>, <span class="term-en">alert</span>,
+        <span class="term-en">threshold</span> o <span class="term-en">metrics</span> → familia observabilidad.
+        Si contiene <span class="term-en">audit</span>, <span class="term-en">compliance</span> o
+        <span class="term-en">who made this API call</span> → familia auditoría. Si contiene
+        <span class="term-en">consistent</span>, <span class="term-en">repeatable</span>,
+        <span class="term-en">at scale</span> o <span class="term-en">without SSH</span> → familia automatización.</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/01-exam/exam-guide.txt</code> (lista in scope),
+      <code>../../bronze/05-docs/mgmt-cloudwatch/whatiscloudwatch.md</code> y
+      <code>../../bronze/05-docs/mgmt-systemsmanager/what-is-systems-manager.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 2. CLOUDWATCH -->
+      <!-- ================================================== -->
+      <h2 id="cloudwatch"><span class="h2-num">2</span>Amazon CloudWatch: el sistema nervioso</h2>
+      <p>CloudWatch recolecta y visualiza <span class="term-en">metrics</span> y <span class="term-en">logs</span> en
+      tiempo real, y reacciona con <span class="term-en">alarms</span>. Es un servicio <strong>regional</strong> por
+      diseño, y la mayoría de servicios AWS publican métricas automáticamente (básicas, sin costo, a intervalos de
+      1–5 minutos). Toda métrica vive en tres niveles: el <span class="term-en">namespace</span> (contenedor,
+      p. ej. <code>AWS/EC2</code> o uno propio como <code>MyApp/Orders</code>), la
+      <span class="term-en">metric</span> (p. ej. <code>CPUUtilization</code>) y las
+      <span class="term-en">dimensions</span> (pares clave-valor como <code>InstanceId=i-123</code> que identifican
+      <em>de qué recurso</em> se trata). Si necesitas algo que AWS no expone — memoria RAM de una EC2, colas de una
+      app propia — publicas <span class="term-en">custom metrics</span> con la API <code>PutMetricData</code>
+      (los <span class="term-en">detailed monitoring</span> de EC2 dan granularidad de 1 minuto; lo custom depende de ti).</p>
+
+      <h3>Alarmas y sus tres estados</h3>
+      <p>Una <span class="term-en">CloudWatch alarm</span> vigila una métrica contra un umbral durante periodos
+      evaluados. Los tres estados son la base de media docena de preguntas: <span class="term-en">OK</span> (dentro
+      del umbral), <span class="term-en">ALARM</span> (umbral violado durante N periodos de evaluación — el
+      "durante N" evita falsos positivos) e <span class="term-en">INSUFFICIENT_DATA</span> (la alarma acaba de
+      crearse o la métrica no reporta datos). Cuando pasa a ALARM puede ejecutar acciones: notificar un tema SNS o
+      escalar un <span class="term-en">Auto Scaling group</span>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estado</th><th>Significado</th><th>Trampa típica del examen</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">OK</span></td><td>La métrica está dentro del umbral definido</td><td>Es un estado real: la alarma "no hace nada" hasta cambiar</td></tr>
+            <tr><td><span class="term-en">ALARM</span></td><td>Umbral violado durante el nº de periodos configurado</td><td>Una brecha puntual no basta: cuenta el número de <span class="term-en">datapoints</span></td></tr>
+            <tr><td><span class="term-en">INSUFFICIENT_DATA</span></td><td>No hay datos suficientes para evaluar</td><td>Espera: métrica nueva, recurso detenido o custom metric que nadie publica</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: documentación oficial de CloudWatch Alarms (bronze/05-docs/mgmt-cloudwatch).</p>
+
+      <p>Las alarmas clásicas son <span class="term-en">static</span>: tú fijas el umbral (CPU &gt; 80%). La
+      alternativa es <span class="term-en">anomaly detection</span>: CloudWatch aplica un modelo de Machine Learning
+      que aprende el patrón histórico de la métrica y dibuja una banda de valores esperados; la alarma salta si un
+      datapoint cae <em>fuera de la banda</em>, no si cruza un número fijo. Úsala cuando la métrica tiene ciclos
+      (tráfico diurno/nocturno, picos de fin de mes) y un umbral fijo generaría falsos positivos cada noche.</p>
+
+      <h3>CloudWatch Logs: del texto plano a la métrica</h3>
+      <p>Los <span class="term-en">log events</span> se agrupan en <span class="term-en">Log Groups</span> (una por
+      aplicación o función, p. ej. <code>/aws/lambda/mi-funcion</code>) y dentro en <span class="term-en">Log
+      Streams</span> (una por origen/instancia/versión). Los mete ahí cualquiera de las vías: servicios integrados
+      (Lambda, VPC Flow Logs, CloudTrail), el agente en la instancia, o la API. Desde ahí hay tres herramientas de
+      nivel examen. <span class="term-en">Logs Insights</span>: consultas interactivas tipo SQL sobre todos los
+      grupos que quieras, con filtros, agregaciones y visualización — es la respuesta cuando piden
+      "query/search logs quickly". Los <span class="term-en">metric filters</span>: buscan un patrón en el texto
+      (p. ej. la palabra <code>ERROR</code>) y <em>convierten</em> esas apariciones en una métrica CloudWatch,
+      que a su vez puede tener alarma — la cadena clave del examen. Los <span class="term-en">subscription
+      filters</span>: reenvían los eventos en tiempo casi real a <span class="term-en">Kinesis Data Firehose</span>,
+      <span class="term-en">Kinesis Data Streams</span> o una función <span class="term-en">Lambda</span> para
+      procesarlos o llevarlos a otro destino (S3, OpenSearch…).</p>
+
+      <h3>Agente, dashboards y el resto de la familia</h3>
+      <p>El <span class="term-en">CloudWatch Agent</span> (el <em>unified agent</em> actual, sucesor del viejo
+      CloudWatch Logs Agent) se instala en EC2 y servidores on-premises y recolecta <strong>métricas internas del
+      sistema</strong> (RAM, disco, procesos, red) además de logs e incluso trazas; su configuración se centraliza
+      en un parámetro de Parameter Store. Sin agente no hay métricas de RAM: ese detalle distingue al agente en
+      preguntas de "por qué no veo <span class="term-en">memory utilization</span>". Los
+      <span class="term-en">dashboards</span> son paneles globales —pueden mezclar regiones y, con
+      <span class="term-en">cross-account observability</span>, cuentas— y los hay automáticos por servicio.
+      <span class="term-en">Container Insights</span> agrega métricas y logs de ECS, EKS y Kubernetes
+      autogestionado. <span class="term-en">CloudWatch Synthetics</span> ejecuta <span class="term-en">canaries</span>
+      —scripts programables que simulan un usuario visitando tu URL cada N minutos y reportan <em>uptime y
+      latencia</em> aunque nadie real esté conectado—: la respuesta cuando el examen pide "monitor the availability
+      of a public endpoint". Y una aclaración que confunde a muchos: lo que antes era <em>CloudWatch Events</em> hoy
+      es <strong>Amazon EventBridge</strong> — mismo motor de reglas sobre el bus de eventos, renombrado y
+      extendido; si un material viejo dice "CloudWatch Events", piensa EventBridge.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["Aplicación<br>EC2 · contenedores · Lambda"] --> B["CloudWatch Agent"]
+  B --> L["CloudWatch Logs<br>Groups / Streams"]
+  B --> M["CloudWatch Metrics"]
+  L -->|"metric filter"| M
+  M --> AL["Alarm<br>static o anomaly"]
+  AL --> S["SNS<br>email · SMS · Lambda"]
+  AL --> AS["Auto Scaling<br>scale out"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — El pipeline de observabilidad: la app, el agente, las métricas, la alarma y la acción.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Track the number of ERROR occurrences in application logs and alert</em>" →
+        <strong>metric filter + alarm</strong>, no Logs Insights. "<em>Deliver logs in near real time to
+        an external system</em>" → <strong>subscription filter</strong> a Kinesis/Lambda. "<em>Check the availability
+        of a public URL 24/7</em>" → <strong>Synthetics canary</strong>. Y si la pregunta es de
+        <span class="term-en">tracing</span> entre microservicios, la respuesta es X-Ray, no CloudWatch.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Confundir los tres filtros/queries de logs: <span class="term-en">Logs Insights</span> es para consultar
+        (humano, interactivo), <span class="term-en">metric filter</span> es para convertir texto en métrica
+        (alertable), y <span class="term-en">subscription filter</span> es para mover eventos en streaming. Cada uno
+        responde una pregunta de examen distinta.</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/mgmt-cloudwatch/whatiscloudwatch.md</code>,
+      <code>../../bronze/05-docs/mgmt-cloudwatch/containerinsights.md</code> y
+      <code>../../bronze/05-docs/mgmt-cloudwatch/cloudwatch-dashboards.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 3. X-RAY -->
+      <!-- ================================================== -->
+      <h2 id="xray"><span class="h2-num">3</span>AWS X-Ray: seguir una petición de punta a punta</h2>
+      <p>Cuando una petición atraviesa API Gateway → Lambda → SQS → otra Lambda → DynamoDB, una métrica agregada no
+      te dice <em>dónde</em> se perdió el tiempo. AWS X-Ray implementa <span class="term-en">distributed
+      tracing</span>: a cada petición se le asigna un <span class="term-en">trace ID</span> que viaja en cabeceras
+      entre servicios, y cada servicio aporta su pieza. La unidad que envía cada servicio es el
+      <span class="term-en">segment</span> (los datos de su tramo: latencia, errores, metadata), que a su vez se
+      divide en <span class="term-en">subsegments</span> (llamadas concretas a AWS SDK, HTTP o bases de datos dentro
+      de ese tramo). Con todos los segmentos X-Ray reconstruye la petición completa y dibuja el
+      <span class="term-en">service map</span> — el mapa de nodos y flechas con latencias y tasas de error donde los
+      cuellos de botella se ven a simple vista.</p>
+      <p>Instrumentar la app significa usar el X-Ray SDK, un agente o el <span class="term-en">X-Ray daemon</span>
+      (proceso que recibe segmentos por UDP y los sube en lotes —ya viene incluido en AWS Lambda y en plataformas
+      de Elastic Beanstalk, y desplegarlo junto a contenedores en ECS es un patrón habitual—). Para no ahogarte en
+      datos, X-Ray aplica <span class="term-en">sampling</span>: decides qué porcentaje de peticiones se traza
+      (p. ej. 5%) con reglas configurables, porque trazar el 100% es caro y casi nunca necesario. La vista integrada
+      de X-Ray dentro de CloudWatch se llama <span class="term-en">CloudWatch ServiceLens</span>: cruza trazas,
+      métricas y logs de la misma petición. Si el examen menciona estándares abiertos, la alternativa es
+      <span class="term-en">AWS Distro for OpenTelemetry</span> (ADOT), que también puede emitir a X-Ray.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudWatch</th><th>X-Ray</th></tr></thead>
+          <tbody>
+            <tr><td>Pregunta que responde</td><td>¿Qué valor tiene X y cuándo cruza el umbral?</td><td>¿Por qué esta petición fue lenta y en qué salto?</td></tr>
+            <tr><td>Tipo de dato</td><td><span class="term-en">metrics</span> agregadas numéricas + logs</td><td><span class="term-en">traces</span>: segmentos y service map</td></tr>
+            <tr><td>Granularidad</td><td>Agregada en el tiempo (1 min, 5 min…)</td><td>Una petición individual, salto a salto</td></tr>
+            <tr><td>Requiere instrumentar la app</td><td>No (muchas métricas llegan solas)</td><td>Sí (SDK, agente, daemon o ADOT)</td></tr>
+            <tr><td>Caso típico</td><td>Alarma de CPU &gt; 80%, dashboard de latency p99</td><td>Microservicios encadenados, lambda-to-lambda, APIs lentas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Ambos se complementan: la alarma de CloudWatch detecta el síntoma; X-Ray encuentra la causa.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Palabras que apuntan a X-Ray: <span class="term-en">trace</span>, <span class="term-en">request path</span>,
+        <span class="term-en">pinpoint where the latency occurs</span>, <span class="term-en">microservices call
+        chain</span>. Si en cambio hablan de <span class="term-en">threshold</span>, <span class="term-en">alert</span>
+        o <span class="term-en">metric</span>, la respuesta es CloudWatch. Y <span class="term-en">ServiceLens</span>
+        es X-Ray + CloudWatch unificados, no un servicio aparte que compres.</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/devtools-xray/aws-xray.md</code>,
+      <code>../../bronze/05-docs/devtools-xray/xray-api-segmentdocuments.md</code> y
+      <code>../../bronze/05-docs/devtools-xray/xray-console-sampling.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 4. CLOUDTRAIL VS CONFIG -->
+      <!-- ================================================== -->
+      <h2 id="cloudtrail-config"><span class="h2-num">4</span>CloudTrail vs AWS Config: evidencia vs configuración</h2>
+      <p>AWS CloudTrail registra <strong>llamadas API</strong>: quién llamó, cuándo, desde qué IP, con qué
+      <span class="term-en">user agent</span>. Es el registro forense de la cuenta. Los
+      <span class="term-en">management events</span> (control plane: <code>RunInstances</code>,
+      <code>CreateBucket</code>, consola, CLI) se graban gratis en el <span class="term-en">Event history</span>
+      de los <strong>últimos 90 días</strong> por región; los <span class="term-en">data events</span>
+      (data plane: <code>GetObject</code> en S3, <code>Invoke</code> de Lambda) son voluminosos, NO se registran
+      por defecto y se habilitan con <span class="term-en">advanced event selectors</span>. Para conservar más de
+      90 días creas un <span class="term-en">trail</span> que entrega los ficheros a un
+      <strong>bucket S3 indefinidamente</strong> (con lifecycle rules si quieres archivar) y opcionalmente a
+      CloudWatch Logs y EventBridge para reaccionar. Un <span class="term-en">organization trail</span> creado desde
+      la management account registra <em>todas</em> las cuentas miembro — que no pueden apagarlo ni borrarlo,
+      exactamente lo que exige un escenario de auditoría central. La <span class="term-en">log file
+      validation</span> firma cada fichero con un digest para demostrar que nadie modificó o borró logs
+      (integridad, palabra clave de cumplimiento).</p>
+      <p>AWS Config, en cambio, no mira llamadas sino <strong>estados</strong>: su <span class="term-en">recorder</span>
+      inventaría recursos (EC2, security groups, VPC, IAM…) y guarda un <span class="term-en">configuration
+      item</span> cada vez que algo cambia, formando una <span class="term-en">compliance timeline</span>: puedes
+      preguntar "¿qué permisos tenía este usuario el 1 de enero?" y responderlo. Las <span class="term-en">Config
+      rules</span> evalúan cada recurso contra condiciones — hay <span class="term-en">managed rules</span> listas
+      (p. ej. "¿los buckets están cifrados?", "¿hay SG con puerto 22 abierto al mundo?") y <span class="term-en">custom
+      rules</span> con tu propia Lambda. Cuando una regla marca un recurso <span class="term-en">NON_COMPLIANT</span>
+      puedes <span class="term-en">remediate</span> automáticamente lanzando un <span class="term-en">SSM
+      Automation runbook</span> (p. ej. cerrar el puerto). Esa desviación entre lo configurado y lo esperado es el
+      <span class="term-en">drift</span> — y "detect drift/configuration changes" es la frase de examen que
+      apunta directamente a Config, no a CloudTrail.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  API["Llamada API<br>consola · CLI · SDK"] --> CT["CloudTrail trail"]
+  CT --> EH["Event history<br>90 días · gratis"]
+  CT --> S3["Bucket S3<br>retención indefinida"]
+  CT --> CWL["CloudWatch Logs<br>+ EventBridge"]
+  REC["Config recorder<br>inventario de recursos"] --> RU["Config rules<br>managed / custom"]
+  RU -->|"NON_COMPLIANT"| SSM["Remediation<br>SSM runbook"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — CloudTrail captura acciones; Config captura estados y puede auto-remediar.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudTrail</th><th>AWS Config</th></tr></thead>
+          <tbody>
+            <tr><td>Qué registra</td><td>Llamadas API (management y data events)</td><td>Configuración y cambios de recursos</td></tr>
+            <tr><td>Pregunta típica</td><td>¿Quién creó/borró esto y cuándo?</td><td>¿Cómo estaba configurado y cumple la regla?</td></tr>
+            <tr><td>Gratis por defecto</td><td>Sí — management events 90 días</td><td>No — se paga por regla evaluada e item grabado</td></tr>
+            <tr><td>Retención larga</td><td>Trail → S3 (indefinida, con lifecycle)</td><td>Historia de configuración en S3/Consola</td></tr>
+            <tr><td>Multi-cuenta</td><td>Organization trail</td><td>Config aggregator</td></tr>
+            <tr><td>Palabra clave de examen</td><td><span class="term-en">audit trail</span>, <span class="term-en">API call history</span></td><td><span class="term-en">drift</span>, <span class="term-en">noncompliant</span>, <span class="term-en">configuration timeline</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>bronze/05-docs/mgmt-cloudtrail/how-cloudtrail-works.md</code> y <code>bronze/05-docs/mgmt-config/whatisconfig.md</code>.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Retention beyond 90 days</em>" → crea un <strong>trail a S3</strong>. "<em>Detect when security
+        group rules are changed</em>" → <strong>Config</strong>. "<em>Prove log files have not been tampered
+        with</em>" → <strong>log file validation</strong>. "<em>Log all accounts in the org centrally</em>" →
+        <strong>organization trail</strong>. Y data events de S3/Lambda <em>siempre</em> se mencionan como
+        "no registrados por defecto": son opt-in.</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/mgmt-cloudtrail/how-cloudtrail-works.md</code>,
+      <code>../../bronze/05-docs/mgmt-cloudtrail/creating-an-organizational-trail-best-practice.md</code>,
+      <code>../../bronze/05-docs/mgmt-config/whatisconfig.md</code> y
+      <code>../../bronze/05-docs/mgmt-config/config-rules-evaluation-started.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 5. CLOUDFORMATION -->
+      <!-- ================================================== -->
+      <h2 id="cloudformation"><span class="h2-num">5</span>CloudFormation: infrastructure as code</h2>
+      <p>AWS CloudFormation es <span class="term-en">infrastructure as code</span> (IaC): describes TODOS los
+      recursos que quieres en un <span class="term-en">template</span> — fichero YAML o JSON, con las secciones
+      <code>Resources</code> (la única obligatoria), <code>Parameters</code>, <code>Mappings</code>,
+      <code>Conditions</code> y <code>Outputs</code> — y CloudFormation los aprovisiona en el orden correcto,
+      resolviendo dependencias y esperando a que cada pieza esté lista. Al desplegar, el template se instancia en
+      un <span class="term-en">stack</span>: la unidad que se crea, se actualiza y <em>se borra entera</em> (ideal
+      para entornos efímeros de prueba). Los templates son texto: se versionan en Git, se revisan en pull requests
+      y sirven como documentación ejecutable. Cuando el examen pida <span class="term-en">consistency</span>,
+      <span class="term-en">repeatability</span> o "deploy the same architecture in another region/account",
+      la respuesta es IaC con CloudFormation — no scripts CLI manuales ni clones de consola.</p>
+      <p>El detalle más preguntado son los <span class="term-en">change sets</span>: antes de actualizar un stack
+      puedes generar un <em>preview</em> que lista qué recursos se crearán, modificarán o eliminarán — la respuesta
+      a "review the impact of changes before deploying". Para desplegar el mismo stack en
+      <strong>múltiples cuentas y regiones</strong> a la vez existen los <span class="term-en">StackSets</span>
+      (se administran desde la management account o una cuenta delegada de Organizations). La
+      <span class="term-en">drift detection</span> de CFn compara el estado real de los recursos contra el
+      template y detecta cambios hechos a mano fuera del stack. Otros matices: <span class="term-en">nested
+      stacks</span> (templates que reutilizan otros templates como si fueran recursos), <span class="term-en">custom
+      resources</span> (un recurso que CFn no soporta de serie, respaldado por una Lambda que responde a
+      Create/Update/Delete) y <span class="term-en">stack policies</span> (JSON que protege recursos críticos de
+      ser actualizados o reemplazados accidentalmente durante un update).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  T["Template<br>YAML · JSON"] --> CS["Change set<br>preview de cambios"]
+  CS -->|"aplicar"| ST["Stack<br>CREATE / UPDATE"]
+  ST --> R["Recursos AWS<br>VPC · EC2 · RDS…"]
+  R --> DD["Drift detection<br>¿cambios manuales?"]
+  DD -->|"reportar"| ST
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Ciclo de vida de CloudFormation: del template al stack, con preview y control de drift.</figcaption>
+      </figure>
+
+      <p>No confundas niveles. <span class="term-en">AWS CDK</span> define la infraestructura en lenguajes de
+      programación (TypeScript, Python…) pero <strong>genera templates CloudFormation</strong> para desplegar — es
+      IaC de nivel más alto sobre el mismo motor. <span class="term-en">Elastic Beanstalk</span> es otra cosa: una
+      <span class="term-en">platform as a service</span> centrada en desplegar <em>tu aplicación</em> (gestiona él
+      los recursos por ti, y de hecho usa CFn por debajo); si el requisito es "controlar/provisionar la
+      infraestructura como código", la respuesta es CFn, no Beanstalk. Si es "deploy the app without managing
+      servers", es Beanstalk.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Preview changes before updating</em>" → <strong>change set</strong>. "<em>Deploy the same template
+        across multiple AWS accounts and Regions</em>" → <strong>StackSets</strong>. "<em>Infrastructure changes must
+        be tracked, versioned and repeatable</em>" → <strong>CloudFormation / IaC</strong>. "<em>Detect resources
+        modified outside of the template</em>" → <strong>drift detection de CFn</strong> (y si hablan de la
+        configuración en general de la cuenta, de AWS Config).</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Memoriza la pareja de "drifts": <strong>CFn drift detection</strong> = recursos que difieren del
+        <em>template</em>; <strong>AWS Config</strong> = configuraciones que difieren de las <em>rules</em> o del
+        estado esperado. En el examen, si existe un stack, casi siempre quieren la primera.</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/mgmt-cloudformation/welcome.md</code>,
+      <code>../../bronze/05-docs/mgmt-cloudformation/using-cfn-updating-stacks-changesets.md</code>,
+      <code>../../bronze/05-docs/mgmt-cloudformation/what-is-cfnstacksets.md</code> y
+      <code>../../bronze/05-docs/mgmt-cloudformation/template-custom-resources.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 6. SYSTEMS MANAGER -->
+      <!-- ================================================== -->
+      <h2 id="systems-manager"><span class="h2-num">6</span>AWS Systems Manager: operar sin SSH</h2>
+      <p>AWS Systems Manager (SSM) centraliza la operación de <span class="term-en">nodes</span> — instancias EC2,
+      servidores on-premises e incluso otras nubes — siempre que tengan el <span class="term-en">SSM Agent</span>
+      instalado y permisos IAM para hablar con el servicio. Su promesa central es la del examen:
+      <strong>gestionar a escala sin abrir puertos ni bastion hosts</strong>, sin SSH y sin RDP. <span class="term-en">Run
+      Command</span> ejecuta un <span class="term-en">document</span> SSM (script prediseñado) en decenas o miles
+      de nodos a la vez, con control de tasa y de errores, y salida capturada a S3 o CloudWatch — la respuesta a
+      "run a command on an entire fleet without logging in". <span class="term-en">Session Manager</span> abre una
+      shell interactiva (o port forwarding) a través del canal del agente, cifrada, con IAM como única puerta y
+      sesiones auditables a S3/CloudWatch: la respuesta a "secure access to instances without opening inbound
+      ports / without SSH keys". <span class="term-en">Parameter Store</span> guarda datos de configuración con
+      <span class="term-en">hierarchies</span> (rutas tipo <code>/app/prod/db/password</code> que se pueden consultar
+      por prefijo), valores versionados y el modo <span class="term-en">SecureString</span> cifrado con KMS —
+      ideal para configs y secretos simples; para rotación automática de secretos, el examen prefiere Secrets
+      Manager (ver apéndice de seguridad).</p>
+      <p>Completan la familia: <span class="term-en">Patch Manager</span> aplica parches de SO según
+      <span class="term-en">patch baselines</span> (reglas por sistema operativo y aprobación) en ventanas de
+      mantenimiento; <span class="term-en">State Manager</span> mantiene un <em>estado deseado</em> (asociaciones:
+      "estos nodos siempre deben tener el agente X instalado y corriendo"); <span class="term-en">Automation</span>
+      ejecuta <span class="term-en">runbooks</span> — documentos de varios pasos y aprobaciones que también usan
+      CloudTrail/Config para auto-remediación; y <span class="term-en">OpsCenter</span> agrega
+      <span class="term-en">OpsItems</span> (incidentes operativos de EventBridge, de salud, etc.) para investigar
+      y resolver con runbooks asociados.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capacidad</th><th>Qué hace</th><th>Frase de examen que la delata</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Session Manager</span></td><td>Shell segura sin puertos SSH ni bastion, auditada en S3/CW</td><td><em>without opening inbound ports / no SSH keys</em></td></tr>
+            <tr><td><span class="term-en">Run Command</span></td><td>Ejecutar comandos/documents en masa sin iniciar sesión</td><td><em>run a command on an entire fleet</em></td></tr>
+            <tr><td><span class="term-en">Parameter Store</span></td><td>Configs y secretos simples, jerárquicos, <span class="term-en">SecureString</span> con KMS</td><td><em>store configuration data / license codes</em></td></tr>
+            <tr><td><span class="term-en">Patch Manager</span></td><td>Parcheo de SO según baselines y ventanas</td><td><em>patch instances on a schedule / OS compliance</em></td></tr>
+            <tr><td><span class="term-en">State Manager</span></td><td>Estado deseado continuo (asociaciones)</td><td><em>ensure agents stay installed and running</em></td></tr>
+            <tr><td><span class="term-en">Automation</span></td><td>Runbooks multi-paso, aprobaciones, remediación</td><td><em>automate operational tasks / runbook</em></td></tr>
+            <tr><td><span class="term-en">OpsCenter</span></td><td>Agrega y gestiona OpsItems (incidentes)</td><td><em>investigate and resolve operational issues</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>bronze/05-docs/mgmt-systemsmanager/what-is-systems-manager.md</code> y docs de cada capacidad.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Casi cualquier pregunta que contenga "SSH", "bastion host" o "open port 22" y pida eliminarlo apunta a
+        <strong>Session Manager</strong>. Y recuerda el requisito técnico: el nodo debe ser
+        <span class="term-en">managed</span> (agente instalado + rol IAM correcto + conectividad al servicio);
+        la mayoría de <em>distractors</em> asumen que "se conecta solo".</p>
+      </div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/mgmt-systemsmanager/what-is-systems-manager.md</code>,
+      <code>../../bronze/05-docs/mgmt-systemsmanager/run-command.md</code>,
+      <code>../../bronze/05-docs/mgmt-systemsmanager/patch-manager.md</code>,
+      <code>../../bronze/05-docs/mgmt-systemsmanager/systems-manager-automation.md</code> y
+      <code>../../bronze/05-docs/mgmt-systemsmanager/opscenter.md</code>.</p>
+
+      <!-- ================================================== -->
+      <!-- 7. MULTI-CUENTA Y GOBERNANZA -->
+      <!-- ================================================== -->
+      <h2 id="multicuenta"><span class="h2-num">7</span>Multi-cuenta y gobernanza</h2>
+      <p><strong>AWS Organizations</strong> agrupa cuentas en una organización central: la
+      <span class="term-en">management account</span> (payer) gobierna, y las cuentas se organizan en
+      <span class="term-en">organizational units</span> (OUs) anidadas por entorno o función. Sobre esa jerarquía
+      se aplican <span class="term-en">service control policies</span> (SCPs): guardas que <strong>limitan los
+      permisos máximos</strong> disponibles en las cuentas miembro — no conceden nada por sí solas, solo recortan;
+      el efecto final siempre es la intersección con las IAM policies de cada principal. Organizations además da
+      <span class="term-en">consolidated billing</span>: una sola factura, uso combinado y el intercambio de
+      descuentos de RI/Savings Plans entre cuentas (tema de costos del Dominio 4). La estrategia multi-cuenta
+      completa — cuentas por entorno/workload, OUs, SCPs e Identity Center — se desarrolla en la página del
+      Dominio 1, donde el examen la sitúa dentro de <span class="term-en">secure access</span>.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  RAIZ["Organization<br>management account"] --> OUP["OU Prod"]
+  RAIZ --> OUS["OU Sandbox"]
+  OUP --> C1["Cuenta app"]
+  OUP --> C2["Cuenta datos"]
+  OUS --> C3["Cuenta dev"]
+  SCP["SCP<br>permisos máximos"] -.->|"aplica a"| OUP
+  SCP -.->|"aplica a"| OUS
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Organizations: OUs que agrupan cuentas y SCPs que acotan permisos por rama.</figcaption>
+      </figure>
+
+      <p><strong>AWS Control Tower</strong> monta sobre Organizations una <span class="term-en">landing zone</span>
+      — entorno multi-cuenta con mejores prácticas listas para usar (OUs, cifrado, logs centralizados, Identity
+      Center) — y lo gobierna con <span class="term-en">controls</span> (los clásicos
+      <span class="term-en">guardrails</span>): <em>preventive</em> (basados en SCP), <em>detective</em> (basados en
+      Config) y <em>proactive</em> (basados en CloudFormation hooks, válidos antes del despliegue). Su
+      <span class="term-en">Account Factory</span> crea cuentas estandarizadas bajo demanda ("cuenta nueva lista
+      en minutos, con guardrails puestos"). <strong>AWS Service Catalog</strong> complementa: los administradores
+      publican <span class="term-en">portfolios</span> de productos aprobados (típicamente templates CloudFormation
+      con <span class="term-en">launch constraints</span>), y los equipos hacen self-service desplegando SOLO lo
+      aprobado, sin acceso directo a los servicios subyacentes — la respuesta a "allow users to deploy only
+      approved resources". <strong>AWS License Manager</strong> rastrea el uso de licencias de software
+      (p. ej. por vCPU) contra reglas para evitar incumplimientos; <strong>AWS Compute Optimizer</strong> analiza
+      telemetría y recomienda <span class="term-en">right-sizing</span> de EC2, Auto Scaling, EBS y Lambda (la
+      mitad "detección" del ahorro; la acción es tuya).</p>
+      <p><strong>AWS Trusted Advisor</strong> escanea la cuenta y devuelve <span class="term-en">checks</span> en
+      cinco categorías —costo, performance, seguridad, <span class="term-en">fault tolerance</span> y
+      <span class="term-en">service limits</span>— con recomendaciones accionables; con planes Business/Enterprise
+      se integran con EventBridge para reaccionar. <strong>AWS Proton</strong> automatiza el aprovisionamiento de
+      aplicaciones serverless y de contenedores con plantillas que el equipo de plataforma define y los
+      desarrolladores consumen. Para observabilidad open source: <strong>Amazon Managed Service for Prometheus</strong>
+      recolecta y consulta métricas con PromQL y <strong>Amazon Managed Grafana</strong> visualiza dashboards
+      compatibles con Grafana —la pareja aparece cuando el examen dice "existing Grafana/Prometheus setup"—. El
+      <strong>AWS Health Dashboard</strong> muestra eventos: la vista <em>personal</em> refleja tu cuenta (alertas
+      sobre recursos que TÚ usas) y la <em>organizational</em> agrega y filtra eventos de todas las cuentas de la
+      org vía Organizations. El <strong>AWS Well-Architected Tool</strong> documenta tu workload, la contrasta
+      contra los seis pilares y devuelve un plan de mejoras —"review your architecture" → este tool—. Y todo lo
+      anterior se maneja desde las tres puertas de siempre: <span class="term-en">Management Console</span> (web),
+      <span class="term-en">AWS CLI</span> (línea de comandos, scriptable) y <span class="term-en">SDKs</span>
+      (API desde código).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Categoría de check</th><th>Pregunta que responde</th><th>Ejemplo de hallazgo</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Cost optimization</span></td><td>¿Pago de más?</td><td>ELBs sin tráfico, instancias idle, volúmenes sin usar</td></tr>
+            <tr><td><span class="term-en">Performance</span></td><td>¿Subutilizo recursos?</td><td>Utilización baja de CPU en instancias sobre-dimensionadas</td></tr>
+            <tr><td><span class="term-en">Security</span></td><td>¿Hay exposiciones básicas?</td><td>SG con puerto 22 abierto a 0.0.0.0/0, MFA sin activar</td></tr>
+            <tr><td><span class="term-en">Fault tolerance</span></td><td>¿Sobrevivo a fallos?</td><td>Sin backups, una sola AZ, sin multi-region</td></tr>
+            <tr><td><span class="term-en">Service limits</span></td><td>¿Chocaré con cuotas?</td><td>Uso &gt; 80% de una cuota de servicio</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Las cinco categorías de Trusted Advisor: memorízalas por nombre EN, aparecen tal cual.</p>
+
+      <h3>Cierre: de la tarea al servicio</h3>
+      <p>Este apéndice cubre más de quince servicios; el objetivo del examen no es saberlos a fondo sino
+      <strong>elegirlos rápido</strong>. La tabla condensa los mapeos que se repiten pregunta tras pregunta;
+      recítala hasta que sea reflejo.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tarea de operación</th><th>Servicio</th></tr></thead>
+          <tbody>
+            <tr><td>Saber quién hizo una llamada API y cuándo</td><td><strong>CloudTrail</strong> (Event history / trail)</td></tr>
+            <tr><td>Detectar un cambio de configuración o <span class="term-en">drift</span></td><td><strong>AWS Config</strong> (+ reglas y remediation)</td></tr>
+            <tr><td>Alertar si una métrica cruza un umbral</td><td><strong>CloudWatch alarm</strong> (+ SNS)</td></tr>
+            <tr><td>Convertir apariciones de "ERROR" en logs en alertas</td><td><strong>CloudWatch metric filter</strong></td></tr>
+            <tr><td>Medir el uptime de una URL pública</td><td><strong>CloudWatch Synthetics</strong></td></tr>
+            <tr><td>Encontrar en qué salto una petición fue lenta</td><td><strong>X-Ray</strong> (traces + service map)</td></tr>
+            <tr><td>Acceder a instancias sin puertos ni SSH</td><td><strong>SSM Session Manager</strong></td></tr>
+            <tr><td>Ejecutar parches/comandos en toda una flota</td><td><strong>SSM</strong> Patch Manager / Run Command</td></tr>
+            <tr><td>Ver el impacto de un cambio antes de aplicarlo</td><td><strong>CloudFormation change set</strong></td></tr>
+            <tr><td>Desplegar igual en N cuentas/regiones</td><td><strong>CloudFormation StackSets</strong></td></tr>
+            <tr><td>Gobernar cuentas con permisos máximos</td><td><strong>Organizations</strong> (SCPs)</td></tr>
+            <tr><td>Entorno multi-cuenta con mejores prácticas</td><td><strong>Control Tower</strong> (landing zone)</td></tr>
+            <tr><td>Permitir solo productos aprobados en self-service</td><td><strong>Service Catalog</strong></td></tr>
+            <tr><td>Recomendar tamaños correctos de instancias</td><td><strong>Compute Optimizer</strong></td></tr>
+            <tr><td>Revisar arquitectura contra los seis pilares</td><td><strong>Well-Architected Tool</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Los quince reflejos que más puntos dan en los cuatro dominios del examen.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Tres reflejos finales de examen</div>
+        <p><strong>1)</strong> "Sin SSH" → <span class="term-en">Session Manager</span>. <strong>2)</strong>
+        "<span class="term-en">Drift</span>" → <span class="term-en">AWS Config</span> (o CFn drift detection si la
+        conversación gira en torno a un stack y su template). <strong>3)</strong> "Preview antes de cambiar" →
+        <span class="term-en">change set</span>. Si en la pregunta aparecen las palabras
+        <span class="term-en">audit</span> y <span class="term-en">evidence</span>, suma CloudTrail + Config +
+        Artifact como bloque de respuesta.</p>
+      </div>
+
+      <div class="callout deep"><div class="co-title">Para profundizar (bronze)</div>
+        <p>Las guías completas de cada servicio: <code>05-docs/mgmt-organizations/</code>,
+        <code>05-docs/mgmt-controltower/</code>, <code>05-docs/mgmt-servicecatalog/</code>,
+        <code>05-docs/mgmt-compute-optimizer/</code> y <code>05-docs/mgmt-watool/</code>.</p></div>
+
+      <p class="bronze-link">Fuente primaria: <code>../../bronze/05-docs/mgmt-organizations/orgs-introduction.md</code>,
+      <code>../../bronze/05-docs/mgmt-organizations/orgs-manage-policies-scps.md</code>,
+      <code>../../bronze/05-docs/mgmt-controltower/what-is-control-tower.md</code>,
+      <code>../../bronze/05-docs/mgmt-servicecatalog/introduction.md</code>,
+      <code>../../bronze/05-docs/mgmt-compute-optimizer/what-is-compute-optimizer.md</code>,
+      <code>../../bronze/05-docs/mgmt-watool/intro.md</code>,
+      <code>../../bronze/05-docs/mgmt-grafana/what-is-amazon-managed-service-grafana.md</code>,
+      <code>../../bronze/05-docs/mgmt-health/what-is-aws-health.md</code> y
+      <code>../../bronze/04-faqs/aws-trusted-advisor.md</code>.</p>
+
+      <!-- ================= PAGER ================= -->
+      <nav class="pager">
+        <a href="migracion-hibrido.html"><span class="p-dir">← Anterior</span><br>Migración e híbrido</a>
+        <a class="p-next" href="../extras/cheat-sheets.html"><span class="p-dir">Siguiente →</span><br>Cheat sheets</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

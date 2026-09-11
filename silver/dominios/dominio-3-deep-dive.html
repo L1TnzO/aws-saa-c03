@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominio 3 · Design High-Performing Architectures · SAA-C03 Guía de estudio · deep dive</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="dominio-1.html">D1 · Secure 30%</a>
+        <a href="dominio-2.html">D2 · Resilient 26%</a>
+        <a href="dominio-3.html">D3 · Performant 24%</a>
+        <a href="dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="../apendice/computo.html">Cómputo</a>
+        <a href="../apendice/almacenamiento.html">Almacenamiento</a>
+        <a href="../apendice/redes.html">Redes y conectividad</a>
+        <a href="../apendice/bases-datos.html">Bases de datos</a>
+        <a href="../apendice/seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="../apendice/contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="../apendice/integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="../apendice/analitica-datos.html">Analítica y big data</a>
+        <a href="../apendice/migracion-hibrido.html">Migración e híbrido</a>
+        <a href="../apendice/gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Dominios / Dominio 3</div>
+        <h1>Dominio 3: Design High-Performing Architectures<span class="dom-weight">24% del examen</span></h1>
+        <p class="page-lead">El dominio más técnico del examen: convertir requisitos de rendimiento — <span class="term-en">latency</span>,
+        <span class="term-en">throughput</span>, IOPS, concurrencia, ingesta — en el servicio y la configuración exactos. Aquí se decide
+        qué <em>volume type</em>, qué familia de instancias, qué estrategia de <span class="term-en">caching</span> y qué pipeline de datos.</p>
+      </header>
+
+<div class="callout tip">
+  <div class="co-title">Edición unificada</div>
+  <p>Página integrada desde la <strong>guía extendida</strong> (saa-completo). Complementa el curso por fases:
+  el mismo tema, con más profundidad técnica. Vuelve al <a href="dominio-3.html">curso principal</a> cuando quieras
+  retomar la ruta de 9 fases.</p>
+</div>
+
+
+      <!-- ================= SECCIÓN 1 · MAPA ================= -->
+      <h2 id="mapa-dominio"><span class="h2-num">1</span>Mapa del dominio: qué pregunta cada task statement</h2>
+      <p>El Dominio 3 encarna el pilar <span class="term-en">performance efficiency</span> del AWS Well-Architected Framework y
+      representa unas 15–16 preguntas de las 65 del examen. No memoriza límites exactos: te da un escenario con una métrica
+      (milisegundos, MB/s, registros por segundo, usuarios concurrentes) y espera que elijas la combinación de servicios que
+      cumple el requisito <em>sin sobre-dimensionar</em>. Es el espejo técnico del Dominio 4: allí se optimiza el costo, aquí el
+      rendimiento — y casi todas las preguntas mezclan ambos, así que el calificador (<span class="term-en">MOST
+      performance</span> vs <span class="term-en">MOST cost-effective</span>) decide la respuesta.</p>
+      <p>Los cinco <span class="term-en">task statements</span> oficiales recorren las capas de una arquitectura completa:
+      almacenamiento (3.1), cómputo (3.2), bases de datos (3.3), red (3.4) e ingesta y transformación de datos (3.5). Estúdialos
+      como una pila: primero los datos en reposo, luego el cómputo que los procesa, la base que los sirve, la red que los entrega
+      y el pipeline que los mueve. Cada sección de esta página abre con el task banner oficial para que asocies contenido y
+      pregunta real.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  T1["Task 3.1<br>Storage"] --> C1["EBS volume types · S3<br>prefijos · EFS"]
+  T2["Task 3.2<br>Compute"] --> C2["Familias EC2 · placement<br>groups · ASG + Spot"]
+  T3["Task 3.3<br>Databases"] --> C3["Read replicas · Aurora ·<br>ElastiCache · DAX"]
+  T4["Task 3.4<br>Network"] --> C4["CloudFront · Global<br>Accelerator · DX"]
+  T5["Task 3.5<br>Data ingestion"] --> C5["Kinesis · Firehose · SQS ·<br>Glue · Athena · QuickSight"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Los cinco task statements del dominio y los temas que despliegan.</figcaption>
+      </figure>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>El examen de rendimiento casi siempre incluye un número que delata la respuesta: “16.000 IOPS” apunta a gp3,
+        “sub-millisecond” a io2 Block Express, “microseconds” a DAX, “TB/s de logs” a Kinesis. Entrena el reflejo de
+        <em>subrayar la métrica</em> antes de leer las opciones: la métrica es el filtro que elimina a los distractores.</p>
+      </div>
+
+      <!-- ================= SECCIÓN 2 · TASK 3.1 STORAGE ================= -->
+      <h2 id="task-3-1-storage"><span class="h2-num">2</span>Storage performante (Task 3.1)</h2>
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.1</div>
+        <div class="tb-title">Determine high-performing and/or scalable storage solutions</div>
+        <div class="tb-meta">Knowledge: storage services (S3, EFS, EBS), storage types (object, file, block), hybrid storage ·
+        Skills: elegir servicios y configuraciones que cumplan la demanda de rendimiento y escalen.</div>
+      </div>
+
+      <p>El rendimiento de bloque en AWS se decide con Amazon EBS, y su pregunta de diseño siempre es la misma: ¿tu workload
+      domina en <span class="term-en">IOPS</span> (operaciones pequeñas y aleatorias, típico de bases de datos) o en
+      <span class="term-en">throughput</span> (lecturas grandes y secuenciales, típico de big data)? Las familias SSD responden
+      a la primera; las HDD, a la segunda. La tabla oficial de volume types condensa límites y casos de uso, y el examen la
+      recorre con variaciones: te dará el patrón de I/O del workload y pedirás el tipo correcto.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Volume type</th><th>IOPS máx.</th><th>Throughput máx.</th><th>Caso de uso</th><th>Precio relativo</th></tr></thead>
+          <tbody>
+            <tr><td><code>gp3</code> (SSD general)</td><td>3.000 incluidos; escala a 16.000+ (80.000 en instancias Nitro)</td><td>125 MiB/s incluidos; escala a 1.000+ (2.000 en Nitro)</td><td>Boot volumes, apps interactivas, BD medianas, dev/test</td><td>$$ — ~20% más barato que gp2</td></tr>
+            <tr><td><code>io2</code> Block Express (SSD)</td><td>256.000</td><td>4.000 MiB/s</td><td>BD críticas I/O-intensivas, latencia sub-milisegundo sostenida, <span class="term-en">multi-attach</span></td><td>$$$$</td></tr>
+            <tr><td><code>st1</code> (HDD)</td><td>500 (I/O de 1 MiB)</td><td>500 MiB/s</td><td>Big data, data warehouses, log processing, EMR/ETL secuencial</td><td>$</td></tr>
+            <tr><td><code>sc1</code> (HDD frío)</td><td>250 (I/O de 1 MiB)</td><td>250 MiB/s</td><td>Datos accedidos con poca frecuencia donde el costo mínimo importa</td><td>$ — el más barato</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-ebs/ebs-volume-types.md y hdd-vols.md (límites por volumen; st1/sc1 no pueden ser boot volumes).</p>
+
+      <p>El contraste clásico del examen es <code>gp2</code> vs <code>gp3</code>. En gp2 el rendimiento es un función del
+      tamaño: 3 IOPS por GiB, así que para conseguir muchas IOPS hay que comprar gigabytes que nadie necesita. gp3 rompe ese
+      acoplamiento: incluye 3.000 IOPS y 125 MiB/s <em>independientemente del tamaño</em>, y ambos parámetros se escalan por
+      separado pagando solo la diferencia. Por eso, ante “SSD de propósito general”, la respuesta por defecto moderna es gp3
+      con ~20% de ahorro.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>gp2</th><th>gp3</th></tr></thead>
+          <tbody>
+            <tr><td>Rendimiento incluido</td><td>3 IOPS por GiB (acoplado al tamaño) + <span class="term-en">burst bucket</span></td><td>3.000 IOPS + 125 MiB/s fijos para cualquier tamaño</td></tr>
+            <tr><td>Escalado</td><td>Comprar GiB para ganar IOPS</td><td>IOPS y throughput se ajustan de forma independiente</td></tr>
+            <tr><td>Costo</td><td>Base</td><td>~20% más barato que gp2</td></tr>
+            <tr><td>Cuándo elegirlo</td><td>Legado / volumenes existentes</td><td>Respuesta por defecto para SSD general</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Para almacenamiento de objetos, S3 escala por diseño, pero el examen pregunta cómo exprimirlo. Cada prefijo soporta
+      3.500 <span class="term-en">PUT/COPY/POST/DELETE</span> y 5.500 <span class="term-en">GET/HEAD</span> por segundo: si
+      necesitas más, distribuye los objetos en varios prefijos paralelos. Los objetos grandes se suben con <span class="term-en">multipart
+      upload</span> (partes en paralelo; obligatorio por encima de 5 GiB, útil desde 100 MiB) y se descargan más rápido con
+      <span class="term-en">byte-range fetch</span> (varios GET paralelos por rangos de bytes). Cuando el problema es la
+      <em>distancia</em> entre el usuario y el bucket, la respuesta es <span class="term-en">S3 Transfer Acceleration</span>:
+      subir al edge más cercano y viajar por la backbone de AWS.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["¿Qué patrón de<br>acceso tiene la app?"] --> B["Bloque: 1 instancia<br>latencia ms"]
+  A --> C["Archivos compartidos<br>entre servidores"]
+  A --> D["Objetos: escala masiva<br>estático o datos crudos"]
+  B --> E["EBS gp3 / io2<br>según IOPS"]
+  C --> F["EFS / FSx<br>multi-AZ, NFS o SMB"]
+  D --> G["S3 + CloudFront<br>prefijos paralelos"]
+  style G fill:#2a2116,stroke:#ec7211,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Decisión de almacenamiento por patrón de acceso: bloque, archivo u objeto.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“Database requiring sustained sub-millisecond latency” → io2 Block Express · “big data / log processing /
+        throughput-intensive” → st1 · “infrequently accessed data at the lowest cost” → sc1 · “increase S3 read throughput
+        on GET-heavy workload” → repartir en prefijos · “users upload large files from another continent” → Transfer
+        Acceleration · “download a large object faster” → byte-range. Trampa típica: ofrecer <em>Transfer Acceleration</em>
+        cuando la pregunta pide acelerar la <em>descarga en paralelo</em> (byte-range), o <em>st1</em> para I/O aleatoria
+        pequeña (eso pide SSD).</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/storage-ebs/ebs-volume-types.md</code> ·
+      <code>../bronze/05-docs/storage-ebs/hdd-vols.md</code> · <code>../bronze/05-docs/storage-ebs/provisioned-iops.md</code> ·
+      <code>../bronze/05-docs/storage-s3/welcome.md</code></p>
+
+      <!-- ================= SECCIÓN 3 · TASK 3.2 COMPUTE ================= -->
+      <h2 id="task-3-2-compute"><span class="h2-num">3</span>Compute performante (Task 3.2)</h2>
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.2</div>
+        <div class="tb-title">Design high-performing and elastic compute solutions</div>
+        <div class="tb-meta">Knowledge: compute services (Batch, EMR, Fargate), Auto Scaling, serverless, orquestación de
+        contenedores (ECS/EKS), colas y mensajería · Skills: desacoplar workloads, elegir instance types, dimensionar Lambda.</div>
+      </div>
+
+      <p>El examen no pide memorizar especificaciones de instancias: pide asociar el workload con la familia cuyo prefijo
+      describe la proporción de recursos. <code>c</code> es CPU densa, <code>r</code> memoria densa, <code>i</code> y
+      <code>d</code> almacenamiento local rápido o denso, y las aceleradas añaden GPU o chips propios. El sufijo
+      <code>g</code> final (instancias <span class="term-en">Graviton</span>, ARM) marca hasta ~40% mejor relación
+      precio-rendimiento para workloads compatibles — hoy es respuesta frecuente cuando el calificador mezcla rendimiento
+      y costo.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Familia</th><th>Tipo</th><th>Uso típico</th></tr></thead>
+          <tbody>
+            <tr><td><code>t</code></td><td>General purpose <span class="term-en">burstable</span></td><td>Cargas variables, web pequeña, dev/test; funciona con créditos de CPU</td></tr>
+            <tr><td><code>m</code></td><td>General purpose balanceada</td><td>Web apps, microservicios, backends; el “talla única” por defecto</td></tr>
+            <tr><td><code>c</code></td><td>Compute optimized</td><td>Batch, encoding de video, servidores CPU-bound, HPC ligero</td></tr>
+            <tr><td><code>r</code></td><td>Memory optimized</td><td>Cachés en memoria, analytics en memoria, BD relacionales en EC2</td></tr>
+            <tr><td><code>x</code> / <code>u</code></td><td>Extra / high memory</td><td>SAP HANA y sistemas in-memory de gran escala</td></tr>
+            <tr><td><code>i</code> / <code>d</code></td><td>Storage optimized</td><td>NoSQL con NVMe de baja latencia, Hadoop/EMR denso en HDD</td></tr>
+            <tr><td><code>g</code> / <code>p</code> / <code>f</code></td><td>Accelerated computing</td><td>ML y gráficos (GPU), HPC extremo (P), FPGA (f)</td></tr>
+            <tr><td><code>inf</code> / <code>trn</code></td><td>Chips de ML de AWS</td><td>Inferencia (Inferentia) y entrenamiento (Trainium)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-ec2/instance-types.md (naming conventions y familias Nitro).</p>
+
+      <p>Cuando la clave es la <em>proximidad física</em> entre instancias, entran los <span class="term-en">placement
+      groups</span>: la misma palabra “grupo” describe tres estrategias opuestas, y el examen las cruza con fallos de rack,
+      latencia y despliegues masivos. Elige la estrategia según lo que quieras optimizar: velocidad bruta (cluster),
+      aislamiento de fallos (spread) o particionamiento para sistemas distribuidos (partition).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estrategia</th><th>Cómo agrupa</th><th>Límite clave</th><th>Caso de uso</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">cluster</span></td><td>Instancias juntas, misma AZ (mismo grupo de racks)</td><td>Una sola AZ</td><td>Baja latencia de red: big data analytics, HPC que se habla mucho entre nodos</td></tr>
+            <tr><td><span class="term-en">spread</span></td><td>Instancias en hardware físico distinto</td><td>Máximo 7 instancias por AZ</td><td>Pocas instancias críticas que deben aislarse de fallos simultáneos</td></tr>
+            <tr><td><span class="term-en">partition</span></td><td>Grupos de racks lógicos (particiones) por AZ</td><td>Hasta 7 particiones por AZ</td><td>Despliegues grandes distribuidos: Hadoop, Cassandra, HDFS</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Por debajo, el <span class="term-en">Nitro System</span> descarga la virtualización (red, EBS, control) a tarjetas
+      de hardware dedicadas, liberando CPU y memoria del host para tu instancia — por eso los límites altos de IOPS y red
+      “requieren instancias Nitro”. Encima, <span class="term-en">enhanced networking</span> se apoya en el <span class="term-en">ENA</span>
+      (Elastic Network Adapter, hasta 200 Gbps según instancia) y, para HPC, en el <span class="term-en">EFA</span> (Elastic
+      Fabric Adapter), que permite bypass del SO para comunicación MPI de latencia ultra baja. La <span class="term-en">hibernation</span>
+      completa la tríada: guarda la RAM en el EBS root volume, y la instancia retoma en segundos con el mismo instance ID y
+      los procesos vivos — la respuesta para apps con bootstrap largo (“pre-warm” de instancias).</p>
+      <p>La elasticidad se diseña con datos: <span class="term-en">right-sizing</span> con CloudWatch (CPU y red llegan gratis;
+      la memoria exige el <em>CloudWatch agent</em>) y recomendaciones de Compute Optimizer. Y en un Auto Scaling Group, la
+      <span class="term-en">mixed instances policy</span> combina una base On-Demand/Reserved con capacidad <span class="term-en">Spot</span>
+      y hasta 10–20% de descuento adicional vía <span class="term-en">capacity-optimized</span>: el ASG mantiene el
+      <em>desired capacity</em> aunque Spot reclaims instancias con aviso de 2 minutos, y el ALB reparte el tráfico sin que
+      el usuario note nada.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["ALB reparte el<br>tráfico"] --> B["ASG: mixed instances<br>multi-AZ"]
+  B --> C["Capa base<br>On-Demand / Reserved"]
+  B --> D["Capa elástica<br>Spot"]
+  E["CloudWatch<br>target tracking"] -->|"scale out / in"| B
+  D -->|"reclaim: aviso<br>de 2 min"| B
+  style D fill:#2a2116,stroke:#ec7211,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — ASG con mixed instances: base garantizada + Spot elástico, gobernado por métricas.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“in-memory cache” → familia r · “video encoding / batch” → c · “NoSQL con NVMe local” → i · “same low-latency
+        group” → cluster · “isolate critical instances” → spread · “large distributed system, rack failure” → partition ·
+        “reduce cost while scaling” → mixed + Spot. Trampa: elegir spread para un despliegue Hadoop de cientos de nodos
+        (spread admite 7 por AZ: ahí la respuesta es partition).</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/compute-ec2/instance-types.md</code> ·
+      <code>../bronze/05-docs/compute-ec2/hibernate.md</code> · <code>../bronze/05-docs/compute-ec2/cr-cpg.md</code> ·
+      <code>../bronze/05-docs/compute-ec2/using-spot-instances.md</code></p>
+
+      <!-- ================= SECCIÓN 4 · TASK 3.3 DATABASES ================= -->
+      <h2 id="task-3-3-databases"><span class="h2-num">4</span>Databases y caching (Task 3.3)</h2>
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.3</div>
+        <div class="tb-title">Determine high-performing database solutions</div>
+        <div class="tb-meta">Knowledge: caching strategies (ElastiCache), data access patterns, capacity planning, replication,
+        tipos de BD (relational, non-relational, in-memory) · Skills: configurar read replicas, integrar caching, diseñar la BD.</div>
+      </div>
+
+      <p>La primera palanca de una base de datos <span class="term-en">read-intensive</span> es la réplica: las
+      <span class="term-en">read replicas</span> copian los datos de forma asíncrona y descargan las lecturas de la
+      instancia primaria, escalando lectura de forma lineal hasta 15 réplicas. En RDS sirven también para migraciones y
+      DR (réplicas <span class="term-en">cross-region</span>); en Aurora, 15 réplicas con réplica en milisegundos, dos
+      endpoints — <span class="term-en">writer endpoint</span> y <span class="term-en">reader endpoint</span> — que agrupan
+      y balancean automáticamente, y failover promoviendo una réplica en segundos. La regla del examen: primero descargas
+      lecturas con réplicas; si aún sobra presión de lectura o la latencia exigida es de milisegundos, añades caché.</p>
+
+      <p>El caching con ElastiCache (o DAX) tiene tres estrategias, y el examen las pregunta como trade-off explícito entre
+      frescura, costo y riesgo. Ninguna es “mejor”: la señal que delata la respuesta es el requisito de consistencia y el
+      patrón de escritura.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estrategia</th><th>Cómo funciona</th><th>Consistencia</th><th>Hit ratio / costo</th><th>Riesgo</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">lazy loading</span></td><td>Solo en <span class="term-en">cache miss</span> se lee la BD y se llena la caché</td><td>Datos pueden quedar <span class="term-en">stale</span> (mitigar con TTL)</td><td>Solo entra lo que se pide: eficiente; cada miss cuesta 3 llamadas</td><td>Primera lectura lenta; si no hay TTL, datos viejos indefinidamente</td></tr>
+            <tr><td><span class="term-en">write-through</span></td><td>Toda escritura actualiza caché y BD a la vez</td><td>Frescura máxima en la caché</td><td>Cada write = 2 llamadas; llena la caché de datos que quizá nunca se leen</td><td>Si el nodo de caché cae, queda vacía: tormenta de misses</td></tr>
+            <tr><td><span class="term-en">write-behind</span> (write-back)</td><td>Escribe en caché; la BD se actualiza después, asíncrona</td><td>Eventual (con retardo)</td><td>Escrituras muy rápidas</td><td>Pérdida de datos si el nodo de caché falla antes de volcar</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-elasticache (guías de usuario y best practices de caching).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  A["Aplicación"] --> B{"¿Está el dato<br>en la caché?"}
+  B -->|"hit"| C["Respuesta en<br>milisegundos"]
+  B -->|"miss"| D["Aurora / DynamoDB<br>fuente de verdad"]
+  D --> E["Se llena la caché<br>y se responde"]
+  E --> C
+  style C fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Ruta de lectura con caché: el miss paga el peaje; el hit responde en milisegundos.</figcaption>
+      </figure>
+
+      <p>Para DynamoDB, la caché tiene nombre propio: <span class="term-en">DAX</span> (DynamoDB Accelerator) baja las
+      lecturas <span class="term-en">eventually consistent</span> de milisegundos a <strong>microsegundos</strong>, es
+      API-compatible con DynamoDB (cambio mínimo de código) y aplica <em>write-through</em> por defecto. No sirve para lecturas
+      fuertemente consistentes ni para workloads de escritura intensiva. La otra decisión de DynamoDB es el modo de capacidad:
+      la capacidad se planifica o se delega, y el precio sigue esa elección.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Provisioned + Auto Scaling</th><th>On-demand</th></tr></thead>
+          <tbody>
+            <tr><td>Capacidad</td><td>Defines RCU/WCU; una policy de <span class="term-en">auto scaling</span> ajusta según métrica</td><td>Sin planificar: paga por solicitud efectiva</td></tr>
+            <tr><td>Precio</td><td>Menor costo por unidad en tráfico predecible</td><td>Más caro por unidad, pero cero riesgo de throttling por subestimación</td></tr>
+            <tr><td>Ideal para</td><td>Tráfico estable y predecible, producción madura</td><td>Tráfico <span class="term-en">spiky</span> o desconocido, apps nuevas, dev/test</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>El error de diseño más castigado en DynamoDB es la <span class="term-en">hot partition</span>: cada partición
+      entrega hasta 3.000 RCU y 1.000 WCU por segundo, y toda la capacidad de la tabla puede quedar secuestrada por una
+      <span class="term-en">partition key</span> de baja cardinalidad que concentra el tráfico. La solución es diseñar claves
+      de alta cardinalidad que repartan uniformemente el workload, aplicar <span class="term-en">write sharding</span> a
+      ítems súper populares y confiar en la <span class="term-en">adaptive capacity</span> como red de seguridad. La métrica
+      que delata el problema en el examen: <code>ProvisionedThroughputExceededException</code> con consumo de tabla bajo.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A{"¿Patrón de<br>acceso?"} -->|"read-heavy"| B["Read replicas +<br>ElastiCache / DAX"]
+  A -->|"write-heavy"| C["DynamoDB con<br>partition key uniforme"]
+  A -->|"analítico, joins<br>complejos"| D["Redshift o Aurora<br>+ Spectrum"]
+  style B fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — La primera decisión de BD: qué patrón domina, qué palanca responde.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“read-heavy, scale reads” → read replicas · “cache con microsegundos” → DAX · “reduce calls to the database
+        without code changes” → DAX (API-compatible) o ElastiCache con lazy loading · “unpredictable spikes, avoid
+        throttling” → DynamoDB on-demand · “hot partition / throughput exceeded” → rediseñar la partition key ·
+        “data fresco siempre en caché” → write-through. Trampa: DAX no da strongly consistent reads ni acelera escrituras.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/db-dynamodb/dax.md</code> ·
+      <code>../bronze/05-docs/db-dynamodb/on-demand-capacity-mode.md</code> ·
+      <code>../bronze/05-docs/db-dynamodb/bp-partition-key-design.md</code> ·
+      <code>../bronze/05-docs/db-elasticache/red-ug/bestpractices.md</code></p>
+
+      <!-- ================= SECCIÓN 5 · TASK 3.4 RED ================= -->
+      <h2 id="task-3-4-red"><span class="h2-num">5</span>Red global: CloudFront vs Global Accelerator (Task 3.4)</h2>
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.4</div>
+        <div class="tb-title">Determine high-performing and/or scalable network architectures</div>
+        <div class="tb-meta">Knowledge: edge networking (CloudFront, Global Accelerator), diseño de topología, load balancing,
+        opciones de conexión (VPN, Direct Connect, PrivateLink) · Skills: topologías globales/híbridas/multi-tier, LB adecuado.</div>
+      </div>
+
+      <p>Los dos servicios de <span class="term-en">edge networking</span> parecen competir, pero optimizan cosas distintas.
+      <strong>CloudFront</strong> es un CDN: cachea contenido en cientos de <span class="term-en">edge locations</span> para
+      servirlo desde el punto más cercano al usuario. Su rendimiento se gobierna con los TTLs de la
+      <span class="term-en">cache policy</span> — <span class="term-en">min TTL</span>, <span class="term-en">max TTL</span> y
+      <span class="term-en">default TTL</span> — y con qué se incluye en la clave de caché (headers, cookies, query strings);
+      la <span class="term-en">origin request policy</span> define qué se envía al origen cuando hay miss. Los orígenes son un
+      bucket S3 (protegido con <span class="term-en">Origin Access Control</span>) o un <span class="term-en">custom origin</span>
+      (ALB, EC2, cualquier HTTP). Cuando necesitas retirar contenido antes de que expire el TTL: invalidations.</p>
+      <p><strong>AWS Global Accelerator</strong> no cachea nada: te da dos <span class="term-en">IPs estáticas anycast</span>
+      que anuncian tu aplicación desde toda la red edge de AWS; el usuario entra por la ubicación más cercana y el tráfico
+      viaja por la <span class="term-en">AWS backbone</span> hasta el endpoint regional sano. Funciona con cualquier protocolo
+      TCP/UDP (gaming, IoT/MQTT, APIs no cacheables), hace <span class="term-en">health checks</span> y conmuta entre
+      <span class="term-en">endpoint groups</span> de distintas regiones cuando una falla. Si la pregunta dice “static IPs”,
+      “non-HTTP”, “UDP” o “global endpoint failover”, es Global Accelerator; si dice “cache” o “content”, es CloudFront.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudFront</th><th>Global Accelerator</th></tr></thead>
+          <tbody>
+            <tr><td>Protocolo</td><td>HTTP/HTTPS (contenido web)</td><td>Cualquier TCP o UDP, cualquier puerto</td></tr>
+            <tr><td>Caching</td><td>Sí: cachea en edge con TTLs y cache policies</td><td>No: solo enruta por la backbone</td></tr>
+            <tr><td>Direcciones</td><td>Dominio dinámico de la distribución</td><td>2 IPs estáticas anycast (BYOIP opcional)</td></tr>
+            <tr><td>Failover</td><td>Failover de origen (5xx/errores)</td><td>Health checks entre endpoint groups multi-región, con <span class="term-en">traffic dial</span></td></tr>
+            <tr><td>Caso típico</td><td>Contenido estático/dinámico web, APIs cacheables, S3 protegido</td><td>Gaming UDP, IoT, apps non-HTTP, IPs fijas para whitelisting</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  U["Usuarios<br>globales"] --> CF["CloudFront<br>cache en edge"]
+  CF -->|"hit"| U
+  CF -->|"miss"| P1["Origen S3<br>región primaria"]
+  P1 -->|"5xx o fallo<br>regional"| P2["Failover: origen<br>S3 réplica"]
+  P2 --> CF
+  style CF fill:#2a2116,stroke:#ec7211,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — Arquitectura global con CloudFront, origen S3 y failover de región para los misses.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“deliver static content with the lowest latency worldwide” → CloudFront + S3 · “same IP addresses, no DNS
+        changes” o “must retain static IPs” → Global Accelerator · “improve availability, route to the nearest healthy
+        Region” → Global Accelerator · “reduce load on the origin” → CloudFront (+ Origin Shield) · “UDP gaming” → Global
+        Accelerator. Trampa número uno: Global Accelerator <em>no</em> cachea contenido — si la pregunta habla de cache, es
+        CloudFront, aunque muestre GA como opción.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/network-cloudfront/introduction.md</code> ·
+      <code>../bronze/05-docs/network-cloudfront/downloaddistvaluescachebehavior.md</code> ·
+      <code>../bronze/05-docs/network-globalaccelerator/what-is-global-accelerator.md</code> ·
+      <code>../bronze/05-docs/network-globalaccelerator/about-endpoint-groups.md</code></p>
+
+      <!-- ================= SECCIÓN 6 · CONECTIVIDAD DEDICADA ================= -->
+      <h2 id="conectividad-dedicada"><span class="h2-num">6</span>Conectividad dedicada y privada: DX, PrivateLink, VPC endpoints</h2>
+      <p>Para el tráfico híbrido de alto rendimiento, <span class="term-en">AWS Direct Connect</span> es una conexión
+      <em>física privada</em> entre tu data center y AWS que evita el internet público: latencia consistente y ancho de banda
+      garantizado. Una <span class="term-en">dedicated connection</span> es tu puerto propio (1, 10, 100 o 400 Gbps, fibra
+      monomodo); una <span class="term-en">hosted connection</span> te compra capacidad a un partner de 50 Mbps a 10 Gbps
+      (más ágil de conseguir y facturada por el partner). Sobre la conexión creas <span class="term-en">virtual interfaces</span>:
+      private VIF hacia una VPC, transit VIF hacia muchas VPCs y regiones vía Direct Connect gateway + Transit Gateway, y
+      public VIF hacia los servicios públicos de AWS. Un <span class="term-en">LAG</span> agrega varias conexiones del mismo
+      DX location como si fueran una sola, para más ancho de banda gestionado en bloque.</p>
+      <p>La resiliencia tiene receta oficial — modelos Maximum Resiliency (99.99% SLA: conexiones en locations distintas) y
+      High Resiliency (99.9%: dispositivos distintos en la misma location) — pero la respuesta de examen más frecuente es
+      la combinación clásica: <strong>Direct Connect como ruta principal + Site-to-Site VPN como backup</strong>, para que
+      un corte del circuito no deje híbrido. Para el acceso <em>privado a servicios</em> sin internet ni peering,
+      <span class="term-en">AWS PrivateLink</span> expone y consume APIs por IPs privadas dentro de la red de AWS: los
+      <span class="term-en">VPC endpoints</span> son su materialización práctica.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Interface endpoint (PrivateLink)</th><th>Gateway endpoint</th></tr></thead>
+          <tbody>
+            <tr><td>Qué es</td><td>Una ENI con IP privada en tus subnets</td><td>Ruta en la route table hacia el servicio</td></tr>
+            <tr><td>Servicios</td><td>Decenas (APIs AWS, endpoints de terceros, tus propios servicios)</td><td>Solo S3 y DynamoDB</td></tr>
+            <tr><td>Costo</td><td>Por hora + por GB procesado</td><td>Gratuito</td></tr>
+            <tr><td>Cuándo elegirlo</td><td>Acceso privado desde on-prem (vía DX/VPN) o entre VPCs sin peering</td><td>Tráfico S3/DynamoDB que no debe salir por internet gateway</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  DC["Data center<br>on-premises"] -->|"DX dedicated / hosted<br>+ LAG"| DX["DX location<br>virtual interfaces"]
+  DX --> GW["Direct Connect gateway<br>+ Transit Gateway"]
+  GW --> VPC["VPC<br>recursos AWS"]
+  DC -.->|"backup Site-to-Site<br>VPN"| VPC
+  VPC -->|"VPC endpoints<br>interface / gateway"| SVS["S3 · DynamoDB ·<br>APIs privadas"]
+  style DX fill:#232f3e,stroke:#ff9900,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 7 — Híbrido performante: DX principal, VPN de respaldo y endpoints privados dentro de la VPC.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“consistent network performance, private connectivity, large datasets to S3” → Direct Connect · “if Direct
+        Connect fails, traffic must still flow” → DX + backup VPN · “connect thousands of VPCs” → transit VIF + Transit
+        Gateway · “access S3 without traversing the internet, minimal cost” → gateway endpoint (gratis) · “consume a SaaS
+        API privately from the VPC” → PrivateLink. Trampa: gateway endpoint solo existe para S3 y DynamoDB — cualquier
+        otro servicio exige interface endpoint.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/network-directconnect/connection-options.md</code> ·
+      <code>../bronze/05-docs/network-directconnect/lags.md</code> ·
+      <code>../bronze/05-docs/network-directconnect/resiliency-toolkit.md</code> ·
+      <code>../bronze/05-docs/network-directconnect/workingwithconnections.md</code></p>
+
+      <!-- ================= SECCIÓN 7 · TASK 3.5 INGESTA ================= -->
+      <h2 id="task-3-5-ingesta"><span class="h2-num">7</span>Data ingestion y transformación (Task 3.5)</h2>
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.5</div>
+        <div class="tb-title">Determine high-performing data ingestion and transformation solutions</div>
+        <div class="tb-meta">Knowledge: streaming (Kinesis), transformación (Glue), analytics y visualización (Athena,
+        QuickSight, EMR), patrones de ingesta · Skills: diseñar pipelines, data lakes, transformar formatos (csv a parquet).</div>
+      </div>
+
+      <p>La pregunta de fondo en ingesta es <em>tiempo y consumo</em>: ¿necesitas procesar cada evento en ~1 segundo,
+      cargarlo al data lake sin escribir código, o solo desacoplar productores de consumidores? De esa respuesta salen las
+      tres herramientas que el examen compara sin piedad. <span class="term-en">Kinesis Data Streams</span> es el stream en
+      tiempo real: los datos se particionan en <span class="term-en">shards</span> (1 MB/s de escritura y 2 MB/s de lectura
+      por shard, modo <span class="term-en">on-demand</span> para autoscaling), el orden se preserva dentro del shard por
+      <span class="term-en">partition key</span>, y la retención por defecto de 24 horas puede subir a 8.760 horas
+      (365 días) — lo que permite <em>reprocesar</em> el stream: múltiples aplicaciones leen de forma independiente
+      (replay/reorder) y una que cayó puede volver a empezar desde el último <span class="term-en">checkpoint</span>.</p>
+
+      <p><span class="term-en">Data Firehose</span> es la entrega gestionada: sin servidores ni código, acumula en
+      <span class="term-en">buffering hints</span> (MB y segundos configurables) y hace batch hacia S3, Redshift (vía bucket
+      intermedio + COPY), OpenSearch, Splunk o endpoints HTTP, con transformación Lambda opcional y conversión de formato
+      (JSON/CSV → Parquet). Es near real-time (~60 segundos), no milisegundos. <span class="term-en">SQS</span> es la otra
+      familia: una cola donde cada mensaje se consume una vez y se elimina — sin replay, sin múltiples lectores del mismo
+      mensaje, pensada para desacoplar componentes, no para re-procesar historia.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Kinesis Data Streams</th><th>Data Firehose</th><th>SQS</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>Stream en tiempo real por shards</td><td>Entrega gestionada (batch)</td><td>Cola de mensajes (pull)</td></tr>
+            <tr><td>Latencia</td><td>~1 segundo</td><td>~60 segundos (buffers)</td><td>Inmediata por mensaje</td></tr>
+            <tr><td>Consumo</td><td>Varias apps independientes, replay, <span class="term-en">enhanced fan-out</span></td><td>Un destino definido en la entrega</td><td>Un consumidor borra el mensaje (<span class="term-en">visibility timeout</span>)</td></tr>
+            <tr><td>Retención</td><td>24 h → 365 días (cargo extra)</td><td>No retiene: entrega</td><td>Hasta 14 días</td></tr>
+            <tr><td>Caso típico</td><td>Clickstreams, métricas, logs en tiempo real</td><td>Cargar data lake sin administrar nada</td><td>Desacoplar microservicios</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Ya en el lado analítico, el stack se reparte por responsabilidad: ingesta (Kinesis/Firehose), catalogación y ETL
+      (Glue), consulta serverless (Athena), procesamiento pesado (EMR), warehouse (Redshift) y visualización (QuickSight).
+      El examen pregunta por piezas y por el pipeline completo, así que memoriza la tabla y el diagrama juntos.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Qué resuelve</th><th>Palabra clave que lo delata</th></tr></thead>
+          <tbody>
+            <tr><td>Amazon Athena</td><td>SQL serverless sobre datos en S3; pagas por TB escaneado</td><td>“query data in S3 without managing infrastructure” · particiones y Parquet para bajar el costo</td></tr>
+            <tr><td>AWS Glue</td><td>ETL serverless (Spark) + <span class="term-en">crawlers</span> que infieren esquema + <span class="term-en">Data Catalog</span> central</td><td>“catalog the data”, “transform .csv to .parquet”</td></tr>
+            <tr><td>Amazon EMR</td><td>Clústeres gestionados de Spark/Hadoop/Hive para big data</td><td>“petabytes”, “Hadoop/Spark processing”</td></tr>
+            <tr><td>Amazon Redshift</td><td>Data warehouse columnar MPP; nodos RA3 separan cómputo/almacenamiento; <span class="term-en">Spectrum</span> consulta S3 sin cargar</td><td>“data warehouse”, “complex joins”, “BI sobre TB”</td></tr>
+            <tr><td>Amazon QuickSight</td><td>BI serverless con dashboards y motor en memoria SPICE</td><td>“visualize”, “dashboards for business users”</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  P["Productores<br>apps · logs"] --> K["Kinesis Data<br>Streams"]
+  K --> F["Firehose<br>batch + buffers"]
+  F --> S["S3 data lake<br>parquet"]
+  S --> G["Glue<br>crawlers + ETL"]
+  G --> A["Athena<br>SQL serverless"]
+  A --> Q["QuickSight<br>dashboards BI"]
+  style S fill:#2a2116,stroke:#ec7211,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 8 — El pipeline moderno por defecto: stream en tiempo real, batch al data lake, ETL, SQL y BI.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>“real-time, sub-second processing” → Kinesis Data Streams · “load into S3 with the least operational
+        overhead” → Firehose · “decouple components / queue” → SQS · “reprocess past data” → subir la retención de Kinesis
+        (hasta 365 días) · “serverless SQL on S3” → Athena · “ETL + catalog” → Glue · “cheapest big data processing” → EMR
+        (con Spot). Trampa: Firehose no procesa en tiempo real — su unidad es el batch; y SQS no permite replay.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/analytics-kinesis-streams/introduction.md</code> ·
+      <code>../bronze/05-docs/analytics-kinesis-streams/kinesis-extended-retention.md</code> ·
+      <code>../bronze/05-docs/analytics-kinesis-firehose/what-is-this-service.md</code> ·
+      <code>../bronze/05-docs/analytics-athena/what-is.md</code> ·
+      <code>../bronze/05-docs/analytics-glue/what-is-glue.md</code></p>
+
+      <!-- ================= SECCIÓN 8 · CIERRE ================= -->
+      <h2 id="cierre-dominio-3"><span class="h2-num">8</span>Cierre: el mapa “requisito → servicio” del dominio</h2>
+      <p>Casi todas las preguntas de este dominio se resuelven con un mapeo directo entre una frase del escenario y un
+      servicio o configuración concreta. La tabla siguiente condensa las asociaciones que aparecen una y otra vez en la
+      guía de estudio oficial del dominio; úsala como filtro rápido en la segunda ronda de eliminación. Si el escenario
+      mezcla costo con rendimiento, recuerda que este dominio prioriza rendimiento salvo que el calificador diga
+      <span class="term-en">most cost-effective</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Requisito del escenario</th><th>Respuesta de diseño</th></tr></thead>
+          <tbody>
+            <tr><td>BD transaccional con latencia sub-milisegundo e IOPS sostenidas</td><td>EBS io2 Block Express</td></tr>
+            <tr><td>SSD general con mejor precio y rendimiento base garantizado</td><td>EBS gp3 (IOPS y throughput independientes)</td></tr>
+            <tr><td>Big data / logs secuenciales al menor costo</td><td>EBS st1 (frío: sc1)</td></tr>
+            <tr><td>Más throughput de GET en S3 / subida de objetos grandes</td><td>Prefijos paralelos · multipart upload · byte-range</td></tr>
+            <tr><td>Subir objetos a un bucket lejano acelerando la distancia</td><td>S3 Transfer Acceleration</td></tr>
+            <tr><td>Cómputo con mejor precio-rendimiento (ARM)</td><td>Instancias Graviton (sufijo g)</td></tr>
+            <tr><td>Instancias críticas aisladas de fallos de hardware</td><td>Placement group spread (7 por AZ)</td></tr>
+            <tr><td>Escalar lecturas de una BD relacional</td><td>Read replicas (Aurora: reader endpoint, 15 réplicas)</td></tr>
+            <tr><td>Lecturas de DynamoDB en microsegundos</td><td>DAX</td></tr>
+            <tr><td>DynamoDB con picos impredecibles sin throttling</td><td>On-demand capacity mode</td></tr>
+            <tr><td>Entregar contenido cacheado a usuarios globales</td><td>CloudFront + origen S3 con OAC</td></tr>
+            <tr><td>IPs estáticas, TCP/UDP, failover regional</td><td>Global Accelerator</td></tr>
+            <tr><td>Conectividad híbrida privada y consistente</td><td>Direct Connect (+ VPN de backup)</td></tr>
+            <tr><td>Acceso privado a S3/DynamoDB sin costo</td><td>Gateway endpoints</td></tr>
+            <tr><td>Ingesta en tiempo real con replay</td><td>Kinesis Data Streams (retención hasta 365 días)</td></tr>
+            <tr><td>Carga batch al data lake sin código</td><td>Firehose</td></tr>
+            <tr><td>SQL serverless sobre el data lake</td><td>Athena (con Glue catalogando)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Checklist antes del examen</h3>
+      <ul>
+        <li>Identifico en 30 segundos qué EBS volume type exige el escenario (IOPS vs throughput vs costo).</li>
+        <li>Explico gp3 vs gp2 en una frase: 3.000 IOPS/125 MiB/s incluidos, escalado independiente, ~20% más barato.</li>
+        <li>Asocio cada familia EC2 (t, m, c, r, x, i, g) con un workload, y cluster/spread/partition con su caso.</li>
+        <li>Dibujo lazy loading, write-through y write-behind con sus trade-offs de consistencia y riesgo.</li>
+        <li>Sé cuándo DAX (microsegundos, eventually consistent) y cuándo read replicas (escalar lecturas).</li>
+        <li>Reconozco una hot partition por la partition key y propongo alta cardinalidad o write sharding.</li>
+        <li>Separo CloudFront (cachea HTTP) de Global Accelerator (IPs anycast, TCP/UDP, sin cache) sin dudar.</li>
+        <li>Recito la receta de resiliencia híbrida: Direct Connect + Site-to-Site VPN de backup.</li>
+        <li>Distingo Kinesis Data Streams (1 s, replay) vs Firehose (batch ~60 s) vs SQS (cola, un consumidor).</li>
+        <li>Dibujo el pipeline Kinesis → Firehose → S3 → Glue → Athena → QuickSight de memoria.</li>
+      </ul>
+
+      <p>Para profundizar por servicio, el <a href="../apendice/almacenamiento.html">apéndice de almacenamiento</a>,
+      <a href="../apendice/computo.html">cómputo</a>, <a href="../apendice/bases-datos.html">bases de datos</a> y
+      <a href="../apendice/redes.html">redes</a> expanden cada decisión de esta página; el stack de Kinesis, Glue, Athena,
+      EMR y Redshift a fondo está en <a href="../apendice/analitica-datos.html">Analítica y big data</a>. Y para el repaso
+      de última hora, las <a href="../extras/cheat-sheets.html">cheat sheets</a> condensan las tablas de este dominio en
+      formato de golpe.</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Este dominio se practica mejor dibujando: toma cualquier escenario del <a href="../extras/banco-preguntas-2.html">banco
+        de preguntas</a> y esquematiza primero la pila (storage → compute → database → network → ingestion) antes de mirar
+        opciones. Si tu esquema coincide con la métrica del enunciado, la respuesta correcta casi se lee sola — y las
+        trampas (Transfer Acceleration vs byte-range, CloudFront vs GA, st1 vs gp3) quedan fuera del camino.</p>
+      </div>
+
+      <nav class="pager">
+        <a href="dominio-2-deep-dive.html"><span class="p-dir">← Anterior</span><br>Dominio 2 · Resilient Architectures</a>
+        <a class="p-next" href="dominio-4-deep-dive.html"><span class="p-dir">Siguiente →</span><br>Dominio 4 · Cost-Optimized Architectures</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using Batch Operations to enable S3 Bucket Keys for SSE-KMS - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="batch-ops-copy-example-bucket-key" /><meta name="default_state" content="batch-ops-copy-example-bucket-key" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" /><meta name="description" content="Use the S3 Batch Operations Copy operation to apply S3 Bucket Keys to objects in a bucket in Amazon S3." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using Batch Operations to enable S3 Bucket Keys for SSE-KMS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="batch-ops-copy-example-bucket-key.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using Batch Operations to enable S3 Bucket Keys for SSE-KMS - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#batch-ops-copy-example-bucket-key" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,Amazon S3 objects,What is an object,How to use objects,batch operations on objects,bulk operations on objects,bulk updates to objects,batch updates to objects,Operations supported by S3 Batch Operations,copy objects in bulk,copy objects using S3 Batch Operations" /><link rel="alternate" type="text/markdown" href="batch-ops-copy-example-bucket-key.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Performing object operations in bulk with Batch Operations",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Operations supported by S3 Batch Operations",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-operations.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Copy objects",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-copy-object.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Copying objects using S3 Batch Operations",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-examples-copy.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 9,
+        "name" : "Using Batch Operations to enable S3 Bucket Keys for SSE-KMS",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-examples-copy.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#batch-ops-copy-example-bucket-key" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#bucket-key-ex-things-to-note">Considerations for using S3 Batch Operations to encrypt objects with S3 Bucket Keys enabled</a><a href="#bucket-key-ex-prerequisites">Prerequisites</a><a href="#bucket-key-ex-get-list-of-objects">Step 1: Get your list of objects using Amazon S3 Inventory</a><a href="#bucket-key-ex-filter-object-list-with-s3-select">Step 2: Filter your object list with S3 Select</a><a href="#bucket-key-ex-setup-and-run-job">Step 3: Set up and run your S3 Batch Operations job</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="batch-ops-copy-example-bucket-key">Using Batch Operations to enable S3 Bucket Keys for SSE-KMS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>S3 Bucket Keys reduce the cost of server-side encryption with AWS Key Management Service (AWS KMS) (SSE-KMS) by
+    decreasing request traffic from Amazon S3 to AWS KMS. For more information, see <a href="./bucket-key.html">Reducing the cost of SSE-KMS with Amazon S3 Bucket Keys</a> and <a href="./configuring-bucket-key.html">Configuring your bucket to use an S3 Bucket Key with SSE-KMS for new objects</a>. When you perform a
+      <code class="code">CopyObject</code> operation by using the REST API, AWS SDKs, or AWS CLI, you can enable
+    or disable an S3 Bucket Key at the object level by adding the
+      <code class="code">x-amz-server-side-encryption-bucket-key-enabled</code> request header with a
+      <code class="code">true</code> or <code class="code">false</code> value. </p><p>When you configure an S3 Bucket Key for an object by using a <code class="code">CopyObject</code>
+    operation, Amazon S3 updates only the settings for that object. The S3 Bucket Key settings for the
+    destination bucket don't change. If you submit a <code class="code">CopyObject</code> request for an AWS KMS
+    encrypted object to a bucket that has S3 Bucket Keys enabled, your object level operation will
+    automatically use S3 Bucket Keys unless you disable the keys in the request header. If you don't
+    specify an S3 Bucket Key for your object, Amazon S3 applies the S3 Bucket Key settings for the
+    destination bucket to the object.</p><p>To encrypt your existing Amazon S3 objects, you can use S3 Batch Operations. You can use the
+    Batch Operations <b>Copy</b> operation to copy existing unencrypted objects and write
+    them back to the same bucket as encrypted objects. For more information, see <a href="https://aws.amazon.com/blogs/storage/encrypting-objects-with-amazon-s3-batch-operations/" rel="noopener noreferrer" target="_blank"><span>Encrypting objects with Amazon S3
+      Batch Operations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on the AWS Storage Blog.</p><p>In the following example, you use the Batch Operations <b>Copy</b> operation to
+    enable S3 Bucket Keys on existing objects. For more information, see <a href="./configuring-bucket-key-object.html">Configuring an S3 Bucket Key at the object level</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#bucket-key-ex-things-to-note">Considerations for using S3 Batch Operations to encrypt objects with S3 Bucket Keys enabled</a></p></li><li><p><a href="#bucket-key-ex-prerequisites">Prerequisites</a></p></li><li><p><a href="#bucket-key-ex-get-list-of-objects">Step 1: Get your list of objects using Amazon S3 Inventory</a></p></li><li><p><a href="#bucket-key-ex-filter-object-list-with-s3-select">Step 2: Filter your object list with S3 Select</a></p></li><li><p><a href="#bucket-key-ex-setup-and-run-job">Step 3: Set up and run your S3 Batch Operations job</a></p></li></ul></div>
+    <h2 id="bucket-key-ex-things-to-note">Considerations for using S3 Batch Operations to encrypt objects with S3 Bucket Keys enabled</h2>
+    <p>Consider the following issues when you use S3 Batch Operations to encrypt objects with S3 Bucket Keys
+      enabled:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>You will be charged for S3 Batch Operations jobs, objects, and requests in addition to
+          any charges associated with the operation that S3 Batch Operations performs on your behalf,
+          including data transfers, requests, and other charges. For more information, see <a href="https://aws.amazon.com/s3/pricing" rel="noopener noreferrer" target="_blank"><span>Amazon S3 pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>If you use a versioned bucket, each S3 Batch Operations job performed creates new
+          encrypted versions of your objects. It also maintains the previous versions without an
+          S3 Bucket Key configured. To delete the old versions, set up an S3 Lifecycle expiration
+          policy for noncurrent versions as described in <a href="./intro-lifecycle-rules.html">Lifecycle configuration elements</a>.</p>
+      </li><li class="listitem">
+        <p>The copy operation creates new objects with new creation dates, which can affect
+          lifecycle actions like archiving. If you copy all objects in your bucket, all the new 
+          copies have identical or similar creation dates. To further identify
+          these objects and create different lifecycle rules for various data subsets, consider
+          using object tags. </p>
+      </li></ul></div>
+   
+    <h2 id="bucket-key-ex-prerequisites">Prerequisites</h2>
+    <p>Before you configure your objects to use an S3 Bucket Key, review <a href="./bucket-key.html#bucket-key-changes">Changes to note before enabling an S3 Bucket Key</a>. </p>
+    <p>To use this example, you must have an AWS account and at least one S3 bucket to hold
+      your working files and encrypted results. You might also find much of the existing
+      S3 Batch Operations documentation useful, including the following topics:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="./batch-ops.html#batch-ops-basics">S3 Batch Operations basics</a></p>
+      </li><li class="listitem">
+        <p><a href="./batch-ops-create-job.html">Creating an S3 Batch Operations job</a></p>
+      </li><li class="listitem">
+        <p><a href="./batch-ops-operations.html">Operations supported by S3 Batch Operations</a></p>
+      </li><li class="listitem">
+        <p><a href="./batch-ops-managing-jobs.html">Managing S3 Batch Operations jobs</a></p>
+      </li></ul></div>
+   
+    <h2 id="bucket-key-ex-get-list-of-objects">Step 1: Get your list of objects using Amazon S3 Inventory</h2>
+    <p>To get started, identify the S3 bucket that contains the objects to encrypt, and get a
+      list of its contents. An Amazon S3 Inventory report is the most convenient and affordable way to do
+      this. The report provides the list of the objects in a bucket along with their associated
+      metadata. In this step, the source bucket is the inventoried bucket, and the destination
+      bucket is the bucket where you store the inventory report file. For more information about
+      Amazon S3 Inventory source and destination buckets, see <a href="./storage-inventory.html">Cataloging and analyzing your data with S3 Inventory</a>.</p>
+    <p>The easiest way to set up an inventory is by using the AWS Management Console. But you can also use the
+      REST API, AWS Command Line Interface (AWS CLI), or AWS SDKs. Before following these steps, be sure to sign in
+      to the console and open the Amazon S3 console at <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. If you encounter permission
+      denied errors, add a bucket policy to your destination bucket. For more information, see <a href="./example-bucket-policies.html#example-bucket-policies-s3-inventory-1">Grant permissions for S3 Inventory and S3 analytics</a>.</p>
+    <div class="procedure"><h6>To get a list of objects using S3 Inventory</h6><ol><li><p>Open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>In the left navigation pane, choose <b>Buckets</b>, and choose a bucket
+          that contains objects to encrypt.</p>
+      </li><li>
+        <p>On the <b>Management</b> tab, navigate to the <b>Inventory
+          configurations</b> section, and choose <b>Create inventory
+          configuration</b>.</p>
+      </li><li>
+        <p>Give your new inventory a name, enter the name of the destination S3 bucket, and
+          optionally create a destination prefix for Amazon S3 to assign objects in that bucket.</p>
+      </li><li>
+        <p>For <b>Output format</b>, choose <b>CSV</b>.</p>
+      </li><li>
+        <p>(Optional) In the <b>Additional fields – <em>optional</em></b> section, choose <b>Encryption</b> and
+          any other report fields that interest you. Set the frequency for report deliveries to
+            <b>Daily</b> so that the first report is delivered to your bucket
+          sooner.</p>
+      </li><li>
+        <p>Choose <b>Create</b> to save your configuration.</p>
+      </li></ol></div>
+    <p>Amazon S3 can take up to 48 hours to deliver the first report, so check back when the first
+      report arrives. After you receive your first report, proceed to the next step to filter your
+      S3 Inventory report's contents. If you no longer want to receive inventory reports for this
+      bucket, delete your S3 Inventory configuration. Otherwise, Amazon S3 continues to deliver reports
+      on a daily or weekly schedule.</p>
+    <p>An inventory list isn't a single point-in-time view of all objects. Inventory lists are a
+      rolling snapshot of bucket items, which are eventually consistent (for example, the list might
+      not include recently added or deleted objects). Combining S3 Inventory and S3 Batch Operations works
+      best when you work with static objects, or with an object set that you created two or more
+      days ago. To work with more recent data, use the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html">ListObjectsV2</a>
+        (<code class="code">GET</code> bucket) API operation to build your list of objects manually. If needed,
+      repeat the process for the next few days or until your inventory report shows the desired
+      status for all objects.</p>
+   
+    <h2 id="bucket-key-ex-filter-object-list-with-s3-select">Step 2: Filter your object list with S3 Select</h2>
+    <p>After you receive your S3 Inventory report, you can filter the report’s contents to list
+      only the objects that aren't encrypted with S3 Bucket Keys enabled. If you want all your bucket’s
+      objects encrypted with S3 Bucket Keys enabled, you can ignore this step. However, filtering your S3
+      Inventory report at this stage saves you the time and expense of re-encrypting objects that
+      you previously encrypted with S3 Bucket Keys enabled.</p>
+    <p>Although the following steps show how to filter by using <a href="https://aws.amazon.com/blogs/aws/s3-glacier-select/" rel="noopener noreferrer" target="_blank"><span>Amazon S3 Select</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, you can also use <a href="https://aws.amazon.com/athena" rel="noopener noreferrer" target="_blank"><span>Amazon Athena</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. To decide which tool to use, look at your
+      S3 Inventory report’s <code>manifest.json</code> file. This file lists the number of
+      data files that are associated with that report. If the number is large, use Amazon Athena because
+      it runs across multiple S3 objects, whereas S3 Select works on one object at a time. For more
+      information about using Amazon S3 and Athena together, see <a href="./storage-inventory-athena-query.html">Querying Amazon S3 Inventory with Amazon Athena</a>
+      and "Using Athena" in the AWS Storage Blog post <a href="https://aws.amazon.com/blogs/storage/encrypting-objects-with-amazon-s3-batch-operations" rel="noopener noreferrer" target="_blank"><span>Encrypting objects with
+        Amazon S3 Batch Operations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+    <div class="procedure"><h6>To filter your S3 Inventory report by using S3 Select</h6><ol><li>
+        <p>Open the <code>manifest.json</code> file from your inventory report and look
+          at the <code class="code">fileSchema</code> section of the JSON. This informs the query that you run on
+          the data. </p>
+        <p>The following JSON is an example <code>manifest.json</code> file for a
+          CSV-formatted inventory on a bucket with versioning enabled. Depending on how you
+          configured your inventory report, your manifest might look different.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csv)--><code class="csv ">  <span>{</span>
+    "sourceBucket": "batchoperationsdemo",
+    "destinationBucket": "arn:aws:s3:::<code class="replaceable">amzn-s3-demo-destination-bucket</code>",
+    "version": "2021-05-22",
+    "creationTimestamp": "1558656000000",
+    "fileFormat": "CSV",
+    "fileSchema": "Bucket, Key, VersionId, IsLatest, IsDeleteMarker, BucketKeyStatus",
+    "files": [
+      <span>{</span>
+        "key": "demoinv/batchoperationsdemo/DemoInventory/data/009a40e4-f053-4c16-8c75-6100f8892202.csv.gz",
+        "size": 72691,
+        "MD5checksum": "c24c831717a099f0ebe4a9d1c5d3935c"
+      }
+    ]
+  }</code></pre>
+        <p>If versioning isn't activated on the bucket, or if you choose to run the report for
+          the latest versions, the <code class="code">fileSchema</code> is <code class="code">Bucket</code>, <code class="code">Key</code>,
+          and <code class="code">BucketKeyStatus</code>. </p>
+        <p>If versioning <em>is</em> activated, depending on how you
+          set up the inventory report, the <code class="code">fileSchema</code> might include the following:
+            <code class="code">Bucket</code>, <code class="code">Key</code>, <code class="code">VersionId</code>, <code class="code">IsLatest</code>,
+            <code class="code">IsDeleteMarker</code>, <code class="code">BucketKeyStatus</code>. So pay attention to columns
+          1, 2, 3, and 6 when you run your query. </p>
+        <p>S3 Batch Operations needs the bucket, key, and version ID as inputs to perform the job, in
+          addition to the field to search by, which is <code class="code">BucketKeyStatus</code>. You don't need
+          the <code class="code">VersionID</code> field, but it helps to specify the <code class="code">VersionID</code> field
+          when you operate on a versioned bucket. For more information, see <a href="./manage-objects-versioned-bucket.html">Working with objects in a versioning-enabled bucket</a>.</p>
+      </li><li>
+        <p>Locate the data files for the inventory report. The <code>manifest.json</code>
+          object lists the data files under <b>files</b>.</p>
+      </li><li>
+        <p>After you locate and select the data file in the S3 console, choose
+          <b>Actions</b>, and then choose <b>Query with S3
+          Select</b>.</p>
+      </li><li>
+        <p>Keep the preset <b>CSV</b>, <b>Comma</b>,
+          and <b>GZIP</b> fields selected, and choose
+          <b>Next</b>.</p>
+      </li><li>
+        <p>To review your inventory report’s format before proceeding, choose <b>Show file
+          preview</b>.</p>
+      </li><li>
+        <p>Enter the columns to reference in the SQL expression field, and choose <b>Run
+            SQL</b>. The following expression returns columns 1–3 for all objects without an
+          S3 Bucket Key configured.</p>
+        <p><code class="code">select s._1, s._2, s._3 from s3object s where s._6 = 'DISABLED'</code></p>
+        <p>The following are example results.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">      batchoperationsdemo,0100059%7Ethumb.jpg,lsrtIxksLu0R0ZkYPL.LhgD5caTYn6vu
+      batchoperationsdemo,0100074%7Ethumb.jpg,sd2M60g6Fdazoi6D5kNARIE7KzUibmHR
+      batchoperationsdemo,0100075%7Ethumb.jpg,TLYESLnl1mXD5c4BwiOIinqFrktddkoL
+      batchoperationsdemo,0200147%7Ethumb.jpg,amufzfMi_fEw0Rs99rxR_HrDFlE.l3Y0
+      batchoperationsdemo,0301420%7Ethumb.jpg,9qGU2SEscL.C.c_sK89trmXYIwooABSh
+      batchoperationsdemo,0401524%7Ethumb.jpg,ORnEWNuB1QhHrrYAGFsZhbyvEYJ3DUor
+      batchoperationsdemo,200907200065HQ%7Ethumb.jpg,d8LgvIVjbDR5mUVwW6pu9ahTfReyn5V4
+      batchoperationsdemo,200907200076HQ%7Ethumb.jpg,XUT25d7.gK40u_GmnupdaZg3BVx2jN40
+      batchoperationsdemo,201103190002HQ%7Ethumb.jpg,z.2sVRh0myqVi0BuIrngWlsRPQdb7qOS</code></pre>
+      </li><li>
+        <p>Download the results, save them into a CSV format, and upload them to Amazon S3 as your
+          list of objects for the S3 Batch Operations job.</p>
+      </li><li>
+        <p>If you have multiple manifest files, run <b>Query with S3 Select</b> on
+          those also. Depending on the size of the results, you could combine the lists and run a
+          single S3 Batch Operations job or run each list as a separate job. To decide number of jobs to
+          run, consider the <a href="https://aws.amazon.com/s3/pricing/" rel="noopener noreferrer" target="_blank"><span>price</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> of running each
+          S3 Batch Operations job.</p>
+      </li></ol></div>
+   
+    <h2 id="bucket-key-ex-setup-and-run-job">Step 3: Set up and run your S3 Batch Operations job</h2>
+    <p>Now that you have your filtered CSV lists of S3 objects, you can begin the S3 Batch Operations
+      job to encrypt the objects with S3 Bucket Keys enabled.</p>
+    <p>A <em>job</em> refers collectively to the list (manifest) of
+      objects provided, the operation performed, and the specified parameters. The easiest way to
+      encrypt this set of objects with S3 Bucket Keys enabled is by using the <b>Copy</b>
+      operation and specifying the same destination prefix as the objects listed in the manifest. In
+      an unversioned bucket, this operation overwrites the existing objects. In a bucket with
+      versioning turned on, this operation creates a newer, encrypted version of the objects.</p>
+    <p>As part of copying the objects, specify that Amazon S3 should encrypt the objects with SSE-KMS
+      encryption. This job copies the objects, so all of your objects will show an updated creation
+      date upon completion, regardless of when you originally added them to Amazon S3. Also specify the
+      other properties for your set of objects as part of the S3 Batch Operations job, including object
+      tags and storage class.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Substeps</h6><ul><li><p><a href="#bucket-key-ex-set-up-iam-policy">Set up your IAM policy</a></p></li><li><p><a href="#bucket-key-ex-set-up-iam-role">Set up your Batch Operations IAM role</a></p></li><li><p><a href="#bucket-key-ex-enable-s3-bucket-key-on-a-bucket">Enable S3 Bucket Keys for an existing bucket</a></p></li><li><p><a href="#bucket-key-ex-create-job">Create your Batch Operations job</a></p></li><li><p><a href="#bucket-key-ex-run-job">Run your Batch Operations job</a></p></li></ul></div>
+     
+      <h3 id="bucket-key-ex-set-up-iam-policy">Set up your IAM policy</h3>
+      <div class="procedure"><ol><li><p>Open the IAM console at
+         <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the left navigation pane, choose <b>Policy</b>, and then choose
+              <b>Create policy</b>.</p>
+        </li><li>
+          <p>Choose the <b>JSON</b> tab. Choose <b>Edit
+            policy</b> and add the example IAM policy that appears in the following code
+            block. </p>
+          <p>After copying the policy example into your <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>IAM Console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, replace the
+            following:</p>
+          <ol><li>
+              <p>Replace <code class="code"><code class="replaceable"><code class="replaceable">amzn-s3-demo-source-bucket</code></code></code> with
+                the name of your source bucket to copy objects from.</p>
+            </li><li>
+              <p>Replace <code class="code"><code class="replaceable"><code class="replaceable">amzn-s3-demo-destination-bucket</code></code></code>
+                with the name of your destination bucket to copy objects to.</p>
+            </li><li>
+              <p>Replace
+                    <code class="code"><code class="replaceable">amzn-s3-demo-manifest-bucket</code>/<code class="replaceable">manifest-key</code></code>
+                with the name of your manifest object.</p>
+            </li><li>
+              <p>Replace
+                  <code class="code"><code class="replaceable">amzn-s3-demo-completion-report-bucket</code></code> with
+                the name of the bucket where you want to save your completion reports.</p>
+            </li></ol>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">  <span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+      <span>{</span>
+        "Sid": "CopyObjectsToEncrypt",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject",
+          "s3:PutObjectTagging",
+          "s3:PutObjectAcl",
+          "s3:PutObjectVersionTagging",
+          "s3:PutObjectVersionAcl",
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:GetObjectTagging",
+          "s3:GetObjectVersion",
+          "s3:GetObjectVersionAcl",
+          "s3:GetObjectVersionTagging",
+          "s3:GetObjectAnnotation",
+          "s3:GetObjectVersionAnnotation"
+        ],
+        "Resource": [
+          "arn:aws:s3:::<code class="replaceable">amzn-s3-demo-source-bucket</code>/*",
+          "arn:aws:s3:::<code class="replaceable">amzn-s3-demo-destination-bucket</code>/*"
+        ]
+      },
+      <span>{</span>
+        "Sid": "ReadManifest",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ],
+        "Resource": "arn:aws:s3:::<code class="code" copy="true"><code class="replaceable">amzn-s3-demo-manifest-bucket</code>/<code class="replaceable">manifest-key</code></code>"
+      },
+      <span>{</span>
+        "Sid": "WriteReport",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject"
+        ],
+        "Resource": "arn:aws:s3:::<code class="replaceable">amzn-s3-demo-completion-report-bucket</code>/*"
+      }
+    ]
+  }</code></pre>
+        </li><li>
+          <p>Choose <b>Next: Tags</b>.</p>
+        </li><li>
+          <p>Add any tags that you want (optional), and choose <b>Next:
+            Review</b>.</p>
+        </li><li>
+          <p>Add a policy name, optionally add a description, and choose <b>Create
+            policy</b>.</p>
+        </li><li>
+          <p>Choose <b>Review policy</b> and <b>Save
+            changes</b>.</p>
+        </li><li>
+          <p>With your S3 Batch Operations policy now complete, the console returns you to the IAM
+            <b>Policies</b> page. Filter on the policy name, choose the button to the
+            left of the policy name, choose <b>Policy actions</b>, and choose
+            <b>Attach</b>. </p>
+          <p>To attach the newly created policy to an IAM role, select the appropriate users,
+            groups, or roles in your account and choose <b>Attach policy</b>. This
+            takes you back to the IAM console.</p>
+        </li></ol></div>
+     
+     
+      <h3 id="bucket-key-ex-set-up-iam-role">Set up your Batch Operations IAM role</h3>
+      <div class="procedure"><ol><li>
+          <p>On the <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>IAM Console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the navigation pane, choose <b>Roles</b>, and
+            then choose <b>Create role</b>.</p>
+        </li><li>
+          <p>Choose <b>AWS service</b>, <b>S3</b>, and
+              <b>S3 Batch Operations</b>. Then choose <b>Next:
+              Permissions</b>.</p>
+        </li><li>
+          <p>Start entering the name of the IAM <b>policy</b> that you just
+            created. Select the check box by the policy name when it appears, and choose <b>Next: Tags</b>.</p>
+        </li><li>
+          <p>(Optional) Add tags or keep the key and value fields blank for this exercise. Choose
+            <b>Next: Review</b>.</p>
+        </li><li>
+          <p>Enter a role name, and accept the default description or add your own. Choose
+            <b>Create role</b>.</p>
+        </li><li>
+          <p>Ensure that the user creating the job has the permissions in the following example. </p>
+          <p>Replace <code class="code"><code class="replaceable">account-id</code></code> with your AWS account
+            ID and <code class="code"><code class="replaceable">IAM-role-name</code></code> with the name that you plan
+            to apply to the IAM role that you will create in the Batch Operations job creation step
+            later. For more information, see <a href="./batch-ops-iam-role-policies.html">Granting permissions for Batch Operations</a>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">            <span>{</span>
+            "Sid": "AddIamPermissions",
+            "Effect": "Allow",
+            "Action": [
+            "iam:GetRole",
+            "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:role/<code class="replaceable">IAM-role-name</code>"
+            }</code></pre>
+        </li></ol></div>
+     
+     
+      <h3 id="bucket-key-ex-enable-s3-bucket-key-on-a-bucket">Enable S3 Bucket Keys for an existing bucket</h3>
+      <div class="procedure"><ol><li><p>Open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the <b>Buckets</b> list, choose the bucket that you want to turn on
+            an S3 Bucket Key for.</p>
+        </li><li>
+          <p>Choose <b>Properties</b>.</p>
+        </li><li>
+          <p>Under <b>Default encryption</b>, choose <b>Edit</b>.</p>
+        </li><li>
+          <p>Under <b>Encryption type</b>, you can choose between
+              <b>Amazon S3 managed keys (SSE-S3)</b> and <b>AWS Key Management Service key
+              (SSE-KMS)</b>. </p>
+          
+        </li><li>
+          <p>If you chose <b>AWS Key Management Service key (SSE-KMS)</b>, under
+              <b>AWS KMS key</b>, you can specify the AWS KMS key through one of the
+            following options.</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>To choose from a list of available KMS keys, choose <b>Choose from your
+                  AWS KMS keys</b>. From the list of available keys, choose a symmetric encryption KMS key in the same Region as your bucket. Both the AWS managed key
+                  (<code class="code">aws/s3</code>) and your customer managed keys appear in the list.</p>
+            </li><li class="listitem">
+              <p>To enter the KMS key ARN, choose <b>Enter AWS KMS key ARN</b>, and
+                then enter your KMS key ARN in the field that appears.</p>
+            </li><li class="listitem">
+              <p>To create a new customer managed key in the AWS KMS console, choose <b>Create a
+                  KMS key</b>.</p>
+            </li></ul></div>
+        </li><li>
+          <p>Under <b>Bucket Key</b>, choose <b>Enable</b>, and then
+            choose <b>Save changes</b>.</p>
+        </li></ol></div>
+      <p>Now that an S3 Bucket Key is enabled at the bucket level, objects that are uploaded,
+        modified, or copied into this bucket will inherit this encryption configuration by default.
+        This includes objects that are copied by using Amazon S3 Batch Operations.</p>
+     
+     
+      <h3 id="bucket-key-ex-create-job">Create your Batch Operations job</h3>
+      <div class="procedure"><ol><li><p>Open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Batch Operations</b>, and then choose
+            <b>Create Job</b>.</p>
+        </li><li>
+          <p>Choose the <b>Region</b> where you store your objects, and choose <b>CSV</b> as the manifest type.</p>
+        </li><li>
+          <p>Enter the path or navigate to the CSV manifest file that you created earlier from S3
+            Select (or Athena) results. If your manifest contains version IDs, select that box.
+            Choose <b>Next</b>.</p>
+        </li><li>
+          <p>Choose the <b>Copy</b> operation, and choose the copy destination
+            bucket. You can keep server-side encryption disabled. As long as the bucket destination
+            has S3 Bucket Keys enabled, the copy operation applies S3 Bucket Keys at the destination
+            bucket.</p>
+        </li><li>
+          <p>(Optional) Choose a storage class and the other parameters as desired. The
+            parameters that you specify in this step apply to all operations performed on the
+            objects that are listed in the manifest. Choose <b>Next</b>.</p>
+        </li><li>
+          <p>To configure server-side encryption, follow these steps: </p>
+          <ol><li>
+              <p>Under <b>Server-side encryption</b>, choose one of the
+                following:</p>
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p>To keep the bucket settings for default server-side encryption of objects
+                    when storing them in Amazon S3, choose <b>Do not specify an encryption
+                      key</b>. As long as the bucket destination has S3 Bucket Keys enabled, the
+                    copy operation applies an S3 Bucket Key at the destination bucket.</p>
+                  <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If the bucket policy for the specified destination requires objects to be
+                      encrypted before storing them in Amazon S3, you must specify an encryption key.
+                      Otherwise, copying objects to the destination will fail.</p></div></div>
+                </li><li class="listitem">
+                  <p>To encrypt objects before storing them in Amazon S3, choose <b>Specify an
+                      encryption key</b>.</p>
+                </li></ul></div>
+            </li><li>
+                  <p>Under <b>Encryption settings</b>, if you choose
+                  <b>Specify an encryption key</b>, you must choose either
+                  <b>Use destination bucket settings for default encryption</b> or
+                  <b>Override destination bucket settings for default
+                encryption</b>.</p>
+            </li><li>
+              <p>If you choose <b>Override destination bucket settings for default
+                  encryption</b>, you must configure the following encryption
+                settings.</p>
+              <ol><li>
+                  <p>Under <b>Encryption type</b>, you must choose either
+                      <b>Amazon S3 managed keys (SSE-S3)</b> or <b>AWS Key Management Service key
+                      (SSE-KMS)</b>. SSE-S3 uses one of the strongest block
+                    ciphers—256-bit Advanced Encryption Standard (AES-256) to encrypt each
+                    object. SSE-KMS provides you with more control over your key. For more
+                    information, see <a href="./UsingServerSideEncryption.html">Using server-side encryption with Amazon S3 managed keys (SSE-S3)</a> and <a href="./UsingKMSEncryption.html">Using server-side encryption with AWS KMS keys (SSE-KMS)</a>.</p>
+                </li><li>
+                  <p>If you choose <b>AWS Key Management Service key (SSE-KMS)</b>, under
+                      <b>AWS KMS key</b>, you can specify your AWS KMS key
+                    through one of the following options.</p>
+                  <div class="itemizedlist">
+                     
+                     
+                     
+                  <ul class="itemizedlist"><li class="listitem">
+                      <p>To choose from a list of available KMS keys, choose <b>Choose
+                          from your AWS KMS keys</b>, and then choose a symmetric encryption KMS key in the same Region as your bucket. Both the AWS managed key
+                          (<code class="code">aws/s3</code>) and your customer managed keys appear in the list.</p>
+                    </li><li class="listitem">
+                      <p>To enter the KMS key ARN, choose <b>Enter AWS KMS key
+                          ARN</b>, and enter your KMS key ARN in the field that
+                        appears.</p>
+                    </li><li class="listitem">
+                      <p>To create a new customer managed key in the AWS KMS console, choose <b>Create
+                          a KMS key</b>.</p>
+                    </li></ul></div>
+                </li><li>
+                  <p>Under <b>Bucket Key</b>, choose <b>Enable</b>.
+                    The copy operation applies an S3 Bucket Key at the destination bucket.</p>
+                </li></ol>
+            </li></ol>
+        </li><li>
+          <p>Give your job a description (or keep the default), set its priority level, choose a
+            report type, and specify the <b>Path to completion report
+            destination</b>.</p>
+        </li><li>
+          <p>In the <b>Permissions</b> section, be sure to choose the Batch Operations
+            IAM role that you defined earlier. Choose <b>Next</b>.</p>
+        </li><li>
+          <p>Under <b>Review</b>, verify the settings. If you want to make changes,
+            choose <b>Previous</b>. After confirming the Batch Operations settings, choose
+            <b>Create job</b>. </p>
+          <p>For more information, see <a href="./batch-ops-create-job.html">Creating an S3 Batch Operations job</a>.</p>
+        </li></ol></div>
+     
+     
+      <h3 id="bucket-key-ex-run-job">Run your Batch Operations job</h3>
+      <p>The setup wizard automatically returns you to the S3 Batch Operations section of the Amazon S3
+        console. Your new job transitions from the <b>New</b> state to the
+        <b>Preparing</b> state as S3 begins the process. During the Preparing state,
+        S3 reads the job’s manifest, checks it for errors, and calculates the number of
+        objects.</p>
+      <div class="procedure"><ol><li>
+          <p>Choose the refresh button in the Amazon S3 console to check progress. Depending on the
+            size of the manifest, reading can take minutes or hours.</p>
+        </li><li>
+          <p>After S3 finishes reading the job’s manifest, the job moves to the <b>Awaiting your confirmation</b> state. Choose the option button to
+            the left of the Job ID, and choose <b>Run job</b>.</p>
+        </li><li>
+          <p>Check the settings for the job, and choose <b>Run job</b>.</p>
+          <p>After the job begins running, you can choose the refresh button to check progress
+            through the console dashboard view or by selecting the specific job.</p>
+        </li><li>
+          <p>When the job is complete, you can view the <b>Successful</b> and
+            <b>Failed</b> object counts to confirm that everything performed as
+            expected. If you enabled job reports, check your job report for the exact cause of any
+            failed operations.</p>
+          <p>You can also perform these steps by using the AWS CLI, AWS SDKs, or Amazon S3 REST API.
+            For more information about tracking job status and completion reports, see <a href="./batch-ops-job-status.html">Tracking job status and completion reports</a>.</p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./specify-batchjob-manifest-xaccount-csv.html">Using a CSV manifest to copy objects across AWS accounts</div><div id="next" class="next-link" accesskey="n" href="./batch-ops-compute-checksums.html">Compute checksums</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/batch-ops-copy-example-bucket-key.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

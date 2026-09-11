@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating an Amazon SQS FIFO queue and sending a message - Amazon Simple Queue Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="creating-sqs-fifo-queues" /><meta name="default_state" content="creating-sqs-fifo-queues" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" /><meta name="description" content="Learn about Creating a Amazon SQS FIFO queue and sending a message" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Queue Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Queue messages that one component in the application generates to be consumed by another component using Amazon SQS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" hreflang="x-default" /><meta name="feedback-item" content="SQS" /><meta name="this_doc_product" content="Amazon Simple Queue Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sqs'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Creating an Amazon SQS FIFO queue and sending a message" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="creating-sqs-fifo-queues.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating an Amazon SQS FIFO queue and sending a message - Amazon Simple Queue Service</title><meta name="pdf" content="/pdfs/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dg.pdf#creating-sqs-fifo-queues" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAA-iV52DNQ4a7bbpyH3s33Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html" /><meta name="keywords" content="Basic concepts,Amazon SQS FIFO queues,Amazon SQS standard queues,Queue creation,Message sending and receiving,FIFO delivery,Message ordering,Deduplication,Create Amazon SQS queue,Create FIFO queue,Create standard queue,Amazon SQS queue,Send message,Message body,FIFO queue,message queue" /><link rel="alternate" type="text/markdown" href="creating-sqs-fifo-queues.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Queue Service",
+        "item" : "https://docs.aws.amazon.com/sqs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started with Amazon SQS",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-getting-started.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating an Amazon SQS FIFO queue and sending a message",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-getting-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dg.pdf#creating-sqs-fifo-queues" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sqs/index.html">Amazon Simple Queue Service</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#step-create-fifo-queue">Create a queue</a><a href="#sqs-send-messages-fifo">Sending a message using a FIFO queue</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="creating-sqs-fifo-queues">Creating an Amazon SQS FIFO queue and sending a message</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can create an Amazon SQS FIFO queue and send messages using the console. This topic
+        explains how to set up queue parameters, including visibility timeout, message retention,
+        and deduplication, while following security best practices such as avoiding sensitive
+        information in queue names and enabling server-side encryption. It also covers defining
+        access policies, configuring dead-letter queues, and sending messages with FIFO-specific
+        attributes like message group ID and deduplication ID.</p>
+        <h2 id="step-create-fifo-queue">Creating a FIFO queue using the Amazon SQS console</h2>
+        <p>You can use the Amazon SQS console to create <a href="./sqs-fifo-queues.html">FIFO
+                queues</a>. The console provides default values for all settings except for the
+            queue name.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>On August 17, 2022, default server-side encryption (SSE) was applied to all Amazon SQS
+                queues.</p><p>Do not add personally identifiable information (PII) or other confidential or
+                sensitive information in queue names. Queue names are accessible to many Amazon Web Services,
+                including billing and CloudWatch logs. Queue names are not intended to be used for private
+                or sensitive data.</p></div></div>
+        
+        <div class="procedure"><h6>To create an Amazon SQS FIFO queue</h6><ol><li><p>Open the Amazon SQS console at
+         <a href="https://console.aws.amazon.com/sqs/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/sqs/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose <b>Create queue</b>.</p>
+            </li><li>
+                <p>For <b>Type</b>, the <b>Standard</b> queue type is
+                    set by default. To create a FIFO queue, choose <b>FIFO</b>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can't change the queue type after you create the queue.</p></div></div>
+            </li><li>
+                <p> Enter a <b>Name</b> for your queue.</p>
+                <p>The name of a FIFO queue must end with the <code class="code">.fifo</code> suffix. The suffix counts towards the 80-character queue name quota.
+    To determine whether a queue is <a href="./sqs-fifo-queues.html">FIFO</a>, you can check whether the queue name ends with the suffix.</p>
+            </li><li>
+                <p>(Optional) The console sets default values for the queue <a href="./sqs-configure-queue-parameters.html">configuration parameters</a>.
+                    Under <b>Configuration</b>, you can set new values for the
+                    following parameters:</p>
+                <ol><li>
+                        <p>For <b>Visibility timeout </b>, enter the duration and
+                            units. The range is from 0 seconds to 12 hours. The default value is 30
+                            seconds.</p>
+                    </li><li>
+                        <p>For <b>Message retention period</b>, enter the duration
+                            and units. The range is from 1 minute to 14 days. The default value is 4
+                            days.</p>
+                    </li><li>
+                        <p>For <b>Delivery delay</b>, enter the duration and units.
+                            The range is from 0 seconds to 15 minutes. The default value is 0
+                            seconds.</p>
+                    </li><li>
+                        <p>For <b>Maximum message size</b>, enter a value. The
+                            range is from 1 KiB to 1024 KiB. The default value is 1024 KiB.</p>
+                    </li><li>
+                        <p>For <b>Receive message wait time</b>, enter a value. The
+                            range is from 0 to 20 seconds. The default value is 0 seconds, which
+                            sets <a href="./sqs-short-and-long-polling.html">short polling</a>.
+                            Any non-zero value sets long polling.</p>
+                    </li><li>
+                        <p>For a FIFO queue, choose <b>Content-based
+                                deduplication</b> to enable content-based deduplication. The
+                            default setting is disabled. </p>
+                    </li><li><p>(Optional) For a FIFO queue to enable higher throughput for sending and receiving messages in the queue, 
+choose <b>Enable high throughput FIFO</b>.</p>
+<p>Choosing this option changes the related options (<b>Deduplication scope</b> and <b>FIFO throughput limit</b>) 
+to the required settings for enabling high throughput for FIFO queues. If you change any of the settings required for using high throughput FIFO, normal
+throughput is in effect for the queue, and deduplication occurs as specified. For more information, see 
+<a href="./high-throughput-fifo.html">High throughput for FIFO queues in Amazon SQS</a> and 
+<a href="./quotas-messages.html">Amazon SQS message quotas</a>.</p></li></ol>
+            </li><li>
+                <p>(Optional) Define an <b>Access policy</b>. The <a href="./sqs-creating-custom-policies-access-policy-examples.html">access
+                        policy</a> defines the accounts, users, and roles that can access the
+                    queue. The access policy also defines the actions (such as <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html"><code class="code">SendMessage</code></a>, <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html"><code class="code">ReceiveMessage</code></a>, or <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessage.html"><code class="code">DeleteMessage</code></a>) that the users can access. The
+                    default policy allows only the queue owner to send and receive messages.</p>
+                <p>To define the access policy, do one of the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Choose <b>Basic</b> to configure who can send messages
+                            to the queue and who can receive messages from the queue. The console
+                            creates the policy based on your choices and displays the resulting
+                            access policy in the read-only JSON panel.</p>
+                    </li><li class="listitem">
+                        <p>Choose <b>Advanced</b> to modify the JSON access policy
+                            directly. This allows you to specify a custom set of actions that each
+                            principal (account, user, or role) can perform.</p>
+                    </li></ul></div>
+            </li><li>
+                <p>For <b>Redrive allow policy</b>, choose
+                        <b>Enabled</b>. Select one of the following: <b>Allow
+                        all</b>, <b>By queue</b>, or <b>Deny
+                        all</b>. When choosing <b>By queue</b>, specify a list
+                    of up to 10 source queues by the Amazon Resource Name (ARN).</p>
+            </li><li>
+                <p>Amazon SQS provides managed server-side encryption by default. To choose an
+                    encryption key type, or to disable Amazon SQS managed server-side encryption, expand
+                        <b>Encryption</b>. For more on encryption key types, see <a href="./sqs-configure-sqs-sse-queue.html">Configuring server-side encryption for a queue using SQS-managed encryption keys</a> and <a href="./sqs-configure-sse-existing-queue.html">Configuring server-side encryption for a queue using the Amazon SQS console</a>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>With SSE enabled, anonymous <code class="code">SendMessage</code> and
+                            <code class="code">ReceiveMessage</code> requests to the encrypted queue will be
+                        rejected. Amazon SQS security best practises recommend against using anonymous
+                        requests. If you wish to send anonymous requests to an Amazon SQS queue, make
+                        sure to disable SSE.</p></div></div>
+
+            </li><li>
+                <p>(Optional) To configure a <a href="./sqs-configure-dead-letter-queue.html">dead-letter queue</a> to receive undeliverable messages, expand
+                        <b>Dead-letter queue</b>.</p>
+            </li><li>
+                <p>(Optional) To add <a href="./sqs-configure-tag-queue.html">tags</a> to the
+                    queue, expand <b>Tags</b>.</p>
+            </li><li>
+                <p>Choose <b>Create queue</b>. Amazon SQS creates the queue and displays
+                    the queue's <b>Details</b> page.</p>
+            </li></ol></div>
+        <p>Amazon SQS propagates information about the new queue across the system. Because Amazon SQS is a
+            distributed system, you might experience a slight delay before the console displays the
+            queue on the <b>Queues</b> page.</p>
+        <p>After creating a queue, you can <a href="./creating-sqs-standard-queues.html#sqs-send-messages">send messages</a>
+            to it, and <a href="./step-receive-delete-message.html">receive and delete
+                messages</a>. You can also <a href="./sqs-configure-edit-queue.html">edit</a>
+            any of the queue configuration settings except the queue type.</p>
+     
+        <h2 id="sqs-send-messages-fifo">Sending a message using a FIFO queue</h2>
+        <p>After you create your queue, you can send a message to it.</p>
+        <div class="procedure"><ol><li>
+                <p>From the left navigation pane, choose <b>Queues</b>. From the
+                    queue list, select the queue that you created.</p>
+            </li><li>
+                <p>From <b>Actions</b>, choose <b>Send and receive
+                        messages</b>.</p>
+                <p>The console displays the <b>Send and receive messages</b>
+                    page.</p>
+            </li><li>
+                <p>In the <b>Message body</b>, enter the message
+                    text.</p>
+            </li><li>
+                <p>For a First-In-First-Out (FIFO) queue, enter a <b>Message group
+                        ID</b>. For more information, see <a href="./FIFO-queues-understanding-logic.html">FIFO queue delivery logic in Amazon SQS</a>.</p>
+            </li><li>
+                <p>(Optional) For a FIFO queue, you can enter a <b>Message deduplication
+                        ID</b>. If you enabled content-based deduplication for the queue, the
+                    message deduplication ID isn't required. For more information, see <a href="./FIFO-queues-understanding-logic.html">FIFO queue delivery logic in Amazon SQS</a>. </p>
+            </li><li>
+                <p> FIFO queues does not support timers on individual messages. For more
+                    information, see <a href="./sqs-message-timers.html">Amazon SQS message timers</a>.</p>
+            </li><li>
+                <p>Choose <b>Send message</b>.</p>
+                <p>When your message is sent, the console displays a success message. Choose
+                        <b>View details</b> to display information about the sent
+                    message.</p>
+            </li></ol></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./creating-sqs-standard-queues.html">Creating a standard queue</div><div id="next" class="next-link" accesskey="n" href="./get-started.html">Common tasks</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/creating-sqs-fifo-queues.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

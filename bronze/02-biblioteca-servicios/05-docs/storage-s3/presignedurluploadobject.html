@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Uploading objects with presigned URLs - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="PresignedUrlUploadObject" /><meta name="default_state" content="PresignedUrlUploadObject" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" /><meta name="description" content="Upload objects by using presigned URLs when someone with permission has provided you with the URL resources." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Uploading objects with presigned URLs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="PresignedUrlUploadObject.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Uploading objects with presigned URLs - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#PresignedUrlUploadObject" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/PresignedUrlUploadObject.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,Amazon S3 objects,What is an object,How to use objects,share or upload objects with Amazon S3,grant time-limited access to objects,allow others to upload objects to your bucket,upload objects with credentials" /><link rel="alternate" type="text/markdown" href="PresignedUrlUploadObject.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Download and upload objects with presigned URLs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Uploading objects with presigned URLs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#PresignedUrlUploadObject" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="PresignedUrlUploadObject">Uploading objects with presigned URLs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p></p><p>You may use presigned URLs to allow someone to upload an object to your Amazon S3 bucket. Using a
+    presigned URL will allow an upload without requiring another party to have AWS security
+    credentials or permissions. A presigned URL is limited by the permissions of the user who creates
+    it. That is, if you receive a presigned URL to upload an object, you can upload an object only if
+    the creator of the URL has the necessary permissions to upload that object.</p><p>When someone uses the URL to upload an object, Amazon S3 creates the object in the specified
+    bucket. If an object with the same key that is specified in the presigned URL already exists in the
+    bucket, Amazon S3 replaces the existing object with the uploaded object. After upload, the bucket
+    owner will own the object.</p><p>For general information about presigned URLs, see <a href="./using-presigned-url.html">Download and upload objects with presigned URLs</a>.</p><p>You can create a presigned URL for uploading an object without writing any code by using AWS
+    Explorer for Visual Studio. You can also generate a presigned URL programmatically by using the
+    AWS SDKs.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>At this time, the AWS Toolkit for Visual Studio doesn't support Visual Studio for Mac.</p></div></div><div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the AWS Toolkit for Visual Studio (Windows)" id="upload-object-presignedurl-vsexplorer" expanded="false"><div class="orderedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ol><li>
+          <p>Install the AWS Toolkit for Visual Studio using the following instructions, <a href="https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/setup.html">Installing and setting up the Toolkit for Visual Studio</a> in the <em>AWS Toolkit for Visual Studio User Guide</em>.</p>
+        </li><li>
+          <p>Connect to AWS using the following steps, <a href="https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/connect.html">Connecting to AWS</a> in the
+            <em>AWS Toolkit for Visual Studio User Guide</em>.</p>
+        </li><li>
+          <p>In the left side panel labeled <b>AWS Explorer</b>, open the context menu for the bucket you wish to have an object uploaded to.</p>
+        </li><li>
+          <p>Choose <b>Create Pre-Signed URL...</b>.</p>
+        </li><li>
+          <p>In the pop-up window, set the expiration date and time for your presigned URL.</p>
+        </li><li>
+          <p>For <b>Object Key</b>, set the name of the file to be uploaded. The file you're uploading must match this name exactly. If an object with the same object key already exists in the
+            bucket, Amazon S3 will replace the existing object with the newly uploaded object. </p>
+        </li><li>
+          <p>Choose <b>PUT</b> to specify that this presigned URL will be used for
+            uploading an object.</p>
+        </li><li>
+          <p>Choose the <b>Generate</b> button.</p>
+        </li><li>
+          <p>To copy the URL to the clipboard, choose <b>Copy</b>.</p>
+        </li><li>
+          <p>To use this URL you can send a PUT request with the <code class="code">curl</code> command. Include the full path to your file and the presigned URL itself. </p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">curl -X PUT -T "<code class="replaceable">/path/to/file</code>" "<code class="replaceable">presigned URL</code>"</code></pre>
+        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS SDKs to generate a PUT presigned URL for uploading a file" id="presigned-urls-upload-sdk" expanded="false"><p> You can generate a presigned URL that can perform an S3 action for a limited time.  </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use the AWS CLI or AWS SDKs, the expiration time for presigned URLs can be set as
+        high as 7 days. For more information, see
+        <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html#PresignedUrl-Expiration">Expiration time for presigned URLs</a>.</p></div></div><awsdocs-tabs><dl style="display: none">
+        <dt>Python</dt><dd tab-id="python">
+            <p> The following Python script generates a <code class="code">PUT</code> presigned URL for uploading an object
+              to an S3 general purpose bucket. </p>
+            <div class="orderedlist">
+               
+               
+             
+            <ol><li>
+                <p>Copy the contents of the script and save it as
+                    “<code class="replaceable">put-only-url.py</code>” file. To use the following
+                  examples, replace the <code class="replaceable">user input placeholders</code> with your
+                  own information (such as your file name). </p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">import argparse
+import boto3
+from botocore.exceptions import ClientError
+
+def generate_presigned_url(s3_client, client_method, method_parameters, expires_in):
+    """
+    Generate a presigned Amazon S3 URL that can be used to perform an action.
+    
+    :param s3_client: A Boto3 Amazon S3 client.
+    :param client_method: The name of the client method that the URL performs.
+    :param method_parameters: The parameters of the specified client method.
+    :param expires_in: The number of seconds the presigned URL is valid for.
+    :return: The presigned URL.
+    """
+    try:
+        url = s3_client.generate_presigned_url(
+            ClientMethod=client_method,
+            Params=method_parameters,
+            ExpiresIn=expires_in
+        )
+    except ClientError:
+        print(f"Couldn't get a presigned URL for client method '<span>{</span>client_method}'.")
+        raise
+    return url
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("bucket", help="The name of the bucket.")
+    parser.add_argument(
+        "key", help="The key (path and filename) in the S3 bucket.",
+    )
+    parser.add_argument(
+        "--region", help="The AWS region where the bucket is located.", default="us-east-1"
+    )
+    parser.add_argument(
+        "--content-type", help="The content type of the file to upload.", default="application/octet-stream"
+    )
+    args = parser.parse_args()
+    
+    # Create S3 client with explicit region configuration
+    s3_client = boto3.client("s3", region_name=args.region)
+    
+    # Optionally set signature version if needed for older S3 regions
+    # s3_client.meta.config.signature_version = 's3v4'
+    
+    # The presigned URL is specified to expire in 1000 seconds
+    url = generate_presigned_url(
+        s3_client, 
+        "put_object", 
+        <span>{</span>
+            "Bucket": args.bucket, 
+            "Key": args.key,
+            "ContentType": args.content_type  # Specify content type
+        }, 
+        1000
+    )
+    print(f"Generated PUT presigned URL: <span>{</span>url}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+              </li><li>
+                <p>To generate a <code class="code">PUT</code> presigned URL for uploading a file, run the
+                  following script with your bucket name and desired object path. </p>
+              <p> The following command uses example values. Replace the <code class="replaceable">user input
+                    placeholders</code> with your own information.</p>
+                
+            
+         
+    
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">python <code class="replaceable">put-only-url.py</code> <code class="replaceable"><code class="replaceable">amzn-s3-demo-bucket</code></code> <code class="replaceable">&lt;object-path&gt;</code> --region <code class="replaceable">us-east-1</code> --content-type <code class="replaceable">application/octet-stream</code></code></pre>
+      <p>The script will output a <code class="code">PUT</code> presigned URL:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">Generated PUT presigned URL: https://<code class="replaceable">amzn-s3-demo-bucket</code>.s3.amazonaws.com/<code class="replaceable">object.txt</code>?AWSAccessKeyId=<code class="replaceable">AKIAIOSFODNN7EXAMPLE</code>&amp;Signature=<code class="replaceable">vjbyNxybdZaMmLa%2ByT372YEAiv4%3D</code>&amp;Expires=<code class="replaceable">1741978496</code></code></pre>
+              </li><li>
+              <p>You can now upload the file using the generated presigned URL with curl. Make sure to include the same content type that was used when generating the URL:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">curl -X PUT -T <code class="replaceable">"path/to/your/local/file"</code> -H "Content-Type: application/octet-stream" <code class="replaceable">"generated-presigned-url"</code></code></pre>
+              <p>If you specified a different content type when generating the URL, make sure to use that same content type in the curl command.</p>
+            </li></ol></div>
+              
+      <p>For more examples of using the AWS SDKs to generate a presigned URL for uploading an object, see
+        <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/s3_example_s3_Scenario_PresignedUrl_section.html">Create a presigned URL for Amazon S3 by using an AWS SDK</a>.</p>
+     
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Troubleshooting SignatureDoesNotMatch errors</h6></div><div class="awsdocs-note-text"><p>If you encounter a <code class="code">SignatureDoesNotMatch</code> error when using presigned URLs, check the following:</p><div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Verify your system time is synchronized with a reliable time server</p>
+          </li><li class="listitem">
+            <p>Ensure you're using the URL exactly as generated, without any modifications</p>
+          </li><li class="listitem">
+            <p>Check if the URL has expired and generate a new one if needed</p>
+          </li><li class="listitem">
+            <p>Make sure the content type in your upload request matches the content type specified when generating the URL</p>
+          </li><li class="listitem">
+            <p>Confirm you're using the correct region for the bucket</p>
+          </li><li class="listitem">
+            <p>When using curl, enclose the URL in quotes to properly handle special characters</p>
+          </li></ul></div></div></div>
+            
+        
+          </dd>
+      </dl></awsdocs-tabs></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ShareObjectPreSignedURL.html">Sharing objects with presigned URLs</div><div id="next" class="next-link" accesskey="n" href="./transforming-objects.html">Transforming objects</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/PresignedUrlUploadObject.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/PresignedUrlUploadObject.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

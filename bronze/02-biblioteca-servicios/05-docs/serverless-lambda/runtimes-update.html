@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Understanding how Lambda manages runtime version updates - AWS Lambda</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="runtimes-update" /><meta name="default_state" content="runtimes-update" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html" /><meta name="description" content="Learn how Lambda updates the runtime version of your function, and how you can configure these updates." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Lambda" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Lambda is a compute service that lets you run code without provisioning or managing servers." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/lambda/latest/dg/runtimes-update.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/lambda/latest/dg/runtimes-update.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/lambda/latest/dg/runtimes-update.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/lambda/latest/dg/runtimes-update.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/lambda/latest/dg/runtimes-update.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/lambda/latest/dg/runtimes-update.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/lambda/latest/dg/runtimes-update.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/lambda/latest/dg/runtimes-update.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/lambda/latest/dg/runtimes-update.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/lambda/latest/dg/runtimes-update.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/runtimes-update.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/runtimes-update.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/runtimes-update.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/runtimes-update.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/lambda/latest/dg/runtimes-update.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/lambda/latest/dg/runtimes-update.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/runtimes-update.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/lambda/latest/dg/runtimes-update.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-update.html" hreflang="x-default" /><meta name="feedback-item" content="Lambda" /><meta name="this_doc_product" content="AWS Lambda" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lambda'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Understanding how Lambda manages runtime version updates" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="runtimes-update.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Understanding how Lambda manages runtime version updates - AWS Lambda</title><meta name="pdf" content="/pdfs/lambda/latest/dg/lambda-dg.pdf#runtimes-update" /><meta name="rss" content="lambda-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TA5uNafDy2TpGNjidWLMSxDw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-update.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-update.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-update.html" /><meta name="keywords" content="Lambda,AWS Lambda,serverless,serverless applications,cloud computing,compute,function,High Availability,languages,runtime,supported languages,linux distribution,linux environment,update runtime,runtime version,runtime configuration,runtime management,INIT_START" /><link rel="alternate" type="text/markdown" href="runtimes-update.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Lambda",
+        "item" : "https://docs.aws.amazon.com/lambda/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Lambda Functions",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions-chapter.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Lambda runtimes",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Understanding how Lambda manages runtime version updates",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/lambda/latest/dg/lambda-dg.pdf#runtimes-update" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/lambda/index.html">AWS Lambda</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#runtime-update-compatibility">Backward compatibility</a><a href="#runtime-management-controls">Runtime update modes</a><a href="#runtime-management-two-phase">Two-phase runtime version rollout</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="runtimes-update">Understanding how Lambda manages runtime version updates</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Lambda keeps each managed runtime up to date with security updates, bug fixes, new features,
+    performance enhancements, and support for minor version releases. These runtime updates are
+    published as <em>runtime versions</em>. Lambda applies runtime updates to functions
+    by migrating the function from an earlier runtime version to a new runtime version.</p><p>By default, for functions using managed runtimes, Lambda applies runtime updates automatically. 
+    With automatic runtime updates, Lambda takes on the operational burden of patching the
+    runtime versions. For most customers, automatic updates are the right choice. You can change
+    this default behavior by <a href="./runtime-management-configure-settings.html">configuring
+      runtime management settings</a>.</p><p>Lambda also publishes each new runtime version as a container image. To update runtime
+    versions for container-based functions, you must <a href="./images-create.html">create a new
+      container image</a> from the updated base image and redeploy your function.</p><p>Each runtime version is associated with a version number and an ARN (Amazon Resource Name).
+    Runtime version numbers use a numbering scheme that Lambda defines, independent of the version
+    numbers that the programming language uses. Runtime version numbers are not always sequential. For example, version 42 might be followed by version 45. The runtime version ARN is a unique identifier for
+    each runtime version. You can view the ARN of your function's current runtime version in the
+    Lambda console, or the <a href="./runtime-management-identify.html">INIT_START
+      line of your function logs</a>. For information about managing runtime updates in
+    health-critical applications, see <a href="./runtime-management-hc-applications.html">Controlling Lambda runtime update permissions for high-compliance applications</a>.</p><p>Runtime versions should not be confused with runtime identifiers. Each runtime has a unique
+    <b>runtime identifier</b>, such as <code class="code">python3.14</code> or 
+    <code class="code">nodejs24.x</code>. These correspond to each major programming language release. Runtime
+    versions describe the patch version of an individual runtime.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The ARN for the same runtime version number can vary between AWS Regions and CPU
+    architectures.</p></div></div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#runtime-update-compatibility">Backward compatibility</a></p></li><li><p><a href="#runtime-management-controls">Runtime update modes</a></p></li><li><p><a href="#runtime-management-two-phase">Two-phase runtime version rollout</a></p></li><li><p><a href="./runtime-management-configure-settings.html">Configuring Lambda runtime management settings</a></p></li><li><p><a href="./runtime-management-rollback.html">Rolling back a Lambda runtime version</a></p></li><li><p><a href="./runtime-management-identify.html">Identifying Lambda runtime version changes</a></p></li><li><p><a href="./runtime-management-shared.html">Understanding the shared responsibility model for Lambda runtime management</a></p></li><li><p><a href="./runtime-management-hc-applications.html">Controlling Lambda runtime update permissions for high-compliance applications</a></p></li></ul></div>
+    <h2 id="runtime-update-compatibility">Backward compatibility</h2>
+    <p>Lambda strives to provide runtime updates that are backward compatible with existing functions. However, as with software patching, there are rare cases in which a runtime update can negatively impact an existing function. For example, security patches can expose an underlying issue with an existing function that depends on the previous, insecure behavior.</p>
+    <p>When building and deploying your function, it is important to understand how to manage your dependencies to avoid potential incompatibilities with a future runtime update. For example, suppose your function has a dependency on package A, which in turn depends on package B. Both packages are included in the Lambda runtime (for example, they could be parts of the SDK or its dependencies, or parts of the runtime system libraries).</p>
+    <p>Consider the following scenarios:</p>
+    <div class="table-container"><div class="table-contents"><table id="w336aab9c29c33c17b9"><thead>
+          <tr>
+            <th>Deployment</th>
+            <th>Patching compatible</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Package A:</b> Use from runtime</p>
+                </li><li class="listitem">
+                  <p><b>Package B:</b> Use from runtime</p>
+                </li></ul></div>
+            </td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">Future runtime updates to packages A and B are backward compatible.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Package A:</b> In deployment package</p>
+                </li><li class="listitem">
+                  <p><b>Package B:</b> In deployment package</p>
+                </li></ul></div>
+            </td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">Your deployment takes precedence, so future runtime updates to packages A and B
+              have no effect.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Package A:</b> In deployment package</p>
+                </li><li class="listitem">
+                  <p><b>Package B:</b> Use from runtime</p>
+                </li></ul></div>
+            </td>
+            <td tabindex="-1">Yes*</td>
+            <td tabindex="-1">
+              <p>Future runtime updates to package B are backward compatible.</p>
+              <p>*If A and B are tightly coupled, compatibility issues can occur. For example, the
+                <code class="code">boto3</code> and <code class="code">botocore</code> packages in the AWS SDK for Python should be deployed
+                together.</p>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Package A:</b> Use from runtime</p>
+                </li><li class="listitem">
+                  <p><b>Package B:</b> In deployment package</p>
+                </li></ul></div>
+            </td>
+            <td tabindex="-1">No</td>
+            <td tabindex="-1">Future runtime updates to package A might require an updated version of package B.
+              However, the deployed version of package B takes precedence, and might not be
+              forward compatible with the updated version of package A.</td>
+          </tr>
+        </table></div></div>
+    <p>To maintain compatibility with future runtime updates, follow these best practices:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>When possible, package all dependencies:</b> Include all required libraries, including the AWS SDK and its dependencies, in your deployment package. This ensures a stable, compatible set of components.</p>
+      </li><li class="listitem">
+        <p><b>Use runtime-provided SDKs sparingly:</b> Only rely on the runtime-provided SDK when you can't include additional packages (for example, when using the Lambda console code editor or inline code in an AWS CloudFormation template).</p>
+      </li><li class="listitem">
+        <p><b>Avoid overriding system libraries:</b> Don't deploy custom operating system libraries that might conflict with future runtime updates.</p>
+      </li></ul></div>
+   
+    <h2 id="runtime-management-controls">Runtime update modes</h2>
+    <p>Lambda strives to provide runtime updates that are backward compatible with existing
+      functions. However, as with software patching, there are rare cases in which a runtime update
+      can negatively impact an existing function. For example, security patches can expose an
+      underlying issue with an existing function that depends on the previous, insecure behavior.
+      Lambda runtime management controls help reduce the risk of impact to your workloads in the rare
+      event of a runtime version incompatibility. For each <a href="./configuration-versions.html">function version</a> (<code class="code">$LATEST</code> or published version), you can choose one of
+      the following runtime update modes:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem"><p><span class="topcom">Auto (default)</span> – Automatically update to the most recent
+        and secure runtime version using <a href="#runtime-management-two-phase">Two-phase runtime version rollout</a>. We recommend this mode for most
+        customers so that you always benefit from runtime updates.</p></li><li class="listitem"><p><span class="topcom">Function update</span> – Update to the most recent and secure runtime version when you update your function. When you update your function, Lambda
+        updates the runtime of your function to the most recent and secure runtime version. This
+        approach synchronizes runtime updates with function deployments, giving you control over
+        when Lambda applies runtime updates. With this mode, you can detect and mitigate rare
+        runtime update incompatibilities early. When using this mode, you must regularly update
+        your functions to keep their runtime up to date.</p></li><li class="listitem"><p><span class="topcom">Manual</span> – Manually update your runtime version. You specify a runtime version in your function
+        configuration. The function uses this runtime version indefinitely.</p>
+      <p>In the rare case in
+        which a new runtime version is incompatible with an existing function, you can use this
+        mode to roll back your function to an earlier runtime version. We recommend against using
+        <b>Manual</b> mode to try to achieve runtime consistency across
+        deployments. For more information, see
+        <a href="./runtime-management-rollback.html">Rolling back a Lambda runtime version</a>.</p></li></ul></div>
+    <p>Responsibility for applying runtime updates to your functions varies according to which runtime update mode you choose. For more information, see 
+      <a href="./runtime-management-shared.html">Understanding the shared responsibility model for Lambda runtime management</a>.</p>
+   
+    <h2 id="runtime-management-two-phase">Two-phase runtime version rollout</h2>
+    <p>Lambda introduces new runtime versions in the following order:</p>
+    <div class="orderedlist">
+       
+       
+    <ol><li><p>In the first
+        phase, Lambda applies the new runtime version whenever you create or update a function. A function gets updated when you call the 
+        <a href="https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionCode.html">UpdateFunctionCode</a> or <a href="https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionConfiguration.html">UpdateFunctionConfiguration</a> API operations.</p></li><li><p>In the second phase, Lambda updates any function that uses the <b>Auto</b> runtime update mode and that hasn't already
+        been updated to the new runtime version. </p></li></ol></div>
+    <p>The overall duration of the rollout process varies
+      according to multiple factors, including the severity of any security patches included in the
+      runtime update.</p>
+    <p>If you're actively developing and deploying your functions, you most likely pick up
+      new runtime versions during the first phase. This synchronizes runtime updates with function
+      updates. In the rare event that the latest runtime version negatively impacts your
+      application, this approach gives you the opportunity to take prompt corrective action. Functions that aren't
+      in active development still receive the operational benefit of automatic runtime updates
+      during the second phase.</p>
+    <p>This approach doesn't affect functions set to <b>Function update</b> or
+      <b>Manual</b> mode. Functions using <b>Function update</b> mode
+      receive the latest runtime updates only when you create or update them. Functions using
+      <b>Manual</b> mode don't receive runtime updates.</p>
+    <p>Lambda publishes new runtime versions in a gradual, rolling fashion across AWS Regions.
+      If your functions are set to <b>Auto</b> or <b>Function update</b>
+      modes, it's possible that functions deployed at the same time to different Regions, or at
+      different times in the same Region, pick up different runtime versions. Customers who
+      require guaranteed runtime version consistency across their environments should <a href="./images-create.html">use container images to deploy their Lambda functions</a>.
+      The <b>Manual</b> mode is designed as a temporary mitigation to enable runtime version 
+      rollback in the rare event that a runtime version is incompatible with your function.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./lambda-runtimes.html">Runtimes</div><div id="next" class="next-link" accesskey="n" href="./runtime-management-configure-settings.html">Configuring runtime management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-update.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-update.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

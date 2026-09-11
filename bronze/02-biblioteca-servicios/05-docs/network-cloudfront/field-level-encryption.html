@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Use field-level encryption to help protect sensitive data - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="field-level-encryption" /><meta name="default_state" content="field-level-encryption" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" /><meta name="description" content="Use Amazon CloudFront field-level encryption to protect sensitive user-submitted information." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Use field-level encryption to help protect sensitive data" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="field-level-encryption.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Use field-level encryption to help protect sensitive data - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#field-level-encryption" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,CloudFront security" /><link rel="alternate" type="text/markdown" href="field-level-encryption.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configure secure access and restrict access to content",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecurityAndPrivateContent.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use field-level encryption to help protect sensitive data",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecurityAndPrivateContent.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#field-level-encryption" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#field-level-encryption-overview">Overview of field-level encryption</a><a href="#field-level-encryption-setting-up">Set up field-level encryption</a><a href="#field-level-encryption-decrypt">Decrypt data fields at your origin</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="field-level-encryption">Use field-level encryption to help protect sensitive data</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>With Amazon CloudFront, you can enforce secure end-to-end connections to origin servers by
+			using HTTPS. Field-level encryption adds an additional layer of security that lets you
+			protect specific data throughout system processing so that only certain applications can
+			see it.</p><p>Field-level encryption allows you to enable your users to securely upload sensitive
+			information to your web servers. The sensitive information provided by your users is
+			encrypted at the edge, close to the user, and remains encrypted throughout your entire
+			application stack. This encryption ensures that only applications that need the data—and
+			have the credentials to decrypt it—are able to do so.</p><p>To use field-level encryption, when you configure your CloudFront distribution, specify the set
+			of fields in POST requests that you want to be encrypted, and the public key to use to
+			encrypt them. You can encrypt up to 10 data fields in a request. (You can’t encrypt all
+			of the data in a request with field-level encryption; you must specify individual fields
+			to encrypt.)</p><p>When the HTTPS request with field-level encryption is forwarded to the origin, and the
+			request is routed throughout your origin application or subsystem, the sensitive data is
+			still encrypted, reducing the risk of a data breach or accidental data loss of the
+			sensitive data. Components that need access to the sensitive data for business reasons,
+			such as a payment processing system needing access to a credit number, can use the
+			appropriate private key to decrypt and access the data.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To use field-level encryption, your origin must support chunked encoding.</p></div></div><div class="mediaobject">
+			 
+				<img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/fleoverview.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Field-level encryption in CloudFront" />
+			 
+			 
+		</div><p>CloudFront field-level encryption uses asymmetric encryption, also known as public key encryption.
+			You provide a public key to CloudFront, and all sensitive data that you specify is encrypted
+			automatically. The key you provide to CloudFront cannot be used to decrypt the encrypted
+			values; only your private key can do that.</p><div class="mediaobject">
+			 
+				<img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/encryptedfields.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Encrypt only sensitive data" />
+			 
+			 
+		</div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#field-level-encryption-overview">Overview of field-level encryption</a></p></li><li><p><a href="#field-level-encryption-setting-up">Set up field-level encryption</a></p></li><li><p><a href="#field-level-encryption-decrypt">Decrypt data fields at your origin</a></p></li></ul></div>
+			<h2 id="field-level-encryption-overview">Overview of field-level encryption</h2>
+			<p>The following steps provide an overview of setting up field-level encryption. For
+				specific steps, see <a href="#field-level-encryption-setting-up">Set up field-level encryption</a>.</p>
+			<div class="procedure"><ol><li>
+					<p><b>Get a public key-private key pair.</b> You
+						must obtain and add the public key before you start setting up field-level
+						encryption in CloudFront.</p>
+				</li><li>
+					<p><b>Create a field-level encryption profile.</b>
+						Field-level encryption profiles, which you create in CloudFront, define the fields
+						that you want to be encrypted.</p>
+				</li><li>
+					<p><b>Create a field-level encryption configuration.</b> A
+						configuration specifies the profiles to use, based on the content type of
+						the request or a query argument, for encrypting specific data fields. You
+						can also choose the request-forwarding behavior options that you want for
+						different scenarios. For example, you can set the behavior for when the
+						profile name specified by the query argument in a request URL doesn’t exist
+						in CloudFront.</p>
+				</li><li>
+					<p><b>Link to a cache behavior.</b> Link the
+						configuration to a cache behavior for a distribution, to specify when CloudFront
+						should encrypt data.</p>
+				</li></ol></div>
+		 
+			<h2 id="field-level-encryption-setting-up">Set up field-level encryption</h2>
+			<p>Follow these steps to get started using field-level encryption. To learn about
+				quotas (formerly known as limits) on field-level encryption, see <a href="./cloudfront-limits.html">Quotas</a>.</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="#field-level-encryption-setting-up-step1">Step 1: Create an RSA key pair</a></p>
+				</li><li class="listitem">
+					<p><a href="#field-level-encryption-setting-up-step2">Step 2: Add your public key to CloudFront</a></p>
+				</li><li class="listitem">
+					<p><a href="#field-level-encryption-setting-up-step3">Step 3: Create a profile for field-level encryption</a></p>
+				</li><li class="listitem">
+					<p><a href="#field-level-encryption-setting-up-step4">Step 4: Create a configuration</a></p>
+				</li><li class="listitem">
+					<p><a href="#field-level-encryption-setting-up-step5">Step 5: Add a configuration to a cache behavior</a></p>
+				</li></ul></div>
+			 
+				<h3 id="field-level-encryption-setting-up-step1">Step 1: Create an RSA key pair</h3>
+				<p>To get started, you must create an RSA key pair that includes a public key and a private
+					key. The public key enables CloudFront to encrypt data, and the private key enables
+					components at your origin to decrypt the fields that have been encrypted. You
+					can use OpenSSL or another tool to create a key pair. The key size must be 2048
+					bits.</p>
+				<p>For example, if you’re using OpenSSL, you can use the following command to
+					generate a key pair with a length of 2048 bits and save it in the file
+					<code>private_key.pem</code>:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight ">openssl genrsa -out private_key.pem 2048</code></pre>
+				<p>The resulting file contains both the public and the private key. To extract
+					the public key from that file, run the following command:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight ">openssl rsa -pubout -in private_key.pem -out public_key.pem</code></pre>
+				<p>The public key file (<code>public_key.pem</code>) contains the encoded
+					key value that you paste in the following step.</p>
+			 
+			 
+				<h3 id="field-level-encryption-setting-up-step2">Step 2: Add your public key to CloudFront</h3>
+				<p>After you get your RSA key pair, add your public key to CloudFront.</p>
+				<div class="procedure" id="field-level-encryption-setting-up-step2-procedure"><h6 id="field-level-encryption-setting-up-step2-procedure.title">To add your public key to CloudFront (console)</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudFront console at
+    <a href="https://console.aws.amazon.com/cloudfront/v4/home" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudfront/v4/home</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+						<p>In the navigation pane, choose <b>Public key</b>.</p>
+					</li><li>
+						<p>Choose <b>Add public key</b>.</p>
+					</li><li>
+						<p>For <b>Key name</b>, type a unique name for the key. The
+							name can't have spaces and can include only alphanumeric characters,
+							underscores (_), and hyphens (-). The maximum number of characters is
+							128.</p>
+					</li><li>
+						<p>For <b>Key value</b>, paste the encoded key value for your public key,
+							including the  <code class="code">-----BEGIN PUBLIC KEY-----</code> and
+							<code class="code">-----END PUBLIC KEY-----</code> lines.</p>
+					</li><li>
+						<p>For <b>Comment</b>, add an optional comment. For
+							example, you could include the expiration date for the public
+							key.</p>
+					</li><li>
+						<p>Choose <b>Add</b>.</p>
+					</li></ol></div>
+				<p>You can add more keys to use with CloudFront by repeating the steps in the
+					procedure.</p>
+			 
+			 
+				<h3 id="field-level-encryption-setting-up-step3">Step 3: Create a profile for field-level encryption</h3>
+				<p>After you add at least one public key to CloudFront, create a profile that tells
+					CloudFront which fields to encrypt.</p>
+				<div class="procedure" id="field-level-encryption-setting-up-step3-procedure"><h6 id="field-level-encryption-setting-up-step3-procedure.title">To create a profile for field-level encryption (console)</h6><ol><li>
+						<p>In the navigation pane, choose <b>Field-level
+							encryption</b>.</p>
+					</li><li>
+						<p>Choose <b>Create profile</b>.</p>
+					</li><li>
+						<p>Fill in the following fields:</p>
+						<div class="variablelist">
+							 
+							 
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Profile name</span></b></dt>
+								<dd>
+									<p>Type a unique name for the profile. The name can't have
+										spaces and can include only alphanumeric characters,
+										underscores (_), and hyphens (-). The maximum number of
+										characters is 128.</p>
+								</dd>
+							
+								<dt><b><span class="term">Public key name</span></b></dt>
+								<dd>
+									<p>In the drop-down list, choose the name of a public key
+										that you added to CloudFront in step 2. CloudFront uses the key to
+										encrypt the fields that you specify in this profile.</p>
+								</dd>
+							
+								<dt><b><span class="term">Provider name</span></b></dt>
+								<dd>
+									<p>Type a phrase to help identify the key, such as the provider where you got the key
+										pair. This information, along with the private key, is
+										needed when applications decrypt data fields. The provider
+										name can't have spaces and can include only alphanumeric
+										characters, colons (:), underscores (_), and hyphens (-).
+										The maximum number of characters is 128.</p>
+								</dd>
+							
+								<dt><b><span class="term">Field name pattern to match</span></b></dt>
+								<dd>
+									<p>Type the names of the data fields, or patterns that
+										identify data field names in the request, that you want CloudFront
+										to encrypt. Choose the + option to add all the fields that
+										you want to encrypt with this key.</p>
+									<p>For the field name pattern, you can type the entire name
+										of the data field, like DateOfBirth, or just the first part
+										of the name with a wildcard character (*), like CreditCard*.
+										The field name pattern must include only alphanumeric
+										characters, square brackets ([ and ]), periods (.),
+										underscores (_), and hyphens (-), in addition to the
+										optional wildcard character (*).</p>
+									<p>Make sure that you don’t use overlapping characters for different field name
+										patterns. For example, if you have a field name pattern of
+										ABC*, you can’t add another field name pattern that is AB*.
+										In addition, field names are case-sensitive and the maximum
+										number of characters that you can use is 128.</p>
+								</dd>
+							
+								<dt><b><span class="term">Comment</span></b></dt>
+								<dd>
+									<p>(Optional) Type a comment about this profile. The maximum
+										number of characters that you can use is 128.</p>
+								</dd>
+							</dl></div>
+					</li><li>
+						<p>After you fill in the fields, choose <b>Create
+							profile</b>.</p>
+					</li><li>
+						<p>If you want to add more profiles, choose <b>Add
+							profile</b>.</p>
+					</li></ol></div>
+			 
+			 
+				<h3 id="field-level-encryption-setting-up-step4">Step 4: Create a configuration</h3>
+				<p>After you create one or more field-level encryption profiles, create a
+					configuration that specifies the content type of the request that includes the
+					data to be encrypted, the profile to use for encryption, and other options that
+					specify how you want CloudFront to handle encryption.</p>
+				<p>For example, when CloudFront can’t encrypt the data, you can specify whether CloudFront
+					should block or forward a request to your origin in the following
+					scenarios:</p>
+				<div class="itemizedlist">
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b>When a request’s content type isn’t in a configuration</b>
+							– If you haven’t added a content type to a configuration, you can
+							specify whether CloudFront should forward the request with that content type
+							to the origin without encrypting data fields, or block the request and
+							return an error.</p>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you add a content type to a configuration but haven’t specified a profile to use
+								with that type, CloudFront always forwards requests with that content type
+								to the origin.</p></div></div>
+					</li><li class="listitem">
+						<p><b>When the profile name provided in a query argument is
+							unknown</b> – When you specify the
+							<code class="code">fle-profile</code> query argument with a profile name that doesn’t
+							exist for your distribution, you can specify whether CloudFront should send
+							the request to the origin without encrypting data fields, or block the
+							request and return an error.</p>
+					</li></ul></div>
+				<p>In a configuration, you can also specify whether providing a profile as a
+					query argument in a URL overrides a profile that you’ve mapped to the content
+					type for that query. By default, CloudFront uses the profile that you’ve mapped to a
+					content type, if you specify one. This lets you have a profile that’s used by
+					default but decide for certain requests that you want to enforce a different
+					profile.</p>
+				<p>So, for example, you might specify (in your configuration)
+					<code class="userinput">SampleProfile</code> as the query argument profile to use. Then
+					you could use the URL
+					<code class="code">https://d1234.cloudfront.net?fle-profile=SampleProfile</code> instead of
+					<code class="code">https://d1234.cloudfront.net</code>, to have CloudFront use
+					<code class="userinput">SampleProfile</code> for this request, instead of the profile
+					you’d set up for the content type of the request.</p>
+				<p>You can create up to 10 configurations for a single account, and then
+					associate one of the configurations to the cache behavior of any distribution
+					for the account.</p>
+				<div class="procedure" id="field-level-encryption-setting-up-step4-procedure"><h6 id="field-level-encryption-setting-up-step4-procedure.title">To create a configuration for field-level encryption (console)</h6><ol><li>
+						<p>On the <b>Field-level encryption</b> page, choose
+							<b>Create configuration</b>.</p>
+						<p>Note: If you haven’t created at least one profile, you won’t see the
+							option to create a configuration.</p>
+					</li><li>
+						<p>Fill in the following fields to specify the profile to use. (Some
+							fields can’t be changed.)</p>
+						<div class="variablelist">
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Content type (can’t be changed)</span></b></dt>
+								<dd>
+									<p>The content type is set to
+										<code class="code">application/x-www-form-urlencoded</code> and can’t be
+										changed.</p>
+								</dd>
+							
+								<dt><b><span class="term">Default profile ID (optional)</span></b></dt>
+								<dd>
+									<p>In the drop-down list, choose the profile that you want to
+										map to the content type in the <b>Content
+										type</b> field.</p>
+								</dd>
+							
+								<dt><b><span class="term">Content format (can’t be changed)</span></b></dt>
+								<dd>
+									<p>The content format is set to <code class="code">URLencoded</code> and
+										can’t be changed.</p>
+								</dd>
+							</dl></div>
+					</li><li>
+						<p>If you want to change the CloudFront default behavior for the following
+							options, select the appropriate check box.</p>
+						<div class="variablelist">
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Forward request to origin when request’s content type is not
+									configured</span></b></dt>
+								<dd>
+									<p>Select the check box if you want to allow the request to
+										go to your origin <em>if you have not specified a
+										profile to use for the content type of the
+										request</em>.</p>
+								</dd>
+							
+								<dt><b><span class="term">Override the profile for a content type with a provided query
+									argument</span></b></dt>
+								<dd>
+									<p>Select the check box if you want to allow a profile
+										provided in a query argument to <em>override the
+										profile that you’ve specified for a content
+										type</em>.</p>
+								</dd>
+							</dl></div>
+					</li><li>
+						<p>If you select the check box to allow a query argument to override the
+							default profile, you must complete the following additional fields for
+							the configuration. You can create up to five of these query argument
+							mappings to use with queries.</p>
+						<div class="variablelist">
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Query argument</span></b></dt>
+								<dd>
+									<p>Type the value that you want to include in URLs for the
+										<code class="code">fle-profile</code> query argument. This value tells
+										CloudFront to use the profile ID (that you specify in the next
+										field) associated with this query argument for field-level
+										encryption for this query.</p>
+									<p>The maximum number of characters that you can use is 128.
+										The value can’t include spaces, and must use only
+										alphanumeric or the following characters: dash (-), period
+										(.), underscore (_), asterisk (*), plus-sign (+), percent
+										(%).</p>
+								</dd>
+							
+								<dt><b><span class="term">Profile ID</span></b></dt>
+								<dd>
+									<p>In the drop-down list, choose the profile that you want to
+										associate with the value that you typed for <b>Query
+										argument</b>.</p>
+								</dd>
+							
+								<dt><b><span class="term">Forward request to origin when the profile specified in a
+									query argument does not exist</span></b></dt>
+								<dd>
+									<p>Select the check box if you want to allow the request to
+										go to your origin <em>if the profile specified in a
+										query argument isn't defined in CloudFront</em>.</p>
+								</dd>
+							</dl></div>
+					</li></ol></div>
+			 
+			 
+				<h3 id="field-level-encryption-setting-up-step5">Step 5: Add a configuration to a cache behavior</h3>
+				<p>To use field-level encryption, link a configuration to a cache behavior for a
+					distribution by adding the configuration ID as a value for your
+					distribution.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>To link a field-level encryption configuration to a cache behavior, the
+						distribution must be configured to always use HTTPS, and to accept HTTP
+						<code class="code">POST</code> and <code class="code">PUT</code> requests from viewers. That is, the
+						following must be true:</p><div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>The cache behavior’s <b>Viewer Protocol Policy</b>
+								must be set to <b>Redirect HTTP to HTTPS</b> or
+								<b>HTTPS Only</b>. (In CloudFormation or the CloudFront API,
+								<code class="code">ViewerProtocolPolicy</code> must be set to
+								<code class="code">redirect-to-https</code> or <code class="code">https-only</code>.)</p>
+						</li><li class="listitem">
+							<p>The cache behavior’s <b>Allowed HTTP Methods</b>
+								must be set to <b>GET, HEAD, OPTIONS, PUT, POST, PATCH,
+								DELETE</b>. (In CloudFormation or the CloudFront API,
+								<code class="code">AllowedMethods</code> must be set to <code class="code">GET</code>,
+								<code class="code">HEAD</code>, <code class="code">OPTIONS</code>, <code class="code">PUT</code>,
+								<code class="code">POST</code>, <code class="code">PATCH</code>, <code class="code">DELETE</code>. These
+								can be specified in any order.)</p>
+						</li><li class="listitem">
+							<p>The origin setting’s <b>Origin Protocol Policy</b>
+								must be set to <b>Match Viewer</b> or <b>HTTPS
+								Only</b>. (In CloudFormation or the CloudFront API,
+								<code class="code">OriginProtocolPolicy</code> must be set to
+								<code class="code">match-viewer</code> or <code class="code">https-only</code>.)</p>
+						</li></ul></div></div></div>
+				<p>For more information, see <a href="./distribution-web-values-specify.html">All distribution settings reference</a>.</p>
+			 
+		 
+			<h2 id="field-level-encryption-decrypt">Decrypt data fields at your origin</h2>
+			<p>CloudFront encrypts data fields by using the <a href="https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html">AWS Encryption SDK</a>. The data remains encrypted throughout your application stack and can be
+				accessed only by applications that have the credentials to decrypt it.</p>
+			<p>After encryption, the ciphertext is base64 encoded. When your applications decrypt the text
+				at the origin, they must first decode the ciphertext, and then use the AWS
+				Encryption SDK to decrypt the data.</p>
+			<p>The following code example illustrates how applications can decrypt data at your origin.
+				Note the following: </p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>To simplify the example, this sample loads public and private keys (in DER
+						format) from files in the working directory. In practice, you would store
+						the private key in a secure offline location, such as an offline hardware
+						security module, and distribute the public key to your development
+						team.</p>
+				</li><li class="listitem">
+					<p>CloudFront uses specific information while encrypting the data, and the same set
+						of parameters should be used at the origin to decrypt it. Parameters CloudFront
+						uses while initializing the MasterKey include the following:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>PROVIDER_NAME: You specified this value when you created a
+								field-level encryption profile. Use the same value here.</p>
+						</li><li class="listitem">
+							<p>KEY_NAME: You created a name for your public key when you uploaded
+								it to CloudFront, and then specified the key name in the profile. Use the
+								same value here.</p>
+						</li><li class="listitem">
+							<p>ALGORITHM: CloudFront uses <code class="code">RSA/ECB/OAEPWithSHA-256AndMGF1Padding</code> as the
+								algorithm for encrypting, so you must use the same algorithm to
+								decrypt the data.</p>
+						</li></ul></div>
+				</li><li class="listitem">
+					<p>If you run the following sample program with ciphertext as input, the decrypted data is
+						output to your console. For more information, see the <a href="https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/java-example-code.html">Java
+						Example Code</a> in the AWS Encryption SDK.</p>
+				</li></ul></div>
+			 
+				<h3 id="field-level-encryption-decrypt-sample">Sample code</h3>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
+
+import com.amazonaws.encryptionsdk.AwsCrypto;
+import com.amazonaws.encryptionsdk.CryptoResult;
+import com.amazonaws.encryptionsdk.jce.JceMasterKey;
+
+/**
+ * Sample example of decrypting data that has been encrypted by CloudFront field-level encryption.
+ */
+public class DecryptExample <span>{</span>
+
+    private static final String PRIVATE_KEY_FILENAME = "private_key.der";
+    private static final String PUBLIC_KEY_FILENAME = "public_key.der";
+    private static PublicKey publicKey;
+    private static PrivateKey privateKey;
+
+    // CloudFront uses the following values to encrypt data, and your origin must use same values to decrypt it.
+    // In your own code, for PROVIDER_NAME, use the provider name that you specified when you created your field-level
+    // encryption profile. This sample uses 'DEMO' for the value.
+    private static final String PROVIDER_NAME = "DEMO";
+    // In your own code, use the key name that you specified when you added your public key to CloudFront. This sample
+    // uses 'DEMOKEY' for the key name.
+    private static final String KEY_NAME = "DEMOKEY";
+    // CloudFront uses this algorithm when encrypting data.
+    private static final String ALGORITHM = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+
+    public static void main(final String[] args) throws Exception <span>{</span>
+
+        final String dataToDecrypt = args[0];
+
+        // This sample uses files to get public and private keys.
+        // In practice, you should distribute the public key and save the private key in secure storage.
+        populateKeyPair();
+
+        System.out.println(decrypt(debase64(dataToDecrypt)));
+    }
+
+    private static String decrypt(final byte[] bytesToDecrypt) throws Exception <span>{</span>
+        // You can decrypt the stream only by using the private key.
+
+        // 1. Instantiate the SDK
+        final AwsCrypto crypto = new AwsCrypto();
+
+        // 2. Instantiate a JCE master key
+        final JceMasterKey masterKey = JceMasterKey.getInstance(
+                publicKey,
+                privateKey,
+                PROVIDER_NAME,
+                KEY_NAME,
+                ALGORITHM);
+
+        // 3. Decrypt the data
+        final CryptoResult &lt;byte[], ? &gt; result = crypto.decryptData(masterKey, bytesToDecrypt);
+        return new String(result.getResult());
+    }
+
+    // Function to decode base64 cipher text.
+    private static byte[] debase64(final String value) <span>{</span>
+        return Base64.decodeBase64(value.getBytes());
+    }
+
+    private static void populateKeyPair() throws Exception <span>{</span>
+        final byte[] PublicKeyBytes = Files.readAllBytes(Paths.get(PUBLIC_KEY_FILENAME));
+        final byte[] privateKeyBytes = Files.readAllBytes(Paths.get(PRIVATE_KEY_FILENAME));
+        publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(PublicKeyBytes));
+        privateKey = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(privateKeyBytes));
+    }
+}</code></pre>
+			 
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./georestrictions.html">Geographic restriction</div><div id="next" class="next-link" accesskey="n" href="./on-demand-streaming-video.html">Video on demand and live streaming video</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

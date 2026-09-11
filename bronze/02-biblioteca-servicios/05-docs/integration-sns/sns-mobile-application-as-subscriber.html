@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Sending mobile push notifications with Amazon SNS - Amazon Simple Notification Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sns-mobile-application-as-subscriber" /><meta name="default_state" content="sns-mobile-application-as-subscriber" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html" /><meta name="description" content="Learn how to use Amazon SNS to send push notifications to mobile apps, including the process of setting up credentials, creating platform applications, and publishing messages to mobile devices through various push notification services." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Notification Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Coordinate and manage the delivery or sending of messages to subscribing endpoints or clients using Amazon SNS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html" hreflang="x-default" /><meta name="feedback-item" content="SNS" /><meta name="this_doc_product" content="Amazon Simple Notification Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sns'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Sending mobile push notifications with Amazon SNS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sns-mobile-application-as-subscriber.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Sending mobile push notifications with Amazon SNS - Amazon Simple Notification Service</title><meta name="pdf" content="/pdfs/sns/latest/dg/sns-dg.pdf#sns-mobile-application-as-subscriber" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAyateCXj5QMiBTHtJZlF3Gw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-mobile-application-as-subscriber.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-mobile-application-as-subscriber.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-mobile-application-as-subscriber.html" /><meta name="keywords" content="Amazon SNS messaging,A2P messaging,Mobile notifications,SMS messaging,Email notifications,Mobile push notifications,Amazon SNS,Push notification services,Platform application,Device token,Amazon SNS push notifications,Mobile device messaging,Topic-based messaging,Endpoint creation,Mobile app messaging" /><link rel="alternate" type="text/markdown" href="sns-mobile-application-as-subscriber.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Notification Service",
+        "item" : "https://docs.aws.amazon.com/sns/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Using Amazon SNS for application-to-person messaging",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-user-notifications.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Sending mobile push notifications with Amazon SNS",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-user-notifications.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sns/latest/dg/sns-dg.pdf#sns-mobile-application-as-subscriber" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sns/index.html">Amazon Simple Notification Service</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#sns-how-user-notifications-work">How Amazon SNS user notifications work</a><a href="#sns-user-notifications-process-overview">Setting up push notifications with Amazon SNS</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sns-mobile-application-as-subscriber">Sending mobile push notifications with Amazon SNS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use Amazon SNS to send push notification messages directly to apps on mobile devices.
+        Push notification messages sent to a mobile endpoint can appear in the mobile app as message
+        alerts, badge updates, or sound alerts. </p><div class="mediaobject">
+         
+            <img src="/images/sns/latest/dg/images/sns-mobile-push-notifications.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Amazon SNS mobile push notification overview" style="max-width:100%" />
+         
+         
+    </div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#sns-how-user-notifications-work">How Amazon SNS user notifications work</a></p></li><li><p><a href="#sns-user-notifications-process-overview">Setting up push notifications with Amazon SNS</a></p></li><li><p><a href="./mobile-push-send.html">Setting up a mobile app in Amazon SNS</a></p></li><li><p><a href="./mobile-push-notifications.html">Using Amazon SNS for mobile push notifications</a></p></li><li><p><a href="./sns-msg-status.html">Amazon SNS mobile app attributes</a></p></li><li><p><a href="./application-event-notifications.html">Amazon SNS application event notifications for mobile applications</a></p></li><li><p><a href="./mobile-push-api.html">Mobile push API actions</a></p></li><li><p><a href="./mobile-push-api-error.html">Common Amazon SNS mobile push API errors</a></p></li><li><p><a href="./sns-ttl.html">Using the Amazon SNS time to live message attribute for mobile push notifications</a></p></li><li><p><a href="./sns-mobile-push-supported-regions.html">Amazon SNS mobile application supported Regions</a></p></li><li><p><a href="./mobile-push-notifications-best-practices.html">Best practices for managing Amazon SNS mobile push notifications</a></p></li></ul></div>
+    <h2 id="sns-how-user-notifications-work">How Amazon SNS user notifications work</h2>
+    <p>You send push notification messages to both mobile devices and desktops using one of the
+        following supported push notification services: </p>
+    <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Amazon Device Messaging (ADM)</p>
+        </li><li class="listitem">
+            <p>Apple Push Notification Service (APNs) for both iOS and Mac OS X</p>
+        </li><li class="listitem">
+            <p>Baidu Cloud Push (Baidu)</p>
+        </li><li class="listitem">
+            <p>Firebase Cloud Messaging (FCM)</p>
+        </li><li class="listitem">
+            <p>Microsoft Push Notification Service for Windows Phone (MPNS)</p>
+        </li><li class="listitem">
+            <p>Windows Push Notification Services (WNS)</p>
+        </li></ul></div>
+    <p>Push notification services, such as APNs and FCM, maintain a connection with each app
+        and associated mobile device registered to use their service. When an app and mobile device
+        register, the push notification service returns a device token. Amazon SNS uses the device token
+        to create a mobile endpoint, to which it can send direct push notification messages. In
+        order for Amazon SNS to communicate with the different push notification services, you submit
+        your push notification service credentials to Amazon SNS to be used on your behalf. For more
+        information, see <a href="#sns-user-notifications-process-overview">Setting up push notifications with Amazon SNS</a>. </p>
+    <p> In addition to sending direct push notification messages, you can also use Amazon SNS to send
+        messages to mobile endpoints subscribed to a topic. The concept is the same as subscribing
+        other endpoint types, such as Amazon SQS, HTTP/S, email, and SMS, to a topic, as described in
+        <a href="./welcome.html">What is Amazon SNS?</a>. The difference is that Amazon SNS
+        communicates using the push notification services in order for the subscribed mobile
+        endpoints to receive push notification messages sent to the topic.</p>
+ 
+    <h2 id="sns-user-notifications-process-overview">Setting up push notifications with Amazon SNS</h2>
+    <div class="procedure"><ol><li>
+            <p><a href="./sns-prerequisites-for-mobile-push-notifications.html">Obtain the
+                    credentials and device token</a> for the mobile platforms that you want to
+                support.</p>
+        </li><li>
+            <p>Use the credentials to create a platform application object
+                    (<code class="code">PlatformApplicationArn</code>) using Amazon SNS. For more information, see
+                    <a href="./mobile-push-send-register.html">Creating an Amazon SNS platform application</a>.</p>
+        </li><li>
+            <p>Use the returned credentials to request a device token for your mobile app and
+                device from the push notification service. The token you receive represents your
+                mobile app and device.</p>
+        </li><li>
+            <p>Use the device token and the <code class="code">PlatformApplicationArn</code> to create a
+                platform endpoint object (<code class="code">EndpointArn</code>) using Amazon SNS. For more
+                information, see <a href="./mobile-platform-endpoint.html">Setting up an Amazon SNS platform endpoint for mobile notifications</a>.</p>
+        </li><li>
+            <p>Use the <code class="code">EndpointArn</code> to <a href="./mobile-push-send.html">publish a
+                    message to an app on a mobile device</a>. For more information, see <a href="./mobile-push-notifications.html#mobile-push-send-directmobile">Direct Amazon SNS mobile device messaging</a> and the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> API in the
+                Amazon Simple Notification Service API Reference.</p>
+        </li></ol></div>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./channels-sms-best-practices.html">Best practices for SMS messaging</div><div id="next" class="next-link" accesskey="n" href="./mobile-push-send.html">Setting up a mobile app</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-mobile-application-as-subscriber.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-mobile-application-as-subscriber.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

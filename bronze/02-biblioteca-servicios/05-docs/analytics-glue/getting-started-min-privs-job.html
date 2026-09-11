@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Review IAM permissions needed for ETL jobs - AWS Glue</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="getting-started-min-privs-job" /><meta name="default_state" content="getting-started-min-privs-job" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/getting-started-min-privs-job.html" /><meta name="description" content="When you create a job using AWS Glue Studio , the job assumes the permissions of the IAM role that you specify when you create it. This IAM role must have permission to extract data from your data source, write data to your target, and access AWS Glue resources." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Glue" /><meta name="guide" content="User Guide" /><meta name="abstract" content="How to use and program AWS Glue." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/getting-started-min-privs-job.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/getting-started-min-privs-job.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/getting-started-min-privs-job.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/getting-started-min-privs-job.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/getting-started-min-privs-job.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/getting-started-min-privs-job.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/getting-started-min-privs-job.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/getting-started-min-privs-job.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/getting-started-min-privs-job.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/getting-started-min-privs-job.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/getting-started-min-privs-job.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/getting-started-min-privs-job.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/getting-started-min-privs-job.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/getting-started-min-privs-job.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/getting-started-min-privs-job.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/getting-started-min-privs-job.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/getting-started-min-privs-job.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/getting-started-min-privs-job.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/getting-started-min-privs-job.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/glue/latest/dg/getting-started-min-privs-job.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/glue/latest/dg/getting-started-min-privs-job.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/getting-started-min-privs-job.html" hreflang="x-default" /><meta name="feedback-item" content="Glue" /><meta name="this_doc_product" content="AWS Glue" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'glue'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Review IAM permissions needed for ETL jobs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="getting-started-min-privs-job.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Review IAM permissions needed for ETL jobs - AWS Glue</title><meta name="pdf" content="/pdfs/glue/latest/dg/glue-dg.pdf#getting-started-min-privs-job" /><meta name="rss" content="aws-glue-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TABBptUaVOS1mAM7TXuTuxWQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/getting-started-min-privs-job.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/getting-started-min-privs-job.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/getting-started-min-privs-job.html" /><meta name="keywords" content="AWS Glue,AWS Glue Data Catalog,Data Catalog,AWS Glue jobs system,Jobs system,ETL" /><link rel="alternate" type="text/markdown" href="getting-started-min-privs-job.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started with AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/setting-up.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Setting up IAM permissions for AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/set-up-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Setting up for AWS Glue Studio",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/setting-up-studio.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Review IAM permissions needed for ETL jobs",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/setting-up-studio.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/glue/latest/dg/glue-dg.pdf#getting-started-min-privs-job" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/glue/index.html">AWS Glue</a><a href="what-is-glue.html">User Guide</a></div><div id="page-toc-src"><a href="#getting-started-min-privs-data">Data source and data target permissions</a><a href="#getting-started-min-privs-delete-job">Permissions required for deleting jobs</a><a href="#getting-started-min-privs-kms">AWS Key Management Service permissions</a><a href="#getting-started-min-privs-connectors">Permissions required for using connectors</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="getting-started-min-privs-job">Review IAM permissions needed for ETL jobs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>When you create a job using AWS Glue Studio, the job assumes the permissions of the IAM role
+            that you specify when you create it. This IAM role must have permission to extract
+            data from your data source, write data to your target, and access AWS Glue resources. </p><p>The name of the role that you create for the job must start with the string
+                <code class="code">AWSGlueServiceRole</code> for it to be used correctly by AWS Glue Studio. For example,
+            you might name your role <code class="code">AWSGlueServiceRole-FlightDataJob</code>.</p>
+            <h2 id="getting-started-min-privs-data">Data source and data target permissions</h2>
+            <p>An AWS Glue Studio job must have access to Amazon S3 for any sources, targets,
+                scripts, and temporary directories that you use in your job. You can create a policy
+                to provide fine-grained access to specific Amazon S3 resources. </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Data sources require <code class="code">s3:ListBucket</code> and
+                            <code class="code">s3:GetObject</code> permissions. </p>
+                </li><li class="listitem">
+                    <p>Data targets require <code class="code">s3:ListBucket</code>,
+                        <code class="code">s3:PutObject</code>, and <code class="code">s3:DeleteObject</code>
+                        permissions.</p>
+                </li></ul></div>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    Your IAM policy needs to allow <code class="code">s3:GetObject</code> for the specific buckets used for hosting AWS Glue transforms. 
+                </p><p>
+                    The following buckets are owned by the AWS service account and is worldwide readable. These buckets serve  
+                    as a repository for the source code pertinent to a subset of transformations accessible via the AWS Glue Studio visual editor. 
+                    Permissions on the bucket are set up to deny any other API action on the bucket. Anybody can read those scripts we 
+                    provide for the transformations, but nobody outside our service team can "put" anything in them. When your AWS Glue job 
+                    runs, that file is pulled in as a local import so the file is downloaded to the local container. After that, there is 
+                    no further communication with that account.
+                </p></div></div>
+                <p>
+                    Region: Bucket name
+                </p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>af-south-1: aws-glue-studio-transforms-762339736633-prod-af-south-1</p>
+                    </li><li class="listitem">
+                        <p>ap-east-1: aws-glue-studio-transforms-125979764932-prod-ap-east-1</p>
+                    </li><li class="listitem">
+                        <p>ap-northeast-2: aws-glue-studio-transforms-673535381443-prod-ap-northeast-2</p>
+                    </li><li class="listitem">
+                        <p>ap-northeast-3: aws-glue-studio-transforms-149976050262-prod-ap-northeast-3</p>
+                    </li><li class="listitem">
+                        <p>ap-south-1: aws-glue-studio-transforms-584702181950-prod-ap-south-1</p>
+                    </li><li class="listitem">
+                        <p>ap-south-2: aws-glue-studio-transforms-380279651983-prod-ap-south-2</p>
+                    </li><li class="listitem">
+                        <p>ap-southeast-1: aws-glue-studio-transforms-737106620487-prod-ap-southeast-1</p>
+                    </li><li class="listitem">
+                        <p>ap-southeast-2: aws-glue-studio-transforms-234881715811-prod-ap-southeast-2</p>
+                    </li><li class="listitem">
+                        <p>ap-southeast-3: aws-glue-studio-transforms-151265630221-prod-ap-southeast-3</p>
+                    </li><li class="listitem">
+                        <p>ap-southeast-4: aws-glue-studio-transforms-052235663858-prod-ap-southeast-4</p>
+                    </li><li class="listitem">
+                        <p>ca-central-1: aws-glue-studio-transforms-622716468547-prod-ca-central-1</p>
+                    </li><li class="listitem">
+                        <p>ca-west-1: aws-glue-studio-transforms-915795495192-prod-ca-west-1</p>
+                    </li><li class="listitem">
+                        <p>eu-central-1: aws-glue-studio-transforms-560373232017-prod-eu-central-1</p>
+                    </li><li class="listitem">
+                        <p>eu-central-2: aws-glue-studio-transforms-907358657121-prod-eu-central-2</p>
+                    </li><li class="listitem">
+                        <p>eu-north-1: aws-glue-studio-transforms-312557305497-prod-eu-north-1</p>
+                    </li><li class="listitem">
+                        <p>eu-south-1: aws-glue-studio-transforms-939684186351-prod-eu-south-1</p>
+                    </li><li class="listitem">
+                        <p>eu-south-2: aws-glue-studio-transforms-239737454084-prod-eu-south-2</p>
+                    </li><li class="listitem">
+                        <p>eu-west-1: aws-glue-studio-transforms-244479516193-prod-eu-west-1</p>
+                    </li><li class="listitem">
+                        <p>eu-west-2: aws-glue-studio-transforms-804222392271-prod-eu-west-2</p>
+                    </li><li class="listitem">
+                        <p>eu-west-3: aws-glue-studio-transforms-371299348807-prod-eu-west-3</p>
+                    </li><li class="listitem">
+                        <p>il-central-1: aws-glue-studio-transforms-806964611811-prod-il-central-1</p>
+                    </li><li class="listitem">
+                        <p>me-central-1: aws-glue-studio-transforms-733304270342-prod-me-central-1</p>
+                    </li><li class="listitem">
+                        <p>me-south-1: aws-glue-studio-transforms-112120182341-prod-me-south-1</p>
+                    </li><li class="listitem">
+                        <p>sa-east-1: aws-glue-studio-transforms-881619130292-prod-sa-east-1</p>
+                    </li><li class="listitem">
+                        <p>us-east-1: aws-glue-studio-transforms-510798373988-prod-us-east-1</p>
+                    </li><li class="listitem">
+                        <p>us-east-2: aws-glue-studio-transforms-251189692203-prod-us-east-2</p>
+                    </li><li class="listitem">
+                        <p>us-west-1: aws-glue-studio-transforms-593230150239-prod-us-west-1</p>
+                    </li><li class="listitem">
+                        <p>us-west-2: aws-glue-studio-transforms-818035625594-prod-us-west-2</p>
+                    </li><li class="listitem">
+                        <p>ap-northeast-1: aws-glue-studio-transforms-200493242866-prod-ap-northeast-1</p>
+                    </li><li class="listitem"> 
+                        <p>cn-north-1: aws-glue-studio-transforms-071033555442-prod-cn-north-1</p>
+                    </li><li class="listitem"> 
+                        <p>cn-northwest-1: aws-glue-studio-transforms-070947029561-prod-cn-northwest-1</p>
+                    </li><li class="listitem"> 
+                        <p>us-gov-west-1: aws-glue-studio-transforms-227493901923-prod-us-gov-west-1-2604</p>
+                    </li><li class="listitem">
+                        <p>eusc-de-east-1: aws-glue-studio-transforms-780995497573-prod-eusc-de-east-1-555</p>
+                    </li></ul></div>
+            
+            
+            <p>If you choose Amazon Redshift as your data source, you can provide a role
+                for cluster permissions. Jobs that run against a Amazon Redshift cluster
+                issue commands that access Amazon S3 for temporary storage using temporary
+                credentials. If your job runs for more than an hour, these credentials will expire
+                causing the job to fail. To avoid this problem, you can assign a role to the
+                Amazon Redshift cluster itself that grants the necessary permissions to jobs
+                using temporary credentials. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-redshift.html">Moving Data to and from Amazon Redshift</a> in the
+                    <em>AWS Glue Developer Guide</em>.</p>
+            <p>If the job uses data sources or targets other than Amazon S3, then you
+                must attach the necessary permissions to the IAM role used by the job to access
+                these data sources and targets. For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/start-connecting.html">Setting Up Your
+                    Environment to Access Data Stores</a> in the
+                    <em>AWS Glue Developer Guide</em>.</p>
+             
+            <p>If you're using connectors and connections for your data store, you need
+                additional permissions, as described in <a href="#getting-started-min-privs-connectors">Permissions required for using connectors</a>.</p>
+         
+            <h2 id="getting-started-min-privs-delete-job">Permissions required for deleting jobs</h2>
+            
+            <p>In AWS Glue Studio you can select multiple jobs in the console to delete. To perform this
+                action, you must have the <code class="code">glue:BatchDeleteJob</code> permission. This is
+                different from the AWS Glue console, which requires the <code class="code">glue:DeleteJob</code>
+                permission for deleting jobs.</p>
+         
+            <h2 id="getting-started-min-privs-kms">AWS Key Management Service permissions</h2>
+            <p>If you plan to access Amazon S3 sources and targets that use server-side
+                encryption with AWS Key Management Service (AWS KMS), then attach a policy to the AWS Glue Studio role
+                used by the job that enables the job to decrypt the data. The job role needs the
+                    <code class="code">kms:ReEncrypt</code>, <code class="code">kms:GenerateDataKey</code>, and
+                    <code class="code">kms:DescribeKey</code> permissions. Additionally, the job role needs the
+                    <code class="code">kms:Decrypt</code> permission to upload or download an Amazon S3
+                object that is encrypted with an AWS KMS customer master key (CMK).</p>
+            <p>There are additional charges for using AWS KMS CMKs. For more information, see
+                    <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys">AWS Key Management Service Concepts - Customer Master Keys
+                    (CMKs)</a> and <a href="https://aws.amazon.com/kms/pricing" rel="noopener noreferrer" target="_blank"><span>AWS Key Management Service Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the
+                <em>AWS Key Management Service Developer Guide</em>.</p>
+         
+            <h2 id="getting-started-min-privs-connectors">Permissions required for using connectors</h2>
+            <p>If you're using an AWS Glue Custom Connector and connection to access a data store,
+                the role used to run the AWS Glue ETL job needs additional permissions attached:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The AWS managed policy <code class="code">AmazonEC2ContainerRegistryReadOnly</code> for
+                        accessing connectors purchased from AWS Marketplace.</p>
+                </li><li class="listitem">
+                    <p>The <code class="code">glue:GetJob</code> and <code class="code">glue:GetJobs</code>
+                        permissions.</p>
+                </li><li class="listitem">
+                    <p>AWS Secrets Manager permissions for accessing secrets that are
+                        used with connections. Refer to <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html#auth-and-access_examples_read">Example: Permission to retrieve secret values</a> for example IAM policies.</p>
+                </li></ul></div>
+            <p>If your AWS Glue ETL job runs within a VPC running Amazon VPC, then the VPC must be
+                configured as described in <a href="./getting-started-vpc-config.html">Configure a VPC for your ETL job</a>.</p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./getting-started-min-privs.html">Review IAM permissions needed for the AWS Glue Studio user</div><div id="next" class="next-link" accesskey="n" href="./getting-started-iam-permissions.html">Set up IAM permissions for AWS Glue Studio</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/getting-started-min-privs-job.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/getting-started-min-privs-job.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

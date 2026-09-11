@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating Object Lambda Access Points - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="olap-create" /><meta name="default_state" content="olap-create" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html" /><meta name="description" content="Create Object Lambda Access Points to extend the functionality of standard Amazon S3 access points and perform data transformations on objects that are accessed through access points." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/olap-create.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/olap-create.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/olap-create.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/olap-create.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/olap-create.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/olap-create.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/olap-create.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/olap-create.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/olap-create.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/olap-create.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/olap-create.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/olap-create.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/olap-create.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/olap-create.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/olap-create.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/olap-create.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/olap-create.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/olap-create.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Creating Object Lambda Access Points" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="olap-create.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating Object Lambda Access Points - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#olap-create" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-create.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-create.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-create.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,Amazon S3 objects,What is an object,How to use objects,Modify Amazon S3 data,Run custom Lambda on data,Automatically process the output of Amazon S3,Create Object Lambda Access Points,Transform data in Amazon S3 bucket,Modify Amazon S3 data with Lambda" /><link rel="alternate" type="text/markdown" href="olap-create.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Transforming objects with S3 Object Lambda",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Creating Object Lambda Access Points",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#olap-create" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#create-olap">Create an Object Lambda Access Point</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="olap-create">Creating Object Lambda Access Points</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>As of November 7th, 2025, S3 Object Lambda is available only to existing customers that are currently using the service as well as to select AWS Partner Network (APN) partners. For capabilities similar to S3 Object Lambda, learn more here - <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazons3-ol-change.html">Amazon S3 Object Lambda availability change</a>.</p></div></div><p>An Object Lambda Access Point is associated with exactly one standard access point, which you specify during creation. To
+        create an Object Lambda Access Point, you need the following resources:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>A standard S3 access point.</b> When you're working with
+                Object Lambda Access Points, this standard access point is known as a <em>supporting
+                    access point</em> and is attached to an S3 bucket or Amazon FSx for OpenZFS volume. For
+                information about creating standard access points, see <a href="./creating-access-points.html">Creating an access point</a>.</p>
+        </li><li class="listitem">
+            <p><b>An AWS Lambda function.</b> You can either create your
+                own Lambda function, or you can use a prebuilt function. For more information about
+                creating Lambda functions, see <a href="./olap-writing-lambda.html">Writing Lambda functions for S3 Object Lambda Access Points</a>. For more
+                information about prebuilt functions, see <a href="./olap-examples.html">Using AWS built Lambda functions</a>.</p>
+        </li><li class="listitem">
+            <p><b>(Optional) An AWS Identity and Access Management (IAM) policy.</b> Amazon S3 access points support
+                IAM resource policies that you can use to control the use of the access point by resource,
+                user, or other conditions. For more information about creating these policies, see
+                <a href="./olap-policies.html">Configuring IAM policies for Object Lambda Access Points</a>.</p>
+        </li></ul></div><p>The following sections describe how to create an Object Lambda Access Point by using:</p><div class="itemizedlist">
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>The AWS Management Console</p>
+        </li><li class="listitem">
+            <p>The AWS Command Line Interface (AWS CLI)</p>
+        </li><li class="listitem">
+            <p>An AWS CloudFormation template</p>
+        </li><li class="listitem">
+            <p>The AWS Cloud Development Kit (AWS CDK)</p>
+        </li></ul></div><p>For information about how to create an Object Lambda Access Point by using the REST API, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateAccessPointForObjectLambda.html"><code class="code">CreateAccessPointForObjectLambda</code></a> in the <em>Amazon Simple Storage Service API Reference</em>.</p>
+        <h2 id="create-olap">Create an Object Lambda Access Point</h2>
+        <p>Use one of the following procedures to create your Object Lambda Access Point. </p>
+        <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the S3 console" id="olap-create-console" expanded="false"><div class="procedure"><h6>To create an Object Lambda Access Point by using the console</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li> <p>In the navigation bar, choose the name of the currently displayed AWS Region. Next, choose the Region that you want to switch to. 
+        </p></li><li>
+            <p>In the left navigation pane, choose <b>Object Lambda Access Points</b>.</p>
+        </li><li>
+            <p>On the <b>Object Lambda Access Points</b> page, choose <b>Create
+                    Object Lambda Access Point</b>.</p>
+        </li><li>
+            <p>For <b>Object Lambda Access Point name</b>, enter the name that you want to use
+                for the access point. </p>
+            <p>As with standard access points, there are rules for naming Object Lambda Access Points. For more information,
+                see <a href="./access-points-restrictions-limitations-naming-rules.html#access-points-names">Naming rules for access points</a>.</p>
+        </li><li>
+            <p>For <b>Supporting Access Point</b>, enter or browse to the standard
+                access point that you want to use. The access point must be in the same AWS Region as the objects
+                that you want to transform. For information about creating standard access points, see <a href="./creating-access-points.html">Creating an access point</a>.</p>
+        </li><li>
+            <p>Under <b>Transformation configuration</b>, you can add a function
+                that transforms your data for your Object Lambda Access Point. Do one of the following:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>If you already have a AWS Lambda function in your account you can choose it
+                        under <b>Invoke Lambda function</b>. Here you may enter the
+                        Amazon Resource Name (ARN) of an Lambda function in your AWS account or
+                        choose a Lambda function from the drop-down menu.</p>
+                </li><li class="listitem">
+                    <p>If you wish to use a AWS built function choose the function name under
+                            <b>AWS built function</b> and select <b>Create
+                            Lambda function</b>. This will take you to the Lambda console where
+                        you can deploy a built function into your AWS account. For more
+                        information about built functions, see <a href="./olap-examples.html">Using AWS built Lambda functions</a>.</p>
+                </li></ul></div>
+            <p>Under <b>S3 APIs</b>, choose one or more API operations to invoke.
+                For each API selected you must specify a Lambda function to invoke. </p>
+        </li><li>
+            <p>(Optional) Under <b>Payload</b>, add JSON text that you want to
+                provide to your Lambda function as input. You can configure payloads with different
+                parameters for different Object Lambda Access Points that invoke the same Lambda function, thereby
+                extending the flexibility of your Lambda
+                function.</p>
+            <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you're using Object Lambda Access Points, make sure that the payload does not contain any
+                    confidential information.</p></div></div>            
+        </li><li>
+            <p>(Optional) For <b>Range and part number</b>, you must enable this
+                option if you want to process <code class="code">GET</code> and <code class="code">HEAD</code> requests with
+                range and part number headers. Enabling this option confirms that your Lambda
+                function can recognize and process these requests. For more information about range
+                headers and part numbers, see <a href="./range-get-olap.html">Working with Range and partNumber headers</a>.</p>
+        </li><li>
+            <p>(Optional) For <b>Request metrics</b>, choose
+                    <b>Enable</b> or <b>Disable</b> to add Amazon S3
+                monitoring to your Object Lambda Access Point. Request metrics are billed at the standard Amazon CloudWatch
+                rate.</p>
+        </li><li>
+            <p>(Optional) Under <b>Object Lambda Access Point policy</b>, set a resource policy.
+                Resource policies grant permissions for the specified Object Lambda Access Point and can control the use
+                of the access point by resource, user, or other conditions. For more information about
+                Object Lambda Access Point resource policies see, <a href="./olap-policies.html">Configuring IAM policies for Object Lambda Access Points</a>.</p>
+        </li><li><p>Under <b>Block Public Access settings for this Object Lambda Access Point</b>, select the block
+            public access settings that you want to apply. All block public
+            access settings are enabled by default for new Object Lambda Access Points, and we recommend that
+            you leave default settings enabled. Amazon S3 currently doesn't support changing an Object Lambda Access Point's block public
+            access settings after the Object Lambda Access Points has been created.</p>
+            <p>For more information about using Amazon S3 Block Public Access, see
+                <a href="./access-points-bpa-settings.html">Managing public access to access points for general purpose buckets</a>.</p></li><li>
+            <p>Choose <b>Create Object Lambda Access Point</b>.</p>
+        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="olap-create-cli" expanded="false"><div class="procedure"><h6>To create an Object Lambda Access Point by using an AWS CloudFormation template</h6><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To use the following commands, replace the <code class="code"><code class="replaceable">user input
+                        placeholders</code></code> with your own information.</p></div></div><ol><li>
+            <p>Download the AWS Lambda function deployment package
+                    <code>s3objectlambda_deployment_package.zip</code> at <a href="https://github.com/aws-samples/amazon-s3-object-lambda-default-configuration" rel="noopener noreferrer" target="_blank"><span>S3 Object Lambda default configuration</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+            <p>Run the following <code class="code">put-object</code> command to upload the package to an Amazon S3
+                bucket.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3api put-object --bucket <code class="replaceable">Amazon S3 bucket name</code> --key s3objectlambda_deployment_package.zip --body release/s3objectlambda_deployment_package.zip</code></pre>
+        </li><li>
+            <p>Download the AWS CloudFormation template
+                    <code>s3objectlambda_defaultconfig.yaml</code> at <a href="https://github.com/aws-samples/amazon-s3-object-lambda-default-configuration" rel="noopener noreferrer" target="_blank"><span>S3 Object Lambda default configuration</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+            <p>Run the following <code class="code">deploy</code> command to deploy the template to your
+                AWS account.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws cloudformation deploy --template-file s3objectlambda_defaultconfig.yaml \
+ --stack-name <code class="replaceable">CloudFormation stack name</code> \ 
+ --parameter-overrides ObjectLambdaAccessPointName=<code class="replaceable">Object Lambda Access Point name</code> \
+  SupportingAccessPointName=<code class="replaceable">Amazon S3 access point</code> S3BucketName=<code class="replaceable">Amazon S3 bucket</code> \
+  LambdaFunctionS3BucketName=<code class="replaceable">Amazon S3 bucket containing your Lambda package</code> \ 
+  LambdaFunctionS3Key=<code class="replaceable">Lambda object key</code> LambdaFunctionS3ObjectVersion=<code class="replaceable">Lambda object version</code> \ 
+  LambdaFunctionRuntime=<code class="replaceable">Lambda function runtime</code> --capabilities <code class="replaceable">capability_IAM</code></code></pre>
+        </li></ol></div><p>You can configure this AWS CloudFormation template to invoke Lambda for <code class="code">GET</code>,
+            <code class="code">HEAD</code>, and <code class="code">LIST</code> API operations. For more information about
+        modifying the  template's default configuration, see <a href="./olap-using-cfn-template.html">Automate S3 Object Lambda setup with a CloudFormation template</a>.</p><div class="procedure" id="olap-create-cli-specific"><h6 id="olap-create-cli-specific.title">To create an Object Lambda Access Point by using the AWS CLI</h6><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To use the following commands, replace the <code class="code"><code class="replaceable">user input
+                        placeholders</code></code> with your own information.</p></div></div><p>The following example creates an Object Lambda Access Point named
+                    <code class="replaceable"><code class="code">my-object-lambda-ap</code></code> for the bucket
+                    <code class="replaceable"><code class="code">amzn-s3-demo-bucket1</code></code> in the
+            account <code class="replaceable"><code class="code">111122223333</code></code>. This example
+            assumes that a standard access point named <code class="replaceable"><code class="code">example-ap</code></code>
+            has already been created. For information about creating a standard access point, see <a href="./creating-access-points.html">Creating an access point</a>.</p><p>This example uses the AWS prebuilt function <code class="code">decompress</code>. For more
+            information about prebuilt functions, see <a href="./olap-examples.html">Using AWS built Lambda functions</a>.</p><ol><li>
+            <p>Create a bucket. In this example, we will use
+                        <code class="replaceable"><code class="code">amzn-s3-demo-bucket1</code></code>.
+                For information about creating buckets, see <a href="./create-bucket-overview.html">Creating a general purpose bucket</a>.</p>
+        </li><li>
+            <p>Create a standard access point and attach it to your bucket. In this example, we will use
+                        <code class="replaceable"><code class="code">example-ap</code></code>. For information about
+                creating standard access points, see <a href="./creating-access-points.html">Creating an access point</a>.</p>
+        </li><li>
+            <p>Do one of the following: </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Create a Lambda function in your account that you would like to use to
+                        transform your Amazon S3 object. For more information about creating Lambda
+                        functions, see <a href="./olap-writing-lambda.html">Writing Lambda functions for S3 Object Lambda Access Points</a>. To use your custom
+                        function with the AWS CLI, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html">Using Lambda with the
+                            AWS CLI</a> in the <em>AWS Lambda Developer Guide</em>.</p>
+                </li><li class="listitem">
+                    <p>Use an AWS prebuilt Lambda function. For more information about prebuilt
+                        functions, see <a href="./olap-examples.html">Using AWS built Lambda functions</a>.</p>
+                </li></ul></div>
+        </li><li>
+            <p>Create a JSON configuration file named
+                    <code>my-olap-configuration.json</code>. In this configuration, provide
+                the supporting access point and the Amazon Resource Name (ARN) for the Lambda function that
+                you created in the previous steps or the ARN for the prebuilt function that you're
+                using.</p>
+            <div class="example"><h6>Example</h6><div class="example-contents"><p></p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "SupportingAccessPoint" : "arn:aws:s3:<code class="replaceable">us-east-1</code>:<code class="replaceable">111122223333</code>:accesspoint/<code class="replaceable">example-ap</code>",
+    "TransformationConfigurations": [<span>{</span>
+        "Actions" : ["GetObject", "HeadObject", "ListObjects", "ListObjectsV2"],
+        "ContentTransformation" : <span>{</span>
+            "AwsLambda": <span>{</span>
+                "FunctionPayload" : "<span>{</span>\"compressionType\":\"gzip\"}",
+                "FunctionArn" : "arn:aws:lambda:<code class="replaceable">us-east-1</code>:<code class="replaceable">111122223333</code>:function/compress"
+            }
+        }
+    }]
+}</code></pre></div></div>
+        </li><li>
+            <p>Run the <code class="code">create-access-point-for-object-lambda</code> command to create your
+                Object Lambda Access Point.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws s3control create-access-point-for-object-lambda --account-id <code class="replaceable">111122223333</code> --name <code class="replaceable">my-object-lambda-ap</code> --configuration file://<code class="replaceable">my-olap-configuration.json</code></code></pre>
+        </li><li>
+            <p>(Optional) Create a JSON policy file named
+                    <code>my-olap-policy.json</code>.</p>
+            <p>Adding an Object Lambda Access Point resource policy can control the use of the access point by
+                resource, user, or other conditions. This resource policy grants the
+                    <code class="code">GetObject</code> permission for account
+                        <code class="replaceable"><code class="code">444455556666</code></code> to the
+                specified Object Lambda Access Point.</p>
+            <div class="example"><h6>Example</h6><div class="example-contents"><p></p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "Version": "2008-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "Grant account <code class="replaceable">444455556666</code> GetObject access",
+            "Effect": "Allow",
+            "Action": "s3-object-lambda:GetObject",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">444455556666</code>:root"
+            },
+            "Resource": "<code class="replaceable">your-object-lambda-access-point-arn</code>"
+        }
+    ]
+}</code></pre></div></div>
+        </li><li>
+            <p>(Optional) Run the <code class="code">put-access-point-policy-for-object-lambda</code> command
+                to set your resource policy.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws s3control put-access-point-policy-for-object-lambda --account-id <code class="replaceable">111122223333</code> --name <code class="replaceable">my-object-lambda-ap</code> --policy file://<code class="replaceable">my-olap-policy.json</code></code></pre>
+        </li><li>
+            <p>(Optional) Specify a payload.</p>
+            <p>A payload is optional JSON that you can provide to your AWS Lambda function as
+                input. You can configure payloads with different parameters for different Object Lambda Access Points
+                that invoke the same Lambda function, thereby extending the flexibility of your Lambda
+                function.</p>
+            <p>The following Object Lambda Access Point configuration shows a payload with two parameters.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+	"SupportingAccessPoint": "<code class="replaceable">AccessPointArn</code>",
+	"CloudWatchMetricsEnabled": <code class="replaceable">false</code>,
+	"TransformationConfigurations": [<span>{</span>
+		"Actions": ["GetObject", "HeadObject", "ListObjects", "ListObjectsV2"],
+		"ContentTransformation": <span>{</span>
+			"AwsLambda": <span>{</span>
+				"FunctionArn": "<code class="replaceable">FunctionArn</code>",
+				"FunctionPayload": "<span>{</span>\"res-x\": \"100\",\"res-y\": \"100\"}"
+			}
+		}
+	}]
+}</code></pre>
+            <p>The following Object Lambda Access Point configuration shows a payload with one parameter, and with
+                    <code class="code">GetObject-Range</code>, <code class="code">GetObject-PartNumber</code>,
+                    <code class="code">HeadObject-Range</code>, and <code class="code">HeadObject-PartNumber</code>
+                enabled.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "SupportingAccessPoint":"<code class="replaceable">AccessPointArn</code>",
+    "CloudWatchMetricsEnabled": <code class="replaceable">false</code>,
+    "AllowedFeatures": ["GetObject-Range", "GetObject-PartNumber", "HeadObject-Range", "HeadObject-PartNumber"],        
+    "TransformationConfigurations": [<span>{</span>
+        "Action": ["GetObject", "HeadObject", "ListObjects", "ListObjectsV2"],
+        "ContentTransformation": <span>{</span>
+            "AwsLambda": <span>{</span>
+                "FunctionArn":"<code class="replaceable">FunctionArn</code>",
+                "FunctionPayload": "<span>{</span>\"compression-amount\": \"5\"}"
+            }
+        }
+    }]
+}</code></pre>
+            <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you're using Object Lambda Access Points, make sure that the payload does not contain any
+                    confidential information.</p></div></div>
+        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CloudFormation console and template" id="olap-create-cfn-console" expanded="false"><p>You can create an Object Lambda Access Point by using the default configuration provided by Amazon S3. You can
+        download an AWS CloudFormation template and Lambda function source code from the <a href="https://github.com/aws-samples/amazon-s3-object-lambda-default-configuration" rel="noopener noreferrer" target="_blank"><span>GitHub repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and deploy these resources to set up a functional
+        Object Lambda Access Point.</p><p>For information about modifying the AWS CloudFormation template's default configuration, see <a href="./olap-using-cfn-template.html">Automate S3 Object Lambda setup with a CloudFormation template</a>.</p><p>For information about configuring Object Lambda Access Points by using CloudFormation without the template, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3objectlambda-accesspoint.html"><code class="code">AWS::S3ObjectLambda::AccessPoint</code></a> in the
+            <em>AWS CloudFormation User Guide</em>.</p><div class="procedure"><h6>To upload the Lambda function deployment package</h6><ol><li>
+            <p>Download the AWS Lambda function deployment package
+                    <code>s3objectlambda_deployment_package.zip</code> at <a href="https://github.com/aws-samples/amazon-s3-object-lambda-default-configuration" rel="noopener noreferrer" target="_blank"><span>S3 Object Lambda default configuration</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+            <p>Upload the package to an Amazon S3 bucket.</p>
+        </li></ol></div><div class="procedure"><h6>To create an Object Lambda Access Point by using the AWS CloudFormation console</h6><ol><li>
+            <p>Download the AWS CloudFormation template
+                    <code>s3objectlambda_defaultconfig.yaml</code> at <a href="https://github.com/aws-samples/amazon-s3-object-lambda-default-configuration" rel="noopener noreferrer" target="_blank"><span>S3 Object Lambda default configuration</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+            <p>Sign in to the AWS Management Console and open the AWS CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudformation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+            <p>Do one of the following: </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>If you've never used AWS CloudFormation before, on the AWS CloudFormation home page, choose
+                            <b>Create stack</b>.</p>
+                </li><li class="listitem">
+                    <p>If you have used AWS CloudFormation before, in the left navigation pane, choose
+                            <b>Stacks</b>. Choose <b>Create stack</b>,
+                        then choose <b>With new resources (standard)</b>.</p>
+                </li></ul></div>
+        </li><li>
+            <p>For <b>Prerequisite - Prepare template</b>, choose <b>Template is ready</b>.</p>
+        </li><li>
+            <p>For <b>Specify template</b>, choose <b>Upload a template
+                    file</b> and upload
+                    <code>s3objectlambda_defaultconfig.yaml</code>.</p>
+        </li><li>
+            <p>Choose <b>Next</b>.</p>
+        </li><li>
+            <p>On the <b>Specify stack details</b> page, enter a name for the
+                stack.</p>
+        </li><li>
+            <p>In the <b>Parameters</b> section, specify the following parameters
+                that are defined in the stack
+                template:</p>
+            <ol><li>
+                    <p>For <b>CreateNewSupportingAccessPoint</b>, do one of the
+                        following: </p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>If you already have a supporting access point for the S3 bucket
+                                where you uploaded the template, choose
+                                <b>false</b>.</p>
+                        </li><li class="listitem">
+                            <p>If you want to create a new access point for this bucket, choose
+                                    <b>true</b>. </p>
+                        </li></ul></div>
+                </li><li>
+                    <p>For <b>EnableCloudWatchMonitoring</b>, choose
+                            <b>true</b> or <b>false</b>, depending on
+                        whether you want to enable Amazon CloudWatch request metrics and alarms. </p>
+                </li><li>
+                    <p>(Optional) For <b>LambdaFunctionPayload</b>, add JSON text
+                        that you want to provide to your Lambda function as input. You can configure
+                        payloads with different parameters for different Object Lambda Access Points that invoke the
+                        same Lambda function, thereby extending the flexibility of your Lambda
+                        function.</p>
+                    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you're using Object Lambda Access Points, make sure that the payload does not contain
+                            any confidential information.</p></div></div>
+                </li><li>
+                    <p>For <b>LambdaFunctionRuntime</b>, enter your preferred
+                        runtime for the Lambda function. The available choices are
+                            <code class="code">nodejs14.x</code>, <code class="code">python3.9</code>,
+                        <code class="code">java11</code>.</p>
+                </li><li>
+                    <p>For <b>LambdaFunctionS3BucketName</b>, enter the Amazon S3 bucket
+                        name where you uploaded the deployment package.</p>
+                </li><li>
+                    <p>For <b>LambdaFunctionS3Key</b>, enter the Amazon S3 object key
+                        where you uploaded the deployment package.</p>
+                </li><li>
+                    <p>For <b>LambdaFunctionS3ObjectVersion</b>, enter the Amazon S3
+                        object version where you uploaded the deployment package.</p>
+                </li><li>
+                    <p>For <b>ObjectLambdaAccessPointName</b>, enter a name for
+                        your Object Lambda Access Point.</p>
+                </li><li>
+                    <p>For <b>S3BucketName</b>, enter the Amazon S3 bucket name that
+                        will be associated with your Object Lambda Access Point.</p>
+                </li><li>
+                    <p>For <b>SupportingAccessPointName</b>, enter the name of your
+                        supporting access point.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is an access point that is associated with the Amazon S3 bucket that you chose
+                            in the previous step. If you do not have any access points associated
+                            with your Amazon S3 bucket, you can configure the template to create one for
+                            you by choosing <b>true</b> for
+                                <b>CreateNewSupportingAccessPoint</b>.</p></div></div>
+                </li></ol>
+        </li><li>
+            <p>Choose <b>Next</b>.</p>
+        </li><li>
+            <p>On the <b>Configure stack options page</b>, choose <b>Next</b>.</p>
+            <p>For more information about the optional settings on this page, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html">Setting
+                    AWS CloudFormation stack options</a> in the
+                <em>AWS CloudFormation User Guide</em>.</p>
+        </li><li>
+            <p>On the <b>Review</b> page, choose <b>Create stack</b>.</p>
+        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS Cloud Development Kit (AWS CDK)" id="olap-create-cdk" expanded="false"><p>For more information about configuring Object Lambda Access Points by using the AWS CDK, see <a href="https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3objectlambda-readme.html"><code class="code">AWS::S3ObjectLambda</code> Construct Library</a> in the
+                        <em>AWS Cloud Development Kit (AWS CDK) API Reference</em>.</p></awsui-expandable-section></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./transforming-objects.html">Transforming objects</div><div id="next" class="next-link" accesskey="n" href="./olap-using-cfn-template.html">Automate S3 Object Lambda setup with AWS CloudFormation</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-create.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-create.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

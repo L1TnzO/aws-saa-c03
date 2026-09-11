@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using crawlers to populate the Data Catalog - AWS Glue</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="add-crawler" /><meta name="default_state" content="add-crawler" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html" /><meta name="description" content="Learn about crawlers in AWS Glue, how to add them, and the types of data stores you can crawl." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Glue" /><meta name="guide" content="User Guide" /><meta name="abstract" content="How to use and program AWS Glue." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/add-crawler.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/add-crawler.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/add-crawler.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/add-crawler.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/add-crawler.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/add-crawler.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/add-crawler.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/add-crawler.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/add-crawler.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/add-crawler.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/add-crawler.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/add-crawler.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/add-crawler.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/add-crawler.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/add-crawler.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/add-crawler.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/glue/latest/dg/add-crawler.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/glue/latest/dg/add-crawler.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html" hreflang="x-default" /><meta name="feedback-item" content="Glue" /><meta name="this_doc_product" content="AWS Glue" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'glue'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using crawlers to populate the Data Catalog" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="add-crawler.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using crawlers to populate the Data Catalog - AWS Glue</title><meta name="pdf" content="/pdfs/glue/latest/dg/glue-dg.pdf#add-crawler" /><meta name="rss" content="aws-glue-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TABBptUaVOS1mAM7TXuTuxWQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/add-crawler.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/add-crawler.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/add-crawler.html" /><meta name="keywords" content="AWS Glue,AWS Glue Data Catalog,Data Catalog,AWS Glue jobs system,Jobs system,ETL,crawler,schema registry,classifiers" /><link rel="alternate" type="text/markdown" href="add-crawler.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Data discovery and cataloging in AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Populating the AWS Glue Data Catalog",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/populate-catalog-methods.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Using crawlers to populate the Data Catalog",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/populate-catalog-methods.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/glue/latest/dg/glue-dg.pdf#add-crawler" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/glue/index.html">AWS Glue</a><a href="what-is-glue.html">User Guide</a></div><div id="page-toc-src"><a href="#crawler-workflow">Workflow</a><a href="#crawler-running">How crawlers work</a><a href="#crawler-s3-folder-table-partition">How does a crawler determine when to create partitions?</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="add-crawler">Using crawlers to populate the Data Catalog</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use an AWS Glue crawler to populate the AWS Glue Data Catalog with databases and tables. This is the primary method
+    used by most AWS Glue users. A crawler can crawl multiple data stores in a single run. Upon
+    completion, the crawler creates or updates one or more tables in your Data Catalog. Extract,
+    transform, and load (ETL) jobs that you define in AWS Glue use these Data Catalog tables as sources and
+    targets. The ETL job reads from and writes to the data stores that are specified in the source
+    and target Data Catalog tables.</p>
+  <h2 id="crawler-workflow">Workflow</h2>
+  <p>The following workflow diagram shows how AWS Glue crawlers interact with data stores and other
+    elements to populate the Data Catalog.</p>
+  <div class="mediaobject">
+     
+     
+      <img src="/images/glue/latest/dg/images/PopulateCatalog-overview.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Workflow showing how AWS Glue crawler populates the Data Catalog in 5 basic steps." style="max-width:100%" />
+     
+  </div>
+  <p>The following is the general workflow for how a crawler populates the AWS Glue Data Catalog:</p>
+  
+  <div class="orderedlist">
+     
+     
+     
+     
+     
+  <ol><li>
+      <p>A crawler runs any custom <em>classifiers</em> that you choose to infer the
+        format and schema of your data. You provide the code for custom classifiers, and they run in
+        the order that you specify.</p>
+      <p>The first custom classifier to successfully recognize the structure of your data is used
+        to create a schema. Custom classifiers lower in the list are skipped.</p>
+    </li><li>
+      <p>If no custom classifier matches your data's schema, built-in classifiers try to
+        recognize your data's schema. An example of a built-in classifier is one that recognizes
+        JSON.</p>
+    </li><li>
+      <p>The crawler connects to the data store. Some data stores require connection properties
+        for crawler access.</p>
+    </li><li>
+      <p>The inferred schema is created for your data.</p>
+    </li><li>
+      <p>The crawler writes metadata to the Data Catalog. A table definition contains metadata about
+        the data in your data store. The table is written to a database, which is a container of
+        tables in the Data Catalog. Attributes of a table include classification, which is a label
+        created by the classifier that inferred the table schema.</p>
+    </li></ol></div>
+<div class="highlights"><h6>Topics</h6><ul><li><p><a href="#crawler-running">How crawlers work</a></p></li><li><p><a href="#crawler-s3-folder-table-partition">How does a crawler determine when to create partitions?</a></p></li><li><p><a href="./crawler-data-stores.html">Supported data sources for crawling</a></p></li><li><p><a href="./crawler-prereqs.html">Crawler prerequisites</a></p></li><li><p><a href="./add-classifier.html">Defining and managing classifiers</a></p></li><li><p><a href="./define-crawler.html">Configuring a crawler</a></p></li><li><p><a href="./schedule-crawler.html">Scheduling a crawler</a></p></li><li><p><a href="./console-crawlers-details.html">Viewing crawler results and details</a></p></li><li><p><a href="./crawler-configuration.html">Customizing crawler behavior</a></p></li><li><p><a href="./tutorial-add-crawler.html">Tutorial: Adding an AWS Glue crawler</a></p></li></ul></div>
+    <h2 id="crawler-running">How crawlers work</h2>
+    <p>When a crawler runs, it takes the following actions to interrogate a data store:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Classifies data to determine the format, schema, and associated
+          properties of the raw data</b> – You can configure the results of
+          classification by creating a custom classifier.</p>
+      </li><li class="listitem">
+        <p><b>Groups data into tables or partitions </b> – Data
+          is grouped based on crawler heuristics.</p>
+      </li><li class="listitem">
+        <p><b>Writes metadata to the Data Catalog </b> – You can
+          configure how the crawler adds, updates, and deletes tables and partitions.</p>
+      </li></ul></div>
+    <p>When you define a crawler, you choose one or more classifiers that evaluate the format of
+      your data to infer a schema. When the crawler runs, the first classifier in your list to
+      successfully recognize your data store is used to create a schema for your table. You can use
+      built-in classifiers or define your own. You define your custom classifiers in a separate
+      operation, before you define the crawlers. AWS Glue provides built-in classifiers to infer
+      schemas from common files with formats that include JSON, CSV, and Apache Avro. For the
+      current list of built-in classifiers in AWS Glue, see <a href="./add-classifier.html#classifier-built-in">Built-in classifiers</a>.
+      
+    </p>
+    <p>The metadata tables that a crawler creates are contained in a database when you define a
+      crawler. If your crawler does not specify a database, your tables are placed in the default
+      database. In addition, each table has a classification column that is filled in by the
+      classifier that first successfully recognized the data store.</p>
+    <p>If the file that is crawled is compressed, the crawler must download it to process it.
+      When a crawler runs, it interrogates files to determine their format and compression type and
+      writes these properties into the Data Catalog. Some file formats (for example, Apache Parquet)
+      enable you to compress parts of the file as it is written. For these files, the compressed
+      data is an internal component of the file, and AWS Glue does not populate the
+      <code class="code">compressionType</code> property when it writes tables into the Data Catalog. In contrast,
+      if an <em>entire file</em> is compressed by a compression algorithm (for example,
+      gzip), then the <code class="code">compressionType</code> property is populated when tables are written
+      into the Data Catalog. </p>
+    
+    <p>The crawler generates the names for the tables that it creates. The names of the tables
+      that are stored in the AWS Glue Data Catalog follow these rules:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Only alphanumeric characters and underscore (<code class="code">_</code>) are allowed.</p>
+      </li><li class="listitem">
+        <p>Any custom prefix cannot be longer than 64 characters.</p>
+      </li><li class="listitem">
+        <p>The maximum length of the name cannot be longer than 128 characters. The crawler
+          truncates generated names to fit within the limit.</p>
+      </li><li class="listitem">
+        <p>If duplicate table names are encountered, the crawler adds a hash string suffix to the
+          name.</p>
+      </li></ul></div>
+    
+    <p>If your crawler runs more than once, perhaps on a schedule, it looks for new or changed
+      files or tables in your data store. The output of the crawler includes new tables and
+      partitions found since a previous run.</p>
+   
+      <h2 id="crawler-s3-folder-table-partition">How does a crawler determine when to create partitions?</h2>
+      <p>When an AWS Glue crawler scans Amazon S3 data store and detects multiple folders in a bucket, it determines
+        the root of a table in the folder structure and which folders are partitions of a table. The
+        name of the table is based on the Amazon S3 prefix or folder name. You provide an
+          <b>Include path</b> that points to the folder level to crawl. When the
+        majority of schemas at a folder level are similar, the crawler creates partitions of a table
+        instead of separate tables. To influence the crawler to create separate tables, add each
+        table's root folder as a separate data store when you define the crawler.</p>
+      <p>For example, consider the following Amazon S3 folder structure.</p>
+      <div class="mediaobject">
+         
+          <img src="/images/glue/latest/dg/images/crawlers-s3-folders.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Rectangles at multiple levels represent a folder hierarchy in Amazon S3. The top rectangle is labeled Sales. Rectangle below that is labeled year=2019. Two rectangles below that are labeled month=Jan and month=Feb. Each of those rectangles has two rectangles below them, labeled day=1 and day=2. All four &#34;day&#34; (bottom) rectangles have either two or four files under them. All rectangles and files are connected with lines." style="max-width:100%" />
+         
+         
+      </div>
+      <p>The paths to the four lowest level folders are the following:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">S3://sales/year=2019/month=Jan/day=1
+S3://sales/year=2019/month=Jan/day=2
+S3://sales/year=2019/month=Feb/day=1
+S3://sales/year=2019/month=Feb/day=2</code></pre>
+      <p>Assume that the crawler target is set at <code class="code">Sales</code>, and that all files in the
+            <code class="code">day=<em>n</em></code> folders have the same format (for
+        example, JSON, not encrypted), and have the same or very similar schemas. The crawler will
+        create a single table with four partitions, with partition keys <code class="code">year</code>,
+          <code class="code">month</code>, and <code class="code">day</code>.</p>
+      <p>In the next example, consider the following Amazon S3 structure:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">
+s3://bucket01/folder1/table1/partition1/file.txt
+s3://bucket01/folder1/table1/partition2/file.txt
+s3://bucket01/folder1/table1/partition3/file.txt
+s3://bucket01/folder1/table2/partition4/file.txt
+s3://bucket01/folder1/table2/partition5/file.txt
+</code></pre>
+      <p>If the schemas for files under <code class="code">table1</code> and <code class="code">table2</code> are similar,
+        and a single data store is defined in the crawler with <b>Include path</b>
+        <code>s3://bucket01/folder1/</code>, the crawler creates a single table with two
+        partition key columns. The first partition key column contains <code class="code">table1</code> and
+          <code class="code">table2</code>, and the second partition key column contains <code class="code">partition1</code>
+        through <code class="code">partition3</code> for the <code class="code">table1</code> partition and
+          <code class="code">partition4</code> and <code class="code">partition5</code> for the <code class="code">table2</code> partition.
+        To create two separate tables, define the crawler with two data stores. In this example,
+        define the first <b>Include path</b> as
+          <code>s3://bucket01/folder1/table1/</code> and the second as
+          <code>s3://bucket01/folder1/table2</code>.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>In Amazon Athena, each table corresponds to an Amazon S3 prefix with all the objects in it. If
+          objects have different schemas, Athena does not recognize different objects within the same
+          prefix as separate tables. This can happen if a crawler creates multiple tables from the
+          same Amazon S3 prefix. This might lead to queries in Athena that return zero results. For Athena
+          to properly recognize and query tables, create the crawler with a separate
+            <b>Include path</b> for each different table schema in the Amazon S3 folder
+          structure. For more information, see <a href="https://docs.aws.amazon.com/athena/latest/ug/glue-best-practices.html">Best Practices When Using Athena with AWS Glue</a> and this <a href="https://aws.amazon.com/premiumsupport/knowledge-center/athena-empty-results/" rel="noopener noreferrer" target="_blank"><span>AWS
+            Knowledge Center article</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./populate-catalog-methods.html">Populating the Data Catalog</div><div id="next" class="next-link" accesskey="n" href="./crawler-data-stores.html">Supported data sources for crawling</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/add-crawler.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/add-crawler.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

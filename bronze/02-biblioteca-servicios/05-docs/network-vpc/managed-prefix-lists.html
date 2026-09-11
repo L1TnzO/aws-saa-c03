@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Consolidate and manage network CIDR blocks with managed prefix lists - Amazon Virtual Private Cloud</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="managed-prefix-lists" /><meta name="default_state" content="managed-prefix-lists" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html" /><meta name="description" content="Use managed prefix lists to group your IPv4 and IPv6 CIDR blocks, and reference them in security groups and route tables." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Virtual Private Cloud" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Amazon VPC to launch AWS resources into a virtual network that is a logically isolated section of the AWS cloud. Use Amazon VPC to launch AWS resources into a virtual network that is a logically isolated section of the AWS cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/userguide/managed-prefix-lists.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/userguide/managed-prefix-lists.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/userguide/managed-prefix-lists.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/userguide/managed-prefix-lists.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/userguide/managed-prefix-lists.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/userguide/managed-prefix-lists.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/managed-prefix-lists.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/managed-prefix-lists.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/userguide/managed-prefix-lists.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/userguide/managed-prefix-lists.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/managed-prefix-lists.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/managed-prefix-lists.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/managed-prefix-lists.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/managed-prefix-lists.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/managed-prefix-lists.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/managed-prefix-lists.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/vpc/latest/userguide/managed-prefix-lists.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/vpc/latest/userguide/managed-prefix-lists.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html" hreflang="x-default" /><meta name="feedback-item" content="VPC" /><meta name="this_doc_product" content="Amazon Virtual Private Cloud" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Consolidate and manage network CIDR blocks with managed prefix lists" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="managed-prefix-lists.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Consolidate and manage network CIDR blocks with managed prefix lists - Amazon Virtual Private Cloud</title><meta name="pdf" content="/pdfs/vpc/latest/userguide/vpc-ug.pdf#managed-prefix-lists" /><meta name="rss" content="amazon-vpc-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TATGuEiYydTVCPMhSnXFN6gA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/managed-prefix-lists.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/managed-prefix-lists.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/managed-prefix-lists.html" /><meta name="keywords" content="VPC,Amazon VPC,network,route table,internet gateway,subnet,NAT,aggregate network CIDR blocks for referencing" /><link rel="alternate" type="text/markdown" href="managed-prefix-lists.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IP addressing for your VPCs and subnets",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Consolidate and manage network CIDR blocks with managed prefix lists",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpc/latest/userguide/vpc-ug.pdf#managed-prefix-lists" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/vpc/index.html">Amazon VPC</a><a href="what-is-amazon-vpc.html">User Guide</a></div><div id="page-toc-src"><a href="#managed-prefix-lists-concepts">Prefix lists concepts and rules</a><a href="#managed-prefix-lists-iam">Identity and access management for prefix lists</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="managed-prefix-lists">Consolidate and manage network CIDR blocks with managed prefix lists</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A managed prefix list is a set of one or more CIDR blocks. You can use prefix lists to make it
+        easier to configure and maintain your security groups and route tables. You can create a
+        prefix list from the IP addresses that you frequently use, and reference them as a set in
+        security group rules and routes instead of referencing them individually. For example, you 
+        can consolidate security group rules with different CIDR blocks but the same port and protocol 
+        into a single rule that uses a prefix list. If you scale your network and need to allow traffic 
+        from another CIDR block, you can update the relevant prefix list and all security groups that 
+        use the prefix list are updated. You can also use managed prefix lists with other AWS accounts using Resource Access Manager (RAM).</p><div class="itemizedlist">
+        <p>There are two types of prefix lists:</p>
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>Customer-managed prefix lists</b> — Sets of
+                IP address ranges that you define and manage. You can share your prefix list
+                with other AWS accounts, enabling those accounts to reference the prefix list in
+                their own resources.</p>
+        </li><li class="listitem">
+            <p><b>AWS-managed prefix lists</b> — Sets of IP
+                address ranges for AWS services. You cannot create, modify, share, or delete an 
+                AWS-managed prefix list.</p>
+        </li></ul></div><div class="highlights"><h6>Contents</h6><ul><li><p><a href="#managed-prefix-lists-concepts">Prefix lists concepts and rules</a></p></li><li><p><a href="#managed-prefix-lists-iam">Identity and access management for prefix lists</a></p></li><li><p><a href="./working-with-managed-prefix-lists.html">Customer-managed prefix lists</a></p></li><li><p><a href="./working-with-aws-managed-prefix-lists.html">AWS-managed prefix lists</a></p></li><li><p><a href="./managed-prefix-lists-referencing.html">Optimize AWS infrastructure management with prefix lists</a></p></li></ul></div>
+        <h2 id="managed-prefix-lists-concepts">Prefix lists concepts and rules</h2>
+        <p>A prefix list consists of <em>entries</em>. Each entry consists of a CIDR
+            block and, optionally, a description for the CIDR block.</p>
+        <div class="itemizedlist">
+            <h6>Customer-managed prefix lists</h6>
+            <p>The following rules apply to customer-managed prefix lists:</p>
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>A prefix list supports a single type of IP addressing only (IPv4 or IPv6). You
+                    cannot combine IPv4 and IPv6 CIDR blocks in a single prefix list.</p>
+            </li><li class="listitem">
+                <p>A prefix list applies only to the Region where you created it.</p>
+            </li><li class="listitem">
+                <p>When you create a prefix list, you must specify the maximum number of entries
+                    that the prefix list can support.</p>
+            </li><li class="listitem">
+                <p>When you reference a prefix list in a resource, the maximum number of entries for 
+                    the prefix lists counts against the quota for the number of entries for the resource. 
+                    For example, if you create a prefix list with 20 maximum entries and you reference 
+                    that prefix list in a security group rule, this counts as 20 security group rules.</p>
+            </li><li class="listitem">
+                <p>When you reference a prefix list in a route table, route priority rules apply.
+                    For more information, see <a href="./route-tables-priority.html#route-priority-managed-prefix-list">Route priority for prefix lists</a>.</p>
+            </li><li class="listitem">
+                <p>You can modify a prefix list. When you add or remove entries, we create a new version of 
+                    the prefix list. Resources that reference the prefix always use the current (latest) 
+                    version. You can restore the entries from a previous version of the prefix list, which
+                    also creates a new version.</p>
+            </li><li class="listitem">
+                <p>There are quotas related to prefix lists. For more information, see <a href="./amazon-vpc-limits.html#vpc-quotas-managed-prefix-lists">Customer-managed prefix lists</a>.</p>
+            </li><li class="listitem">
+                <p>Customer-managed prefix lists are available in all commercial <a href="https://aws.amazon.com/about-aws/global-infrastructure/regions_az/" rel="noopener noreferrer" target="_blank"><span>AWS Regions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> (including GovCloud (US) and China Regions).</p>
+            </li></ul></div>
+        
+        <div class="itemizedlist">
+            <h6>AWS-managed prefix lists</h6>
+            <p>The following rules apply to AWS-managed prefix lists:</p>
+             
+             
+            
+             
+
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You cannot create, modify, share, or delete an AWS-managed prefix list.</p>
+            </li><li class="listitem">
+                <p>Different AWS-managed prefix lists have a different weight when you use them. For more information, see <a href="./working-with-aws-managed-prefix-lists.html#aws-managed-prefix-list-weights">AWS-managed prefix list weight</a>.</p>
+            </li><li class="listitem">
+                <p>You cannot view the version number of an AWS-managed prefix list.</p>
+            </li></ul></div>
+
+     
+        <h2 id="managed-prefix-lists-iam">Identity and access management for prefix lists</h2>
+        <p>By default, users do not have permission to create, view, modify, or delete prefix lists. You can create an IAM policy and attach it to a role that allows users to work with prefix lists.</p>
+        <p>To see a list of Amazon VPC actions and the resources and condition keys that you can use
+            in an IAM policy, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonec2.html">Actions,
+                resources, and condition keys for Amazon EC2</a> in the <em>Service Authorization Reference</em>.</p>
+        <p>The following example policy allows users to view and work with prefix list
+            <code class="code">pl-123456abcde123456</code> only. Users cannot create or delete prefix
+            lists.</p>
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="bf6c7b5ac71d54f34119e8ac6886c70cfaac288477fda278f81429ebe80bbab7"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "ec2:GetManagedPrefixListAssociations",
+                "ec2:GetManagedPrefixListEntries",
+                "ec2:ModifyManagedPrefixList",
+                "ec2:RestoreManagedPrefixListVersion"
+            ],
+            "Resource": "arn:aws:ec2:<code class="replaceable">us-east-1</code>:<code class="replaceable">123456789012</code>:prefix-list/<code class="replaceable">pl-123456abcde123456</code>"
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "ec2:DescribeManagedPrefixLists",
+            "Resource": "*"
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+        <p>For more information about working with IAM in Amazon VPC, see <a href="./security-iam.html">Identity and access management for Amazon VPC</a>.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ipv4-ipv6-comparison.html">Compare IPv4 and IPv6</div><div id="next" class="next-link" accesskey="n" href="./working-with-managed-prefix-lists.html">Customer-managed prefix lists</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/managed-prefix-lists.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/managed-prefix-lists.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

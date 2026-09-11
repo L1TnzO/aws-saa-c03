@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integración, mensajería y APIs · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Integración y mensajería</div>
+        <h1>Integración, mensajería y APIs<span class="dom-weight">D2 · loosely coupled</span></h1>
+        <p class="page-lead">Colas, topics, eventos, workflows y APIs: los cinco servicios de integración que hacen que
+        una arquitectura sea <span class="term-en">loosely coupled</span>. Esta página los cubre en profundidad de examen:
+        SQS, SNS, EventBridge, Step Functions, Amazon MQ y API Gateway con AppSync.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 2.1</div>
+        <div class="tb-title">Design scalable and loosely coupled architectures</div>
+        <div class="tb-meta">Knowledge: API creation and management (API Gateway), event-driven architectures, queuing and messaging (publish/subscribe), workflow orchestration (Step Functions), serverless patterns · Skills: designing event-driven and multi-tier architectures, determining the AWS services required to achieve loose coupling</div>
+      </div>
+
+      <!-- ============ 1. EL ESPECTRO ============ -->
+      <h2 id="espectro"><span class="h2-num">1</span>Por qué desacoplar: el espectro de comunicación</h2>
+      <p>Cuando dos componentes se llaman directamente, el destino de uno depende del otro: si el consumidor cae, se
+      ralentiza o simplemente está ocupado, el productor sufre. <strong>Desacoplar</strong> significa insertar una capa
+      intermedia administrada que absorba fallos, picos y despliegues independientes; el examen lo delata con la frase
+      <span class="term-en">decouple</span> o <span class="term-en">loosely coupled</span>. En AWS no existe una única
+      forma de desacoplar: existe un <em>espectro</em> de primitivas de comunicación que se diferencian por quién
+      responde, quién guarda el estado y qué garantía ofrecen. Elegir bien esa primitiva es exactamente la decisión que
+      evalúa el Dominio 2.</p>
+      <p>En un extremo está la llamada síncrona <span class="term-en">request/response</span>: el cliente pide y espera
+      una respuesta — API Gateway es la puerta de entrada típica. En el medio están los <strong>mensajes</strong>
+      (SQS: el consumidor hace <span class="term-en">pull</span> de una cola cuando puede) y los <strong>eventos</strong>
+      (SNS/EventBridge: el sistema <span class="term-en">push</span> notifica a los interesados sin esperar respuesta).
+      En el otro extremo está la <strong>orquestación</strong> de varios pasos con lógica de negocio, garantías
+      duraderas y manejo de errores: un <span class="term-en">workflow</span> en Step Functions. La regla mental:
+      si necesitas respuesta inmediata → API; si necesitas trabajo diferido y fiable → mensaje; si solo notificas
+      que algo pasó → evento; si hay un proceso de varios pasos con decisiones → workflow.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  A["App A"] -->|"request/response<br>respuesta inmediata"| GW["API Gateway"]
+  GW --> B["App B"]
+  A -->|"mensaje<br>pull diferido"| Q["SQS queue"]
+  Q --> C["Worker"]
+  A -->|"evento<br>push sin respuesta"| EB["EventBridge / SNS"]
+  EB --> D["Suscriptores"]
+  A -->|"workflow<br>orquestación"| SF["Step Functions"]
+  SF --> E["Lambda / ECS"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El espectro: síncrono (API GW) → mensaje (SQS) → evento (SNS/EventBridge) → workflow (Step Functions).</figcaption>
+      </figure>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Memoriza el espectro como una línea de «necesito respuesta» a «necesito proceso»: <span class="term-en">sync</span>
+        → <span class="term-en">async</span> → <span class="term-en">event-driven</span> → <span class="term-en">orchestration</span>.
+        Cada pregunta de desacople del examen te está preguntando en qué punto del espectro cae el escenario.</p>
+      </div>
+
+      <!-- ============ 2. SQS ============ -->
+      <h2 id="sqs"><span class="h2-num">2</span>Amazon SQS: la cola enciclopédica</h2>
+      <p>Amazon SQS es una cola hospedada, segura, duradera y disponible: los mensajes se replican en múltiples
+      servidores y <span class="term-en">Availability Zones</span>. Un <em>productor</em> envía mensajes a la cola y uno
+      o más <em>consumidores</em> los extraen cuando pueden; los mensajes viven hasta 14 días (retención por defecto
+      de 4 días) y su tamaño máximo es de 256 KiB, ampliable a prácticamente cualquier tamaño guardando el contenido
+      en S3 y dejando solo el puntero en la cola. SQS escala de forma transparente ante <span class="term-en">spikes</span>
+      de carga sin aprovisionar nada, lo que lo convierte en la respuesta estándar a «absorber tráfico repentino sin
+      perder peticiones».</p>
+
+      <h3>Standard vs FIFO: la tabla que cae en el examen</h3>
+      <p>SQS ofrece dos sabores de cola y la diferencia es tan examinable como conceptual. <strong>Standard</strong>
+      prioriza <span class="term-en">throughput</span> casi ilimitada a cambio de relajar dos garantías:
+      <span class="term-en">at-least-once delivery</span> (un mensaje puede llegar más de una vez, diseña operaciones
+      <span class="term-en">idempotent</span>) y <span class="term-en">best-effort ordering</span> (el orden <em>no</em>
+      está garantizado). <strong>FIFO</strong> (sufijo <code>.fifo</code>) prioriza el orden y la unicidad: los mensajes
+      se agrupan por <span class="term-en">MessageGroupId</span> — se garantiza el orden dentro de cada grupo y los
+      grupos se procesan en paralelo — y se elimina la duplicación con un
+      <span class="term-en">MessageDeduplicationId</span> explícito o con <span class="term-en">content-based
+      deduplication</span> (hash SHA-256 del contenido, ventana de 5 minutos). El precio es la capacidad: 300 llamadas
+      API/segundo, que suben a 3.000 TPS con batching (lotes de 10) y hasta 30.000 TPS habilitando el modo
+      <span class="term-en">high-throughput FIFO</span> (con orden relajada dentro del grupo).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Standard</th><th>FIFO</th></tr></thead>
+          <tbody>
+            <tr><td>Entrega</td><td><span class="term-en">at-least-once delivery</span> (puede duplicar)</td><td><span class="term-en">exactly-once processing</span></td></tr>
+            <tr><td>Orden</td><td><span class="term-en">best-effort ordering</span></td><td>Estricta por <span class="term-en">MessageGroup</span> (grupos en paralelo)</td></tr>
+            <tr><td>Throughput</td><td>Casi ilimitada (API calls/s)</td><td>300 TPS · 3.000 con batching · 30.000 en high-throughput</td></tr>
+            <tr><td>Duplicados</td><td>Posibles → procesamiento idempotente</td><td>Eliminados con <span class="term-en">deduplication</span> (ID o contenido)</td></tr>
+            <tr><td>Caso típico</td><td>Decoupling, workers, picos de carga</td><td>Comandos de usuario, precios, registros que dependen del orden</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-sqs/sqs-queue-types.md.</p>
+
+      <h3>Visibility timeout, polling y delay</h3>
+      <p>El <span class="term-en">visibility timeout</span> es el mecanismo anti-duplicado de SQS: cuando un consumidor
+      recibe un mensaje, este se vuelve invisible al resto de consumidores durante ese tiempo (por defecto 30 segundos);
+      si el consumidor termina y borra el mensaje (<span class="term-en">DeleteMessage</span>), desaparece, pero si el
+      timeout expira sin borrado, el mensaje vuelve a ser visible y otro consumidor lo recibirá de nuevo. Por eso la
+      regla de oro: <strong>el visibility timeout debe ser mayor que el peor tiempo de procesamiento</strong> del
+      consumidor — y con Lambda como consumidor, AWS recomienda configurarlo al menos 6 veces el timeout de la función.
+      Puedes ajustarlo por mensaje con <span class="term-en">ChangeMessageVisibility</span>.</p>
+      <p>Para <em>recibir</em> mensajes hay dos modos. El <span class="term-en">short polling</span> (por defecto)
+      consulta un subconjunto aleatorio de servidores y responde de inmediato, incluso vacío: gasta llamadas y puede
+      dar respuestas vacías falsas. El <span class="term-en">long polling</span> (<code>WaitTimeSeconds</code> &gt; 0,
+      hasta 20 segundos) consulta todos los servidores y espera hasta que haya mensajes: reduce costos y latencia
+      efectiva, y es la opción correcta «para reducir respuestas vacías». Finalmente, los
+      <span class="term-en">delay seconds</span> (0–15 minutos) hacen que un mensaje nuevo sea invisible durante un
+      tiempo; una <span class="term-en">delay queue</span> aplica ese retraso a todos sus mensajes — útil para
+      reintentos diferidos o tareas programadas a corto plazo.</p>
+
+      <h3>Dead-letter queues y consumidores Lambda</h3>
+      <p>¿Y si un mensaje falla siempre? Sin remedio, quedaría reingresado en bucle eterno. La
+      <span class="term-en">dead-letter queue</span> (DLQ) es una cola destino — de la misma cuenta y región, y con el
+      mismo tipo (Standard→Standard, FIFO→FIFO) — a la que SQS mueve los mensajes tras superar
+      <span class="term-en">maxReceiveCount</span> recepciones sin borrado, definido en la
+      <span class="term-en">redrive policy</span>. La DLQ no es un cubo de basura: es la herramienta de depuración,
+      porque aísla los mensajes problemáticos para inspeccionarlos, alarma con CloudWatch y eventualmente reintenta con
+      <span class="term-en">redrive</span>. Buena práctica: la retención de la DLQ debe ser <em>más larga</em> que la
+      de la cola origen. Cuando el consumidor es una función Lambda, el <span class="term-en">event source
+      mapping</span> hace <span class="term-en">long polling</span> de la cola por ti, escala la concurrencia
+      automáticamente y procesa en lotes (<span class="term-en">batch size</span> configurable por mensaje);
+      si el lote entero falla, puedes enrutarlo entero a la DLQ con <span class="term-en">batch failover</span>.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  P["Productor<br>app o Lambda"] -->|"SendMessage"| Q["SQS queue<br>Standard o FIFO"]
+  Q -->|"ReceiveMessage<br>long polling"| C["Consumidor<br>worker / Lambda"]
+  C -->|"OK: procesa y<br>DeleteMessage"| OK["Mensaje eliminado"]
+  C -->|"fallo: no borra"| Q
+  Q -->|"receiveCount mayor que<br>maxReceiveCount"| DLQ["Dead-Letter Queue<br>depurar y redrive"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Ciclo de vida de un mensaje SQS: visibility timeout, borrado explícito y desvío a DLQ.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"exactly-once"</span> en SQS FIFO significa <em>processing</em> (procesado una vez),
+        no <em>delivery</em> — la distracción clásica. Si la pregunta muestra consumidores lentos que re-procesan
+        mensajes, la respuesta casi siempre es <span class="term-en">increase the visibility timeout</span>.
+        Si habla de <span class="term-en">empty responses</span> o costos de polling, es
+        <span class="term-en">long polling</span>. Y si hay <span class="term-en">spikes</span> de tráfico que no debe
+        perderse, SQS es el <span class="term-en">buffer</span>.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/integration-sqs/welcome.md</code> ·
+      <code>../../bronze/05-docs/integration-sqs/sqs-visibility-timeout.md</code> ·
+      <code>../../bronze/05-docs/integration-sqs/sqs-dead-letter-queues.md</code> ·
+      <code>../../bronze/05-docs/integration-sqs/sqs-short-and-long-polling.md</code></p>
+
+      <!-- ============ 3. SNS ============ -->
+      <h2 id="sns"><span class="h2-num">3</span>Amazon SNS: topics y fan-out</h2>
+      <p>Amazon SNS es el servicio <span class="term-en">publish/subscribe</span> administrado: los publicadores
+      envían mensajes a un <strong>topic</strong> — el canal lógico de comunicación — y SNS entrega una copia a cada
+      suscriptor. Es <em>push</em> puro: el publicador no conoce a los consumidores ni espera respuesta. Un topic
+      puede entregar a endpoints <span class="term-en">A2A</span> (SQS, Lambda, HTTP/S, Firehose, y proveedores como
+      Datadog o Splunk) y <span class="term-en">A2P</span> (email, SMS, <span class="term-en">mobile push</span>) en
+      paralelo. El patrón estrella es el <span class="term-en">fan-out</span>: un topic SNS con varias colas SQS
+      suscritas; cada cola recibe su copia idéntica del mensaje y cada equipo consume a su ritmo. Combinado con
+      <span class="term-en">filter policies</span>, cada suscripción recibe solo lo que le importa.</p>
+      <p>Una <span class="term-en">filter policy</span> es un JSON adjunto a la suscripción que SNS evalúa contra los
+      <span class="term-en">message attributes</span> del mensaje (por defecto) o contra el cuerpo con
+      <code>FilterPolicyScope = MessageBody</code>. Ejemplo: <code>{"event-type": ["order-placed"]}</code> hace que esa
+      suscripción solo reciba mensajes cuyo atributo <code>event-type</code> valga exactamente eso. Aquí conviene
+      distinguir los <strong>message attributes</strong> (metadatos clave/valor que viajan fuera del payload; son los
+      que filtran SNS y SQS, y no cuentan hacia el límite de 256 KiB) del <strong>payload</strong> (el contenido real
+      del mensaje). Los topics también pueden ser <strong>FIFO</strong>: un <span class="term-en">FIFO topic</span>
+      garantiza orden por <span class="term-en">MessageGroupId</span> y deduplicación, pero solo acepta suscriptores
+      que sean <strong>colas SQS FIFO</strong> — no Lambda, ni HTTP, ni email.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant P as "Servicio pedidos"
+  participant T as "Topic SNS"
+  participant Q1 as "SQS pagos"
+  participant Q2 as "SQS envios"
+  participant L as "Lambda analitica"
+  P->>T: Publish con atributos
+  T->>Q1: copia filtrada
+  T->>Q2: copia filtrada
+  T->>L: push directo
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Fan-out: un publish, copias independientes y filtradas a cada suscriptor.</figcaption>
+      </figure>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Colocar un <strong>topic SNS FIFO</strong> con suscriptores Standard «para tener orden»: los suscriptores
+        de un FIFO topic deben ser SQS FIFO. Otro clásico: usar el payload para filtrar cuando los
+        <span class="term-en">message attributes</span> existen justamente para eso (y viceversa: olvidar el
+        <code>FilterPolicyScope</code> al filtrar por body).</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/integration-sns/welcome.md</code> ·
+      <code>../../bronze/05-docs/integration-sns/sns-message-filtering-scope.md</code> ·
+      <code>../../bronze/05-docs/integration-sns/sns-fifo-topics.md</code></p>
+
+      <!-- ============ 4. EVENTBRIDGE ============ -->
+      <h2 id="eventbridge"><span class="h2-num">4</span>Amazon EventBridge: el bus de eventos</h2>
+      <p>EventBridge es el servicio <span class="term-en">serverless</span> de enrutamiento de eventos: aplica el
+      modelo <span class="term-en">event-driven architecture</span> con ingesta, filtrado, transformación y entrega.
+      Su pieza central es el <span class="term-en">event bus</span>: el <strong>default bus</strong> recibe
+      automáticamente los eventos de los servicios AWS de tu cuenta; los <strong>custom buses</strong> reciben los
+      eventos de tus aplicaciones; y los <span class="term-en">partner event sources</span> traen eventos de SaaS
+      (Auth0, Datadog, Zendesk…) sin escribir código de ingesta. Sobre el bus se definen <span class="term-en">rules</span>:
+      una regla es un <span class="term-en">event pattern</span> JSON que compara campos del evento
+      (por ejemplo <code>{"source": ["aws.ec2"], "detail-type": ["EC2 Instance State-change Notification"]}</code>) y
+      enruta las coincidencias a más de 15 tipos de <span class="term-en">targets</span>: Lambda, SQS, SNS, Step
+      Functions, ECS, Kinesis, CodePipeline… El <em>routing</em> deja de estar en tu código y pasa a ser configuración
+      declarativa.</p>
+      <p>EventBridge es más que buses. <strong>EventBridge Scheduler</strong> crea tareas programadas
+      (<span class="term-en">one-time</span> o recurrentes con <span class="term-en">cron</span>/<span class="term-en">rate</span>)
+      a escala de millones de schedules con reintentos y ventanas flexibles — es el reemplazo recomendado de las reglas
+      programadas. <strong>EventBridge Pipes</strong> resuelve el punto a punto: un solo origen (SQS, Kinesis,
+      streams de DynamoDB, MSK) → filtro opcional → <span class="term-en">enrichment</span> (Lambda o Step Functions
+      enriquecen el evento) → un solo destino, sin escribir el pegamento. Y <span class="term-en">archive</span>
+      guarda los eventos del bus para <span class="term-en">replay</span>: reproducir el pasado tras un bug o
+      desplegar un consumidor nuevo y «reprocesar la historia».</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["Servicios AWS"] --> BUS["Event bus<br>default / custom / partner"]
+  B["App propia o SaaS"] --> BUS
+  BUS -->|"rule: event pattern JSON"| T1["Targets: Lambda,<br>SQS, Step Functions..."]
+  BUS -->|"rule programada"| T2["Target unico<br>via Scheduler"]
+  BUS --> ARCH["Archive<br>+ replay"]
+  P["Pipe: 1 fuente"] -->|"filter + enrich"| PT["1 destino"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — EventBridge: buses con reglas y targets, Scheduler para tiempo, Pipes para punto a punto.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon SQS</th><th>Amazon SNS</th><th>Amazon EventBridge</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>Cola (pull del consumidor)</td><td>Pub/sub (push a suscriptores)</td><td>Bus de eventos (routing)</td></tr>
+            <tr><td>Quién consume</td><td>1 consumidor por mensaje</td><td>N suscriptores (copia a cada uno)</td><td>Targets según reglas</td></tr>
+            <tr><td>Filtrado</td><td>—</td><td><span class="term-en">filter policy</span> por suscripción</td><td><span class="term-en">event pattern</span> JSON</td></tr>
+            <tr><td>Origen típico</td><td>Tu aplicación</td><td>Tu aplicación</td><td>Servicios AWS, apps y SaaS partners</td></tr>
+            <tr><td>Persistencia</td><td>Hasta 14 días en la cola</td><td>No (entrega inmediata)</td><td>Archive + replay opcional</td></tr>
+            <tr><td>Úsalo para…</td><td>Buffer y work queues</td><td>Notificaciones y fan-out simple</td><td>Event-driven, SaaS, scheduling</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-eventbridge/eb-what-is.md (síntesis propia).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"react to events from AWS services"</span> o <span class="term-en">SaaS</span> con
+        filtrado fino → EventBridge. <span class="term-en">"cron"</span> / <span class="term-en">"at a specific
+        time"</span> sin servidores → EventBridge Scheduler. <span class="term-en">"replay"</span> de eventos →
+        EventBridge archive. El distractor habitual es SNS cuando el origen es un servicio AWS o cuando hay reglas
+        por contenido: SNS filtra por atributos de <em>tu</em> mensaje; EventBridge enruta <em>eventos</em>.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/integration-eventbridge/eb-what-is.md</code> ·
+      <code>../../bronze/05-docs/integration-eventbridge/eb-event-patterns.md</code> ·
+      <code>../../bronze/05-docs/integration-eventbridge/using-eventbridge-scheduler.md</code> ·
+      <code>../../bronze/05-docs/integration-eventbridge/pipes-get-started.md</code></p>
+
+      <!-- ============ 5. STEP FUNCTIONS + MQ ============ -->
+      <h2 id="stepfunctions"><span class="h2-num">5</span>Step Functions y Amazon MQ</h2>
+      <p>AWS Step Functions orquesta <span class="term-en">workflows</span> de varios pasos con un lenguaje JSON
+      declarativo (el <span class="term-en">Amazon States Language</span>, ASL). El workflow se define como una
+      <span class="term-en">state machine</span> cuyos <strong>states</strong> se dividen en dos familias:
+      <span class="term-en">Task</span> (hacen trabajo llamando a Lambda o a más de 200 APIs de servicios AWS) y
+      <em>flow states</em> que controlan el flujo: <span class="term-en">Choice</span> decide por condición,
+      <span class="term-en">Wait</span> pausa, <span class="term-en">Parallel</span> abre ramas concurrentes,
+      <span class="term-en">Map</span> ejecuta un sub-workflow por elemento de un dataset, y
+      <span class="term-en">Fail</span>/<span class="term-en">Succeed</span> cierran la ejecución. Cada ejecución
+      mantiene su historial visible para auditar, lo que elimina el «código pegamento» de reintentos, timeouts y
+      manejo de errores que tú escribirías con Lambda.</p>
+      <p>Al crear la máquina de estados eliges un tipo <strong>inmutable</strong>. Los
+      <span class="term-en">Standard Workflows</span> son <span class="term-en">durable</span>: duran hasta
+      <strong>un año</strong>, ejecutan cada paso <span class="term-en">exactly-once</span> (ideales para acciones no
+      idempotentes como cobrar o lanzar un clúster EMR) y se facturan por <span class="term-en">state
+      transition</span>. Los <span class="term-en">Express Workflows</span> duran hasta <strong>5 minutos</strong>,
+      cuestan mucho menos (por ejecución + duración + memoria) y ofrecen <span class="term-en">at-least-once</span>
+      (asíncronos) o <span class="term-en">at-most-once</span> (síncronos): son la respuesta para ingesta masiva de
+      IoT y streaming, donde las acciones son idempotentes y el volumen es alto.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Standard Workflow</th><th>Express Workflow</th></tr></thead>
+          <tbody>
+            <tr><td>Duración máx.</td><td>1 año</td><td>5 minutos</td></tr>
+            <tr><td>Semántica</td><td><span class="term-en">exactly-once</span></td><td><span class="term-en">at-least-once</span> (async) / <span class="term-en">at-most-once</span> (sync)</td></tr>
+            <tr><td>Facturación</td><td>Por <span class="term-en">state transition</span></td><td>Por nº de ejecuciones, duración y memoria</td></tr>
+            <tr><td>Historial</td><td>Retenido 90 días, auditable</td><td>Solo vía CloudWatch Logs</td></tr>
+            <tr><td>Patrones de integración</td><td>Todos (incluye <code>.sync</code> y <code>.waitForTaskToken</code>)</td><td>Sin <code>.sync</code> ni callback</td></tr>
+            <tr><td>Caso típico</td><td>Procesos de negocio largos, pagos, ETL</td><td>Alto volumen: IoT, streaming, backends móviles</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-stepfunctions/choosing-workflow-type.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  S(["Start: pedido"]) --> V["Task: validar y cobrar"]
+  V --> CH{"Choice:<br>pago aprobado?"}
+  CH -->|"no"| F["Fail: rechazar pedido"]
+  CH -->|"si"| PAR["Parallel: reservar stock<br>+ notificar al cliente"]
+  PAR --> W["Wait: 24 horas"]
+  W --> M["Map: sub-flujo por item"]
+  M --> OK(["Succeed"])
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Workflow de procesamiento de pedidos: Choice para decidir, Parallel para ramos concurrentes, Map por ítem.</figcaption>
+      </figure>
+
+      <h3>Amazon MQ: cuando el broker ya existe</h3>
+      <p>Hay sistemas que ya hablan el idioma de un <span class="term-en">message broker</span> clásico con protocolos
+      como JMS, AMQP, MQTT, OpenWire o STOMP. <strong>Amazon MQ</strong> administra brokers de
+      <strong>Apache ActiveMQ</strong> y <strong>RabbitMQ</strong> (instalación, parches, versiones, HA
+      active/standby) para migrar esas aplicaciones <em>sin reescribir el código de mensajería</em>. A diferencia de
+      SQS/SNS, no es serverless: aprovisionas brokers (con costo por hora) y existe en la tabla mental como «el
+      servicio para <span class="term-en">legacy</span>». La recomendación oficial es clara: SQS y SNS para
+      aplicaciones nuevas; Amazon MQ para migrar brokers existentes que exigen esos protocolos o APIs estándar.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capacidad</th><th>Amazon SQS</th><th>Amazon SNS</th><th>Amazon MQ</th></tr></thead>
+          <tbody>
+            <tr><td>Colas</td><td>Sí</td><td>No</td><td>Sí</td></tr>
+            <tr><td>Pub/sub</td><td>No</td><td>Sí</td><td>Sí</td></tr>
+            <tr><td>Broker estándar</td><td>No</td><td>No</td><td>Sí (JMS, AMQP, MQTT…)</td></tr>
+            <tr><td>Serverless</td><td>Sí</td><td>Sí</td><td>No (brokers administrados)</td></tr>
+            <tr><td>Ideal para</td><td>Apps nuevas, desacople</td><td>Apps nuevas, notificar</td><td>Migrar brokers legacy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-sqs/welcome.md (tabla oficial SQS/SNS/MQ).</p>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/integration-stepfunctions/concepts-statemachines.md</code> ·
+      <code>../../bronze/05-docs/integration-stepfunctions/choosing-workflow-type.md</code> ·
+      <code>../../bronze/05-docs/integration-mq/welcome.md</code></p>
+
+      <!-- ============ 6. API GATEWAY + APPSYNC ============ -->
+      <h2 id="apigateway"><span class="h2-num">6</span>Amazon API Gateway y AWS AppSync</h2>
+      <p>Amazon API Gateway es la «puerta frontal» <span class="term-en">serverless</span> para crear, publicar y
+      operar APIs <span class="term-en">REST</span>, <span class="term-en">HTTP</span> y <span class="term-en">WebSocket</span>
+      a cualquier escala: cientos de miles de llamadas concurrentes con gestión de tráfico, autorización, monitoreo
+      (CloudWatch, X-Ray) y versionado. En una API REST modelas <strong>recursos</strong> y <strong>métodos</strong>
+      (GET/POST sobre rutas jerárquicas), y para exponerla debes desplegarla en un <span class="term-en">stage</span>
+      (como <code>/prod</code>, <code>/dev</code>) mediante un <span class="term-en">deployment</span> — cada deploy
+      congela una instantánea de la API en ese stage. Los <span class="term-en">canary releases</span> permiten
+      desplegar gradualmente. Como es la frontera con internet, aquí viven las funciones de protección:
+      autorizadores, throttling, caching y AWS WAF.</p>
+      <p>El primer examen interno es <strong>REST vs HTTP API</strong>. Ambos son RESTful; las <span class="term-en">REST
+      APIs</span> (v1) tienen más funciones y cuestan más; las <span class="term-en">HTTP APIs</span> (v2) recortan
+      funciones para costar menos. La tabla oficial de decisión: elige REST si necesitas <span class="term-en">API
+      keys</span>, throttling por cliente, <span class="term-en">request validation</span>, <strong>AWS WAF</strong>,
+      endpoints <span class="term-en">private</span> o edge-optimized; elige HTTP si no necesitas nada de eso.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Característica</th><th>REST API (v1)</th><th>HTTP API (v2)</th></tr></thead>
+          <tbody>
+            <tr><td>Costo</td><td>Mayor</td><td>Menor (diseño minimalista)</td></tr>
+            <tr><td>AWS WAF</td><td>Sí</td><td>No (úsalo vía CloudFront delante)</td></tr>
+            <tr><td>API keys y usage plans</td><td>Sí</td><td>No</td></tr>
+            <tr><td>Request validation</td><td>Sí</td><td>No</td></tr>
+            <tr><td>Endpoints</td><td>Edge-optimized, regional, private</td><td>Regional</td></tr>
+            <tr><td>Autorizador JWT nativo</td><td>No (vía Lambda authorizer)</td><td>Sí</td></tr>
+            <tr><td>Validar con…</td><td>WAF, throttle por cliente, validación</td><td>Costo/latencia mínimos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/mobile-apigateway/http-api-vs-rest.md.</p>
+
+      <h3>Autorizadores, planes y caching</h3>
+      <p>Para <em>quién</em> puede llamar, API Gateway soporta <strong>IAM</strong> (firma SigV4, típico interno),
+      <strong>Amazon Cognito user pools</strong> (el cliente trae un <span class="term-en">JWT</span> que API Gateway
+      valida), <strong>Lambda authorizers</strong> (una función tuya decide con lógica arbitraria — el antiguo
+      «custom authorizer») y en HTTP APIs el <strong>JWT authorizer</strong> nativo (Cognito u otro OIDC). Para el
+      <em>cuánto</em> puede llamar cada cliente: los <span class="term-en">usage plans</span> asocian
+      <span class="term-en">API keys</span> a stages/métodos con <span class="term-en">throttling limits</span>
+      (<span class="term-en">rate</span> = solicitudes/seg sostenidas; <span class="term-en">burst</span> = capacidad
+      instantánea) y <span class="term-en">quotas</span> por período. Cuidado con dos matices: las API keys
+      <strong>identifican</strong> al cliente pero <strong>no autentican</strong> (la doc oficial lo subraya), y los
+      límites de usage plan son best-effort. El <span class="term-en">caching</span> de respuestas se activa por stage:
+      API Gateway guarda respuestas TTL configurable (por defecto 300 s, máximo 3600 s), reduce llamadas al backend y
+      se cobra por hora según tamaño.</p>
+      <p>Las <strong>integraciones</strong> conectan cada método con el backend:
+      <span class="term-en">Lambda proxy</span> (la más común: toda la request en JSON a una función),
+      <span class="term-en">AWS service</span> (llamar una API de AWS directamente, p. ej. DynamoDB),
+      <span class="term-en">HTTP</span> (backend externo) y <span class="term-en">Mock</span> (respuestas de prueba
+      sin backend). Para APIs GraphQL el servicio es <strong>AWS AppSync</strong>: un endpoint GraphQL
+      serverless que consulta múltiples <span class="term-en">data sources</span> (DynamoDB, Lambda, HTTP…) mediante
+      <span class="term-en">resolvers</span>, mantiene <span class="term-en">subscriptions</span> en tiempo real sobre
+      WebSockets y ofrece caching y control de datos fino — la respuesta cuando el enunciado menciona
+      <span class="term-en">GraphQL</span> o actualizaciones <span class="term-en">real-time</span> en apps móviles.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  C["Cliente web / movil"] --> AG["API Gateway<br>stage /prod"]
+  AG --> AZ["Autorizador:<br>Cognito JWT o Lambda"]
+  AZ -->|"permitido"| L["Integracion Lambda proxy"]
+  L --> D["DynamoDB"]
+  AG --> UP["Usage plan:<br>API key + rate/burst"]
+  AG --> WAF["AWS WAF<br>solo REST API"]
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — API Gateway en la frontera: autorización Cognito/JWT, Lambda proxy, throttling y WAF.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">"throttle requests per client"</span> o <span class="term-en">"API keys"</span> →
+        REST API con usage plan (no HTTP API). <span class="term-en">"protect against common web exploits"</span> →
+        AWS WAF (REST, o CloudFront si es HTTP API). <span class="term-en">"reduce latency / backend calls"</span> →
+        enable caching con TTL. <span class="term-en">"GraphQL"</span> o <span class="term-en">"real-time
+        subscriptions"</span> → AppSync. Y nunca elijas «API key para autenticar»: esa opción es un distractor
+        documentado.</p>
+      </div>
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/mobile-apigateway/welcome.md</code> ·
+      <code>../../bronze/05-docs/mobile-apigateway/http-api-vs-rest.md</code> ·
+      <code>../../bronze/05-docs/mobile-apigateway/api-gateway-api-usage-plans.md</code> ·
+      <code>../../bronze/05-docs/mobile-apigateway/api-gateway-caching.md</code> ·
+      <code>../../bronze/05-docs/integration-appsync/what-is-appsync.md</code></p>
+
+      <!-- ============ 7. CIERRE ============ -->
+      <h2 id="cierre"><span class="h2-num">7</span>Mapa final: patrón → servicio</h2>
+      <p>Antes del examen, comprime toda la página en una sola tabla de decisión. Cuando leas el escenario, identifica
+      el patrón de comunicación que pide y aplica la fila correspondiente; casi todas las preguntas de integración de
+      D2 se resuelven con este filtro más el calificador de la pregunta. Practica recitándola: «poll → SQS, push a
+      muchos → SNS, evento de AWS/SaaS con reglas → EventBridge, proceso de pasos → Step Functions, puerta HTTP →
+      API Gateway, GraphQL real-time → AppSync, broker legacy → MQ».</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Si el escenario pide…</th><th>Servicio</th><th>Palabra clave EN que lo delata</th></tr></thead>
+          <tbody>
+            <tr><td>Buffer de trabajo con <span class="term-en">pull</span> y reintentos</td><td>Amazon SQS</td><td><span class="term-en">queue, decouple, spikes, buffer</span></td></tr>
+            <tr><td>Orden estricto y sin duplicados</td><td>Amazon SQS FIFO</td><td><span class="term-en">order matters, exactly-once processing</span></td></tr>
+            <tr><td>Notificar a N consumidores (push)</td><td>Amazon SNS</td><td><span class="term-en">fan-out, publish/subscribe, notify</span></td></tr>
+            <tr><td>Reaccionar a eventos de AWS o SaaS</td><td>Amazon EventBridge</td><td><span class="term-en">event-driven, event pattern, SaaS</span></td></tr>
+            <tr><td>Ejecutar algo a una hora o cada N</td><td>EventBridge Scheduler</td><td><span class="term-en">cron, one-time, schedule</span></td></tr>
+            <tr><td>Orquestar pasos con decisiones y errores</td><td>Step Functions</td><td><span class="term-en">workflow, orchestrate, multi-step</span></td></tr>
+            <tr><td>Puerta HTTP para Lambda/backends</td><td>API Gateway</td><td><span class="term-en">REST API, throttle, expose</span></td></tr>
+            <tr><td>GraphQL y tiempo real móvil</td><td>AWS AppSync</td><td><span class="term-en">GraphQL, subscriptions</span></td></tr>
+            <tr><td>Migrar JMS/AMQP/MQTT existente</td><td>Amazon MQ</td><td><span class="term-en">legacy, existing broker, ActiveMQ</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis de toda la página: memoriza la columna del patrón.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Los 4 reflejos finales</div>
+        <p><strong>1) Poll vs push:</strong> SQS el consumidor hace pull; SNS/EventBridge hacen push — si la pregunta
+        dice «consumers poll messages», es SQS. <strong>2) FIFO:</strong> la garantía exacta es
+        <span class="term-en">exactly-once processing</span> (procesado), no delivery. <strong>3) Spikes:</strong>
+        tráfico repentino que no debe perderse → SQS como <span class="term-en">buffer</span> delante del worker.
+        <strong>4) Overhead:</strong> si hay que codificar reintentos, orden y errores entre Lambdas, la respuesta
+        administrada es Step Functions, no más código.</p>
+      </div>
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Lecturas oficiales recomendadas: <code>integration-sqs/sqs-queue-types.md</code>,
+        <code>integration-stepfunctions/choosing-workflow-type.md</code> y
+        <code>mobile-apigateway/http-api-vs-rest.md</code> — las tres tablas que más se parecen a las preguntas
+        reales del examen.</p>
+      </div>
+
+      <nav class="pager">
+        <a href="contenedores-serverless.html"><span class="p-dir">← Anterior</span><br>Contenedores y serverless</a>
+        <a class="p-next" href="analitica-datos.html"><span class="p-dir">Siguiente →</span><br>Analítica y big data</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

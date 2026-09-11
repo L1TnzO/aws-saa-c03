@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguridad e identidad: enciclopedia · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Seguridad e identidad</div>
+        <h1>Seguridad e identidad: la enciclopedia<span class="dom-weight">D1 · 30%</span></h1>
+        <p class="page-lead">Referencia densa, servicio por servicio, de todo el área de seguridad AWS del SAA-C03: IAM y su
+        modelo de evaluación de políticas, KMS y cifrado, certificados y secretos, detección de amenazas, perímetro de red y
+        multi-cuenta. La narrativa de diseño vive en <a href="../dominios/dominio-1-deep-dive.html">Dominio 1</a>; esta página es a donde
+        vuelves cuando necesitas el dato exacto.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statements oficiales · Dominio 1</div>
+        <div class="tb-title">Design secure access, infrastructure, and data protection</div>
+        <div class="tb-meta">Knowledge: IAM, federated access, KMS, ACM, Secrets Manager, Shield/WAF, GuardDuty, Organizations · Skills: authorization model, least privilege, encryption at rest / in transit, threat detection, multi-account governance</div>
+      </div>
+
+      <!-- ================= 1 · MAPA ================= -->
+      <h2 id="mapa-seguridad"><span class="h2-num">1</span>El mapa del área de seguridad en AWS</h2>
+      <p>La seguridad es el dominio más pesado del examen (D1, 30%) y además se cuela en los otros tres: una arquitectura
+      resiliente que cae por un DDoS no es resiliente, y una barata que expone datos es un desastre caro. Para no perderte
+      entre más de veinte servicios, memoriza el mapa de cinco capas del propio AWS Well-Architected: primero decides
+      <strong>quién puede entrar</strong> (identidad), luego <strong>cómo te enteras de que algo raro pasa</strong>
+      (detección), luego <strong>qué filtra el tráfico</strong> antes de tocar tus recursos (protección de
+      infraestructura), luego <strong>cómo proteges los datos en sí</strong> (cifrado y secretos) y por último
+      <strong>qué hago cuando ya pasó</strong> (respuesta). Casi cualquier pregunta te está preguntando por una de estas
+      cinco capas; identifica la capa y tendrás reducidas las opciones a dos o tres servicios.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  I["Capa identidad<br>IAM · Identity Center<br>Cognito"] --> D["Capa detección<br>CloudTrail · GuardDuty<br>Inspector · Macie"]
+  D --> P["Protección de<br>infraestructura<br>WAF · Shield · Network Firewall"]
+  P --> K["Protección de datos<br>KMS · CloudHSM<br>Secrets Manager · ACM"]
+  K --> R["Respuesta<br>Security Hub · Detective<br>EventBridge · SSM"]
+  style I fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+  style R fill:#2a2116,stroke:#ec7211,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Las cinco capas del área de seguridad: cada servicio del apéndice vive en una de ellas.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capa</th><th>La pregunta que responde</th><th>Servicios clave</th></tr></thead>
+          <tbody>
+            <tr><td>Identidad</td><td>¿Quién eres y qué puedes hacer?</td><td>IAM, IAM Identity Center, Amazon Cognito, STS</td></tr>
+            <tr><td>Detección</td><td>¿Cómo me entero de que algo malo está pasando?</td><td>CloudTrail, GuardDuty, Inspector, Macie, AWS Config</td></tr>
+            <tr><td>Infraestructura</td><td>¿Qué tráfico llega a mis recursos?</td><td>WAF, Shield, Network Firewall, security groups / NACLs (ver <a href="redes.html">redes</a>)</td></tr>
+            <tr><td>Datos</td><td>¿Está cifrado y quién puede descifrarlo?</td><td>KMS, CloudHSM, Secrets Manager, Parameter Store, ACM</td></tr>
+            <tr><td>Respuesta</td><td>¿Qué hago cuando ya ocurrió?</td><td>Security Hub, Detective, EventBridge, AWS SSM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: AWS Well-Architected — Security Pillar (bronze).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Antes de leer opciones, clasifica la pregunta en una capa: <span class="term-en">credentials</span> o
+        <span class="term-en">permissions</span> → identidad; <span class="term-en">encryption at rest</span> →
+        KMS/datos; <span class="term-en">malicious activity</span> → detección. La mayoría de los
+        <span class="term-en">distractors</span> son servicios de la capa vecina: suenan parecido, pero resuelven otra
+        pregunta.</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/02-well-architected/security.html</code> ·
+      <code>../../bronze/02-well-architected/sec-iam.html</code> · <code>../../bronze/02-well-architected/sec-detection.html</code></p>
+
+      <!-- ================= 2 · IAM ================= -->
+      <h2 id="iam-enciclopedia"><span class="h2-num">2</span>IAM: la enciclopedia completa</h2>
+      <p>AWS Identity and Access Management es el servicio de identidad global de la cuenta: todo lo que pasa en AWS pasa
+      a través de un <span class="term-en">principal</span> que una policy de IAM autoriza. La regla de oro es
+      <span class="term-en">least privilege</span>: dar exactamente los permisos necesarios y nada más, y preferir siempre
+      roles con credenciales temporales antes que usuarios con credenciales permanentes. En esta sección va todo lo que el
+      examen puede preguntar de IAM: tipos de principal, tipos de policy, el orden de evaluación, la anatomía del JSON y
+      las herramientas de auditoría.</p>
+
+      <h3>2.1 Tipos de principal</h3>
+      <p>Un <span class="term-en">principal</span> es cualquier entidad que puede hacer una llamada a AWS. El root user de
+      la cuenta es el principal todopoderoso que solo deberías usar para tareas de emergencia (con MFA); para todo lo demás
+      existen los siguientes cinco:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Principal</th><th>Qué es</th><th>Uso típico / detalle de examen</th></tr></thead>
+          <tbody>
+            <tr><td>IAM user</td><td>Identidad con password y/o access keys de larga duración</td><td>Humanos o casos legacy; es la respuesta incorrecta cuando existe alternativa con roles</td></tr>
+            <tr><td>IAM group</td><td>Colección de users para adjuntar policies en bloque</td><td>Solo users pueden ser miembros; no se anida; no se puede "loguear" en un grupo</td></tr>
+            <tr><td>IAM role</td><td>Identidad <em>asumible</em> con credenciales temporales (15 min – 12 h)</td><td>EC2 instance profile, Lambda execution role, acceso cross-account, Switch Role</td></tr>
+            <tr><td>Federated user</td><td>Identidad de un IdP externo (SAML 2.0 / OIDC) mapeada a un rol</td><td>Empleados corporativos que entran con su AD/Entra sin tener user en IAM</td></tr>
+            <tr><td>Application / workload</td><td>Servicio o código que actúa como principal asumiendo un rol</td><td>Lambda que llama a S3, EC2 con instance profile, servicio AWS que actúa en tu nombre</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Un rol se define por su <span class="term-en">trust policy</span> (quién puede asumirlo) más los permisos del rol (qué puede hacer una vez asumido).</p>
+
+      <h3>2.2 Tipos de policy</h3>
+      <p>No todas las políticas viven en el mismo sitio ni hacen lo mismo: algunas <strong>otorgan</strong> permisos y
+      otras solo <strong>limitan el techo máximo</strong>. Confundir esto es el error conceptual número uno del examen.
+      Las cinco que debes distinguir:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo de policy</th><th>Dónde vive</th><th>Efecto</th></tr></thead>
+          <tbody>
+            <tr><td>Identity-based</td><td>Adjunta a un user, group o role</td><td><strong>Otorga</strong> (Allow/Deny) permisos a ese principal; managed o inline</td></tr>
+            <tr><td>Resource-based</td><td>Adjunta al recurso: bucket policy, key policy, queue policy, trust policy de rol</td><td>Otorga o deniega <em>a un Principal</em>; es la única vía de acceso cross-account desde el lado del recurso</td></tr>
+            <tr><td>Permissions boundary</td><td>Managed policy asignada a un user o role</td><td><strong>No otorga nada</strong>: fija el máximo de lo que la entidad podrá hacer (intersección con sus policies)</td></tr>
+            <tr><td>SCP (Service Control Policy)</td><td>AWS Organizations: root, OU o cuenta miembro</td><td>No otorga: fija el techo máximo de <em>toda la cuenta</em>; no afecta a la management account</td></tr>
+            <tr><td>Session policy</td><td>Parámetro pasado al asumir un rol (AssumeRole)</td><td>No otorga: limita únicamente esa sesión, útil para delegar acceso con márgenes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.3 El orden de evaluación de policies</h3>
+      <p>Cuando un principal hace una llamada, AWS la evalúa contra todas las policies aplicables a la vez, pero con una
+      jerarquía estricta que conviene memorizar como circuito. Primero gana el <span class="term-en">explicit deny</span>:
+      si alguna policy aplicable dice <code>"Effect": "Deny"</code>, la llamada se deniega sin apelación. Después se
+      comprueban los techos (SCP, boundary) y los otorgadores (identity, resource): si alguno de los pasos no permite, el
+      resultado es el <span class="term-en">implicit deny</span> o <span class="term-en">default deny</span> — en AWS todo
+      está denegado salvo que algo lo permita explícitamente. Fíjate en que una permissions boundary <em>permite</em> que la
+      llamada siga viva, pero jamás otorga por sí sola.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  R["Request a la API"] --> D{"¿Algún Deny<br>explícito?"}
+  D -->|"sí"| X["DENEGADO"]
+  D -->|"no"| S{"¿La SCP de<br>Organizations<br>lo permite?"}
+  S -->|"no"| X
+  S -->|"sí"| B{"¿La permissions<br>boundary lo<br>permite?"}
+  B -->|"no"| X
+  B -->|"sí"| I{"¿La identity policy<br>lo permite?"}
+  I -->|"no"| X
+  I -->|"sí"| P{"¿La resource policy<br>lo permite?"}
+  P -->|"no"| X
+  P -->|"sí"| A["PERMITIDO"]
+  style X fill:#241717,stroke:#dd5f5f,color:#e9ebed
+  style A fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Circuito de evaluación: el Deny explícito gana siempre; si ninguna policy otorga, aplica el default deny.</figcaption>
+      </figure>
+
+      <div class="callout warn">
+        <div class="co-title">Matiz que el examen sí pregunta</div>
+        <p>Para acceso <strong>cross-account</strong> hacen falta dos permisos alineados: la resource policy del recurso
+        (o la trust policy del rol) debe permitir al principal externo <em>y</em> el principal debe tener una identity
+        policy que se lo permita. En la <strong>misma cuenta</strong>, una resource policy que te menciona
+        explícitamente basta para permitirte el acceso, y las policies de IAM y las resource-based se combinan
+        (unión de allows, salvo deny explícito en cualquiera de las dos).</p>
+      </div>
+
+      <h3>2.4 Anatomía del JSON de una policy</h3>
+      <p>Toda policy es un documento JSON con el mismo esqueleto: <code>Version</code> (fecha del lenguaje, usa
+      <code>2012-10-17</code>) y un array <code>Statement</code>. Cada statement combina cuatro elementos:
+      <code>Effect</code> (Allow o Deny), <code>Action</code> (lista de acciones del servicio, p. ej.
+      <code>s3:GetObject</code>; con <code>NotAction</code> se invierte), <code>Resource</code> (ARN exacto del objetivo)
+      y un <code>Condition</code> opcional donde vive toda la lógica fina. Ejemplo real con el condition key más citado
+      del examen, <code>aws:SourceIp</code>:</p>
+
+      <pre class="plain">{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": ["s3:GetObject", "s3:PutObject"],
+    "Resource": "arn:aws:s3:::informes-financieros/*",
+    "Condition": {
+      "IpAddress": { "aws:SourceIp": "203.0.113.0/24" },
+      "Bool": { "aws:SecureTransport": "true" }
+    }
+  }
+}</pre>
+
+      <p>La lectura es literal: permite Get/Put <em>solo</em> al bucket indicado, <em>solo</em> desde el rango de IPs de la
+      oficina y <em>solo</em> por HTTPS. Otros condition keys frecuentes: <code>aws:MultiFactorAuthPresent</code> (exigir
+      MFA), <code>aws:RequestedRegion</code> (limitar regiones), <code>aws:PrincipalOrgID</code> (restringir a tu
+      organización) y <code>s3:ExistingObjectTag/&lt;clave&gt;</code> (permisos por tags de objeto). En el examen,
+      cuando una opción incluye un Condition que el escenario no pide, suele ser <span class="term-en">over-engineering</span>.</p>
+
+      <h3>2.5 Las herramientas de auditoría de IAM</h3>
+      <p>IAM trae cuatro herramientas distintas que el examen mezcla a propósito porque sus nombres se parecen. El
+      <span class="term-en">Credentials Report</span> es un CSV global de la cuenta con el estado de las credenciales de
+      todos los usuarios; la <span class="term-en">Password Policy</span> no es un reporte sino las reglas de
+      complejidad y expiración; el <span class="term-en">Access Advisor</span> te dice cuándo usó cada usuario cada
+      servicio (la clave para recortar permisos hacia least privilege); y el <span class="term-en">IAM Access Analyzer</span>
+      usa automated reasoning para encontrar recursos y roles compartidos con entidades fuera de tu
+      <span class="term-en">zone of trust</span> (tu cuenta u OU). Es la herramienta correcta para depurar permisos
+      expuestos — no para saber qué credenciales están viejas.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Herramienta</th><th>Qué responde</th><th>Nivel</th></tr></thead>
+          <tbody>
+            <tr><td>Credentials Report</td><td>Estado de password, access keys y MFA de cada user (fechas, rotación)</td><td>Cuenta (CSV descargable)</td></tr>
+            <tr><td>Password Policy</td><td>Reglas obligatorias: longitud mínima, expiración, reutilización, símbolos</td><td>Cuenta (configuración)</td></tr>
+            <tr><td>Access Advisor</td><td>Última vez que cada user/rol usó cada servicio (last accessed)</td><td>Por usuario / por rol</td></tr>
+            <tr><td>IAM Access Analyzer</td><td>¿Qué recursos/roles están accesibles desde fuera de la zona de confianza?</td><td>Cuenta / Organization</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.6 MFA, STS y el acceso cross-account</h3>
+      <p>El <span class="term-en">MFA</span> en IAM admite tres dispositivos: app virtual TOTP (Google Authenticator y
+      similares), <span class="term-en">security key</span> FIDO U2F (YubiKey, que soporta varios usuarios por llave) y
+      token TOTP de hardware de terceros. Actívalo siempre en el root user y en los admins; puedes exigirlo en APIs con la
+      condition <code>aws:MultiFactorAuthPresent</code>. El <span class="term-en">AWS Security Token Service</span> (STS)
+      emite credenciales temporales: sus operaciones estrella son <code>AssumeRole</code>,
+      <code>AssumeRoleWithSAML</code> y <code>AssumeRoleWithWebIdentity</code>, que devuelven un token válido entre 15
+      minutos y 12 horas (por defecto, 1 hora). Para <span class="term-en">cross-account access</span> la cuenta B confía
+      en la A mediante la trust policy del rol; si quien asume es un tercero (SaaS, proveedor), añade un
+      <span class="term-en">external ID</span> a esa trust policy para blindarla contra el problema del
+      <span class="term-en">confused deputy</span>: un atacante que se hace pasar por el proveedor.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant A as Workload en cuenta A
+  participant S as AWS STS
+  participant B as Rol en cuenta B
+  A->>S: AssumeRole ARN del rol + external ID
+  S->>B: revisa la trust policy
+  B-->>S: principal confiado y external ID validos
+  S-->>A: credenciales temporales 1 h
+  A->>B: llamada a la API con el token
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Cross-account con STS: la trust policy del rol en B decide quién entra; el external ID evita el confused deputy.</figcaption>
+      </figure>
+
+      <p>Cierra el tema con dos menciones: <span class="term-en">IAM Roles Anywhere</span> permite que servidores
+      on-premises o híbridos usen certificados X.509 de tu PKI para obtener credenciales temporales sin access keys
+      permanentes; y la delegación dentro de una cuenta usa <span class="term-en">instance profiles</span> (EC2) y
+      <span class="term-en">execution roles</span> (Lambda) en lugar de pegar credenciales en código o metadata.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>A company wants to grant a third-party SaaS access to resources in their account… which option prevents
+        the confused deputy problem?</em>" → <strong>external ID</strong> en la trust policy. "<em>Identify unused
+        permissions to apply least privilege</em>" → <strong>Access Advisor</strong>. "<em>Find resources shared with
+        external entities</em>" → <strong>IAM Access Analyzer</strong>. "<em>Temporary credentials for an application on
+        an on-prem server</em>" → <strong>IAM Roles Anywhere</strong>. Y la más repetida: si la opción crea IAM users con
+        access keys para una app, casi siempre pierde contra la opción con roles.</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-iam/cli-accessanalyzer-code-examples.md</code> ·
+      <code>../../bronze/05-docs/security-iam/cli-authentication-user.md</code> ·
+      <code>../../bronze/05-docs/security-iam/cli-configure-role.md</code> ·
+      <code>../../bronze/05-docs/security-identitycenter/what-is.md</code></p>
+
+      <!-- ================= 3 · KMS ================= -->
+      <h2 id="kms-enciclopedia"><span class="h2-num">3</span>AWS KMS: llaves, cifrado y control</h2>
+      <p>AWS Key Management Service centraliza la creación y el control de las llaves criptográficas que protegen tus
+      datos en reposo. Las llaves viven dentro de <span class="term-en">HSMs</span> validados FIPS 140-3 Level 3 y
+      <strong>nunca salen de KMS sin cifrar</strong>; para operar con ellas siempre llamas a la API de KMS. El examen te
+      prueba en tres cosas: distinguir los tres tipos de llave, entender quién autoriza su uso (key policies + IAM +
+      grants), y explicar el <span class="term-en">envelope encryption</span> con data keys.</p>
+
+      <h3>3.1 Los tres tipos de llave</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>AWS owned key</th><th>AWS managed key</th><th>Customer managed key (CMK)</th></tr></thead>
+          <tbody>
+            <tr><td>Dónde vive</td><td>Fuera de tu cuenta (colección compartida por AWS)</td><td>En tu cuenta, la crea el servicio: <code>aws/s3</code>, <code>aws/ebs</code>…</td><td>En tu cuenta, la creas tú</td></tr>
+            <tr><td>Rotación</td><td>Gestionada por AWS, opaca</td><td>Automática, gestionada por AWS (anual)</td><td>Anual automática opcional, o rotación on-demand</td></tr>
+            <tr><td>Control</td><td>Ninguno (ni la ves)</td><td>Verla, pero no cambiar su key policy ni deshabilitarla</td><td>Total: key policy, grants, aliases, enable/disable, auditoría</td></tr>
+            <tr><td>Costo</td><td>Incluida</td><td>Gratuita (pagas las API calls)</td><td>Pago por llave + por operación</td></tr>
+            <tr><td>Uso típico</td><td>Cifrado por defecto de algunos servicios</td><td>SSE por defecto: SSE-S3, EBS cifrado</td><td>Cuando necesitas controlar quién y cuándo, cross-account, CloudTrail de uso de llave</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: KMS Developer Guide (bronze). SSE con llave propia = SSE-KMS con CMK customer managed.</p>
+
+      <h3>3.2 Key policies vs IAM policies: quién manda</h3>
+      <p>Aquí está la frase que resume todo y que conviene memorizar literal: <em>the key policy is the master of
+      permissions</em>. Cada llave de KMS <strong>debe</strong> tener exactamente una key policy, y ni el root user ni el
+      creador de la llave tienen permiso alguno si esa policy no se los da. Las IAM policies <em>pueden</em> conceder uso
+      de la llave, pero solo si la key policy lo habilita (la default key policy delega en IAM vía el principal root de
+      la cuenta); una IAM policy puede <em>denegar</em> sin permiso de la key policy. Además, las key policies son
+      <span class="term-en">regional</span> (afectan solo a la llave de su región) mientras que las IAM policies son
+      globales — un matiz que aparece en preguntas multi-región. Si te bloquean por una key policy restrictiva, el fix
+      es editar la key policy (o re-crear permisos vía la cuenta dueña), no tocar IAM.</p>
+
+      <h3>3.3 Grants: permisos temporales para servicios</h3>
+      <p>Un <span class="term-en">grant</span> es un instrumento de permiso temporal sobre una llave: lo creas, lo usas y
+      lo retiras sin tocar la key policy ni IAM. Solo pueden <strong>permitir</strong>, nunca denegar, admiten constraints
+      (encryption context, SourceArn) y hay un límite de 50,000 grants por llave. Son el mecanismo interno que usan los
+      servicios integrados con KMS: cuando montas un volumen de <strong>EBS</strong> cifrado o un sistema de archivos de
+      <strong>EFS</strong> en una instancia, el servicio crea un grant a nombre tuyo para poder usar tu CMK mientras
+      dura la tarea, y lo retira al terminar. Por eso, en preguntas del tipo "la instancia no puede usar el volumen cifrado
+      con CMK de otra cuenta", la respuesta suele implicar grants o key policy, no security groups.</p>
+
+      <h3>3.4 Envelope encryption con data keys</h3>
+      <p>KMS no cifra tus archivos con la CMK directamente: eso sería lento y saturaría el servicio. En su lugar usa
+      <span class="term-en">envelope encryption</span>: pides una <span class="term-en">data key</span> nueva por
+      operación, cifras localmente con ella y guardas junto al dato la data key <em>cifrada</em> con la CMK. La data key
+      en claro vive en memoria lo justo y luego se descarta; para descifrar, se envía la data key cifrada a KMS, que la
+      "envuelve de vuelta" si la policy lo permite. Así el dato grande nunca viaja a KMS y toda la autorización queda
+      auditada en CloudTrail.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  P["Tu aplicación"] -->|"1 GenerateDataKey"| K["KMS<br>CMK"]
+  K -->|"2 data key clara<br>+ data key cifrada"| P
+  P -->|"3 cifra el dato<br>con la data key"| F["Dato cifrado +<br>data key cifrada<br>juntos en S3"]
+  P -->|"4 descarta la<br>data key clara"| M["Memoria efímera"]
+  L["Lectura posterior"] -->|"5 Decrypt de la<br>data key cifrada"| K
+  K -->|"6 data key clara"| L
+  style K fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Envelope encryption: la CMK protege data keys; las data keys protegen los datos.</figcaption>
+      </figure>
+
+      <h3>3.5 Multi-Region keys, BYOK y CloudHSM</h3>
+      <p>Por defecto, una CMK es <span class="term-en">regional</span>: si copias datos cifrados a otra región, necesitas
+      re-cifrar o replicar la llave. Las <span class="term-en">multi-Region keys</span> son conjuntos de llaves con el
+      mismo key material y key ID en varias regiones: cifras en una y descifras en otra sin llamadas cross-region ni
+      re-encryption — ideales para disaster recovery y apps activo-activo globales; las gestionas de forma independiente
+      por región y no puedes convertir una llave existente en multi-Region. Con <span class="term-en">BYOK</span>
+      (bring your own key) puedes <strong>importar</strong> tu propio key material a una CMK (origin EXTERNAL): ganas
+      control del ciclo de vida (tú re-importas para rotar, tú le pones fecha de expiración), pero pierdes auto-rotación y
+      KMS nunca te devolverá ese material. Y cuando el requisito es hardware dedicado y control total, aparece
+      <span class="term-en">AWS CloudHSM</span>: clústeres single-tenant validados FIPS 140-2 Level 3 que tú mismo
+      administras, con usuarios de HSM fuera de IAM, donde puedes generar, importar y <strong>exportar</strong> llaves
+      (PKI, migración de HSM on-premise).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>AWS KMS</th><th>AWS CloudHSM</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>Servicio multi-tenant totalmente administrado</td><td>Clúster de HSMs single-tenant que tú administras</td></tr>
+            <tr><td>Validación</td><td>HSMs FIPS 140-3 Level 3 compartidos</td><td>FIPS 140-2 Level 3 (y 140-3), dedicados</td></tr>
+            <tr><td>Control de llaves</td><td>Políticas y grants; el material nunca sale</td><td>Generas, importas y exportas llaves</td></tr>
+            <tr><td>Usuarios</td><td>IAM (cuenta AWS)</td><td>Usuarios HSM propios (crypto officers), fuera de IAM</td></tr>
+            <tr><td>Overhead</td><td>Casi nulo</td><td>Alto: tú gestionas HA, backups, parches del clúster</td></tr>
+            <tr><td>Caso típico</td><td>Cifrado integrado con todos los servicios</td><td>Compliance estricto, PKI propia, exportar llaves, no compartir HSM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">KMS también puede montar un custom key store sobre tu CloudHSM: lo mejor de ambos para algunos casos.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Encrypt with a key the company controls and can audit</em>" → customer managed key. "<em>Key must be
+        usable in multiple Regions without re-encrypting</em>" → <strong>multi-Region key</strong>. "<em>Company policy
+        requires importing its own key material</em>" → <strong>BYOK</strong>. "<em>Dedicated FIPS 140-2 Level 3
+        hardware, full control including key export</em>" → <strong>CloudHSM</strong>. Recuerda el cortocircuito:
+        sin key policy que lo habilite, ninguna IAM policy da acceso a la llave.</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-kms/overview.md</code> ·
+      <code>../../bronze/05-docs/security-kms/key-policies.md</code> ·
+      <code>../../bronze/05-docs/security-kms/grants.md</code> ·
+      <code>../../bronze/05-docs/security-kms/multi-region-keys-overview.md</code> ·
+      <code>../../bronze/05-docs/security-kms/rotating-keys-enable.md</code> ·
+      <code>../../bronze/05-docs/security-cloudhsm/introduction.md</code></p>
+
+      <!-- ================= 4 · CERTIFICADOS Y SECRETOS ================= -->
+      <h2 id="certificados-secretos"><span class="h2-num">4</span>Certificados TLS y gestión de secretos</h2>
+      <p>Dos problemas gemelos de "material sensible que rota": los certificados que prueban identidad ante navegadores, y
+      las credenciales que usan tus aplicaciones. Para lo primero existe <span class="term-en">AWS Certificate Manager</span>;
+      para lo segundo, <span class="term-en">AWS Secrets Manager</span> y <span class="term-en">AWS Systems Manager
+      Parameter Store</span>. El examen te hará elegir entre ellos con calificadores de costo y de overhead.</p>
+
+      <h3>4.1 ACM y AWS Private CA</h3>
+      <p>ACM emite y renueva certificados <span class="term-en">TLS</span> X.509 para los servicios integrados:
+      <strong>ALB/NLB, CloudFront, API Gateway, Elastic Beanstalk</strong>, etc. Los
+      certificados públicos son <strong>gratuitos</strong> si se usan con esos servicios integrados, soportan wildcard y
+      SAN (múltiples dominios) y se renuevan <strong>automáticamente</strong> si validaste el dominio por DNS (recomendado)
+      o email; la validación DNS se hace con un registro CNAME que ACM te da. La contrapartida clave: <strong>no puedes
+      exportar la llave privada</strong> de un certificado público de ACM — solo se usa dentro de los servicios
+      integrados; para usar un certificado en un nginx en EC2 debes importar uno externo (y ACM no lo renovará por ti) o
+      usar la API ACME en el host. ACM es un recurso <strong>regional</strong>: necesitas el certificado en cada región
+      donde tengas el ALB, y para CloudFront <strong>siempre en us-east-1</strong>. Para PKI interna — certificados
+      privados emitidos por tu propia CA — está <span class="term-en">AWS Private CA</span>: pagas la CA (mensual) y por
+      certificado; esos certificados privados <em>sí</em> se pueden exportar (con su llave) para usarlos on-premise.</p>
+
+      <h3>4.2 Secrets Manager vs Parameter Store: la tabla definitiva</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>AWS Secrets Manager</th><th>SSM Parameter Store</th></tr></thead>
+          <tbody>
+            <tr><td>Precio</td><td>Por secreto/mes + llamadas API</td><td>Standard gratuito; Advanced y higher throughput de pago</td></tr>
+            <tr><td>Rotación</td><td>Automática con Lambda (plantillas RDS, y managed rotation para RDS)</td><td>Manual: no dispara nada por sí solo</td></tr>
+            <tr><td>Replicación cross-region</td><td>Nativa: replicas y promoción de una réplica a standalone</td><td>No</td></tr>
+            <tr><td>Versionado</td><td>AWSCURRENT / AWSPREVIOUS con staging labels</td><td>Historial de versiones por parámetro</td></tr>
+            <tr><td>Cifrado</td><td>Siempre cifrado (aws/secretsmanager o tu CMK)</td><td>String/StringList en claro; SecureString cifrado con KMS</td></tr>
+            <tr><td>Tamaño / forma</td><td>Hasta 64 KB; JSON con pares clave-valor, cadenas de conexión tipo URI</td><td>Standard 4 KB, Advanced 8 KB; jerarquía de paths</td></tr>
+            <tr><td>Caso típico</td><td>Credenciales de BD que deben rotar sin redeploy</td><td>Configuración no secreta o SecureString puntual, máximo costo cero</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: Secrets Manager User Guide + SSM docs (bronze). Si la pregunta dice "cost-effective" y no hay rotación ni réplica, gana Parameter Store.</p>
+
+      <h3>4.3 Cómo rota un secreto Secrets Manager</h3>
+      <p>La rotación de Secrets Manager es una <span class="term-en">Lambda function</span> que el servicio invoca según el
+      schedule que definas (p. ej. cada 30 días). La función entra a la base de datos con las credenciales actuales,
+      cambia el password y actualiza el secreto — las aplicaciones nunca dejan de funcionar porque leen la etiqueta
+      <code>AWSCURRENT</code> en runtime en lugar de tener el password en su configuración. La estrategia
+      <span class="term-en">alternating users</span> clona el usuario de BD y alterna cuál de los dos se rota, dejando
+      siempre uno válido para alta disponibilidad durante la rotación; la estrategia single user rota el mismo usuario y
+      es más simple pero rompe conexiones abiertas un instante. Con réplicas cross-region, la rotación ocurre en la
+      primaria y se propaga a todas las réplicas.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant M as Secrets Manager
+  participant L as Lambda de rotación
+  participant D as Base de datos
+  M->>L: 1 invoca según el schedule
+  L->>D: 2 login con credenciales actuales
+  L->>D: 3 cambia el password del usuario
+  L->>M: 4 guarda la nueva versión como AWSCURRENT
+  Note over M,D: las apps siempre leen AWSCURRENT en runtime
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Rotación de secreto: la Lambda hace el trabajo; la app nunca se entera del cambio.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Database credentials rotated automatically every 30 days with least operational overhead</em>" →
+        <strong>Secrets Manager</strong>. "<em>Store configuration values at no cost</em>" → <strong>Parameter Store
+        Standard</strong>. "<em>Encrypted parameters</em>" → <strong>SecureString</strong> (con KMS). "<em>Certificate for
+        the application load balancer with automatic renewal</em>" → <strong>ACM con validación DNS</strong>. "<em>Need
+        the private key on an EC2-hosted web server</em>" → ACM <em>no</em>; importa el certificado o usa Private CA con
+        export.</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-acm/acm-overview.md</code> ·
+      <code>../../bronze/05-docs/security-acm/service-options.md</code> ·
+      <code>../../bronze/05-docs/security-acm/import-certificate.md</code> ·
+      <code>../../bronze/05-docs/security-secretsmanager/intro.md</code> ·
+      <code>../../bronze/05-docs/security-secretsmanager/replicate-secrets.md</code> ·
+      <code>../../bronze/05-docs/security-secretsmanager/tutorials-rotation-alternating.md</code></p>
+
+      <!-- ================= 5 · DETECCIÓN ================= -->
+      <h2 id="deteccion-respuesta"><span class="h2-num">5</span>Detección y respuesta: los cinco servicios</h2>
+      <p>La capa de detección tiene cinco servicios con nombres parecidos y funciones distintas; la pregunta clave para
+      distinguirlos es <strong>qué consumen</strong> y <strong>qué producen</strong>. La fuente de casi todo es
+      <span class="term-en">AWS CloudTrail</span>: su <span class="term-en">event history</span> guarda 90 días de
+      management events consultables sin costo y sin configurar nada; para más histórico o data events creas un
+      <span class="term-en">trail</span> hacia S3 (con CloudWatch/EventBridge si quieres alertas), que puede ser de toda
+      la organización (org trail) desde la management account. Los <span class="term-en">Insights events</span> de
+      CloudTrail detectan patrones inusuales de llamadas de escritura. Sobre esa base, los cinco:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Entrada</th><th>Salida</th><th>Caso de una línea</th></tr></thead>
+          <tbody>
+            <tr><td>GuardDuty</td><td>CloudTrail management events, VPC Flow Logs, DNS logs (sin configurar nada); protección extra opcional: S3 data events, RDS, EKS, EBS malware scan, Lambda</td><td>Findings con ML + threat intelligence</td><td>Detectar actividad maliciosa: credenciales comprometidas, cryptomining, exfiltración</td></tr>
+            <tr><td>Inspector</td><td>Descubre y escanea EC2 (agentless vía SSM), imágenes ECR y funciones Lambda</td><td>Findings de CVEs, SBOM exportable, exposición de red</td><td>Vulnerabilidades de software y puertos expuestos en workloads</td></tr>
+            <tr><td>Macie</td><td>Inventario de buckets S3 + objetos</td><td>Findings de datos sensibles (PII)</td><td>Descubrir PII mal expuesta o fugas en S3 con ML y pattern matching</td></tr>
+            <tr><td>Security Hub</td><td>Findings de GuardDuty/Inspector/Macie + checks con AWS Config</td><td>Postura agregada: standards CIS, PCI DSS, AWS FSBP; insights y score</td><td>Panel único de seguridad y cumplimiento multi-cuenta</td></tr>
+            <tr><td>Detective</td><td>GuardDuty + Security Hub + CloudTrail + VPC Flow Logs</td><td>Grafo de comportamiento para investigar</td><td>Entender el origen y alcance de un finding ya detectado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Flujo canónico: los detectores generan findings → Security Hub los agrega → Detective investiga los graves.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  F["CloudTrail · VPC Flow Logs<br>DNS logs"] --> G["GuardDuty<br>ML + threat intel"]
+  I["Inspector · Macie"] --> H["Security Hub<br>CIS · PCI · FSBP"]
+  G --> H
+  H --> E["EventBridge<br>regla"]
+  E --> R["Respuesta automática<br>SNS · Lambda · SSM"]
+  style G fill:#1d2b26,stroke:#2ea597,color:#e9ebed
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — Pipeline de detección y respuesta: detectar, agregar, correlacionar, actuar.</figcaption>
+      </figure>
+
+      <p>Detalles que el examen cobra caro: GuardDuty se habilita por cuenta o para toda la org (delegated admin) y sus
+      fuentes base no requieren habilitar nada más; Macie tiene <span class="term-en">managed data identifiers</span>
+      (PII conocida) y <span class="term-en">custom data identifiers</span> (regex propios); Inspector produce
+      <span class="term-en">SBOM</span> exportable y re-escanea cuando cambia el recurso o aparece un CVE nuevo; y
+      Security Hub no detecta ataques por sí mismo — <strong>agrega y evalúa</strong> postura contra estándares, así que
+      si la pregunta dice "aggregated view of security alerts across accounts", esa es. Para responder findings sin humanos
+      despiertos, la combinación ganadora es EventBridge + Lambda o SNS: es la respuesta a "<em>near real-time automated
+      remediation</em>".</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>Threat detection with machine learning and no additional infrastructure</em>" → <strong>GuardDuty</strong>.
+        "<em>Identify personally identifiable information stored in S3</em>" → <strong>Macie</strong>. "<em>Continuously
+        scan EC2 instances and ECR images for vulnerabilities</em>" → <strong>Inspector</strong>. "<em>Centralized view
+        of security posture and compliance standards</em>" → <strong>Security Hub</strong>. "<em>Investigate the root
+        cause of a GuardDuty finding</em>" → <strong>Detective</strong>. Y "<em>who deleted this production table three
+        weeks ago</em>" → <strong>CloudTrail</strong> (trail en S3, porque el event history cubre solo 90 días).</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-guardduty/what-is-guardduty.md</code> ·
+      <code>../../bronze/05-docs/security-inspector/what-is-inspector.md</code> ·
+      <code>../../bronze/05-docs/security-macie/welcome.md</code> ·
+      <code>../../bronze/05-docs/security-securityhub/what-are-securityhub-services.md</code> ·
+      <code>../../bronze/05-docs/security-detective/what-is-detective.md</code></p>
+
+      <!-- ================= 6 · RED Y PERÍMETRO ================= -->
+      <h2 id="red-perimetro"><span class="h2-num">6</span>Red y perímetro: WAF, Shield, Network Firewall</h2>
+      <p>El detalle de networking (SG, NACL, VPC design) vive en <a href="redes.html">redes y conectividad</a>; aquí va
+      la capa de <em>protección de perímetro</em> que el examen agrupa en Dominio 1. <span class="term-en">AWS WAF</span>
+      es el <span class="term-en">web application firewall</span> que inspecciona requests HTTP/HTTPS hacia tus recursos
+      publicados: se despliega como <span class="term-en">web ACL</span> sobre CloudFront, ALB, API Gateway (REST), y
+      también AppSync, Cognito, App Runner o Verified Access. Cada web ACL contiene rules que filtran por IP, país,
+      headers, query strings, regex, tamaño o tokens; las <span class="term-en">AWS managed rule groups</span> (Core
+      rules, Known Bad Inputs, IP reputation) cubren OWASP Top 10 sin que escribas nada; los grupos de pago añaden
+      <span class="term-en">Bot Control</span> y <span class="term-en">Account Takeover Prevention</span>. Las acciones
+      incluyen Allow, Block, Count y también <span class="term-en">CAPTCHA</span> y Challenge silencioso contra bots; y
+      las <span class="term-en">rate-based rules</span> limitan por IP (p. ej. 2,000 requests/5 min) — la respuesta
+      estándar a "mitigate HTTP flood / layer 7 DDoS".</p>
+
+      <p>Para volumétricos, <span class="term-en">AWS Shield</span> viene en dos sabores. Shield Standard es gratis y
+      automático para todos los clientes (L3/L4: SYN floods, UDP reflections). Shield Advanced es la suscripción de pago
+      para aplicaciones críticas:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Shield Standard</th><th>Shield Advanced</th></tr></thead>
+          <tbody>
+            <tr><td>Costo</td><td>Incluido, cero configuración</td><td>Suscripción mensual + data transfer fees comprometidas 1 año</td></tr>
+            <tr><td>Capas</td><td>L3/L4 volumétrico</td><td>L3/L4 + detección y mitigación avanzada (integración con WAF en L7)</td></tr>
+            <tr><td>Equipo</td><td>—</td><td><span class="term-en">SRT</span> (Shield Response Team) 24/7</td></tr>
+            <tr><td>Protección financiera</td><td>—</td><td><span class="term-en">DDoS cost protection</span>: reembolso de costos por escala por ataque</td></tr>
+            <tr><td>Recursos</td><td>Todo lo que corre en AWS</td><td>CloudFront, Route 53, ALB/NLB, Global Accelerator, Elastic IPs/EC2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Para el interior de la VPC, <span class="term-en">AWS Network Firewall</span> es el firewall administrado que filtra en capas 3, 4 y 7: despliegas un endpoint de firewall por AZ, las route tables dirigen el tráfico a
+      través de él y se filtra con dos motores — reglas <span class="term-en">stateless</span> (5-tuples, como un NACL
+      esteroides) y reglas <span class="term-en">stateful</span> con el motor IPS open source <span class="term-en">Suricata</span>,
+      incluyendo filtrado por dominios y deep packet inspection. Es la respuesta correcta para "inspect east-west traffic
+      between VPCs" o "allow traffic only to known domains" con una solución administrada. Finalmente,
+      <span class="term-en">AWS Firewall Manager</span> es la capa de gobierno: desde la cuenta de administración de AWS
+      Organizations, define una política una vez (WAF, Shield Advanced, Network Firewall o security groups) y la replica
+      automáticamente a todas las cuentas y recursos, incluidos los que se creen en el futuro — el fix para
+      "<em>ensure all new ALBs get the web ACL</em>".</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Capa / ámbito</th><th>Uso en una frase</th></tr></thead>
+          <tbody>
+            <tr><td>AWS WAF</td><td>L7 (HTTP/HTTPS) en el edge o en el ALB</td><td>Reglas web: SQLi, XSS, rate limit, CAPTCHA, bots</td></tr>
+            <tr><td>Shield Standard</td><td>L3/L4, toda la cuenta</td><td>DDoS volumétrico gratis y automático</td></tr>
+            <tr><td>Shield Advanced</td><td>L3–L7 + soporte humano</td><td>Apps críticas: SRT 24/7, cost protection, WAF incluido</td></tr>
+            <tr><td>Network Firewall</td><td>L3–L7 dentro de la VPC</td><td>Suricata stateful, dominios permitidos, inspección este-oeste</td></tr>
+            <tr><td>Firewall Manager</td><td>Gestión multi-cuenta</td><td>Rollout automático de políticas de WAF/NFW/SG a la org</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Preguntas de DDoS en capas: "<em>HTTP flood at layer 7</em>" → WAF rate-based rule (+ CloudFront); "<em>SYN
+        flood / reflection attack</em>" → Shield (Standard si no hay suscripción, Advanced si piden 24/7 soporte o
+        protección de costos); "<em>filter outbound traffic to a list of domains</em>" → Network Firewall; "<em>apply
+        protections across 50 accounts automatically</em>" → Firewall Manager. Trampa clásica: WAF no protege nada que no
+        sea HTTP/HTTPS — para protocolos arbitrarios en la VPC es Network Firewall.</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-waf/what-is-aws-waf.md</code> ·
+      <code>../../bronze/05-docs/security-waf/waf-rule-statement-type-rate-based.md</code> ·
+      <code>../../bronze/05-docs/security-shield/shield-chapter.md</code> ·
+      <code>../../bronze/05-docs/security-networkfirewall/what-is-aws-network-firewall.md</code> ·
+      <code>../../bronze/05-docs/security-networkfirewall/firewall-rules-engines.md</code></p>
+
+      <!-- ================= 7 · CUENTAS Y COMPLIANCE ================= -->
+      <h2 id="cuentas-compliance"><span class="h2-num">7</span>Cuentas, directorio corporativo y compliance</h2>
+      <p>Las empresas no tienen una cuenta AWS: tienen muchas (workload, sandbox, seguridad, logging) dentro de
+      <span class="term-en">AWS Organizations</span>, y usuarios que ya existen en su directorio corporativo. Esta sección
+      cierra la enciclopedia con los servicios de identidad corporativa, gobernanza de cuentas y evidencia de
+      cumplimiento.</p>
+
+      <h3>7.1 Directory Service: las tres variantes</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Managed Microsoft AD</th><th>Simple AD</th><th>AD Connector</th></tr></thead>
+          <tbody>
+            <tr><td>Qué es</td><td>Un Active Directory real (Windows Server) administrado por AWS</td><td>Directorio compatible con AD (Samba 4)</td><td>Gateway proxy a tu AD on-premise existente</td></tr>
+            <tr><td>Usuarios</td><td>Viven en AWS; se agregan con las herramientas AD de siempre</td><td>Viven en AWS; admins sencillo</td><td>Los tuyos, en tu datacenter (necesitas VPN o Direct Connect)</td></tr>
+            <tr><td>Features</td><td>Trusts con on-prem, MFA, LDAPS, schema extensions, RDS SQL Server</td><td>Lo básico: users, groups, Kerberos SSO, group policies</td><td>Sin caché ni réplica; MFA vía tu RADIUS</td></tr>
+            <tr><td>Ediciones / límite</td><td>Standard ~30k objetos / Enterprise ~500k</td><td>Small 500 / Large 5,000 usuarios</td><td>Ilimitado (es tu AD)</td></tr>
+            <tr><td>Caso</td><td>Apps AD-aware, SharePoint, .NET, WorkSpaces + RDS SQL Server</td><td>Barato y suficiente sin requisitos Microsoft fuertes</td><td>Reutilizar identidades on-prem sin sincronizar ni federar</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: AWS Directory Service Administration Guide (bronze). Ni Simple AD ni AD Connector sirven con RDS for SQL Server.</p>
+
+      <h3>7.2 Identity Center y acceso humano</h3>
+      <p><span class="term-en">AWS IAM Identity Center</span> (antes AWS SSO) da un solo login para muchas cuentas AWS y
+      para aplicaciones en la nube: defines un <span class="term-en">identity source</span> (su directorio propio, tu
+      Managed Microsoft AD o un IdP externo SAML/OIDC) y asignas <span class="term-en">permission sets</span> a usuarios
+      o grupos por cuenta. Es la respuesta correcta siempre que el escenario tenga múltiples cuentas y "single sign-on" en
+      la misma frase: gana a crear IAM users duplicados en cada cuenta. Para clientes finales de tus apps (no empleados),
+      el servicio es Amazon Cognito (user pools para registro/login, identity pools para creds AWS temporales) — ver
+      <a href="../dominios/dominio-1-deep-dive.html">Dominio 1</a>.</p>
+
+      <h3>7.3 Evidencia y gobernanza: Artifact, Audit Manager, RAM</h3>
+      <p>Cuando llega el auditor, <span class="term-en">AWS Artifact</span> es el portal de self-service para descargar
+      los reportes de cumplimiento de terceros (SOC, ISO, PCI) y para revisar y aceptar acuerdos como el BAA de HIPAA —
+      sin tickets a soporte. <span class="term-en">AWS Audit Manager</span> automatiza la colección de evidencia de tus
+      propios recursos contra frameworks (HIPAA, PCI, NIST, CIS) y produce informes continuos de readiness. Y
+      <span class="term-en">AWS RAM</span> (Resource Access Manager) comparte recursos entre cuentas de tu organización
+      sin duplicarlos: Transit Gateways, subnets de VPC, Route 53 Resolver rules, License Manager configs — gratis, con
+      el resource share definiendo principals y cuentas destino.</p>
+
+      <h3>7.4 SCP vs permissions boundary: el duelo final</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>SCP (Organizations)</th><th>Permissions boundary (IAM)</th></tr></thead>
+          <tbody>
+            <tr><td>Se aplica a</td><td>Cuentas: root, OUs o cuentas miembro</td><td>Una entidad IAM concreta: user o role</td></tr>
+            <tr><td>Define</td><td>Techo máximo de toda la cuenta (afecta incluso a su root user local)</td><td>Techo máximo de esa entidad</td></tr>
+            <tr><td>Otorga permisos</td><td>No — nunca</td><td>No — nunca</td></tr>
+            <tr><td>No afecta a</td><td>La management account</td><td>Otras entidades de la misma cuenta</td></tr>
+            <tr><td>Caso</td><td>Guardarraíles: "ninguna cuenta puede dejar una región" o "prohibido CloudTrail off"</td><td>Delegar creación de roles a developers sin darles admin total</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los programas de cumplimiento cruzan todo lo anterior: HIPAA (salud, requiere BAA firmado), PCI DSS (tarjetas,
+      nivel 1) y el marco de privacidad europeo (GDPR/DPF). Para el examen basta saber que el primer paso es verificar en
+      Artifact que los servicios que planeas usar están <span class="term-en">in scope</span> del programa, y que el stack
+      (KMS + CloudTrail + Config + Artifact) es la respuesta estándar a "provide evidence to auditors".</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Practica el duelo de techos con un ejemplo mental fijo: un developer tiene una identity policy con
+        <code>s3:*</code>, una boundary que solo permite S3 de lectura y la cuenta tiene una SCP que bloquea todo menos
+        EC2 y S3. ¿Puede borrar un bucket? No: la boundary lo recorta a lectura. ¿Puede lanzar EC2? Tampoco: su identity
+        policy no se lo otorga. El permiso efectivo es siempre la <strong>intersección</strong> de todo lo que aplica.</p>
+      </div>
+
+      <h3>7.5 Tabla de cierre: requisito → servicio</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Amenaza / requisito del escenario</th><th>Servicio correcto</th></tr></thead>
+          <tbody>
+            <tr><td>Credenciales de BD rotadas automáticamente sin redeploy</td><td>Secrets Manager (rotación con Lambda)</td></tr>
+            <tr><td>Configuración no sensible sin costo</td><td>Parameter Store Standard</td></tr>
+            <tr><td>Parámetros cifrados con KMS y jerarquía de paths</td><td>Parameter Store SecureString</td></tr>
+            <tr><td>Cifrado con llave propia, auditable y controlable</td><td>KMS customer managed key</td></tr>
+            <tr><td>Descifrar en otra región sin re-encrypt</td><td>KMS multi-Region key</td></tr>
+            <tr><td>Hardware dedicado FIPS 140-2 L3 con export de llaves</td><td>CloudHSM</td></tr>
+            <tr><td>HTTPS en ALB/CloudFront con renovación automática</td><td>ACM (validación DNS)</td></tr>
+            <tr><td>PKI interna con certificados privados exportables</td><td>AWS Private CA</td></tr>
+            <tr><td>Detectar actividad maliciosa en la cuenta</td><td>GuardDuty</td></tr>
+            <tr><td>Encontrar PII expuesta en S3</td><td>Macie</td></tr>
+            <tr><td>Vulnerabilidades en EC2, ECR y Lambda</td><td>Inspector</td></tr>
+            <tr><td>Panel multi-cuenta CIS / PCI / FSBP</td><td>Security Hub</td></tr>
+            <tr><td>Investigar la causa raíz de un finding</td><td>Detective</td></tr>
+            <tr><td>Quién hizo qué hace tres meses</td><td>CloudTrail (trail a S3)</td></tr>
+            <tr><td>Proteger una app web de SQLi y bots</td><td>WAF + managed rule groups</td></tr>
+            <tr><td>DDoS con SRT 24/7 y protección de costos</td><td>Shield Advanced</td></tr>
+            <tr><td>Filtrar tráfico por dominios dentro de la VPC</td><td>Network Firewall (Suricata)</td></tr>
+            <tr><td>Aplicar WAF/SG a todas las cuentas de la org</td><td>Firewall Manager</td></tr>
+            <tr><td>SSO multi-cuenta para empleados</td><td>IAM Identity Center</td></tr>
+            <tr><td>Usuarios de AD on-prem sin sincronización</td><td>AD Connector</td></tr>
+            <tr><td>Limitar el techo de una cuenta</td><td>SCP</td></tr>
+            <tr><td>Limitar el techo de un rol que crea otro equipo</td><td>Permissions boundary</td></tr>
+            <tr><td>Evidencia de compliance para auditores</td><td>Artifact / Audit Manager</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Si un requisito no está aquí, vuelve a la Fig. 1: identifica la capa y el servicio aparecerá.</p>
+
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Lectura oficial recomendada para esta página: <code>05-docs/security-kms/key-policies.md</code>,
+        <code>05-docs/security-secretsmanager/tutorials-rotation-alternating.md</code> y
+        <code>05-docs/security-directory/what-is.md</code> — los tres con el nivel de detalle exacto que el examen</p>
+      </div>
+      <p class="bronze-link">Bronze de esta sección: <code>../../bronze/05-docs/security-directory/what-is.md</code> ·
+      <code>../../bronze/05-docs/security-identitycenter/what-is.md</code> ·
+      <code>../../bronze/05-docs/security-artifact/what-is-aws-artifact.md</code> ·
+      <code>../../bronze/05-docs/security-auditmanager/what-is.md</code> ·
+      <code>../../bronze/05-docs/security-ram/what-is.md</code> ·
+      <code>../../bronze/05-docs/security-cognito/what-is-amazon-cognito.md</code></p>
+
+      <nav class="pager">
+        <a href="bases-datos.html"><span class="p-dir">← Anterior</span><br>Bases de datos: enciclopedia</a>
+        <a class="p-next" href="contenedores-serverless.html"><span class="p-dir">Siguiente →</span><br>Contenedores y serverless: enciclopedia</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

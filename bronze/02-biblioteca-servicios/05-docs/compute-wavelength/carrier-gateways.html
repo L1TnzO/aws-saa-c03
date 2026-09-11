@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Carrier gateway for AWS Wavelength - AWS Wavelength</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="carrier-gateways" /><meta name="default_state" content="carrier-gateways" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html" /><meta name="description" content="Enable access to the carrier network from your subnet by attaching a carrier gateway." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Wavelength" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="AWS Wavelength expands the AWS infrastructure to communications service providers' (CSP) data centers at the edge of the 5G network. Wavelength Zones deploy standard AWS infrastructure racks, including both hardware and software, in CSP locations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wavelength/latest/developerguide/carrier-gateways.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wavelength/latest/developerguide/carrier-gateways.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wavelength/latest/developerguide/carrier-gateways.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wavelength/latest/developerguide/carrier-gateways.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wavelength/latest/developerguide/carrier-gateways.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wavelength/latest/developerguide/carrier-gateways.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wavelength/latest/developerguide/carrier-gateways.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wavelength/latest/developerguide/carrier-gateways.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wavelength/latest/developerguide/carrier-gateways.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wavelength/latest/developerguide/carrier-gateways.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wavelength/latest/developerguide/carrier-gateways.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wavelength/latest/developerguide/carrier-gateways.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wavelength/latest/developerguide/carrier-gateways.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wavelength/latest/developerguide/carrier-gateways.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wavelength/latest/developerguide/carrier-gateways.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wavelength/latest/developerguide/carrier-gateways.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/wavelength/latest/developerguide/carrier-gateways.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/wavelength/latest/developerguide/carrier-gateways.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html" hreflang="x-default" /><meta name="feedback-item" content="Wavelength" /><meta name="this_doc_product" content="AWS Wavelength" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'wavelength'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Carrier gateway for AWS Wavelength" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="carrier-gateways.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Carrier gateway for AWS Wavelength - AWS Wavelength</title><meta name="pdf" content="/pdfs/wavelength/latest/developerguide/aws-wavelength-developer-guide.pdf#carrier-gateways" /><meta name="forums" content="https://repost.aws/tags/TA0ReC8pvsQtKHfTBwFliq4A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Wavelength&amp;topic_url=https://docs.aws.amazon.com/en_us/wavelength/latest/developerguide/carrier-gateways.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/wavelength/latest/developerguide/carrier-gateways.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/wavelength/latest/developerguide/carrier-gateways.html" /><meta name="keywords" content="Wavelength,Wavelength Zone,carrier gateway,telecommunication carrier,communications service provider,mobile apps,AWS Wavelength carrier gateway" /><link rel="alternate" type="text/markdown" href="carrier-gateways.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Wavelength",
+        "item" : "https://docs.aws.amazon.com/wavelength/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/wavelength/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Carrier gateway for AWS Wavelength",
+        "item" : "https://docs.aws.amazon.com/wavelength/latest/developerguide/carrier-gateways.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/wavelength/latest/developerguide/aws-wavelength-developer-guide.pdf#carrier-gateways" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/wavelength/index.html">AWS Wavelength</a><a href="what-is-wavelength.html">Developer Guide</a></div><div id="page-toc-src"><a href="#enabling-telecom-routing">Enable access to the carrier network</a><a href="#working-with-cgw">Work with carrier gateways</a><a href="#manage-zones">Manage Zones</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="carrier-gateways">Carrier gateway for AWS Wavelength</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A carrier gateway serves two purposes. It allows inbound traffic from a carrier network in a
+    specific location, and it allows outbound traffic to the carrier network and the internet. There
+    is generally no inbound connection configuration from the internet to a Wavelength Zone through
+    the carrier gateway with the exception of select partners. For more information,
+    see <a href="./multi-access.html">Multi-access AWS Wavelength</a>.</p><p>A carrier gateway supports IPv4 traffic. </p><p>Carrier gateways are only available for VPCs that contain subnets in a Wavelength Zone. The
+    carrier gateway provides connectivity between your Wavelength Zone and the carrier, and devices on
+    the carrier network. The carrier gateway performs NAT of the Wavelength instances' IP addresses to
+    the Carrier IP addresses from a pool that is assigned to the network border group. The carrier
+    gateway NAT function is similar to how an internet gateway functions in a Region.</p>
+    <h2 id="enabling-telecom-routing">Enable access to the carrier network</h2>
+    <p>To enable access to or from the carrier network for instances in a Wavelength subnet, you must
+      do the following:</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Create a VPC.</p>
+      </li><li class="listitem">
+        <p>Create a carrier gateway and attach the carrier gateway to your VPC. When you create
+          the carrier gateway, you can optionally choose which subnets route to the carrier gateway.
+          When you select this option, we automatically create the resources related to carrier
+          gateways, such as route tables and network ACLs. If you do not choose this option, then
+          you must perform the following tasks: </p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Select the subnets that route traffic to the carrier gateway.</p>
+          </li><li class="listitem">
+            <p>Ensure that your subnet route tables have a route that directs traffic to the
+              carrier gateway.</p>
+          </li><li class="listitem">
+            <p>Ensure that instances in your subnet have a globally unique Carrier IP
+              address.</p>
+          </li><li class="listitem">
+            <p>Ensure that your network access control lists and security group rules allow the
+              relevant traffic to flow to and from your instance.</p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="working-with-cgw">Work with carrier gateways</h2>
+
+    <p>The following sections describe how to manually create a carrier gateway for your VPC to
+      support inbound traffic from the carrier network (for example, mobile phones), and to support
+      outbound traffic to the carrier network and the internet.</p>
+
+    <div class="highlights" id="inline-topiclist"><h6>Tasks</h6><ul><li><p><a href="#Add_CGW_Create_VPC">Create a VPC</a></p></li><li><p><a href="#Add_CGW_create_Gateway">Create a carrier gateway</a></p></li><li><p><a href="#Add_CGW_Security_Groups">Create a security group to access the carrier network</a></p></li><li><p><a href="#wavelength-allocate-carrier-ip">Allocate and associate a Carrier IP address with the instance in the Wavelength Zone subnet</a></p></li><li><p><a href="#route-tables-cgw">Routing to a Wavelength Zone carrier gateway</a></p></li><li><p><a href="#view-cgw">View the carrier gateway details</a></p></li><li><p><a href="#manage-cgw-tags">Manage carrier gateway tags</a></p></li><li><p><a href="#delete-cgw">Delete a carrier gateway</a></p></li></ul></div>
+
+     
+      <h3 id="Add_CGW_Create_VPC">Create a VPC</h3>
+      <p>You can create an empty Wavelength VPC as follows.</p>
+       
+        <h6>Limitation</h6>
+        <p>You can specify a range of publicly routable IPv4 addresses. However, we do not
+          support direct access to the internet from publicly routable CIDR blocks in a VPC. Windows
+          instances cannot boot correctly if launched into a VPC with ranges from
+            <code class="code">224.0.0.0</code> to <code class="code">255.255.255.255</code> (Class D and Class E IP address
+          ranges).</p>
+       
+
+      <div class="procedure"><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Your VPCs</b>, <b>Create
+              VPC</b>.</p>
+        </li><li>
+          <p>Do the following and then choose <b>Create</b>.</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><b>Name tag</b>: Optionally provide a name for your VPC. Doing so
+                creates a tag with a key of <code class="code">Name</code> and the value that you specify.</p>
+            </li><li class="listitem">
+              <p><b>IPv4 CIDR block</b>: Specify an IPv4 CIDR block for the VPC. We
+                recommend that you specify a CIDR block from the private (non-publicly routable) IP
+                address ranges as specified in <a href="http://www.faqs.org/rfcs/rfc1918.html" rel="noopener noreferrer" target="_blank"><span>RFC 1918</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>; for example, <code class="code">10.0.0.0/16</code>, or
+                  <code class="code">192.168.0.0/16</code>. </p>
+            </li></ul></div>
+        </li></ol></div>
+       
+        <h6>To create a VPC using the AWS CLI</h6>
+        <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc.html">create-vpc</a>
+          command.</p>
+       
+     
+
+     
+      <h3 id="Add_CGW_create_Gateway">Create a carrier gateway</h3>
+      <p>After you create a VPC, create a carrier gateway and then select the subnets that route
+        traffic to the carrier gateway.</p>
+      <p>If you have not opted in to a Wavelength Zone, the Amazon Virtual Private Cloud Console prompts you to
+        opt in. For more information, see <a href="#manage-zones">Manage Zones</a>.</p>
+      <p>When you choose to automatically route traffic from subnets to the carrier gateway, we
+        create the following resources:</p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>A carrier gateway</p>
+        </li><li class="listitem">
+          <p>A subnet. You can optionally assign all carrier gateway tags that do not have a
+              <b>Key</b> value of <code class="code">Name</code> to the subnet.</p>
+        </li><li class="listitem">
+          <p>A network ACL with the following resources:</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>A subnet associated with the subnet in the Wavelength Zone</p>
+            </li><li class="listitem">
+              <p>Default inbound and outbound rules for all of your traffic.</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p>A route table with the following resources:</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>A route for all local traffic</p>
+            </li><li class="listitem">
+              <p>A route that routes all non-local traffic to the carrier gateway</p>
+            </li><li class="listitem">
+              <p>An association with the subnet</p>
+            </li></ul></div>
+        </li></ul></div>
+      <div class="procedure"><h6>To create a carrier gateway</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Carrier Gateways</b>, and then
+            choose <b>Create carrier gateway</b>.</p>
+        </li><li>
+          <p>Optional: For <b>Name</b>, enter a name for the carrier
+            gateway.</p>
+        </li><li>
+          <p>For <b>VPC</b>, choose the VPC.</p>
+        </li><li>
+          <p>Choose <b>Route subnet traffic to carrier gateway</b>, and under
+              <b>Subnets to route</b> do the following.</p>
+          <ol><li>
+              <p>Under <b>Existing subnets in Wavelength Zone</b>, select the box for
+                each subnet to route to the carrier gateway.</p>
+            </li><li>
+              <p>To create a subnet in the Wavelength Zone, choose <b>Add new
+                  subnet</b>, specify the following information, and then choose
+                  <b>Add new subnet</b>:</p>
+              <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Name tag</b>: Optionally provide a name for
+                    your subnet. Doing so creates a tag with a key of <code class="code">Name</code> and the
+                    value that you specify.</p>
+                </li><li class="listitem">
+                  <p><b>VPC</b>: Choose the VPC.</p>
+                </li><li class="listitem">
+                  <p><b>Availability Zone</b>: Choose the Wavelength Zone. </p>
+                </li><li class="listitem">
+                  <p><b>IPv4 CIDR block</b>: Specify an IPv4 CIDR block
+                    for your subnet, for example, <code class="code">10.0.1.0/24</code>.</p>
+                </li><li class="listitem">
+                  <p>To apply the carrier gateway tags to the subnet, select <b>Apply same
+                      tags from this carrier gateway</b>.</p>
+                </li></ul></div>
+            </li></ol>
+        </li><li>
+          <p>(Optional) To add a tag to the carrier gateway, choose <b>Add tag</b>,
+            and then do the following:</p>
+          <ul>
+            <li>
+              <p>For <b>Key</b>, enter the key name.</p>
+            </li>
+            <li>
+              <p>For <b>Value</b>, enter the key value.</p>
+            </li>
+          </ul>
+        </li><li>
+          <p>Choose <b>Create carrier gateway</b>.</p>
+        </li></ol></div>
+      <div class="procedure"><h6>To create a carrier gateway using the AWS CLI</h6><ol><li>
+          <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-carrier-gateway.html">create-carrier-gateway</a> command.</p>
+        </li><li>
+          <p>Add a VPC route table with the following resources:</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>A route for all VPC local traffic</p>
+            </li><li class="listitem">
+              <p>A route that routes all non-local traffic to the carrier gateway</p>
+            </li><li class="listitem">
+              <p>An association with the subnets in the Wavelength Zone</p>
+            </li></ul></div>
+          <p>For more information, see <a href="#route-tables-cgw">Routing to a Wavelength Zone carrier gateway</a>.</p>
+        </li></ol></div>
+     
+
+     
+      <h3 id="Add_CGW_Security_Groups">Create a security group to access the carrier network</h3>
+
+      <p>By default, a VPC security group allows all outbound traffic. You can create a new
+        security group and add rules that allow inbound traffic from the carrier. Then, you
+        associate the security group with instances in the subnet.</p>
+      <div class="procedure"><h6>To create a new security group and associate it with your instances</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Security Groups</b>, and then choose
+              <b>Create Security Group</b>.</p>
+        </li><li>
+          <p>To create a security group, choose <b>Create security group</b>,
+            specify the following information, and then choose <b>create</b>:</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><b>Security group name</b>: Enter a name for the
+                subnet.</p>
+            </li><li class="listitem">
+              <p><b>Description</b>: Enter the security group description.</p>
+            </li><li class="listitem">
+              <p><b>VPC</b>: Choose the VPC.</p>
+            </li></ul></div>
+        </li><li>
+          <p>Select the security group. The details pane displays the details for the security
+            group, plus tabs for working with its inbound rules and outbound rules.</p>
+        </li><li>
+          <p>On the <b>Inbound Rules</b> tab, choose <b>Edit</b>.
+            Choose <b>Add Rule</b>, and complete the required information. For
+            example, select <b>HTTP</b> or <b>HTTPS</b> from the
+              <b>Type</b> list, and enter the <b>Source</b> as
+              <code class="code">0.0.0.0/0</code> for IPv4 traffic, or <code class="code">::/0</code> for IPv6 traffic. Choose
+              <b>Save</b>.</p>
+        </li><li><p>Open the Amazon EC2 console at
+         <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Instances</b>.</p>
+        </li><li>
+          <p>Select the instance, choose <b>Actions</b>,
+              <b>Networking</b>, and then select <b>Change Security
+              Groups</b>. </p>
+        </li><li>
+          <p>Clear the check box for the currently selected security group, and then select the
+            new one. Choose <b>Assign Security Groups</b>.</p>
+        </li></ol></div>
+       
+        <h6>To create a security group using the AWS CLI</h6>
+        <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-security-group.html">create-security-group</a> command.</p>
+       
+     
+
+     
+      <h3 id="wavelength-allocate-carrier-ip">Allocate and associate a Carrier IP address with the instance in the Wavelength Zone subnet</h3>
+      <p>If you used the Amazon EC2 console to launch the instance, or you did not use the
+          <code class="code">associate-carrier-ip-address</code> option in the AWS CLI, then you must allocate a
+        Carrier IP address and assign it to the instance: </p>
+      
+      <div class="procedure"><h6>To allocate and associate a Carrier IP address using the AWS CLI</h6><ol><li>
+          <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/allocate-address.html">allocate-address</a> command as follows.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws ec2 allocate-address --region us-east-1 --domain vpc --network-border-group us-east-1-wl1-bos-wlz-1</code></pre>
+          <p>The following is example output:</p>
+          <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "AllocationId": "eipalloc-05807b62acEXAMPLE",
+    "PublicIpv4Pool": "amazon",
+    "NetworkBorderGroup": "us-east-1-wl1-bos-wlz-1",
+    "Domain": "vpc",
+    "CarrierIp": "155.146.10.111"
+
+}</code></pre>
+        </li><li>
+          <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/associate-address.html">associate-address</a> command to associate the Carrier IP address with the EC2
+            instance as follows.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws ec2 associate-address --allocation-id eipalloc-05807b62acEXAMPLE --network-interface-id eni-1a2b3c4d</code></pre>
+          <p>The following is example output:</p>
+          <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "AssociationId": "eipassoc-02463d08ceEXAMPLE",
+}</code></pre>
+        </li></ol></div>
+     
+
+     
+      <h3 id="route-tables-cgw">Routing to a Wavelength Zone carrier gateway</h3>
+      <p>Subnets that are in Wavelength Zones can have an additional target type of a carrier
+        gateway. Consider the case where you want to have the carrier gateway route traffic to route
+        all non-VPC traffic to the carrier network. To do this, create and attach a carrier gateway
+        to your VPC, and then add the following routes:</p>
+      <div class="table-container"><div class="table-contents"><table id="w66aac11c11c15b5"><thead>
+            <tr>
+              <th>Destination</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+            <tr>
+              <td tabindex="-1">0.0.0.0/0</td>
+              <td tabindex="-1"><code class="replaceable">cagw-id</code></td>
+            </tr>
+            <tr>
+              <td tabindex="-1">::/0</td>
+              <td tabindex="-1"><code class="replaceable">cagw-id</code></td>
+            </tr>
+          </table></div></div>
+     
+
+     
+      <h3 id="view-cgw">View the carrier gateway details</h3>
+
+      <p>You can view information about your carrier gateway, including the state and the
+        tags.</p>
+      <div class="procedure"><h6>To view the carrier gateway details</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Carrier Gateways</b>.</p>
+        </li><li>
+          <p>Select the carrier gateway and choose <b>Actions</b>, <b>View
+              details</b>.</p>
+        </li></ol></div>
+       
+        <h6>To view the carrier gateway details using the AWS CLI</h6>
+        <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-carrier-gateways.html">describe-carrier-gateways</a> command.</p>
+       
+     
+
+     
+      <h3 id="manage-cgw-tags">Manage carrier gateway tags</h3>
+
+      <p>Tags help you to identify your carrier gateways. You can add or remove tags.</p>
+      <div class="procedure"><h6>To manage the carrier gateway tags</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Carrier Gateways</b>.</p>
+        </li><li>
+          <p>Select the carrier gateway and choose <b>Actions</b>, <b>Manage
+              tags</b>.</p>
+        </li><li>
+          <p>To add a tag, choose <b>Add tag</b>, and then do the following:</p>
+          <ul>
+            <li>
+              <p>For <b>Key</b>, enter the key name.</p>
+            </li>
+            <li>
+              <p>For <b>Value</b>, enter the key value.</p>
+            </li>
+          </ul>
+        </li><li>
+          <p>To remove a tag, choose <b>Remove</b> to the right of the tag’s Key
+            and Value.</p>
+        </li><li>
+          <p>Choose <b>Save</b>.</p>
+        </li></ol></div>
+      <div class="itemizedlist">
+        <h6>To manage the carrier gateway tags using the AWS CLI</h6>
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>To add tags, use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-tags.html">create-tags</a> command.</p>
+        </li><li class="listitem">
+          <p>To delete tags, use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-tags.html">delete-tags</a> command.</p>
+        </li></ul></div>
+     
+
+     
+      <h3 id="delete-cgw">Delete a carrier gateway</h3>
+
+      <p>If you no longer need a carrier gateway, you can delete it. </p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you do not delete the route that has the carrier gateway as the
+            <b>Target</b>, the route is a blackhole route.</p></div></div>
+      <div class="procedure"><h6>To delete a carrier gateway</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the navigation pane, choose <b>Carrier Gateways</b>.</p>
+        </li><li>
+          <p>Select the carrier gateway and choose <b>Actions</b>, <b>Delete
+              carrier gateway</b>.</p>
+        </li><li>
+          <p>In the <b>Delete carrier gateway</b> dialog box, enter
+              <b>Delete</b>, and then choose <b>Delete</b>.</p>
+        </li></ol></div>
+       
+        <h6>To delete a carrier gateway using the AWS CLI</h6>
+        <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-carrier-gateway.html">delete-carrier-gateway</a> command.</p>
+       
+     
+   
+    <h2 id="manage-zones">Manage Zones</h2>
+    <p>Before you specify a Wavelength Zone for a resource or service, you must opt in to the AWS
+      Zone.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./get-started-wavelength.html">Get started</div><div id="next" class="next-link" accesskey="n" href="./multi-access.html">Multi-access AWS Wavelength</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Wavelength&amp;topic_url=https://docs.aws.amazon.com/en_us/wavelength/latest/developerguide/carrier-gateways.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Wavelength&amp;topic_url=https://docs.aws.amazon.com/en_us/wavelength/latest/developerguide/carrier-gateways.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

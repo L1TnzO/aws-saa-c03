@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring sampling rules - AWS X-Ray</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="xray-console-sampling" /><meta name="default_state" content="xray-console-sampling" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html" /><meta name="description" content="Configure AWS X-Ray to manage sampling rules." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS X-Ray" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use AWS X-Ray to monitor the components and services that make up your cloud applications. AWS X-Ray provides a detailed trace map and latency information for each connection that your application makes to AWS services and external web APIs." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/xray/latest/devguide/xray-console-sampling.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/xray/latest/devguide/xray-console-sampling.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/xray/latest/devguide/xray-console-sampling.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/xray/latest/devguide/xray-console-sampling.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/xray/latest/devguide/xray-console-sampling.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/xray/latest/devguide/xray-console-sampling.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/xray/latest/devguide/xray-console-sampling.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/xray/latest/devguide/xray-console-sampling.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/xray/latest/devguide/xray-console-sampling.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/xray/latest/devguide/xray-console-sampling.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-console-sampling.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-console-sampling.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/xray/latest/devguide/xray-console-sampling.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/xray/latest/devguide/xray-console-sampling.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-console-sampling.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-console-sampling.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/xray/latest/devguide/xray-console-sampling.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/xray/latest/devguide/xray-console-sampling.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-sampling.html" hreflang="x-default" /><meta name="feedback-item" content="X-Ray" /><meta name="this_doc_product" content="AWS X-Ray" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'xray'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Configuring sampling rules" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="xray-console-sampling.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring sampling rules - AWS X-Ray</title><meta name="pdf" content="/pdfs/xray/latest/devguide/xray-guide.pdf#xray-console-sampling" /><meta name="rss" content="feed.rss" /><meta name="forums" content="https://repost.aws/tags/TAaNeQQJlSSrSNkt1gr_Ti3g" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-console-sampling.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-console-sampling.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-console-sampling.html" /><meta name="keywords" content="AWS X-Ray,X-Ray,debugging,telemetry,instrumentation,sdk" /><link rel="alternate" type="text/markdown" href="xray-console-sampling.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS X-Ray",
+        "item" : "https://docs.aws.amazon.com/xray/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Choosing an interface",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray-interface.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use a console",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray-interface-console.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Configuring sampling rules",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray-interface-console.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/xray/latest/devguide/xray-guide.pdf#xray-console-sampling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/xray/index.html">AWS X-Ray</a><a href="aws-xray.html">Developer Guide</a></div><div id="page-toc-src"><a href="#xray-console-config">Configuring sampling rules</a><a href="#xray-console-custom">Customizing sampling rules</a><a href="#xray-console-sampling-options">Sampling rule options</a><a href="#xray-console-sampling-examples">Sampling rule examples</a><a href="#xray-console-sampling-service">Configuring your service to use sampling rules</a><a href="#xray-console-sampling-results">Viewing sampling results</a><a href="#xray-console-sampling-nextsteps">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="xray-console-sampling">Configuring sampling rules</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use the AWS X-Ray console to configure sampling rules for your services. The AWS Distro for OpenTelemetry, X-Ray SDK, and AWS services that support <a href="./xray-services.html">active tracing</a> with sampling configurations use sampling rules to determine which requests to record.
+      </p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#xray-console-config">Configuring sampling rules</a></p></li><li><p><a href="#xray-console-custom">Customizing sampling rules</a></p></li><li><p><a href="#xray-console-sampling-options">Sampling rule options</a></p></li><li><p><a href="#xray-console-sampling-examples">Sampling rule examples</a></p></li><li><p><a href="#xray-console-sampling-service">Configuring your service to use sampling rules</a></p></li><li><p><a href="#xray-console-sampling-results">Viewing sampling results</a></p></li><li><p><a href="#xray-console-sampling-nextsteps">Next steps</a></p></li></ul></div>
+    <h2 id="xray-console-config">Configuring sampling rules</h2>
+  
+  <p>You can configure sampling for the following use cases:</p>
+  <div class="itemizedlist">
+     
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>API Gateway Entrypoint</b> – API Gateway supports sampling and active tracing. To enable active tracing on an API stage, see
+          <a href="./xray-services-apigateway.html">Amazon API Gateway active tracing support for AWS X-Ray</a>.</p>
+    </li><li class="listitem">
+      <p><b>AWS AppSync</b> – AWS AppSync supports sampling and active tracing. To enable active tracing on AWS AppSync
+        requests, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/x-ray-tracing.html">Tracing with AWS X-Ray</a>.</p>
+    </li><li class="listitem">
+      <p><b>AWS Step Functions</b> – AWS Step Functions supports sampling and active tracing. To enable active tracing on AWS Step Functions
+        state machines, see <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html">X-Ray tracing in Step Functions</a>.</p>
+    </li><li class="listitem">
+      <p><b>Instrument AWS Distro for OpenTelemetry on compute platforms</b> – When using compute
+        platforms such as Amazon EC2, Amazon ECS, or AWS Elastic Beanstalk, sampling is supported when the application has been instrumented
+        with the latest AWS Distro for OpenTelemetry or X-Ray SDK.</p>
+    </li></ul></div>
+   
+    <h2 id="xray-console-custom">Customizing sampling rules</h2>
+  <p>By customizing sampling rules, you can control the amount of data that you record. You can also modify sampling
+      behavior without modifying or redeploying your code. Sampling rules tell the AWS Distro for OpenTelemetry (ADOT) or X-Ray SDK
+      how many requests to record for a set of criteria. By default, the SDK records the first request each second, and five percent of any additional
+  requests. One request
+      per second is the <em>reservoir</em>. This ensures that at least one trace is recorded each second as
+      long as the service is serving requests. Five percent is the <em>rate</em> at which additional
+      requests beyond the reservoir size are sampled.</p>
+  
+  <p>You can configure the X-Ray SDK to read sampling rules from a JSON document that you include with your code.
+      However, when you run multiple instances of your service, each instance performs sampling independently. This
+      causes the overall percentage of requests sampled to increase because the reservoirs of all of the instances are
+      effectively added together. Additionally, to update local sampling rules, you must redeploy your code.</p>
+  
+  <p>By defining sampling rules in the X-Ray console, and <a href="#xray-console-sampling-service">configuring
+        the SDK</a> to read rules from the X-Ray service, you can avoid both of these issues. The service manages
+      the reservoir for each rule, and assigns quotas to each instance of your service to distribute the reservoir
+      evenly, based on the number of instances that are running. The reservoir limit is calculated according to the
+      rules you set. Because the rules are configured in the service, you can manage rules without making additional
+      deployments.</p>
+  <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When configuring sampling rules, it is critical to understand that X-Ray sampling is "Parent-based." This means the sampling decision is made only once, typically by the first X-Ray-enabled service that handles the request (the "Root" service).</p><p>If a downstream service receives a request that already has a sampling decision from an upstream parent, it will honor that decision regardless of any of its own matching sampling rules.</p><div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>When Rules Apply: Your custom sampling rules only take effect on services where a sampling decision has not yet been made. This usually applies to:</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>The entry point of your application (e.g., an API Gateway, a Load Balancer, or the first instrumented Microservice).</p>
+          </li><li class="listitem">
+            <p>Asynchronous processes or workers that start a brand new trace.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p>Common Pitfall: If you create a strict sampling rule for "Service B," but "Service B" is always called by "Service A," your rule for Service B will likely never be applied because it is simply following the decision passed down by Service A. To change the sampling of traces for this workflow, you must configure the sampling rule to the Root service (Service A).</p>
+      </li></ul></div></div></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>X-Ray uses a best-effort approach in applying sampling rules, and in some cases the effective sampling rate may not exactly
+      match the configured sampling rules. However, over time the number of requests sampled should be close to the configured
+      percentage.
+    </p></div></div><p>You can now configure X-Ray sampling rules from within the Amazon CloudWatch console.</p><div class="procedure"><h6>To configure sampling rules in the CloudWatch console</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudWatch console at
+         <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+      <p>Choose <b>Settings</b> in the left navigation pane underneath <b>Setup</b>.</p>
+    </li><li>
+      <p>Choose <b>View settings</b> under <b>Sampling rules</b> within the <b>X-Ray traces</b> section.</p>
+    </li><li>
+      <p>To create a rule, choose <b>Create sampling rule</b>.</p>
+      <p>To edit a rule, choose a rule and choose <b>Edit</b> to edit it.</p>
+      <p>To delete a rule, choose a rule and choose <b>Delete</b> to delete it.</p>
+    </li></ol></div>
+    <h2 id="xray-console-sampling-options">Sampling rule options</h2>
+    
+    <p>The following options are available for each rule. String values can use wildcards to match a single character
+        (<code class="code">?</code>) or zero or more characters (<code class="code">*</code>).</p>
+    <div class="itemizedlist">
+      <h6>Sampling rule options</h6>
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Rule name</b> (string) – A unique name for the rule.</p>
+      </li><li class="listitem">
+        <p><b>Priority</b> (integer between 1 and 9999) – The priority of the sampling rule. Services evaluate rules in ascending order
+          of priority, and make a sampling decision with the first rule that matches.</p>
+      </li><li class="listitem">
+        <p><b>Reservoir</b> (non-negative integer) – A fixed number of matching requests to instrument per second, before applying the
+          fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively.</p>
+      </li><li class="listitem">
+        <p><b>Rate</b> (integer between 0 and 100) – The percentage of matching requests to
+          instrument, after the reservoir is exhausted. When configuring a sampling rule in the console, choose a
+          percentage between 0 and 100. When configuring a sampling rule in a client SDK using a JSON document, provide
+          a percentage value between 0 and 1.</p>
+      </li><li class="listitem">
+        <p><b>Service name</b> (string) – The name of the instrumented service, as it appears in the trace map.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>X-Ray SDK – The service name that you configure on the recorder.</p>
+          </li><li class="listitem">
+            <p>Amazon API Gateway – <code class="code"><code class="replaceable">api-name</code>/<code class="replaceable">stage</code></code>.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><b>Service type</b> (string) – The service type, as it appears in the trace map.
+          For the X-Ray SDK, set the service type by applying the appropriate plugin:</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">AWS::ElasticBeanstalk::Environment</code> – An AWS Elastic Beanstalk environment (plugin).</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::EC2::Instance</code> – An Amazon EC2 instance (plugin).</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::ECS::Container</code> – An Amazon ECS container (plugin).</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::EKS::Container</code> – An Amazon EKS container (plugin).</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::APIGateway::Stage</code> – An Amazon API Gateway stage.</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::AppSync::GraphQLAPI </code> – An AWS AppSync API request.</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::StepFunctions::StateMachine</code> – An AWS Step Functions state machine.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><b>Host</b> (string) – The hostname from the HTTP host header.</p>
+      </li><li class="listitem">
+        <p><b>HTTP method</b> (string) – The method of the HTTP request.</p>
+      </li><li class="listitem">
+        <p><b>URL path</b> (string) – The URL path of the request.</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>X-Ray SDK – The path portion of the HTTP request URL.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><b>Resource ARN</b> (string) – The ARN of the AWS resource running the
+          service.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>X-Ray SDK – Not supported. The SDK can only use rules with <b>Resource ARN</b> set to <code class="code">*</code>.</p>
+          </li><li class="listitem">
+            <p>Amazon API Gateway – The stage ARN.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p>(Optional) <b>Attributes</b> (key and value) – Segment attributes that are known when
+          the sampling decision is made.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>X-Ray SDK – Not supported. The SDK ignores rules that specify attributes.</p>
+          </li><li class="listitem">
+            <p>Amazon API Gateway – Headers from the original HTTP request.</p>
+          </li></ul></div>
+      </li><li class="listitem"><p>(Optional) <b>SamplingRateBoost</b> (object) – Controls anomaly-driven sampling boost behavior.</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem"><p>MaxRate (integer between 0 and 100) – Maximum sampling rate (0.0–1.0) X-Ray may increase to during anomalies</p></li><li class="listitem"><p>CooldownWindowMinutes (integer greater than 0) – Time window (minutes) in which only one boost can be triggered, preventing continuous boosts</p></li></ul></div></li></ul></div>
+   
+    <h2 id="xray-console-sampling-examples">Sampling rule examples</h2>
+    
+    <div class="example"><h6>Example– Default rule with no reservoir and a low rate</h6><div class="example-contents"><p>You can modify the default rule's reservoir and rate. The default rule applies to requests that don't match any other rule.</p><div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Reservoir</b>: <code class="userinput">0</code></p>
+        </li><li class="listitem">
+          <p><b>Rate</b>: <code class="userinput">5</code> (<code class="userinput">0.05</code> if configured using a JSON document)</p>
+        </li></ul></div></div></div>
+    <div class="example"><h6>Example– Debugging rule to trace all requests for a problematic route</h6><div class="example-contents"><p>A high-priority rule applied temporarily for debugging.</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Rule name</b>: <code class="userinput">DEBUG – history updates</code></p>
+        </li><li class="listitem">
+          <p><b>Priority</b>: <code class="userinput">1</code></p>
+        </li><li class="listitem">
+          <p><b>Reservoir</b>: <code class="userinput">1</code></p>
+        </li><li class="listitem">
+          <p><b>Rate</b>: <code class="userinput">100</code> (<code class="userinput">1</code> if configured using a
+            JSON document)</p>
+        </li><li class="listitem">
+          <p><b>Service name</b>: <code class="userinput">Scorekeep</code></p>
+        </li><li class="listitem">
+          <p><b>Service type</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Host</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>HTTP method</b>: <code class="userinput">PUT</code></p>
+        </li><li class="listitem">
+          <p><b>URL path</b>: <code class="userinput">/history/*</code></p>
+        </li><li class="listitem">
+          <p><b>Resource ARN</b>: <code class="userinput">*</code></p>
+        </li></ul></div></div></div>
+    <div class="example"><h6>Example– Higher minimum rate for POSTs</h6><div class="example-contents"><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Rule name</b>: <code class="userinput">POST minimum</code></p>
+        </li><li class="listitem">
+          <p><b>Priority</b>: <code class="userinput">100</code></p>
+        </li><li class="listitem">
+          <p><b>Reservoir</b>: <code class="userinput">10</code></p>
+        </li><li class="listitem">
+          <p><b>Rate</b>: <code class="userinput">10</code> (<code class="userinput">.1</code> if configured using a
+            JSON document)</p>
+        </li><li class="listitem">
+          <p><b>Service name</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Service type</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Host</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>HTTP method</b>: <code class="userinput">POST</code></p>
+        </li><li class="listitem">
+          <p><b>URL path</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Resource ARN</b>: <code class="userinput">*</code></p>
+        </li></ul></div></div></div>
+    <div class="example"><h6>Example Enable anomaly-driven boost</h6><div class="example-contents"><p>Configure a rule that triggers a sampling boost up to 50% during anomalies, with a 10-minute cooldown.</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Rule name</b>: <code class="userinput">MyAdaptiveRule</code></p>
+        </li><li class="listitem">
+          <p><b>Priority</b>: <code class="userinput">100</code></p>
+        </li><li class="listitem">
+          <p><b>Reservoir</b>: <code class="userinput">1</code></p>
+        </li><li class="listitem">
+          <p><b>FixedRate</b>: <code class="userinput">0.0510</code></p>
+        </li><li class="listitem">
+          <p><b>Service name</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Service type</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>Host</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>HTTP method</b>: <code class="userinput">POST</code></p>
+        </li><li class="listitem">
+          <p><b>URL path</b>: <code class="userinput">*</code></p>
+        </li><li class="listitem">
+          <p><b>maxRate</b>: <code class="userinput">0.5</code></p>
+        </li><li class="listitem">
+          <p><b>cooldownWindowMinutes</b>: <code class="userinput">10</code></p>
+        </li></ul></div></div></div>
+   
+    <h2 id="xray-console-sampling-service">Configuring your service to use sampling rules</h2>
+    
+    <p>The AWS Distro for OpenTelemetry (ADOT) and X-Ray SDK requires additional configuration to use sampling rules that you configure in the console. See
+      the configuration topic for your language for details on configuring a sampling strategy:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Java: <a href="https://aws-otel.github.io/docs/getting-started/java-sdk/auto-instr#using-x-ray-remote-sampling" rel="noopener noreferrer" target="_blank"><span>Using X-Ray Remote Sampling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with ADOT Java</p>
+      </li><li class="listitem">
+        <p>Go: <a href="https://aws-otel.github.io/docs/getting-started/go-sdk/manual-instr#configuring-sampling" rel="noopener noreferrer" target="_blank"><span>Configuring sampling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with ADOT Go</p>
+      </li><li class="listitem">
+        <p>Node.js: <a href="https://aws-otel.github.io/docs/getting-started/js-sdk/trace-metric-auto-instr#using-x-ray-remote-sampling" rel="noopener noreferrer" target="_blank"><span>Using X-Ray Remote Sampling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with ADOT JavaScript</p>
+      </li><li class="listitem">
+        <p>Python: <a href="https://aws-otel.github.io/docs/getting-started/python-sdk/auto-instr#using-x-ray-remote-sampling" rel="noopener noreferrer" target="_blank"><span>Using X-Ray Remote Sampling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with ADOT Python</p>
+      </li><li class="listitem">
+        <p>Ruby: <a href="./xray-sdk-ruby-configuration.html#xray-sdk-ruby-configuration-sampling">Sampling rules</a></p>
+      </li><li class="listitem">
+        <p>.NET: <a href="https://aws-otel.github.io/docs/getting-started/dotnet-sdk/auto-instr#using-x-ray-remote-sampling" rel="noopener noreferrer" target="_blank"><span>Using X-Ray Remote Sampling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with ADOT .NET</p>
+      </li></ul></div>
+    
+    <p>For API Gateway, see <a href="./xray-services-apigateway.html">Amazon API Gateway active tracing support for AWS X-Ray</a>.</p>
+   
+    <h2 id="xray-console-sampling-results">Viewing sampling results</h2>
+    <p>The X-Ray console <b>Sampling</b> page shows detailed information about how your services use each sampling rule.</p>
+    <p>The <b>Trend</b> column shows how the rule has been used in the last few minutes. Each column shows statistics for a 10-second
+      window.</p>
+    <div class="itemizedlist">
+      <h6>Sampling statistics</h6>
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Total matched rule</b>: The number of requests that matched this rule. This number doesn't include requests that could
+          have matched this rule, but matched a higher-priority rule first.</p>
+      </li><li class="listitem">
+        <p><b>Total sampled</b>: The number of requests recorded.</p>
+      </li><li class="listitem">
+        <p><b>Sampled with fixed rate</b>: The number of requests sampled by applying the rule's fixed rate.</p>
+      </li><li class="listitem">
+        <p><b>Sampled with reservoir limit</b>: The number of requests sampled using a quota assigned by X-Ray.</p>
+      </li><li class="listitem">
+        <p><b>Borrowed from reservoir</b>: The number of requests sampled by borrowing from the reservoir. The first time a service
+          matches a request to a rule, it has not yet been assigned a quota by X-Ray. However, if the reservoir is at least 1, the service borrows one trace
+          per second until X-Ray assigns a quota.</p>
+      </li></ul></div>
+    <p>For more information about sampling statistics and how services use sampling rules, see <a href="./xray-api-sampling.html">Using sampling rules with the X-Ray API</a>.</p>
+   
+    <h2 id="xray-console-sampling-nextsteps">Next steps</h2>
+    
+    <p>You can use the X-Ray API to manage sampling rules. With the API, you can create and update rules programmatically on a schedule, or in response to
+      alarms or notifications. See <a href="./xray-api-configuration.html">Configuring sampling, groups, and encryption settings with the AWS X-Ray API</a> for instructions and additional rule
+      examples.</p>
+    
+    <p>The AWS Distro for OpenTelemetry, X-Ray SDK and AWS services also use the X-Ray API to read sampling rules, report sampling results, and get sampling targets. Services must
+      keep track of how often they apply each rule, evaluate rules based on priority, and borrow from the reservoir when a request matches a rule for which
+      X-Ray has not yet assigned the service a quota. For more detail about how a service uses the API for sampling, see <a href="./xray-api-sampling.html">Using sampling rules with the X-Ray API</a>.</p>
+    
+    <p>When the AWS Distro for OpenTelemetry or the X-Ray SDK call sampling APIs, they use the CloudWatch agent as a proxy. If you already
+    use TCP port 2000, you can configure the agent to run the proxy on a different port. See the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html">CloudWatch agent installation guide</a> for details.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./xray-console-groups.html">Groups</div><div id="next" class="next-link" accesskey="n" href="./xray-adaptive-sampling.html">Adaptive sampling</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-console-sampling.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-console-sampling.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECS, EKS y Fargate — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Contenedores: ECS, EKS, ECR y Fargate <span class="en">Container services on AWS</span></h1>
+<p class="subtitle">Cuatro piezas que forman el stack de contenedores de AWS: dos orquestadores, un registro y un motor serverless — elige bien cuál gobierna cada workload.</p>
+<div class="chips">
+  <span class="chip">Fase 3 · Cómputo</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>Los contenedores empaquetan tu aplicación con sus dependencias en unidades portátiles, y AWS te da el ecosistema completo para ejecutarlos: <strong>Amazon ECS</strong> y <strong>Amazon EKS</strong> son los orquestadores (quién decide dónde y cuántos contenedores corren), <strong>Amazon ECR</strong> es el registro privado donde viven las imágenes, y <strong>AWS Fargate</strong> es el motor de cómputo que elimina los servidores debajo de los contenedores. La analogía del puerto: las imágenes de ECR son los contenedores de mercancía en el almacén, el orquestador (ECS o EKS) es la grúa que los reparte por los barcos, y Fargate es alquilar espacio en barcos gestionados por AWS en lugar de comprar y operar los tuyos.</p>
+
+<p>El examen no pregunta YAML de Kubernetes: pregunta la decisión. Si el equipo ya vive en Kubernetes y tiene manifiestos, EKS. Si el equipo prefiere simplicidad gestionada por AWS y no necesita Kubernetes, ECS. Si además no quieren administrar nodos de ninguna clase, Fargate como <span class="tag-en">capacity</span> debajo de ECS (o EKS con Fargate profiles). Esa cadena de razonamiento — equipo, estandarización y sobrecarga operativa — es lo que resuelve el 90% de las preguntas de contenedores de SAA-C03.</p>
+
+<h2>Los cuatro conceptos de ECS que lo explican todo</h2>
+
+<p>ECS se entiende con su vocabulario oficial: el <strong>task definition</strong> es el plano de la aplicación (imagen, CPU, memoria, puertos, variables de entorno), el <strong>cluster</strong> es la infraestructura donde corren, la <strong>task</strong> es una ejecución puntual (como un batch job que corre y se detiene), y el <strong>service</strong> mantiene corriendo un número deseado de tareas de larga vida, stateless, con load balancing. ECS viene en tres capas — capacidad, controlador (scheduler) y provisioning — y la capa de capacidad tiene cuatro opciones: <strong>Amazon EC2</strong> (eliges tipo y gestionas la capacidad), <strong>Fargate</strong> (serverless, pay-as-you-go), <strong>ECS Managed Instances</strong> (AWS provisiona, parchea y escala instancias por ti, manteniendo acceso a GPU y tipos especializados) y <strong>ECS Anywhere</strong> (registra servidores on-premises al clúster).</p>
+
+<p>EKS, por su parte, es <span class="tag-en">managed Kubernetes</span>: AWS opera el <strong>control plane</strong> (API server, etcd, scheduling) y tú gestionas los nodos — o ni eso con <strong>EKS Auto Mode</strong>, que además provisiona la infraestructura, selecciona tipos óptimos, escala, parchea el SO e integra seguridad de AWS. Es la clave para un enunciado que dice "existing Kubernetes application, no refactoring": EKS es <em>Kubernetes-conformant certificado</em>, así que las apps y el tooling de la comunidad funcionan sin cambios. La integración con IAM (roles para nodos y service accounts) y con ECR/ELB/CloudWatch es lo que lo hace "AWS-nativo" por dentro.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Término</th><th>Servicio</th><th>Qué significa</th></tr></thead>
+<tbody>
+<tr><td><strong>Task definition</strong></td><td>ECS</td><td>Blueprint en JSON de la aplicación: imagen, CPU, memoria, puertos, variables de entorno, modo de red.</td></tr>
+<tr><td><strong>Task</strong></td><td>ECS / Fargate</td><td>Una ejecución del blueprint — corre y se detiene (como un batch job). En Fargate es la unidad de aislamiento con ENI propia.</td></tr>
+<tr><td><strong>Service</strong></td><td>ECS / EKS</td><td>Mantiene el número deseado de tareas de larga vida y las reparte tras el load balancer.</td></tr>
+<tr><td><strong>Cluster</strong></td><td>ECS / EKS</td><td>El conjunto de capacidad y tareas registradas — donde viven los services.</td></tr>
+<tr><td><strong>Node</strong></td><td>EKS</td><td>Instancia EC2 (o Fargate) registrada al cluster como worker del data plane de Kubernetes.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Criterio</th><th>Amazon ECS</th><th>Amazon EKS</th><th>AWS Fargate</th></tr></thead>
+<tbody>
+<tr><td><strong>Qué es</strong></td><td>Orquestador propietario de AWS, fully managed</td><td>Kubernetes gestionado (control plane administrado)</td><td>Motor de cómputo serverless <em>para</em> contenedores (no orquestador)</td></tr>
+<tr><td><strong>Modelo mental</strong></td><td>Simplicidad AWS-nativa: task definitions y services</td><td>Ecosistema estándar K8s: pods, deployments, helm</td><td>Sin servidores: defines CPU y memoria por task</td></tr>
+<tr><td><strong>Control de nodos</strong></td><td>Opcional: EC2, ECS Managed Instances, on-prem</td><td>EC2 managed groups, self-managed, Auto Mode</td><td>Ninguno: AWS lo administra todo</td></tr>
+<tr><td><strong>Cuándo es la respuesta</strong></td><td>"Least operational overhead" sin requisito de Kubernetes</td><td>"Already uses Kubernetes" / portabilidad / tooling K8s</td><td>"No quiero gestionar instancias ni clusters" + aislamiento por task</td></tr>
+<tr><td><strong>Señal en el enunciado</strong></td><td>Equipo pequeño, app stateless en AWS</td><td>Migración de K8s, multi-cloud, estándares de la empresa</td><td>Cargas intermitentes, microservicios, costo por uso</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Fargate: cada task es una isla con su ENI</h2>
+
+<p>Fargate es la respuesta de AWS a "contenedores sin servidores". Con él ya no eliges tipos de instancia ni decides cuándo escalar el clúster ni optimizas el empaquetado: declaras los <strong>requisitos de CPU y memoria en la task definition</strong> (parámetro <code>requiresCompatibilities: FARGATE</code>) y lanzas. La propiedad arquitectónica que el examen más explota: <strong>cada Fargate task tiene su propio límite de aislamiento</strong> — no comparte kernel, ni CPU, ni memoria, ni <span class="tag-en">elastic network interface</span> con ninguna otra task. Esa ENI propia (modo de red <code>awsvpc</code>) tiene una consecuencia práctica muy preguntada: el <strong>target group</strong> de tu load balancer debe ser de tipo <code>ip</code>, no <code>instance</code>, porque detrás del balanceador hay ENIs, no instancias EC2.</p>
+
+<p>Los servicios Fargate soportan ALB (HTTP/HTTPS, capa 7), NLB (TCP/UDP, capa 4) y Gateway Load Balancer. Las versiones de plataforma definen el runtime (Amazon Linux 2 1.3.0, Bottlerocket 1.4.0, Windows 2019) y cada task nueva corre siempre en la revisión parcheada más reciente. Para trabajo interrumpible existe <span class="tag-en">Fargate Spot</span>: tasks sobre capacidad sobrante con descuento, interrumpibles con <strong>aviso de dos minutos</strong> — el primo de EC2 Spot para contenedores. Y como el consumo se factura por vCPU y memoria, Fargate es la respuesta natural a "cargas esporádicas sin costo de capacidad ociosa".</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    ECR["Amazon ECR<br>imágenes privadas"]
+    TD["Task definition<br>CPU + memoria + imagen"]
+    SVC["ECS Service<br>tareas deseadas"]
+    subgraph FAR["AWS Fargate"]
+        T1["Task 1<br>kernel propio<br>ENI propia"]
+        T2["Task 2<br>aislamiento total"]
+    end
+    ALB["Application Load Balancer<br>target type ip"]
+    ECR -- "pull de imagen" --> TD
+    TD --> SVC
+    SVC --> FAR
+    ALB -- "trafico HTTP" --> FAR
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class ECR amber
+    class TD,SVC green
+    class T1,T2 navy
+    class ALB amber
+</div>
+<figcaption>Figura 1 — Arquitectura de una Fargate task: la imagen sale de ECR, cada task aterriza con kernel y ENI propios, y el ALB apunta a IPs.</figcaption>
+</figure>
+
+<h2>ECR: el registro privado de imágenes</h2>
+
+<p>Antes de ejecutar, las imágenes deben vivir en algún sitio seguro, y ahí entra <strong>Amazon ECR</strong>: un registro gestionado, seguro y escalable para imágenes Docker y OCI (y artefactos OCI compatibles). Sus dos propiedades examinables: los repositorios son <strong>privados</strong> por defecto y se protegen con <strong>permisos basados en recursos de IAM</strong> — puedes conceder acceso a usuarios, roles o instancias EC2 concretas para hacer push y pull. La integración es directa con ECS y EKS (los nodos extraen la imagen con los permisos de su rol), y el pipeline clásico que el examen describe es "CI hace push a ECR → el orquestador despliega la nueva imagen". Si el enunciado pregunta por "almacenar imágenes de contenedores de forma segura con permisos IAM", es ECR, no S3 ni Docker Hub.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q["Necesito correr contenedores"]
+    Q --> K{"¿El equipo ya usa Kubernetes?"}
+    K -->|"Sí"| EKS["Amazon EKS<br>control plane gestionado"]
+    K -->|"No"| S{"¿Gestionar servidores o nodos?"}
+    S -->|"No"| FAR["Fargate<br>serverless por task"]
+    S -->|"Sí, control total"| ECS2["ECS con instancias EC2<br>o ECS Managed Instances"]
+    EKS --> C{"¿Quién gestiona los nodos?"}
+    C -->|"Nadie"| FARP["EKS con Fargate"]
+    C -->|"AWS o yo"| NODES["EKS Auto Mode o nodos gestionados"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q,K,S,C navy
+    class EKS,ECS2 green
+    class FAR,FARP,NODES amber
+</div>
+<figcaption>Figura 2 — Árbol de decisión de contenedores: primero el estándar del equipo, después la sobrecarga operativa que aceptas.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+Si el enunciado combina "containers" con "least operational overhead" y no menciona Kubernetes → <strong>ECS + Fargate</strong>. Si dice "existing Kubernetes manifests / portability / company standard is K8s" → <strong>EKS</strong>. Si dice "run batch jobs in containers with no infrastructure" → <strong>Fargate tasks</strong> (no services). Y si la pregunta es de red: Fargate usa <code>awsvpc</code> y el target group del ALB es siempre tipo <code>ip</code>.
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>Confundir a Fargate con orquestador: Fargate no decide cuántas tasks corren — eso lo hacen ECS/EKS (service scheduler, autoscaling). Otro resbalón clásico es responder "EC2 con Docker instalado" cuando el enunciado pide minimizar gestión: los contenedores sobre instancias que tú parcheas siempre pierden contra Fargate ante la frase <span class="tag-en">least operational overhead</span>.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Task definition</strong> = blueprint; <strong>task</strong> = ejecución puntual; <strong>service</strong> = mantener N tareas long-running; <strong>cluster</strong> = la capacidad.</li>
+<li>Capacidad en ECS: <strong>EC2</strong>, <strong>Fargate</strong>, <strong>ECS Managed Instances</strong>, <strong>ECS Anywhere</strong>.</li>
+<li><strong>EKS</strong> = Kubernetes gestionado y certificado; <strong>Auto Mode</strong> extiende la gestión a los nodos.</li>
+<li><strong>Fargate</strong> = serverless por task: kernel, CPU, memoria y <strong>ENI propios</strong> — aislamiento máximo.</li>
+<li>Balanceo de Fargate: ALB/NLB/GWLB con target groups de tipo <strong>ip</strong> (modo awsvpc).</li>
+<li><strong>Fargate Spot</strong>: descuento a cambio de interrupciones con 2 minutos de aviso.</li>
+<li><strong>ECR</strong>: registro privado con permisos IAM basados en recursos; fuente de imágenes de ECS/EKS.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">CMP-17</span> Amazon ECS — Developer Guide Welcome (terminología, capacity) · <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html</a></li>
+<li><span class="id">CMP-18</span> Amazon EKS — What is Amazon EKS (managed Kubernetes) · <a href="https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html" target="_blank" rel="noopener">docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html</a></li>
+<li><span class="id">CMP-19</span> AWS Fargate — Serverless compute for containers · <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html</a></li>
+<li><span class="id">CMP-20</span> Amazon ECR — What is (container registry) · <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/auto-scaling.html"><span class="dir">← Anterior</span>Auto Scaling</a><a class="next" href="../temas/lambda.html"><span class="dir">Siguiente →</span>Lambda</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

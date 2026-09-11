@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Adding Aurora Replicas to a DB cluster - Amazon Aurora</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="aurora-replicas-adding" /><meta name="default_state" content="aurora-replicas-adding" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" /><meta name="description" content="Adding Aurora Replicas to a DB cluster" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Aurora" /><meta name="guide" content="User Guide for Aurora" /><meta name="abstract" content="Amazon Web Services (AWS) documentation for Amazon Aurora (Aurora). Aurora is a fully managed relational database engine that's compatible with MySQL and PostgreSQL. Aurora is part of the managed database service Amazon Relational Database Service (Amazon RDS). Amazon RDS is a web service that makes it easier to set up, operate, and scale a relational database in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" hreflang="x-default" /><meta name="feedback-item" content="RDS" /><meta name="this_doc_product" content="Amazon Aurora" /><meta name="this_doc_guide" content="User Guide for Aurora" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'rds'}"></script><meta id="panorama-serviceSubSection" value="User Guide for Aurora" /><meta id="panorama-serviceConsolePage" value="Adding Aurora Replicas to a DB cluster" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="aurora-replicas-adding.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Adding Aurora Replicas to a DB cluster - Amazon Aurora</title><meta name="pdf" content="/pdfs/AmazonRDS/latest/AuroraUserGuide/aurora-ug.pdf#aurora-replicas-adding" /><meta name="rss" content="auroraupdates.rss" /><meta name="forums" content="https://repost.aws/tags/TAsibBK6ZeQYihN9as4S_psg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html" /><meta name="keywords" content="Amazon Relational Database Service,RDS,DB instance,Amazon Aurora,Aurora,Replica,add,reader" /><link rel="alternate" type="text/markdown" href="aurora-replicas-adding.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/rds/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide for Aurora",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing an Amazon Aurora DB cluster",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Aurora.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Adding Aurora Replicas to a DB cluster",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Aurora.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonRDS/latest/AuroraUserGuide/aurora-ug.pdf#aurora-replicas-adding" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/rds/index.html">Amazon RDS</a><a href="CHAP_AuroraOverview.html">User Guide for Aurora</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="aurora-replicas-adding">Adding Aurora Replicas to a DB cluster</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div id="create_instance"></div><p>An Aurora DB cluster with replication has one primary DB instance and up to 15 Aurora Replicas. The primary DB
+        instance supports read and write operations, and performs all data modifications to the cluster volume. Aurora Replicas connect to
+        the same storage volume as the primary DB instance, but support read operations only. You use Aurora Replicas to offload read
+        workloads from the primary DB instance. For more information, see <a href="./Aurora.Replication.html#Aurora.Replication.Replicas">Aurora Replicas</a>. </p><p>Amazon Aurora Replicas have the following limitations:</p><div class="itemizedlist">
+      
+             
+    <ul class="itemizedlist"><li class="listitem"><p>However, you can add reader instances to Aurora serverless DB clusters. For more information, see <a href="./aurora-serverless-v2-administration.html#aurora-serverless-v2-adding-reader">Adding an Aurora serverless reader</a>.</p></li></ul></div><p>We recommend that you distribute the primary instance and Aurora Replicas of your Aurora DB cluster
+      over multiple Availability Zones to improve the availability of your DB
+        cluster. For more information, see <a href="./Concepts.RegionsAndAvailabilityZones.html#Aurora.Overview.Availability">Region availability</a>.</p><p>To remove an Aurora Replica from an Aurora DB cluster, delete the Aurora Replica by following the 
+        instructions in <a href="./USER_DeleteCluster.html#USER_DeleteInstance">Deleting a DB instance from an Aurora DB cluster</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon Aurora also supports replication with an external database, such as an RDS DB
+            instance. The RDS DB instance must be in the same AWS Region as Amazon Aurora. For more
+            information, see <a href="./Aurora.Replication.html">Replication with Amazon Aurora</a>.</p></div></div><p>You can add Aurora Replicas to a DB cluster using the AWS Management Console, the AWS CLI, or the RDS API.</p><div class="collapsible" data-expand-section="aurora-replicas-adding.Console"><awsui-expandable-section variant="container" header="Console" id="aurora-replicas-adding.Console" expanded="true"><div class="procedure"><h6>To add an Aurora replica to a DB cluster</h6><ol><li>
+                <p>Sign in to the AWS Management Console and open the Amazon RDS console at
+         <a href="https://console.aws.amazon.com/rds/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/rds/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+                <p>In the navigation pane, choose <b>Databases</b>,
+                    and then select the DB cluster where you want to add the new DB instance.
+                </p> 
+            </li><li>
+                <p>
+                    Make sure that both the cluster and the primary instance are in the
+                    <b>Available</b> state. If the DB cluster or the primary instance
+                    are in a transitional state such as <b>Creating</b>, you can't
+                    add a replica.
+                </p> 
+                <p>
+                    If the cluster doesn't have a primary instance, create one using the 
+                    <a href="https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html">create-db-instance</a> AWS CLI command.
+                    This situation can arise if you used the CLI to restore a DB cluster snapshot and then
+                    view the cluster in the AWS Management Console.
+                    
+                </p>
+            </li><li>
+                <p>For <b>Actions</b>,
+                    choose <b>Add reader</b>.
+                </p>
+                <p>The <b>Add reader</b> page appears.</p>
+            </li><li>
+                <p>On the <b>Add reader</b> page, specify options for your Aurora Replica.
+                    The following table shows settings for an Aurora Replica.</p>
+                <div class="table-container" id="aurora_replica_settings"><div class="table-contents"><table id="w843aac17c25c19b1b3c10b3"><thead>
+                            <tr>
+                                <th>For this option</th>
+                                <th>Do this</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Availability zone</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Determine if you want to specify a particular Availability Zone. The list includes only those
+                                            Availability Zones that are mapped to the DB subnet group that you chose when you created the DB
+                                            cluster. For more information about Availability Zones, see <a href="./Concepts.RegionsAndAvailabilityZones.html">Regions and Availability Zones</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Publicly accessible</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select <code class="code">Yes</code> to give the Aurora Replica a
+                                        public IP address; otherwise, select <code class="code">No</code>.
+                                        For more information about hiding Aurora Replicas from
+                                        public access, see <a href="./USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Hiding">Hiding a DB cluster in a VPC from the internet</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Encryption</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select <code class="code">Enable encryption</code> to enable encryption at rest
+                                        for this Aurora Replica. For more information, see <a href="./Overview.Encryption.html">Encrypting Amazon Aurora resources</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>DB instance class</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select a DB instance class that defines the processing
+                                        and memory requirements for the Aurora Replica. For
+                                        more information about DB instance class options, see
+                                        <a href="./Concepts.DBInstanceClass.html">Amazon AuroraDB instance classes</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Aurora replica source</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select the identifier of the primary instance to
+                                        create an Aurora Replica for.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>DB instance identifier</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Enter a name for the instance that is unique for your
+                                        account in the AWS Region you selected. You might choose
+                                        to add some intelligence to the name such as including
+                                        the AWS Region and DB engine you selected, for example
+                                        <code class="userinput">aurora-read-instance1</code>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Priority</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Choose a failover priority for the instance. If you
+                                        don't select a value, the default is
+                                        <b>tier-1</b>. This priority
+                                        determines the order in which Aurora Replicas are
+                                        promoted when recovering from a primary instance
+                                        failure. For more information, see <a href="./Concepts.AuroraHighAvailability.html#Aurora.Managing.FaultTolerance">Fault tolerance for an Aurora DB cluster</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Database port</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>The port for an Aurora Replica is the same as the port
+                                        for the DB cluster.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>DB parameter group</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select a parameter group. Aurora has a default
+                                        parameter group you can use, or you can create your own
+                                        parameter group. For more information about parameter
+                                        groups, see <a href="./USER_WorkingWithParamGroups.html">Parameter groups for Amazon Aurora</a>.</p>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td tabindex="-1">
+                                        <p><b>Performance Insights</b>
+                                        </p>
+                                    </td>
+                                    <td tabindex="-1">
+                                        <p>The <b>Turn on Performance Insights</b> check box is selected by default. The
+                                            value isn't inherited from the writer instance. For more information, see <a href="./USER_PerfInsights.html">Monitoring DB load with Amazon CloudWatch Database Insights on Amazon Aurora</a>.</p>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p><b>Enhanced monitoring</b></p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Choose <b>Enable enhanced monitoring</b> to enable gathering
+                                        metrics in real time for the operating system that your
+                                        DB cluster runs on. For more information, see <a href="./USER_Monitoring.OS.html">Monitoring OS metrics with Enhanced Monitoring</a>. </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p><b>Monitoring Role</b></p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Only available if <b>Enhanced
+                                        Monitoring</b> is set to
+                                        <b>Enable enhanced monitoring</b>. Choose the IAM role that
+                                        you created to permit Amazon RDS to communicate with
+                                        Amazon CloudWatch Logs for you, or choose <b>Default</b> to
+                                        have RDS create a role for you named
+                                        <code class="code">rds-monitoring-role</code>. For more
+                                        information, see <a href="./USER_Monitoring.OS.html">Monitoring OS metrics with Enhanced Monitoring</a>. </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p><b>Granularity</b></p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Only available if <b>Enhanced
+                                        Monitoring</b> is set to
+                                        <b>Enable enhanced monitoring</b>. Set the interval, in
+                                        seconds, between when metrics are collected for your DB
+                                        cluster.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>
+                                        <b>Auto minor version upgrade</b>
+                                    </p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>Select <b>Enable auto minor version upgrade</b> if you want to enable your
+                                        Aurora DB cluster to receive minor DB Engine
+                                        version upgrades automatically when they become
+                                        available.</p>
+                                    <p>The <b>Auto minor version upgrade</b> setting applies to both
+                                            Aurora PostgreSQL and Aurora MySQL DB clusters. For Aurora MySQL 2.x clusters, this setting upgrades the
+                                            clusters to a maximum version of 2.07.2.</p>
+                                    <p>For more information about engine updates for Aurora PostgreSQL, see 
+                                        <a href="./AuroraPostgreSQL.Updates.html">Database engine updates for Amazon Aurora PostgreSQL</a>.</p>
+                                    <p>For more information about engine updates for Aurora MySQL, see 
+                                        <a href="./AuroraMySQL.Updates.html">Database engine updates for Amazon Aurora MySQL</a>.</p>
+                                </td>
+                            </tr>
+                        </table></div></div>
+            </li><li>
+                <p>Choose <b>Add reader</b> to create the Aurora
+                    Replica.</p>
+            </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS CLI" id="aurora-replicas-adding.CLI" expanded="false"><p>To create an Aurora Replica in your DB cluster, run the 
+            <a href="https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html">create-db-instance</a> AWS CLI command. 
+            Include the name of the DB cluster as the <code class="code">--db-cluster-identifier</code> option. 
+            You can optionally specify an Availability Zone for the Aurora Replica using the
+            <code class="code">--availability-zone</code> parameter, as shown in the following
+            examples.</p><p>For example, the following command creates a new MySQL 5.7–compatible Aurora Replica named
+                    <code class="code">sample-instance-us-west-2a</code>.</p><p>For Linux, macOS, or Unix:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a \
+    --db-cluster-identifier sample-cluster --engine aurora-mysql --db-instance-class db.r5.large \
+    --availability-zone us-west-2a</code></pre><p>For Windows:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a ^
+    --db-cluster-identifier sample-cluster --engine aurora-mysql --db-instance-class db.r5.large ^
+    --availability-zone us-west-2a</code></pre><p>The following command creates a new MySQL 5.7–compatible Aurora Replica named
+                <code class="code">sample-instance-us-west-2a</code>.</p><p>For Linux, macOS, or Unix:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a \
+    --db-cluster-identifier sample-cluster --engine aurora-mysql --db-instance-class db.r5.large \
+    --availability-zone us-west-2a</code></pre><p>For Windows:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a ^
+    --db-cluster-identifier sample-cluster --engine aurora --db-instance-class db.r5.large ^
+    --availability-zone us-west-2a</code></pre><p>The following command creates a new PostgreSQL-compatible Aurora Replica named
+                <code class="code">sample-instance-us-west-2a</code>.</p><p>For Linux, macOS, or Unix:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a \
+    --db-cluster-identifier sample-cluster --engine aurora-postgresql --db-instance-class db.r5.large \
+    --availability-zone us-west-2a</code></pre><p>For Windows:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws rds create-db-instance --db-instance-identifier sample-instance-us-west-2a ^
+    --db-cluster-identifier sample-cluster --engine aurora-postgresql --db-instance-class db.r5.large ^
+    --availability-zone us-west-2a</code></pre></awsui-expandable-section><awsui-expandable-section variant="container" header="RDS API" id="aurora-replicas-adding.API" expanded="false"><p>To create an Aurora Replica in your DB cluster, call the 
+            <a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html">CreateDBInstance</a> operation.
+            Include the name of the DB cluster as the <code class="code">DBClusterIdentifier</code> parameter. 
+            You can optionally specify an Availability Zone for the Aurora Replica using the
+            <code class="code">AvailabilityZone</code> parameter.</p></awsui-expandable-section></div><p>For information about Auto Scaling Amazon Aurora with Aurora replicas, see the following sections.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="./Aurora.Integrating.AutoScaling.html">Amazon Aurora Auto Scaling with Aurora Replicas</a></p></li><li><p><a href="./Aurora.Integrating.AutoScaling.Add.html">Adding an auto scaling policy to an Amazon Aurora DB cluster</a></p></li><li><p><a href="./Aurora.Integrating.AutoScaling.Edit.html">Editing an auto scaling policy for an Amazon Aurora DB cluster</a></p></li><li><p><a href="./Aurora.Integrating.AutoScaling.Delete.html">Deleting an auto scaling policy from your Amazon Aurora DB cluster</a></p></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./Aurora.Modifying.html">Modifying an Aurora DB cluster</div><div id="next" class="next-link" accesskey="n" href="./Aurora.Integrating.AutoScaling.html">Auto Scaling with Aurora Replicas</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-replicas-adding.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

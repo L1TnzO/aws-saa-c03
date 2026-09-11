@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Learn about state machines in Step Functions - AWS Step Functions</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="concepts-statemachines" /><meta name="default_state" content="concepts-statemachines" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html" /><meta name="description" content="Learn how state machines hold data and transition from step to step in Step Functions." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Step Functions" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Describes how to build workflows and orchestrate services with AWS Step Functions." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/step-functions/latest/dg/concepts-statemachines.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/step-functions/latest/dg/concepts-statemachines.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/step-functions/latest/dg/concepts-statemachines.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/step-functions/latest/dg/concepts-statemachines.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/step-functions/latest/dg/concepts-statemachines.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/step-functions/latest/dg/concepts-statemachines.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/step-functions/latest/dg/concepts-statemachines.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/step-functions/latest/dg/concepts-statemachines.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/step-functions/latest/dg/concepts-statemachines.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/step-functions/latest/dg/concepts-statemachines.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/concepts-statemachines.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/concepts-statemachines.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/step-functions/latest/dg/concepts-statemachines.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/step-functions/latest/dg/concepts-statemachines.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/concepts-statemachines.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/concepts-statemachines.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/step-functions/latest/dg/concepts-statemachines.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/step-functions/latest/dg/concepts-statemachines.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html" hreflang="x-default" /><meta name="feedback-item" content="Step Functions" /><meta name="this_doc_product" content="AWS Step Functions" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'step-functions'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Learn about state machines in Step Functions" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="concepts-statemachines.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Learn about state machines in Step Functions - AWS Step Functions</title><meta name="pdf" content="/pdfs/step-functions/latest/dg/step-functions-dg.pdf#concepts-statemachines" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAcY-U_PLNSpyRRpAaT3B35A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step%20Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/concepts-statemachines.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/concepts-statemachines.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/concepts-statemachines.html" /><meta name="keywords" content="Step Functions,Workflow,state machine,visual workflow,microservices,service orchestration,workflow,workflow transition" /><link rel="alternate" type="text/markdown" href="concepts-statemachines.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Step Functions",
+        "item" : "https://docs.aws.amazon.com/step-functions/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/step-functions/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Learn about state machines in Step Functions",
+        "item" : "https://docs.aws.amazon.com/step-functions/latest/dg/concepts-statemachines.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/step-functions/latest/dg/step-functions-dg.pdf#concepts-statemachines" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/step-functions/index.html">AWS Step Functions</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#key-concepts-get-started">Key concepts</a><a href="#concepts-state-machine-data">State Machine Data</a><a href="#concepts-invoke-sfn">Invoke Step Functions</a><a href="#concepts-transitions">Transitions in state machines</a><a href="#concepts-read-consistency">Read Consistency</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="concepts-statemachines">Learn about state machines in Step Functions</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Step Functions is based on <em>state machines</em>, which are also called
+        <em>workflows</em>. Workflows are comprised of a series of event-driven steps. </p><p>You define a workflow using Amazon States Language, also known as ASL. You can optionally use Workflow Studio, a
+        visual workflow designer, to build and edit your workflows.</p><p>Each step in a workflow is called a <em>state</em>. There are two types of
+        states: Flow states and Task states: </p><div class="variablelist">
+         
+         
+    <dl>
+            <dt><span class="term"><b>Flow states</b></span></dt>
+            <dd>
+                <p> Flow states control the flow of execution of the steps. For example,
+                    <b>Choice states </b>provide conditional logic;
+                    <b>Wait states</b> pause workflow execution; <b>Map states</b> run child workflows for each item in a
+                    dataset; and <b>Parallel states</b> create separate
+                    branches in your workflows. </p>
+            </dd>
+         
+            <dt><span class="term"><b>Task states</b></span></dt>
+            <dd>
+                <p>Task states represent a unit of work that another AWS service performs, such
+                    as calling another AWS service or API. Tasks states are also known as
+                    <b>Actions</b>. You can choose hundreds of actions to
+                    perform work in AWS and external services. (Note: You can also use workers
+                    that run outside of Step Functions to perform tasks. For more info, see <a href="./concepts-activities.html">Activities</a>.)</p>
+            </dd>
+        </dl></div><div class="mediaobject">
+         
+            <img src="/images/step-functions/latest/dg/images/state-machine-conceptual-jsonata.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Illustrative example of the components of a Step Functions workflow." style="max-width:100%" />
+         
+         
+    </div><p><b>Executions and handling errors</b></p><p>When you run your workflows, Step Functions creates a workflow instance called an <em>execution</em>. You can monitor the status of your workflow executions.
+        If an execution experiences an error, the workflow might catch the error. Depending on your
+        use case, you might redrive the execution later to resume the workflow. </p><p><b>Passing data</b></p><p>You can optionally provide <b>input data</b> in the form of JSON
+        text to your workflows. Each <b>step</b> can pass data to
+        subsequent steps using variables and state output. Data stored in variables can be used by
+        later steps. State output becomes the input for the very next step. To learn more about
+        passing data, see <a href="./workflow-variables.html">Passing data between states with variables</a>.</p><p>At the end of workflows, your state machine can optionally produce output, also in the
+        form of JSON.  </p><p><b>Transforming data</b></p><p>States and state machines can transform data using a <b>query
+        language</b>. The recommended query language is <b>JSONata</b>; however, state machines created prior to re:Invent 2024 use <b>JSONPath</b>. For backward compatibility, your state machines or
+        individual states must opt-in to using JSONata for their query language. </p><p>You can recognize JSONata state machines and individual states by the
+        <code class="code">QueryLanguage</code> field set to "JSONata". State machines and states that use
+        JSONPath, lack the <code class="code">QueryLanguage</code> field. </p><p>States that use JSONPath will have state fields such as InputPath, Parameters,
+        ResultSelector, ResultPath, and OutputPath. In JSONPath state machine definitions, you will 
+        also see field names that end
+        in <code class="code">.$</code> and values prefixed with <code class="code">$.</code> and <code class="code">$$.</code>, both of which 
+        represent paths. In the paths, you might see various intrinsic functions, such as
+        <code class="code">States.MathAdd</code>. Intrinsic functions are <b>only</b> 
+        used in JSONPath. </p><p>JSONata states use <b>Arguments</b> and <b>Output</b> fields. In these optional fields, you might see JSONata expressions that
+        look like the following: <code class="code">"<span>{</span>% $type = 'local' %}"</code>. With JSONata, you can use
+        expressions, operators, and functions. To learn more, see <a href="./transforming-data.html">Transforming data with JSONata in Step Functions</a>. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can use only one query language per state. You cannot mix JSONPath and JSONata
+            within a single step. </p></div></div>
+    <h2 id="key-concepts-get-started">Key concepts</h2>
+        <p></p>
+    <p>The following provides an overview of the key Step Functions terms for context.
+    </p>
+        <p></p>
+    
+    <div class="table-container"><div class="table-contents disable-scroll"><table id="w225aac13c35b9"><thead>
+                <tr>
+                    <th>Term</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td tabindex="-1">Workflow</td>
+                    <td tabindex="-1">A sequence of steps that often reflect a business process.</td>
+                </tr>
+                                  
+                <tr>
+                    <td tabindex="-1">States</td>
+                    <td tabindex="-1">
+                      <p>Individual steps in your state machine that can make decisions based on their input, perform actions from those inputs, and pass output to other states.</p>
+                      <p>For more information, see <a href="./workflow-states.html">Discovering workflow states to use in Step Functions</a>.</p>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td tabindex="-1">Workflow Studio</td>
+                  <td tabindex="-1">
+                      <p>A visual workflow designer that helps you to prototype and build workflows faster.</p>
+                      <p>For more information, see <a href="./workflow-studio.html">Developing workflows in Step Functions Workflow Studio</a>.</p>
+                  </td>
+              </tr>
+                <tr>
+                    <td tabindex="-1">State machine</td>
+                    <td tabindex="-1"><p>A workflow defined using JSON text representing the individual states or steps in the workflow along with fields, such as <code class="code">StartAt</code>, <code class="code">TimeoutSeconds</code>, and <code class="code">Version</code>.</p> 
+                      <p>For more information, see <a href="./statemachine-structure.html">State machine structure in Amazon States Language for Step Functions workflows</a>.</p></td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Amazon States Language</td>
+                    <td tabindex="-1">
+                      <p>
+                        A JSON-based, structured language used to define your state machines. With ASL, you define a collection of <a href="./workflow-states.html">states</a> that can do work (<a href="./state-task.html">Task state</a>), determine
+                            which states to transition to next (<a href="./state-choice.html">Choice state</a>), and stop an execution with an error (<a href="./state-fail.html">Fail state</a>).
+                    </p>
+                        
+                    <p>For more information, see <a href="./concepts-amazon-states-language.html">Using Amazon States Language to define Step Functions workflows</a>.</p>
+                  </td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Input and output configuration</td>
+                    <td tabindex="-1">
+                      <p>States in a workflow receive JSON data as input and usually pass JSON data as output to the next state. Step Functions provides filters to control the data flow between states.</p>
+                      <p>For more information, see <a href="./concepts-input-output-filtering.html">Processing input and output in Step Functions</a>.</p>
+                  </td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Service integration</td>
+                    <td tabindex="-1">
+                      <p>You can call AWS service API actions from your workflow. </p>
+                      <p>For more information, see <a href="./integrate-services.html">Integrating services with Step Functions</a>.</p></td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Service integration type</td>
+                    <td tabindex="-1">
+                      <div class="itemizedlist">                          
+                           
+                           
+                      <ul class="itemizedlist"><li class="listitem"><p><a href="./supported-services-awssdk.html">AWS SDK integrations</a> – Standard way to call any of over two hundred AWS services and over nine thousand API actions directly from your state machine.</p></li><li class="listitem"><p><a href="./integrate-optimized.html">Optimized integrations</a> – Custom integrations that streamline calling and exchanging data with certain services. For example, <b>Lambda Invoke</b> will automatically convert the <code class="code">Payload</code> field of the response from an escaped JSON string into a JSON object.</p></li></ul></div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Service integration pattern</td>
+                    <td tabindex="-1"><p>When calling an AWS service, you use one of the following service integration patterns:</p>
+                    
+                        <div class="itemizedlist">
+                             
+                            
+                             
+                            
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><a href="./connect-to-resource.html#connect-default">Request a response (default)</a> – Call a service and move to the next state immediately after receiving an HTTP
+                                    response.</p>
+                            </li><li class="listitem">
+                                <p> <a href="./connect-to-resource.html#connect-sync">Run a job (.sync)</a> – Call a service and have Step Functions wait for a job to complete.</p>
+                            </li><li class="listitem">
+                                <p><a href="./connect-to-resource.html#connect-wait-token">Wait for a callback with a task token
+                                    (.waitForTaskToken)</a> – Call a service with a task token and have Step Functions wait until the task token returns with a callback.</p>
+                            </li></ul></div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td tabindex="-1">Execution</td>
+                    <td tabindex="-1">
+                      <p>State machine executions are instances where you run your workflow to perform tasks.</p>
+                      <p>
+                          For more information, see <a href="./statemachine-starting.html">Starting state machine executions in Step Functions</a>.
+                      </p></td>
+                </tr>
+                
+            </table></div></div>
+    
+ 
+    <h2 id="concepts-state-machine-data">State Machine Data</h2>
+    <p>State machine data takes the following forms:</p>
+    <div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>The initial input into a state machine</p>
+        </li><li class="listitem">
+            <p>Data passed between states</p>
+        </li><li class="listitem">
+            <p>The output from a state machine</p>
+        </li></ul></div>
+    <p>This section describes how state machine data is formatted and used in AWS Step Functions.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#concepts-state-machine-data-format">Data Format</a></p></li><li><p><a href="#concepts-state-machine-data-state-machine-input-output">State Machine Input/Output</a></p></li><li><p><a href="#concepts-state-machine-data-state-input-output">State Input/Output</a></p></li></ul></div>
+     
+        <h3 id="concepts-state-machine-data-format">Data Format</h3>
+        <p>State machine data is represented by JSON text.
+            You
+            can provide values
+            to a state machine
+            using any data type supported by JSON. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Numbers in JSON text format conform to JavaScript semantics. These numbers
+                        typically correspond to double-precision <a href="https://standards.ieee.org/findstds/standard/854-1987.html" rel="noopener noreferrer" target="_blank"><span>IEEE-854</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> values.</p>
+                </li><li class="listitem">
+                    <p>The following is valid JSON text:
+                        </p>
+                    
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Standalone, quote-delimited strings</p>
+                        </li><li class="listitem">
+                            <p>Objects</p>
+                        </li><li class="listitem">
+                            <p>Arrays</p>
+                        </li><li class="listitem">
+                            <p>Numbers</p>
+                        </li><li class="listitem">
+                            <p>Boolean values</p>
+                        </li><li class="listitem">
+                            <p><code class="code">null</code></p>
+                        </li></ul></div>
+                    
+                </li><li class="listitem">
+                    <p>The output of a state becomes the input
+                        for
+                        the next state. However, you can restrict states to
+                        work
+                        on a subset of the input data by using <a href="./concepts-input-output-filtering.html">Input and Output
+                            Processing</a>.</p>
+                </li></ul></div></div></div>
+     
+     
+        <h3 id="concepts-state-machine-data-state-machine-input-output">State Machine Input/Output</h3>
+        <p>You
+            can give your initial input data to an AWS Step Functions state machine in one of two ways. You
+            can pass the data to a
+            <code class="code"><a href="https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html">StartExecution</a></code> action when you start an execution. You can also
+            pass the data to the state machine from the <a href="https://console.aws.amazon.com/states/home?region=us-east-1#/" rel="noopener noreferrer" target="_blank"><span>Step Functions
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. Initial data is passed to the state machine's
+                <code class="code">StartAt</code> state. If no input is provided, the default is an empty object
+                (<code class="code"><span>{</span>}</code>).</p>
+        <p>The output of the execution is returned by the last state (<code class="code">terminal</code>).
+            This output appears as JSON text in the execution's result. </p>
+        <p>For Standard Workflows, you can retrieve execution results from the execution history
+            using external callers,
+            such
+            as the <code class="code"><a href="https://docs.aws.amazon.com/step-functions/latest/apireference/API_DescribeExecution.html">DescribeExecution</a></code>
+            action. You
+            can view execution results on the <a href="https://console.aws.amazon.com/states/home?region=us-east-1#/" rel="noopener noreferrer" target="_blank"><span>Step Functions
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+        <p>For Express Workflows, if you
+            enabled
+            logging, you can retrieve results from
+            CloudWatch Logs,
+            or view and debug the executions in the Step Functions console. For more information, see <a href="./cw-logs.html">Using CloudWatch Logs to log execution history in Step Functions</a> and <a href="./concepts-view-execution-details.html">Viewing execution details in the Step Functions console</a>.</p>
+        
+        <p>You should also consider quotas related to your state machine. For more information, see
+            <a href="./service-quotas.html">Step Functions service quotas</a></p>
+        
+     
+     
+        <h3 id="concepts-state-machine-data-state-input-output">State Input/Output</h3>
+        <p>Each state's input consists of JSON text from the preceding state or, for the
+                <code class="code">StartAt</code> state, the input into the execution. Certain flow-control
+            states echo their input to their output.</p>
+        <p>In the following example, the state machine adds two numbers together.</p>
+        <div class="procedure"><ol><li>
+                <p>Define the AWS Lambda function.</p>
+                <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (javascript)--><code class="javascript ">function Add(input) <span>{</span>
+  var numbers = JSON.parse(input).numbers;
+  var total = numbers.reduce(
+    function(previousValue, currentValue, index, array) <span>{</span>
+      return previousValue + currentValue; });
+  return JSON.stringify(<span>{</span> result: total });
+}</code></pre>
+            </li><li>
+                <p>Define the state machine.</p>
+                <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "Comment": "An example that adds two numbers together.",
+  "StartAt": "Add",
+  "Version": "1.0",
+  "TimeoutSeconds": 10,
+  "States":
+    <span>{</span>
+        "Add": <span>{</span>
+          "Type": "Task",
+          "Resource": "arn:aws:lambda:<code class="replaceable">region</code>:123456789012:function:Add",
+          "End": true
+        }
+    }
+}</code></pre>
+            </li><li>
+                <p>Start an execution with the following JSON text.</p>
+                <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span> "numbers": [3, 4] }</code></pre>
+                <p>The <code class="code">Add</code> state receives the JSON text and passes it to the Lambda
+                    function.</p>
+                <p>The Lambda function returns the result of the calculation to the state.</p>
+                <p>The state returns the following value in its output.</p>
+                <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span> "result": 7 }</code></pre>
+                <p>Because <code class="code">Add</code> is also the final state in the state machine, this
+                    value is returned as the state machine's output.</p>
+                <p>If the final state returns no output, then the state machine returns an empty
+                    object (<code class="code"><span>{</span>}</code>).</p>
+            </li></ol></div>
+        <p>For more information, see <a href="./concepts-input-output-filtering.html">Processing input and output in Step Functions</a>.</p>
+     
+ 
+    <h2 id="concepts-invoke-sfn">Invoke AWS Step Functions from other services</h2>
+
+    <p>You can configure several other services to invoke state machines. Based on the state machine's <a href="./choosing-workflow-type.html">workflow type</a>, 
+        you can invoke state machines asynchronously or synchronously. To invoke state machines synchronously, use the 
+        <code class="code"><a href="https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartSyncExecution.html">StartSyncExecution</a></code> API call or Amazon API Gateway 
+        integration with Express Workflows. With asynchronous invocation, Step Functions pauses the workflow execution until a task token is returned. However, waiting for a task token does make the workflow synchronous.</p>
+    
+    <p>Services that you can configure to invoke Step Functions include:</p>
+    
+    <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+
+    <ul class="itemizedlist"><li class="listitem">
+            <p>
+                AWS Lambda, using the <a href="https://docs.aws.amazon.com/step-functions/latest/apireference/API_StartExecution.html"><code class="code">StartExecution</code></a> call.
+            </p>
+        </li><li class="listitem">
+            <p>
+                <a href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-api-gateway.html">Amazon API Gateway</a>
+            </p>
+        </li><li class="listitem">
+            <p>
+                <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html">Amazon EventBridge</a>
+            </p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-StepFunctions.html">AWS CodePipeline</a>
+            </p>
+        </li><li class="listitem">
+            <p>
+                <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html">AWS IoT Rules Engine</a>
+            </p>
+        </li><li class="listitem">
+            <p>
+                <a href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-stepfunctions.html">AWS Step Functions</a>
+            </p>
+        </li></ul></div>
+    <p>Step Functions invocations are governed by the <code class="code">StartExecution</code> quota. For more information, see:</p>
+    <div class="itemizedlist">
+         
+    <ul class="itemizedlist"><li class="listitem"><p><a href="./service-quotas.html">Step Functions service quotas</a></p></li></ul></div>
+    
+ 
+    <h2 id="concepts-transitions">Transitions in state machines</h2>
+   
+   <p>When you start a new execution of your state machine, the system begins with the state
+        referenced in the top-level <code class="code">StartAt</code> field. This field, given as a string, must
+        exactly match, including case, the name of a state in the workflow.</p>
+    
+   <p>After a state runs, AWS Step Functions uses the value of the <code class="code">Next</code> field to determine
+        the next state to advance to.</p>
+   <p>
+        <code class="code">Next</code> fields also specify state names as strings. This string is case-sensitive
+        and must match the name of a state specified in the state machine description exactly</p>
+   <p>For example, the following state includes a transition to <code class="code">NextState</code>.</p>
+   <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">"SomeState" : <span>{</span>
+  ...,
+  "Next" : "NextState"
+}</code></pre>
+   <p>Most states permit only a single transition rule with the <code class="code">Next</code> field. However,
+        certain flow-control states, such as a <code class="code">Choice</code> state, allow you to specify
+        multiple transition rules, each with its own <code class="code">Next</code> field. The <a href="./concepts-amazon-states-language.html">Amazon States Language</a> provides details
+        about each of the state types you can specify, including information about how to specify
+        transitions.</p>
+   <p>States can have multiple incoming transitions from other states.</p>
+   <p>The process repeats until it either reaches a terminal state (a state with <code class="code">"Type":
+            Succeed</code>, <code class="code">"Type": Fail</code>, or <code class="code">"End": true</code>), or a runtime
+        error occurs.</p>
+    
+    <p>When you <a href="./redrive-executions.html">redrive</a> an execution, it's considered as a state transition. In addition, all states that are rerun in a redrive are also considered as state transitions.</p>
+    
+   <p>The following rules apply to states within a state machine:</p>
+   <div class="itemizedlist">
+       
+       
+       
+       
+   <ul class="itemizedlist"><li class="listitem">
+                <p>States can occur in any order within the enclosing block. However, the order
+                in which they're listed doesn't affect the order in which they're run. That order is
+                determined by the contents of the states.</p>
+            </li><li class="listitem">
+                <p>Within a state machine, there can be only one state designated as the
+                    <code class="code">start</code> state. The <code class="code">start</code> state is defined by the value
+                of the <code class="code">StartAt</code> field in the top-level structure.</p>
+            </li><li class="listitem">
+                <p>Depending on your state machine logic — for example, if your state
+                machine has multiple logic branches — you may have more than one
+                    <code class="code">end</code> state.</p>
+            </li><li class="listitem">
+                <p>If your state machine consists of only one state, it can be both the
+                    start and end state.</p>
+            </li></ul></div>
+    
+     
+        
+        <h3 id="dist-map-transitions">Transitions in Distributed Map state</h3>
+        
+        <p>When you use the <code class="code">Map</code> state in Distributed mode, you'll be charged one state transition for each child workflow execution that the <em>Distributed Map state</em> starts. When you use the <code class="code">Map</code> state in Inline mode, you aren't charged a state transition for each iteration of the <em>Inline Map state</em>.</p>
+        
+        <p>You can optimize cost by using the <code class="code">Map</code> state in Distributed mode and
+            include a nested workflow in the <code class="code">Map</code> state definition. The <em>Distributed Map state</em> also
+            adds more value when you start child workflow executions of type <b>Express</b>.
+            Step Functions stores the response and status of the Express child workflow executions, which
+            reduces the need to store execution data in CloudWatch Logs. You can also get access to flow
+            controls available with a <em>Distributed Map state</em>, such as defining error thresholds or batching a
+            group of items. For information about Step Functions pricing, see <a href="https://aws.amazon.com/step-functions/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS Step Functions pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        
+     
+    
+ 
+    <h2 id="concepts-read-consistency">Read Consistency in Step Functions</h2>
+
+    <p>State machine updates in AWS Step Functions are eventually consistent. All
+            <code class="code">StartExecution</code> calls within a few seconds will use the updated definition
+        and <code class="code">roleArn</code> (the Amazon Resource Name for the IAM role). Executions started immediately after calling
+            <code class="code">UpdateStateMachine</code> might use the previous state machine definition and
+            <code class="code">roleArn</code>.</p>
+    <p>For more information, see the following:</p>
+    <div class="itemizedlist">
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/step-functions/latest/apireference/API_UpdateStateMachine.html"><code class="code">UpdateStateMachine</code></a> in the
+                    <em>AWS Step Functions API Reference</em></p>
+        </li></ul></div>
+
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./getting-started.html">Getting started tutorial</div><div id="next" class="next-link" accesskey="n" href="./concepts-activities.html">Activities</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/concepts-statemachines.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/concepts-statemachines.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Logging IP traffic using VPC Flow Logs - Amazon Virtual Private Cloud</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="flow-logs" /><meta name="default_state" content="flow-logs" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html" /><meta name="description" content="Create a flow log to capture information about IP traffic going to and from your network interfaces." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Virtual Private Cloud" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Amazon VPC to launch AWS resources into a virtual network that is a logically isolated section of the AWS cloud. Use Amazon VPC to launch AWS resources into a virtual network that is a logically isolated section of the AWS cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/userguide/flow-logs.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/userguide/flow-logs.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/userguide/flow-logs.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/userguide/flow-logs.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/userguide/flow-logs.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/userguide/flow-logs.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/flow-logs.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/flow-logs.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/userguide/flow-logs.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/userguide/flow-logs.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/flow-logs.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/flow-logs.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/flow-logs.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/flow-logs.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/flow-logs.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/flow-logs.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/vpc/latest/userguide/flow-logs.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/vpc/latest/userguide/flow-logs.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html" hreflang="x-default" /><meta name="feedback-item" content="VPC" /><meta name="this_doc_product" content="Amazon Virtual Private Cloud" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Logging IP traffic using VPC Flow Logs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="flow-logs.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Logging IP traffic using VPC Flow Logs - Amazon Virtual Private Cloud</title><meta name="pdf" content="/pdfs/vpc/latest/userguide/vpc-ug.pdf#flow-logs" /><meta name="rss" content="amazon-vpc-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TATGuEiYydTVCPMhSnXFN6gA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/flow-logs.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/flow-logs.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/flow-logs.html" /><meta name="keywords" content="VPC,Amazon VPC,network,route table,internet gateway,subnet,NAT" /><link rel="alternate" type="text/markdown" href="flow-logs.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Monitoring your VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide/monitoring.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Logging IP traffic using VPC Flow Logs",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/userguide/monitoring.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpc/latest/userguide/vpc-ug.pdf#flow-logs" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/vpc/index.html">Amazon VPC</a><a href="what-is-amazon-vpc.html">User Guide</a></div><div id="page-toc-src"><a href="#flow-logs-pricing">Pricing</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="flow-logs">Logging IP traffic using VPC Flow Logs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>VPC Flow Logs is a feature that enables you to capture information about the IP traffic
+        going to and from network interfaces in your VPC. Flow log data can be published to the
+        following locations: Amazon CloudWatch Logs, Amazon S3, or Amazon Data Firehose. The configured delivery path and
+        permissions that enable network traffic logs to be sent to a destination like CloudWatch
+        Logs or S3 are referred to as <em>subscriptions</em>. After you
+        create a flow log, you can retrieve and view the flow log records in the log group, bucket,
+        or delivery stream that you configured.</p><p>Flow logs can help you with a number of tasks, such as:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Diagnosing overly restrictive security group rules</p>
+        </li><li class="listitem">
+            <p>Monitoring the traffic that is reaching your instance</p>
+        </li><li class="listitem">
+            <p>Determining the direction of the traffic to and from the network interfaces</p>
+        </li></ul></div><p>Flow log data is collected outside of the path of your network traffic, and therefore does
+        not affect network throughput or latency. You can create or delete flow logs without any
+        risk of impact to network performance.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This section only talks about flow logs for VPCs. For information about flow logs for transit gateways introduced in version 6, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html">Logging network traffic using Transit Gateway Flow Logs</a> in the <em>Amazon VPC Transit Gateways User Guide</em>.</p></div></div><div class="highlights"><h6>Contents</h6><ul><li><p><a href="./flow-logs-basics.html">Flow logs basics</a></p></li><li><p><a href="./flow-log-records.html">Flow log records</a></p></li><li><p><a href="./flow-logs-records-examples.html">Flow log record examples</a></p></li><li><p><a href="./flow-logs-limitations.html">Flow log limitations</a></p></li><li><p><a href="#flow-logs-pricing">Pricing</a></p></li><li><p><a href="./working-with-flow-logs.html">Work with flow logs</a></p></li><li><p><a href="./flow-logs-cwl.html">Publish flow logs to CloudWatch Logs</a></p></li><li><p><a href="./flow-logs-s3.html">Publish flow logs to Amazon S3</a></p></li><li><p><a href="./flow-logs-firehose.html">Publish flow logs to Amazon Data Firehose</a></p></li><li><p><a href="./flow-logs-athena.html">Query flow logs using Amazon Athena</a></p></li><li><p><a href="./flow-logs-iam.html">Identity and access management in VPC Flow Logs</a></p></li><li><p><a href="./flow-logs-troubleshooting.html">Troubleshoot VPC Flow Logs</a></p></li></ul></div>
+        <h2 id="flow-logs-pricing">Pricing</h2>
+        <p>Data ingestion and archival charges for vended logs apply when you publish flow logs.
+            For more information about pricing when publishing vended logs, open <a href="https://aws.amazon.com/cloudwatch/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon CloudWatch Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, select
+            <b>Logs</b> and find <b>Vended Logs</b>.</p>
+        <p>To track charges from publishing flow logs, you can apply cost allocation tags 
+            to your destination resource. Thereafter, your AWS cost allocation report includes 
+            usage and costs aggregated by these tags. You can apply tags that represent business 
+            categories (such as cost centers, application names, or owners) to organize your costs. 
+            For more information, see the following:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation Tags</a> in the 
+                    <em>AWS Billing User Guide</em></p>
+            </li><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#log-group-tagging">Tag log groups in Amazon CloudWatch Logs</a> in the <em>Amazon CloudWatch Logs User Guide</em></p>
+            </li><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html">Using cost allocation S3 bucket tags</a> in the <em>Amazon Simple Storage Service User Guide</em></p>
+            </li><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/firehose/latest/dev/firehose-tagging.html">Tagging Your Delivery Streams</a> in the <em>Amazon Data Firehose Developer Guide</em></p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./monitoring.html">Monitoring</div><div id="next" class="next-link" accesskey="n" href="./flow-logs-basics.html">Flow logs basics</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/flow-logs.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/flow-logs.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

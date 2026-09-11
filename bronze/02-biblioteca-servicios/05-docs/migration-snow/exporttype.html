@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Jobs to export data from Amazon S3 using a Snowball Edge device - AWS Snowball Edge Developer Guide</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="exporttype" /><meta name="default_state" content="exporttype" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/exporttype.html" /><meta name="description" content="Use an export job to move data for a job part from Amazon S3 to an AWS Snowball Edge device and download a job report." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Snowball Edge Developer Guide" /><meta name="guide" content="AWS Snowball Edge Developer Guide" /><meta name="abstract" content="Insert abstract text" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/exporttype.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/snowball/latest/developer-guide/exporttype.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/snowball/latest/developer-guide/exporttype.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/snowball/latest/developer-guide/exporttype.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/snowball/latest/developer-guide/exporttype.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/exporttype.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/exporttype.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/snowball/latest/developer-guide/exporttype.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/snowball/latest/developer-guide/exporttype.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/snowball/latest/developer-guide/exporttype.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/snowball/latest/developer-guide/exporttype.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/snowball/latest/developer-guide/exporttype.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/snowball/latest/developer-guide/exporttype.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/snowball/latest/developer-guide/exporttype.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/snowball/latest/developer-guide/exporttype.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/snowball/latest/developer-guide/exporttype.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/snowball/latest/developer-guide/exporttype.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/snowball/latest/developer-guide/exporttype.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/snowball/latest/developer-guide/exporttype.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/snowball/latest/developer-guide/exporttype.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/snowball/latest/developer-guide/exporttype.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/exporttype.html" hreflang="x-default" /><meta name="feedback-item" content="Snowball" /><meta name="this_doc_product" content="AWS Snowball Edge Developer Guide" /><meta name="this_doc_guide" content="" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'snowball'}"></script><meta id="panorama-serviceSubSection" value="" /><meta id="panorama-serviceConsolePage" value="Jobs to export data from Amazon S3 using a Snowball Edge device" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="exporttype.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Jobs to export data from Amazon S3 using a Snowball Edge device - AWS Snowball Edge Developer Guide</title><meta name="pdf" content="/pdfs/snowball/latest/developer-guide/AWSSnowball-dg.pdf#exporttype" /><meta name="rss" content="aws-snowball-edge-developer-guide-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAaBdMHIR1S8euTXi9xvBpfw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/exporttype.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/exporttype.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/exporttype.html" /><meta name="keywords" content="move,bucket,cloud" /><link rel="alternate" type="text/markdown" href="exporttype.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Snowball Edge",
+        "item" : "https://docs.aws.amazon.com/snowball/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Understanding Snowball Edge jobs",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide/jobs.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Jobs to export data from Amazon S3 using a Snowball Edge device",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide/jobs.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/snowball/latest/developer-guide/AWSSnowball-dg.pdf#exporttype" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/snowball/index.html">AWS Snowball Edge</a><a href="whatisedge.html"></a></div><div id="page-toc-src"><a href="#ranges">Using Amazon S3 object keys with export jobs</a><a href="#export-jobs-best-practices">Best practices for export jobs</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>AWS Snowball Edge is no longer available to new customers. New customers should explore <a href="https://aws.amazon.com/datasync/" rel="noopener noreferrer" target="_blank"><span>AWS DataSync</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> for online transfers, <a href="https://aws.amazon.com/data-transfer-terminal/" rel="noopener noreferrer" target="_blank"><span>AWS Data Transfer Terminal</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> for
+   secure physical transfers, or AWS Partner solutions. For edge computing, explore <a href="https://aws.amazon.com/outposts/" rel="noopener noreferrer" target="_blank"><span>AWS Outposts</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></awsui-alert><h1 class="topictitle" id="exporttype">Jobs to export data from Amazon S3 using a Snowball Edge device</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Tags and metadata are NOT currently supported, in other words, all tags and
+                metadata would be removed when exporting objects from S3 buckets.</p></div></div><p>Your data source for an export job is one or more Amazon S3 buckets. After the data for a
+            job part is moved from Amazon S3 to an AWS Snowball Edge device, you can download a job report. This
+            report alerts you to any objects that failed the transfer to the device. You can find
+            more information in your job's success and failure logs.</p><p>You can export any number of objects for each export job, using as many devices as it
+            takes to complete the transfer. Each AWS Snowball Edge device for an export job's job parts is
+            delivered one after another, with subsequent devices shipping to you after the previous
+            job part enters the <b>In transit to AWS</b> status.</p><p>When you copy objects into your on-premises data destination from a device using the
+            Amazon S3 adapter or the NFS mount point, those objects are saved as files. If you copy objects
+            into a location that already holds files, any existing files with the same names are
+            overwritten. The export job type is also capable of local storage and compute
+            functionality. This functionality uses the NFS interface or Amazon S3 adapter to read and write data,
+            and triggers Lambda functions based off of Amazon S3 PUT object API actions running locally on
+            the AWS Snowball Edge device.</p><p>When AWS receives a returned device, we completely erase it, following the NIST
+            800-88 standards.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Data you want to export to a Snow device must be in Amazon S3. Any data in Amazon Glacier that you plan to export to the Snow device will have to be thawed or moved into the S3 storage class before it can be exported. Do this before creating the Snow export job.</p><p>Don't change, update, or delete the exported Amazon S3 objects until you can verify
+                that all of your contents for the entire job have been copied to your on-premises
+                data destination.</p></div></div><p>When you create an export job, you can export an entire Amazon S3 bucket or a specific
+            range of objects keys.</p>
+            <h2 id="ranges">Using Amazon S3 object keys when exporting data to a Snowball Edge device</h2>
+
+
+            <p>When you create an export job in the <a href="https://console.aws.amazon.com/snowfamily/home" rel="noopener noreferrer" target="_blank"><span>AWS Snow Family Management Console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or with the job management
+                API, you can export an entire Amazon S3 bucket or a specific range of objects keys.
+                Object key names uniquely identify objects in a bucket. If you export a range, you
+                define the length of the range by providing either an inclusive range beginning, an
+                inclusive range ending, or both. </p>
+
+            <p>Ranges are UTF-8 binary sorted. UTF-8 binary data is sorted in the following
+                way:</p>
+
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The numbers 0–9 come before both uppercase and lowercase English
+                        characters.</p>
+                </li><li class="listitem">
+                    <p>Uppercase English characters come before all lowercase English
+                        characters.</p>
+                </li><li class="listitem">
+                    <p>Lowercase English characters come last when sorted against uppercase
+                        English characters and numbers.</p>
+                </li><li class="listitem">
+                    <p>Special characters are sorted among the other character sets.</p>
+                </li></ul></div>
+
+            <p>For more information about the specifics of UTF-8, see <a href="https://en.wikipedia.org/wiki/UTF-8" rel="noopener noreferrer" target="_blank"><span>UTF-8 on Wikipedia</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+
+             
+                <h3 id="range-examples">Examples of using Amazon S3 object keys when exporting data to a Snowball Edge device</h3>
+
+
+                <p>Assume that you have a bucket containing the following objects and prefixes,
+					sorted in UTF-8 binary order:</p>
+
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+					 
+					 
+                     
+					 
+					 
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>01</p>
+                    </li><li class="listitem">
+                        <p>Aardvark</p>
+                    </li><li class="listitem">
+                        <p>Aardwolf</p>
+                    </li><li class="listitem">
+                        <p>Aasvogel/apple</p>
+                    </li><li class="listitem">
+						<p>Aasvogel/arrow/object1</p>
+					</li><li class="listitem">
+						<p>Aasvogel/arrow/object2</p>
+					</li><li class="listitem">
+                        <p>Aasvogel/banana</p>
+                    </li><li class="listitem">
+						<p>Aasvogel/banker/object1</p>
+					</li><li class="listitem">
+						<p>Aasvogel/banker/object2</p>
+					</li><li class="listitem">
+                        <p>Aasvogel/cherry</p>
+                    </li><li class="listitem">
+                        <p>Banana</p>
+                    </li><li class="listitem">
+                        <p>Car</p>
+                    </li></ul></div>
+
+                <div class="table-container"><div class="table-contents"><table id="w144aac56c13c17c11b7"><thead>
+                            <tr>
+                                <th>Specified range beginning</th>
+                                <th>Specified range ending</th>
+                                <th>Objects in the range that will be exported</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1">All of the objects in your bucket</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1">Aasvogel</td>
+                                <td tabindex="-1">
+                                    <p>01</p>
+                                    <p>Aardvark</p>
+                                    <p>Aardwolf</p>
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+                                    <p>Aasvogel/cherry</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1">Aasvogel/banana</td>
+                                <td tabindex="-1">
+                                    <p>01</p>
+                                    <p>Aardvark</p>
+                                    <p>Aardwolf</p>
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p></td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Aasvogel</td>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1">
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+                                    <p>Aasvogel/cherry</p>
+                                    <p>Banana</p>
+                                    <p>Car</p></td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Aardwolf</td>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1"><p>Aardwolf</p>
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+                                    <p>Aasvogel/cherry</p>
+                                    <p>Banana</p>
+                                    <p>Car</p></td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Aar</td>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1"><p>Aardvark</p>
+                                    <p>Aardwolf</p>
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+                                    <p>Aasvogel/cherry</p>
+                                    <p>Banana</p>
+                                    <p>Car</p></td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">car</td>
+                                <td tabindex="-1">(none)</td>
+                                <td tabindex="-1"><p>No objects are exported, and you get an error message when you try to create the job. Note
+                                        that <em>car</em> is sorted below
+                                            <em>Car</em> according to
+                                        UTF-8 binary values.</p></td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Aar</td>
+                                <td tabindex="-1">Aarrr</td>
+                                <td tabindex="-1"><p>Aardvark</p>
+                                    <p>Aardwolf</p></td>
+                            </tr>
+                            
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>Aasvogel/arrow</p>
+                                </td>
+                                <td tabindex="-1">Aasvogel/arrox</td>
+                                <td tabindex="-1">
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+								</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Aasvogel/apple</td>
+                                <td tabindex="-1">Aasvogel/banana</td>
+                                <td tabindex="-1">
+                                    <p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+                                    <p>Aasvogel/banana</p>
+                                </td>
+                            </tr>
+							<tr>
+								<td tabindex="-1">Aasvogel/apple</td>
+								<td tabindex="-1">Aasvogel/banker</td>
+								<td tabindex="-1">
+									<p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+									<p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+								</td>
+							</tr>
+							<tr>
+								<td tabindex="-1">Aasvogel/apple</td>
+								<td tabindex="-1">Aasvogel/cherry</td>
+								<td tabindex="-1">
+									<p>Aasvogel/apple</p>
+									<p>Aasvogel/arrow/object1</p>
+									<p>Aasvogel/arrow/object2</p>
+									<p>Aasvogel/banana</p>
+									<p>Aasvogel/banker/object1</p>
+									<p>Aasvogel/banker/object2</p>
+									<p>Aasvogel/cherry</p>
+								</td>
+							</tr>
+                            
+                        </table></div></div>
+                
+                <p>Assume you have these three buckets and want to copy all objects from <b>folder2</b>.</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem"><p>s3://bucket/folder1/</p></li><li class="listitem"><p>s3://bucket/folder2/</p></li><li class="listitem"><p>s3://bucket/folder3/</p></li></ul></div>
+                <div class="table-container"><div class="table-contents"><table id="w144aac56c13c17c11c13"><thead>
+                            <tr>
+                                <th>Specified range beginning</th>
+                                <th>Specified range ending</th>
+                                <th>Objects in the range that will be exported</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td tabindex="-1">folder2/</td>
+                                <td tabindex="-1">folder2/</td>
+                                <td tabindex="-1">All of the objects in bucket <b>folder2</b>.</td>
+                            </tr>
+                            
+                            
+                            
+                        </table></div></div>
+             
+
+         
+            <h2 id="export-jobs-best-practices">Best practices for jobs exporting data from Amazon S3 to a Snowball Edge device</h2>
+            <div class="itemizedlist">
+                 
+                 
+                
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Ensure data is in Amazon S3, batch small files before ordering the
+                        job</p>
+                </li><li class="listitem">
+                    <p>Ensure key ranges are specified in the export job definition if you have
+                        millions of objects in your bucket</p>
+                </li><li class="listitem">
+                    <p>Update object keys to remove slash in the name as objects with trailing
+                        slashes in their names (/ or \) are not transferred to Snowball Edge</p>
+                </li><li class="listitem">
+                    <p>For S3 buckets, the object length limitation is 255 characters.</p>
+                </li><li class="listitem">
+                    <p>For S3 buckets that are version‐enabled, only the current version of objects are exported.</p>
+                </li><li class="listitem">
+                    <p>Delete markers are not exported.</p>
+                </li></ul></div>    
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./importtype.html">Import jobs</div><div id="next" class="next-link" accesskey="n" href="./computetype.html">Information about local compute and storage jobs</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/exporttype.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/exporttype.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

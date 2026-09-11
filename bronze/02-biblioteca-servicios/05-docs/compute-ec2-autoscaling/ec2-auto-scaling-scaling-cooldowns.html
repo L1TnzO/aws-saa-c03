@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Scaling cooldowns for Amazon EC2 Auto Scaling - Amazon EC2 Auto Scaling</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ec2-auto-scaling-scaling-cooldowns" /><meta name="default_state" content="ec2-auto-scaling-scaling-cooldowns" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" /><meta name="description" content="Learn how to configure the cooldown period that's used when scaling your Auto Scaling group with simple scaling policies." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EC2 Auto Scaling" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Amazon EC2 Auto Scaling to launch or terminate EC2 instances based on automatic scaling and health status." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" hreflang="x-default" /><meta name="feedback-item" content="Auto Scaling" /><meta name="this_doc_product" content="Amazon EC2 Auto Scaling" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'autoscaling'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Scaling cooldowns for Amazon EC2 Auto Scaling" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="ec2-auto-scaling-scaling-cooldowns.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Scaling cooldowns for Amazon EC2 Auto Scaling - Amazon EC2 Auto Scaling</title><meta name="pdf" content="/pdfs/autoscaling/ec2/userguide/as-dg.pdf#ec2-auto-scaling-scaling-cooldowns" /><meta name="rss" content="CHAP_DocumentHistory.rss" /><meta name="forums" content="https://repost.aws/tags/TAm15uGCYNR4KH3wwKSlujOQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Auto%20Scaling&amp;topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html" /><meta name="keywords" content="scaling,auto scaling,Amazon EC2,Auto Scaling group,auto scaling group,scaling policies,scheduled scaling,Increase or decrease compute capacity with scaling,Scale your Auto Scaling group,Scaling event,Scaling action,dynamic scaling for Auto Scaling,scale your Auto Scaling group as traffic changes,Auto Scaling target tracking scaling,Auto Scaling step scaling,Auto Scaling simple scaling" /><link rel="alternate" type="text/markdown" href="ec2-auto-scaling-scaling-cooldowns.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Auto Scaling",
+        "item" : "https://docs.aws.amazon.com/autoscaling/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/autoscaling/ec2/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Increase or decrease compute capacity of your application with scaling",
+        "item" : "https://docs.aws.amazon.com/autoscaling/ec2/userguide/scale-your-group.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Dynamic scaling for Amazon EC2 Auto Scaling",
+        "item" : "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Scaling cooldowns for Amazon EC2 Auto Scaling",
+        "item" : "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/autoscaling/ec2/userguide/as-dg.pdf#ec2-auto-scaling-scaling-cooldowns" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/autoscaling/index.html">Auto Scaling</a><a href="what-is-amazon-ec2-auto-scaling.html">User Guide</a></div><div id="page-toc-src"><a href="#cooldown-considerations">Considerations</a><a href="#cooldowns-lifecycle-hooks">Lifecycle hooks can cause additional delays</a><a href="#set-default-cooldown">Change the default cooldown period</a><a href="#cooldowns-scaling-specific">Set a cooldown period for specific simple scaling policies</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ec2-auto-scaling-scaling-cooldowns">Scaling cooldowns for Amazon EC2 Auto Scaling</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>As a best practice, we recommend that you do not use simple scaling policies
+                    and scaling cooldowns. A target tracking scaling policy or a step scaling policy
+                    is better for scaling performance. For a scaling policy that changes the size of
+                    your Auto Scaling group proportionally as the value of the scaling metric decreases or
+                    increases, we recommend <a href="./as-scaling-target-tracking.html">target
+                        tracking</a> over either simple scaling or step scaling.</p></div></div><p>When you create simple scaling policies for your Auto Scaling group, we recommend that you
+                configure the scaling cooldown at the same time.</p><p>After your Auto Scaling group launches or terminates instances, it waits for a cooldown
+                period to end before any further scaling activities initiated by simple scaling
+                policies can start. The intention of the cooldown period is to let your Auto Scaling group
+                stabilize and prevent it from launching or terminating additional instances before
+                the effects of the previous scaling activity are visible. </p><p>Suppose, for example, that a simple scaling policy for CPU utilization recommends
+                launching two instances. Amazon EC2 Auto Scaling launches two instances and then pauses the scaling
+                activities until the cooldown period ends. After the cooldown period ends, any
+                scaling activities initiated by simple scaling policies can resume. If CPU
+                utilization breaches the alarm high threshold again, the Auto Scaling group scales out
+                again, and the cooldown period takes effect again. However, if two instances were
+                enough to bring the metric value back down, the group remains at its current
+                size.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#cooldown-considerations">Considerations</a></p></li><li><p><a href="#cooldowns-lifecycle-hooks">Lifecycle hooks can cause additional delays</a></p></li><li><p><a href="#set-default-cooldown">Change the default cooldown period</a></p></li><li><p><a href="#cooldowns-scaling-specific">Set a cooldown period for specific simple scaling policies</a></p></li></ul></div>
+                <h2 id="cooldown-considerations">Considerations</h2>
+                <p>The following considerations apply when working with simple scaling policies
+                    and scaling cooldowns:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Target tracking and step scaling policies can initiate a scale-out
+                            activity immediately without waiting for the cooldown period to end.
+                            Instead, whenever your Auto Scaling group launches instances, the individual
+                            instances have a warmup period. For more information, see <a href="./ec2-auto-scaling-default-instance-warmup.html">Set the default instance warmup for an Auto Scaling group</a>.</p>
+                        
+                    </li><li class="listitem">
+                        <p>While a scale-out activity is in progress, all target tracking and step scaling scale-in activities are blocked until the instances finish warming up. Scale-in activities can also be delayed when an Auto Scaling group is in a cooldown period.</p>
+                    </li><li class="listitem">
+                        <p>When a scheduled action starts at the scheduled time, it can also
+                            initiate a scaling activity immediately without waiting for the cooldown
+                            period to end. </p>
+                    </li><li class="listitem">
+                        <p>If an instance becomes unhealthy, Amazon EC2 Auto Scaling does not wait for the
+                            cooldown period to end before replacing the unhealthy instance.</p>
+                    </li><li class="listitem">
+                        <p>When multiple instances launch or terminate, the cooldown period
+                            (either the default cooldown or the scaling policy-specific cooldown)
+                            takes effect starting when the last instance finishes launching or
+                            terminating.</p>
+                    </li><li class="listitem">
+                        <p>When you manually scale your Auto Scaling group, the default is not to wait
+                            for a cooldown to end. However, you can override this behavior and honor
+                            the default cooldown when you use the AWS CLI or an SDK to manually scale.
+                        </p>
+                    </li><li class="listitem">
+                        <p>By default, Elastic Load Balancing waits 300 seconds to complete the deregistration
+                            (connection draining) process. If the group is behind an Elastic Load Balancing load
+                            balancer, it will wait for the terminating instances to deregister
+                            before starting the cooldown period.</p>
+                    </li></ul></div>
+             
+                <h2 id="cooldowns-lifecycle-hooks">Lifecycle hooks can cause additional delays</h2>
+                <p>If a <a href="./lifecycle-hooks.html">lifecycle hook</a> is invoked, the
+                    cooldown period begins after you complete the lifecycle action or after the
+                    timeout period ends. For example, consider an Auto Scaling group that has a lifecycle
+                    hook for instance launch. When the application experiences an increase in
+                    demand, the group launches an instance to add capacity. Because there is a
+                    lifecycle hook, the instance is put into a wait state and scaling activities due
+                    to simple scaling policies are paused. When the instance enters the
+                        <code class="code">InService</code> state, the cooldown period starts. When the cooldown
+                    period ends, simple scaling policy activities are resumed.</p>
+                <p>When Elastic Load Balancing is enabled, for the purposes of scaling in, the cooldown period
+                    starts when the instance that's selected for termination starts connection
+                    draining (deregistration delay). The cooldown period doesn't wait for connection
+                    draining to finish or the lifecycle hook to complete its action. This means that
+                    any scaling activities due to simple scaling policies can resume as soon as the
+                    result of the scale in event is reflected in the capacity of the group.
+                    Otherwise, waiting to complete all three activities—connection draining,
+                    a lifecycle hook, and a cooldown period— would significantly increase the
+                    amount of time that the Auto Scaling group needs to pause
+                    scaling.</p>
+             
+                <h2 id="set-default-cooldown">Change the default cooldown period</h2>
+                <p>You can't set the default cooldown when you initially create an Auto Scaling group in
+                    the Amazon EC2 Auto Scaling console. By default, this cooldown period is set to 300 seconds (5
+                    minutes). If needed, you can update this after the group is created. </p>
+                 
+                    <h6>To change the default cooldown period (console)</h6>
+                    <p>After creating the Auto Scaling group, on the <b>Details</b> tab,
+                        choose <b>Advanced configurations</b>,
+                            <b>Edit</b>. For <b>Default cooldown</b>,
+                        choose the amount of time that you want based on your instance startup time
+                        or other application needs.</p>
+                 
+                 
+                    <h6>To change the default cooldown period (AWS CLI)</h6>
+                    <p>Use the following commands to change the default cooldown for new or
+                        existing Auto Scaling groups. If the default cooldown is not defined, the default
+                        value of 300 seconds is used. </p>
+                 
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/autoscaling/create-auto-scaling-group.html" rel="noopener noreferrer" target="_blank"><span>create-auto-scaling-group</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/autoscaling/update-auto-scaling-group.html" rel="noopener noreferrer" target="_blank"><span>update-auto-scaling-group</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                    </li></ul></div>
+                <p>To confirm the value of the default cooldown, use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/autoscaling/describe-auto-scaling-groups.html" rel="noopener noreferrer" target="_blank"><span>describe-auto-scaling-groups</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command.</p>
+             
+                <h2 id="cooldowns-scaling-specific">Set a cooldown period for specific simple scaling policies</h2>
+                <p>By default, all simple scaling policies use the default cooldown period that
+                    is defined for the Auto Scaling group. To set a cooldown period for specific simple
+                    scaling policies, use the optional cooldown parameter when you create or update
+                    the policy. When a cooldown period is specified for a policy, it overrides the
+                    default cooldown.</p>
+                <p>One common use for a scaling policy-specific cooldown period is with a
+                    scale in policy. Because this policy terminates instances, Amazon EC2 Auto Scaling needs less
+                    time to determine whether to terminate additional instances. Terminating
+                    instances should be a much quicker operation than launching instances. The
+                    default cooldown period of 300 seconds is therefore too long. In this case, a
+                    scaling policy-specific cooldown period with a lower value for your scale in
+                    policy can help you reduce costs by allowing the group to scale in faster. </p>
+                <p>To create or update simple scaling policies in the console, choose the
+                        <b>Automatic scaling</b> tab after you create the group. To
+                    create or update simple scaling policies using the AWS CLI, use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/autoscaling/put-scaling-policy.html" rel="noopener noreferrer" target="_blank"><span>put-scaling-policy</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command. For more information, see <a href="./as-scaling-simple-step.html">Step and simple scaling
+                    policies</a>.</p>
+            <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./simple-scaling-policies.html">Simple scaling policies</div><div id="next" class="next-link" accesskey="n" href="./as-using-sqs-queue.html">Scaling policy based on Amazon SQS</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Auto Scaling&amp;topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Auto Scaling&amp;topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

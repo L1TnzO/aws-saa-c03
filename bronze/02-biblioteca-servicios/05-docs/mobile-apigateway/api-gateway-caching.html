@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Cache settings for REST APIs in API Gateway - Amazon API Gateway</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="api-gateway-caching" /><meta name="default_state" content="api-gateway-caching" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html" /><meta name="description" content="Learn how to enable Amazon API Gateway caching to enhance your API's performance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon API Gateway" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Build, deploy, maintain and call cloud-based APIs using Amazon API Gateway with this Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html" hreflang="x-default" /><meta name="feedback-item" content="API Gateway" /><meta name="this_doc_product" content="Amazon API Gateway" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'apigateway'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Cache settings for REST APIs in API Gateway" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="api-gateway-caching.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Cache settings for REST APIs in API Gateway - Amazon API Gateway</title><meta name="pdf" content="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#api-gateway-caching" /><meta name="rss" content="amazon-apigateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAx94GNHn2R3Ot5Ab_HCvlng" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API%20Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-caching.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-caching.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-caching.html" /><meta name="keywords" content="API Gateway,Amazon API Gateway,serverless,cloud computing,REST API,HTTP API,WebSocket API,REST APIs,create an API,Caching,Payload compression,cashing" /><link rel="alternate" type="text/markdown" href="api-gateway-caching.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "API Gateway REST APIs",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Optimize performance of REST APIs",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/rest-api-optimize.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Cache settings for REST APIs in API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/rest-api-optimize.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#api-gateway-caching" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/apigateway/index.html">Amazon API Gateway</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#enable-api-gateway-caching">Enable API caching</a><a href="#override-api-gateway-stage-cache-for-method-cache">Override stage
+                caching for method caching</a><a href="#enable-api-gateway-cache-keys">Use method/integration parameters as cache keys</a><a href="#flush-api-caching">Flush the API stage cache in API Gateway</a><a href="#invalidate-method-caching">Invalidate an API Gateway cache entry</a><a href="#cfn-cache-example">CloudFormation example of a stage with a cache</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="api-gateway-caching">Cache settings for REST APIs in API Gateway</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can enable API caching in API Gateway to cache your endpoint's responses. With
+        caching, you can reduce the number of calls made to your endpoint and also improve the
+        latency of requests to your API.</p><p>When you enable caching for a stage, API Gateway caches responses from your endpoint for a
+        specified time-to-live (TTL) period, in seconds. API Gateway then responds to the request by
+        looking up the endpoint response from the cache instead of making a request to your
+        endpoint. The default TTL value for API caching is 300 seconds. The maximum TTL value is
+        3600 seconds. TTL=0 means caching is disabled.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Caching is best-effort. You can use the <code class="code">CacheHitCount</code> and <code class="code">CacheMissCount</code> metrics in
+      Amazon CloudWatch to monitor requests that API Gateway serves from the API cache.</p></div></div><p>The maximum size of a response that can be cached is 1048576 bytes. Cache data encryption
+        may increase the size of the response when it is being cached.</p><p>This is a HIPAA Eligible Service. For more information about AWS, U.S. Health Insurance Portability and Accountability Act of 1996 (HIPAA), and using AWS services to process, store, and transmit protected health information (PHI), see <a href="https://aws.amazon.com/compliance/hipaa-compliance/" rel="noopener noreferrer" target="_blank"><span>HIPAA Overview</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you enable caching for a stage, only <code class="code">GET</code> methods have caching
+            enabled by default. This helps to ensure the safety and availability of your API. You
+            can enable caching for other methods by <a href="#override-api-gateway-stage-cache-for-method-cache">overriding method
+                settings</a>.</p></div></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Caching is charged by the hour based on the cache size that you select. Caching is not eligible for the AWS Free Tier. For more information, see <a href="https://aws.amazon.com/api-gateway/pricing/" rel="noopener noreferrer" target="_blank"><span>API Gateway Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+    <h2 id="enable-api-gateway-caching">Enable Amazon API Gateway caching</h2>
+    <p>In API Gateway, you can enable caching for a specific stage.</p>
+    <p> When you enable caching, you must choose a cache capacity. In general, a larger capacity gives a better
+      performance, but also costs more. For supported cache sizes, see <a href="https://docs.aws.amazon.com/apigateway/latest/api/API_CreateStage.html#apigw-CreateStage-request-cacheClusterSize">cacheClusterSize</a> in the <em>API Gateway API Reference</em>.</p>
+    <p> API Gateway enables caching by creating a dedicated cache instance. This process can take up to 4 minutes. </p>
+    <p>API Gateway changes caching capacity by removing the existing cache instance and creating a new one with a modified
+      capacity. All existing cached data is deleted. </p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The cache capacity affects the CPU, memory, and network bandwidth of the cache instance. As a result, the
+        cache capacity can affect the performance of your cache. </p><p>API Gateway recommends that you run a 10-minute load test to verify that your cache capacity is appropriate for
+        your workload. Ensure that traffic during the load test mirrors production traffic. For example, include ramp
+        up, constant traffic, and traffic spikes. The load test should include responses that can be served from the
+        cache, as well as unique responses that add items to the cache. Monitor the latency, 4xx, 5xx, cache hit, and
+        cache miss metrics during the load test. Adjust your cache capacity as needed based on these metrics. For more
+        information about load testing, see <a href="https://repost.aws/knowledge-center/api-gateway-cache-capacity" rel="noopener noreferrer" target="_blank"><span>How do I select the best API Gateway cache
+          capacity to avoid hitting a rate limit?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+
+<awsdocs-tabs><dl style="display: none">
+  <dt>AWS Management Console</dt><dd tab-id="aws-management-console"><p> In the API Gateway console, you configure caching on the <b>Stages</b> page. You provision the stage
+      cache and specify a default method-level cache setting. If you turn on the default method-level cache,
+      method-level caching is turned on for all <code class="code">GET</code> methods on your stage, unless that method has a method override. Any
+      additional <code class="code">GET</code> methods that you deploy to your stage will have a method-level cache. To configure
+      method-level caching setting for specific methods of your stage, you can use method overrides. For more
+      information about method overrides, see <a href="#override-api-gateway-stage-cache-for-method-cache">Override API Gateway stage-level caching for method-level caching</a>.</p>
+      <div class="procedure"><h6>To configure API caching for a given stage:</h6><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>Choose <b>Stages</b>.</p>
+        </li><li>
+          <p>In the <b>Stages</b> list for the API, choose the stage.</p>
+        </li><li>
+          <p>In the <b>Stage details</b> section, choose <b>Edit</b>.</p>
+        </li><li>
+          <p>Under <b>Additional settings</b>, for <b>Cache settings</b>, turn on
+            <b>Provision API cache</b>.</p>
+          <p>This provisions a cache cluster for your stage.</p>
+        </li><li>
+          <p>To activate caching for your stage, turn on <b>Default method-level caching</b>.</p>
+          <p>This turns on method-level caching for all <code class="code">GET</code> methods on your stage. Any additional <code class="code">GET</code> methods
+            that you deploy to this stage will have a method-level cache. </p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have an existing setting for a method-level cache, changing the default method-level caching setting doesn't
+              affect that existing setting.</p></div></div>
+          <div class="mediaobject">
+             
+              <img src="/images/apigateway/latest/developerguide/images/api-caching-stage-flow.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Turn on provision API cache and default method-level caching." style="max-width:100%" />
+             
+             
+          </div>
+        </li><li>
+          <p>Choose <b>Save changes</b>.</p>
+        </li></ol></div>
+    </dd>
+  <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-stage.html">update-stage</a> command
+            updates a stage to provision a cache and turns on method-level caching for all <code class="code">GET</code> methods on
+            your stage:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway update-stage \
+    --rest-api-id a1b2c3 \
+    --stage-name 'prod' \
+    --patch-operations file://patch.json</code></pre>
+    <p>The contents of <code class="code">patch.json</code> are the following:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">[
+     <span>{</span>
+          "op": "replace",
+          "path": "/cacheClusterEnabled",
+          "value": "true"
+     },
+     <span>{</span>
+          "op": "replace",
+          "path": "/cacheClusterSize",
+          "value": "0.5"
+     },
+     <span>{</span>
+        "op": "replace",
+        "path": "/*/*/caching/enabled",
+        "value": "true"
+     }
+]</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have an existing setting for a method-level cache, changing the default method-level caching setting doesn't
+          affect that existing setting.</p></div></div>
+    </dd>
+</dl></awsdocs-tabs>
+
+    
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p> Creating or deleting a cache takes about 4 minutes for API Gateway to complete. </p><p>When a cache is created,
+        the <b>Cache cluster</b> value changes from <code class="code">Create in progress</code> to
+        <code class="code">Active</code>. When cache deletion is completed, the <b>Cache cluster</b> value changes from
+          <code class="code">Delete in progress</code> to <code class="code">Inactive</code>.</p><p>When you turn on method-level caching for all
+        methods on your stage, the <b>Default method-level caching</b> value changes to
+          <code class="code">Active</code>. If you turn off method-level caching for all methods on your stage, the <b>Default
+          method-level caching</b> value changes to <code class="code">Inactive</code>. If you have an existing setting for a
+        method-level cache, changing the status of the cache doesn't affect that setting. </p></div></div>
+    <p>When you enable caching within a stage's <b>Cache settings</b>, only <code class="code">GET</code> methods
+      are cached. To ensure the safety and availability of your API, we recommend that you don't change this setting.
+      However, you can enable caching for other methods by <a href="#override-api-gateway-stage-cache-for-method-cache">overriding method settings</a>.</p>
+    <p> If you would like to verify if caching is functioning as expected, you have two general options: </p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p> Inspect the CloudWatch metrics of <b>CacheHitCount</b> and <b>CacheMissCount</b>
+          for your API and stage. </p>
+      </li><li class="listitem">
+        <p> Put a timestamp in the response. </p>
+      </li></ul></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Don't use the <code class="code">X-Cache</code> header from the CloudFront response to determine if your API is being
+        served from your API Gateway cache instance.</p></div></div>
+   
+        <h2 id="override-api-gateway-stage-cache-for-method-cache">Override API Gateway stage-level caching for method-level caching</h2>
+    <p>You can override stage-level cache settings by turning on or turning off caching for a specific method. You
+      can also modify the TTL period or turn encryption on or off for cached responses. 
+    </p>
+      <p>If you anticipate that a method
+        that you are caching will receive sensitive data in its responses, encrypt your cache data. You might need to do this to comply with various compliance frameworks. For more information, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/apigateway-controls.html">Amazon API Gateway controls</a>
+        in the <em>AWS Security Hub User Guide</em>.</p> 
+      
+      
+      <awsdocs-tabs><dl style="display: none">
+        <dt>AWS Management Console</dt><dd tab-id="aws-management-console"><p>If you change the default method-level caching setting in the <b>Stage details</b>, it doesn't affect the method-level cache settings that have overrides.</p>
+            <p>If you anticipate that a method that you are caching will receive sensitive data in
+              its responses, in <b>Cache Settings</b>, choose <b>Encrypt cache
+                data</b>.</p>
+            <div class="procedure"><h6>To configure API caching for individual methods using the console:</h6><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose the API.</p>
+              </li><li>
+                <p>Choose <b>Stages</b>.</p>
+              </li><li>
+                <p>In the <b>Stages</b> list for the API, expand the stage and
+                  choose a method in the API.</p>
+              </li><li>
+                <p>In the <b>Method overrides</b> section, choose
+                  <b>Edit</b>.</p>
+              </li><li>
+                <p>In the <b>Method settings</b> section, turn on or off
+                  <b>Enable method cache</b> or customize any other desired
+                  options.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Caching is not active until you provision a cache cluster for your stage.</p></div></div>
+              </li><li><p>Choose <b>Save</b>.</p></li></ol></div>
+          </dd>
+        <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-stage.html">update-stage</a> command
+            turns off the cache only for the <code class="code">GET /pets</code> method:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway update-stage /
+    --rest-api-id a1b2c3 /
+    --stage-name 'prod' /
+    --patch-operations file://patch.json</code></pre>
+            <p>The contents of <code class="code">patch.json</code> are the following:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">[<span>{</span>
+        "op": "replace",
+        "path": "/~1pets/GET/caching/enabled",
+        "value": "false"
+}]</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+      
+     
+        <h2 id="enable-api-gateway-cache-keys">Use method or integration parameters as cache keys to index cached responses</h2>
+    <p>You can use a method or integration parameter as cache keys to index cached responses. This includes custom
+      headers, URL paths, or query strings. You can specify some or all of these parameters as the cache key, but you
+      must specify at least one value. When you have a cache key, API Gateway caches the responses from each key value
+      separately, including when the cache key isn't present.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Cache keys are required when setting up caching on a resource.</p></div></div>
+        <p> For example, suppose you have a request in the following format: </p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">
+GET /users?type=... HTTP/1.1
+host: example.com
+...
+        </code></pre>
+        <p>In this request, <code class="code">type</code> can take a value of <code class="code">admin</code> or
+                <code class="code">regular</code>. If you include the <code class="code">type</code> parameter as part of the
+            cache key, the responses from <code class="code">GET /users?type=admin</code> are cached separately
+            from those from <code class="code">GET /users?type=regular</code>. </p>
+        <p> When a method or integration request takes more than one parameter, you can choose to
+            include some or all of the parameters to create the cache key. For example, you can
+            include only the <code class="code">type</code> parameter in the cache key for the following request,
+            made in the listed order within a TTL period: </p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">
+GET /users?type=admin&amp;department=A HTTP/1.1
+host: example.com
+...
+        </code></pre>
+        <p> The response from this request is cached and is used to serve the following request: </p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">
+GET /users?type=admin&amp;department=B HTTP/1.1
+host: example.com
+...
+        </code></pre>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>AWS Management Console</dt><dd tab-id="aws-management-console">
+            <p>To include a method or integration request parameter as part of a cache key in the
+              API Gateway console, select <b>Caching</b> after you add the parameter. </p>
+            <div class="mediaobject">
+               
+                <img src="/images/apigateway/latest/developerguide/images/api-caching-including-parameter-as-cache-key-new-console.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Include method or integration parameters as cache keys to index cached response" style="max-width:100%" />
+               
+               
+            </div>
+            </dd>
+        <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/put-method.html">put-method</a> command creates a
+              <code class="code">GET</code> method and requires the <code class="code">type</code> query string parameter:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway put-method /
+    --rest-api-id a1b2c3 /
+    --resource-id aaa111 /
+    --http-method GET /
+    --authorization-type "NONE" /
+    --request-parameters "method.request.querystring.type=true"</code></pre>
+          <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/put-integration.html">put-integration</a> command
+            creates an integration for the <code class="code">GET</code> method with an HTTP endpoint and specifies that API Gateway caches
+            the <code class="code">type</code> method request parameter:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway put-integration /
+    --rest-api-id a1b2c3 /
+    --resource-id aaa111 /
+    --http-method GET /
+    --type HTTP /
+    --integration-http-method GET /
+    --uri 'https://example.com' /
+    --cache-key-parameters "method.request.querystring.type"</code></pre>
+          <p>To specify API Gateway cache an integration request parameter, use
+            <code class="code">integration.request.location.name</code> as the cache key parameter.</p>
+          </dd>
+      </dl></awsdocs-tabs>
+    
+     
+        <h2 id="flush-api-caching">Flush the API stage cache in API Gateway</h2>
+        <p>When API caching is enabled, you can flush your API stage's cache to ensure
+            that your API's clients get the most recent responses from your integration endpoints.</p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>AWS Management Console</dt><dd tab-id="aws-management-console">
+            <div class="procedure"><h6>To flush the API stage cache</h6><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Choose an API that has a stage with a cache.</p></li><li>
+                <p>In the main navigation pane, choose <b>Stages</b>, and then choose your stage with a
+                  cache.</p></li><li><p>Choose the <b>Stage actions</b> menu, and then select
+                <b>Flush stage cache</b>.</p></li></ol></div>
+            </dd>
+        <dt>AWS CLI</dt><dd tab-id="aws-cli">
+        <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/flush-stage-cache.html">flush-stage-cache</a>
+          command flushes the stage cache:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway flush-stage-cache \
+    --rest-api-id a1b2c3 \
+    --stage-name prod</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+      
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>After the cache is flushed, responses are serviced from the integration endpoint
+                until the cache is built up again. During this period, the number of requests sent
+                to the integration endpoint may increase. This may temporarily increase the overall
+                latency of your API. </p></div></div>
+     
+        <h2 id="invalidate-method-caching">Invalidate an API Gateway cache entry</h2>
+        <p>A client of your API can invalidate an existing cache entry and reload it from the
+            integration endpoint for individual requests. The client must send a request that
+            contains the <code class="code">Cache-Control: max-age=0</code> header. The client receives the
+            response directly from the integration endpoint instead of the cache, provided that the
+            client is authorized to do so. This replaces the existing cache entry with the new
+            response, which is fetched from the integration endpoint. </p>
+        <p> To grant permission for a client, attach a policy of the following format to an IAM
+            execution role for the user.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Cross-account cache invalidation is not supported.</p></div></div>
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="96d875f9a2dc623b28d7a3401d388d0f038a4e45b64260fdbbd55407a10e6cc1"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "execute-api:InvalidateCache"
+            ],
+            "Resource": [
+                "arn:aws:execute-api:<code class="replaceable">us-east-1</code>:<code class="replaceable">111111111111</code>:<code class="replaceable">api-id</code>/<code class="replaceable">stage-name</code>/GET/<code class="replaceable">resource-path-specifier</code>"
+            ]
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+        <p> This policy allows the API Gateway execution service to invalidate the cache for requests
+            on the specified resource (or resources). To specify a group of targeted resources, use
+            a wildcard (*) character for <code class="code">account-id</code>, <code class="code">api-id</code>, and other
+            entries in the ARN value of <code class="code">Resource</code>. For more information on how to set
+            permissions for the API Gateway execution service, see <a href="./permissions.html">Control access to a REST API with IAM permissions</a>. </p>
+        <p> If you don't impose an <code class="code">InvalidateCache</code> policy (or choose the
+                <b>Require authorization</b> check box in the console), any client can
+            invalidate the API cache. If most or all of the clients invalidate the API cache, this
+            could significantly increase the latency of your API. </p>
+        <p> When the policy is in place, caching is enabled and authorization is required.</p>      
+      <p>You
+              can specify how API Gateway handles unauthorized requests by choosing from the following options:</p>
+        <div class="variablelist">
+           
+           
+           
+        <dl><dt><b><span class="term">Fail the request with 403 status code</span></b></dt>
+            <dd><p>API Gateway returns a <code class="code">403
+              Unauthorized</code> response.</p>
+              <p> To set this option using the API, use <code class="code">FAIL_WITH_403</code>.</p>
+            </dd>
+          <dt><b><span class="term">Ignore cache control header; Add a warning in response
+            header</span></b></dt>
+            <dd><p>API Gateway processes the request and adds a warning header in the
+              response.</p>
+              <p> To set this option using the API, use
+                <code class="code">SUCCEED_WITH_RESPONSE_HEADER</code>. </p>
+            </dd>
+          <dt><b><span class="term">Ignore cache control header</span></b></dt>
+            <dd><p>API Gateway processes the request and doesn't
+              add a warning header in the response.</p>
+              <p> To set this option using the API, use
+                <code class="code">SUCCEED_WITHOUT_RESPONSE_HEADER</code>.</p></dd>
+          </dl></div>
+    <p>You can set the unauthorized request handling behavior using the API Gateway console or AWS CLI.</p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>AWS Management Console</dt><dd tab-id="aws-management-console">
+            <div class="procedure"><h6>To specify how unauthorized requests are handled</h6><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Choose an API that has a stage with a cache.</p></li><li>
+              <p>In the main navigation pane, choose <b>Stages</b>, and then choose your stage with a
+                cache.</p></li><li><p>For <b>Stage details</b>, choose <b>Edit</b>.</p></li><li><p>For <b>Unauthorized request handling</b>, select an option.</p></li><li><p>Choose <b>Continue</b>.</p></li><li><p>Review your changes and choose <b>Save changes</b>.</p></li></ol></div>
+          </dd>
+        <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>The following <a href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-stage.html">update-stage</a> command
+            updates a stage to handle unauthorized requests by failing the request with 403 status code:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws apigateway update-stage /
+    --rest-api-id a1b2c3 /
+    --stage-name 'prod' /
+    --patch-operations 'op=replace,path=/*/*/caching/unauthorizedCacheControlHeaderStrategy,value="FAIL_WITH_403"'</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+    <h2 id="cfn-cache-example">CloudFormation example of a stage with a cache</h2>
+    <p>The following CloudFormation template creates an example API, provisions a <code class="code">0.5</code> GB cache for the 
+      <code class="code">Prod</code> stage, and turns on
+      method-level caching for all <code class="code">GET</code> methods.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Caching is charged by the hour based on the cache size that you select. Caching is not eligible for the
+        AWS Free Tier. For more information, see <a href="https://aws.amazon.com/api-gateway/pricing/" rel="noopener noreferrer" target="_blank"><span>API Gateway
+          Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+      <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example CloudFormation template" id="cfn-cache-example-code" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  Api:
+    Type: 'AWS::ApiGateway::RestApi'
+    Properties:
+      Name: cache-example
+  PetsResource:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      RestApiId: !Ref Api
+      ParentId: !GetAtt Api.RootResourceId
+      PathPart: 'pets'
+  PetsMethodGet:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref Api
+      ResourceId: !Ref PetsResource
+      HttpMethod: GET
+      ApiKeyRequired: true
+      AuthorizationType: NONE
+      Integration:
+        Type: HTTP_PROXY
+        IntegrationHttpMethod: GET
+        Uri: http://petstore-demo-endpoint.execute-api.com/petstore/pets/
+  ApiDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    DependsOn:
+      - PetsMethodGet
+    Properties:
+      RestApiId: !Ref Api
+  ApiStage:
+    Type: 'AWS::ApiGateway::Stage'
+    Properties:
+      StageName: Prod
+      Description: Prod Stage with a cache
+      RestApiId: !Ref Api
+      DeploymentId: !Ref ApiDeployment
+      CacheClusterEnabled: True
+      CacheClusterSize: 0.5
+      MethodSettings:
+        - ResourcePath: /*
+          HttpMethod: '*'
+          CachingEnabled: True
+</code></pre></awsui-expandable-section></div>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./rest-api-optimize.html">Optimize</div><div id="next" class="next-link" accesskey="n" href="./api-gateway-gzip-compression-decompression.html">Content
+            encoding</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-caching.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/api-gateway-caching.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

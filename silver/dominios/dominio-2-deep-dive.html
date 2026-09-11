@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominio 2 · Design Resilient Architectures (26%) · SAA-C03 Guía de estudio · deep dive</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="dominio-1.html">D1 · Secure 30%</a>
+        <a href="dominio-2.html">D2 · Resilient 26%</a>
+        <a href="dominio-3.html">D3 · Performant 24%</a>
+        <a href="dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="../apendice/computo.html">Cómputo</a>
+        <a href="../apendice/almacenamiento.html">Almacenamiento</a>
+        <a href="../apendice/redes.html">Redes y conectividad</a>
+        <a href="../apendice/bases-datos.html">Bases de datos</a>
+        <a href="../apendice/seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="../apendice/contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="../apendice/integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="../apendice/analitica-datos.html">Analítica y big data</a>
+        <a href="../apendice/migracion-hibrido.html">Migración e híbrido</a>
+        <a href="../apendice/gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Dominio 2</div>
+        <h1>Design Resilient Architectures<span class="dom-weight">26%</span></h1>
+        <p class="page-lead">El segundo dominio del examen entrena un único reflejo: diseñar como si <em>cada componente fuera a fallar</em>.
+        Aquí se decide entre <span class="term-en">decouple</span> con SQS/SNS/EventBridge, escalar con <span class="term-en">Auto Scaling</span>,
+        sobrevivir a la caída de una AZ con <span class="term-en">Multi-AZ</span> y a la de una región con una estrategia de
+        <span class="term-en">disaster recovery</span>.</p>
+      </header>
+
+<div class="callout tip">
+  <div class="co-title">Edición unificada</div>
+  <p>Página integrada desde la <strong>guía extendida</strong> (saa-completo). Complementa el curso por fases:
+  el mismo tema, con más profundidad técnica. Vuelve al <a href="dominio-2.html">curso principal</a> cuando quieras
+  retomar la ruta de 9 fases.</p>
+</div>
+
+
+      <!-- ================= 1 · MAPA DEL DOMINIO ================= -->
+      <h2 id="mapa-dominio"><span class="h2-num">1</span>Mapa del dominio: dos task, un mismo reflejo</h2>
+      <p>El dominio 2 se divide en dos <span class="term-en">task statements</span> oficiales que cubren caras distintas del mismo problema.
+      El <strong>task 2.1</strong> premia arquitecturas que <span class="term-en">scale</span> horizontalmente y viven
+      <span class="term-en">loosely coupled</span>: componentes que no se llaman directamente, sino a través de colas, tópicos y eventos.
+      El <strong>task 2.2</strong> premia arquitecturas que sobreviven a fallos: <span class="term-en">highly available</span>
+      (el servicio casi nunca se interrumpe) y/o <span class="term-en">fault-tolerant</span> (el fallo de un componente no detiene el trabajo).
+      Estudia el mapa completo antes de entrar en detalle: el 26% del examen se reparte entre estos dos bloques.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  D2["Dominio 2<br>Resilient 26%"] --> T21["Task 2.1<br>scalable and<br>loosely coupled"]
+  D2 --> T22["Task 2.2<br>highly available and/or<br>fault-tolerant"]
+  T21 --> A["Mensajeria<br>SQS · SNS · EventBridge"]
+  T21 --> B["Escalado<br>Auto Scaling + ELB"]
+  T21 --> C["Orquestacion<br>Step Functions"]
+  T22 --> D["Datos resilientes<br>RDS · Aurora · DDB"]
+  T22 --> E["Multi-AZ y DR<br>Route 53 · RTO · RPO"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El dominio 2 en un vistazo: dos task oficiales y los servicios con los que se responden.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Task oficial</th><th>Foco de diseño</th><th>Señales típicas en la pregunta</th></tr></thead>
+          <tbody>
+            <tr><td>2.1 — <span class="term-en">scalable and loosely coupled</span></td><td>Desacoplar con mensajería/eventos y escalar horizontal</td><td><span class="term-en">decouple</span>, <span class="term-en">spikes</span>, <span class="term-en">buffer</span>, <span class="term-en">without direct connectivity</span>, <span class="term-en">scale automatically</span></td></tr>
+            <tr><td>2.2 — <span class="term-en">highly available and/or fault-tolerant</span></td><td>Multi-AZ, failover automático y disaster recovery</td><td><span class="term-en">no single point of failure</span>, <span class="term-en">tolerate the failure</span>, <span class="term-en">RTO/RPO</span>, <span class="term-en">regional failure</span>, <span class="term-en">legacy application</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: exam guide oficial + study guide del dominio 2 (bronze/01-exam).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Las preguntas de este dominio casi siempre contienen una promesa de fragilidad: "a component fails", "traffic spikes to 10x",
+        "an Availability Zone becomes unavailable". Tu trabajo es traducir cada fragilidad al mecanismo AWS que la absorbe: cola, réplica,
+        balanceador o segunda región. Si la pregunta menciona <span class="term-en">most cost-effective</span>, recuerda que
+        resiliencia y costo compiten: multi-AZ es el mínimo; multi-Region solo si el escenario lo exige (RTO/RPO, <span class="term-en">regional failure</span>).</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/01-exam/study-guide/solutions-architect-associate-03-domain2.md</code> ·
+      <code>../bronze/02-well-architected/reliability.html</code> (pilar Reliability)</p>
+
+      <!-- ================= 2 · TASK 2.1 + LOOSE COUPLING ================= -->
+      <h2 id="loose-coupling"><span class="h2-num">2</span>Task 2.1 · Desacoplar: colas, eventos y orquestación</h2>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 2.1</div>
+        <div class="tb-title">Design scalable and loosely coupled architectures</div>
+        <div class="tb-meta">Knowledge: servicios de integración (SQS, SNS, EventBridge, Step Functions), cómputo escalable
+        (EC2 Auto Scaling, contenedores), patrones push vs pull · Skills: elegir el mecanismo de desacoplamiento y la política
+        de escalado que exige el escenario</div>
+      </div>
+
+      <p>Una arquitectura <span class="term-en">tightly coupled</span> tiene un defecto letal: si el componente B falla o va lento,
+      el componente A falla con él, porque A llama a B de forma síncrona y espera su respuesta. Desacoplar significa insertar un
+      intermediario duradero entre ambos: A entrega su trabajo y sigue; B lo recoge cuando puede. AWS ofrece tres intermediarios
+      con personalidades distintas — SQS (cola, <span class="term-en">pull</span>), SNS (tópico, <span class="term-en">push</span>) y
+      EventBridge (bus de eventos con reglas) — más un orquestador, Step Functions, para cuando el trabajo es un flujo de pasos
+      y no un mensaje suelto. Dominar "cuál de los cuatro" es la habilidad central del task 2.1.</p>
+
+      <h3>Amazon SQS: la cola que absorbe picos</h3>
+      <p>SQS es el <span class="term-en">buffer</span> por excelencia: los productores encolan y los
+      <span class="term-en">consumers</span> hacen <span class="term-en">pull</span> a su ritmo. Si el tráfico se multiplica por diez,
+      la cola crece y nada se pierde: es la respuesta patrón cuando el examen habla de <span class="term-en">spikes</span> o de
+      procesamiento asíncrono. Sus cuatro piezas de examen:</p>
+      <ul>
+        <li><strong><span class="term-en">visibility timeout</span></strong>: al recibir un mensaje queda invisible para el resto
+        mientras lo procesas (por defecto 30 s, máximo 12 h). Si no lo borras a tiempo, vuelve a la cola y otro consumidor lo reintenta.</li>
+        <li><strong><span class="term-en">dead-letter queue</span> (DLQ)</strong>: tras <code>maxReceiveCount</code> intentos fallidos,
+        el mensaje se mueve a la DLQ para análisis — evita envenenar la cola con mensajes imposibles.</li>
+        <li><strong><span class="term-en">long polling</span></strong>: espera hasta 20 s por mensajes nuevos — menos respuestas
+        vacías, menos coste y menos latencia media que el <span class="term-en">short polling</span>.</li>
+        <li><strong>Standard vs FIFO</strong>: Standard ofrece throughput casi ilimitado con entrega <span class="term-en">at-least-once</span>
+        y orden <span class="term-en">best-effort</span>; FIFO garantiza orden y <span class="term-en">exactly-once processing</span>
+        agrupando por <code>MessageGroupId</code>, con menos throughput. Retención: de 1 minuto a 14 días (4 por defecto).</li>
+      </ul>
+
+      <h3>Amazon SNS: notificar a muchos a la vez</h3>
+      <p>SNS es <span class="term-en">pub/sub</span>: un publicador envía a un <span class="term-en">topic</span> y este hace
+      <span class="term-en">push</span> a todos los suscriptores — SQS, Lambda, HTTP(S), email, SMS, mobile push o Firehose.
+      Es el patrón <span class="term-en">fan-out</span>: un evento de pedido que alimenta en paralelo al sistema de envíos, al
+      de facturación y al data warehouse. La combinación estrella del examen es <strong>SNS + SQS</strong>: el tópico replica a
+      varias colas, y cada cola persiste lo suyo — así un suscriptor caído no pierde mensajes, porque SNS en sí no los almacena.
+      Los <span class="term-en">filter policies</span> de suscripción permiten que cada sistema reciba solo el subconjunto de
+      mensajes que le importa, y los <span class="term-en">FIFO topics</span> añaden orden y deduplicación.</p>
+
+      <h3>Amazon EventBridge: eventos de servicios AWS</h3>
+      <p>EventBridge es un <span class="term-en">serverless event bus</span>: enrutador de eventos con <span class="term-en">rules</span>
+      que filtran por <span class="term-en">event patterns</span> (por ejemplo, "cada vez que un objeto aparece en este bucket de S3").
+      Su bus <span class="term-en">default</span> recibe de serie los eventos de los servicios AWS de tu cuenta, lo que lo convierte
+      en la respuesta obvia ante "react to changes in AWS resources". Añade buses personalizados para tus aplicaciones,
+      <span class="term-en">EventBridge Scheduler</span> para disparos con <span class="term-en">cron/rate</span> (y tareas one-time),
+      y <span class="term-en">Pipes</span> para integraciones punto a punto con enriquecimiento. Frente a SNS, su filtro es más rico
+      (contenido del evento, no solo atributos) y su modelo es de eventos (hechos que ya ocurrieron) más que de mensajes (órdenes).</p>
+
+      <h3>AWS Step Functions: orquestar el flujo completo</h3>
+      <p>Cuando el trabajo no es un mensaje suelto sino una secuencia — validar, cobrar, reservar, notificar — necesitas un
+      orquestador, no solo una cola. Step Functions ejecuta <span class="term-en">state machines</span> escritas en
+      <span class="term-en">Amazon States Language</span>, con reintentos y <span class="term-en">error handling</span> declarativos.
+      Elige el tipo al crear y no lo puedes cambiar: <strong>Standard</strong> para flujos largos y auditables;
+      <strong>Express</strong> para alto volumen.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Standard Workflows</th><th>Express Workflows</th></tr></thead>
+          <tbody>
+            <tr><td>Duración máxima</td><td>1 año</td><td>5 minutos</td></tr>
+            <tr><td>Semántica de ejecución</td><td><span class="term-en">exactly-once</span></td><td><span class="term-en">at-least-once</span> (async) / <span class="term-en">at-most-once</span> (sync)</td></tr>
+            <tr><td>Precio</td><td>Por <span class="term-en">state transition</span></td><td>Por ejecución + duración + memoria</td></tr>
+            <tr><td>Historial de ejecución</td><td>Hasta 90 días vía API/console</td><td>Completo en CloudWatch Logs</td></tr>
+            <tr><td>Integraciones</td><td>Todas, incluidas <code>.sync</code> y <code>.waitForTaskToken</code></td><td>Sin <code>.sync</code>, sin <code>.waitForTaskToken</code>, sin Activities ni Distributed Map</td></tr>
+            <tr><td>Caso típico</td><td>Orquestaciones largas, auditables, no idempotentes (pagos, EMR)</td><td>Alto volumen, IoT, streaming, acciones idempotentes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-stepfunctions/choosing-workflow-type.md.</p>
+
+      <p>La arquitectura desacoplada canónica del examen encadena todos estos bloques: el <span class="term-en">web tier</span>
+      escala detrás de un balanceador y encola trabajo en SQS; un <span class="term-en">worker tier</span> independiente consume
+      a su ritmo y escribe resultados. Ni un componente conoce la existencia del otro: el acoplamiento es cero y cada capa escala por separado.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  U["Usuarios"] --> W["Web tier<br>stateless"]
+  W --> ALB["ALB"]
+  ALB --> ASG["ASG web<br>multi-AZ"]
+  ASG --> Q["SQS Standard<br>buffer de picos"]
+  Q --> WK["Worker tier<br>ASG consumers"]
+  WK --> S3["S3<br>resultados"]
+  WK --> DDB["DynamoDB<br>estado"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Arquitectura desacoplada clásica: el SQS intermedio absorbe los picos y las capas escalan por separado.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon SQS</th><th>Amazon SNS</th><th>EventBridge</th><th>Amazon MSK</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>Cola — consumers hacen pull</td><td>Tópico — push a suscriptores</td><td>Bus de eventos con rules</td><td>Streaming tipo Kafka</td></tr>
+            <tr><td>Distribución</td><td>1 mensaje → 1 consumidor</td><td>1 mensaje → N suscriptores (fan-out)</td><td>1 evento → 0..N targets según patrón</td><td>Particiones por consumer group</td></tr>
+            <tr><td>Orden</td><td>Best-effort; FIFO opcional</td><td>Best-effort; FIFO opcional</td><td>Sin orden global garantizado</td><td>Orden por partición/clave</td></tr>
+            <tr><td>Retención</td><td>1 min – 14 días (4 por defecto)</td><td>No persiste: reintenta entrega</td><td>Reintentos de entrega hasta 24 h</td><td>Días por topic (7 por defecto)</td></tr>
+            <tr><td>Persistencia / replay</td><td>El mensaje vive en la cola</td><td>No (usa SNS + SQS si importa)</td><td>Archivo y replay (archive)</td><td>Replay por offsets</td></tr>
+            <tr><td>Caso típico del examen</td><td>Buffer para spikes, decouple de workers</td><td>Notificar N sistemas a la vez</td><td>Eventos de servicios AWS, cron</td><td>Apps ya basadas en Kafka</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/integration-{sqs,sns,eventbridge}/welcome.md + eb-what-is.md.</p>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Confundir "SQS tiene <span class="term-en">at-least-once</span> delivery" con "SQS entrega una vez": en Standard un mensaje
+        puede llegar duplicado, así que los consumers deben ser <span class="term-en">idempotent</span>. Y al revés: si el examen exige
+        orden y exactamente una entrega, la cola debe ser FIFO — pero cobras en throughput y en que la DLQ de una FIFO rompe el orden.</p>
+      </div>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">decouple</span> o <span class="term-en">loosely coupled</span> entre dos componentes que hoy se llaman
+        directo → <strong>SQS</strong> (el consumidor hace pull). Tráfico con <span class="term-en">spikes</span> y workers que no
+        dan abasto → SQS como <span class="term-en">buffer</span>. "Notify multiple systems" o "fan-out" → <strong>SNS</strong>.
+        "When an object is uploaded / instance changes state / react to AWS service events" o "schedule with cron" →
+        <strong>EventBridge</strong>. Y si te ofrecen MSK como opción sin que la pregunta hable de Kafka o de sus protocolos,
+        casi siempre es el distractor "over-engineered".</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/integration-sqs/welcome.md</code> ·
+      <code>../bronze/05-docs/integration-sqs/sqs-visibility-timeout.md</code> ·
+      <code>../bronze/05-docs/integration-sqs/sqs-dead-letter-queues.md</code> ·
+      <code>../bronze/05-docs/integration-sqs/sqs-queue-types.md</code> ·
+      <code>../bronze/05-docs/integration-sns/welcome.md</code> ·
+      <code>../bronze/05-docs/integration-eventbridge/eb-what-is.md</code> ·
+      <code>../bronze/05-docs/integration-stepfunctions/choosing-workflow-type.md</code></p>
+
+      <!-- ================= 3 · ESCALADO ================= -->
+      <h2 id="escalado"><span class="h2-num">3</span>Escalado elástico: Amazon EC2 Auto Scaling</h2>
+      <p><span class="term-en">Amazon EC2 Auto Scaling</span> organiza instancias en <span class="term-en">Auto Scaling groups</span>
+      (ASG) definidos por mínimo, deseado y máximo: es el "músico" que añade o quita servidores según la partitura de demanda.
+      La configuración de cada instancia viene de un <span class="term-en">launch template</span> — versión a versión, soporta
+      múltiples <span class="term-en">instance types</span> y opciones de compra (On-Demand + Spot) — y es lo que actualizas cuando
+      quieres desplegar un AMI nueva. Repartir el ASG sobre varias <span class="term-en">Availability Zones</span> balancea las
+      instancias entre AZs y es la primera capa de alta disponibilidad de cualquier workload.</p>
+      <p>El corazón del ASG son las políticas de escalado y sus <span class="term-en">health checks</span>. Los health checks
+      <strong>EC2</strong> (por defecto) solo detectan fallo del hipervisor; los <strong>ELB</strong> comprueban además que la
+      aplicación responda bien en su endpoint — si una instancia está viva pero cuelga peticiones, solo el check de ELB la
+      detecta y el ASG la reemplaza. Cuando lanzas una instancia nueva, el <span class="term-en">DefaultInstanceWarmup</span>
+      (por defecto 300 s) decide cuánto esperar antes de que cuente para las métricas; y el
+      <span class="term-en">instance refresh</span> renueva en <span class="term-en">rolling deployment</span> (u opcional
+      canary) todas las instancias cuando cambias el launch template.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Política</th><th>Cómo decide</th><th>Cuándo usarla</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">target tracking</span></td><td>Mantiene una métrica en el objetivo fijado (p. ej. CPU al 40%)</td><td>La opción por defecto del examen: simple, estable, auto-ajustable</td></tr>
+            <tr><td><span class="term-en">step scaling</span></td><td>Escala por pasos según el tamaño de la brecha de la alarma</td><td>Control fino por umbrales sucesivos</td></tr>
+            <tr><td><span class="term-en">scheduled scaling</span></td><td>Actúa a fecha y hora conocidas</td><td>Picos predecibles (fin de mes, campaña)</td></tr>
+            <tr><td><span class="term-en">predictive scaling</span></td><td>ML sobre el histórico de la métrica</td><td>Patrones periódicos; requiere histórico suficiente</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-ec2-autoscaling/as-scaling-target-tracking.md y siblings.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  M["CloudWatch metric<br>CPU · ALBRequestCount"] --> E{"¿Metrica fuera<br>del target?"}
+  E -->|"sí"| SO["Ejecuta scale-out<br>launch template"]
+  SO --> N["Instancia nueva<br>+ warmup"]
+  N --> R["Se registra en ELB<br>y recibe trafico"]
+  R --> M
+  E -->|"no"| M
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — El ciclo de escalado: una métrica, un objetivo, un lanzamiento con warmup y vuelta a empezar.</figcaption>
+      </figure>
+
+      <p>El <span class="term-en">cooldown</span> (por defecto 300 s) pausa las políticas <span class="term-en">simple</span> y
+      <span class="term-en">step</span> tras una actividad para no sobrerreaccionar; <span class="term-en">target tracking</span>
+      se autogestiona y no lo usa. La pregunta típica es de calendario: "la web recibe el triple cada viernes por la noche,
+      <span class="term-en">predictable workload</span>" → <strong>scheduled scaling</strong>; "el tráfico es impredecible y quiero
+      mantener CPU al 40 sin tocar nada" → <strong>target tracking</strong>. Y recuerda el orden de lectura del examen: si aparece
+      <span class="term-en">without any code changes</span>, la respuesta suele ser infraestructura (ASG + ELB), no reescribir la app.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"Application must <span class="term-en">scale automatically based on demand</span>" → target tracking, no scaling manual.
+        "Traffic is <span class="term-en">predictable</span> / occurs every day at 9am" → scheduled. "Instances are
+        <span class="term-en">running but not responding</span> to requests" → habilita <strong>ELB health checks</strong> en el ASG:
+        el check EC2 solo ve la máquina, no la aplicación. Trampa clásica: ofrecer "aumentar el tamaño de la instancia"
+        (<span class="term-en">vertical scaling</span>) cuando el patrón cloud correcto es horizontal — más instancias pequeñas detrás del ELB.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/compute-ec2-autoscaling/what-is-amazon-ec2-auto-scaling.md</code> ·
+      <code>../bronze/05-docs/compute-ec2-autoscaling/launch-templates.md</code> ·
+      <code>../bronze/05-docs/compute-ec2-autoscaling/ec2-auto-scaling-scaling-cooldowns.md</code> ·
+      <code>../bronze/05-docs/compute-ec2-autoscaling/asg-instance-refresh.md</code></p>
+
+      <!-- ================= 4 · LOAD BALANCING ================= -->
+      <h2 id="load-balancing"><span class="h2-num">4</span>Load balancing: repartir el tráfico y detectar los muertos</h2>
+      <p><span class="term-en">Elastic Load Balancing</span> es el complemento natural del ASG: distribuye el tráfico entrante entre
+      los <span class="term-en">targets</span> sanos (instancias, IPs, contenedores o funciones Lambda) en varias AZs, y escala
+      su propia capacidad con la demanda. Su función de examen es doble: es el punto único de entrada que elimina un
+      <span class="term-en">single point of failure</span> de la capa web, y es el árbitro de salud que decide qué instancia recibe
+      peticiones. En el listener HTTPS descargas el TLS con certificados de ACM, dejando a las instancias el trabajo puro de aplicación.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Application LB</th><th>Network LB</th><th>Gateway LB</th></tr></thead>
+          <tbody>
+            <tr><td>Capa OSI</td><td>7 — HTTP/HTTPS/WebSocket</td><td>4 — TCP/UDP/TLS</td><td>3 — IP (Geneve 6081)</td></tr>
+            <tr><td>Targets</td><td>EC2, IP, contenedores, Lambda</td><td>EC2, IP, Lambda, ALB</td><td>EC2, IP (appliances virtuales)</td></tr>
+            <tr><td>IP estática</td><td>No — DNS</td><td>Sí, una por AZ</td><td>Sí — interfaz en tu subred</td></tr>
+            <tr><td>Routing</td><td>Host, path, headers, query strings</td><td>Por puerto y destino</td><td>Lineal: todo pasa por el appliance</td></tr>
+            <tr><td>TLS</td><td>Termina en listener (ACM)</td><td>Termina o passthrough (SNI)</td><td>No aplica</td></tr>
+            <tr><td>Sticky sessions</td><td>Cookies (AWSALB o de la app)</td><td>Afinidad por flujo TCP</td><td>No</td></tr>
+            <tr><td>Caso típico</td><td>Microservicios HTTP, ECS/EKS</td><td>Ultra baja latencia, IPs fijas, IoT/gaming</td><td>Firewalls, IDS/IPS, inspección</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/network-elb/what-is-load-balancing.md + guías de usuario ALB/NLB/GLB.</p>
+
+      <p>Dos comportamientos cruzan todo el examen. Las <span class="term-en">sticky sessions</span> (sesiones pegajosas) fijan un
+      usuario a una instancia mediante cookie — útiles cuando la app guarda sesión en local, aunque el patrón moderno es
+      externalizar el estado (ElastiCache/DynamoDB) y ser <span class="term-en">stateless</span>. El
+      <span class="term-en">connection draining</span> (oficialmente <span class="term-en">deregistration delay</span>, 300 s por
+      defecto) da tiempo a terminar las peticiones en vuelo cuando un target se desregistra — el usuario no ve un error brutal
+      en medio de un deploy o un reemplazo. Y el <span class="term-en">cross-zone load balancing</span> reparte tráfico entre AZs:
+      en ALB viene siempre activo y gratis; en NLB está desactivado por defecto (y al activarlo cobra el tráfico entre AZs).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  C["Clientes"] --> DNS["Route 53"]
+  DNS --> ALB["ALB — listeners<br>80 y 443"]
+  ALB --> T1["Target group<br>subred AZ-a"]
+  ALB --> T2["Target group<br>subred AZ-b"]
+  T1 -.->|"unhealthy"| D["Deregistration delay:<br>drena y saca"]
+  T2 -.->|"unhealthy"| D
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Multi-AZ detrás de un ALB: el balanceador reparte entre AZs y aparta a los targets enfermos.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"Route based on <span class="term-en">URL path</span> (/api, /images)" o "Lambda as target" → <strong>ALB</strong>.
+        "Requires a <span class="term-en">static IP address</span>" o "<span class="term-en">millions of requests per second</span>
+        with ultra-low latency" o TLS que debe pasar intacto al servidor → <strong>NLB</strong>. "Run a third-party
+        <span class="term-en">firewall / intrusion detection</span> appliance and inspect all traffic" → <strong>GLB</strong>.
+        Si mezclan NLB y "path-based routing", es distractor: el routing por path vive en capa 7.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/network-elb/what-is-load-balancing.md</code> ·
+      <code>../bronze/05-docs/compute-ec2-autoscaling/what-is-amazon-ec2-auto-scaling.md</code> (integración ASG + ELB)</p>
+
+      <!-- ================= 5 · TASK 2.2 + DATOS RESILIENTES ================= -->
+      <h2 id="datos-resilientes"><span class="h2-num">5</span>Task 2.2 · Datos resilientes: RDS, Aurora, DynamoDB y EFS</h2>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 2.2</div>
+        <div class="tb-title">Design highly available and/or fault-tolerant architectures</div>
+        <div class="tb-meta">Knowledge: multi-AZ vs multi-Region, RDS Multi-AZ y read replicas, Aurora HA, DynamoDB global tables,
+        DR strategies (backup &amp; restore, pilot light, warm standby, multi-site), Route 53 failover · Skills: aplicar RTO/RPO,
+        eliminar single points of failure y elegir el nivel de redundancia que el negocio paga</div>
+      </div>
+
+      <p>La capa de datos es donde "esperemos que no falle" se convierte en diseño. En RDS hay dos mecanismos que el examen
+      enfrenta constantemente y que no son intercambiables: <span class="term-en">Multi-AZ</span> y
+      <span class="term-en">read replicas</span>. Multi-AZ mantiene una <span class="term-en">standby replica</span> en otra AZ
+      con <strong>replicación síncrona</strong>: cada commit se confirma en las dos AZs, el standby no acepta lecturas, y si el
+      primary falla, RDS promociona al standby y mueve el <strong>mismo endpoint</strong> (un CNAME) — la aplicación ni se entera
+      salvo por un corte de típicamente 60–120 segundos. Es <em>alta disponibilidad</em>, no escalado. Las read replicas replican
+      <strong>asíncronamente</strong> con endpoint propio: sirven para <em>escalar lecturas</em>, para DR cross-Region y para
+      migraciones, y pueden <span class="term-en">promoverse</span> a base independiente cuando las necesites como tal.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>RDS Multi-AZ</th><th>Read replicas</th></tr></thead>
+          <tbody>
+            <tr><td>Replicación</td><td>Síncrona a standby</td><td>Asíncrona</td></tr>
+            <tr><td>Propósito</td><td>Alta disponibilidad — failover</td><td>Escalar lecturas · DR · migraciones</td></tr>
+            <tr><td>¿Sirve para leer?</td><td>No — standby pasivo</td><td>Sí — cada réplica con su endpoint</td></tr>
+            <tr><td>Failover</td><td>Automático, ~60 s, mismo endpoint</td><td>Promoción (manual salvo DR gestionado)</td></tr>
+            <tr><td>Alcance</td><td>Intra-Region (entre AZs)</td><td>Iguales o cross-Region — hasta 15</td></tr>
+            <tr><td>Precio a pagar</td><td>+latencia de commit síncrono</td><td>Replication lag eventual</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-rds/concepts-multiazsinglestandby.md + user-readrepl-xrgn.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant App as Aplicacion
+    participant EP as Endpoint RDS
+    participant P as Primary en AZ-a
+    participant S as Standby en AZ-b
+    App->>EP: escritura
+    EP->>P: reenvia al primary
+    P->>S: replicacion sincrona
+    Note over P: fallo del primary o de la AZ
+    S->>S: promocion a primary
+    EP->>S: el CNAME pasa a apuntar al standby
+    App->>EP: reintento con el mismo endpoint
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Failover Multi-AZ: la app siempre escribe contra el mismo endpoint; detrás, RDS cambia de destino.</figcaption>
+      </figure>
+
+      <h3>Amazon Aurora: HA por diseño, no por añadido</h3>
+      <p>Aurora nace resiliente: separa cómputo y almacenamiento, y el <span class="term-en">cluster volume</span> mantiene
+      <strong>seis copias de los datos en tres AZs</strong> — perder dos nodos de almacenamiento ni se nota. Puedes añadir hasta
+      <strong>15 Aurora Replicas</strong> (lectores); si el writer falla, una réplica se promociona en típicamente menos de 30
+      segundos. La app se conecta por <span class="term-en">endpoints</span> que ya absorben el failover, y
+      <span class="term-en">Aurora Global Database</span> replica asíncronamente a otras regiones con lag típico inferior a
+      1 segundo para DR global y lecturas cercanas al usuario. <span class="term-en">Aurora Serverless v2</span> añade el
+      escalado de cómputo en <span class="term-en">ACUs</span> según demanda, pagando por lo usado.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Endpoint Aurora</th><th>Apunta a</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">writer</span> (cluster)</td><td>El primary actual</td><td>Escrituras — sobrevive al failover</td></tr>
+            <tr><td><span class="term-en">reader</span></td><td>Todas las réplicas</td><td>Balancea SELECTs de lectura</td></tr>
+            <tr><td><span class="term-en">custom</span></td><td>Subconjunto elegido</td><td>Aislar una carga concreta (reporting)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-aurora/aurora-endpoints-cluster.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  W["Writer endpoint<br>escrituras"] --> PW["Primary instance<br>el unico que escribe"]
+  R["Reader endpoint<br>balancea SELECTs"] --> RR["Aurora Replicas<br>hasta 15"]
+  PW --> V["Cluster volume<br>6 copias en 3 AZs"]
+  RR --> V
+  RR -.->|"failover &lt; 30 s"| PW
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — Aurora: el volumen de 6 copias es compartido; failover = promocionar una réplica, no copiar datos.</figcaption>
+      </figure>
+
+      <p>Fuera del mundo relacional, <span class="term-en">DynamoDB global tables</span> entregan replicación
+      <strong>active-active</strong> entre regiones: cualquier réplica acepta escrituras y los conflictos se resuelven por
+      <span class="term-en">last-writer-wins</span> — es la respuesta cuando el examen pide "una tabla global con escrituras en
+      varias regiones". Y <span class="term-en">Amazon EFS</span> aporta el almacenamiento de ficheros compartido: un sistema
+      <span class="term-en">Regional</span> con datos replicados entre AZs y <span class="term-en">mount targets</span> por AZ,
+      para que varias instancias (o varios ASGs en varias AZs) compartan el mismo sistema de ficheros POSIX sin que una AZ
+      caída deje a las demás sin disco.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"Improve <span class="term-en">availability</span> of the database" o "survive the failure of an AZ" →
+        <strong>RDS Multi-AZ</strong> (no replicas: el standby no lee). "Offload <span class="term-en">read traffic</span>" →
+        <strong>read replicas</strong>. "Survive a <span class="term-en">regional failure</span>" o "disaster recovery for the
+        database with lowest RPO" → cross-Region: <strong>Aurora Global Database</strong> o réplica cross-Region.
+        "Database that <span class="term-en">scales automatically and pays for what it uses</span>" → Aurora Serverless v2.
+        Trampa estrella: usar el standby de Multi-AZ para lecturas — no se puede, y elegirlo es fallar la pregunta.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/db-rds/concepts-multiazsinglestandby.md</code> ·
+      <code>../bronze/05-docs/db-rds/user-readrepl-xrgn.md</code> ·
+      <code>../bronze/05-docs/db-aurora/concepts-aurorahighavailability.md</code> ·
+      <code>../bronze/05-docs/db-aurora/aurora-endpoints-cluster.md</code> ·
+      <code>../bronze/05-docs/db-aurora/concepts-aurora-fea-regions-db-eng-feature-globaldatabase.md</code> ·
+      <code>../bronze/05-docs/db-dynamodb/globaltables.md</code> ·
+      <code>../bronze/05-docs/storage-efs/whatisefs.md</code></p>
+
+      <!-- ================= 6 · DISASTER RECOVERY ================= -->
+      <h2 id="disaster-recovery"><span class="h2-num">6</span>Disaster recovery: RTO, RPO y las cuatro estrategias</h2>
+      <p>Alta disponibilidad y <span class="term-en">disaster recovery</span> no son lo mismo: la HA protege componentes de un
+      workload; el DR replica el workload completo en otra ubicación para el día en que la región entera deja de servir. El DR
+      se diseña con dos números. El <span class="term-en">RTO</span> (<span class="term-en">Recovery Time Objective</span>) es el
+      máximo tiempo de interrupción tolerable — cuánto tardas en volver a servir. El <span class="term-en">RPO</span>
+      (<span class="term-en">Recovery Point Objective</span>) es la máxima pérdida de datos tolerable — cuánto trabajo reciente
+      puedes perder. Ejemplo numérico: si haces backup a S3 cada noche a las 02:00 y la caída ocurre a las 17:00, pierdes hasta
+      15 horas de datos (tu RPO real es 24 h); si el negocio exige volver a operar en 8 horas, tu RTO es 8 h. Esos dos números
+      eligen la estrategia — y su precio.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estrategia oficial</th><th>RPO</th><th>RTO</th><th>Costo relativo</th><th>Qué existe antes del desastre</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Backup and restore</span></td><td>Horas</td><td>Horas</td><td>$</td><td>Solo backups en S3; la infra se recrea al restaurar</td></tr>
+            <tr><td><span class="term-en">Pilot light</span></td><td>Minutos</td><td>Decenas de minutos</td><td>$$</td><td>Datos replicados + plantillas; cómputo apagado hasta el desastre</td></tr>
+            <tr><td><span class="term-en">Warm standby</span></td><td>Segundos</td><td>Minutos</td><td>$$$</td><td>Réplica completa pero a escala reducida, siempre corriendo</td></tr>
+            <tr><td><span class="term-en">Multi-site active-active</span></td><td>Casi cero</td><td>Casi cero</td><td>$$$$</td><td>Todo activo y sirviendo tráfico en N regiones</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/03-whitepapers/dr-whitepaper/disaster-recovery-workloads-on-aws.md (whitepaper oficial de DR).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["Escenario: la region<br>principal se cae"] --> B{"¿Cuanto downtime<br>tolera el negocio?"}
+  B -->|"horas"| C["Backup and restore<br>restaura desde S3"]
+  B -->|"decenas de minutos"| D["Pilot light<br>enciende el core"]
+  B -->|"minutos"| E["Warm standby<br>escala la copia viva"]
+  B -->|"casi cero"| F["Multi-site<br>active-active"]
+          </pre>
+        </div>
+        <figcaption>Fig. 7 — La decisión de DR es una sola pregunta: cuánto downtime (RTO) y cuánta pérdida de datos (RPO) paga el negocio.</figcaption>
+      </figure>
+
+      <p>Para conmutar el tráfico entre el sitio primario y el de recuperación, <span class="term-en">Route 53</span> aporta el
+      <span class="term-en">failover routing policy</span>: un registro <span class="term-en">primary</span> asociado a un
+      <span class="term-en">health check</span> y un registro <span class="term-en">secondary</span> que entra en juego cuando el
+      check falla — el patrón active-passive por excelencia. Complétalo con <span class="term-en">AWS ARC</span>
+      (<span class="term-en">Application Recovery Controller</span>): <span class="term-en">readiness checks</span> que verifican
+      que las regiones están configuradas igual y <span class="term-en">routing controls</span> que actúan como interruptores
+      lógicos on/off para desviar el tráfico de forma controlada. Nota fina del whitepaper: la replicación continua protege de
+      caídas, pero no de borrados o corrupción que se replican — por eso toda estrategia de DR mantiene además
+      <span class="term-en">point-in-time backups</span>.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Las preguntas de DR te dan RTO y RPO en números y piden la estrategia "<span class="term-en">most cost-effective</span>":
+        RTO/RPO de horas → backup &amp; restore; minutos de pérdida con decenas de minutos de corte → pilot light; RTO de minutos
+        → warm standby; "continuar sirviendo sin interrupción perceptible" → multi-site active-active. Si en vez de números dicen
+        <span class="term-en">lowest cost</span>, casi siempre gana backup &amp; restore; si dicen "no downtime at all", multi-site.
+        Y "failover DNS" con health checks apunta a Route 53 failover routing.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/03-whitepapers/dr-whitepaper/disaster-recovery-workloads-on-aws.md</code> ·
+      <code>../bronze/03-whitepapers/dr-whitepaper/high-availability-is-not-disaster-recovery.md</code> ·
+      <code>../bronze/05-docs/network-route53/routing-policy-failover.md</code> ·
+      <code>../bronze/05-docs/network-route53/routing-policy.md</code></p>
+
+      <!-- ================= 7 · LEGACY + OBSERVABILIDAD ================= -->
+      <h2 id="legacy-observabilidad"><span class="h2-num">7</span>Aplicaciones legacy sin cambios de código + observabilidad</h2>
+      <p>Un patrón recurrente del task 2.2: una aplicación heredada, <span class="term-en">legacy</span>, que no se puede tocar
+      — el enunciado lo dice literalmente con "<span class="term-en">without any code changes</span>". La respuesta correcta es
+      siempre un cambio de <em>infraestructura</em> alrededor de la app. El ejemplo insignia es <span class="term-en">RDS Proxy</span>:
+      un pool de conexiones administrado delante de RDS/Aurora que absorbe las tormentas de conexiones (miles de Lambdas o
+      contenedores abriendo conexiones), reutiliza conexiones de base de datos y, sobre todo, hace el
+      <span class="term-en">failover transparente</span> — en un failover Multi-AZ de Aurora reduce el tiempo de corte hasta un
+      66% porque la app apunta al endpoint del proxy y el proxy redirige al nuevo primary sin que el código haga nada.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  A["Miles de conexiones<br>Lambda y contenedores"] --> P["RDS Proxy<br>connection pooling"]
+  P --> M["RDS o Aurora<br>Multi-AZ"]
+  P -.->|"failover transparente"| F["Enruta al nuevo<br>primary sin tocar la app"]
+          </pre>
+        </div>
+        <figcaption>Fig. 8 — RDS Proxy: pooling y failover invisible para una aplicación que no sabe que existe.</figcaption>
+      </figure>
+
+      <p>Otros dos trucos "sin código". Si la app legacy guarda la sesión del usuario en la memoria local de la instancia,
+      activa <span class="term-en">sticky sessions</span> en el ALB (cookie <code>AWSALB</code> o la cookie propia de la app) para
+      que cada usuario vuelva a su instancia — es un parche aceptable cuando externalizar la sesión no es opción. Y para
+      desplegar versiones nuevas de ese legacy, elige entre <span class="term-en">in-place</span> (actualizar las mismas
+      instancias por lotes, barato pero con mezcla temporal de versiones) y <span class="term-en">blue/green</span>
+      (montar el entorno verde completo, validarlo y conmutar el tráfico de golpe — rollback inmediato volviendo al azul).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>In-place / rolling</th><th>Blue/green</th></tr></thead>
+          <tbody>
+            <tr><td>Recursos</td><td>Los mismos, actualizados por lotes</td><td>Duplicados durante el despliegue</td></tr>
+            <tr><td>Tiempo de corte</td><td>Parcial por lote</td><td>Solo el swap final (segundos)</td></tr>
+            <tr><td>Rollback</td><td>Redesplegar la versión anterior</td><td>Inmediato: se vuelve al azul intacto</td></tr>
+            <tr><td>Costo</td><td>Menor — sin duplicar</td><td>Mayor — dos entornos vivos</td></tr>
+            <tr><td>Riesgo</td><td>Versiones mezcladas en vivo</td><td>Validación completa antes de conmutar</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Comparativa de despliegue; el swap se hace con target groups del ALB o pesos en Route 53.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  U["Usuarios"] --> ALB["ALB"]
+  ALB --> B["Entorno azul<br>version 1 activa"]
+  ALB -.->|"peso gradual"| G["Entorno verde<br>version 2 en prueba"]
+  G --> S["Swap cuando valida:<br>rollback = volver al azul"]
+          </pre>
+        </div>
+        <figcaption>Fig. 9 — Blue/green: dos entornos completos y una conmutación de tráfico reversible en segundos.</figcaption>
+      </figure>
+
+      <p>Con una arquitectura así de distribuida llega la segunda mitad del enunciado: <span class="term-en">workload visibility</span>.
+      <span class="term-en">AWS X-Ray</span> proporciona <span class="term-en">distributed tracing</span>: sigue una petición a
+      través de ALB, Lambda, SQS y microservicios y dibuja el <span class="term-en">service map</span> con latencias y errores por
+      segmento. Es la respuesta estándar a "identify <span class="term-en">performance bottlenecks across microservices</span>" o
+      "determine <span class="term-en">which component is failing</span>" — algo que CloudWatch, con sus métricas por servicio
+      sueltas, no puede ofrecerte. Para el diseño multi-Region, la entrada global suele ser <span class="term-en">CloudFront</span>:
+      edge locations cerca del usuario en todo el mundo, <span class="term-en">origin failover</span> (primary + secondary con
+      origin groups) cuando el origen regional cae, y Route 53 decidiendo la región viva.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"A <span class="term-en">legacy application cannot be modified</span>" y hay problemas de conexiones o de failover de la
+        base de datos → <strong>RDS Proxy</strong> (o sticky sessions del ALB si lo que falla es la sesión). "Users must
+        <span class="term-en">return to the same instance</span>" → sticky sessions. "Deploy with <span class="term-en">near-zero
+        downtime and easy rollback</span>" → blue/green. "Troubleshoot <span class="term-en">latency across multiple
+        microservices</span>" → X-Ray. Y "serve users globally with <span class="term-en">low latency</span> and survive the loss
+        of a Region" → CloudFront + origins en varias regiones con Route 53/origin failover.</p>
+      </div>
+
+      <p class="bronze-link">Fuente bronze: <code>../bronze/05-docs/db-rds/concepts-rds-fea-regions-db-eng-feature-rdsproxy.md</code> ·
+      <code>../bronze/05-docs/db-aurora/concepts-aurorahighavailability.md</code> (sección RDS Proxy) ·
+      <code>../bronze/05-docs/devtools-xray/aws-xray.md</code> ·
+      <code>../bronze/05-docs/network-cloudfront/introduction.md</code></p>
+
+      <!-- ================= 8 · CIERRE ================= -->
+      <h2 id="cierre"><span class="h2-num">8</span>Cierre: el patrón mental y tu checklist de decisiones</h2>
+      <p>Todo este dominio se reduce a una pregunta que te haces componente a componente: <em>"¿qué pasa si esto falla?"</em>.
+      Un arquitecto resiliente no pregunta si fallará, sino cuándo y con qué radio de impacto — y coloca delante el mecanismo que
+      absorbe ese radio exacto. La instancia individual falla: el ASG la reemplaza y el ELB la desregistra. La AZ falla:
+      multi-AZ por todas partes (ASG multi-AZ, RDS Multi-AZ, EFS con mount targets por AZ, cross-zone balancing). La región
+      falla: Aurora Global Database o cross-Region replicas para los datos, y Route 53 failover, ARC o CloudFront origin failover
+      para el tráfico. El componente va lento: SQS absorbe, ASG escala, réplicas leen. Cada mecanismo cuesta dinero, así que el
+      examen te hará elegir el <em>mínimo</em> que cubre el fallo que el enunciado describe.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  F["Pregunta mental:<br>¿que pasa si esto falla?"] --> A{"Radio del fallo"}
+  A -->|"una instancia"| B["ASG reemplaza y<br>ELB deregistra"]
+  A -->|"toda una AZ"| C["Multi-AZ y<br>cross-zone balancing"]
+  A -->|"toda la region"| D["Multi-Region: DR<br>+ Route 53 failover"]
+          </pre>
+        </div>
+        <figcaption>Fig. 10 — El escalera de fallos: cada radio de impacto tiene su mecanismo, y ninguno cubre al siguiente gratis.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Si el enunciado dice…</th><th>Tu respuesta por defecto</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">decouple</span> / <span class="term-en">spikes</span> / buffer</td><td>SQS (+ DLQ y long polling)</td></tr>
+            <tr><td>Notificar a N sistemas / fan-out</td><td>SNS (o SNS → SQS por persistencia)</td></tr>
+            <tr><td>Reaccionar a eventos de servicios AWS / cron</td><td>EventBridge (rules, scheduler, pipes)</td></tr>
+            <tr><td>Secuencia de pasos con reintentos</td><td>Step Functions (Standard vs Express)</td></tr>
+            <tr><td><span class="term-en">scale automatically</span></td><td>ASG + target tracking (+ ELB health checks)</td></tr>
+            <tr><td>HA de base de datos / <span class="term-en">no downtime for writes</span> en AZ</td><td>RDS Multi-AZ o Aurora (6 copias, 15 réplicas)</td></tr>
+            <tr><td>Escalar lecturas / DR de datos cross-Region</td><td>Read replicas / Aurora Global Database / global tables</td></tr>
+            <tr><td>RTO y RPO explícitos</td><td>La más barata de las 4 estrategias de DR que los cumpla</td></tr>
+            <tr><td>Legacy sin cambios de código</td><td>RDS Proxy, sticky sessions, DNS/ALB failover — infra, no código</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Léela como reflejos: enunciado → mecanismo. Es la tabla que más puntos compra en el examen.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Las preguntas de D2 cierran con calificadores como "<span class="term-en">most resilient</span>",
+        "<span class="term-en">highest availability</span>" o "<span class="term-en">with the LEAST operational overhead</span>".
+        Los dos primeros piden subir en la escalera de redundancia (multi-AZ → multi-Region); el último te recuerda que la
+        resiliencia <em>managed</em> (Multi-AZ activado con un clic, Aurora, global tables) casi siempre gana a la resiliencia
+        <em>construida a mano</em> (scripts de failover, colas caseras). Ante la duda, AWS premia delegar el fallo en la plataforma.</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Cierra el dominio practicando los <em>emparejamientos trampa</em>: Multi-AZ vs read replicas (HA vs escalado de
+        lectura), SQS vs SNS vs EventBridge (pull vs push vs eventos), Standard vs Express, in-place vs blue/green, y las
+        cuatro estrategias de DR ordenadas por RTO/RPO/costo. Cuando puedas recitar cada par en menos de diez segundos, este
+        dominio está listo para cobrarse su 26%.</p>
+      </div>
+
+      <p>Las profundidades servicio a servicio viven en el <a href="../apendice/bases-datos.html">apéndice de bases de datos</a>
+      y en el <a href="../apendice/integracion-mensajeria.html">apéndice de integración y mensajería</a>; para practicar contra
+      preguntas reales de este dominio, pasa por el <a href="../extras/banco-preguntas-2.html">banco de preguntas</a> y filtra por
+      Dominio 2.</p>
+
+      <p class="bronze-link">Fuente bronze transversal: <code>../bronze/02-well-architected/reliability.html</code> ·
+      <code>../bronze/02-well-architected/rel-bp.html</code> (best practices del pilar Reliability)</p>
+
+      <!-- ================= PAGER ================= -->
+      <nav class="pager">
+        <a href="dominio-1-deep-dive.html"><span class="p-dir">← Anterior</span><br>Dominio 1 · Secure Architectures</a>
+        <a class="p-next" href="dominio-3-deep-dive.html"><span class="p-dir">Siguiente →</span><br>Dominio 3 · High-Performing Architectures</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

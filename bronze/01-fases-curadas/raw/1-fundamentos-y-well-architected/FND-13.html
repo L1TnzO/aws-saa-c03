@@ -1,0 +1,320 @@
+<!--
+BRONZE RAW — FND-13
+URL: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html
+Dominios: D1
+Título doc: AWS Identity and Access Management
+Fase: 1
+Servicio: IAM
+Descargado: 2026-09-11T03:21:21
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>An IAM <em>role</em> is an IAM identity that you can create in your account
+    that has specific permissions. An IAM role is similar to an IAM user, in that it is an AWS
+    identity with permission policies that determine what the identity can and cannot do in AWS.
+    However, instead of being uniquely associated with one person, a role is intended to be
+    assumable by anyone who needs it. Also, a role does not have standard long-term credentials such
+    as a password or access keys associated with it. Instead, when you assume a role, it provides
+    you with temporary security credentials for your role session.</p><p>You can use roles to delegate access to users, applications, or services that don't normally
+    have access to your AWS resources. For example, you might want to grant users in your AWS
+    account access to resources they don't usually have, or grant users in one AWS account access
+    to resources in another account. Or you might want to allow a mobile app to use AWS resources,
+    but not want to embed AWS keys within the app (where they can be difficult to update and where
+    users can potentially extract them). Sometimes you want to give AWS access to users who
+    already have identities defined outside of AWS, such as in your corporate directory. Or, you
+    might want to grant access to your account to third parties so that they can perform an audit on
+    your resources.</p><p>For these scenarios, you can delegate access to AWS resources using an <em>IAM
+      role</em>. This section introduces roles and the different ways you can use them, when
+    and how to choose among approaches, and how to create, manage, switch to (or assume), and delete
+    roles.</p><p><a href="./account-access-manager.html">Account access manager</a> is an IAM feature that lets you
+    centrally assign IAM roles across your organization's accounts to <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">IAM Identity Center</a> users and groups. Account access manager gives
+    your workforce access through IAM roles with their full feature set. You can use it alongside
+    IAM Identity Center permission sets or on its own.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you first create your AWS account, no roles are created by default. As you add
+      services to your account, they may add service-linked roles to support their use cases.</p><p>
+
+      A service-linked role is a type of service role that is linked to an AWS service. The service can assume the role to perform an action on your behalf. 
+      Service-linked roles appear in your AWS account and are owned by the service. An IAM administrator can view, 
+      but not edit the permissions for service-linked roles. 
+ </p><p>Before you can delete service-linked roles you must first delete their related resources.
+      This protects your resources because you can't inadvertently remove permission to access the
+      resources.</p><p>For information about which services support using service-linked roles, see <a href="./reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a> and look for the services that
+      have <b>Yes </b>in the <b>Service-Linked
+        Role</b> column. Choose a <b>Yes</b> with a link to view
+      the service-linked role documentation for that service.</p></div></div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#id_which-to-choose">When to create an IAM user (instead of a role)</a></p></li><li><p><a href="#id_roles_terms-and-concepts">Roles terms and concepts</a></p></li><li><p><a href="#id_roles_additional-resources">Additional resources</a></p></li><li><p><a href="./confused-deputy.html">The confused deputy problem</a></p></li><li><p><a href="./id_roles_common-scenarios.html">Common scenarios for IAM roles</a></p></li><li><p><a href="./id_roles_create.html">IAM role creation</a></p></li><li><p><a href="./id_roles_manage.html">IAM role management</a></p></li><li><p><a href="./id_roles_manage-assume.html">Methods to assume a role</a></p></li></ul></div>
+    <h2 id="id_which-to-choose">When to create an IAM user (instead of a role)<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="id_which-to-choose" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789096878471-8938"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>We recommend you only use IAM users for use cases not supported by identity federation.
+      Some of the use cases include the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><span class="topcom">Workloads that cannot use IAM roles</span> – You
+          might run a workload from a location that needs to access AWS. In some situations, you
+          can't use IAM roles to provide temporary credentials, such as for WordPress plugins.
+          In these situations, use IAM user long-term access keys for that workload to
+          authenticate to AWS.</p>
+      </li><li class="listitem">
+        <p><span class="topcom">Third-party AWS clients</span> – If you are using
+          tools that don’t support access with IAM Identity Center, such as third-party AWS clients or vendors
+          that aren't hosted on AWS, use IAM user long-term access keys.</p>
+      </li><li class="listitem">
+        <p><span class="topcom">AWS CodeCommit access</span> – If you are using CodeCommit to
+          store your code, you can use an IAM user with either SSH keys or service-specific
+          credentials for CodeCommit to authenticate to your repositories. We recommend that you do this
+          in addition to using a user in IAM Identity Center for normal authentication. Users in IAM Identity Center are the
+          people in your workforce who need access to your AWS accounts or to your cloud
+          applications. To give users access to your CodeCommit repositories without configuring IAM
+          users, you can configure the <b>git-remote-codecommit</b> utility. For more
+          information about IAM and CodeCommit, see <a href="./id_credentials_ssh-keys.html">IAM credentials for CodeCommit: Git credentials, SSH keys, and AWS access keys</a>. For more information about configuring the
+            <b>git-remote-codecommit</b> utility, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html#temporary-access-configure-credentials">Connecting to AWS CodeCommit repositories with rotating credentials</a> in the
+            <em>AWS CodeCommit User Guide</em>.</p>
+      </li><li class="listitem">
+        <p><span class="topcom">Amazon Keyspaces (for Apache Cassandra) access</span> – In a situation where you are
+          unable to use users in IAM Identity Center, such as for testing purposes for Cassandra compatibility,
+          you can use an IAM user with service-specific credentials to authenticate with Amazon Keyspaces.
+          Users in IAM Identity Center are the people in your workforce who need access to your AWS accounts or
+          to your cloud applications. You can also connect to Amazon Keyspaces using temporary credentials. For
+          more information, see <a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/access.credentials.html#temporary.credentials.IAM">Using
+            temporary credentials to connect to Amazon Keyspaces using an IAM role and the SigV4
+            plugin</a> in the <em>Amazon Keyspaces (for Apache Cassandra) Developer
+          Guide</em>.</p>
+      </li><li class="listitem">
+        <p><b>Emergency access</b> – In a situation where you
+          can't access your identity provider and you must take action in your AWS account.
+          Establishing emergency access IAM users can be part of your resiliency plan. We
+          recommend that the emergency user credentials be tightly controlled and secured using
+          multi-factor authentication (MFA).</p>
+      </li></ul></div>
+   
+    <h2 id="id_roles_terms-and-concepts">Roles terms and concepts<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="id_roles_terms-and-concepts" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789096878472-4432"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Here are some basic terms to help you get started with roles.</p>
+    <div class="variablelist">
+       
+
+      
+       
+
+       
+       
+       
+
+       
+       
+    <dl>
+        <dt><b><span class="term"><div id="iam-term-role" xreflabel=".iam-term-role"></div><b>Role</b></span></b></dt>
+        <dd>
+
+          
+          
+          <p>An IAM identity that you can create in your account that has specific permissions.
+            An IAM role has some similarities to an IAM user. Roles and users are both AWS
+            identities with permissions policies that determine what the identity can and cannot do
+            in AWS. However, instead of being uniquely associated with one person, a role is
+            intended to be assumable by anyone who needs it. Also, a role does not have standard
+            long-term credentials such as a password or access keys associated with it. Instead,
+            when you assume a role, it provides you with temporary security credentials for your
+            role session.</p>
+          <p>Roles can be assumed by the following:</p>
+          <div class="itemizedlist">
+             
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>An IAM user in the same AWS account or another AWS account</p>
+            </li><li class="listitem">
+              <p>IAM roles in the same account</p>
+            </li><li class="listitem">
+              <p>Service principals, for use with AWS services and features like:</p>
+              <div class="itemizedlist">
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p>Services that allow you to run code on compute services, like Amazon EC2 or
+                    AWS Lambda</p>
+                </li><li class="listitem">
+                  <p>Features that perform actions to your resources on your behalf, like Amazon S3
+                    object replication</p>
+                </li><li class="listitem">
+                  <p>Services that deliver temporary security credentials to your applications
+                    that run outside of AWS, such as IAM Roles Anywhere or Amazon ECS Anywhere</p>
+                </li></ul></div>
+            </li><li class="listitem">
+              <p>An external user authenticated by an external identity provider (IdP) service
+                that is compatible with SAML 2.0 or OpenID Connect</p>
+            </li></ul></div>
+        </dd>
+      
+        <dt><b><span class="term"><div id="iam-term-service-role" xreflabel=".iam-term-service-role"></div><b>AWS service role</b></span></b></dt>
+        <dd>
+          <p>
+
+      A service role is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a> that a service assumes to perform 
+      actions on your behalf. An IAM administrator can create, modify, and delete a service role from within IAM. For 
+      more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Create a role to delegate permissions to an AWS service</a> in the <em>IAM User Guide</em>.
+ </p>
+        </dd>
+      
+        <dt><b><span class="term"><div id="iam-term-service-linked-role" xreflabel=".iam-term-service-linked-role"></div><b>AWS service-linked role</b></span></b></dt>
+        <dd>
+          <p>
+
+      A service-linked role is a type of service role that is linked to an AWS service. The service can assume the role to perform an action on your behalf. 
+      Service-linked roles appear in your AWS account and are owned by the service. An IAM administrator can view, 
+      but not edit the permissions for service-linked roles. 
+ </p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you are already using a service when it begins supporting service-linked roles,
+              you might receive an email announcing a new role in your account. In this case, the
+              service automatically created the service-linked role in your account. You don't need
+              to take any action to support this role, and you should not manually delete it. For
+              more information, see <a href="./troubleshoot_roles.html#troubleshoot_roles_new-role-appeared">A new role appeared in my AWS account</a>.</p></div></div>
+          <p>For information about which services support using service-linked roles, see <a href="./reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a> and look for the services
+            that have <b>Yes </b>in the <b>Service-Linked Role</b> column. Choose a <b>Yes</b>
+            with a link to view the service-linked role documentation for that service. For more
+            information, see <a href="./id_roles_create-service-linked-role.html">Create a service-linked role</a>.</p>
+        </dd>
+      
+        <dt><b><span class="term"><div id="iam-term-role-chaining" xreflabel=".iam-term-role-chaining"></div><b>Role chaining</b></span></b></dt>
+        <dd>
+          <p>Role chaining is when you use a role to assume a second role. You can perform role
+            chaining through the AWS Management Console by switching roles, the AWS CLI, or API. For example,
+              <code class="code">RoleA</code> has permission to assume <code class="code">RoleB</code>. You can enable User1
+            to assume <code class="code">RoleA</code> by using their long-term user credentials in the AssumeRole
+            API operation. This returns <code class="code">RoleA</code> short-term credentials. With role
+            chaining, you can use <code class="code">RoleA</code>'s short-term credentials to enable User1 to
+            assume <code class="code">RoleB</code>.</p>
+          <p>When you assume a role, you can pass a session tag and set the tag as transitive.
+            Transitive session tags are passed to all subsequent sessions in a role chain. To learn
+            more about session tags, see <a href="./id_session-tags.html">Pass session tags in AWS STS</a>.</p>
+          <p>Role chaining limits your AWS Management Console, AWS CLI or AWS API role session to a maximum of
+            one hour. It applies regardless of the maximum session duration configured for
+            individual roles. When you use the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> API operation to assume a role, you can specify the duration of
+            your role session with the <code class="code">DurationSeconds</code> parameter. You can specify a
+            parameter value of up to 43200 seconds (12 hours), depending on the <a href="./id_roles_update-role-settings.html#id_roles_update-session-duration">maximum session duration setting</a> for
+            your role. However, if you assume a role using role chaining and provide a
+              <code class="code">DurationSeconds</code> parameter value greater than one hour, the operation
+            fails.</p>
+          <p>For information about switching to a role in the AWS Management Console, see <a href="./id_roles_use_switch-role-console.html">Switch from a user to an IAM role (console)</a>.</p>
+        </dd>
+      
+        <dt><b><span class="term"><div id="iam-term-delegation" xreflabel=".iam-term-delegation"></div><b>Delegation</b></span></b></dt>
+        <dd>
+          <p>The granting of permissions to someone to allow access to resources that you
+            control. Delegation involves setting up a trust between two accounts. The first is the
+            account that owns the resource (the trusting account). The second is the account that
+            contains the users that need to access the resource (the trusted account). The trusted
+            and trusting accounts can be any of the following:</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>The same account.</p>
+            </li><li class="listitem">
+              <p>Separate accounts that are both under your organization's control.</p>
+            </li><li class="listitem">
+              <p>Two accounts owned by different organizations.</p>
+            </li></ul></div>
+          <p>To delegate permission to access a resource, you <a href="./id_roles_create_for-user.html">create an IAM role</a> in the trusting account
+            that has two policies attached. The <em>permissions
+              policy</em> grants the user of the role the needed permissions to carry out the
+            intended tasks on the resource. The <em>trust policy</em>
+            specifies which trusted account members are allowed to assume the role.</p>
+          <p>When you create a trust policy, you cannot specify a wildcard (*) as part of an ARN
+            in the principal element. The trust policy is attached to the role in the trusting
+            account, and is one-half of the permissions. The other half is a permissions policy
+            attached to the user in the trusted account that <a href="./id_roles_use_permissions-to-switch.html">allows that user to switch to, or assume
+              the role</a>. A user who assumes a role temporarily gives up his or her own
+            permissions and instead takes on the permissions of the role. When the user exits, or
+            stops using the role, the original user permissions are restored. An additional
+            parameter called <a href="./id_roles_common-scenarios_third-party.html#id_roles_third-party_external-id">external ID</a>
+            helps ensure secure use of roles between accounts that are not controlled by the same
+            organization.</p>
+        </dd>
+      
+        <dt><b><span class="term"><div id="term_trust-policy" xreflabel=".term_trust-policy"></div><b>Trust policy</b></span></b></dt>
+        <dd>
+          <p>A <a href="./reference_policies_grammar.html">JSON policy document</a> in which
+            you define the principals that you <em>trust</em> to assume
+            the role. A role trust policy is a required <a href="./access_policies.html#policies_resource-based">resource-based policy</a> that is attached to a role in IAM. The <a href="./reference_policies_elements_principal.html">principals</a> that you can specify
+            in the trust policy include users, roles, accounts, and services. For more information,
+            see <a href="https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/" rel="noopener noreferrer" target="_blank"><span>How to
+              use trust policies in IAM roles</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> in <em>AWS Security
+              Blog</em>.</p>
+        </dd>
+      
+        <dt><b><span class="term"><div id="iam-term-cross-account-role" xreflabel=".iam-term-cross-account-role"></div><b>Role for cross-account access</b></span></b></dt>
+        <dd>
+          <p>A role that grants access to resources in one account to a trusted principal in a
+            different account. Roles are the primary way to grant cross-account access. However,
+            some AWS services allow you to attach a policy directly to a resource (instead of
+            using a role as a proxy). These are called resource-based policies, and you can use them
+            to grant principals in another AWS account access to the resource. Some of these
+            resources include Amazon Simple Storage Service (S3) buckets, Amazon Glacier vaults, Amazon Simple Notification Service (SNS) topics, and
+            Amazon Simple Queue Service (SQS) queues. To learn which services support resource-based policies, see
+              <a href="./reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a>. For more information
+            about resource-based policies, see <a href="./access_policies-cross-account-resource-access.html">Cross account resource access in IAM</a>.</p>
+        </dd>
+      </dl></div>
+   
+    <h2 id="id_roles_additional-resources">Additional resources<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="id_roles_additional-resources" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789096878472-1378"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>The following resources can help you learn more about IAM terminology related to IAM
+      roles.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Principals</b> are entities in AWS that can perform
+          actions and access resources. A principal can be an AWS account root user, an IAM user, or a role.
+          A principal that represents the identity of an AWS service is a <a href="./reference_policies_elements_principal.html#principal-services">service principal</a>. Use the Principal element in role
+          trust policies to define the principals that you trust to assume the role.</p>
+        <p> For more information and examples of principals you can allow to assume a role, see
+            <a href="./reference_policies_elements_principal.html">AWS JSON policy elements: Principal</a>. </p>
+      </li><li class="listitem">
+        <p><b>Identity federation</b> creates a trust relationship
+          between an external identity provider and AWS. You can use your existing OpenID Connect
+          (OIDC) or Security Assertion Markup Language (SAML) 2.0 provider to manage who can access
+          AWS resources. When you use OIDC and SAML 2.0 to configure a trust relationship between
+          these external identity providers and AWS , the user is assigned to an IAM role. The
+          user also receives temporary credentials that allow the user to access your AWS
+          resources.</p>
+        <p>For more information about federated principals, see <a href="./id_roles_providers.html">Identity providers and federation into AWS</a>.</p>
+      </li><li class="listitem">
+        
+        <p><span id="iam-term_federated-user" xreflabel=".iam-term_federated-user"></span><b>Federated principals</b> are existing identities from Directory Service, your
+          enterprise user directory, or an OIDC provider. AWS assigns a role to a federated
+          principal when access is requested through an <a href="./id_roles_providers.html">identity
+            provider</a>.</p>
+        <p>For more information about SAML and OIDC federated principals, see <a href="./introduction_access-management.html#intro-access-roles">Federated user sessions and roles</a>.</p>
+      </li><li class="listitem">
+        <p><b>Permissions policies</b> are identity-based policies that
+          define what actions and resources the role can use. The document is written according to
+          the rules of the IAM policy language. </p>
+        <p>For more information, see <a href="./reference_policies.html">IAM JSON policy reference</a>.</p>
+      </li><li class="listitem">
+        <p><b>Permissions boundaries</b> are an advanced feature in
+          which you use policies to limit the maximum permissions that an identity-based policy can
+          grant to a role. You cannot apply a permissions boundary to a service-linked role.</p>
+        <p>For more information, see <a href="./access_policies_boundaries.html">Permissions boundaries for IAM entities</a>.</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_groups_manage_delete.html">Delete an IAM group</div><div id="next" class="next-link" accesskey="n" href="./confused-deputy.html">The confused deputy problem</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096878280-9238"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#id_which-to-choose"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">When to create an IAM user (instead of a role)</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#id_roles_terms-and-concepts"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Roles terms and concepts</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#id_roles_additional-resources"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Additional resources</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r4p:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4o:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/IAM/latest/APIReference/index.html"><span>AWS Identity and Access Management API Reference</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r4s:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4r:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/cli/latest/reference/iam/"><span>AWS CLI commands for AWS Identity and Access Management</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r4v:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4u:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/tools/"><span>SDKs &amp; Tools</span><span class="awsui_icon-wrapper_4c84z_1n50m_460">&nbsp;<span class="awsui_icon_4c84z_1n50m_460" aria-label="Opens in a new tab" role="img"><span class="awsui_icon_h11ix_rh18t_13 awsui_icon-flex-height_h11ix_rh18t_21 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-external_h11ix_rh18t_219" style="height: 20px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r51:" type="submit" data-analytics-performance-mark="30-1789096878504-7745"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r53:" type="submit" data-analytics-performance-mark="31-1789096878504-994"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r56:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r55:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=IAM&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2FIAM%2Flatest%2FUserGuide%2Fid_roles.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./confused-deputy.html"><span>The confused deputy problem</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./id_groups_manage_delete.html"><span>Delete an IAM group</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

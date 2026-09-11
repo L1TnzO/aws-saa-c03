@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="introduction" /><meta name="default_state" content="introduction" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/introduction.html" /><meta name="description" content="Scale real-time processing of streaming big data using Kinesis Data Streams." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/introduction.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/introduction.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/introduction.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/introduction.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/introduction.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/introduction.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/introduction.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/introduction.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/introduction.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/introduction.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/introduction.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/introduction.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/introduction.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/introduction.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/introduction.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/introduction.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/introduction.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/introduction.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/introduction.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/introduction.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/introduction.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/introduction.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="What is Amazon Kinesis Data Streams?" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="introduction.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#introduction" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAlPnoAT22TyelcmE8M35_-A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/introduction.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/introduction.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/introduction.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><link rel="alternate" type="text/markdown" href="introduction.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "What is Amazon Kinesis Data Streams?",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/introduction.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#introduction" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#use-service-for-what">What can I do with Kinesis Data Streams?</a><a href="#using-the-service">Benefits of using Kinesis Data Streams</a><a href="#related-services">Related services</a></div><awsdocs-doc-page-banner></awsdocs-doc-page-banner><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="introduction">What is Amazon Kinesis Data Streams?</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use Amazon Kinesis Data Streams to collect and process large <a href="https://aws.amazon.com/streaming-data/" rel="noopener noreferrer" target="_blank"><span>streams</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> of data records in real time. You
+		can create data-processing applications, known as <em>Kinesis Data Streams applications</em>. A
+		typical Kinesis Data Streams application reads data from a <em>data stream</em> as data
+		records. These applications can use the Kinesis Client Library, and they can run on Amazon EC2
+		instances. You can send the processed records to dashboards, use them to generate alerts,
+		dynamically change pricing and advertising strategies, or send data to a variety of other
+		AWS services. For information about Kinesis Data Streams features and pricing, see <a href="https://aws.amazon.com/kinesis/streams/" rel="noopener noreferrer" target="_blank"><span>Amazon Kinesis Data Streams</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p>Kinesis Data Streams is part of the Kinesis streaming data platform, along with <a href="https://docs.aws.amazon.com/firehose/latest/dev/">Firehose</a>, <a href="https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/">Kinesis Video Streams</a>, and <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/">Managed Service for Apache Flink</a>.</p><p>For more information about AWS big data solutions, see <a href="https://aws.amazon.com/big-data/" rel="noopener noreferrer" target="_blank"><span>Big Data on AWS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. For more information about
+		AWS streaming data solutions, see <a href="https://aws.amazon.com/streaming-data/" rel="noopener noreferrer" target="_blank"><span>What is
+			Streaming Data?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#use-service-for-what">What can I do with Kinesis Data Streams?</a></p></li><li><p><a href="#using-the-service">Benefits of using Kinesis Data Streams</a></p></li><li><p><a href="#related-services">Related services</a></p></li></ul></div>
+		<h2 id="use-service-for-what">What can I do with Kinesis Data Streams?</h2>
+		<p>You can use Kinesis Data Streams for rapid and continuous data intake and aggregation. The type of
+			data used can include IT infrastructure log data, application logs, social media, market
+			data feeds, and web clickstream data. Because the response time for the data intake and
+			processing is in real time, the processing is typically lightweight.</p>
+		<p>The following are typical scenarios for using Kinesis Data Streams:</p>
+		<div class="variablelist">
+			 
+			 
+			 
+			 
+		<dl>
+				<dt><span class="term">Accelerated log and data feed intake and processing</span></dt>
+				<dd>
+					<p>You can have producers push data directly into a stream. For example, push
+						system and application logs and they are available for processing in
+						seconds. This prevents the log data from being lost if the front end or
+						application server fails. Kinesis Data Streams provides accelerated data feed intake
+						because you don't batch the data on the servers before you submit it for
+						intake.</p>
+				</dd>
+			 
+				<dt><span class="term">Real-time metrics and reporting</span></dt>
+				<dd>
+					<p>You can use data collected into Kinesis Data Streams for simple data analysis and
+						reporting in real time. For example, your data-processing application can
+						work on metrics and reporting for system and application logs as the data is
+						streaming in, rather than wait to receive batches of data.</p>
+				</dd>
+			 
+				<dt><span class="term">Real-time data analytics</span></dt>
+				<dd>
+					<p>This combines the power of parallel processing with the value of real-time
+						data. For example, process website clickstreams in real time, and then
+						analyze site usability engagement using multiple different Kinesis Data Streams
+						applications running in parallel.</p>
+				</dd>
+			 
+				<dt><span class="term">Complex stream processing</span></dt>
+				<dd>
+					<p>You can create Directed Acyclic Graphs (DAGs) of Kinesis Data Streams applications and
+						data streams. This typically involves putting data from multiple Kinesis Data Streams
+						applications into another stream for downstream processing by a different
+						Kinesis Data Streams application.</p>
+				</dd>
+			</dl></div>
+	 
+		<h2 id="using-the-service">Benefits of using Kinesis Data Streams</h2>
+		<p>Although you can use Kinesis Data Streams to solve a variety of streaming data problems, a common use
+			is the real-time aggregation of data followed by loading the aggregate data into a data
+			warehouse or map-reduce cluster.</p>
+		<p>Data is put into Kinesis data streams, which ensures durability and elasticity. The delay
+			between the time a record is put into the stream and the time it can be retrieved
+			(put-to-get delay) is typically less than 1 second. In other words, a Kinesis Data Streams application
+			can start consuming the data from the stream almost immediately after the data is added.
+			The managed service aspect of Kinesis Data Streams relieves you of the operational burden of creating
+			and running a data intake pipeline. You can create streaming map-reduce–type
+			applications. The elasticity of Kinesis Data Streams enables you to scale the stream up or down, so
+			that you never lose data records before they expire.</p>
+		<p>Multiple Kinesis Data Streams applications can consume data from a stream, so that multiple actions,
+			like archiving and processing, can take place concurrently and independently. For
+			example, two applications can read data from the same stream. The first application
+			calculates running aggregates and updates an Amazon DynamoDB table, and the second application
+			compresses and archives data to a data store like Amazon Simple Storage Service (Amazon S3). The DynamoDB table with
+			running aggregates is then read by a dashboard for up-to-the-minute reports.</p>
+		<p>The Kinesis Client Library enables fault-tolerant consumption of data from streams and
+			provides scaling support for Kinesis Data Streams applications.</p>
+	 
+		<h2 id="related-services">Related services</h2>
+		<p>For information about using Amazon EMR clusters to read and process Kinesis data streams
+			directly, see <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-kinesis.html">Kinesis
+			Connector</a>.</p>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="next" class="next-link" accesskey="n" href="./key-concepts.html">Terminology and concepts</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/introduction.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/introduction.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

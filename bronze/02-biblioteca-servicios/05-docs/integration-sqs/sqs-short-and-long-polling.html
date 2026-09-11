@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon SQS short and long polling - Amazon Simple Queue Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sqs-short-and-long-polling" /><meta name="default_state" content="sqs-short-and-long-polling" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" /><meta name="description" content="Learn about the benefits of using Amazon SQS long polling to eliminate empty responses and false empty responses and to reduce your costs." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Queue Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Queue messages that one component in the application generates to be consumed by another component using Amazon SQS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" hreflang="x-default" /><meta name="feedback-item" content="SQS" /><meta name="this_doc_product" content="Amazon Simple Queue Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sqs'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Amazon SQS short and long polling" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sqs-short-and-long-polling.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon SQS short and long polling - Amazon Simple Queue Service</title><meta name="pdf" content="/pdfs/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dg.pdf#sqs-short-and-long-polling" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAA-iV52DNQ4a7bbpyH3s33Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html" /><meta name="keywords" content="Queue message identifiers,message metadata,queue pagination,cost allocation tags,dead letter queues,visibility timeout,delay queues,temporary queues,message timers,short polling,long polling,messages,managing queues,message responses,consuming messages,Amazon SQS servers,ReceiveMessage API,empty responses,polling differences,WaitTimeSeconds,ReceiveMessage" /><link rel="alternate" type="text/markdown" href="sqs-short-and-long-polling.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Queue Service",
+        "item" : "https://docs.aws.amazon.com/sqs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon SQS features and capabilities",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/features-capabilities.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon SQS short and long polling",
+        "item" : "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/features-capabilities.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dg.pdf#sqs-short-and-long-polling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sqs/index.html">Amazon Simple Queue Service</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#sqs-short-polling">Consuming messages using short polling</a><a href="#sqs-long-polling">Consuming messages using long polling</a><a href="#sqs-short-long-polling-differences">Differences between long and short polling</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sqs-short-and-long-polling">Amazon SQS short and long polling</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon SQS offers short and long polling options for receiving messages from a queue. Consider
+        your application's requirements for responsiveness and cost efficiency when choosing between
+        these two polling options:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>Short polling</b> (default) – The <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html"><code class="code">ReceiveMessage</code></a>
+                request queries a subset of servers (based on a weighted random distribution) to
+                find available messages and sends an immediate response, even if no messages are
+                found. </p>
+        </li><li class="listitem">
+            <p><b>Long polling</b> – <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html"><code class="code">ReceiveMessage</code></a>
+                queries all servers for messages, sending a response once at least one message is
+                available, up to the specified maximum. An empty response is sent only if the
+                polling wait time expires. This option can reduce the number of empty responses and
+                potentially lower costs.</p>
+        </li></ul></div><p>The following sections explain the details of short polling and long polling.</p>
+        <h2 id="sqs-short-polling">Consuming messages using short polling</h2>
+        <p>When you consume messages from a queue (FIFO or standard) using short polling, Amazon SQS
+            samples a subset of its servers (based on a weighted random distribution) and returns
+            messages from only those servers. Thus, a particular <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html"><code class="code">ReceiveMessage</code></a>
+            request might not return all of your messages. However, if you have fewer than 1,000
+            messages in your queue, a subsequent request will return your messages. If you keep
+            consuming from your queues, Amazon SQS samples all of its servers, and you receive all of
+            your messages.</p>
+        <p>The following diagram shows the short-polling behavior of messages returned from a
+            standard queue after one of your system components makes a receive request. Amazon SQS
+            samples several of its servers (in gray) and returns messages A, C, D, and B from these
+            servers. Message E isn't returned for this request, but is returned for a subsequent
+            request.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/ArchOverview_Receive.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Message sampling using short (standard) polling" style="max-width:100%" />
+             
+             
+        </div>
+     
+        <h2 id="sqs-long-polling">Consuming messages using long polling</h2>
+        <p>When the wait time for the <code class="code"><a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html">ReceiveMessage</a></code> API action is greater than 0, <em>long polling</em>
+    is in effect. The maximum long polling wait time is 20 seconds. Long polling helps reduce the cost of using Amazon SQS by reducing the number of empty responses
+    (when there are no messages available for a <code class="code">ReceiveMessage</code> request) and false
+    empty responses (when messages are available but aren't included in a response). For information about enabling long polling for a new or
+            existing queue using the Amazon SQS console, see the <a href="./sqs-configure-queue-parameters.html">Configuring queue parameters using the Amazon SQS console</a>. For best practices, see <a href="./best-practices-setting-up-long-polling.html">Setting-up long polling in Amazon SQS</a>.</p>
+        <p>Long polling offers the following benefits:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Reduce empty responses by allowing Amazon SQS to wait until a message is available
+                    in a queue before sending a response. Unless the connection times out, the
+                    response to the <code class="code">ReceiveMessage</code> request contains at least one of the
+                    available messages, up to the maximum number of messages specified in the
+                        <code class="code">ReceiveMessage</code> action. In rare cases, you might receive empty
+                    responses even when a queue still contains messages, especially if you specify a
+                    low value for the <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html#SQS-ReceiveMessage-request-WaitTimeSeconds"><code class="code">ReceiveMessageWaitTimeSeconds</code></a> parameter.</p>
+            </li><li class="listitem">
+                <p>Reduce false empty responses by querying all—rather than a subset
+                    of—Amazon SQS servers.</p>
+            </li><li class="listitem">
+                <p>Return messages as soon as they become available.</p>
+            </li></ul></div>
+        <p>For information about how to confirm that a queue is empty, see <a href="./confirm-queue-is-empty.html">Confirming that an Amazon SQS queue is empty</a>.</p>
+     
+        <h2 id="sqs-short-long-polling-differences">Differences between long and short polling</h2>
+        <p>Short polling occurs when the <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html#SQS-ReceiveMessage-request-WaitTimeSeconds"><code class="code">WaitTimeSeconds</code></a> parameter of a <code class="code"><a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html">ReceiveMessage</a></code> request
+            is set to <code class="code">0</code> in one of two ways:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The <code class="code">ReceiveMessage</code> call sets <code class="code">WaitTimeSeconds</code> to
+                        <code class="code">0</code>.</p>
+            </li><li class="listitem">
+                <p>The <code class="code">ReceiveMessage</code> call doesn’t set <code class="code">WaitTimeSeconds</code>,
+                    but the queue attribute <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SetQueueAttributes.html"><code class="code">ReceiveMessageWaitTimeSeconds</code></a> is set to
+                        <code class="code">0</code>.</p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sqs-queue-tags.html">Cost allocation tags</div><div id="next" class="next-link" accesskey="n" href="./sqs-visibility-timeout.html">Visibility timeout</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SQS&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

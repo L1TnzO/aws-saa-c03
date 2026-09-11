@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAM: identidad y acceso — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>IAM <span class="en">AWS Identity and Access Management</span></h1>
+<p class="subtitle">El servicio de identidad y acceso que sostiene el dominio más pesado del examen (D1, 30%): quién puede hacer qué, en qué cuenta, y con qué permisos.</p>
+<div class="chips">
+  <span class="chip">Fase 1 · Fundamentos</span>
+  <span class="chip d1">Dominio 1 · 30%</span>
+  <span class="chip core">Servicio core del examen</span>
+</div>
+
+<p><strong>AWS IAM</strong> es el servicio que responde dos preguntas para cualquier operación en AWS: <em>¿quién eres?</em> (autenticación) y <em>¿qué puedes hacer?</em> (autorización). Piénsalo como la recepción de un edificio corporativo: el <em>root user</em> es el dueño del edificio (tiene la llave maestra y casi nunca debe usarla), los <em>usuarios</em> son empleados con credenciales propias, los <em>grupos</em> son departamentos que heredan permisos, y los <em>roles</em> son credenciales temporales que se "visten" cuando alguien necesita atravesar una puerta concreta — sin llevar llaves permanentes.</p>
+
+<p>El examen no pregunta pantallas de la consola: pregunta decisiones de diseño. La regla número uno que debes interiorizar se llama <span class="tag-en">least privilege</span> (principio de mínimo privilegio): cada identidad debe poder hacer exactamente lo que necesita y nada más. La segunda regla es que las aplicaciones <strong>nunca</strong> usan usuarios IAM con access keys: usan <strong>roles</strong>, porque sus credenciales son temporales y rotan automáticamente vía <span class="tag-en">AWS STS</span>.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    ACC["Cuenta AWS<br>(root user + MFA)"]
+    subgraph IDS["Identidades IAM"]
+        GRP["Grupos<br>(departamentos)"]
+        USR["Usuarios IAM<br>(humanos, con MFA)"]
+        ROL["Roles IAM<br>(credenciales temporales)"]
+    end
+    subgraph PERM["Autorización"]
+        POL["Políticas IAM<br>(JSON: Allow / Deny)"]
+    end
+    ACC --> GRP
+    GRP --> USR
+    USR --> ROL
+    ROL --> PERM
+    STS["AWS STS<br>(tokens temporales)"] -.-> ROL
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class ACC navy
+    class GRP,USR,ROL green
+    class POL amber
+    class STS navy
+</div>
+<figcaption>Figura 1 — Mapa de IAM: identidades (verde), políticas (ámbar) y STS emitiendo credenciales temporales.</figcaption>
+</figure>
+
+<h2>Los cuatro objetos de IAM que debes dominar</h2>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Objeto</th><th>Qué es</th><th>Cuándo usarlo (regla de examen)</th></tr></thead>
+<tbody>
+<tr><td><strong>Usuario IAM</strong></td><td>Identidad permanente con credenciales (contraseña y/o access keys)</td><td>Personas que necesitan acceso a la consola o CLI. Cada persona del equipo = un usuario IAM (o mejor: federación). Nada de compartir usuarios.</td></tr>
+<tr><td><strong>Grupo</strong></td><td>Contenedor de usuarios al que se adjuntan políticas</td><td>Asignar permisos por función (Developers, DBAs, Auditoría). Adjuntas la política al grupo, no usuario por usuario.</td></tr>
+<tr><td><strong>Rol</strong></td><td>Identidad sin credenciales permanentes; cualquiera puede "asumirlo" (assume role) si la política de confianza se lo permite</td><td>Aplicaciones en EC2/Lambda, acceso entre cuentas (<span class="tag-en">cross-account</span>), federación de usuarios de empresa. La respuesta por defecto cuando el enunciado menciona acceso temporal o aplicaciones.</td></tr>
+<tr><td><strong>Política</strong></td><td>Documento JSON con permisos (Effect: Allow/Deny, Action, Resource)</td><td>La unidad mínima de permiso. Distingue <em>identity policy</em> (adjunta a usuario/grupo/rol) de <em>resource policy</em> (adjunta al recurso, p. ej. bucket policy de S3).</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+Si el escenario habla de una aplicación en EC2 o Lambda que necesita acceder a S3: <strong>rol IAM</strong>, nunca access keys. Si habla de usuarios de tu empresa que ya tienen identidades corporativas (Active Directory, Okta): <strong>federación con IAM Identity Center (AWS SSO) o roles de IAM</strong>, nunca crear usuarios duplicados en IAM. Si pregunta por permisos granulares: <strong>least privilege</strong> + políticas adjuntas a grupos.
+</div>
+
+<h2>El root user y las buenas prácticas oficiales</h2>
+
+<p>La cuenta AWS nace con una identidad todopoderosa: el <strong>root user</strong>. La lista oficial de buenas prácticas de IAM (que el exam guide cita explícitamente en el Task Statement 1.1) pide: activar <span class="tag-en">MFA</span> en el root user, no usarlo para tareas diarias, crear usuarios/roles administrativos para el trabajo cotidiano, aplicar least privilege, auditar con <strong>CloudTrail</strong> e <strong>IAM Access Analyzer</strong>, rotar credenciales y — la modernización más citada — usar el <strong>IAM Identity Center</strong> (antes AWS SSO) para gestionar el acceso humano centralizado en lugar de usuarios IAM sueltos.</p>
+
+<h2>Cross-account access: el patrón del role switching</h2>
+
+<p>Cuando varias cuentas AWS necesitan colaborar (producción, desarrollo, seguridad), el patrón oficial es el <span class="tag-en">role switching</span>: la cuenta A confía (<em>trust policy</em>) en usuarios de la cuenta B para asumir un rol. El usuario de B solicita credenciales temporales a <strong>AWS STS</strong> (<code>AssumeRole</code>), recibe un token de hasta 12 horas, y opera en A con los permisos del rol. Este flujo aparece en preguntas de multi-cuenta (que se resuelven junto a AWS Organizations y SCPs) y es la base de la federación con directorios corporativos.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Usuario en cuenta Dev
+    participant STS as AWS STS
+    participant Prod as Rol en cuenta Prod
+    Dev->>STS: AssumeRole (arn:rol-en-prod)
+    STS->>Dev: credenciales temporales (1-12 h)
+    Dev->>Prod: opera con permisos del rol
+    Note over Dev,Prod: La trust policy del rol define quién puede asumirlo
+</div>
+<figcaption>Figura 2 — Cross-account access con STS: credenciales temporales en lugar de keys permanentes.</figcaption>
+</figure>
+
+<h2>Cómo cae en el examen: señales y trampas</h2>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"application running on EC2 needs access to DynamoDB"</td><td>IAM role attached to the EC2 instance profile</td></tr>
+<tr><td>"employees already authenticate with the corporate directory"</td><td>Federation / IAM Identity Center (AWS SSO) con roles</td></tr>
+<tr><td>"grant temporary access to an auditor"</td><td>IAM role con trust policy + STS</td></tr>
+<tr><td>"users in account B must manage resources in account A"</td><td>Cross-account role (role switching)</td></tr>
+<tr><td>"enforce permissions across all accounts in the organization"</td><td>SCPs en AWS Organizations (no bastan políticas IAM)</td></tr>
+<tr><td>"credentials hardcoded in code"</td><td>Distractor: la solución correcta usa roles + Secrets Manager</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+Un distractor frecuente es crear <em>usuarios IAM</em> para aplicaciones o para acceso entre cuentas. Los usuarios con access keys permanentes son el anti-patrón: si el enunciado insinúa "menos gestión" o "más seguridad", la respuesta casi siempre pasa por roles (credenciales temporales que rotan solas).
+</div>
+
+<h2>Vocabulario EN que debes reconocer al vuelo</h2>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Término EN</th><th>Significado</th></tr></thead>
+<tbody>
+<tr><td><span class="tag-en">least privilege</span></td><td>Mínimo privilegio: solo los permisos necesarios</td></tr>
+<tr><td><span class="tag-en">assume role / role switching</span></td><td>Asumir un rol (credenciales temporales)</td></tr>
+<tr><td><span class="tag-en">trust policy</span></td><td>Política de confianza: quién puede asumir el rol</td></tr>
+<tr><td><span class="tag-en">identity vs resource policy</span></td><td>Política en la identidad vs política en el recurso (S3 bucket policy)</td></tr>
+<tr><td><span class="tag-en">explicit deny</span></td><td>Niega explícita: siempre gana sobre cualquier Allow</td></tr>
+<tr><td><span class="tag-en">federated access</span></td><td>Acceso federado desde un IdP externo (directorio, SSO)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Least privilege</strong> es la respuesta por defecto de toda pregunta de permisos.</li>
+<li>Aplicaciones (EC2, Lambda, ECS) usan <strong>roles</strong>, nunca usuarios con keys.</li>
+<li>El <strong>root user</strong> con MFA existe para tareas de emergencia, no para el día a día.</li>
+<li><strong>STS</strong> emite credenciales temporales; <code>AssumeRole</code> es el verbo del cross-account.</li>
+<li><strong>Grupos</strong> para humanos, <strong>roles</strong> para todo lo demás.</li>
+<li>Multi-cuenta = <strong>Organizations</strong> + SCPs (+ Control Tower como opción gestionada).</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">FND-11</span> IAM User Guide — Introduction · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" target="_blank" rel="noopener">docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html</a></li>
+<li><span class="id">FND-12</span> IAM — Security best practices · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="noopener">docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></li>
+<li><span class="id">FND-13</span> IAM — Roles · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html" target="_blank" rel="noopener">docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html</a></li>
+<li><span class="id">FND-14</span> IAM — Policies and permissions · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" target="_blank" rel="noopener">docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html</a></li>
+<li><span class="id">FND-15</span> AWS STS — API reference · <a href="https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/STS/latest/APIReference/welcome.html</a></li>
+<li><span class="id">FND-16</span> IAM Identity Center (AWS SSO) · <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html" target="_blank" rel="noopener">docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html</a></li>
+<li><span class="id">SEC-16</span> AWS Directory Service · <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html" target="_blank" rel="noopener">docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/fundamentos.html"><span class="dir">← Anterior</span>Cuenta AWS, regiones y AZ</a><a class="next" href="../temas/organizaciones.html"><span class="dir">Siguiente →</span>Organizations y multi-cuenta</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

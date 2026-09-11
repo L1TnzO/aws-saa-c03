@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Global tables - multi-active, multi-Region replication - Amazon DynamoDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="GlobalTables" /><meta name="default_state" content="GlobalTables" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html" /><meta name="description" content="DynamoDB global tables provide multi-Region, multi-active database replication for fast, localized performance and high availability in global applications." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DynamoDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon DynamoDB is a fast, fully managed NoSQL database as a service that makes it simple and cost-effective to store and retrieve any amount of data, and serve any level of request traffic." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html" hreflang="x-default" /><meta name="feedback-item" content="DynamoDB" /><meta name="this_doc_product" content="Amazon DynamoDB" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dynamodb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Global tables - multi-active, multi-Region replication" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="GlobalTables.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Global tables - multi-active, multi-Region replication - Amazon DynamoDB</title><meta name="pdf" content="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#GlobalTables" /><meta name="rss" content="dynamodbupdates.rss" /><meta name="forums" content="https://repost.aws/tags/TAljkKQ0MDQJCjDdxSeDQBJw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/GlobalTables.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/GlobalTables.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/GlobalTables.html" /><meta name="keywords" content="DynamoDB,Amazon DynamoDB,database,NoSQL database,nonrelational database,managed database,DynamoDB tables,DynamoDB table operations,DynamoDB table management,DynamoDB table items,DynamoDB indexes,DynamoDB global tables,DynamoDB transactions,DynamoDB Streams,Multi-region database replication,multi-active replication,replicate DynamoDB tables,low-latency data access" /><link rel="alternate" type="text/markdown" href="GlobalTables.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DynamoDB",
+        "item" : "https://docs.aws.amazon.com/dynamodb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with tables, items, queries, scans, and indexes",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDynamo.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Global tables - multi-active, multi-Region replication",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDynamo.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#GlobalTables" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/dynamodb/index.html">Amazon DynamoDB</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#GlobalTables.consistency-modes">Consistency modes</a><a href="#GlobalTables.account-configurations">Account configurations</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="GlobalTables">Global tables - multi-active, multi-Region replication</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p><em>Amazon DynamoDB global tables</em> is a fully managed,
+        multi-Region, and multi-active database feature that provides easy to use data replication
+        and fast local read and write performance for globally scaled applications.</p><p>Global tables automatically replicate your DynamoDB table data across AWS Regions and optionally across AWS accounts without
+        requiring you to build and maintain your own replication solution. Global tables are ideal for applications
+        requiring business continuity and high availability through multi-Region deployment. Any global table replica
+        can serve reads and writes. Applications can achieve high resilience with a low or zero Recovery Point Objective
+        (RPO) by shifting traffic to a different Region if application processing is interrupted in
+        a Region. Global tables are available in all Regions where DynamoDB is available.</p>
+        <h2 id="GlobalTables.consistency-modes">Consistency modes</h2>
+        <p>When you create a global table, you can configure its consistency mode. Global tables
+            support two consistency modes: multi-Region eventual consistency (MREC) and multi-Region
+            strong consistency (MRSC).</p>
+
+        <p>If you do not specify a consistency mode when creating a global table, the global
+            table defaults to multi-Region eventual consistency (MREC). A global table cannot
+            contain replicas configured with different consistency modes. You cannot change a global
+            table's consistency mode after creation.</p>
+     
+        <h2 id="GlobalTables.account-configurations">Account configurations</h2>
+
+    <p>DynamoDB now supports two global tables models, each designed for different architectural patterns:</p>
+    <div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>Same-account global tables</b> – All replicas are created and managed
+            within a single AWS account.</p>
+        </li><li class="listitem">
+            <p><b>Multi-account global tables</b> – Replicas are deployed across multiple AWS accounts
+            while participating in a shared replication group.</p>
+        </li></ul></div>
+    <p>Both same-account and multi-account models support multi-Region writes, asynchronous replication, last-writer-wins conflict resolution, and the same billing model. However, they differ in how accounts, permissions, encryption, and table governance are managed.</p>
+
+    <p>Global tables configured for MRSC only support same-account configurations.</p>
+
+    <p>You can configure a global table using the AWS Management Console. Global tables use
+        existing DynamoDB APIs to read and write data to your tables, so no application changes are
+        required. You pay only for the resources you provision or use, with no upfront costs or
+        commitments.</p>
+    <h6>Comparison of same-account and multi-account global tables</h6><div class="table-container"><div class="table-contents"><table id="w436aac17b9c13"><thead>
+                <tr>
+                    <th><b>Properties</b></th>
+                    <th><b>Same-Account global tables</b></th>
+                    <th><b>Multi-account global tables</b></th>
+                </tr>
+            </thead>
+                <tr>
+                    <td tabindex="-1"><b>Primary use case</b></td>
+                    <td tabindex="-1">Multi-Region resiliency for applications within a single AWS account</td>
+                    <td tabindex="-1">Multi-Region, multi-account replication for applications owned by different teams, distinct business units, or strong security boundaries across accounts</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Account model</b></td>
+                    <td tabindex="-1">All replicas created and managed in one AWS account</td>
+                    <td tabindex="-1">Replicas created across multiple AWS accounts within the same deployment</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Resource ownership</b></td>
+                    <td tabindex="-1">A single account owns the table and all replicas</td>
+                    <td tabindex="-1">Each account owns its local replica; replication group spans accounts</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Version supported</b></td>
+                    <td tabindex="-1">Global tables version 2019.11.21 (Current) and Version 2017.11.29 (Legacy)</td>
+                    <td tabindex="-1">Global tables version 2019.11.21 (Current)</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Control plane operations</b></td>
+                    <td tabindex="-1">Create, modify, and delete replicas through the table owner account</td>
+                    <td tabindex="-1">Distributed control-plane operations: accounts join or leave the replication group</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Data plane operations</b></td>
+                    <td tabindex="-1">Standard DynamoDB endpoints per Region</td>
+                    <td tabindex="-1">Data-plane access per account/Region; routing through replication group</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Security boundary</b></td>
+                    <td tabindex="-1">A single IAM and KMS boundary</td>
+                    <td tabindex="-1">Distinct IAM, KMS, billing, CloudTrail, and governance per account</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Best fit</b></td>
+                    <td tabindex="-1">Organizations with centralized ownership of tables</td>
+                    <td tabindex="-1">Organizations with federated teams, governance boundaries, or multi-account setups</td>
+                </tr>
+            </table></div></div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="./globaltables-CoreConcepts.html">Global tables core concepts</a></p></li><li><p><a href="./globaltables-SameAccount.html">DynamoDB same-account global table</a></p></li><li><p><a href="./globaltables-MultiAccount.html">DynamoDB multi-account global tables</a></p></li><li><p><a href="./global-tables-billing.html">Understanding Amazon DynamoDB billing for global tables</a></p></li><li><p><a href="./V2globaltables_versions.html">DynamoDB global tables versions</a></p></li><li><p><a href="./globaltables-bestpractices.html">Best practices for global tables</a></p></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./Tagging.Operations.html">Tagging resources</div><div id="next" class="next-link" accesskey="n" href="./globaltables-CoreConcepts.html">Core concepts</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/GlobalTables.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/GlobalTables.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

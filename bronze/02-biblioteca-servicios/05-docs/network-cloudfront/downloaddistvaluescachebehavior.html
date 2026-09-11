@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Cache behavior settings - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="DownloadDistValuesCacheBehavior" /><meta name="default_state" content="DownloadDistValuesCacheBehavior" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" /><meta name="description" content="Configure cache behavior settings for your CloudFront distribution to control how CloudFront handles requests for different URL path patterns, including origin selection, protocol policies, and caching options." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Cache behavior settings" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="DownloadDistValuesCacheBehavior.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Cache behavior settings - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#DownloadDistValuesCacheBehavior" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,configure CloudFront distribution,CloudFront configuration,set up CloudFront distribution,CloudFront origin settings,CloudFront cache behavior settings,CloudFront distribution settings,CloudFront custom error pages,CloudFront error caching,CloudFront geographic restrictions" /><link rel="alternate" type="text/markdown" href="DownloadDistValuesCacheBehavior.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configure distributions",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "All distribution settings reference",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Cache behavior settings",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#DownloadDistValuesCacheBehavior" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#DownloadDistValuesPathPattern">Path pattern</a><a href="#DownloadDistValuesTargetOriginId">Origin or origin group</a><a href="#DownloadDistValuesViewerProtocolPolicy">Viewer protocol policy</a><a href="#DownloadDistValuesAllowedHTTPMethods">Allowed HTTP methods</a><a href="#DownloadDistValuesFieldLevelEncryption">Field-level encryption config</a><a href="#DownloadDistValuesCachedHTTPMethods">Cached HTTP methods</a><a href="#enable-grpc-distribution">Allow gRPC requests over HTTP/2</a><a href="#DownloadDistValuesForwardHeaders">Cache based on selected request headers</a><a href="#DownloadDistValuesAllowlistHeaders">Allowlist headers</a><a href="#DownloadDistValuesObjectCaching">Object caching</a><a href="#DownloadDistValuesMinTTL">Minimum TTL</a><a href="#DownloadDistValuesMaxTTL">Maximum TTL</a><a href="#DownloadDistValuesDefaultTTL">Default TTL</a><a href="#DownloadDistValuesForwardCookies">Forward cookies</a><a href="#DownloadDistValuesAllowlistCookies">Allowlist cookies</a><a href="#DownloadDistValuesQueryString">Query string forwarding and caching</a><a href="#DownloadDistValuesQueryStringAllowlist">Query string allowlist</a><a href="#DownloadDistValuesSmoothStreaming">Smooth Streaming</a><a href="#DownloadDistValuesRestrictViewerAccess">Restrict viewer access (use signed URLs or signed cookies)</a><a href="#DownloadDistValuesTrustedSigners">Trusted signers</a><a href="#DownloadDistValuesAWSAccountNumbers">AWS account numbers</a><a href="#DownloadDistValuesCompressObjectsAutomatically">Compress objects automatically</a><a href="#DownloadDistValuesEventType">CloudFront event</a><a href="#DownloadDistValuesLambdaFunctionARN">Lambda function ARN</a><a href="#include-body">Include body</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="DownloadDistValuesCacheBehavior">Cache behavior settings</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>By setting the cache behavior, you can configure a variety of CloudFront functionality for a
+					given URL path pattern for files on your website. For example, one cache
+					behavior might apply to all <code class="code">.jpg</code> files in the <code class="code">images</code>
+					directory on a web server that you're using as an origin server for CloudFront. The
+					functionality that you can configure for each cache behavior includes:</p><div class="itemizedlist">
+					 
+					 
+					 
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>The path pattern</p>
+					</li><li class="listitem">
+						<p>If you have configured multiple origins for your CloudFront distribution, the origin to which
+							you want CloudFront to forward your requests</p>
+					</li><li class="listitem">
+						<p>Whether to forward query strings to your origin</p>
+					</li><li class="listitem">
+						<p>Whether accessing the specified files requires signed URLs</p>
+					</li><li class="listitem">
+						<p>Whether to require users to use HTTPS to access those files</p>
+					</li><li class="listitem">
+						<p>The minimum amount of time that those files stay in the CloudFront cache regardless of the
+							value of any <code class="code">Cache-Control</code> headers that your origin adds to
+							the files</p>
+					</li></ul></div><p>When you create a new distribution, you specify settings for the default cache
+					behavior, which automatically forwards all requests to the origin that you
+					specify when you create the distribution. After you create a distribution, you
+					can create additional cache behaviors that define how CloudFront responds when it
+					receives a request for objects that match a path pattern, for example,
+						<code class="code">*.jpg</code>. If you create additional cache behaviors, the default
+					cache behavior is always the last to be processed. Other cache behaviors are
+					processed in the order in which they're listed in the CloudFront console or, if you're
+					using the CloudFront API, the order in which they're listed in the
+						<code class="code">DistributionConfig</code> element for the distribution. For more
+					information, see <a href="#DownloadDistValuesPathPattern">Path pattern</a>.</p><p>When you create a cache behavior, you specify the one origin from which you
+					want CloudFront to get objects. As a result, if you want CloudFront to distribute objects
+					from all of your origins, you must have at least as many cache behaviors
+					(including the default cache behavior) as you have origins. For example, if you
+					have two origins and only the default cache behavior, the default cache behavior
+					causes CloudFront to get objects from one of the origins, but the other origin is
+					never used.</p><p>For the current maximum number of cache behaviors that you can add to a
+					distribution, or to request a higher quota (formerly known as limit), see <a href="./cloudfront-limits.html#limits-web-distributions">General quotas on distributions</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#DownloadDistValuesPathPattern">Path pattern</a></p></li><li><p><a href="#DownloadDistValuesTargetOriginId">Origin or origin group</a></p></li><li><p><a href="#DownloadDistValuesViewerProtocolPolicy">Viewer protocol policy</a></p></li><li><p><a href="#DownloadDistValuesAllowedHTTPMethods">Allowed HTTP methods</a></p></li><li><p><a href="#DownloadDistValuesFieldLevelEncryption">Field-level encryption config</a></p></li><li><p><a href="#DownloadDistValuesCachedHTTPMethods">Cached HTTP methods</a></p></li><li><p><a href="#enable-grpc-distribution">Allow gRPC requests over HTTP/2</a></p></li><li><p><a href="#DownloadDistValuesForwardHeaders">Cache based on selected request headers</a></p></li><li><p><a href="#DownloadDistValuesAllowlistHeaders">Allowlist headers</a></p></li><li><p><a href="#DownloadDistValuesObjectCaching">Object caching</a></p></li><li><p><a href="#DownloadDistValuesMinTTL">Minimum TTL</a></p></li><li><p><a href="#DownloadDistValuesMaxTTL">Maximum TTL</a></p></li><li><p><a href="#DownloadDistValuesDefaultTTL">Default TTL</a></p></li><li><p><a href="#DownloadDistValuesForwardCookies">Forward cookies</a></p></li><li><p><a href="#DownloadDistValuesAllowlistCookies">Allowlist cookies</a></p></li><li><p><a href="#DownloadDistValuesQueryString">Query string forwarding and caching</a></p></li><li><p><a href="#DownloadDistValuesQueryStringAllowlist">Query string allowlist</a></p></li><li><p><a href="#DownloadDistValuesSmoothStreaming">Smooth Streaming</a></p></li><li><p><a href="#DownloadDistValuesRestrictViewerAccess">Restrict viewer access (use signed URLs or signed cookies)</a></p></li><li><p><a href="#DownloadDistValuesTrustedSigners">Trusted signers</a></p></li><li><p><a href="#DownloadDistValuesAWSAccountNumbers">AWS account numbers</a></p></li><li><p><a href="#DownloadDistValuesCompressObjectsAutomatically">Compress objects automatically</a></p></li><li><p><a href="#DownloadDistValuesEventType">CloudFront event</a></p></li><li><p><a href="#DownloadDistValuesLambdaFunctionARN">Lambda function ARN</a></p></li><li><p><a href="#include-body">Include body</a></p></li></ul></div>
+					<h2 id="DownloadDistValuesPathPattern">Path pattern</h2>
+					<p>A path pattern (for example, <code class="code">images/*.jpg</code>) specifies to which
+						requests you want this cache behavior to apply. When CloudFront receives an
+						end-user request, the requested path is compared with path patterns in the
+						order in which cache behaviors are listed in the distribution. The first
+						match determines which cache behavior is applied to that request. For
+						example, suppose you have three cache behaviors with the following three
+						path patterns, in this order:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><code class="code">images/*.jpg</code></p>
+						</li><li class="listitem">
+							<p><code class="code">images/*</code></p>
+						</li><li class="listitem">
+							<p><code class="code">*.gif</code></p>
+						</li></ul></div>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can optionally include a slash (/) at the beginning of the path
+							pattern, for example, <code class="code">/images/*.jpg</code>. CloudFront behavior is the
+							same with or without the leading /. If you don't specify the / at the
+							beginning of the path, this character is automatically implied; CloudFront
+							treats the path the same with or without the leading /. For example,
+							CloudFront treats <code class="code">/*product.jpg</code> the same as
+								<code class="code">*product.jpg</code></p></div></div>
+					<p>A request for the file <code class="code">images/sample.gif</code> doesn't satisfy the
+						first path pattern, so the associated cache behaviors are not applied to the
+						request. The file does satisfy the second path pattern, so the cache
+						behaviors associated with the second path pattern are applied even though
+						the request also matches the third path pattern.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you create a new distribution, the value of <b>Path
+								Pattern</b> for the default cache behavior is set to
+								<b>*</b> (all files) and cannot be
+							changed. This value causes CloudFront to forward all requests for your objects
+							to the origin that you specified in the <a href="./DownloadDistValuesOrigin.html#DownloadDistValuesDomainName">Origin domain</a> field. If the request
+							for an object does not match the path pattern for any of the other cache
+							behaviors, CloudFront applies the behavior that you specify in the default
+							cache behavior.</p></div></div>
+					<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Define path patterns and their sequence carefully or you may give
+							users undesired access to your content. For example, suppose a request
+							matches the path pattern for two cache behaviors. The first cache
+							behavior does not require signed URLs and the second cache behavior does
+							require signed URLs. Users are able to access the objects without using
+							a signed URL because CloudFront processes the cache behavior associated with
+							the first match.</p></div></div>
+					<p>If you're working with a MediaPackage channel, you must include specific path
+						patterns for the cache behavior that you define for the endpoint type for
+						your origin. For example, for a DASH endpoint, you type <code class="code">*.mpd</code>
+						for <b>Path Pattern</b>. For more information and specific
+						instructions, see <a href="./live-streaming.html#live-streaming-with-mediapackage">Serve live video formatted with AWS Elemental MediaPackage</a>.</p>
+					<p>The path you specify applies to requests for all files in the specified
+						directory and in subdirectories below the specified directory. CloudFront does not
+						consider query strings or cookies when evaluating the path pattern. For
+						example, if an <code class="code">images</code> directory contains <code class="code">product1</code>
+						and <code class="code">product2</code> subdirectories, the path pattern
+							<code class="code">images/*.jpg</code> applies to requests for any .jpg file in the
+							<code class="code">images</code>, <code class="code">images/product1</code>, and
+							<code class="code">images/product2</code> directories. If you want to apply a
+						different cache behavior to the files in the <code class="code">images/product1</code>
+						directory than the files in the <code class="code">images</code> and
+							<code class="code">images/product2</code> directories, create a separate cache
+						behavior for <code class="code">images/product1</code> and move that cache behavior to a
+						position above (before) the cache behavior for the <code class="code">images</code>
+						directory.</p>
+					<p>You can use the following wildcard characters in your path pattern:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><code class="code">*</code> matches 0 or more characters.</p>
+						</li><li class="listitem">
+							<p><code class="code">?</code> matches exactly 1 character.</p>
+						</li></ul></div>
+					<p>The following examples show how the wildcard characters work:</p>
+					<div class="table-container"><div class="table-contents disable-scroll"><table id="w303aac15c29c13c15c25"><thead>
+								<tr>
+									<th>Path pattern</th>
+									<th>Files that match the path pattern</th>
+								</tr>
+							</thead>
+								<tr>
+									<td tabindex="-1">
+										<p><code class="code">*.jpg</code></p>
+									</td>
+									<td tabindex="-1">
+										<p>All .jpg files.</p>
+									</td>
+								</tr>
+								<tr>
+									<td tabindex="-1">
+										<p><code class="code">images/*.jpg</code></p>
+									</td>
+									<td tabindex="-1">
+										<p>All .jpg files in the <code class="code">images</code> directory
+											and in subdirectories under the <code class="code">images</code>
+											directory.</p>
+									</td>
+								</tr>
+								<tr>
+									<td tabindex="-1">
+										<p><code class="code">a*.jpg</code></p>
+									</td>
+									<td tabindex="-1">
+										<div class="itemizedlist">
+											 
+											 
+										<ul class="itemizedlist"><li class="listitem">
+												<p>All .jpg files for which the file name begins
+												with <code class="code">a</code>, for example,
+												<code class="code">apple.jpg</code> and
+												<code class="code">appalachian_trail_2012_05_21.jpg</code>.</p>
+											</li><li class="listitem">
+												<p>All .jpg files for which the file path begins
+												with <code class="code">a</code>, for example,
+												<code class="code">abra/cadabra/magic.jpg</code>.</p>
+											</li></ul></div>
+									</td>
+								</tr>
+								<tr>
+									<td tabindex="-1">
+										<p><code class="code">a??.jpg</code></p>
+									</td>
+									<td tabindex="-1">
+										<p>All .jpg files for which the file name begins with
+												<code class="code">a</code> and is followed by exactly two other
+											characters, for example, <code class="code">ant.jpg</code> and
+												<code class="code">abe.jpg</code>.</p>
+									</td>
+								</tr>
+								<tr>
+									<td tabindex="-1">
+										<p><code class="code">*.doc*</code></p>
+									</td>
+									<td tabindex="-1">
+										<p>All files for which the file name extension begins
+											with <code class="code">.doc</code>, for example, <code class="code">.doc</code>,
+												<code class="code">.docx</code>, and <code class="code">.docm</code> files.
+											You can't use the path pattern <code class="code">*.doc?</code> in
+											this case, because that path pattern wouldn't apply to
+											requests for <code class="code">.doc</code> files; the <code class="code">?</code>
+											wildcard character replaces exactly one
+											character.</p>
+									</td>
+								</tr>
+							</table></div></div>
+					<p>The maximum length of a path pattern is 255 characters. The value can
+						contain any of the following characters:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>A-Z, a-z</p>
+							<p>Path patterns are case-sensitive, so the path pattern
+									<code class="code">*.jpg</code> doesn't apply to the file
+									<code class="code">LOGO.JPG</code></p>
+						</li><li class="listitem">
+							<p>0-9</p>
+						</li><li class="listitem">
+							<p>_ - . * $ / ~ " ' @ : +</p>
+						</li><li class="listitem">
+							<p>&amp;, passed and returned as <code class="code">&amp;amp;</code></p>
+						</li></ul></div>
+					 
+						<h3 id="path-normalization">Path normalization</h3>
+					 
+					<p>CloudFront normalizes URI paths consistent with <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-6" rel="noopener noreferrer" target="_blank"><span>RFC
+							3986</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and then matches the path with the correct cache behavior.
+						Once the cache behavior is matched, CloudFront sends the raw URI path to the
+						origin. If they don't match, requests are instead matched to your default
+						cache behavior. </p>
+					<p>Some characters are normalized and removed from the path, such as multiple
+						slashes (<code class="code">//</code>) or periods (<code class="code">..</code>). This can alter the
+						URL that CloudFront uses to match the intended cache behavior. </p>
+					<div class="example"><h6>Example</h6><div class="example-contents"><p>You specify the <code class="code">/a/b*</code> and <code class="code">/a*</code> paths for your
+							cache behavior.</p><div class="itemizedlist">
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p>A viewer sending the <code class="code">/a/b?c=1</code> path will match the
+										<code class="code">/a/b*</code> cache behavior.</p>
+							</li><li class="listitem">
+								<p>A viewer sending the <code class="code">/a/b/..?c=1</code> path will match
+									the <code class="code">/a*</code> cache behavior.</p>
+							</li></ul></div></div></div>
+					<p>To work around the paths being normalized, you can update your request
+						paths or the path pattern for the cache behavior.</p>
+				 
+				<h2 id="DownloadDistValuesTargetOriginId">Origin or origin group</h2>
+				<p>This setting applies only when you create or update a cache behavior for an
+					existing distribution.</p>
+				<p>Enter the value of an existing origin or origin group. This identifies the
+					origin or origin group to which you want CloudFront to route requests when a request
+					(such as https://example.com/logo.jpg) matches the path pattern for a cache
+					behavior (such as *.jpg) or for the default cache behavior (*).</p>
+			 
+					<h2 id="DownloadDistValuesViewerProtocolPolicy">Viewer protocol policy</h2>
+					<p>Choose the protocol policy that you want viewers to use to access your
+						content in CloudFront edge locations:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>HTTP and HTTPS</b>: Viewers can use both
+								protocols. </p>
+						</li><li class="listitem">
+							<p><b>Redirect HTTP to HTTPS</b>: Viewers can use both
+								protocols, but HTTP requests are automatically redirected to HTTPS
+								requests.</p>
+						</li><li class="listitem">
+							<p><b>HTTPS Only</b>: Viewers can only access your
+								content if they're using HTTPS.</p>
+						</li></ul></div>
+					<p>For more information, see <a href="./using-https-viewers-to-cloudfront.html">Require HTTPS for communication between viewers and CloudFront</a>.</p>
+				 
+					<h2 id="DownloadDistValuesAllowedHTTPMethods">Allowed HTTP methods</h2>
+					<p>Specify the HTTP methods that you want CloudFront to process and forward to your
+						origin:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>GET, HEAD:</b> You can use CloudFront only
+								to get objects from your origin or to get object headers.</p>
+						</li><li class="listitem">
+							<p><b>GET, HEAD, OPTIONS:</b> You can use
+								CloudFront only to get objects from your origin, get object headers, or
+								retrieve a list of the options that your origin server
+								supports.</p>
+						</li><li class="listitem">
+							<p><b>GET, HEAD, OPTIONS, PUT, POST, PATCH,
+									DELETE:</b> You can use CloudFront to get, add, update, and
+								delete objects, and to get object headers. In addition, you can
+								perform other POST operations such as submitting data from a web
+								form. </p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you're using gRPC in your workload, you must select
+									<b>GET, HEAD, OPTIONS, PUT, POST, PATCH,
+									DELETE</b>. gRPC workloads require the <code class="code">POST</code>
+								method. For more information, see <a href="./distribution-using-grpc.html">Using gRPC with CloudFront distributions</a>.</p><p>CloudFront caches responses to <code class="code">GET</code> and <code class="code">HEAD</code>
+								requests and, optionally, <code class="code">OPTIONS</code> requests. Responses
+								to <code class="code">OPTIONS</code> requests are cached separately from
+								responses to <code class="code">GET</code> and <code class="code">HEAD</code> requests (the
+									<code class="code">OPTIONS</code> method is included in the <a href="./understanding-the-cache-key.html">cache key</a> for
+									<code class="code">OPTIONS</code> requests). CloudFront does not cache responses to
+								requests that use other methods.</p></div></div>
+						</li></ul></div>
+
+					<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you choose <b>GET, HEAD, OPTIONS</b> or
+								<b>GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE</b>,
+							you might need to restrict access to your Amazon S3 bucket or to your custom
+							origin to prevent users from performing operations that you don't want
+							them to perform. The following examples explain how to restrict
+							access:</p><div class="itemizedlist">
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p><b>If you're using Amazon S3 as an origin for
+										your distribution:</b> Create a CloudFront origin access
+									control to restrict access to your Amazon S3 content, and give
+									permissions to the origin access control. For example, if you
+									configure CloudFront to accept and forward these methods
+										<em>only</em> because you want to use
+										<code class="code">PUT</code>, you must still configure Amazon S3 bucket
+									policies to handle <code class="code">DELETE</code> requests appropriately.
+									For more information, see <a href="./private-content-restricting-access-to-s3.html">Restrict access to an Amazon S3 origin</a>.</p>
+							</li><li class="listitem">
+								<p><b>If you're using a custom
+										origin:</b> Configure your origin server to handle
+									all methods. For example, if you configure CloudFront to accept and
+									forward these methods <em>only</em> because you want
+									to use <code class="code">POST</code>, you must still configure your origin
+									server to handle <code class="code">DELETE</code> requests appropriately.
+								</p>
+							</li></ul></div></div></div>
+				 
+					<h2 id="DownloadDistValuesFieldLevelEncryption">Field-level encryption config</h2>
+					<p>If you want to enforce field-level encryption on specific data fields, in the dropdown
+						list, choose a field-level encryption configuration.</p>
+					<p>For more information, see <a href="./field-level-encryption.html">Use field-level encryption to help protect sensitive data</a>.</p>
+				 
+					<h2 id="DownloadDistValuesCachedHTTPMethods">Cached HTTP methods</h2>
+					<p>Specify whether you want CloudFront to cache the response from your origin when
+						a viewer submits an <code class="code">OPTIONS</code> request. CloudFront always caches the
+						response to <code class="code">GET</code> and <code class="code">HEAD</code> requests.</p>
+				 
+				
+				<h2 id="enable-grpc-distribution">Allow gRPC requests over HTTP/2</h2>
+				
+				<p>Specify whether you want your distribution to allow gRPC requests. To enable
+					gRPC, select the following settings: </p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>For <b><a href="#DownloadDistValuesAllowedHTTPMethods">Allowed HTTP methods</a></b>, select the
+								<b>GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE</b>
+							methods. gRPC requires the <code class="code">POST</code> method.</p>
+					</li><li class="listitem">
+						<p>Select the gRPC checkbox that appears after you select the
+								<code class="code">POST</code> method.</p>
+					</li><li class="listitem">
+						<p>For <b><a href="./DownloadDistValuesGeneral.html#DownloadDistValuesSupportedHTTPVersions">Supported HTTP versions</a></b>,
+							select <b>HTTP/2</b>.</p>
+					</li></ul></div>
+				<p>For more information, see <a href="./distribution-using-grpc.html">Using gRPC with CloudFront distributions</a>.</p>
+			 
+					<h2 id="DownloadDistValuesForwardHeaders">Cache based on selected request headers</h2>
+					<p>Specify whether you want CloudFront to cache objects based on the values of
+						specified headers:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>None (improves caching)</b> – CloudFront doesn't
+								cache your objects based on header values.</p>
+						</li><li class="listitem">
+							<p><b>Allowlist</b> – CloudFront caches your objects based only on the
+								values of the specified headers. Use <b>Allowlist
+									Headers</b> to choose the headers that you want CloudFront to
+								base caching on.</p>
+						</li><li class="listitem">
+							<p><b>All</b> – CloudFront doesn't cache the objects
+								that are associated with this cache behavior. Instead, CloudFront sends
+								every request to the origin. (Not recommended for Amazon S3
+								origins.)</p>
+						</li></ul></div>
+					<p>Regardless of the option that you choose, CloudFront forwards certain headers to
+						your origin and takes specific actions based on the headers that you
+						forward. For more information about how CloudFront handles header forwarding, see
+							<a href="./RequestAndResponseBehaviorCustomOrigin.html#request-custom-headers-behavior">HTTP request headers and CloudFront behavior (custom and Amazon S3 origins)</a>.</p>
+					<p>For more information about how to configure caching in CloudFront by using
+						request headers, see <a href="./header-caching.html">Cache content based on request headers</a>.</p>
+					
+				 
+					<h2 id="DownloadDistValuesAllowlistHeaders">Allowlist headers</h2>
+					<p>These settings apply only when you choose <b>Allowlist</b> for <b>Cache Based on Selected Request Headers</b>.</p>
+					<p>Specify the headers that you want CloudFront to consider when caching your
+						objects. Select headers from the list of available headers and choose
+							<b>Add</b>. To forward a custom header, enter the name of
+						the header in the field, and choose <b>Add Custom</b>.</p>
+					<p>For the current maximum number of headers that you can allowlist for each
+						cache behavior, or to request a higher quota (formerly known as limit), see
+							<a href="./cloudfront-limits.html#limits-custom-headers">Quotas on headers</a>.</p>
+				 
+					<h2 id="DownloadDistValuesObjectCaching">Object caching</h2>
+					<p>If your origin server is adding a <code class="code">Cache-Control</code> header to
+						your objects to control how long the objects stay in the CloudFront cache and if
+						you don't want to change the <code class="code">Cache-Control</code> value, choose
+							<b>Use Origin Cache Headers</b>.</p>
+					<p>To specify a minimum and maximum time that your objects stay in the CloudFront
+						cache regardless of <code class="code">Cache-Control</code> headers, and a default time
+						that your objects stay in the CloudFront cache when the <code class="code">Cache-Control</code>
+						header is missing from an object, choose <b>Customize</b>.
+						Then specify values in the <b>Minimum TTL</b>,
+							<b>Default TTL</b>, and <b>Maximum TTL</b>
+						fields.</p>
+					<p>For more information, see <a href="./Expiration.html">Manage how long content stays in the cache (expiration)</a>.</p>
+				 
+					<h2 id="DownloadDistValuesMinTTL">Minimum TTL</h2>
+					<p>Specify the minimum amount of time, in seconds, that you want objects to
+						stay in the CloudFront cache before CloudFront sends another request to the origin to
+						determine whether the object has been updated.</p>
+					<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>If your minimum TTL is greater than 0, CloudFront will cache content for at least the duration specified in the cache policy's minimum TTL, even if the <code class="code">Cache-Control: no-cache</code>, <code class="code">no-store</code>, or <code class="code">private</code> directives are present in the origin headers.</p></div></div>
+					<p>For more information, see <a href="./Expiration.html">Manage how long content stays in the cache (expiration)</a>.</p>
+				 
+					<h2 id="DownloadDistValuesMaxTTL">Maximum TTL</h2>
+					<p>Specify the maximum amount of time, in seconds, that you want objects to
+						stay in CloudFront caches before CloudFront queries your origin to see whether the
+						object has been updated. The value that you specify for <b>Maximum
+							TTL</b> applies only when your origin adds HTTP headers such as
+							<code class="code">Cache-Control max-age</code>, <code class="code">Cache-Control s-maxage</code>,
+						or <code class="code">Expires</code> to objects. For more information, see <a href="./Expiration.html">Manage how long content stays in the cache (expiration)</a>.</p>
+					<p>To specify a value for <b>Maximum TTL</b>, you must choose
+						the <b>Customize</b> option for the <b>Object
+							Caching</b> setting.</p>
+					<p>The default value for <b>Maximum TTL</b> is 31536000 seconds
+						(one year). If you change the value of <b>Minimum TTL</b> or
+							<b>Default TTL</b> to more than 31536000 seconds, then the
+						default value of <b>Maximum TTL</b> changes to the value of
+							<b>Default TTL</b>. </p>
+				 
+					<h2 id="DownloadDistValuesDefaultTTL">Default TTL</h2>
+					<p>Specify the default amount of time, in seconds, that you want objects to
+						stay in CloudFront caches before CloudFront forwards another request to your origin to
+						determine whether the object has been updated. The value that you specify
+						for <b>Default TTL</b> applies only when your origin does
+							<em>not</em> add HTTP headers such as <code class="code">Cache-Control
+							max-age</code>, <code class="code">Cache-Control s-maxage</code>, or
+							<code class="code">Expires</code> to objects. For more information, see <a href="./Expiration.html">Manage how long content stays in the cache (expiration)</a>.</p>
+					<p>To specify a value for <b>Default TTL</b>, you must choose
+						the <b>Customize</b> option for the <b>Object
+							Caching</b> setting.</p>
+					<p>The default value for <b>Default TTL</b> is 86400 seconds
+						(one day). If you change the value of <b>Minimum TTL</b> to
+						more than 86400 seconds, then the default value of <b>Default
+							TTL</b> changes to the value of <b>Minimum TTL</b>.
+					</p>
+				 
+					<h2 id="DownloadDistValuesForwardCookies">Forward cookies</h2>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For Amazon S3 origins, this option applies to only buckets that are
+							configured as a website endpoint.</p></div></div>
+					<p>Specify whether you want CloudFront to forward cookies to your origin server
+						and, if so, which ones. If you choose to forward only selected cookies (an
+						allowlist of cookies), enter the cookie names in the <b>Allowlist
+							Cookies</b> field. If you choose <b>All</b>, CloudFront
+						forwards all cookies regardless of how many your application uses.</p>
+					<p>Amazon S3 doesn't process cookies, and forwarding cookies to the origin reduces
+						cache ability. For cache behaviors that are forwarding requests to an Amazon S3
+						origin, choose <b>None</b> for <b>Forward
+							Cookies</b>.</p>
+					<p>For more information about forwarding cookies to the origin, go to <a href="./Cookies.html">Cache content based on cookies</a>.</p>
+				 
+					<h2 id="DownloadDistValuesAllowlistCookies">Allowlist cookies</h2>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For Amazon S3 origins, this option applies to only buckets that are
+							configured as a website endpoint.</p></div></div>
+					<p>If you chose <b>Allowlist</b> in the <b>Forward
+							Cookies</b> list, then in the <b>Allowlist
+							Cookies</b> field, enter the names of cookies that you want CloudFront
+						to forward to your origin server for this cache behavior. Enter each cookie
+						name on a new line.</p>
+					<p>You can specify the following wildcards to specify cookie names:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>*</b> matches 0 or more characters in
+								the cookie name</p>
+						</li><li class="listitem">
+							<p><b>?</b> matches exactly one character
+								in the cookie name</p>
+						</li></ul></div>
+					<p>For example, suppose viewer requests for an object include a cookie
+						named:</p>
+					<p><code class="code">userid_<code class="replaceable">member-number</code></code></p>
+					<p>Where each of your users has a unique value for
+							<code class="replaceable">member-number</code>. You want CloudFront to cache a
+						separate version of the object for each member. You could accomplish this by
+						forwarding all cookies to your origin, but viewer requests include some
+						cookies that you don't want CloudFront to cache. Alternatively, you could specify
+						the following value as a cookie name, which causes CloudFront to forward to the
+						origin all of the cookies that begin with <code class="code">userid_</code>:</p>
+					<p><code class="code">userid_*</code></p>
+					<p>For the current maximum number of cookie names that you can allowlist for
+						each cache behavior, or to request a higher quota (formerly known as limit),
+						see <a href="./cloudfront-limits.html#limits-allowlisted-cookies">Quotas on cookies (legacy cache settings)</a>.</p>
+				 
+					<h2 id="DownloadDistValuesQueryString">Query string forwarding and caching</h2>
+					<p>CloudFront can cache different versions of your content based on the values of
+						query string parameters. Choose one of the following options:</p>
+					<div class="variablelist">
+						 
+						 
+						 
+					<dl>
+							<dt><b><span class="term">None (Improves Caching)</span></b></dt>
+							<dd>
+								<p>Choose this option if your origin returns the same version of
+									an object regardless of the values of query string parameters.
+									This increases the likelihood that CloudFront can serve a request from
+									the cache, which improves performance and reduces the load on
+									your origin.</p>
+							</dd>
+						
+							<dt><b><span class="term">Forward all, cache based on allowlist</span></b></dt>
+							<dd>
+								<p>Choose this option if your origin server returns different
+									versions of your objects based on one or more query string
+									parameters. Then specify the parameters that you want CloudFront to
+									use as a basis for caching in the <a href="#DownloadDistValuesQueryStringAllowlist">Query string allowlist</a>
+									field.</p>
+							</dd>
+						
+							<dt><b><span class="term">Forward all, cache based on all</span></b></dt>
+							<dd>
+								<p>Choose this option if your origin server returns different
+									versions of your objects for all query string parameters.
+								</p>
+							</dd>
+						</dl></div>
+					<p>For more information about caching based on query string parameters,
+						including how to improve performance, see <a href="./QueryStringParameters.html">Cache content based on query string parameters</a>.</p>
+				 
+					<h2 id="DownloadDistValuesQueryStringAllowlist">Query string allowlist</h2>
+					<p>This setting applies only when you choose <b>Forward all, cache based on allowlist</b>
+						for <a href="#DownloadDistValuesQueryString">Query string forwarding and caching</a>. You can specify the query
+						string parameters that you want CloudFront to use as a basis for caching.</p>
+				 
+					<h2 id="DownloadDistValuesSmoothStreaming">Smooth Streaming</h2>
+					<p>Choose <b>Yes</b> if you want to distribute media files in
+						the Microsoft Smooth Streaming format and you do not have an IIS
+						server.</p>
+					<p>Choose <b>No</b> if you have a Microsoft IIS server that you
+						want to use as an origin to distribute media files in the Microsoft Smooth
+						Streaming format, or if you are not distributing Smooth Streaming media
+						files.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you specify <b>Yes</b>, you can still distribute
+							other content using this cache behavior if that content matches the
+							value of <b>Path Pattern</b>.</p></div></div>
+					<p>For more information, see <a href="./on-demand-video.html#on-demand-streaming-smooth">Configure video on demand for Microsoft Smooth Streaming</a>.</p>
+				 
+					<h2 id="DownloadDistValuesRestrictViewerAccess">Restrict viewer access (use signed URLs or signed cookies)</h2>
+					<p>If you want requests for objects that match the <code class="code">PathPattern</code>
+						for this cache behavior to use public URLs, choose
+						<b>No</b>.</p>
+					<p>If you want requests for objects that match the <code class="code">PathPattern</code>
+						for this cache behavior to use signed URLs, choose <b>Yes</b>.
+						Then specify the AWS accounts that you want to use to create signed URLs;
+						these accounts are known as trusted signers.</p>
+					<p>For more information about trusted signers, see <a href="./private-content-trusted-signers.html">Specify signers that can create signed URLs and signed cookies</a>. </p>
+				 
+					<h2 id="DownloadDistValuesTrustedSigners">Trusted signers</h2>
+					<p>This setting applies only when you choose <b>Yes</b> for <b>Restrict Viewer Access (Use Signed URLs or Signed Cookies</b>.</p>
+					<p>Choose which AWS accounts you want to use as trusted signers for this
+						cache behavior:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Self:</b> Use the account with which you're
+								currently signed into the AWS Management Console as a trusted signer. If you're
+								currently signed in as an IAM user, the associated AWS account
+								is added as a trusted signer. </p>
+						</li><li class="listitem">
+							<p><b>Specify Accounts:</b> Enter account numbers for
+								trusted signers in the <b>AWS Account Numbers</b>
+								field.</p>
+						</li></ul></div>
+					<p>To create signed URLs, an AWS account must have at least one active CloudFront
+						key pair.</p>
+					<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you're updating a distribution that you're already using to
+							distribute content, add trusted signers only when you're ready to start
+							generating signed URLs for your objects. After you add trusted signers
+							to a distribution, users must use signed URLs to access the objects that
+							match the <code class="code">PathPattern</code> for this cache behavior.</p></div></div>
+				 
+					<h2 id="DownloadDistValuesAWSAccountNumbers">AWS account numbers</h2>
+					<p>This setting applies only when you choose <b>Specify Accounts</b> for <b>Trusted Signers</b>.</p>
+					<p>If you want to create signed URLs using AWS accounts in addition to or
+						instead of the current account, enter one AWS account number per line in
+						this field. Note the following:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>The accounts that you specify must have at least one active CloudFront
+								key pair. For more information, see <a href="./private-content-trusted-signers.html#private-content-creating-cloudfront-key-pairs">Create key pairs for your signers</a>.</p>
+						</li><li class="listitem">
+							<p>You can't create CloudFront key pairs for IAM users, so you can't use
+								IAM users as trusted signers.</p>
+						</li><li class="listitem">
+							<p>For information about how to get the AWS account number for an
+								account, see <a href="https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-identifiers.html">View AWS account identifiers</a> in
+								the <em>AWS account Management Reference Guide</em>.</p>
+						</li><li class="listitem">
+							<p>If you enter the account number for the current account, CloudFront
+								automatically checks the <b>Self</b> check box and
+								removes the account number from the <b>AWS Account
+									Numbers</b> list.</p>
+						</li></ul></div>
+				 
+					<h2 id="DownloadDistValuesCompressObjectsAutomatically">Compress objects automatically</h2>
+					<p>If you want CloudFront to automatically compress files of certain types when
+						viewers support compressed content, choose <b>Yes</b>. When
+						CloudFront compresses your content, downloads are faster because the files are
+						smaller, and your web pages render faster for your users. For more
+						information, see <a href="./ServingCompressedFiles.html">Serve compressed files</a>.</p>
+				 
+					<h2 id="DownloadDistValuesEventType">CloudFront event</h2>
+					<p>This setting applies to <b>Lambda Function Associations</b>.</p> <p>You can choose to run a Lambda function when one or more of the following
+						CloudFront events occur:</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>When CloudFront receives a request from a viewer (viewer
+								request)</p>
+						</li><li class="listitem">
+							<p>Before CloudFront forwards a request to the origin (origin
+								request)</p>
+						</li><li class="listitem">
+							<p>When CloudFront receives a response from the origin (origin
+								response)</p>
+						</li><li class="listitem">
+							<p>Before CloudFront returns the response to the viewer (viewer
+								response)</p>
+						</li></ul></div>
+					<p>For more information, see <a href="./lambda-how-to-choose-event.html">Choose the event to trigger the function</a>.</p>
+				 
+					<h2 id="DownloadDistValuesLambdaFunctionARN">Lambda function ARN</h2>
+					<p>This setting applies to <b>Lambda Function Associations</b>.</p><p>Specify the Amazon Resource Name (ARN) of the Lambda function that you want
+						to add a trigger for. To learn how to get the ARN for a function, see step 1
+						of the procedure <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-add-triggers.html#lambda-edge-add-triggers-cf-console"> Adding Triggers by Using the CloudFront Console</a>.</p>
+				 
+					<h2 id="include-body">Include body</h2>
+					<p>This setting applies to <b>Lambda Function Associations</b>.</p><p>For more information, see <a href="./lambda-generating-http-responses.html#lambda-include-body-access">Include body</a>.</p>
+				<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./DownloadDistValuesOrigin.html">Origin settings</div><div id="next" class="next-link" accesskey="n" href="./DownloadDistValuesGeneral.html">Distribution settings</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesCacheBehavior.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

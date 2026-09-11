@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQS y SNS — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>SQS y SNS <span class="en">Amazon Simple Queue Service · Amazon Simple Notification Service</span></h1>
+<p class="subtitle">El patrón número uno del examen de integración: <span class="tag-en">decoupling</span> — desacoplar productores de consumidores con colas y topics.</p>
+<div class="chips">
+  <span class="chip">Fase 6 · Integración y mensajería</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip core">El patrón #1 del examen: decoupling</span>
+</div>
+
+<p>Imagina una oficina con una bandeja de tareas compartida: cualquier compañero puede dejar un encargo, y los trabajadores van tomando los papelitos a su propio ritmo. Nadie necesita saber quién dejó el encargo ni cuándo se resolverá; si un trabajador se ausenta, los encargos simplemente esperan. <strong>Amazon SQS</strong> es esa bandeja: una cola gestionada, segura, durable y disponible que, según la documentación oficial, sirve para <em>integrar y desacoplar</em> sistemas y componentes distribuidos. Los <span class="tag-en">producers</span> dejan mensajes; los <span class="tag-en">consumers</span> los retiran cuando pueden.</p>
+
+<p><strong>Amazon SNS</strong> resuelve el problema opuesto pero complementario: no quieres que el mensaje espere a un solo trabajador, sino anunciarlo a muchos a la vez. Es el megáfono de la organización: publicas una sola vez en un <span class="tag-en">topic</span> y el servicio lo entrega a todos los suscriptores (colas SQS, funciones Lambda, endpoints HTTP/S, email, SMS, push móvil e incluso Amazon Data Firehose). El examen SAA-C03 no pregunta pantallas de la consola: pregunta cuándo tu arquitectura se beneficia de <em>buffer</em> y <em>decoupling</em> (SQS) frente a <em>fan-out</em> y notificación (SNS) — y muy a menudo, la respuesta correcta combina ambos.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    subgraph PROD["Producers"]
+        A["Aplicación<br>frontend"]
+        B["Microservicio<br>de pedidos"]
+    end
+    Q["SQS Queue<br>buffer durable"]
+    subgraph CONS["Consumers - pull"]
+        C1["Worker 1"]
+        C2["Worker 2"]
+        C3["Worker N<br>Auto Scaling"]
+    end
+    A --> Q
+    B --> Q
+    Q --> C1
+    Q --> C2
+    Q --> C3
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class A,B navy
+    class Q amber
+    class C1,C2,C3 green
+</div>
+<figcaption>Figura 1 — Decoupling con SQS: la cola absorbe picos y los consumers escalan por detrás sin que el producer lo note.</figcaption>
+</figure>
+
+<h2>Decoupling: por qué este patrón domina el examen</h2>
+
+<p>En una arquitectura acoplada, si el componente de pagos cae, el frontend que registra pedidos también cae: la petición síncrona falla y el pedido se pierde. Introduce una cola entre ambos y el fallo se aísla: el producer sigue aceptando pedidos y encolándolos (el usuario percibe servicio normal), mientras el consumer caído se recupera y drena el backlog. Ese aislamiento de fallos es exactamente lo que el dominio "Design Resilient Architectures" evalúa: la cola actúa como <span class="tag-en">buffer</span> que absorbe picos de tráfico y como punto de corte cuando un componente no está disponible.</p>
+
+<p>El segundo beneficio es el escalado independiente: los workers detrás de la cola pueden crecer con un Auto Scaling group midiendo la profundidad de la cola, mientras el producer permanece inmutable. La documentación oficial subraya que SQS escala de forma transparente para manejar picos <em>sin instrucciones de aprovisionamiento</em>, que replica los mensajes en múltiples servidores para durabilidad y que permite múltiples producers y múltiples consumers concurrentes. Para el examen, memoriza la frase ganadora: la cola <strong>nivela la carga</strong> y permite a cada capa escalar por separado.</p>
+
+<h2>Colas standard vs FIFO: orden, entrega y throughput</h2>
+
+<p>SQS ofrece dos sabores de cola y el examen te obliga a distinguirlos con precisión. Las <strong>standard queues</strong> maximizan throughput y disponibilidad: la entrega es <span class="tag-en">at-least-once</span> (un mensaje puede entregarse más de una vez) y el orden no está garantizado, aunque en la práctica suele respetarse. Las <strong>FIFO queues</strong> garantizan el orden y el procesamiento <span class="tag-en">exactly-once</span> — la documentación oficial habla de "exactly-once processing" y de un modo de <span class="tag-en">high throughput</span> para FIFO — a cambio de un throughput limitado respecto a standard. El orden en FIFO se organiza por <span class="tag-en">message groups</span>: los mensajes del mismo grupo se procesan en orden estricto; grupos distintos pueden avanzar en paralelo.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Característica</th><th>Standard queue</th><th>FIFO queue</th></tr></thead>
+<tbody>
+<tr><td>Orden de mensajes</td><td>No garantizado (best effort)</td><td>Garantizado dentro de cada <span class="tag-en">message group</span></td></tr>
+<tr><td>Entrega</td><td><span class="tag-en">at-least-once</span> — pueden llegar duplicados</td><td><span class="tag-en">exactly-once processing</span> — sin duplicados</td></tr>
+<tr><td>Throughput</td><td>Escala transparente, prácticamente sin límite operativo</td><td>Limitado; existe modo <span class="tag-en">high-throughput FIFO</span></td></tr>
+<tr><td>Caso típico</td><td>Decoupling, buffering de picos, nivelado de carga</td><td>Transacciones bancarias, replicación de datos, cualquier flujo donde el orden sea ley</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+Elegir FIFO "porque es mejor" en un escenario que solo pide throughput o decoupling es el distractor favorito. FIFO solo se justifica cuando el enunciado dice <em>order</em>, <em>ordering matters</em> o <em>duplicate messages cannot be processed</em>. Al revés: si elige standard, tu procesamiento debe ser <span class="tag-en">idempotent</span> (reprocesar un duplicado no rompe nada).
+</div>
+
+<h2>El ciclo de vida de un mensaje: visibility timeout, DLQ y long polling</h2>
+
+<p>Estos tres mecanismos convierten a SQS en una cola de producción y aparecen una y otra vez en las preguntas. El <span class="tag-en">visibility timeout</span> es el corazón: cuando un consumer recibe un mensaje, SQS lo oculta del resto de consumers mientras dura el procesamiento. Si el consumer lo procesa bien, borra el mensaje (<code>DeleteMessage</code>) y desaparece. Si el consumer muere a mitad de tarea, el timeout expira, el mensaje vuelve a estar visible y otro worker lo reintenta. Configurarlo mal es un clásico: demasiado corto y un proceso lento provoca procesamiento duplicado; demasiado largo y un fallo real retrasa el reintento.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    R["Consumer recibe<br>el mensaje"] --> P["Procesando<br>mensaje invisible"]
+    P -->|"exito"| D["DeleteMessage<br>mensaje fuera"]
+    P -->|"expira el<br>visibility timeout"| V["Mensaje visible<br>de nuevo"]
+    V -->|"reintentos sobre<br>maxReceiveCount"| DLQ["Dead-Letter Queue<br>para análisis"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class R,P green
+    class D navy
+    class V amber
+    class DLQ amber
+</div>
+<figcaption>Figura 2 — Ciclo de vida: si el procesamiento falla repetidamente, el mensaje acaba en la dead-letter queue.</figcaption>
+</figure>
+
+<p>El reintento infinito sería un problema: un mensaje corrupto — un <span class="tag-en">poison message</span> — bloquearía workers para siempre. La solución oficial es la <span class="tag-en">dead-letter queue</span> (DLQ): SQS mueve allí el mensaje cuando supera el <code>maxReceiveCount</code> de la política de redrive. El flujo productivo sigue funcionando y un humano (o una Lambda de diagnóstico) examina la DLQ. Por último, el <span class="tag-en">long polling</span>: en lugar de devolver "cola vacía" al instante, la llamada <code>ReceiveMessage</code> espera un tiempo configurable a que lleguen mensajes, lo que reduce llamadas vacías, baja el costo y reparte el trabajo de forma más pareja entre consumers. Es la respuesta estándar cuando el enunciado se queja de costos de polling o de respuestas vacías.</p>
+
+<p>Un detalle operativo que también cae en preguntas: los mensajes de SQS tienen un tamaño máximo en el orden del megabyte (1 MiB); para payloads mayores, la práctica oficial es guardar el cuerpo en S3 o DynamoDB y dejar en la cola solo un puntero al objeto.</p>
+
+<h2>SNS: pub/sub, fan-out y el patrón SNS + SQS</h2>
+
+<p>SNS invierte el modelo: en lugar de que el consumidor tire de la cola, el <span class="tag-en">topic</span> empuja el mensaje hacia los suscriptores. La documentación lo define como servicio gestionado de entrega de mensajes de publishers a subscribers, con el topic como canal lógico de comunicación. Soporta mensajería <span class="tag-en">A2A</span> (aplicación a aplicación: SQS, Lambda, Firehose, endpoints HTTP/S) y <span class="tag-en">A2P</span> (aplicación a persona: email, SMS, push móvil). Un mensaje publicado llega a <strong>todos</strong> los suscriptores — cada uno recibe su copia.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    APP["Aplicación<br>e-commerce"] --> T["SNS Topic<br>evento de pedido"]
+    T --> Q1["SQS cola<br>de pagos"]
+    T --> Q2["SQS cola<br>de envíos"]
+    T --> Q3["SQS cola<br>de analítica"]
+    Q1 --> L1["Lambda<br>cobra el pedido"]
+    Q2 --> L2["Equipo de<br>logística"]
+    Q3 --> L3["Firehose<br>hacia S3"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class APP navy
+    class T amber
+    class Q1,Q2,Q3 green
+    class L1,L2,L3 navy
+</div>
+<figcaption>Figura 3 — SNS fan-out: un evento publicado se replica a N colas SQS; cada equipo consume a su ritmo, con su propia DLQ.</figcaption>
+</figure>
+
+<p>El patrón estrella — <span class="tag-en">fan-out</span> — combina ambos servicios: el producer publica en el topic; el topic entrega copias a varias colas SQS; cada cola alimenta a su equipo o microservicio con su propio ritmo, reintentos y DLQ. La documentación oficial lo describe como fórmula para "fanning out" a colas de forma asíncrona. Ganas lo mejor de los dos mundos: la difusión uno-a-muchos de SNS y la durabilidad, el buffer y el procesamiento pull de SQS. Además, los suscriptores de cola pueden filtrarse con <span class="tag-en">subscription filter policies</span> (solo reciben los mensajes que cumplen un atributo), y si el suscriptor HTTP falla, SNS aplica su política de reintentos antes de mandar el mensaje a una DLQ de suscripción.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Dimensión</th><th>Amazon SQS</th><th>Amazon SNS</th></tr></thead>
+<tbody>
+<tr><td>Modelo</td><td>Cola — los consumers hacen <span class="tag-en">pull</span></td><td>Pub/sub — el topic hace <span class="tag-en">push</span> a suscriptores</td></tr>
+<tr><td>Destino de un mensaje</td><td>Un solo consumer lo procesa</td><td>Todos los suscriptores reciben una copia</td></tr>
+<tr><td>Retención del mensaje</td><td>Guardado en la cola hasta ser procesado y borrado</td><td>Entrega inmediata; si falla, reintentos según política</td></tr>
+<tr><td>Endpoints</td><td>Consumers que llaman a la API</td><td>SQS, Lambda, HTTP/S, email, SMS, push móvil, Data Firehose, proveedores</td></tr>
+<tr><td>Patrón de examen</td><td>Buffer, nivelado de carga, trabajo asíncrono</td><td>Fan-out, notificación uno-a-muchos, A2P</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Amazon MQ: cuando ya tienes un broker</h2>
+
+<p>Falta la tercera pieza del puzle de mensajería. <strong>Amazon MQ</strong> es un servicio gestionado de <span class="tag-en">message brokers</span> para Apache ActiveMQ Classic y RabbitMQ: AWS opera el broker (setup, mantenimiento y upgrades) y tú conectas tus aplicaciones. El caso de uso es muy específico y muy fácil de detectar en el enunciado: migrar brokers existentes a AWS <em>sin reescribir el código de mensajería</em>, porque las aplicaciones siguen usando protocolos estándar de mensajería (JMS, AMQP, MQTT vía el broker). Ofrece cifrado en tránsito y en reposo, endpoints privados en tu VPC, monitoreo con CloudWatch y — para RabbitMQ — colas replicadas entre AZs que siguen sirviendo si se cae un nodo.</p>
+
+<div class="callout tip">
+<div class="co-title">Regla de decisión rápida</div>
+Aplicación nueva y cloud-native → SQS/SNS/EventBridge (serverless, sin brokers que administrar). Empresa con ActiveMQ o RabbitMQ funcionando que se mueve a AWS → Amazon MQ. En el examen, la pista es siempre la misma: <em>"existing messaging application"</em>, <em>"without rewriting code"</em> o <em>"industry-standard protocols"</em>.
+</div>
+
+<h2>Cómo cae en el examen: señales y respuestas</h2>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"application components must communicate without coupling / handle spikes"</td><td>SQS standard queue entre los componentes (decoupling + buffer)</td></tr>
+<tr><td>"messages must be processed exactly once in order"</td><td>SQS FIFO con message groups</td></tr>
+<tr><td>"a failed message is blocking workers / analyze failed messages"</td><td>Dead-letter queue + política de redrive</td></tr>
+<tr><td>"empty receives / reduce polling cost"</td><td>Habilitar long polling en ReceiveMessage</td></tr>
+<tr><td>"notify multiple systems / one event to many consumers"</td><td>SNS topic, o SNS + SQS fan-out</td></tr>
+<tr><td>"migrate existing ActiveMQ / RabbitMQ broker"</td><td>Amazon MQ</td></tr>
+<tr><td>"decouple microservices with minimum operational overhead"</td><td>SQS/SNS serverless — distractor típico: EC2 con Kafka o brokers propios</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Decoupling</strong> es la palabra mágica: SQS aísla fallos, absorbe picos y desacopla escalado.</li>
+<li>Standard = <span class="tag-en">at-least-once</span> sin orden y alto throughput; FIFO = orden por message group y <span class="tag-en">exactly-once processing</span>.</li>
+<li><strong>Visibility timeout</strong> oculta el mensaje mientras se procesa; si expira, vuelve a estar visible (diseña consumers idempotentes).</li>
+<li><strong>DLQ</strong> atrapa poison messages tras superar <code>maxReceiveCount</code> — asíncrono y sin bloquear la cola principal.</li>
+<li><strong>Long polling</strong> elimina respuestas vacías y reduce costo de <code>ReceiveMessage</code>.</li>
+<li><strong>SNS</strong> = fan-out push a muchos suscriptores (SQS, Lambda, HTTP/S, email, SMS, push, Firehose); el patrón compuesto es <strong>SNS → SQS ×N</strong>.</li>
+<li>Payloads mayores a ~1 MiB van a S3/DynamoDB y la cola lleva el puntero.</li>
+<li><strong>Amazon MQ</strong> es la respuesta para migrar brokers ActiveMQ/RabbitMQ existentes sin reescribir código.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">INT-01</span> Amazon SQS — Developer Guide (Welcome, queues, visibility timeout) · <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html</a></li>
+<li><span class="id">INT-02</span> Amazon SQS — FIFO queues (ordering, exactly-once, high throughput) · <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html</a></li>
+<li><span class="id">INT-03</span> Amazon SNS — Developer Guide (Welcome, pub/sub, topics) · <a href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/sns/latest/dg/welcome.html</a></li>
+<li><span class="id">INT-07</span> Amazon MQ — Welcome (managed ActiveMQ/RabbitMQ) · <a href="https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/elasticache.html"><span class="dir">← Anterior</span>ElastiCache</a><a class="next" href="../temas/eventbridge.html"><span class="dir">Siguiente →</span>EventBridge</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

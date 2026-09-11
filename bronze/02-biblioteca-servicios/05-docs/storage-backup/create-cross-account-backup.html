@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating backup copies across AWS accounts - AWS Backup</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-cross-account-backup" /><meta name="default_state" content="create-cross-account-backup" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html" /><meta name="description" content="Create a backup copy across AWS accounts using AWS Backup." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Backup" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of AWS Backup, detailed instructions for using the various features, and a complete API reference for developers." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html" hreflang="x-default" /><meta name="feedback-item" content="Cryo" /><meta name="this_doc_product" content="AWS Backup" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'aws-backup'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Creating backup copies across AWS accounts" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="create-cross-account-backup.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating backup copies across AWS accounts - AWS Backup</title><meta name="pdf" content="/pdfs/aws-backup/latest/devguide/AWSBackup-dg.pdf#create-cross-account-backup" /><meta name="rss" content="backup-dg-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAEq_tyFmxTri2axdF_HfATg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cryo&amp;topic_url=https://docs.aws.amazon.com/en_us/aws-backup/latest/devguide/create-cross-account-backup.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/aws-backup/latest/devguide/create-cross-account-backup.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/aws-backup/latest/devguide/create-cross-account-backup.html" /><meta name="keywords" content="create backup,AWS Backup,backup creation,restore backup,restoring AWS Backup,copy AWS Backup,backup copy,cross copy backup" /><link rel="alternate" type="text/markdown" href="create-cross-account-backup.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Backup",
+        "item" : "https://docs.aws.amazon.com/aws-backup/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/aws-backup/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Backup creation, maintenance, and restore",
+        "item" : "https://docs.aws.amazon.com/aws-backup/latest/devguide/recovery-points.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Backup and tag copy",
+        "item" : "https://docs.aws.amazon.com/aws-backup/latest/devguide/recov-point-create-a-copy.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Creating backup copies across AWS accounts",
+        "item" : "https://docs.aws.amazon.com/aws-backup/latest/devguide/recov-point-create-a-copy.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/aws-backup/latest/devguide/AWSBackup-dg.pdf#create-cross-account-backup" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/aws-backup/index.html">AWS Backup</a><a href="whatisbackup.html">Developer Guide</a></div><div id="page-toc-src"><a href="#prereq-cab">Setting up cross-account backup</a><a href="#scheduled-cab">Scheduling cross-account backup</a><a href="#on-demand-cab">Performing on-demand cross-account backup</a><a href="#backup-cab-encryption">Encryption keys and cross-account copies</a><a href="#restore-cab">Restoring a backup from one AWS account to another</a><a href="#share-vault-cab">Configuring backup vault access for cross-account copies</a><a href="#designate-destination-accounts-cab">Configuring your account as a destination account</a><a href="#security-considerations-cab">Security considerations for cross-account backup</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-cross-account-backup">Creating backup copies across AWS accounts</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Using AWS Backup, you can back up to multiple AWS accounts on demand or automatically as
+        part of a scheduled backup plan. Use a cross-account backup if you want to securely copy
+        your backups to one or more AWS accounts in your organization for operational or security
+        reasons. If your original backup is inadvertently deleted, you can copy the backup from its
+        destination account to its source account, and then start the restore. Before you can do
+        this, you must have two accounts that belong to the same organization in the AWS Organizations
+        service. For more information, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tutorials_basic.html"> Tutorial: Creating and
+          configuring an organization</a> in the <em>Organizations User Guide</em>.</p><p>In your destination account, you must create a backup vault. Then, you assign an 
+        encryption key to encrypt backups in the destination account, and a resource-based access
+        policy to allow AWS Backup to access the resources you would like to copy. In the source account,
+        if your resources are encrypted with a customer managed key, you must share this customer
+        managed key with the destination account. You can then create a backup plan and choose a
+        destination account that is part of your organizational unit in AWS Organizations. </p><p>When you copy a backup to cross-account for the first time, AWS Backup copies the backup in
+        full. In general, if a service supports incremental backups, subsequent copies of that
+        backup to the same destination account and vault are incremental. AWS Backup re-encrypts your copy
+        using the encryption key of your destination vault.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For resources <a href="./whatisbackup.html#full-management">fully managed by AWS Backup</a>, 
+          you can use either a customer managed key or the AWS Backup managed key 
+          (<code class="code">aws/backup</code>) for the destination vault. For all other resource types, 
+          a customer managed key is required because AWS managed key policies are immutable 
+          and cannot be shared cross-account. For more information, see <a href="./encryption.html#copy-encryption">Encryption for a backup copy to a different account or 
+          AWS Region</a>.</p></div></div><div class="itemizedlist">
+        <h6>Requirements</h6>
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Before you manage resources across multiple AWS accounts in AWS Backup, your accounts
+            must belong to the same organization in the AWS Organizations service.</p>
+        </li><li class="listitem">
+          <p>Most resources supported by AWS Backup support cross-account backup. For specifics, see
+              <a href="./backup-feature-availability.html#features-by-resource">Feature availability by resource</a>.</p>
+        </li><li class="listitem">
+          <p>Most AWS Regions support cross-account backup. For specifics, see <a href="./backup-feature-availability.html#features-by-region">Feature availability by AWS Region</a>.</p>
+        </li><li class="listitem">
+          <p>AWS Backup does not support cross-account copies for storage in cold tiers.</p>
+        </li></ul></div>
+        <h2 id="prereq-cab">Setting up cross-account backup</h2>
+        <div class="itemizedlist">
+          <h6>What do you need to create cross-account backups?</h6>
+           
+           
+           
+
+        <ul class="itemizedlist"><li class="listitem">
+            <p>
+              <b>A source account</b></p>
+            <p>The source account is the account where your production AWS resources and
+              primary backups reside. </p>
+            <p>The source account user initiates the cross-account backup operation. The source
+              account user or role must have appropriate API permissions to initiate the operation.
+              Appropriate permissions might be the AWS managed policy
+                <code class="code">AWSBackupFullAccess</code>, which enables full access to AWS Backup operations, or
+              a customer managed policy that allows actions such as
+                <code class="code">ec2:ModifySnapshotAttribute</code>. For more information about policy types,
+              see <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/security-iam-awsmanpol.html">AWS Backup Managed
+                Policies</a>.</p>
+            <p>For cross-account copy jobs, the IAM role in the source account must also have the 
+              following identity-based permissions:</p>
+            <div class="itemizedlist">
+               
+               
+            <ul class="itemizedlist"><li class="listitem"><p><code class="code">backup:CopyFromBackupVault</code> – Authorizes copying 
+                the source recovery point.</p></li><li class="listitem"><p><code class="code">backup:CopyIntoBackupVault</code> – Authorizes writing 
+                into the destination vault. Because this is a cross-account call, this permission 
+                must be present in both the identity-based policy (attached to the IAM role) and 
+                the resource-based policy (on the destination backup vault).</p></li></ul></div>
+            <p>The AWS managed policy <code class="code">AWSBackupServiceRolePolicyForBackup</code> includes 
+              both of these permissions. If you use a custom IAM role, you must add these permissions 
+              explicitly. The following is an example identity-based policy:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "BackupVaultCopyPermissions",
+      "Effect": "Allow",
+      "Action": "backup:CopyFromBackupVault",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Sid": "BackupVaultPermissions",
+      "Effect": "Allow",
+      "Action": "backup:CopyIntoBackupVault",
+      "Resource": "arn:aws:backup:*:*:backup-vault:*"
+    }
+  ]
+}</code></pre>
+          </li><li class="listitem">
+            <p>
+              <b>A destination account</b></p>
+            <p>The destination account is the account where you would like to keep a copy of your
+              backup. You can choose more than one destination account. The destination account must
+              be in the same organization as the source account in AWS Organizations. </p>
+            <p>You must “Allow” the access policy <code class="code">backup:CopyIntoBackupVault</code> for
+              your destination backup vault. The absence of this policy will deny attempts to copy
+              into the destination account.</p>
+          </li><li class="listitem">
+            <p>
+              <b>A management account in AWS Organizations</b></p>
+            <p>The management account is the primary account in your organization, as defined by
+              AWS Organizations, that you use to opt-in to cross-account backup across your AWS accounts.
+              Before your organization can start with cross-account backups, you must enable
+              cross-account backup in the AWS Backup console or through the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateGlobalSettings.html">UpdateGlobalSettings</a> API.</p>
+          </li></ul></div>
+        <p>For information about security, see <a href="#security-considerations-cab">Security considerations for cross-account backup</a>.</p>
+        <p>To use cross-account backup, you must enable the cross-account backup feature. Then,
+          you must "Allow" the access policy <code class="code">backup:CopyIntoBackupVault</code> into your
+          destination backup vault.</p>
+        <p>Amazon EC2 offers <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-allowed-amis.html">EC2 Allowed AMIs</a>. If this
+          setting is enabled in your account, add your source account ID to your allowlist.
+          Otherwise, the copy operation will fail with an error message, such as "Source AMI not
+          found in Region".</p>
+        <div class="procedure"><h6>Enable cross-account backup</h6><ol><li>
+            <p> Log in using your AWS Organizations management account credentials. Cross-account backup
+              can only be enabled or disabled using these credentials.</p>
+          </li><li><p>Open the AWS Backup console at <a href="https://console.aws.amazon.com/backup" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/backup</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+            <p>In <b>My account</b>, choose <b>Settings</b>.</p>
+          </li><li>
+            <p>For <b>Cross-account backup</b>, choose
+              <b>Enable</b>.</p>
+          </li><li>
+            <p>In <b>Backup vaults</b>, choose your destination vault.</p>
+            <p>For cross-account copy, the source vault and the destination vault are in
+              different accounts. Switch to the account which owns the destination account, as
+              necessary.</p>
+          </li><li>
+            <p>In the <b>Access policy</b> section, "Allow"
+                <code class="code">backup:CopyIntoBackupVault</code>. For an example, choose <b>Add
+                permissions</b> and then <b>Allow access to a Backup vault from
+                organization</b>. Any cross-account action other than
+                <code class="code">backup:CopyIntoBackupVault</code> will be rejected.</p>
+          </li><li>
+            <p> Now, any account in your organization can share the contents of their backup
+              vault with any other account in your organization. For more information, see <a href="#share-vault-cab">Configuring backup vault access for cross-account copies</a>. To limit which accounts
+              can receive the contents of other accounts' backup vaults, see <a href="#designate-destination-accounts-cab">Configuring your account as a destination account</a>.</p>
+          </li></ol></div>
+       
+        <h2 id="scheduled-cab">Scheduling cross-account backup</h2>
+        <p>You can use a scheduled backup plan to copy backups across AWS accounts.</p>
+        <div class="procedure" id="copy-with-backup-plan"><h6 id="copy-with-backup-plan.title">To copy a backup using a scheduled backup plan</h6><ol><li><p>Open the AWS Backup console at <a href="https://console.aws.amazon.com/backup" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/backup</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+            <p>In <b>My account</b>, choose <b>Backup plans</b>, and
+              then choose <b>Create Backup plan</b>.</p>
+          </li><li>
+            <p>On the <b>Create Backup plan</b> page, choose <b>Build a new
+                plan</b>.</p>
+          </li><li>
+            <p>For <b>Backup plan name</b>, enter a name for your backup
+              plan.</p>
+          </li><li>
+            <p>In the <b>Backup rule configuration</b> section, add a backup rule
+              that defines a backup schedule, backup window, and lifecycle rules. You can add more
+              backup rules later.</p>
+            <p>For <b>Rule name</b>, enter a name for your rule.</p>
+          </li><li>
+            <p>In the <b>Schedule</b> section under <b>Frequency</b>,
+              choose how often you want the backup to be taken.</p>
+          </li><li>
+            <p>For <b>Backup window</b>, choose <b>Use backup window
+                defaults</b> (recommended). You can customize the backup window.</p>
+          </li><li>
+            <p>For <b>Backup vault</b>, choose a vault from the list. Recovery
+              points for this backup will be saved in this vault. You can create a new backup
+              vault.</p>
+          </li><li>
+            <p>In the <b>Generate copy - optional</b> section, enter the following
+              values:</p>
+            <div class="variablelist">
+               
+
+               
+
+               
+               
+
+              
+
+            <dl>
+                <dt><b><span class="term">Destination Region</span></b></dt>
+                <dd>
+                  <p>Choose the destination AWS Region for your backup copy. Your backup will
+                    be copied to this Region. You can add a new copy rule per copy to a new
+                    destination.</p>
+                </dd>
+              
+                <dt><b><span class="term">Copy to another account's vault</span></b></dt>
+                <dd>
+                  <p>Toggle to choose this option. The option turns blue when selected. The
+                      <b>External vault ARN</b> option will appear.</p>
+                </dd>
+              
+                <dt><b><span class="term">External vault ARN</span></b></dt>
+                <dd>
+                  <p>Enter the Amazon Resource Name (ARN) of the destination account. The ARN is
+                    a string that contains the account ID and its AWS Region. AWS Backup will copy the
+                    backup to the destination account's vault. The <b>Destination
+                      region</b> list automatically updates to the Region in the external
+                    vault ARN. </p>
+                  <p>For <b>Allow Backup vault access</b>, choose
+                      <b>Allow</b>. Then choose <b>Allow</b> in the
+                    wizard that opens. </p>
+                  <p>AWS Backup needs permissions to access the external account to copy backup to the
+                    specified value. The wizard shows the following example policy that provides
+                    this access.</p>
+                  <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="e09b0e67a0342359c7775e22d475b97d43bb4877656d43f4cb9a81f8a163fa4c"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput">
+<span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "AllowAccountCopyIntoBackupVault",
+      "Effect": "Allow",
+      "Action": "backup:CopyIntoBackupVault",
+      "Resource": "*",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:root"
+      }
+    }
+  ]
+}
+</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+                </dd>
+              
+                <dt><b><span class="term">Transition to cold storage</span></b></dt>
+                <dd>
+                  <p>Choose when to transition the backup copy to cold storage and when to expire
+                    (delete) the copy. Backups transitioned to cold storage must be stored in cold
+                    storage for a minimum of 90 days. This value cannot be changed after a copy has
+                    transitioned to cold storage. </p>
+                  <p>To see the list of resources that you can transition to cold storage, see
+                    the "Lifecycle to cold storage" section of the <a href="./backup-feature-availability.html#features-by-resource">Feature availability by resource</a> table.
+                    The cold storage expression is ignored for other resources.</p>
+                  <p><b>Expire</b> specifies the number of days after creation that
+                    the copy is deleted. This value must be greater than 90 days beyond the
+                      <b>Transition to cold storage</b> value.</p>
+                  <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When backups expire and are marked for deletion as part of your lifecycle
+                      policy, AWS Backup deletes the backups at a randomly chosen point over the
+                      following 8 hours. This window helps ensure consistent performance.</p></div></div>
+                </dd>
+              </dl></div>
+          </li><li>
+            <p>Choose <b>Tags added to recovery points</b> to add tags to your
+              recovery points. </p>
+          </li><li>
+            <p>For <b>Advanced backup settings</b>, choose <b>Windows
+                VSS</b> to enable application-aware snapshots for the selected third-party
+              software running on EC2.</p>
+          </li><li>
+            <p>Choose <b>Create plan</b>.</p>
+          </li></ol></div>
+       
+        <h2 id="on-demand-cab">Performing on-demand cross-account backup</h2>
+        <p>You can copy a backup to a different AWS account on demand.</p>
+        <div class="procedure"><h6>To copy a backup on-demand</h6><ol><li><p>Open the AWS Backup console at <a href="https://console.aws.amazon.com/backup" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/backup</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+            <p>For <b>My account</b>, choose <b>Backup vault</b> to
+              see all your backup vaults listed. You can filter by the backup vault name or
+              tag.</p>
+          </li><li>
+            <p>Choose the <b>Recovery point ID</b> of the backup you want to
+              copy.</p>
+          </li><li>
+            <p>Choose <b>Copy</b>.</p>
+          </li><li>
+            <p>Expand <b>Backup details</b> to see information about the recovery
+              point you are copying.</p>
+          </li><li>
+            <p>In the <b>Copy configuration</b> section, choose an option from the
+                <b>Destination region</b> list.</p>
+          </li><li>
+            <p>Choose <b>Copy to another account's vault</b>. The option turns blue
+              when selected.</p>
+          </li><li>
+            <p>Enter the Amazon Resource Name (ARN) of the destination account. The ARN is a
+              string that contains the account ID and its AWS Region. AWS Backup will copy the backup
+              to the destination account's vault. The <b>Destination region</b> list
+              automatically updates to the Region in the external vault ARN. </p>
+          </li><li>
+            <p>For <b>Allow Backup vault access</b>, choose
+                <b>Allow</b>. Then choose <b>Allow</b> in the wizard
+              that opens. </p>
+            <p>To create the copy, AWS Backup needs permissions to access the source account. The
+              wizard shows an example policy that provides this access. This policy is shown
+              following.</p>
+            <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="898201725c5cbc0c3e0f55862dc41b575031aaa0781e4bd8752606e318ba9be9"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput">
+<span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "AllowAccountCopyIntoBackupVault",
+      "Effect": "Allow",
+      "Action": "backup:CopyIntoBackupVault",
+      "Resource": "*",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:root"
+      }
+    }
+  ]
+}
+</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+          </li><li>
+            <p>For <b>Transition to cold storage</b>, choose when to transition the
+              backup copy to cold storage and when to expire (delete) the copy. Backups transitioned
+              to cold storage must be stored in cold storage for a minimum of 90 days. This value
+              cannot be changed after a copy has transitioned to cold storage. </p>
+            <p>To see the list of resources that you can transition to cold storage, see the
+              "Lifecycle to cold storage" section of the <a href="./backup-feature-availability.html#features-by-resource">Feature availability by resource</a> table. The cold storage expression is ignored
+              for other resources.</p>
+            <p><b>Expire</b> specifies the number of days after creation that the
+              copy is deleted. This value must be greater than 90 days beyond the
+                <b>Transition to cold storage</b> value.</p>
+          </li><li>
+            <p>For <b>IAM role</b>, specify the IAM role (such as the default role)
+              that has the permissions to make your backup available for copying. The act of copying
+              is performed by your destination account's service linked role. </p>
+          </li><li>
+            <p>Choose <b>Copy</b>. Depending on the size of the resource you are
+              copying, this process could take several hours to complete. When the copy job
+              completes, you will see the copy in the <b>Copy jobs</b> tab in the
+                <b>Jobs</b> menu.</p>
+          </li></ol></div>
+       
+        <h2 id="backup-cab-encryption">Encryption keys and cross-account copies</h2>
+        <p>See <a href="./encryption.html#copy-encryption">Encryption for a backup copy to a
+            different account or AWS Region</a> for details on how encryption works for copy
+          job.</p>
+        
+        <p>For additional help troubleshooting cross-account copy failures, please see the <a href="https://repost.aws/knowledge-center/backup-troubleshoot-cross-account-copy" rel="noopener noreferrer" target="_blank"><span>AWS
+            Knowledge Center</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        
+        
+       
+        <h2 id="restore-cab">Restoring a backup from one AWS account to another</h2>
+
+        <p>AWS Backup does not support recovering resources from one AWS account to another.
+          However, you can copy a backup from one account to a different account and then restore it
+          in that account. For example, you can't restore a backup from account A to account B, but
+          you can copy a backup from account A to account B, and then restore it in account
+          B.</p>
+
+        <p>Before restoring a backup from one account to another, ensure that the destination
+          account has the service-linked role (SLR) for the resource type you are restoring. If the
+          destination account has never used that AWS service before, the SLR may not exist. You
+          can create the SLR by using the service in the destination account, which automatically
+          creates it. Once the SLR requirement is addressed, restoring a backup from one account to
+          another is a two-step process:</p>
+        <div class="procedure"><h6>To restore a backup from one account to another</h6><ol><li>
+            <p>Copy the backup from the source AWS account to the account you want to restore
+              to. For instructions, see <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/create-cross-account-backup.html#prereq-cab">Setting
+                up cross-account backup</a>.</p>
+          </li><li>
+            <p>Use the appropriate instructions for your resource to restore the backup.</p>
+          </li></ol></div>
+       
+        <h2 id="share-vault-cab">Configuring backup vault access for cross-account copies</h2>
+
+        <p>AWS Backup allows you to configure your backup vault to grant access to other AWS accounts, allowing them to copy recovery points to your vault for cross-account backup. This access configuration uses resource-based policies to permit specific accounts to perform backup operations.</p>
+        
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is different from AWS Backup vault sharing for Logically Air Gapped (LAG) vaults, which uses AWS Resource Access Manager (RAM) to share vault resources directly.</p></div></div>
+
+        <p>You can grant vault access to one or multiple accounts, or your entire organization in AWS Organizations. You can configure a destination backup vault with access for a source AWS Account, user, or IAM role.</p>
+
+        <div class="procedure"><h6>To configure vault access for a destination Backup vault</h6><ol><li>
+            <p>Choose <b>AWS Backup</b>, and then choose <b>Backup
+                vaults</b>.</p>
+          </li><li>
+            <p> Choose the name of the backup vault that you want to configure access for.</p>
+          </li><li>
+            <p>In the <b>Access policy</b> pane, choose the <b>Add
+                permissions</b> dropdown. </p>
+          </li><li>
+            <p> Choose <b>Allow account level access to a Backup vault</b>. Or, you
+              can choose to allow organization-level or role-level access. </p>
+          </li><li>
+            <p>Enter the <b>AccountID</b> of the account you'd like to grant access to
+              this destination backup vault.</p>
+          </li><li>
+            <p> Choose <b>Save policy</b>. </p>
+          </li></ol></div>
+
+        <p>You can use IAM policies to configure vault access.</p>
+
+         
+          <h6 id="share-vault-with-account-iam">Configure destination backup vault access for an AWS account or IAM role</h6>
+          <p>The following policy configures vault access for account number
+              <code class="code">4444555566666</code> and the IAM role <code class="code">SomeRole</code> in account number
+              <code class="code">111122223333</code>.</p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="5e82eceb586adcbf6074236487c755973c00465fdf47da70267d3f8ddcb5a40d"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement":[
+    <span>{</span>
+      "Effect":"Allow",
+      "Principal":<span>{</span>
+        "AWS":[
+          "arn:aws:iam::444455556666:root",
+          "arn:aws:iam::111122223333:role/SomeRole"
+        ]
+      },
+      "Action":"backup:CopyIntoBackupVault",
+      "Resource":"*"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+
+         
+          <h6 id="share-vault-with-organizational-unit">Share a destination backup vault an organizational unit in AWS Organizations</h6>
+          <p>The following policy shares a backup vault with organizational units using their
+              <code class="code">PrincipalOrgPaths</code>.</p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="8874d0bafac928772538ff5d2f8acd0890f878eb78bc71c63c5629f62e1c020d"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement":[
+    <span>{</span>
+      "Effect":"Allow",
+      "Principal":"*",
+      "Action":"backup:CopyIntoBackupVault",
+      "Resource":"*",
+      "Condition":<span>{</span>
+        "ForAnyValue:StringLike":<span>{</span>
+          "aws:PrincipalOrgPaths":[
+            "o-a1b2c3d4e5/r-f6g7h8i9j0example/ou-def0-awsbbbbb/",
+            "o-a1b2c3d4e5/r-f6g7h8i9j0example/ou-def0-awsbbbbb/ou-jkl0-awsddddd/*"
+          ]
+        }
+      }
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+
+         
+          <h6 id="share-vault-with-entire-organization">Share a destination backup vault with an organization in AWS Organizations</h6>
+          <p>The following policy shares a backup vault with the organization with
+              <code class="code">PrincipalOrgID</code> "o-a1b2c3d4e5".</p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="dd3912312af3bb60fbb9cedad6c45a25a601d54dcb974684860482bd2232b787"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement":[
+    <span>{</span>
+      "Effect":"Allow",
+      "Principal":"*",
+      "Action":"backup:CopyIntoBackupVault",
+      "Resource":"*",
+      "Condition":<span>{</span>
+        "StringEquals":<span>{</span>
+          "aws:PrincipalOrgID":[
+            "o-a1b2c3d4e5"
+          ]
+        }
+      }
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+       
+        <h2 id="designate-destination-accounts-cab">Configuring your account as a destination account</h2>
+
+        <p>When you first enable cross-account backups using your AWS Organizations management account, any
+          user of a member account can configure their account to be a destination account. We
+          recommend setting one or more of the following service control policies (SCPs) in AWS Organizations
+          to limit your destination accounts. To learn more about attaching service control policies
+          to AWS Organizations nodes, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_attach.html">Attaching and
+            detaching service control policies</a>.</p>
+
+         
+          <h6 id="limit-destination-accounts-using-tags">Limit destination accounts using tags</h6>
+          <p>When attached to an AWS Organizations root, OU, or individual account, this policy limits
+            copies destinations from that root, OU, or account to only those accounts with backup
+            vaults you’ve tagged <code class="code">DestinationBackupVault</code>. The permission
+              <code class="code">"backup:CopyIntoBackupVault"</code> controls how a backup vault behaves and, in
+            this case, which destination backup vaults are valid. Use this policy, along with the
+            corresponding tag applied to approved destination vaults, to control the destinations of
+            cross-account copies to only approved accounts and backup vaults. </p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="a1f1cf0a79dc794e491013a930f9d36c6c2d9366ee71cac1c3006423daf46d5d"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement":[
+    <span>{</span>
+      "Effect":"Deny",
+      "Action":"backup:CopyIntoBackupVault",
+      "Resource":"*",
+      "Condition":<span>{</span>
+        "Null":<span>{</span>
+          "aws:ResourceTag/DestinationBackupVault":"true"
+        }
+      }
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+
+         
+          <h6 id="limit-destination-accounts-using-names">Limit destination accounts using account numbers and vault names</h6>
+          <p>When attached to an AWS Organizations root, OU, or individual account, this policy limits
+            copies originating from that root, OU, or account to only two destination accounts. The
+            permission <code class="code">"backup:CopyFromBackupVault"</code> controls how a recovery point in
+            the backup vault behaves, and, in this case, the destinations where you can copy that
+            recovery point to. The source vault will only permit copies to the first destination
+            account (112233445566) if one or more destination backup vault names begin with
+              <code class="code">cab-</code>. The source vault will only permit copies to the second destination
+            account (123456789012) if the destination is the single backup vault named
+              <code class="code">fort-knox</code>.</p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="f01f29081356e1bf0caf87ba34f917030121a7a95c35dd21f30b9cc4724b64f3"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput">
+<span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "DenyCopyFromBackupVault",
+      "Effect": "Deny",
+      "Action": "backup:CopyFromBackupVault",
+      "Resource": "arn:aws:ec2:*:*:snapshot/*",
+      "Condition": <span>{</span>
+        "ForAllValues:ArnNotLike": <span>{</span>
+          "backup:CopyTargets": [
+            "arn:aws:backup:*:112233445566:backup-vault:cab-*",
+            "arn:aws:backup:us-east-1:123456789012:backup-vault:fort-knox"
+          ]
+        }
+      }
+    }
+  ]
+}
+</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+
+         
+          <h6 id="limit-destination-accounts-using-organizational-units">Limit destination accounts using organizational units in AWS Organizations</h6>
+          <p>When attached to an AWS Organizations root or OU that contains your source account, or when
+            attached to your source account, the following policy limits the destination accounts to
+            those accounts within the two specified OUs.</p>
+         
+        <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="a10f48efee643a857c92b5feb3aa180160d65563581b9c1b01f36f700c78578e"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement":[
+    <span>{</span>
+      "Effect":"Deny",
+      "Action":"backup:CopyFromBackupVault",
+      "Resource":"*",
+      "Condition":<span>{</span>
+        "ForAllValues:StringNotLike":<span>{</span>
+          "backup:CopyTargetOrgPaths":[
+            "o-a1b2c3d4e5/r-f6g7h8i9j0example/ou-def0-awsbbbbb/",
+            "o-a1b2c3d4e5/r-f6g7h8i9j0example/ou-def0-awsbbbbb/ou-jkl0-awsddddd/*"
+          ]
+        }
+      }
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+       
+        <h2 id="security-considerations-cab">Security considerations for cross-account backup</h2>
+
+        <p>Be aware of the following when using performing cross-account backups in AWS Backup:</p>
+
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>The destination vault cannot be the default vault. This is because the default
+              vault is encrypted with a key that cannot be shared with other accounts. </p>
+          </li><li class="listitem">
+            <p>Cross-account backups might still run for up to 15 minutes after you disable
+              cross-account backup. This is due to eventual consistency, and might result in some
+              cross-account jobs starting or completing even after you disable cross-account
+              backup.</p>
+          </li><li class="listitem">
+            <p>If the destination account leaves the organization at a later date, that account
+              will retain the backups. To avoid potential data leakage, place a deny permission on
+              the <code class="code">organizations:LeaveOrganization</code> permission in a service control
+              policy (SCP) attached to the destination account. For detailed information about SCPs,
+              see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html">Removing a
+                member account from your organization</a> in the <em>Organizations
+                User Guide</em>.</p>
+          </li><li class="listitem">
+            <p>If you delete a copy job role during a cross-account copy, AWS Backup can't unshare
+              snapshots from the source account when the copy job completes. In this case, the
+              backup job finishes, but the copy job status shows as <strong class="errortext"><code>Failed to unshare
+                snapshot</code></strong>.</p>
+          </li></ul></div>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cross-region-backup.html">Cross-Region backup</div><div id="next" class="next-link" accesskey="n" href="./tags-on-backups.html">Copy tags onto backups</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cryo&amp;topic_url=https://docs.aws.amazon.com/en_us/aws-backup/latest/devguide/create-cross-account-backup.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cryo&amp;topic_url=https://docs.aws.amazon.com/en_us/aws-backup/latest/devguide/create-cross-account-backup.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

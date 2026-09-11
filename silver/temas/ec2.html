@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EC2: instancias y compra — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>EC2: instancias, familias y opciones de compra <span class="en">Amazon Elastic Compute Cloud</span></h1>
+<p class="subtitle">El servicio de cómputo más preguntado del examen: qué instancia eliges, cómo la pagas y dónde la colocas — decisiones que cruzan D3 (performance) y D4 (costo).</p>
+<div class="chips">
+  <span class="chip">Fase 3 · Cómputo</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+  <span class="chip core">Servicio core del examen</span>
+</div>
+
+<p><strong>Amazon EC2</strong> proporciona capacidad de cómputo <span class="tag-en">on-demand</span> y escalable: servidores virtuales (instancias) que lanzas en segundos y pagas solo mientras corren. La analogía útil para el examen es la de un aparcamiento: la <strong>AMI</strong> es el molde del coche (sistema operativo + software preinstalado), el <strong>instance type</strong> es el modelo y tamaño del coche (CPU, memoria, disco, red), la <strong>opción de compra</strong> decide si alquilas por horas (On-Demand), tienes un contrato anual (Savings Plans, Reserved Instances) o buscas las plazas libres baratas (Spot), y el <strong>placement group</strong> decide dónde aparca (junto a sus amigos, repartido o en bloques separados).</p>
+
+<p>El examen SAA-C03 no pregunta pantallas: presenta un workload y espera que elijas la combinación correcta de estas cuatro decisiones. Un error típico es memorizar nombres de instancias; lo que se evalúa es el razonamiento: "workload interrumpible y tolerante a fallos → Spot", "base de datos crítica con estados de subsistema de disco → io2 Block Express", "aplicación 24/7 con uso predecible → compromiso de 1 o 3 años". Esta página te da el mapa completo de esas decisiones, con las cifras que aparecen en la documentación oficial.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    AMI["AMI<br>molde del servidor"]
+    LT["Launch template<br>plantilla reutilizable"]
+    IT["Instance type<br>familia y tamaño"]
+    PO["Opción de compra<br>On-Demand · RI · SP · Spot"]
+    PG["Placement group<br>dónde se coloca"]
+    EC2["Instancia EC2<br>servidor virtual"]
+    AMI --> LT
+    IT --> LT
+    PO --> LT
+    PG --> LT
+    LT --> EC2
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class AMI,IT navy
+    class LT,EC2 green
+    class PO,PG amber
+</div>
+<figcaption>Figura 1 — Anatomía de un lanzamiento EC2: la launch template reúne AMI, tipo, compra y placement.</figcaption>
+</figure>
+
+<h2>Familias de instancias: qué equilibrio de recursos necesitas</h2>
+
+<p>Cada instance type pertenece a una familia que prioriza un recurso. La regla mnemotécnica del examen son las letras: <strong>M</strong> y <strong>T</strong> equilibran, <strong>C</strong> es CPU, <strong>R</strong> es RAM, <strong>I</strong> y <strong>D</strong> son disco, <strong>P</strong>, <strong>G</strong>, <strong>Inf</strong> y <strong>Trn</strong> son aceleradores. El nombre completo se lee así: <code>m7g.xlarge</code> = familia M, generación 7, Graviton, tamaño xlarge. La generación importa: las familias actuales (5 en adelante) corren sobre el hypervisor <strong>Nitro</strong>, que aporta rendimiento y densidad; las generaciones previas basadas en Xen (M4, C4) son anteriores y no suelen ser respuesta correcta.</p>
+
+<p>Dos apellidos que aparecen como distractores y como respuestas: <strong>Graviton</strong> (sufijo <code>g</code>) son procesadores ARM de AWS diseñados para el mejor <span class="tag-en">price performance</span> — si el enunciado pide "mejor relación costo/rendimiento" y no hay dependencia de software x86, Graviton es candidata fuerte. <strong>Trainium</strong> y <strong>Inferentia</strong> son chips para machine learning: Trainium está optimizado para <em>training</em> de modelos y Inferentia para <em>inference</em> de baja latencia. Los tamaños (large, xlarge, 2xlarge…) escalan los recursos en proporción, y puedes cambiar de tipo una vez lanzada la instancia (con un stop/start) si el workload cambia de perfil.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Familia</th><th>Ejemplos</th><th>Optimizada para</th><th>Caso típico en el examen</th></tr></thead>
+<tbody>
+<tr><td><strong>General purpose</strong> (M, T)</td><td>m7g, m6i, t4g</td><td>Equilibrio CPU / memoria / red</td><td>Servidores web, microservicios, entornos dev/test. T es <span class="tag-en">burstable</span>: costo bajo con créditos de CPU para picos.</td></tr>
+<tr><td><strong>Compute optimized</strong> (C)</td><td>c7i, c6gn</td><td>Relación alta CPU respecto a RAM</td><td>Procesamiento por lotes, servidores de juegos, encoding de video, simulaciones de CPU.</td></tr>
+<tr><td><strong>Memory optimized</strong> (R, X, U)</td><td>r7g, x2idn, u-12tb1</td><td>Mucha RAM por vCPU</td><td>Bases de datos en memoria, caches (Redis, Memcached), análisis in-memory de grandes datasets. U llega a decenas de TiB.</td></tr>
+<tr><td><strong>Storage optimized</strong> (I, D)</td><td>i4i, d3en</td><td>IOPS y throughput de disco local (instance store) altísimos</td><td>Bases NoSQL transaccionales (Cassandra, HBase), data warehouses, HDFS distribuido.</td></tr>
+<tr><td><strong>Accelerated computing</strong> (P, G, Inf, Trn)</td><td>p5, g6, inf2, trn2</td><td>GPU y aceleradores dedicados</td><td>ML training (P, Trn), inference (Inf, G), gráficos y rendering (G).</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip">
+<div class="co-title">Tip de lectura del enunciado</div>
+Cuando el escenario menciona el tipo de recurso que "se queda corto" (CPU, memoria, disco, GPU), la respuesta casi siempre es cambiar de <strong>familia</strong>, no solo de tamaño. "Application is memory-bound" → familia R. "High sequential reads on local disks" → familia I o D. "Cheapest for unpredictable low traffic" → T burstable.
+</div>
+
+<h2>AMIs: la imagen dorada que define la instancia</h2>
+
+<p>Una <strong>AMI</strong> empaqueta el sistema operativo, el software y el <em>block device mapping</em> (qué volúmenes EBS o instance stores se adjuntan al arrancar). Es el punto de partida obligatorio: no hay instancia sin AMI. Para el examen importa su geografía: una AMI es específica de <strong>región</strong>, sistema operativo, arquitectura de procesador, tipo de volumen raíz y tipo de virtualización — por eso "lanzar la misma AMI en otra región" exige primero <span class="tag-en">copiar la AMI</span> a esa región. Puedes usar AMIs de AWS, públicas, compartidas por otras cuentas (o vía AWS Marketplace) o propias.</p>
+
+<p>El patrón de arquitectura que se examina es la <strong>golden image</strong>: una AMI curada con SO parcheado + agente de la app + hardening base, de la que nacen todas las instancias idénticas del Auto Scaling group. Para fabricarla a escala se usa <strong>EC2 Image Builder</strong>, que automatiza creación, pruebas y despliegue de imágenes seguras y actualizadas, en lugar de construir AMIs a mano. Si el enunciado pide "consistencia y parcheo automatizado de imágenes", esa es la respuesta; si pide "lanzar instancias idénticas en otra cuenta", la herramienta es compartir la AMI (o AWS Backup/cross-account según contexto).</p>
+
+<h2>Opciones de compra: cómo pagas la misma instancia</h2>
+
+<p>Aquí vive el 20% del examen correspondiente a D4. La misma instancia m7g.xlarge tiene cuatro formas de facturarse, y la pregunta del examen siempre es la misma en el fondo: <em>¿qué tolerancia tiene tu workload a la interrupción y qué predecibilidad tiene su uso?</em> On-Demand paga por segundo con cero compromiso; Reserved Instances y Savings Plans compran descuento con un compromiso de uso sostenido (1 o 3 años); Spot compra capacidad libre de AWS con descuentos muy agresivos a cambio de poder ser interrumpida con un aviso de dos minutos.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Opción</th><th>Compromiso</th><th>Descuento</th><th>Cuándo es la respuesta</th></tr></thead>
+<tbody>
+<tr><td><strong>On-Demand</strong></td><td>Ninguno; pago por segundo</td><td>Precio lista</td><td>Cargas de corta duración, irregulares o que no pueden interrumpirse ni comprometerse.</td></tr>
+<tr><td><strong>Reserved Instances</strong></td><td>1 o 3 años, sobre atributos de instancia</td><td>Significativo frente a On-Demand</td><td>Estado esteady 24/7 de un tipo de instancia concreto. <strong>Standard</strong>: mayor descuento, atributos casi fijos. <strong>Convertible</strong>: permite cambiar familia/tamaño/OS durante el plazo. La variante <strong>zonal</strong> además reserva capacidad física en una AZ.</td></tr>
+<tr><td><strong>Savings Plans</strong></td><td>1 o 3 años, sobre un gasto por hora de uso — USD/h</td><td><strong>Hasta 72%</strong></td><td>Mismo caso que RI pero con flexibilidad: <strong>Compute SP</strong> cubre EC2 sin importar familia, tamaño, OS, tenancy o región — y también aplica a <strong>Fargate y Lambda</strong>. <strong>EC2 Instance SP</strong> se limita a una familia de instancias en una región (más flexible que RI, menos que Compute SP).</td></tr>
+<tr><td><strong>Spot</strong></td><td>Ninguno; capacidad sobrante de AWS</td><td>Descuentos muy profundos — hasta ~90% frente a On-Demand en la página oficial de Spot</td><td>Batch, análisis de datos, procesamiento en background, CI/CD, workloads tolerantes a interrupción con checkpointing.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Tres matices de la documentación oficial que caen en preguntas. Primero, el <strong>Spot price</strong> se ajusta gradualmente según la oferta y demanda a largo plazo, y es distinto por tipo de instancia y por AZ. Segundo, AWS te avisa de una <span class="tag-en">Spot interruption</span> con <strong>2 minutos de antelación</strong>; puedes elegir que la instancia se termine, se pare o hiberne, y existe además la señal de <span class="tag-en">instance rebalance recommendation</span> que llega antes del aviso formal, para rebalancear tareas proactivamente. Tercero — y este es un distractor favorito — el gasto en Spot <strong>no cuenta para los compromisos de Savings Plans</strong> ni recibe descuento adicional de ellos: la pregunta "¿combino Spot con Savings Plans para ahorrar más?" tiene respuesta "no, son ahorros independientes".</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    A["Necesito una instancia"] --> B{"¿Puede interrumpirse?"}
+    B -->|"Sí"| SPOT["Spot<br>descuento máximo"]
+    B -->|"No"| C{"¿Uso continuo 24/7?"}
+    C -->|"No"| OD["On-Demand<br>sin compromiso"]
+    C -->|"Sí"| D{"¿Necesito flexibility?"}
+    D -->|"Cambiar familia o región"| CSP["Compute Savings Plan<br>cubre EC2 Fargate Lambda"]
+    D -->|"Familia fija y zonal"| RI["Reserved Instance<br>zonal reserva capacidad"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class A,B,C,D navy
+    class SPOT green
+    class OD,CSP,RI amber
+</div>
+<figcaption>Figura 2 — Árbol de decisión de compra: interrumpibilidad y predecibilidad primero, flexibilidad después.</figcaption>
+</figure>
+
+<h2>Placement groups: el control físico de la colocación</h2>
+
+<p>Un <span class="tag-en">placement group</span> te deja influir en <em>dónde</em> físicamente aterrizan tus instancias relacionadas. No tiene coste, y son solo tres estrategias las que importa memorizar con su caso de uso. <strong>Cluster</strong> empaqueta las instancias muy cerca dentro de una misma AZ para lograr la baja latencia de red de tipo HPC (alto rendimiento, gran riesgo correlacionado). <strong>Spread</strong> coloca un grupo pequeño de instancias en hardware subyacente distinto para <em>reducir fallos correlacionados</em> — es la respuesta cuando el enunciado dice "isolate critical instances". <strong>Partition</strong> reparte grandes grupos sobre particiones lógicas que no comparten hardware: la estrategia de Hadoop, Cassandra, Kafka y demás sistemas distribuidos replicados.</p>
+
+<p>Reglas que el examen convierte en trampas: una instancia vive en un solo placement group a la vez; los grupos no se pueden fusionar; no se lanzan Dedicated Hosts dentro de ellos; y una Spot Instance configurada para <em>stop</em> o <em>hibernate</em> en interrupción no puede entrar en uno. Además, las <strong>On-Demand Capacity Reservations</strong> y las RI zonales reservan capacidad en una AZ concreta y se usan automáticamente si los atributos coinciden — útil para garantizar que tu grupo crítico siempre consigue capacidad.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Estrategia</th><th>Cómo coloca</th><th>Caso de uso señal en el examen</th></tr></thead>
+<tbody>
+<tr><td><strong>Cluster</strong></td><td>Juntas, dentro de una AZ</td><td>HPC tightly coupled, baja latencia red nodo-a-nodo, big data de un solo rack. Punto único de fallo aceptado.</td></tr>
+<tr><td><strong>Spread</strong></td><td>Hardware distinto, grupos pequeños</td><td>Aislar instancias críticas individuales (p. ej. dos nodos de un clúster Oracle) minimizando fallos correlacionados.</td></tr>
+<tr><td><strong>Partition</strong></td><td>Grupos por particiones lógicas sin hardware compartido</td><td>Sistemas distribuidos grandes y replicados: Hadoop, Cassandra, Kafka. Escala donde spread se queda corto.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Hibernation: pausar una instancia conservando la RAM</h2>
+
+<p>La <span class="tag-en">hibernation</span> es la tercera vía entre stop y terminate. Al hibernar, EC2 señaliza al sistema operativo para hacer <em>suspend-to-disk</em>: el contenido de la <strong>RAM se guarda en el volumen raíz EBS</strong>, y al arrancar de nuevo el estado se restaura — los procesos se reanudan y la instancia <strong>conserva su instance ID</strong>. La factura mientras está hibernada: no pagas uso de instancia ni transferencia de RAM a EBS, pero sí pagas el almacenamiento EBS (incluido el que ocupa la RAM volcada). El caso de uso oficial que se examina: <strong>pre-warming</strong> de instancias cuya app tarda mucho en bootstrap y construir su memoria de trabajo — la llevas al estado deseado, la hibernas y la reanudas ya "caliente" cuando la necesitas.</p>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+Distractores frecuentes con EC2: (1) ofrecer <strong>Savings Plans sobre Spot</strong> — la doc oficial dice que el gasto Spot no aplica a los compromisos de Savings Plans; (2) recomendar <strong>placement group cluster</strong> para alta disponibilidad — cluster da baja latencia pero <em>concentra</em> el riesgo, la HA multi-AZ se responde con spread/partition o multi-AZ a secas; (3) responder "Reserved Instance" cuando el enunciado pide flexibilidad entre familias, regiones o incluso Fargate y Lambda — ahí la respuesta es <strong>Compute Savings Plan</strong>.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>Elige <strong>familia</strong> por el recurso dominante del workload: M/T equilibrio, C CPU, R memoria, I/D disco, P/G/Inf/Trn aceleradores.</li>
+<li><strong>Graviton</strong> (sufijo g) es la respuesta a "best price performance" sin dependencia x86.</li>
+<li>Compra: interrumpible → <strong>Spot</strong> (aviso de interrupción de 2 min); estado esteady → <strong>RI/Savings Plans</strong>; uso corto e irregular → <strong>On-Demand</strong>.</li>
+<li><strong>Compute Savings Plan</strong> = máxima flexibilidad: EC2 sin importar familia/tamaño/OS/tenancy/región + Fargate + Lambda, hasta 72% de descuento.</li>
+<li><strong>Spot no se apila con Savings Plans</strong>: ahorros independientes.</li>
+<li>Placement groups: <strong>cluster</strong> = latencia (HPC, una AZ), <strong>spread</strong> = aislar pocas críticas, <strong>partition</strong> = sistemas distribuidos grandes (Hadoop, Cassandra, Kafka).</li>
+<li>La AMI es específica de región: para usarla en otra, primero se <strong>copia</strong>; para fabricar golden images a escala, <strong>EC2 Image Builder</strong>.</li>
+<li><strong>Hibernation</strong> vuelca la RAM al EBS raíz: sirve para pre-warm y no se paga uso de instancia mientras duerme.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">CMP-01</span> Amazon EC2 — What is Amazon EC2? Concepts · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html</a></li>
+<li><span class="id">CMP-02</span> Amazon EC2 — Instance types (familias y procesadores) · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html</a></li>
+<li><span class="id">CMP-03</span> Amazon EC2 — Purchase options overview · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-purchase-options.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-purchase-options.html</a></li>
+<li><span class="id">CMP-04</span> Amazon EC2 — Spot Instances (interrupciones, Spot Fleets) · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html</a></li>
+<li><span class="id">CMP-05</span> Amazon EC2 — Reserved Instances (Standard vs Convertible) · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/reserved-instances.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/reserved-instances.html</a></li>
+<li><span class="id">CMP-06</span> AWS Savings Plans — What are Savings Plans? · <a href="https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html" target="_blank" rel="noopener">docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html</a></li>
+<li><span class="id">CMP-07</span> Amazon EC2 — Placement groups (cluster, spread, partition) · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html</a></li>
+<li><span class="id">CMP-08</span> Amazon EC2 — Hibernate your instance · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html</a></li>
+<li><span class="id">CMP-09</span> Amazon EC2 — Amazon Machine Images (AMIs) · <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/elb.html"><span class="dir">← Anterior</span>Load balancers: ALB/NLB/GWLB</a><a class="next" href="../temas/ebs.html"><span class="dir">Siguiente →</span>EBS: block storage</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>List shards - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="kinesis-using-sdk-java-list-shards" /><meta name="default_state" content="kinesis-using-sdk-java-list-shards" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" /><meta name="description" content="Learn how to list the shards of a stream with the AWS SDK for Java." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="List shards" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="kinesis-using-sdk-java-list-shards.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>List shards - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#kinesis-using-sdk-java-list-shards" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAlPnoAT22TyelcmE8M35_-A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-using-sdk-java-list-shards.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><link rel="alternate" type="text/markdown" href="kinesis-using-sdk-java-list-shards.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Create and manage Kinesis data streams",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/working-with-streams.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "List shards",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/working-with-streams.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#kinesis-using-sdk-java-list-shards" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="kinesis-using-sdk-java-list-shards">List shards</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A data stream can have one or more shards. The recommended method for listing or
+            retrieving the shards from a data stream is to use the <a href="https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html">ListShards</a> API. The following example shows how you can get a list of the
+            shards in a data stream. For a full description of the main operation used in this
+            example and all of the parameters you can set for the operation, see <a href="https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html">ListShards</a>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
+import software.amazon.awssdk.services.kinesis.model.ListShardsRequest;
+import software.amazon.awssdk.services.kinesis.model.ListShardsResponse;
+
+import java.util.concurrent.TimeUnit;
+
+public class ShardSample <span>{</span>
+
+    public static void main(String[] args) <span>{</span>
+
+        KinesisAsyncClient client = KinesisAsyncClient.builder().build();
+
+        ListShardsRequest request = ListShardsRequest
+                .builder().streamName("myFirstStream")
+                .build();
+
+        try <span>{</span>
+            ListShardsResponse response = client.listShards(request).get(5000, TimeUnit.MILLISECONDS);
+            System.out.println(response.toString());
+        } catch (Exception e) <span>{</span>
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre><p>To run the previous code example you can use a POM file like the following
+                one.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (xml)--><code class="xml ">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;kinesis.data.streams.samples&lt;/groupId&gt;
+    &lt;artifactId&gt;shards&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;8&lt;/source&gt;
+                    &lt;target&gt;8&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;software.amazon.awssdk&lt;/groupId&gt;
+            &lt;artifactId&gt;kinesis&lt;/artifactId&gt;
+            &lt;version&gt;2.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre><p>With the <code class="code">ListShards</code> API, you can use the <a href="https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ShardFilter.html">ShardFilter</a> parameter to filter out the response of the API. You can
+                only specify one filter at a time. </p><p>If you use the <code class="code">ShardFilter</code> parameter when invoking the ListShards
+                API, the <code class="code">Type</code> is the required property and must be specified. If you
+                specify the <code class="code">AT_TRIM_HORIZON</code>, <code class="code">FROM_TRIM_HORIZON</code>, or
+                    <code class="code">AT_LATEST</code> types, you do not need to specify either the
+                    <code class="code">ShardId</code> or the <code class="code">Timestamp</code> optional properties.</p><p>If you specify the <code class="code">AFTER_SHARD_ID</code> type, you must also provide the
+                value for the optional <code class="code">ShardId</code> property. The <code class="code">ShardId</code>
+                property is identical in functionality to the <code class="code">ExclusiveStartShardId</code>
+                parameter of the ListShards API. When <code class="code">ShardId</code> property is specified,
+                the response includes the shards starting with the shard whose ID immediately
+                follows the <code class="code">ShardId</code> that you provided.</p><p>If you specify the <code class="code">AT_TIMESTAMP</code> or <code class="code">FROM_TIMESTAMP_ID</code>
+                type, you must also provide the value for the optional <code class="code">Timestamp</code>
+                property. If you specify the <code class="code">AT_TIMESTAMP</code> type, then all shards that
+                were open at the provided timestamp are returned. If you specify the
+                    <code class="code">FROM_TIMESTAMP</code> type, then all shards starting from the provided
+                timestamp to TIP are returned. </p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p><code class="code">DescribeStreamSummary</code> and <code class="code">ListShard</code> APIs provide a
+                    more scalable way to retrieve information about your data streams. More
+                    specifically, the quotas for the DescribeStream API can cause throttling. For
+                    more information, see <a href="./service-sizes-and-limits.html">Quotas and limits</a>. Note also that
+                        <code class="code">DescribeStream</code> quotas are shared across all applications that
+                    interact with all data streams in your AWS account. The quotas for the
+                    ListShards API, on the other hand, are specific to a single data stream. So not
+                    only do you get higher TPS with the ListShards API, but the action scales better
+                    as you create more data streams.</p><p>We recommend that you migrate all of your producers and consumers that call
+                    the DescribeStream API to instead invoke the DescribeStreamSummary and the
+                    ListShard APIs. To identify these producers and consumers, we recommend using
+                    Athena to parse CloudTrail logs as user agents for KPL and KCL are captured in
+                    the API calls. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">
+SELECT useridentity.sessioncontext.sessionissuer.username, 
+useridentity.arn,eventname,useragent, count(*) FROM 
+cloudtrail_logs WHERE Eventname IN ('DescribeStream')  AND 
+eventtime
+    BETWEEN ''
+        AND ''
+GROUP BY  useridentity.sessioncontext.sessionissuer.username,useridentity.arn,eventname,useragent
+ORDER BY  count(*) DESC LIMIT 100
+                </code></pre><p>We also recommend that the AWS Lambda and Amazon Firehose integrations
+                    with Kinesis Data Streams that invoke the <code class="code">DescribeStream</code> API are
+                    reconfigured so that the integrations instead invoke
+                        <code class="code">DescribeStreamSummary</code> and <code class="code">ListShards</code>.
+                    Specifically, for AWS Lambda, you must update your event source mapping. For
+                    Amazon Firehose, the corresponding IAM permissions must be updated so that
+                    they include the <code class="code">ListShards</code> IAM permission. </p></div></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./kinesis-using-sdk-java-list-streams.html">List streams</div><div id="next" class="next-link" accesskey="n" href="./kinesis-using-sdk-java-delete-stream.html">Delete a stream</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-using-sdk-java-list-shards.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-using-sdk-java-list-shards.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Failure management - AWS Well-Architected Framework</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="rel-failmgmt" /><meta name="default_state" content="rel-failmgmt" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-failmgmt.html" /><meta name="description" content="In any system of reasonable complexity, it is expected that failures will occur. Reliability requires that your workload be aware of failures as they occur and take action to avoid impact on availability. Workloads must be able to both withstand failures and automatically repair issues." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Well-Architected Framework" /><meta name="guide" content="Framework" /><meta name="abstract" content="The AWS Well-Architected Framework helps you understand the pros and cons of decisions you make while building systems on AWS. By using the Framework you will learn architectural best practices for designing and operating reliable, secure, efficient, cost-effective, and sustainable systems in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-failmgmt.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-failmgmt.html" hreflang="x-default" /><meta name="feedback-folder" content="897c6ffe-3c12-4691-9c85-dc23b20eabd4" /><meta name="this_doc_product" content="AWS Well-Architected Framework" /><meta name="this_doc_guide" content="Framework" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'wellarchitected'}"></script><meta id="panorama-serviceSubSection" value="Framework" /><meta id="panorama-serviceConsolePage" value="Failure management" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="rel-failmgmt.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Failure management - AWS Well-Architected Framework</title><meta name="pdf" content="/pdfs/wellarchitected/latest/framework/wellarchitected-framework.pdf#rel-failmgmt" /><meta name="rss" content="wellarchitected-framework.rss" /><meta name="forums" content="https://repost.aws/topics/TA5g9gZfzuQoWLsZ3wxihrgw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/rel-failmgmt.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/rel-failmgmt.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/rel-failmgmt.html" /><link rel="alternate" type="text/markdown" href="rel-failmgmt.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Well-Architected",
+        "item" : "https://aws.amazon.com/architecture/well-architected/"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Framework",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "The pillars of the framework",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Reliability",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/reliability.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Best practices",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-bp.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Failure management",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-bp.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/wellarchitected/latest/framework/wellarchitected-framework.pdf#rel-failmgmt" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="https://aws.amazon.com/architecture/well-architected/">AWS Well-Architected</a><a href="welcome.html">Framework</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="rel-failmgmt">Failure management</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>
+      In any system of reasonable complexity, it is expected that
+      failures will occur. Reliability requires that your workload be
+      aware of failures as they occur and take action to avoid impact on
+      availability. Workloads must be able to both withstand failures
+      and automatically repair issues.
+    </p><p> With AWS, you can take advantage of automation to react to monitoring data. For example,
+          when a particular metric crosses a threshold, you can initiate an automated action to
+          remedy the problem. Also, rather than trying to diagnose and fix a failed resource that is
+          part of your production environment, you can replace it with a new one and carry out the
+          analysis on the failed resource out of band. Since the cloud allows you to stand up
+          temporary versions of a whole system at low cost, you can use automated testing to verify
+          full recovery processes. </p><p>
+      The following questions focus on these considerations for
+      reliability.
+    </p><div class="table-container"><div class="table-contents"><table id="w216aab7c11c13c11b9"><thead>
+              <tr>
+                <th>REL 9:  How do you back up data?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Back up data, applications, and configuration to meet your requirements for
+                  recovery time objectives (RTO) and recovery point objectives (RPO).</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c11c13c11c11"><thead>
+              <tr>
+                <th>REL 10:  How do you use fault isolation to protect your workload?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Fault isolation limits the impact of a component or system failure to a defined boundary. With proper isolation, components outside of the boundary are unaffected by the failure. Running your workload across multiple fault isolation boundaries can make it more resilient to failure.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c11c13c11c13"><thead>
+              <tr>
+                <th>REL 11:  How do you design your workload to withstand component
+                  failures?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Workloads with a requirement for high availability and low mean time to
+                  recovery (MTTR) must be architected for resiliency.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c11c13c11c15"><thead>
+              <tr>
+                <th>REL 12:  How do you test reliability?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">After you have designed your workload to be resilient to the stresses of
+                  production, testing is the only way to verify that it will operate as designed,
+                  and deliver the resiliency you expect.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c11c13c11c17"><thead>
+              <tr>
+                <th>REL 13:  How do you plan for disaster recovery (DR)?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Having backups and redundant workload components in place is the start of your DR strategy. <a href="https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html">RTO and RPO are your objectives</a> for restoration of your workload. Set these based on business needs. Implement a strategy to meet these objectives, considering locations and function of workload resources and data. The probability of disruption and cost of recovery are also key factors that help to inform the business value of providing disaster recovery for a workload.</td>
+              </tr>
+            </table></div></div><p>
+      Regularly back up your data and test your backup files to verify
+      that you can recover from both logical and physical errors. A
+      key to managing failure is the frequent and automated testing of
+      workloads to cause failure, and then observe how they recover.
+      Do this on a regular schedule and verify that such testing is also
+      initiated after significant workload changes. Actively track KPIs, 
+      and also the recovery time objective (RTO) and recovery point
+      objective (RPO), to assess a workload's resiliency (especially
+      under failure-testing scenarios). Tracking KPIs will help you
+      identify and mitigate single points of failure. The objective is
+      to thoroughly test your workload-recovery processes so that you
+      are confident that you can recover all your data and continue to
+      serve your customers, even in the face of sustained problems. Your
+      recovery processes should be as well exercised as your normal
+      production processes.
+    </p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./rel-chg-mgmt.html">Change management</div><div id="next" class="next-link" accesskey="n" href="./rel-resources.html">Resources</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/rel-failmgmt.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/rel-failmgmt.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

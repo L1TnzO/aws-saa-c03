@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics: Glue, Athena, Redshift — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Analytics: Glue, Athena, Redshift, Lake Formation, QuickSight y OpenSearch <span class="en">AWS Analytics Services</span></h1>
+<p class="subtitle">El pipeline del data lake moderno — S3, catálogo, SQL serverless y warehouse — y la decisión de examen: Athena para explorar, Redshift para martillar.</p>
+<div class="chips">
+  <span class="chip">Fase 6 · Integración y mensajería</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+  <span class="chip core">Del data lake al dashboard</span>
+</div>
+
+<p>Piensa en una gran biblioteca: los datos crudos llegan a estanterías gigantes (S3), pero sin un catálogo nadie encuentra nada. <strong>AWS Glue</strong> es el bibliotecario: descubre los datos, infiere sus esquemas y los registra en el <span class="tag-en">Data Catalog</span>, además de ejecutar los trabajos de limpieza y transformación (ETL) que ordenan las colecciones. <strong>Amazon Athena</strong> es el lector que consulta la biblioteca sin montar ninguna infraestructura: SQL ad-hoc sobre S3, serverless y pagando solo por lo que consulta. <strong>Amazon Redshift</strong> es la sala de análisis intensivo: un <span class="tag-en">data warehouse</span> columnar para BI pesado.</p>
+
+<p>Alrededor de la tríada trabajan tres servicios que el examen menciona como piezas de gobierno y presentación: <strong>AWS Lake Formation</strong> añade la capa de permisos finos sobre el catálogo y el lake; <strong>Amazon QuickSight</strong> convierte los datos en dashboards de BI; y <strong>Amazon OpenSearch Service</strong> cubre búsqueda e índices y el análisis de logs. La pregunta de examen no es "describe each service": es <em>qué servicio encaja en qué eslabón del pipeline</em> y, sobre todo, la decisión Athena vs Redshift. Esta página recorre el flujo completo de extremo a extremo y termina en esa tabla de decisión.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    subgraph ING["Ingesta"]
+        P1["Apps, logs<br>y streams"]
+        P2["Firehose o<br>jobs de Glue"]
+    end
+    RAW["S3 lake<br>zona cruda csv"]
+    GLU["AWS Glue<br>crawlers y ETL"]
+    CAT["Glue Data Catalog<br>esquemas y tablas"]
+    CUR["S3 zona curada<br>formato parquet"]
+    subgraph ANA["Consumo"]
+        ATH["Athena<br>SQL ad-hoc"]
+        RS["Redshift<br>warehouse"]
+    end
+    QS["QuickSight<br>dashboards BI"]
+    P1 --> RAW
+    P2 --> RAW
+    RAW --> GLU
+    GLU --> CAT
+    GLU --> CUR
+    CAT -.-> ATH
+    CAT -.-> RS
+    CUR --> ATH
+    CUR --> RS
+    ATH --> QS
+    RS --> QS
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class P1,P2 navy
+    class RAW,CUR navy
+    class GLU,CAT amber
+    class ATH,RS green
+    class QS navy
+</div>
+<figcaption>Figura 1 — Pipeline end-to-end del data lake: ingesta a S3, catálogo y ETL con Glue, consumo con Athena/Redshift y visualización con QuickSight.</figcaption>
+</figure>
+
+<h2>El data lake en S3 y el catálogo de Glue</h2>
+
+<p>Todo empieza en <strong>S3 como data lake</strong>: los datos crudos aterrizan en buckets — vía Firehose, jobs de Glue o cualquier productor. El problema no es guardarlos: es que S3 no conoce su contenido; no hay tablas ni esquemas. <strong>AWS Glue</strong> resuelve la mitad del problema con sus <span class="tag-en">crawlers</span>: conectan con el almacén de datos, infieren automáticamente el esquema y lo integran en el <strong>Glue Data Catalog</strong> — el inventario técnico de todas tus bases de datos y tablas. La documentación oficial destaca que Glue descubre y conecta más de 70 fuentes distintas y que el catálogo se consulta de inmediato con Athena, EMR y Redshift Spectrum: una vez catalogado, el dato de S3 ya es una tabla con nombre, columnas y tipos.</p>
+
+<p>La otra mitad del trabajo es preparar los datos para análisis, y ahí entran los <span class="tag-en">Glue jobs</span>: ETL serverless sobre un motor Apache Spark, con <strong>Glue Studio</strong> para componer las transformaciones visualmente, triggers por evento o calendario, y escalado automático de workers según la carga. El patrón de madurez del lake — presente en casi toda pregunta de esta familia — organiza S3 en <em>zonas</em>: una zona cruda (raw) con los datos tal cual llegan y una zona curada (processed) con datos limpios y ya transformados a formatos analíticos. Glue es el motor que mueve los datos de una zona a la otra.</p>
+
+<h2>Athena: SQL serverless sobre S3</h2>
+
+<p><strong>Amazon Athena</strong> es un servicio de consulta interactivo que analiza datos directamente en S3 con SQL estándar: apuntas Athena a tus datos, ejecutas <em>ad-hoc queries</em> y obtienes resultados en segundos — todo sin infraestructura que planificar ni gestionar, pagando solo por las consultas que ejecutas. Athena escala automáticamente ejecutando las consultas en paralelo, incluso con datasets grandes y consultas complejas; también soporta notebooks con Apache Spark. La documentación lo posiciona para análisis interactivo sobre el data lake, y las integraciones naturales son el Glue Data Catalog (para los metadatos) y QuickSight (para visualizar los resultados).</p>
+
+<h2>El patrón CSV a Parquet: la pregunta que nunca falta</h2>
+
+<p>Aquí cae una de las preguntas más repetidas del SAA-C03. Los CSV son <em>row-based</em>: para responder "¿cuál es el promedio de la columna X?", Athena debe escanear todas las filas completas, aunque solo te interesen dos campos. <strong>Parquet es columnar y comprimido</strong>: los datos se almacenan agrupados por columna, así que la misma consulta lee solo las columnas implicadas y los bloques comprimidos ocupan menos bytes. Menos datos escaneados significa <strong>consultas más rápidas y facturas menores</strong> — y como Athena cobra por datos escaneados, la conversión se paga sola. El patrón completo del enunciado: datos llegan en CSV a la zona cruda → un <strong>job de Glue</strong> los transforma y comprime a Parquet en la zona curada → Athena consulta la zona curada. Si además particionas por fecha (p. ej. <code>año/mes/día</code> en prefijos de S3) y el catálogo registra las particiones, el engine puede saltarse bloques enteros: la tríada <em>Parquet + compresión + particionado</em> es la respuesta de "optimize query performance and cost" para consultas sobre S3.</p>
+
+<h2>Redshift: el warehouse columnar</h2>
+
+<p><strong>Amazon Redshift</strong> es el <span class="tag-en">data warehouse</span> de AWS: un almacén columnar optimizado para consultas analíticas (agregaciones, joins grandes, reporting de BI) sobre datos estructurados y modelados, con SQL estándar. A diferencia de Athena — que cada consulta levita sin infraestructura — Redshift tiene su propia capacidad: puedes operar clusters aprovisionados con los tipos de instancia y almacenamiento que definas, o <strong>Redshift Serverless</strong> para pagar solo por el uso sin gestionar clusters, opción que la documentación oficial compara directamente. Para consultas sobre datos que aún viven en S3 sin cargarlos, existe <strong>Redshift Spectrum</strong>, que la documentación de Glue cita junto a Athena y EMR como consumidor del catálogo: el warehouse consulta el lake cuando lo necesita.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Criterio</th><th>Amazon Athena</th><th>Amazon Redshift</th></tr></thead>
+<tbody>
+<tr><td>Modelo</td><td>Serverless: consulta S3 sin infraestructura</td><td>Warehouse: clusters o serverless, capacidad dedicada</td></tr>
+<tr><td>Datos</td><td>Permanecen en S3 — el lake es el almacén</td><td>Datos cargados y modelados en el warehouse; Spectrum consulta S3</td></tr>
+<tr><td>Pago</td><td>Por consulta — datos escaneados</td><td>Por capacidad aprovisionada o uso serverless</td></tr>
+<tr><td>Fuente</td><td>SQL estándar sobre el Glue Data Catalog</td><td>SQL con motor MPP optimizado para BI</td></tr>
+<tr><td>Elegir cuando…</td><td>Exploración ad-hoc, logs, datos poco frecuentes, sin administrar nada</td><td>BI pesado y recurrente: joins grandes, dashboards con latencia baja</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+La decisión Athena vs Redshift se lee por la <strong>frecuencia y complejidad</strong>: consultas ad-hoc, esporádicas, sin infraestructura → Athena; BI pesado, recurrente, joins grandes y reporting con latencia baja → Redshift. El distractor clásico es provisionar Redshift (o EMR con Hadoop) cuando el enunciado solo pide "query data in S3 with SQL, no infrastructure" — la palabra mágica <em>serverless</em> apunta a Athena. Y si el enunciado pide acelerar Athena sin cambiar las consultas: Parquet, compresión y particionado vía Glue, no "más capacidad".
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    A["Necesitas analizar datos"] --> B{"¿Consultas ad-hoc<br>sobre S3?"}
+    B -->|"sí, esporádicas"| AT["Athena<br>serverless SQL"]
+    B -->|"no"| C{"¿BI pesado con joins<br>y reporting recurrente?"}
+    C -->|"sí"| RD["Redshift<br>warehouse columnar"]
+    C -->|"no"| D{"¿Búsqueda de texto<br>y exploración de logs?"}
+    D -->|"sí"| OS["OpenSearch<br>búsqueda e índices"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class A navy
+    class B,C,D amber
+    class AT,RD,OS green
+</div>
+<figcaption>Figura 2 — Qué motor de análisis elegir: la frecuencia de la consulta y la naturaleza del dato deciden entre Athena, Redshift y OpenSearch.</figcaption>
+</figure>
+
+<h2>Bases de datos de propósito específico en el ecosistema analítico</h2>
+
+<p>El lake no es la única respuesta: algunos datos viven mejor en bases especializadas que el examen menciona como alternativas proposito-específicas. <strong>Amazon DocumentDB</strong> es la base documental compatible con MongoDB — cargas de contenido semiestructurado, catálogos y perfiles que la app lee y escribe con la API que ya conoce. <strong>Amazon Neptune</strong> es la base de grafos: cuando la pregunta gira sobre <em>relaciones</em> (redes sociales, detección de fraude por patrones de conexión, motores de recomendación), el modelo de nodos y aristas consulta en milisegundos lo que en SQL requiere joins recursivos. La señal del enunciado para ambas: datos con esa forma concreta y "latencia baja" en consultas de ese patrón; si el dato es tabular y masivo, sigue siendo Redshift o el lake.</p>
+
+<h2>Lake Formation, QuickSight y OpenSearch: gobierno, vitrina y buscador</h2>
+
+<p><strong>AWS Lake Formation</strong> es la capa de gobierno del lake: la documentación oficial de Glue lo define como una capa de autorización con <span class="tag-en">fine-grained access control</span> sobre los recursos del Glue Data Catalog — es decir, permisos a nivel de base de datos, tabla e incluso columna, centralizados para todo el lake. En el examen, la señal es <em>"grant access to specific columns"</em> o <em>"centralize data lake permissions"</em>: en lugar de repartir bucket policies de S3 y políticas de Glue por todas partes, defines en Lake Formation quién ve qué del catálogo, y los servicios de consulta (Athena, Redshift) respetan esa autorización.</p>
+
+<p><strong>Amazon QuickSight</strong> es el servicio de BI para el último eslabón: dashboards interactivos, análisis y visualizaciones que se conectan a tus fuentes — Athena y Redshift entre las naturales — y se pueden <em>embeber</em> en tus propias aplicaciones. Si el enunciado termina en <em>"visualize the results in dashboards for business users"</em>, QuickSight es la pieza. <strong>Amazon OpenSearch Service</strong> opera clusters de OpenSearch (el derivado open-source de Elasticsearch, del que soporta hasta la versión 7.10) como servicio gestionado: un <span class="tag-en">domain</span> es un cluster con sus tipos de instancia y almacenamiento; AWS detecta y reemplaza nodos fallidos. Sus casos oficiales son búsqueda, análisis de logs, monitoreo de aplicaciones en tiempo real y clickstream — y su nodo típico en el pipeline es ser destino de Firehose para los logs, o la respuesta cuando la pregunta exige búsqueda de texto por índices invertidos, algo que SQL no hace bien.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"query data in S3 with SQL, no servers"</td><td>Athena (+ Glue Data Catalog para metadatos)</td></tr>
+<tr><td>"improve Athena performance and reduce cost"</td><td>Convertir a Parquet + compresión + particionado (job de Glue)</td></tr>
+<tr><td>"catalog data and infer schemas automatically"</td><td>Glue crawlers → Data Catalog</td></tr>
+<tr><td>"complex joins, large dashboards, predictable BI workload"</td><td>Redshift (o Redshift Serverless)</td></tr>
+<tr><td>"column-level permissions on the data lake"</td><td>Lake Formation sobre el Glue Data Catalog</td></tr>
+<tr><td>"interactive dashboards for business users"</td><td>QuickSight</td></tr>
+<tr><td>"search logs by keyword / full-text search service"</td><td>OpenSearch Service</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>El pipeline canónico: <strong>S3 → Glue crawlers/catalog → ETL → Athena/Redshift → QuickSight</strong>.</li>
+<li><strong>Glue</strong> = ETL serverless (Spark) + <strong>Data Catalog</strong> compartido con Athena, EMR y Redshift Spectrum.</li>
+<li><strong>Athena</strong> = SQL serverless sobre S3, pago por consulta (por datos escaneados).</li>
+<li>El patrón <strong>CSV → Parquet</strong> con compresión y particionado acelera y abarata las consultas del lake.</li>
+<li><strong>Redshift</strong> = warehouse columnar para BI pesado; <strong>Serverless</strong> quita la gestión de clusters; <strong>Spectrum</strong> consulta S3 desde el warehouse.</li>
+<li><strong>Lake Formation</strong> centraliza permisos finos (tabla/columna) sobre el catálogo del lake.</li>
+<li><strong>QuickSight</strong> para dashboards; <strong>OpenSearch</strong> para búsqueda, logs y monitoreo en tiempo real.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">INT-12</span> AWS Glue — What is (serverless ETL, catalog) · <a href="https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html" target="_blank" rel="noopener">docs.aws.amazon.com/glue/latest/dg/what-is-glue.html</a></li>
+<li><span class="id">INT-13</span> Amazon Athena — What is (S3 SQL queries) · <a href="https://docs.aws.amazon.com/athena/latest/ug/what-is-athena.html" target="_blank" rel="noopener">docs.aws.amazon.com/athena/latest/ug/what-is-athena.html</a></li>
+<li><span class="id">INT-14</span> AWS Lake Formation — What is (data lake governance) · <a href="https://docs.aws.amazon.com/lakeformation/latest/dg/what-is-lake-formation.html" target="_blank" rel="noopener">docs.aws.amazon.com/lakeformation/latest/dg/what-is-lake-formation.html</a></li>
+<li><span class="id">INT-15</span> Amazon QuickSight — Welcome (BI visualization) · <a href="https://docs.aws.amazon.com/quicksight/latest/user/welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/quicksight/latest/user/welcome.html</a></li>
+<li><span class="id">INT-16</span> Amazon OpenSearch Service — What is (search, analytics) · <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html" target="_blank" rel="noopener">docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html</a></li>
+<li><span class="id">DB-16</span> Amazon Redshift — What is (data warehouse, columnar) · <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/overview.html" target="_blank" rel="noopener">docs.aws.amazon.com/redshift/latest/mgmt/overview.html</a></li>
+<li><span class="id">DB-17</span> Amazon DocumentDB — What is (MongoDB compatible) · <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html" target="_blank" rel="noopener">docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html</a></li>
+<li><span class="id">DB-18</span> Amazon Neptune — What is (graph database) · <a href="https://docs.aws.amazon.com/neptune/latest/userguide/intro.html" target="_blank" rel="noopener">docs.aws.amazon.com/neptune/latest/userguide/intro.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/kinesis.html"><span class="dir">← Anterior</span>Kinesis</a><a class="next" href="../temas/kms.html"><span class="dir">Siguiente →</span>KMS, ACM y cifrado</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

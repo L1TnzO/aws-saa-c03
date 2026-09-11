@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Tracking processed data using job bookmarks - AWS Glue</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="monitor-continuations" /><meta name="default_state" content="monitor-continuations" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html" /><meta name="description" content="AWS Glue uses job bookmarks to track data that has already been processed." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Glue" /><meta name="guide" content="User Guide" /><meta name="abstract" content="How to use and program AWS Glue." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/monitor-continuations.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/monitor-continuations.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/monitor-continuations.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/monitor-continuations.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/monitor-continuations.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/monitor-continuations.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/monitor-continuations.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/monitor-continuations.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/monitor-continuations.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/monitor-continuations.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/monitor-continuations.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/monitor-continuations.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/monitor-continuations.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/monitor-continuations.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/monitor-continuations.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/monitor-continuations.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/glue/latest/dg/monitor-continuations.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/glue/latest/dg/monitor-continuations.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html" hreflang="x-default" /><meta name="feedback-item" content="Glue" /><meta name="this_doc_product" content="AWS Glue" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'glue'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Tracking processed data using job bookmarks" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="monitor-continuations.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Tracking processed data using job bookmarks - AWS Glue</title><meta name="pdf" content="/pdfs/glue/latest/dg/glue-dg.pdf#monitor-continuations" /><meta name="rss" content="aws-glue-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TABBptUaVOS1mAM7TXuTuxWQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/monitor-continuations.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/monitor-continuations.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/monitor-continuations.html" /><meta name="keywords" content="AWS Glue,AWS Glue Data Catalog,Data Catalog,AWS Glue jobs system,Jobs system,ETL" /><link rel="alternate" type="text/markdown" href="monitor-continuations.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with jobs in AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/author-glue-job.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Working with Spark jobs in AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/etl-jobs-section.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "AWS Glue Spark and PySpark jobs",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/spark_and_pyspark.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Tracking processed data using job bookmarks",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/spark_and_pyspark.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/glue/latest/dg/glue-dg.pdf#monitor-continuations" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/glue/index.html">AWS Glue</a><a href="what-is-glue.html">User Guide</a></div><div id="page-toc-src"><a href="#monitor-continuations-implement">Using job bookmarks</a><a href="#monitor-continuations-script">Operational details </a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="monitor-continuations">Tracking processed data using job bookmarks</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Glue tracks data that has already been processed during a previous run of an ETL job by
+    persisting state information from the job run. This persisted state information is called a
+      <em>job bookmark</em>. Job bookmarks help AWS Glue maintain state information and
+    prevent the reprocessing of old data. With job bookmarks, you can process new data when
+    rerunning on a scheduled interval.
+    A
+    job bookmark is composed of the states for various elements of jobs, such as sources,
+    transformations, and targets. For example, your ETL job might read new partitions in an Amazon S3
+    file. AWS Glue tracks which partitions the job has processed successfully to prevent duplicate
+    processing and duplicate data in the job's target data store.</p><p>Job bookmarks are implemented for JDBC data sources, the Relationalize transform, and some
+    Amazon Simple Storage Service (Amazon S3) sources. The following table lists the Amazon S3 source formats that AWS Glue supports
+    for job bookmarks.</p><div class="table-container"><div class="table-contents"><table id="w723aac20b9b9c15b7"><thead>
+        <tr>
+          <th>AWS Glue version</th>
+          <th>Amazon S3 source formats</th>
+        </tr>
+      </thead>
+        <tr>
+          <td tabindex="-1">Version 0.9</td>
+          <td tabindex="-1">JSON, CSV, Apache Avro, XML</td>
+        </tr>
+        <tr>
+          <td tabindex="-1">Version 1.0 and later</td>
+          <td tabindex="-1">JSON, CSV, Apache Avro, XML, Parquet, ORC</td>
+        </tr>
+      </table></div></div><p>For information about AWS Glue versions, see <a href="./add-job.html#create-job">Defining job properties for Spark jobs</a>.</p><p>The job bookmarks feature has additional functionalities when accessed through AWS Glue scripts. When browsing your generated script, you may see transformation contexts, 
+    which are related to this feature. For more information, see <a href="./programming-etl-connect-bookmarks.html">Using job bookmarks</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#monitor-continuations-implement">Using job bookmarks in AWS Glue</a></p></li><li><p><a href="#monitor-continuations-script">Operational details of the job bookmarks feature</a></p></li></ul></div>
+    <h2 id="monitor-continuations-implement">Using job bookmarks in AWS Glue</h2>
+    <p>The job bookmark option is passed as a parameter when the job is started. The following
+      table describes the options for setting job bookmarks on the AWS Glue
+      console.</p>
+    <div class="table-container"><div class="table-contents"><table id="w723aac20b9b9c15c15b5"><thead>
+          <tr>
+            <th>Job bookmark</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1">Enable</td>
+            <td tabindex="-1">Causes the job to update the state after a run to keep track of previously
+              processed data. If your job has a source with job bookmark support, it will keep track
+              of processed data, and when a job runs, it processes new data since the last
+              checkpoint.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">Disable</td>
+            <td tabindex="-1">Job bookmarks are not used, and the job always processes the entire dataset. You
+              are responsible for managing the output from previous job runs. This is the
+              default.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">Pause</td>
+            <td tabindex="-1">
+              <p>Process incremental data since the last successful run or the data in the range
+                identified by the following sub-options, without updating the state of last
+                bookmark. You are responsible for managing the output from previous job runs. The
+                two sub-options are:</p>
+              <div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><b>job-bookmark-from</b> &lt;from-value&gt; is the
+                    run ID which represents all the input that was processed until the last
+                    successful run before and including the specified run ID. The corresponding
+                    input is ignored.</p>
+                </li><li class="listitem">
+                  <p><b>job-bookmark-to</b> &lt;to-value&gt; is the run ID
+                    which represents all the input that was processed until the last successful run
+                    before and including the specified run ID. The corresponding input excluding the
+                    input identified by the &lt;from-value&gt; is processed by the job. Any input later
+                    than this input is also excluded for processing.</p>
+                </li></ul></div>
+              <p>The job bookmark state is not updated when this option set is specified.</p>
+              <p>The sub-options are optional, however when used both the sub-options needs to be
+                provided.</p>
+            </td>
+          </tr>
+        </table></div></div>
+    
+    <p>For details about the parameters passed to a job on the command line, and specifically for
+      job bookmarks, see <a href="./aws-glue-programming-etl-glue-arguments.html">Using job parameters in AWS Glue jobs</a>.</p>
+    
+    <p>For Amazon S3 input sources, AWS Glue job bookmarks check the last modified time of the objects to
+      verify which objects need to be reprocessed. If your input source data has been modified since
+      your last job run, the files are reprocessed when you run the job again.</p>
+    
+    <p>For JDBC sources, the following rules apply:</p>
+    <div class="itemizedlist">
+       
+       
+       
+      
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>For each table, AWS Glue uses one or more columns as bookmark keys to determine new and
+          processed data. The bookmark keys combine to form a single compound key.</p>
+      </li><li class="listitem">
+        <p>AWS Glue by default uses the primary key as the bookmark key, provided that it is sequentially
+          increasing or decreasing (with no gaps).</p>
+      </li><li class="listitem">
+        <p>You can specify the columns to use as bookmark keys in your AWS Glue script. For more information about
+        using Job bookmarks in AWS Glue scripts, see <a href="./programming-etl-connect-bookmarks.html">Using job bookmarks</a>.</p>
+      </li><li class="listitem">
+        <p>AWS Glue doesn't support using columns with case-sensitive names as job bookmark keys.</p>
+      </li></ul></div>
+    
+    <p>You can rewind your job bookmarks for your AWS Glue Spark ETL jobs to any previous job run.
+      You can support data backfilling scenarios better by rewinding your job bookmarks to any
+      previous job run, resulting in the subsequent job run reprocessing data only from the
+      bookmarked job run.</p>
+    <p>If you intend to reprocess all the data using the same job, reset the job bookmark. To
+      reset the job bookmark state, use the AWS Glue console, the <a href="./aws-glue-api-jobs-runs.html#aws-glue-api-jobs-runs-ResetJobBookmark">ResetJobBookmark action (Python: reset_job_bookmark)</a> API operation, or the AWS CLI. For
+      example, enter the following command using the AWS CLI:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">
+    aws glue reset-job-bookmark --job-name <code class="replaceable">my-job-name</code>
+  </code></pre>
+    
+    <p>When you rewind or reset a bookmark, AWS Glue does not clean the target files because there
+      could be multiple targets and targets are not tracked with job bookmarks. Only source files
+      are tracked with job bookmarks. You can create different output targets when rewinding and
+      reprocessing the source files to avoid duplicate data in your output.</p>
+    <p>AWS Glue keeps track of job bookmarks by job. If you delete a job, the job bookmark is
+      deleted.</p>
+    <p>In some cases, you might have enabled AWS Glue job bookmarks but your ETL job is reprocessing
+      data that was already processed in an earlier run. For information about resolving common
+      causes of this error, see <a href="./glue-troubleshooting-errors.html">Troubleshooting Glue common setup errors</a>.</p>
+   
+    <h2 id="monitor-continuations-script">Operational details of the job bookmarks feature</h2>
+    <p>This section describes more of the operational details of using job bookmarks.</p>
+    <p>Job bookmarks store the states for a job. Each instance of the state is keyed by a job
+      name and a version number. When a script invokes <code class="code">job.init</code>, it retrieves its state
+      and always gets the latest version. Within a state, there are multiple state elements, which
+      are specific to each source, transformation, and sink instance in the script. These state
+      elements are identified by a transformation context that is attached to the corresponding
+      element (source, transformation, or sink) in the script. The state elements are saved
+      atomically when <code class="code">job.commit</code> is invoked from the user script. The script gets the
+      job name and the control option for the job bookmarks from the arguments.</p>
+    <p>The state elements in the job bookmark are source, transformation, or sink-specific data.
+      For example, suppose that you want to read incremental data from an Amazon S3 location that is
+      being constantly written to by an upstream job or process. In this case, the script must
+      determine what has been processed so far. The job bookmark implementation for the Amazon S3 source
+      saves information so that when the job runs again, it can filter only the new objects using
+      the saved information and recompute the state for the next run of the job. A timestamp is used
+      to filter the new files.</p>
+    <p>In addition to the state elements, job bookmarks have a <em>run number</em>,
+      an <em>attempt number</em>, and a <em>version number</em>. The run
+      number tracks the run of the job, and the attempt number records the attempts for a job run.
+      The job run number is a monotonically increasing number that is incremented for every
+      successful run. The attempt number tracks the attempts for each run, and is only incremented
+      when there is a run after a failed attempt. The version number increases monotonically and
+      tracks the updates to a job bookmark.</p>
+    
+    <p>In the AWS Glue service database, the bookmark states for all the transformations are stored together as key-value pairs:</p>
+    
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "job_name" : ...,
+  "run_id": ...,
+  "run_number": ..,
+  "attempt_number": ...
+  "states": <span>{</span>
+    "transformation_ctx1" : <span>{</span>
+      bookmark_state1
+    },
+    "transformation_ctx2" : <span>{</span>
+      bookmark_state2
+    }
+  }
+}
+</code></pre>
+        
+     
+      <h6>Best practices</h6>
+      <p>The following are best practices for using job bookmarks.</p>
+     
+    
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem"><p><em>Do not change the data source property with the bookmark enabled</em>. For example, there is a datasource0 pointing to an Amazon S3 input path A, and the job has been reading from a source which has been running for several rounds with the bookmark enabled. If you change the input path of datasource0 to Amazon S3 path B without changing the <code class="code">transformation_ctx</code>, the AWS Glue job will use the old bookmark state stored. That will result in missing or skipping files in the input path B as AWS Glue would assume that those files had been processed in previous runs. </p></li><li class="listitem"><p><em>Use a catalog table with bookmarks for better partition management</em>. Bookmarks works both for data sources from the Data Catalog or from options. However, it's difficult to remove/add new partitions with the from options approach. Using a catalog table with crawlers can provide better automation to track the newly added <a href="https://docs.aws.amazon.com/glue/latest/dg/tables-described.html#tables-partition">partitions</a> and give you the flexibility to select particular partitions with a <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-partitions.html">pushdown predicate</a>.</p></li><li class="listitem"><p><em>Use the <a href="https://aws.amazon.com/premiumsupport/knowledge-center/glue-oom-java-heap-space-error/" rel="noopener noreferrer" target="_blank"><span>AWS Glue Amazon S3 file lister</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> for large datasets</em>. A bookmark will list all files under each input partition and do the filtering, so if there are too many files under a single partition the bookmark can run into driver OOM. Use the AWS Glue Amazon S3 file lister to avoid listing all files in memory at once.</p></li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./console-edit-script.html">Jobs (legacy)</div><div id="next" class="next-link" accesskey="n" href="./monitor-spark-shuffle-manager.html">Storing Spark shuffle data</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/monitor-continuations.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/monitor-continuations.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

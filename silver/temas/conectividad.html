@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGW, peering, PrivateLink, DX/VPN — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Conectividad entre redes <span class="en">Peering · Transit Gateway · PrivateLink · Direct Connect · VPN</span></h1>
+<p class="subtitle">Las cinco piezas con las que el examen construye cualquier topología: unirlas VPCs, enrutarlas en tránsito, acceder a servicios en privado y saltar a on-premises.</p>
+<div class="chips">
+  <span class="chip">Fase 2 · Redes y conectividad</span>
+  <span class="chip d1">Dominio 1 · 30%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>Piensa en las conexiones como en vías de transporte. El <strong>VPC peering</strong> es una calle privada entre dos parcelas: rápida, directa, pero solo une a sus dos dueños. El <strong>Transit Gateway</strong> es el intercambiador central al que se conectan todas las autopistas: cualquier red attachada puede hablar con las demás según las rutas que publiques. <strong>AWS PrivateLink</strong> es la puerta trasera del supermercado: los consumidores entran al servicio del proveedor por IP privada, sin pisar la calle pública ni mezclar sus redes. Y para el mundo híbrido, <strong>Direct Connect</strong> es el carril dedicado por fibra entre tu router y AWS, mientras que la <strong>Site-to-Site VPN</strong> es tu coche blindado por la autopista pública — cifrado IPsec sobre internet.</p>
+
+<p>El examen rara vez pregunta "qué es X": pregunta qué opción cumple el requisito con menos fricción. Dos VPCs → peering. Decenas de VPCs o enrutado transitivo → Transit Gateway. Acceso privado a un servicio AWS o SaaS → PrivateLink. Enlace híbrido predecible → Direct Connect; rápido y barato → VPN, habitualmente como respaldo del DX. Las cifras ya están verificadas en la documentación: cada conexión VPN trae <strong>dos túneles</strong> por alta disponibilidad, un DX es un enlace de fibra <span class="tag-en">dedicated</span> que evita los ISPs, y el Transit Gateway soporta MTU de <strong>8500 bytes</strong> entre attachments.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    TGW["Transit Gateway<br>route tables"]
+    subgraph VPCS["Spokes: VPCs"]
+        V1["VPC A<br>10.0.0.0/16"]
+        V2["VPC B<br>10.1.0.0/16"]
+        V3["VPC C<br>10.2.0.0/16"]
+    end
+    TGW --- V1
+    TGW --- V2
+    TGW --- V3
+    ONP["Red on-premises"] -->|"Site-to-Site VPN<br>dos tuneles"| TGW
+    DXG["Direct Connect gateway<br>enlace dedicado"] -->|"virtual interface"| TGW
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class TGW navy
+    class V1,V2,V3 green
+    class ONP,DXG amber
+</div>
+<figcaption>Figura 1 — Hub-and-spoke con Transit Gateway: VPCs, VPN y Direct Connect gateway se attachan al hub, que enruta entre ellos según sus route tables.</figcaption>
+</figure>
+
+<h2>VPC peering: la conexión punto a punto</h2>
+
+<p>Una <span class="tag-en">VPC peering connection</span> es una conexión de red entre dos VPCs que permite enrutar tráfico entre ellas con direcciones IP privadas IPv4 o IPv6: las instancias de una y otra se comunican como si estuvieran en la misma red. Puede crearse entre VPCs propias, con VPCs de otra cuenta e incluso entre Regions distintas (<span class="tag-en">inter-Region peering</span>), sin depender de gateways ni de un punto único de fallo ni cuello de banda compartido: el tráfico usa la red de AWS. Los dos requisitos de examen son duros: las CIDRs de las VPCs <strong>no pueden solaparse</strong> (un solape rompe el enrutado) y el peering <strong>no es transitivo</strong> — si A está peered con B y B con C, A no llega a C a través de B; cada par necesita su propia conexión y sus rutas explícitas en ambas route tables.</p>
+
+<p>Esa no-transitividad es el corazón de la pregunta típica: "tenemos N VPCs que deben comunicarse todas con todas". Con peering puro necesitas N×(N-1)/2 conexiones y rutas simétricas — una malla inmanejable a partir de 4-5 VPCs. La respuesta con <span class="tag-en">least operational overhead</span> es el Transit Gateway. El peering sigue siendo la elección correcta en su nicho: dos VPCs estables, ancho de banda sin coste de hub intermedio, o compartir red con una VPC de un tercero sin exponer el resto de tu topología.</p>
+
+<h2>Transit Gateway: el hub que resuelve la malla</h2>
+
+<p><strong>AWS Transit Gateway</strong> es un hub de tránsito de red que interconecta VPCs y redes on-premises. Se le attachan VPCs, conexiones VPN, gateways de Direct Connect, concentradores SD-WAN (attachments <em>Connect</em>) e incluso otros transit gateways — el <span class="tag-en">inter-Region TGW peering</span> conecta hubs entre Regions sobre la infraestructura global de AWS, con el tráfico entre data centers de AWS cifrado automáticamente en la capa física. Cada attachment se asocia a <strong>una</strong> route table del TGW, que decide el siguiente salto por la IP de destino; las rutas son estáticas o propagadas (VPN, DX gateway), y hacia una VPC siempre se crean rutas estáticas.</p>
+
+<p>El superpoder de diseño son las <strong>múltiples route tables</strong>: asociando attachments distintos a tablas distintas segmentas la topología — p. ej. VPCs compartidas y VPCs de producción comparten la tabla "común", las VPCs de datos solo son alcanzables desde la tabla de producción, y el VPN del proveedor externo solo ve su tabla aislada. En rendimiento, el TGW soporta MTU de 8500 bytes para tráfico entre VPCs, DX y peering attachments (1500 sobre VPN). En coste, se paga por hora cada attachment más el tráfico procesado — la razón por la que "malla de peerings vs TGW" también puede resolverse por coste en escenarios pequeños. Y para seguridad extrema existe <span class="tag-en">encryption control</span>, que exige cifrado en tránsito para todo el tráfico de las VPCs attachadas.</p>
+
+<h2>PrivateLink y VPC endpoints: acceso privado a servicios</h2>
+
+<p><strong>AWS PrivateLink</strong> ofrece la vía privada: los clientes de tu VPC conectan con servicios y recursos en <em>otras</em> VPCs mediante direcciones IP privadas, como si esos servicios estuvieran alojados directamente dentro de tu VPC — sin internet gateway, sin NAT y sin que el tráfico toque la red pública. El modelo tiene dos papeles: el <strong>provider</strong> expone su servicio tras un endpoint service, y los <strong>consumers</strong> crean VPC endpoints para alcanzarlo. Los dos sabores de endpoint que el examen contrasta: el <strong>interface endpoint</strong> es una ENI en tus subnets (con IP privada y security groups) que sirve de puerta al servicio; el <strong>gateway endpoint</strong> es una ruta en tu route table — disponible para Amazon S3 y DynamoDB, gratis, y la respuesta canónica de "acceder a S3 sin salir por internet".</p>
+
+<p>Sus casos de uso estrella en el examen: consumir servicios AWS (S3, KMS, CloudWatch) desde VPCs sin IGW/NAT ni transferencia por internet; consumir SaaS que corre en la VPC de un proveedor sin peering; y ofrecer tu propio servicio a otras cuentas sin abrir tu VPC — el patrón provider/consumer con endpoint service. Frente al peering, PrivateLink no exige rangos de IP coordinados ni crea enrutado entre redes completas: expones exactamente un servicio, con seguridad granular. Es el "acceso a un servicio" frente al "acceso a una red" del peering.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Opción</th><th>Qué conecta</th><th>Transitivo</th><th>Requisito de CIDRs</th><th>Coste típico</th></tr></thead>
+<tbody>
+<tr><td><strong>VPC peering</strong></td><td>2 VPCs (misma u otra cuenta, misma u otra Region)</td><td>No — nunca</td><td>Sin solape entre ambas</td><td>Por GB transferido</td></tr>
+<tr><td><strong>Transit Gateway</strong></td><td>N VPCs + VPN + DX + TGWs</td><td>Sí, según route tables del TGW</td><td>Sin solape entre las rutas propagadas</td><td>Por attachment-hora + GB procesado</td></tr>
+<tr><td><strong>PrivateLink</strong></td><td>Consumidor ↔ servicio de un provider</td><td>No aplica: servicio puntual</td><td>Sin requisito de solape</td><td>Por ENI-hora + GB</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Híbrido: Direct Connect vs Site-to-Site VPN</h2>
+
+<p><strong>AWS Direct Connect</strong> enlaza tu red interna con una <span class="tag-en">Direct Connect location</span> mediante un cable Ethernet de fibra óptica estándar: un extremo en tu router, el otro en el router de DX. Sobre esa conexión creas <span class="tag-en">virtual interfaces</span> hacia servicios públicos de AWS (p. ej. S3) o hacia tu VPC, <strong>evitando los ISPs</strong> de tu camino — de ahí sus dos virtudes de examen: latencia y rendimiento consistentes, y la vía privada. Un <span class="tag-en">DX gateway</span> permite que esa conexión sirva a VPCs de múltiples cuentas y Regions. La <strong>Site-to-Site VPN</strong> monta una conexión IPsec <strong>sobre internet</strong>: rápida de provisionar, barata y sin cirugía física, con cada conexión incluyendo <strong>dos túneles VPN</strong> usables a la vez. Sus piezas: el <em>customer gateway</em> (tu dispositivo) y el target gateway — un <span class="tag-en">virtual private gateway</span> para una sola VPC o un Transit Gateway como hub.</p>
+
+<p>La estrategia de resiliencia híbrida que el examen premia es combinarlas: <strong>DX como vía principal + VPN como respaldo</strong> — si falla el enlace dedicado, el tráfico conmuta al túnel por internet. En VPN avanzada, la <span class="tag-en">accelerated VPN</span> usa Global Accelerator para mejorar el rendimiento del túnel, y existe el modo de túnel de gran ancho de banda (hasta 5 Gbps frente a los 1.25 Gbps estándar, con TGW). Como límites que suelen aparecer como distractoras: una conexión VPN no soporta Path MTU Discovery, y conviene usar CIDRs no solapados entre VPC e on-premises. La regla mnemotécnica: <em>dedicado y predecible → DX; rápido y por internet → VPN; los dos juntos → resiliencia máxima</em>.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Dimensión</th><th>Site-to-Site VPN</th><th>Direct Connect</th></tr></thead>
+<tbody>
+<tr><td>Vía</td><td>Internet público con cifrado IPsec</td><td>Fibra dedicada a una DX location</td></tr>
+<tr><td>Provisionamiento</td><td>Minutos — sin hardware en la vía</td><td>Semanas — requiere circuito físico</td></tr>
+<tr><td>Rendimiento</td><td>Variable con la internet pública; 2 túneles por conexión; hasta 1.25 Gbps por túnel (5 Gbps en modo large bandwidth)</td><td>Consistente y predecible; ancho de banda contratado</td></tr>
+<tr><td>Resiliencia</td><td>Dos túneles por diseño; accelerated VPN opcional</td><td>DX gateway + segunda conexión/ubicación; VPN de respaldo</td></tr>
+<tr><td>Coste</td><td>Horas de conexión + salida de datos</td><td>Port + horas de conexión virtual + salida de datos</td></tr>
+<tr><td>Target en AWS</td><td>Virtual private gateway (una VPC) o Transit Gateway (hub)</td><td>Virtual interface hacia VPC o DX gateway multi-cuenta</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    R["Requisito de conectividad"]
+    R --> A{"Redes a unir"}
+    A -->|"dos VPCs estable"| P["VPC peering"]
+    A -->|"muchas o transito"| T["Transit Gateway"]
+    R --> B{"Acceso privado a un servicio"}
+    B -->|"S3 o DynamoDB"| G["Gateway endpoint"]
+    B -->|"otro servicio o SaaS"| L["PrivateLink endpoint"]
+    R --> C{"Enlace hibrido"}
+    C -->|"dedicado y estable"| D["Direct Connect"]
+    C -->|"rapido por internet"| V["VPN dos tuneles"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class R,A,B,C navy
+    class P,T,G,L green
+    class D,V amber
+</div>
+<figcaption>Figura 2 — Árbol de decisión de conectividad: primero el tipo de unión, después el modo privado del servicio, y por último la vía híbrida.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+Peering <strong>no transitivo</strong> y <strong>CIDRs sin solape</strong>: si el enunciado insinúa "route through a third VPC" o "overlapping CIDR blocks", la respuesta pasa por Transit Gateway o por renumerar. "Least operational overhead con muchas VPCs" → TGW. "Acceder a S3 desde private subnet sin IGW/NAT y sin coste extra" → gateway endpoint. "Compartir un servicio con otra cuenta sin peering" → PrivateLink. "Ancho de banda predecible y baja latencia constante" → Direct Connect. "Conexión rápida de respaldo" → Site-to-Site VPN (a menudo DX + VPN como pareja correcta).
+</div>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"connect 3 VPCs, all-to-all, minimal management"</td><td>Transit Gateway (hub-and-spoke)</td></tr>
+<tr><td>"VPC A must reach VPC C through VPC B"</td><td>No existe: peering no transitivo → TGW</td></tr>
+<tr><td>"access S3 privately, no internet, no extra cost"</td><td>Gateway endpoint (S3/DynamoDB)</td></tr>
+<tr><td>"consume a partner's SaaS running in their VPC privately"</td><td>AWS PrivateLink (VPC endpoint)</td></tr>
+<tr><td>"consistent bandwidth, bypass ISPs, latency-sensitive"</td><td>Direct Connect</td></tr>
+<tr><td>"temporary/backup hybrid link over the internet"</td><td>Site-to-Site VPN (2 tunnels)</td></tr>
+<tr><td>"access multiple VPCs/accounts with one physical link"</td><td>DX gateway sobre Direct Connect</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+La malla de peerings es el distractor favorito de las preguntas multi-VPC: cuenta conexiones y compárala con "un hub + N attachments" del TGW antes de responder. Segunda trampa: DX no cifra por sí solo el tráfico de VPC — si exigen confidencialidad, IPsec sobre DX o MACsec; la VPN sí cifra siempre. Tercera: "PrivateLink" y "VPC endpoint" no son servicios distintos — el endpoint es la pieza del consumidor.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Peering</strong>: 1 a 1, no transitivo, sin solape de CIDRs; sirve entre cuentas y entre Regions.</li>
+<li><strong>Transit Gateway</strong>: hub con attachments (VPC, VPN, DX, TGW, Connect); route tables segmentan y propagan rutas; MTU 8500.</li>
+<li>El TGW convierte mallas N×(N-1)/2 en N attachments — la respuesta de "least operational overhead".</li>
+<li><strong>PrivateLink</strong>: IP privada del consumidor al servicio del provider; interface endpoint (ENI) vs gateway endpoint (ruta, S3/DynamoDB, sin coste).</li>
+<li><strong>Direct Connect</strong>: fibra dedicada, virtual interfaces, evita ISPs; consistencia de latencia y banda.</li>
+<li><strong>Site-to-Site VPN</strong>: IPsec sobre internet, dos túneles por conexión; VGW para una VPC o TGW como endpoint.</li>
+<li>Par clásico de resiliencia: <strong>DX principal + VPN de respaldo</strong>; accelerated VPN usa Global Accelerator.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">NET-07</span> VPC — VPC peering · <a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html</a></li>
+<li><span class="id">NET-08</span> AWS Transit Gateway — What is (hub-and-spoke) · <a href="https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html</a></li>
+<li><span class="id">NET-09</span> AWS PrivateLink — Concepts (VPC endpoints) · <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/privatelink/concepts.html</a></li>
+<li><span class="id">NET-10</span> AWS Direct Connect — Welcome (dedicated connections) · <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html</a></li>
+<li><span class="id">NET-11</span> AWS Site-to-Site VPN — What is · <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/seguridad-red.html"><span class="dir">← Anterior</span>SG, NACL y NAT</a><a class="next" href="../temas/route53.html"><span class="dir">Siguiente →</span>Route 53 (DNS)</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

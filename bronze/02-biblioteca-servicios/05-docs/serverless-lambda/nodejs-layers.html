@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Working with layers for Node.js Lambda functions - AWS Lambda</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="nodejs-layers" /><meta name="default_state" content="nodejs-layers" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-layers.html" /><meta name="description" content="Learn how to package and create a Node.js Lambda layer." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Lambda" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Lambda is a compute service that lets you run code without provisioning or managing servers." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-layers.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/lambda/latest/dg/nodejs-layers.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/lambda/latest/dg/nodejs-layers.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/lambda/latest/dg/nodejs-layers.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/lambda/latest/dg/nodejs-layers.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-layers.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-layers.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/lambda/latest/dg/nodejs-layers.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/lambda/latest/dg/nodejs-layers.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/lambda/latest/dg/nodejs-layers.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/lambda/latest/dg/nodejs-layers.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/lambda/latest/dg/nodejs-layers.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/lambda/latest/dg/nodejs-layers.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/nodejs-layers.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/nodejs-layers.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/nodejs-layers.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/nodejs-layers.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/lambda/latest/dg/nodejs-layers.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/lambda/latest/dg/nodejs-layers.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/nodejs-layers.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/lambda/latest/dg/nodejs-layers.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-layers.html" hreflang="x-default" /><meta name="feedback-item" content="Lambda" /><meta name="this_doc_product" content="AWS Lambda" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lambda'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Working with layers for Node.js Lambda functions" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="nodejs-layers.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Working with layers for Node.js Lambda functions - AWS Lambda</title><meta name="pdf" content="/pdfs/lambda/latest/dg/lambda-dg.pdf#nodejs-layers" /><meta name="rss" content="lambda-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TA5uNafDy2TpGNjidWLMSxDw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/nodejs-layers.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/nodejs-layers.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/nodejs-layers.html" /><meta name="keywords" content="Lambda,AWS Lambda,serverless,serverless applications,cloud computing,compute,function,High Availability,js function,javascript Lambda,javascript define function,javascript Lambda function,Lambda node.js,node.js Lambda layers,Lambda function layers node.js,Lambda layers node.js,create Lambda node.js layer,docker node.js Lambda layers" /><link rel="alternate" type="text/markdown" href="nodejs-layers.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Lambda",
+        "item" : "https://docs.aws.amazon.com/lambda/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Lambda Functions",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions-chapter.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Programming languages",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-programming-languages.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Building Lambda functions with Node.js",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Working with layers for Node.js Lambda functions",
+        "item" : "https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/lambda/latest/dg/lambda-dg.pdf#nodejs-layers" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/lambda/index.html">AWS Lambda</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#nodejs-layers-package">Package your layer content</a><a href="#publishing-layer">Create the layer in Lambda</a><a href="#nodejs-layer-adding">Add the layer to your function</a><a href="#nodejs-layer-sample-app">Sample app</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="nodejs-layers">Working with layers for Node.js Lambda functions</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Use <a href="./chapter-layers.html">Lambda layers</a> to package code and dependencies that you want to reuse across multiple functions. Layers usually contain library dependencies, a <a href="./runtimes-custom.html">custom runtime</a>, or configuration files. Creating a layer involves
+  three general steps:</p><div class="orderedlist">
+     
+     
+     
+  <ol><li>
+      <p>Package your layer content. This means creating a .zip file archive that contains the dependencies
+        you want to use in your functions.</p>
+    </li><li>
+      <p>Create the layer in Lambda.</p>
+    </li><li>
+      <p>Add the layer to your functions.</p>
+    </li></ol></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#nodejs-layers-package">Package your layer content</a></p></li><li><p><a href="#publishing-layer">Create the layer in Lambda</a></p></li><li><p><a href="#nodejs-layer-adding">Add the layer to your function</a></p></li><li><p><a href="#nodejs-layer-sample-app">Sample app</a></p></li></ul></div>
+    <h2 id="nodejs-layers-package">Package your layer content</h2>
+    <p>To create a layer, bundle your packages into a .zip file archive that meets the following requirements:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Build the layer using the same Node.js version that you plan to use for the Lambda function. For example, if you build your layer using Node.js 24, use the Node.js 24 runtime for your function.</p>
+      </li><li class="listitem">
+        <p>Your layer's .zip file must use one of these directory structures:</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">nodejs/node_modules</code></p>
+          </li><li class="listitem">
+            <p><code class="code">nodejs/node<code class="replaceable">X</code>/node_modules</code> (where <code class="replaceable">X</code> is your Node.js version, for example <code class="code">node22</code>)</p>
+          </li></ul></div>
+        <p>For more information, see <a href="./packaging-layers.html#packaging-layers-paths">Layer paths for each Lambda runtime</a>.</p>
+      </li><li class="listitem">
+        <p>The packages in your layer must be compatible with Linux. Lambda functions run on Amazon Linux.</p>
+      </li></ul></div>
+    <p>You can create layers that contain either third-party Node.js libraries installed with <code class="code">npm</code> (such as <code class="code">axios</code> or <code class="code">lodash</code>) or your own JavaScript modules.</p>
+    <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Third-party dependencies" id="nodejs-layers-third-party-dependencies" expanded="false"><div class="procedure"><h6>To create a layer using npm packages</h6><ol><li>
+            <p>Create the required directory structure and install packages directly into it:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir -p nodejs
+npm install --prefix nodejs lodash axios</code></pre>
+            <p>This command installs the packages directly into the <code>nodejs/node_modules</code> directory, which is the structure that Lambda requires.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For packages with native dependencies or binary components (such as <a href="https://www.npmjs.com/package/sharp" rel="noopener noreferrer" target="_blank"><span>sharp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or <a href="https://www.npmjs.com/package/bcrypt" rel="noopener noreferrer" target="_blank"><span>bcrypt</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>), ensure that they're compatible with the Lambda Linux environment and your function's <a href="./foundation-arch.html">architecture</a>. You might need to use the <code class="code">--platform</code> flag:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">npm install --prefix nodejs --platform=linux --arch=x64 sharp</code></pre><p>For more complex native dependencies, you might need to compile them in a Linux environment that matches the Lambda runtime. You can use Docker for this purpose.</p></div></div>
+          </li><li>
+            <p>Zip the layer content:</p>
+            <awsdocs-tabs><dl style="display: none">
+              <dt>Linux/macOS</dt><dd tab-id="linux/macos">
+                  <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">zip -r layer.zip nodejs/</code></pre>
+                </dd>
+              <dt>PowerShell</dt><dd tab-id="powershell">
+                  <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">Compress-Archive -Path .\nodejs -DestinationPath .\layer.zip</code></pre>
+                </dd>
+            </dl></awsdocs-tabs>
+            <p>The directory structure of your .zip file should look like this:</p>
+            <pre class="screen">nodejs/
+├── package.json
+├── package-lock.json
+└── node_modules/
+    ├── lodash/
+    ├── axios/
+    └── (dependencies of the other packages)</pre>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem"><p>Make sure your .zip file includes the <code>nodejs</code> directory at the root level with <code>node_modules</code> inside it. This structure ensures that Lambda can locate and import your packages.</p></li><li class="listitem">
+                  <p>The <code>package.json</code> and <code>package-lock.json</code> files in the <code>nodejs/</code> directory are used by npm for dependency management but are not required by Lambda for layer functionality. Each installed package already contains its own <code>package.json</code> file that defines how Lambda imports the package.</p>
+                </li></ul></div></div></div>
+          </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Custom JavaScript modules" id="custom-nodejs-modules" expanded="false"><div class="procedure"><h6>To create a layer using your own code</h6><ol><li>
+            <p>Create the required directory structure for your layer:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir -p nodejs/node_modules/validator
+cd nodejs/node_modules/validator</code></pre>
+          </li><li>
+            <p>Create a <code>package.json</code> file for your custom module to define how it should be imported:</p>
+            <div class="example"><h6>Example nodejs/node_modules/validator/package.json</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight"><span>{</span>
+  "name": "validator",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.mjs"
+}</code></pre></div></div>
+          </li><li>
+            <p>Create your JavaScript module file:</p>
+            <div class="example"><h6>Example nodejs/node_modules/validator/index.mjs</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">export function validateOrder(orderData) <span>{</span>
+  // Validates an order and returns formatted data
+  const requiredFields = ['productId', 'quantity'];
+  
+  // Check required fields
+  const missingFields = requiredFields.filter(field =&gt; !(field in orderData));
+  if (missingFields.length &gt; 0) <span>{</span>
+    throw new Error(`Missing required fields: $<span>{</span>missingFields.join(', ')}`);
+  }
+  
+  // Validate quantity
+  const quantity = orderData.quantity;
+  if (!Number.isInteger(quantity) || quantity &lt; 1) <span>{</span>
+    throw new Error('Quantity must be a positive integer');
+  }
+  
+  // Format and return the validated data
+  return <span>{</span>
+    productId: String(orderData.productId),
+    quantity: quantity,
+    shippingPriority: orderData.priority || 'standard'
+  };
+}
+
+export function formatResponse(statusCode, body) <span>{</span>
+  // Formats the API response
+  return <span>{</span>
+    statusCode: statusCode,
+    body: JSON.stringify(body)
+  };
+}</code></pre></div></div>
+          </li><li>
+            <p>Zip the layer content:</p>
+            <awsdocs-tabs><dl style="display: none">
+              <dt>Linux/macOS</dt><dd tab-id="linux/macos">
+                  <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">zip -r layer.zip nodejs/</code></pre>
+                </dd>
+              <dt>PowerShell</dt><dd tab-id="powershell">
+                  <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">Compress-Archive -Path .\nodejs -DestinationPath .\layer.zip</code></pre>
+                </dd>
+            </dl></awsdocs-tabs>
+            <p>The directory structure of your .zip file should look like this:</p>
+            <pre class="screen">nodejs/              
+└── node_modules/
+    └── validator/
+        ├── package.json
+        └── index.mjs</pre>
+          </li><li>
+            <p>In your function, import and use the modules. Example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import <span>{</span> validateOrder, formatResponse } from 'validator';
+
+export const handler = async (event) =&gt; <span>{</span>
+  try <span>{</span>
+    // Parse the order data from the event body
+    const orderData = JSON.parse(event.body || '<span>{</span>}');
+    
+    // Validate and format the order
+    const validatedOrder = validateOrder(orderData);
+    
+    return formatResponse(200, <span>{</span>
+      message: 'Order validated successfully',
+      order: validatedOrder
+    });
+  } catch (error) <span>{</span>
+    if (error instanceof Error &amp;&amp; error.message.includes('Missing required fields')) <span>{</span>
+      return formatResponse(400, <span>{</span>
+        error: error.message
+      });
+    }
+    
+    return formatResponse(500, <span>{</span>
+      error: 'Internal server error'
+    });
+  }
+};</code></pre>
+            <p>You can use the following <a href="./testing-functions.html#invoke-with-event">test event</a> to invoke the function:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "body": "<span>{</span>\"productId\": \"ABC123\", \"quantity\": 2, \"priority\": \"express\"}"
+}</code></pre>
+            <p>Expected response:</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "statusCode": 200,
+  "body": "<span>{</span>\"message\":\"Order validated successfully\",\"order\":<span>{</span>\"productId\":\"ABC123\",\"quantity\":2,\"shippingPriority\":\"express\"}}"
+}</code></pre>
+          </li></ol></div></awsui-expandable-section></div>
+   
+    <h2 id="publishing-layer">Create the layer in Lambda</h2>
+        <p>You can publish your layer using either the AWS CLI or the Lambda console.</p>
+    <awsdocs-tabs><dl style="display: none">
+      <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>Run the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/publish-layer-version.html" rel="noopener noreferrer" target="_blank"><span>publish-layer-version</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS CLI command to create the Lambda layer:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws lambda publish-layer-version --layer-name <code class="replaceable">my-layer</code> --zip-file fileb://layer.zip --compatible-runtimes <code class="replaceable">nodejs24.x</code></code></pre>
+          <p>The <a href="https://docs.aws.amazon.com/lambda/latest/api/API_PublishLayerVersion.html#lambda-PublishLayerVersion-request-CompatibleRuntimes">compatible runtimes</a> parameter is optional. When specified, Lambda uses this parameter to filter layers in the Lambda console.</p>
+        </dd>
+      <dt>Console</dt><dd tab-id="console">
+          <div class="procedure"><h6>To create a layer (console)</h6><ol><li>
+              <p>Open the <a href="https://console.aws.amazon.com/lambda/home#/layers" rel="noopener noreferrer" target="_blank"><span>Layers page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                of the Lambda console.</p>
+            </li><li>
+              <p>Choose <b>Create layer</b>.</p>
+            </li><li>
+              <p>Choose <b>Upload a .zip file</b>, and then upload the .zip archive that you created earlier.</p>
+            </li><li>
+              <p>(Optional) For <b>Compatible runtimes</b>, choose the Node.js runtime that corresponds to the Node.js version you used to build your layer.</p>
+            </li><li>
+              <p>Choose <b>Create</b>.</p>
+            </li></ol></div>
+        </dd>
+    </dl></awsdocs-tabs>
+   
+    <h2 id="nodejs-layer-adding">Add the layer to your function</h2>
+        <awsdocs-tabs><dl style="display: none">
+      <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <p>To attach the layer to your function, run the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/update-function-configuration.html" rel="noopener noreferrer" target="_blank"><span>update-function-configuration</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS CLI command. For the <code class="code">--layers</code> parameter, use the layer ARN. The ARN must specify the version (for example, <code class="code">arn:aws:lambda:us-east-1:123456789012:layer:my-layer:<code class="replaceable">1</code></code>). For more information, see <a href="./chapter-layers.html#lambda-layer-versions">Layers and layer versions</a>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws lambda update-function-configuration --function-name <code class="replaceable">my-function</code> --cli-binary-format raw-in-base64-out --layers "<code class="replaceable">arn:aws:lambda:us-east-1:123456789012:layer:my-layer:<code class="replaceable">1</code></code>"</code></pre>
+          <p>The <b>cli-binary-format</b> option is required if you're using AWS CLI version 2. To make this the default setting, run <code class="code">aws configure set cli-binary-format raw-in-base64-out</code>. For more information, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html#cli-configure-options-list">AWS CLI supported global command line options</a> in the <em>AWS Command Line Interface User Guide for Version 2</em>.</p>
+        </dd>      
+      <dt>Console</dt><dd tab-id="console">
+          <div class="procedure"><h6>To add a layer to a function</h6><ol><li><p>Open the <a href="https://console.aws.amazon.com/lambda/home#/functions" rel="noopener noreferrer" target="_blank"><span>Functions page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> of the Lambda console.</p></li><li>
+              <p>Choose the function.</p>
+            </li><li>
+              <p>Scroll down to the <b>Layers</b> section, and then choose <b>Add a layer</b>.</p>
+            </li><li>
+              <p>Under <b>Choose a layer</b>, select <b>Custom layers</b>, and then choose your layer.</p>
+              <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you didn't add a <a href="https://docs.aws.amazon.com/lambda/latest/api/API_PublishLayerVersion.html#lambda-PublishLayerVersion-request-CompatibleRuntimes">compatible runtime</a> when you created the layer, your layer won't be listed here. You can specify the layer ARN instead.</p></div></div>
+            </li><li>
+              <p>Choose <b>Add</b>.</p>
+            </li></ol></div>
+        </dd>
+    </dl></awsdocs-tabs>
+   
+    <h2 id="nodejs-layer-sample-app">Sample app</h2>
+    <p>For more examples of how to use Lambda layers, see the <a href="https://github.com/awsdocs/aws-lambda-developer-guide/tree/main/sample-apps/layer-nodejs" rel="noopener noreferrer" target="_blank"><span>layer-nodejs</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> sample application in the AWS Lambda Developer Guide GitHub repository. This application includes a layer that contains the <a href="https://www.npmjs.com/package/lodash" rel="noopener noreferrer" target="_blank"><span>lodash</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> library. After creating the layer, you can deploy and invoke the corresponding function to confirm that the layer works as expected.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./nodejs-image.html">Deploy container images</div><div id="next" class="next-link" accesskey="n" href="./nodejs-context.html">Context</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/nodejs-layers.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lambda&amp;topic_url=https://docs.aws.amazon.com/en_us/lambda/latest/dg/nodejs-layers.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

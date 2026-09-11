@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating access points - Amazon Elastic File System</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-access-point" /><meta name="default_state" content="create-access-point" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/efs/latest/ug/create-access-point.html" /><meta name="description" content="Create access points for your EFS file system. Specify the root directory for the access point, the full POSIX identity to use, and creation permissions." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Elastic File System" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Amazon Elastic File System (Amazon EFS) to set up, operate, and scale shared file storage in the AWS cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/efs/latest/ug/create-access-point.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/efs/latest/ug/create-access-point.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/efs/latest/ug/create-access-point.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/efs/latest/ug/create-access-point.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/efs/latest/ug/create-access-point.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/efs/latest/ug/create-access-point.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/efs/latest/ug/create-access-point.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/efs/latest/ug/create-access-point.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/efs/latest/ug/create-access-point.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/efs/latest/ug/create-access-point.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/efs/latest/ug/create-access-point.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/efs/latest/ug/create-access-point.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/efs/latest/ug/create-access-point.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/efs/latest/ug/create-access-point.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/efs/latest/ug/create-access-point.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/efs/latest/ug/create-access-point.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/efs/latest/ug/create-access-point.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/efs/latest/ug/create-access-point.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/efs/latest/ug/create-access-point.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/efs/latest/ug/create-access-point.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/efs/latest/ug/create-access-point.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/efs/latest/ug/create-access-point.html" hreflang="x-default" /><meta name="feedback-item" content="EFS" /><meta name="this_doc_product" content="Amazon Elastic File System" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'efs'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Creating access points" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="create-access-point.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating access points - Amazon Elastic File System</title><meta name="pdf" content="/pdfs/efs/latest/ug/efs-ug.pdf#create-access-point" /><meta name="rss" content="amazon-efs-doc-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAmTqmXysORgKO6xcE3oh0MA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EFS&amp;topic_url=https://docs.aws.amazon.com/en_us/efs/latest/ug/create-access-point.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/efs/latest/ug/create-access-point.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/efs/latest/ug/create-access-point.html" /><meta name="keywords" content="EFS,Elastic File System,elastic,storage service,create resources,create access point,delete access point" /><link rel="alternate" type="text/markdown" href="create-access-point.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Elastic File System (EFS)",
+        "item" : "https://docs.aws.amazon.com/efs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/efs/latest/ug"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Creating and managing EFS resources",
+        "item" : "https://docs.aws.amazon.com/efs/latest/ug/creating-using.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating access points",
+        "item" : "https://docs.aws.amazon.com/efs/latest/ug/creating-using.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/efs/latest/ug/efs-ug.pdf#create-access-point" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/efs/index.html">Amazon Elastic File System (EFS)</a><a href="whatisefs.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-access-point">Creating access points</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can create and delete Amazon EFS access points using the AWS Management Console, the AWS Command Line Interface (AWS CLI),
+      and the Amazon EFS API and SDKs. You cannot modify an access point once it is created. A file
+      system can have a maximum of 10,000 access points unless you request an increase.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If multiple requests to create access points on the same file system are sent in quick
+        succession, and the file system is nearing the access points limit, you may experience a
+        throttling response for these requests. This is to ensure that the file system does not
+        exceed the stated access point quota. </p></div></div><p>For more information about EFS access points, see <a href="./efs-access-points.html">Working with access points</a>.</p><div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the console" id="console2-create-access-point" expanded="false"><div class="procedure"><ol><li><p>Open the Amazon Elastic File System console at
+         <a href="https://console.aws.amazon.com/efs/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/efs/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Choose <b>Access points</b> to open the <b>Access points</b>
+              window.</p></li><li><p>Choose <b>Create access point</b> to display the <b>Create access
+                point</b> page.</p>
+                       
+            <p>You can also open the <b>Create access point</b> page by choosing
+                <b>File Systems</b>. Choose a file system <b>Name</b> or
+                <b>File system ID</b> and then choose <b>Access
+                points</b> and <b>Create access point</b> to create an access point
+              for that file system.</p>
+                   <ol><li>
+            <p>Enter the following information in the <b>Details</b> panel:</p>
+            <div class="itemizedlist">
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem"><p><b>File system</b> – Enter a file system name or ID and choose the
+                      matching file system. You can also choose the file system from the list that
+                      appears when you choose the input field.</p></li><li class="listitem"><p>(Optional) <b>Name</b> – Enter a name for the access point.</p></li><li class="listitem"><p>(Optional) <b>Root directory path</b> – You can specify a root directory
+                      for the access point; the default access point root is /. To enter a root
+                      directory path, use the format <code>/foo/bar</code>. For more
+                      information, see <a href="./enforce-root-directory-access-point.html">Enforcing a root directory with an access point</a>.</p></li></ul></div>
+          </li><li>
+            <p>(Optional) In the <b>POSIX user</b> panel, you can specify the full
+                  POSIX identity to use to enforce user and group information for all file
+                  operations by NFS clients that are using the access point. For more information,
+                  see <a href="./enforce-identity-access-points.html">Enforcing a user identity using an access point</a>.</p>
+            <div class="itemizedlist">
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem"><p><b>User ID</b> – Enter a numeric POSIX user ID for the user.</p></li><li class="listitem"><p><b>Group ID</b> – Enter a numeric POSIX group ID for the user.</p></li><li class="listitem"><p><b>Secondary group IDs</b> – Enter an optional comma-separated list of
+                      secondary group IDs.</p></li></ul></div>
+          </li><li>
+            <p>(Optional) For <b>Root directory creation permissions</b>, you can
+                  specify the permissions to use when Amazon EFS creates the root directory path, if
+                  specified and the root directory doesn't already exist. For more information,
+                  see <a href="./enforce-root-directory-access-point.html">Enforcing a root directory with an access point</a>.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you don't specify any root directory ownership and permissions, and the root directory does
+                    not already exist, EFS will not create the root directory. Any
+                    attempts to mount the file system by using the access point will fail.</p></div></div>
+            <div class="itemizedlist">
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem"><p><b>Owner user ID</b> – Enter the numeric POSIX user ID to use as the root
+                      directory owner.</p></li><li class="listitem"><p><b>Owner group ID</b> – Enter the numeric POSIX group ID to use as the
+                      root directory owner group.</p></li><li class="listitem"><p><b>Permissions</b> – Enter the Unix mode of the directory. A common
+                      configuration is 755. Ensure that the execute bit is set for the access point
+                      user so that they are able to mount. </p></li></ul></div>
+          </li></ol>
+          </li><li>
+            <p>Choose <b>Create access point</b> to create the access point by
+              using this configuration.</p>
+          </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="create-access-point-cli" expanded="false"><p>In the following example, the <code class="code">create-access-point</code> CLI command creates an
+          access point for an EFS file system. The equivalent API command is <a href="https://docs.aws.amazon.com/efs/latest/APIReference/API_CreateAccessPoint.html">CreateAccessPoint</a>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws efs create-access-point --file-system-id fs-abcdef0123456789a --client-token 010102020-3 \
+--root-directory “Path=/efs/mobileapp/east,CreationInfo=<span>{</span>OwnerUid=0,OwnerGid=11,Permissions=775}” \
+--posix-user “Uid=22,Gid=4” \
+--tags Key=Name,Value=east-users</code></pre><p>If the request is successful, the CLI responds with the access point description.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="computeroutput" copy="false"><span>{</span>
+    "ClientToken": "010102020-3",
+    "Name": "east-users",
+    "AccessPointId": "fsap-abcd1234ef5678901",
+    "AccessPointArn": "arn:aws:elasticfilesystem:us-east-2:111122223333:access-point/fsap-abcd1234ef5678901",
+    "FileSystemId": "fs-01234567",
+    "LifeCycleState": "creating",
+    "OwnerId": "111122223333",
+    "PosixUser": <span>{</span> 
+      "Gid": 4,
+      "Uid": 22
+    },
+    "RootDirectory": <span>{</span>
+    "CreationInfo": <span>{</span> 
+         "OwnerGid": 0,
+         "OwnerUid": 11,
+         "Permissions": "775"
+      },
+        "Path": "/efs/mobileapp/east",        
+    },
+    "Tags": []
+}</code></code></pre><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If multiple requests to create access points on the same file system are sent in quick
+            succession, and the file system is nearing the access points limit, you may
+            experience a throttling response for these requests. This is to ensure that the file
+            system does not exceed the stated access point quota. </p></div></div></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./create-file-system-policy.html">Creating file system policies</div><div id="next" class="next-link" accesskey="n" href="./delete-access-point.html">Deleting access points</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EFS&amp;topic_url=https://docs.aws.amazon.com/en_us/efs/latest/ug/create-access-point.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EFS&amp;topic_url=https://docs.aws.amazon.com/en_us/efs/latest/ug/create-access-point.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

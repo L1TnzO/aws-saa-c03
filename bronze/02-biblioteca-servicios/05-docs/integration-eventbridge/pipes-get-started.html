@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Getting started: Create an Amazon EventBridge pipe - Amazon EventBridge</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="pipes-get-started" /><meta name="default_state" content="pipes-get-started" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html" /><meta name="description" content="Provides step-by-step tutorial for creating Amazon EventBridge Pipes using CloudFormation." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EventBridge" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Describes key concepts of Amazon EventBridge and provides instructions for using the features of Amazon EventBridge." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eventbridge/latest/userguide/pipes-get-started.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eventbridge/latest/userguide/pipes-get-started.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eventbridge/latest/userguide/pipes-get-started.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eventbridge/latest/userguide/pipes-get-started.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eventbridge/latest/userguide/pipes-get-started.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eventbridge/latest/userguide/pipes-get-started.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eventbridge/latest/userguide/pipes-get-started.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eventbridge/latest/userguide/pipes-get-started.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eventbridge/latest/userguide/pipes-get-started.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eventbridge/latest/userguide/pipes-get-started.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eventbridge/latest/userguide/pipes-get-started.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eventbridge/latest/userguide/pipes-get-started.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eventbridge/latest/userguide/pipes-get-started.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eventbridge/latest/userguide/pipes-get-started.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eventbridge/latest/userguide/pipes-get-started.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eventbridge/latest/userguide/pipes-get-started.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/eventbridge/latest/userguide/pipes-get-started.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/eventbridge/latest/userguide/pipes-get-started.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html" hreflang="x-default" /><meta name="feedback-item" content="EventBridge" /><meta name="this_doc_product" content="Amazon EventBridge" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'eventbridge'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Getting started: Create an Amazon EventBridge pipe" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="pipes-get-started.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Getting started: Create an Amazon EventBridge pipe - Amazon EventBridge</title><meta name="pdf" content="/pdfs/eventbridge/latest/userguide/user-guide.pdf#pipes-get-started" /><meta name="rss" content="user-guide.rss" /><meta name="forums" content="https://repost.aws/tags/TAMOBQOnOWQCagAKR2zrk8xg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/en_us/eventbridge/latest/userguide/pipes-get-started.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/eventbridge/latest/userguide/pipes-get-started.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/eventbridge/latest/userguide/pipes-get-started.html" /><meta name="keywords" content="EventBridge,Amazon EventBridge,event-driven computing,AWS events,events,pipe,getting started,create my first pipe" /><link rel="alternate" type="text/markdown" href="pipes-get-started.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EventBridge",
+        "item" : "https://docs.aws.amazon.com/eventbridge/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/eventbridge/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started: Create an Amazon EventBridge pipe",
+        "item" : "https://docs.aws.amazon.com/eventbridge/latest/userguide/pipes-get-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/eventbridge/latest/userguide/user-guide.pdf#pipes-get-started" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/eventbridge/index.html">Amazon EventBridge</a><a href="eb-what-is.html">User Guide</a></div><div id="page-toc-src"><a href="#pipes-get-started-create">Create the pipe</a><a href="#pipes-get-started-using">Explore the pipe</a><a href="#pipes-get-started-delete">Deleting resources</a><a href="#pipes-get-started-template-details">Template details</a><a href="#pipes-get-started-template">Template</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="pipes-get-started">Getting started: Create an Amazon EventBridge pipe</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To get familiar with pipes and their capabilities, we'll use a CloudFormation template to set up an
+        EventBridge pipe and associated components. Then we can explore various pipe features.</p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>For a more comprehensive, hands-on learning experience, try the <a href="https://catalog.workshops.aws/eb-pipes" rel="noopener noreferrer" target="_blank"><span>EventBridge Pipes Workshop</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. 
+            This interactive workshop walks you through building and troubleshooting a pipe that connects DynamoDB to API Gateway with a Lambda enrichment.</p></div></div><p>The template creates an EventBridge pipe that connects a stream from a DynamoDB table to an Amazon SQS
+        queue. Every time a record is created or modified in the database table, the pipe sends the
+        resulting event to the queue. </p><p>The deployed pipe consists of:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem"><p>A DynamoDB table (and stream) to act as the pipe source, and an Amazon SQS queue as the target.</p></li><li class="listitem"><p>An execution role that grants EventBridge the necessary permissions to access the DynamoDB table and Amazon SQS queue.</p></li><li class="listitem"><p>The pipe itself, which contains an event filter that selects only events generated when a
+                table item is created (inserted) or modified.</p></li></ul></div><p>For specific technical details of the template, see <a href="#pipes-get-started-template-details">Template details</a>.</p><div class="mediaobject">
+         
+            <img src="/images/eventbridge/latest/userguide/images/pipes-get-started_eventbridge_architectural.svg" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Database events are matched to a filter, and sent to a queue if they match." />
+         
+         
+    </div>
+        <h2 id="pipes-get-started-create">Creating the pipe using CloudFormation</h2>
+        <p>To create the pipe and its associated resources, we'll create a CloudFormation template
+            and use it to create a stack containing a sample pipe, complete with source and
+            target.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You will be billed for the Amazon resources used if you create a stack from this template.</p></div></div>
+        <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Creating the template" id="pipes-get-started-file" expanded="false"><p>First, create the CloudFormation template.</p><div class="procedure"><ol><li><p>In the <a href="#pipes-get-started-template">Template</a> section, click the copy icon on the <b>JSON</b> or <b>YAML</b> tab to copy the template contents.</p></li><li><p>Paste the template contents into a new file.</p></li><li><p>Save the file locally.</p></li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Creating the stack" id="pipes-get-started-stack" expanded="false"><p>Next, use the template you've saved to provision a CloudFormation stack.</p><div class="procedure"><ol><li><p>Open the CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudformation/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>On the <b>Stacks</b> page, from the <b>Create stack</b> menu, choose <b>with new resources (standard)</b>.</p>
+                    </li><li><p>Specify the template:</p>
+                        <ol><li><p>Under <b>Prerequisite</b>, choose <b>Choose an existing template</b>.</p></li><li><p>Under <b>Specify template</b>, choose <b>Upload a template file</b>.</p></li><li><p>Choose <b>Choose file</b>, navigate to the template file, and choose it.</p></li><li><p>Choose <b>Next</b>.</p></li></ol>
+                    </li><li><p>Specify the stack details:</p>
+                        <ol><li><p>Enter a stack name.</p></li><li><p>For parameters, accept the default values or enter your own.</p></li><li><p>Choose <b>Next</b>.</p></li></ol>
+                    </li><li><p>Configure the stack options:</p>
+                        <ol><li><p>Under <b>Stack failure options</b>, choose <b>Delete all newly created resources</b>.</p>
+                                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Choosing this option prevents you from possibly being billed for resources whose deletion policy specifies they be retained even if the stack creation fails. 
+                                    For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html"><code class="code">DeletionPolicy</code> attribute</a> 
+                                    in the <em>CloudFormation User Guide</em>.</p></div></div>
+                            </li><li><p>Accept all other default values.</p></li><li><p>Under <b>Capabilities</b>, check the box to acknowledge that CloudFormation might create IAM resources in your account.</p></li><li><p>Choose <b>Next</b>.</p></li></ol>
+                    </li><li><p>Review the stack details and choose <b>Submit</b>.</p>
+                    </li></ol></div><div class="procedure"><h6>Create the stack using CloudFormation (AWS CLI)</h6><p>You can also use the AWS CLI to create the stack.</p><ul><li>
+                        <p>Use the <a href="https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html"><code class="code">create-stack</code></a> command.</p>
+                        <ul>
+                            <li><p>Accept the default
+                                template parameter values, specifying the stack name. Use the <code class="code">template-body</code> parameter to pass the template contents, or 
+                                <code class="code">template-url</code> to specify a URL location.</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws cloudformation create-stack \
+  --stack-name <code class="replaceable">eventbridge-rule-tutorial</code> \
+  --template-body <code class="replaceable">template-contents</code> \
+  --capabilities CAPABILITY_IAM</code></pre></li>
+                            <li><p>Override the default value(s) of one or more
+                                template parameters. For example:</p> 
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws cloudformation create-stack \
+  --stack-name <code class="replaceable">eventbridge-rule-tutorial</code> \
+  --template-body <code class="replaceable">template-contents</code> \
+  --parameters \
+    ParameterKey=SourceTableName,ParameterValue=<code class="replaceable">pipe-example-source</code> \
+    ParameterKey=TargetQueueName,ParameterValue=<code class="replaceable">pipe-example-target</code> \
+    ParameterKey=PipeName,ParameterValue=<code class="replaceable">pipe-with-filtering-example</code> \
+  --capabilities CAPABILITY_IAM</code></pre></li>
+                        </ul>
+                    </li></ul></div><p>CloudFormation creates the stack. Once the stack creation is complete, the stack resources
+                    are ready to use. You can use the <b>Resources</b> tab on the stack
+                    detail page to view the resources that where provisioned in your account.</p></awsui-expandable-section></div>
+
+     
+        <h2 id="pipes-get-started-using">Exploring pipe capabilities</h2>
+        <p>Once the pipe has been created, you can use the EventBridge console to observe pipe operation and test event delivery.</p>
+        
+        <div class="procedure"><ol><li><p>Open the EventBridge console at <a href="https://console.aws.amazon.com/events/home?#/pipes" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/events/home?#/pipes</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li>
+                <p>Choose the pipe you created.</p>
+                <p>On the pipe detail page, the <b>Pipe Components</b> section displays the
+                    resources that make up the pipe, and contains tabs that provide more details on each
+                    component.</p>
+                <div class="mediaobject">
+                     
+                        <img src="/images/eventbridge/latest/userguide/images/pipes-get-started_eventbridge_pipe-detail.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The pipe detail page graphically displays source, filter, and target components for the pipe." />
+                     
+                     
+                </div>
+                <p>You can find the execution role we created for the pipe on the <b>Settings</b> tab, in the <b>Permissions</b> section.</p>
+                
+            </li></ol></div>
+        
+         
+            <h3 id="pipes-get-started-using-filter">Examining the pipe filter</h3>
+<p>Before we test the pipe operation, let's examine the filter we've specified to control which events are sent to the target. 
+    The pipe will only send events that match the filter criteria to the target; all others are discarded. In this case, we only want 
+                events generated when table entries are created or modified being sent to the Amazon SQS queue.</p>
+            <div class="procedure"><ul><li><p>On the pipe detail page, under <b>Pipe Components</b>, choose the <b>Filtering</b> tab.</p>
+                    <p>We've included a filter that selects only events where the <code class="code">eventName</code> is set to 
+                        <code class="code">INSERT</code> or <code class="code">MODIFY</code>. </p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "eventName": ["INSERT", "MODIFY"]
+}</code></pre>
+                </li></ul></div>
+         
+        
+         
+            <h3 id="pipes-get-started-using-source">Sending events through the pipe</h3>
+<p>Next, we'll generate events in the pipe source to test that the pipe filtering and delivery is operating correctly. To do this, we'll create and edit an item in the DynamoDB table we specified as the pipe source.</p>
+            
+            <div class="procedure"><ol><li><p>On the pipe detail page, under <b>Pipe Components</b>, choose the <b>Source</b> tab.</p></li><li><p>Under <b>Source</b>, choose the DynamoDB stream name.</p>
+                <p>This opens the DynamoDB console in a separate window, with the source table details displayed.</p></li><li><p>Choose <b>Explore items</b>.</p></li><li>
+                    <p>Generate an <code class="code">INSERT</code> event by creating an item in the table:</p>
+                    <ol><li><p>Choose <b>Create item</b>.</p></li><li><p>Add values for the <b>Album</b> and <b>Artist</b> attributes.</p></li><li><p>Choose <b>Create item</b>.</p></li></ol>
+                    </li><li><p>Generate a <code class="code">DELETE</code> and an <code class="code">INSERT</code> event by editing the item:</p>
+                    <ol><li><p>Choose the item from the list, and from the <b>Actions</b> menu, choose <b>Edit item</b>.</p></li><li><p>Enter a new value for the <b>Album</b> or <b>Artist</b> attribute.</p></li><li><p>Tick the box that confirms you are changing the value of the item keys, and then choose <b>Recreate item</b>.</p>
+                            <p>This results in the item being deleted and then recreated, generating a <code class="code">DELETE</code> event, and then a new <code class="code">INSERT</code> event.</p></li></ol>
+                        </li><li><p>Generate a <code class="code">MODIFY</code> event by adding an attribute to the item:</p>
+                    <ol><li><p>Choose the item from the list, and from the <b>Actions</b> menu, choose <b>Edit item</b>.</p></li><li><p>From the <b>Add new attribute</b> menu, choose <b>Number</b>.</p></li><li><p>For the attribute name, enter <b>Year</b>, and then enter a value for the attribute. Choose <b>Save and close</b>.</p></li></ol>       
+                </li></ol></div>
+         
+
+         
+            <h3 id="pipes-get-started-using-target">Confirming event delivery through the pipe</h3>
+            <p>Finally, we'll confirm that the pipe successfully filtered and delivered the events we generated by creating and editing the table item in DynamoDB.</p>
+            <div class="procedure"><ol><li><p>On the pipe detail page, under <b>Pipe Components</b>, choose the <b>Target</b> tab.</p></li><li><p>Under <b>Target</b>, choose the Amazon SQS queue name.</p>
+                    <p>This opens the Amazon SQS console in a separate window, with the target queue details displayed.</p></li><li><p>Choose <b>Send and receive messages</b>.</p></li><li><p>Under <b>Receive messages</b>, choose <b>Poll for messages</b>.</p>
+                <p>Amazon SQS loads messages received into the queue. Click on an individual message to see its details.</p>
+                <p>There should be three event messages in the queue: </p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p>Two of type <code class="code">INSERT</code>, one generated when you first created the table item, and the other generated when you recreated the item by changing a key value.</p></li><li class="listitem"><p>One of type <code class="code">MODIFY</code>, generated when you added an attribute to the table item.</p></li></ul></div>
+                    <p>Notice that there isn't an event message of type <code class="code">DELETE</code> in the queue, even though one was generated when you deleted and recreated the table item by changing a key value. 
+                        The pipe filter we specified only selects on 
+                        <code class="code">INSERT</code> and <code class="code">MODIFY</code>, so the pipe filtered out the <code class="code">DELETE</code> event rather than deliver it to the queue.</p>  
+                </li></ol></div>
+         
+     
+        <h2 id="pipes-get-started-delete">Clean up: deleting resources</h2>
+        <p>As a final step, we'll delete the stack and the resources it contains.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You will be billed for the Amazon resources contained in the stack for as long as it exists.</p></div></div>
+        <div class="procedure"><ol><li><p>Open the CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudformation/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>On the <b>Stacks</b> page, choose the stack created from the template, and choose <b>Delete</b>, then confirm <b>Delete</b>.</p>
+            <p>CloudFormation initiates deletion of the stack and all resources it includes.</p>
+            </li></ol></div>
+     
+        <h2 id="pipes-get-started-template-details">CloudFormation template details</h2>
+        <p>This template creates resources and grants permissions in your account.</p>
+         
+            <h3 id="pipes-get-started-template-resources">Resources</h3>
+            <p>The CloudFormation template for this tutorial will create the following resources in your
+                account:</p>
+            <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You will be billed for the Amazon resources used if you create a stack from this template.</p></div></div>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html"><code class="code">AWS::DynamoDB::Table</code></a>: 
+                    A DynamoDB table that acts as the event source for the pipe. </p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queue.html"><code class="code">AWS::SQS::Queue</code></a>: 
+                    An Amazon SQS queue that acts as the target for the events flowing through the pipe.</p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html"><code class="code">AWS::IAM::Role</code></a>: An IAM execution role granting permissions to the EventBridge Pipes service in your account.</p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pipes-pipe.html"><code class="code">AWS::Pipes::Pipe</code></a>: The pipe connecting the
+                        DynamoDB table to the Amazon SQS queue.</p></li></ul></div>
+         
+         
+            <h3 id="pipes-get-started-template-perms">Permissions</h3>
+            <p>The template includes an <code class="code">AWS::IAM::Role</code> resource that represents an
+                execution role. This role  grants the EventBridge Pipes service
+                    (<code class="code">pipes.amazonaws.com</code>) the following permissions in your
+                account.</p>
+            <p>The following permissions are scoped to the DynamoDB table and stream the template creates as the event source for the pipe:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem"><p><code class="code">dynamodb:DescribeStream</code></p></li><li class="listitem"><p><code class="code">dynamodb:GetRecords</code></p></li><li class="listitem"><p><code class="code">dynamodb:GetShardIterator</code></p></li><li class="listitem"><p><code class="code">dynamodb:ListStreams</code></p></li></ul></div>
+            <p>The following permission is scoped to the Amazon SQS queue the stack creates as the target of the pipe:</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem"><p><code class="code">sqs:SendMessage</code></p></li></ul></div>
+         
+ 
+     
+        <h2 id="pipes-get-started-template">CloudFormation template</h2>
+        <p>Save the following JSON or YAML code as a separate file to use as the CloudFormation template for this tutorial.</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>JSON</dt><dd tab-id="json">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "AWSTemplateFormatVersion": "2010-09-09",
+
+ "Description" : "[AWSDocs] EventBridge: pipes-get-started",
+
+  "Parameters" : <span>{</span>
+    "SourceTableName" : <span>{</span>
+      "Type" : "String",
+      "Default" : "pipe-example-source",
+      "Description" : "Specify the name of the table to provision as the pipe source, or accept the default."
+    },
+  "TargetQueueName" : <span>{</span>
+    "Type" : "String",
+    "Default" : "pipe-example-target",
+    "Description" : "Specify the name of the queue to provision as the pipe target, or accept the default."
+  },
+    "PipeName" : <span>{</span>
+      "Type" : "String",
+      "Default" : "pipe-with-filtering-example",
+      "Description" : "Specify the name of the table to provision as the pipe source, or accept the default."
+    }
+},
+  "Resources": <span>{</span>
+    "PipeSourceDynamoDBTable": <span>{</span>
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": <span>{</span>
+        "AttributeDefinitions": [<span>{</span>
+            "AttributeName": "Album",
+            "AttributeType": "S"
+          },
+          <span>{</span>
+            "AttributeName": "Artist",
+            "AttributeType": "S"
+          }
+
+        ],
+        "KeySchema": [<span>{</span>
+            "AttributeName": "Album",
+            "KeyType": "HASH"
+
+          },
+          <span>{</span>
+            "AttributeName": "Artist",
+            "KeyType": "RANGE"
+          }
+        ],
+        "ProvisionedThroughput": <span>{</span>
+          "ReadCapacityUnits": 10,
+          "WriteCapacityUnits": 10
+        },
+        "StreamSpecification": <span>{</span>
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        },
+        "TableName": <span>{</span> "Ref" : "SourceTableName" }
+      }
+    },
+    "PipeTargetQueue": <span>{</span>
+      "Type": "AWS::SQS::Queue",
+      "Properties": <span>{</span>
+        "QueueName": <span>{</span> "Ref" : "TargetQueueName" }
+      }
+    },
+    "PipeTutorialPipeRole": <span>{</span>
+      "Type": "AWS::IAM::Role",
+      "Properties": <span>{</span>
+        "AssumeRolePolicyDocument": <span>{</span>
+          "Version": "2012-10-17",
+          "Statement": [<span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+              "Service": "pipes.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": <span>{</span>
+              "StringLike": <span>{</span>
+                "aws:SourceArn": <span>{</span>
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      <span>{</span> "Ref": "AWS::Partition" },
+                      ":pipes:",
+                      <span>{</span> "Ref": "AWS::Region" },
+                      ":",
+                      <span>{</span> "Ref": "AWS::AccountId" },
+                      ":pipe/",
+                      <span>{</span> "Ref": "PipeName" }
+                    ]
+                  ]
+                },
+                "aws:SourceAccount": <span>{</span> "Ref" : "AWS::AccountId" }
+              }
+            }
+          }]
+        },
+        "Description" : "EventBridge Pipe template example. Execution role that grants the pipe the permissions necessary to send events to the specified pipe.",
+        "Path": "/",
+        "Policies": [<span>{</span>
+            "PolicyName": "SourcePermissions",
+            "PolicyDocument": <span>{</span>
+              "Version": "2012-10-17",
+              "Statement": [<span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                  "dynamodb:DescribeStream",
+                  "dynamodb:GetRecords",
+                  "dynamodb:GetShardIterator",
+                  "dynamodb:ListStreams"
+                ],
+                "Resource": [
+                  <span>{</span> "Fn::GetAtt" : [ "PipeSourceDynamoDBTable", "StreamArn" ] }
+                ]
+              }]
+            }
+          },
+          <span>{</span>
+            "PolicyName": "TargetPermissions",
+            "PolicyDocument": <span>{</span>
+              "Version": "2012-10-17",
+              "Statement": [<span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                  "sqs:SendMessage"
+                ],
+                "Resource": [
+                  <span>{</span> "Fn::GetAtt" : [ "PipeTargetQueue", "Arn" ] }
+                ]
+              }]
+            }
+          }
+        ]
+      }
+  },
+    "PipeWithFiltering": <span>{</span>
+      "Type": "AWS::Pipes::Pipe",
+      "Properties": <span>{</span>
+        "Description" : "EventBridge Pipe template example. Pipe that receives events from a DynamoDB stream, applies a filter, and sends matching events on to an SQS Queue.",
+        "Name": <span>{</span> "Ref" : "PipeName" },
+        "RoleArn": <span>{</span>"Fn::GetAtt" : ["PipeTutorialPipeRole", "Arn"] },
+        "Source": <span>{</span> "Fn::GetAtt" : [ "PipeSourceDynamoDBTable", "StreamArn" ] },
+        "SourceParameters": <span>{</span>
+          "DynamoDBStreamParameters" : <span>{</span>
+            "StartingPosition" : "LATEST"
+         },
+        "FilterCriteria" : <span>{</span>
+          "Filters" : [ <span>{</span>
+            "Pattern" : "<span>{</span> \"eventName\": [\"INSERT\", \"MODIFY\"] }"
+         }]
+        }
+        },
+        "Target": <span>{</span> "Fn::GetAtt" : [ "PipeTargetQueue", "Arn" ] }
+      }
+    }
+  }
+}
+</code></pre>
+                </dd>
+            
+            <dt>YAML</dt><dd tab-id="yaml">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">AWSTemplateFormatVersion: '2010-09-09'
+Description: '[AWSDocs] EventBridge: pipes-get-started'
+Parameters:
+  SourceTableName:
+    Type: String
+    Default: pipe-example-source
+    Description: Specify the name of the table to provision as the pipe source, or accept the default.
+  TargetQueueName:
+    Type: String
+    Default: pipe-example-target
+    Description: Specify the name of the queue to provision as the pipe target, or accept the default.
+  PipeName:
+    Type: String
+    Default: pipe-with-filtering-example
+    Description: Specify the name of the table to provision as the pipe source, or accept the default.
+Resources:
+  PipeSourceDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: Album
+          AttributeType: S
+        - AttributeName: Artist
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Album
+          KeyType: HASH
+        - AttributeName: Artist
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      TableName: !Ref SourceTableName
+  PipeTargetQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Ref TargetQueueName
+  PipeTutorialPipeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: pipes.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringLike:
+                aws:SourceArn: !Join
+                  - ''
+                  - - 'arn:'
+                    - !Ref AWS::Partition
+                    - ':pipes:'
+                    - !Ref AWS::Region
+                    - ':'
+                    - !Ref AWS::AccountId
+                    - ':pipe/'
+                    - !Ref PipeName
+                aws:SourceAccount: !Ref AWS::AccountId
+      Description: EventBridge Pipe template example. Execution role that grants the pipe the permissions necessary to send events to the specified pipe.
+      Path: /
+      Policies:
+        - PolicyName: SourcePermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:DescribeStream
+                  - dynamodb:GetRecords
+                  - dynamodb:GetShardIterator
+                  - dynamodb:ListStreams
+                Resource:
+                  - !GetAtt PipeSourceDynamoDBTable.StreamArn
+        - PolicyName: TargetPermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sqs:SendMessage
+                Resource:
+                  - !GetAtt PipeTargetQueue.Arn
+  PipeWithFiltering:
+    Type: AWS::Pipes::Pipe
+    Properties:
+      Description: EventBridge Pipe template example. Pipe that receives events from a DynamoDB stream, applies a filter, and sends matching events on to an SQS Queue.
+      Name: !Ref PipeName
+      RoleArn: !GetAtt PipeTutorialPipeRole.Arn
+      Source: !GetAtt PipeSourceDynamoDBTable.StreamArn
+      SourceParameters:
+        DynamoDBStreamParameters:
+          StartingPosition: LATEST
+        FilterCriteria:
+          Filters:
+            - Pattern: '<span>{</span> "eventName": ["INSERT", "MODIFY"] }'
+      Target: !GetAtt PipeTargetQueue.Arn</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./event-bus-rule-get-started.html">Get started with event buses</div><div id="next" class="next-link" accesskey="n" href="./eb-event-bus.html">Event buses</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/en_us/eventbridge/latest/userguide/pipes-get-started.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/en_us/eventbridge/latest/userguide/pipes-get-started.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Serve private content with signed URLs and signed cookies - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="PrivateContent" /><meta name="default_state" content="PrivateContent" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" /><meta name="description" content="Restrict access to private content served by CloudFront by using signed URLs and signed cookies." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Serve private content with signed URLs and signed cookies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="PrivateContent.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Serve private content with signed URLs and signed cookies - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#PrivateContent" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,CloudFront security,CloudFront private content,CloudFront access" /><link rel="alternate" type="text/markdown" href="PrivateContent.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configure secure access and restrict access to content",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecurityAndPrivateContent.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Serve private content with signed URLs and signed cookies",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecurityAndPrivateContent.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#PrivateContent" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#private-content-task-list">How to serve private content</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="PrivateContent">Serve private content with signed URLs and signed cookies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Many companies that distribute content over the internet want to restrict access to documents, business data, media
+		streams, or content that is intended for selected users, for example, users who have paid a fee. To securely serve this
+		private content by using CloudFront, you can do the following:</p><div class="itemizedlist">
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p>Require that your users access your private content by using special CloudFront signed URLs or signed cookies. </p>
+		</li><li class="listitem">
+			<p>Require that your users access your content by using CloudFront URLs, not URLs that access content directly on
+				the origin server (for example, Amazon S3 or a private HTTP server). Requiring CloudFront URLs isn't
+				necessary, but we recommend it to prevent users from bypassing the restrictions that you specify in signed URLs or
+				signed cookies.</p>
+		</li></ul></div><p>For more information, see <a href="./private-content-overview.html">Restrict access to files</a>.</p>
+		<h2 id="private-content-task-list">How to serve private content</h2>
+		
+		
+		<p>To configure CloudFront to serve private content, do the following tasks:</p>
+		<div class="procedure"><ol><li>
+				<p>(Optional but recommended) Require your users to access your content only through CloudFront. The method that you
+					use depends on whether you're using Amazon S3 or custom origins:</p>
+				<div class="itemizedlist">
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b>Amazon S3</b> – See <a href="./private-content-restricting-access-to-s3.html">Restrict access to an Amazon S3 origin</a>.</p>
+					</li><li class="listitem">
+						<p><b>Custom origin</b> – See <a href="./private-content-overview.html#forward-custom-headers-restrict-access">Restrict access to files on custom origins</a>.</p>
+					</li></ul></div>
+				<p>Custom origins include Amazon EC2, Amazon S3 buckets configured as website endpoints, Elastic Load Balancing, and your own HTTP web
+					servers.</p>
+			</li><li>
+				<p>Specify the <em>trusted key groups</em> or <em>trusted signers</em> that you want to use to create signed
+					URLs or signed cookies. We recommend that you use trusted key groups. For more
+					information, see <a href="./private-content-trusted-signers.html">Specify signers that can create signed URLs and signed cookies</a>.</p>
+			</li><li>
+				<p>Write your application to respond to requests from authorized users either with signed URLs or with
+					<code class="code">Set-Cookie</code> headers that set signed cookies. Follow the steps in one of the following topics: </p>
+				<div class="itemizedlist">
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><a href="./private-content-signed-urls.html">Use signed URLs</a></p>
+					</li><li class="listitem">
+						<p><a href="./private-content-signed-cookies.html">Use signed cookies</a></p>
+					</li></ul></div>
+				<p>If you're not sure which method to use, see <a href="./private-content-choosing-signed-urls-cookies.html">Decide to use signed URLs or signed cookies</a>.</p>
+			</li></ol></div>
+		
+	<div class="highlights"><h6>Topics</h6><ul><li><p><a href="./private-content-overview.html">Restrict access to files</a></p></li><li><p><a href="./private-content-trusted-signers.html">Specify signers that can create signed URLs and signed cookies</a></p></li><li><p><a href="./private-content-choosing-signed-urls-cookies.html">Decide to use signed URLs or signed cookies</a></p></li><li><p><a href="./private-content-signed-urls.html">Use signed URLs</a></p></li><li><p><a href="./private-content-signed-cookies.html">Use signed cookies</a></p></li><li><p><a href="./private-content-linux-openssl.html">Linux commands and OpenSSL for base64 encoding and encryption</a></p></li><li><p><a href="./PrivateCFSignatureCodeAndExamples.html">Code examples for creating a signature for a signed URL</a></p></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./origin-mtls-cloudfront-functions.html">Using CloudFront Functions with origin mutual TLS</div><div id="next" class="next-link" accesskey="n" href="./private-content-overview.html">Restrict access to files</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

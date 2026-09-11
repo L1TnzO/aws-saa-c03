@@ -1,0 +1,294 @@
+<!--
+BRONZE RAW — SEC-14
+URL: https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html
+Dominios: D1
+Título doc: What is AWS Network Firewall?
+Fase: 7
+Servicio: AWS Network Firewall
+Descargado: 2026-09-11T03:32:03
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Network Firewall is a stateful, managed, network firewall and intrusion detection and
+		prevention service for your virtual private cloud (VPC) that you create in Amazon Virtual Private Cloud
+		(Amazon VPC). With Network Firewall, you can filter traffic at the perimeter of your VPC. This includes
+		filtering traffic going to and coming from an internet gateway, NAT gateway, or over VPN or
+        Direct Connect. </p><p>Network Firewall uses the open source intrusion prevention system (IPS), Suricata,
+            for stateful inspection, and supports Suricata compatible rules. 
+            For more information, see <a href="./stateful-rule-groups-ips.html">Working with stateful rule groups in AWS Network Firewall</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This section and others that describe Suricata-based concepts are not intended to replace or duplicate information from the Suricata documentation.
+For more Suricata-specific information, see the <a href="https://docs.suricata.io/en/suricata-8.0.3/" rel="noopener noreferrer" target="_blank"><span>Suricata documentation</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p></div></div><p>You can use Network Firewall to monitor and protect your Amazon VPC traffic in a number of ways,
+		including the following: </p><div class="itemizedlist">
+		 
+		 
+		 
+		
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p>Pass traffic through only from known AWS service domains or IP address endpoints, such
+				as Amazon S3.</p>
+		</li><li class="listitem">
+			<p>Use custom lists of known bad domains to limit the types of domain names that your
+				applications can access.</p>
+		</li><li class="listitem">
+			<p>Perform deep packet inspection on traffic entering or leaving your VPC.</p>
+		</li><li class="listitem">
+			<p>Use stateful protocol detection to filter protocols like HTTPS, independent of the
+				port used.</p>
+		</li></ul></div><p>By default, AWS Network Firewall operates in <b>source-preservation mode</b>. In this mode, the
+		firewall receives traffic from the VPC endpoint, inspects it using the stateful rules engine
+		(supporting Suricata compatible IPS rules, domain filtering, and 5-tuple rules), and sends
+		the filtered traffic back through the VPC endpoint to its destination. The original source and
+		destination IP addresses are preserved throughout inspection. Traffic is steered to the
+		firewall through VPC route tables. This mode supports all protocols (TCP, UDP,
+		ICMP) and is designed for general network security use cases like intrusion prevention,
+		domain-based filtering, and east-west or north-south traffic inspection.</p><p>There is another mode of operation, <em>currently in preview</em>,
+		called <b>no-source-preservation mode</b>, where the firewall
+		functions as an explicit forward proxy. This mode is available only in the US East (Ohio)
+		Region (us-east-2). In this mode, the firewall attaches to a NAT gateway and clients must
+		be explicitly configured to send traffic to the proxy through a PrivateLink endpoint. The
+		endpoint carries the traffic to the firewall, which filters the traffic based on the
+		configured ruleset. If the traffic is allowed, the firewall initiates a new connection with
+		the destination using the attached NAT gateway's IP address as the source. Since the original
+		IP address of the source is masked, this deployment mode is called no-source-preservation.
+		For more information, see
+		<a href="./nfw-no-source-preservation.html">No-source-preservation mode</a>.</p><p>To enable Network Firewall for a VPC, you perform steps in both Amazon VPC and in
+		Network Firewall. For information about managing your Amazon Virtual Private Cloud VPC, see the
+                        <a href="https://docs.aws.amazon.com/vpc/latest/userguide">Amazon Virtual Private Cloud User Guide</a>. For more information about how Network Firewall works,
+		see <a href="./how-it-works.html">How AWS Network Firewall works</a>. </p><p>Network Firewall is supported by AWS Firewall Manager. You can use Firewall Manager to centrally configure and
+		manage your firewalls across your accounts and applications in AWS Organizations. You can manage
+		firewalls for multiple accounts using a single account in Firewall Manager. For more information, see
+			<a href="https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html">AWS Firewall Manager</a> in the <em>AWS WAF, AWS Firewall Manager, and AWS Shield Advanced Developer
+			Guide</em>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#aws-resources">AWS Network Firewall​ AWS resources</a></p></li><li><p><a href="#concepts">AWS Network Firewall concepts</a></p></li><li><p><a href="#accessing">Accessing AWS Network Firewall</a></p></li><li><p><a href="#regions-and-endpoints">Regions and endpoints for AWS Network Firewall</a></p></li><li><p><a href="#pricing">Pricing for AWS Network Firewall</a></p></li><li><p><a href="#what-it-is-quotas">AWS Network Firewall quotas</a></p></li><li><p><a href="#info-resources">AWS Network Firewall additional resources</a></p></li></ul></div>
+		<h2 id="aws-resources">AWS Network Firewall​ AWS resources<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r45:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="aws-resources" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r46:" type="submit" data-analytics-performance-mark="25-1789097518919-149"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>Network Firewall manages the following AWS resource types: </p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>Firewall</b> – Provides traffic filtering
+                                logic for a VPC. The Firewall defines the primary VPC to protect 
+                                and a primary subnet to use for a firewall endpoint in each Availability Zone. </p>
+			</li><li class="listitem">
+                            <p><b>VpcEndpointAssociation</b> – Provides 
+                            additional firewall endpoints for a Firewall, in the primary VPC and other VPCs. </p>
+			</li><li class="listitem">
+				<p><b>FirewallPolicy</b> – Defines rules and
+					other settings for a firewall to use to filter incoming and outgoing traffic in
+					a VPC. </p>
+			</li><li class="listitem">
+				<p><b>RuleGroup</b> – Defines a set of rules to
+					match against VPC traffic, and the actions to take when Network Firewall finds a
+					match. Network Firewall uses stateless and stateful rule group types, each with its
+					own Amazon Resource Name (ARN).</p>
+			</li></ul></div>
+	 
+		<h2 id="concepts">AWS Network Firewall concepts<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="concepts" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="26-1789097518920-1427"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>AWS Network Firewall is a firewall service for Amazon Virtual Private Cloud (Amazon VPC). For information about managing your Amazon Virtual Private Cloud VPC, see the
+                        <a href="https://docs.aws.amazon.com/vpc/latest/userguide">Amazon Virtual Private Cloud User Guide</a>. </p>
+		<p>The following are the key concepts for Network Firewall: </p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			          
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>Virtual private cloud (VPC)</b> – A
+					virtual network dedicated to your AWS account. </p>
+			</li><li class="listitem">
+				<p><b>Internet gateway</b> – A gateway that you
+					attach to a VPC to enable communication between resources in the VPC and the
+					internet.</p>
+			</li><li class="listitem">
+				<p><b>Subnet</b> – A range of IP addresses in
+					a VPC. Network Firewall creates firewall endpoints in subnets inside your VPC,
+					to filter network traffic. In a VPC architecture that uses Network Firewall, the
+					firewall endpoints sit between your protected subnets and locations outside your
+					VPC.</p>
+			</li><li class="listitem">
+				<p><b>Firewall subnet</b> – A subnet that you've
+					designated for exclusive use by Network Firewall for a firewall endpoint. A
+					firewall endpoint cannot filter traffic coming into or going out of the subnet in
+					which it resides, so do not use your firewall subnets for anything other than
+					Network Firewall.</p>
+			</li><li class="listitem">
+				<p><b>Route table</b> – A set of rules, called
+					routes, that are used to determine where network traffic is directed. You modify
+					your VPC route tables in Amazon VPC to direct traffic through your firewalls for
+					filtering.</p>
+			</li><li class="listitem">
+				<p><b>Network Firewall <em>firewall</em></b>
+                                    – An AWS resource that provides traffic filtering logic, and that 
+                                    defines the primary VPC to protect and a subnet in each Availability Zone for that VPC to use for 
+                                    firewall endpoints. </p>
+			</li><li class="listitem">
+				<p><b>Network Firewall <em>VPC endpoint association</em></b>
+                                    – An AWS resource that defines a firewall endpoint in addition to the primary endpoints 
+                                    that the firewall defines, and uses the firewall's traffic filtering logic and other settings. 
+                                    A VPC endpoint association can be for the firewall's VPC or for another VPC.  </p>
+			</li><li class="listitem">
+				<p><b>Network Firewall <em>firewall
+						policy</em></b> – An AWS resource that defines rules
+					and other settings for a firewall to use to filter incoming and outgoing traffic
+					in a VPC. </p>
+			</li><li class="listitem">
+				<p><b>Network Firewall <em>rule group</em></b>
+					– An AWS resource that defines a set of rules to match against VPC
+					traffic, and the actions to take when Network Firewall finds a match. </p>
+			</li><li class="listitem">
+				<p><b>Stateless rules</b> – Criteria for
+					inspecting a single network traffic packet, without the context of the other
+					packets in the traffic flow, the direction of flow, or any other information
+					that's not provided by the packet itself. </p>
+			</li><li class="listitem">
+				<p><b>Stateful rules</b> – Criteria for
+					inspecting network traffic packets in the context of their traffic flow. </p>
+			</li><li class="listitem"> 
+                                <p><b>Flows</b> – Network traffic that is monitored by 
+					          a firewall, either by stateful or stateless rules. For traffic to be considered part of a flow, it must 
+					          share Destination, DestinationPort, Direction, Protocol, Source, and SourcePort with other traffic. Flows that are processed by 
+					          the firewall are tracked in the firewall state table and are visible in flow logs.</p>
+			         </li><li class="listitem">
+				        <p><b>Firewall state table</b> – Table where Network Firewall tracks and maintains information about network traffic flows. 
+				        The firewall state table only tracks flows that are processed by stateful rules. 
+				        When traffic matches the criteria in a stateful rule, the firewall creates a flow entry in the firewall state table. 
+				        These entries persist until they are either removed using a flow flush operation, naturally terminate, or time out due to inactivity. 
+				        You can manage the firewall state table using specific operations. This is also known as the firewall table or state table.</p>
+				        <p>For information, see <a href="./firewall-flow-operations.html">Flow operations in your firewall</a>.</p>
+
+			         </li></ul></div>
+	 
+		<h2 id="accessing">Accessing AWS Network Firewall<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="accessing" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="27-1789097518921-9958"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>You can create, access, and manage your firewall, firewall policy, and rule group
+			resources in Network Firewall using any of the following methods:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>AWS Management Console</b> – Provides a
+					web interface for managing the service. The procedures throughout this guide
+					explain how to use the AWS Management Console to perform tasks for
+					Network Firewall. You can access the AWS Management Console at <a href="https://aws.amazon.com/console/" rel="noopener noreferrer" target="_blank"><span>https://aws.amazon.com/console</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>. To access
+					Network Firewall using the console:</p>
+				<pre class="programlisting"><div class="zKy3ntW31EpIOUhn4g2QBg== BD-nm-vt3Tr2EY8iQBbyIg==" data-testid="codeBtnContainer"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div><button data-testid="copyCodeBtn" class="_75sMI+SpHdgbiOmB5dQCjg== awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" aria-label="Copy https://&lt;region&gt;.console.aws.amazon.com/network-firewall/home" title="Copy https://&lt;region&gt;.console.aws.amazon.com/network-firewall/home" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4u:" type="submit" data-analytics-performance-mark="34-1789097518927-1848"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-copy_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M15 5H5v10h10V5Z" class="stroke-linejoin-round awsui-icon-front"></path><path d="M13 1H1v11" class="stroke-linejoin-round awsui-icon-back"></path></svg></span></button></div><!--DEBUG: cli ()--><code class="nohighlight hljs">https://<code class="replaceable">&lt;region&gt;</code>.console.aws.amazon.com/network-firewall/home</code></pre><div class="programlisting-portal"></div>
+			</li><li class="listitem">
+				<p><b>AWS Command Line Interface (AWS CLI)</b> – Provides
+					commands for a broad set of AWS services, including Network Firewall. The CLI is
+					supported on Windows, macOS, and Linux. For more information, see the
+					<a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS Command Line Interface User Guide</a>. To access Network Firewall using the CLI endpoint:</p>
+				<pre class="programlisting"><div class="zKy3ntW31EpIOUhn4g2QBg== BD-nm-vt3Tr2EY8iQBbyIg==" data-testid="codeBtnContainer"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div><button data-testid="copyCodeBtn" class="_75sMI+SpHdgbiOmB5dQCjg== awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" aria-label="Copy aws network-firewall" title="Copy aws network-firewall" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r50:" type="submit" data-analytics-performance-mark="35-1789097518928-280"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-copy_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M15 5H5v10h10V5Z" class="stroke-linejoin-round awsui-icon-front"></path><path d="M13 1H1v11" class="stroke-linejoin-round awsui-icon-back"></path></svg></span></button></div><!--DEBUG: cli ()--><code class="hljs nginx"><span class="hljs-attribute">aws</span> network-firewall</code></pre><div class="programlisting-portal"></div>
+			</li><li class="listitem">
+				<p><b>AWS Network Firewall API</b> – Provides a RESTful API.
+					The REST API requires you to handle connection details, such as calculating
+					signatures, handling request retries, and handling errors. For more information,
+					see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-apis.html">AWS
+						APIs</a> and the <a href="https://docs.aws.amazon.com/network-firewall/latest/APIReference/">AWS Network Firewall API Reference</a>. To access Network Firewall, use the
+					following REST API endpoint:</p>
+				<pre class="programlisting"><div class="zKy3ntW31EpIOUhn4g2QBg== BD-nm-vt3Tr2EY8iQBbyIg==" data-testid="codeBtnContainer"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div><button data-testid="copyCodeBtn" class="_75sMI+SpHdgbiOmB5dQCjg== awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" aria-label="Copy https://network-firewall.&lt;region&gt;.amazonaws.com " title="Copy https://network-firewall.&lt;region&gt;.amazonaws.com " data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r52:" type="submit" data-analytics-performance-mark="36-1789097518928-5404"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-copy_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M15 5H5v10h10V5Z" class="stroke-linejoin-round awsui-icon-front"></path><path d="M13 1H1v11" class="stroke-linejoin-round awsui-icon-back"></path></svg></span></button></div><!--DEBUG: cli ()--><code class="nohighlight hljs">https://network-firewall.<code class="replaceable">&lt;region&gt;</code>.amazonaws.com </code></pre><div class="programlisting-portal"></div>
+			</li><li class="listitem">
+				<p><b>AWS SDKs</b> – Provide language-specific
+					APIs. If you're using a programming language that AWS provides an SDK for, you
+					can use the SDK to access AWS Network Firewall. The SDKs handle many of the
+					connection details, such as calculating signatures, handling request retries,
+					and handling errors. They integrate easily with your development environment,
+					and provide easy access to Network Firewall commands. For more information, see
+						<a href="https://aws.amazon.com/tools" rel="noopener noreferrer" target="_blank"><span>Tools for Amazon Web
+						Services</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p>
+			</li><li class="listitem">
+				<p><b>AWS CloudFormation</b> – Helps you model and set up your
+					Amazon Web Services resources so that you can spend less time managing those resources and
+					more time focusing on your applications that run in AWS. You create a template
+					that describes all the AWS resources that you want and CloudFormation takes care of
+					provisioning and configuring those resources for you. For more information, see
+						<a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_NetworkFirewall.html">Network Firewall resource type reference</a> in the <em>AWS CloudFormation
+						User Guide</em>.</p>
+			</li><li class="listitem">
+				<p><b>AWS Tools for Windows PowerShell</b> – Let
+					developers and administrators manage their AWS services and resources in the
+					PowerShell scripting environment. For more information, see the
+					<a href="https://docs.aws.amazon.com/powershell/latest/userguide/">AWS Tools for PowerShell User Guide</a>.</p>
+			</li></ul></div>
+	 
+		<h2 id="regions-and-endpoints">Regions and endpoints for AWS Network Firewall<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="regions-and-endpoints" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="28-1789097518922-6234"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>To view the complete list of AWS Regions where Network Firewall is available, see
+			<a href="https://docs.aws.amazon.com/general/latest/gr/network-firewall.html">Service
+				endpoints and quotas</a> in the <em>AWS General
+					Reference</em>.
+		</p>
+		<p>
+			<b>IPv4 endpoints</b>
+		</p>		
+<pre class="programlisting"><div class="zKy3ntW31EpIOUhn4g2QBg== BD-nm-vt3Tr2EY8iQBbyIg==" data-testid="codeBtnContainer"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div><button data-testid="copyCodeBtn" class="_75sMI+SpHdgbiOmB5dQCjg== awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" aria-label="Copy https://network-firewall.&lt;region&gt;.amazonaws.com" title="Copy https://network-firewall.&lt;region&gt;.amazonaws.com" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4q:" type="submit" data-analytics-performance-mark="32-1789097518926-4936"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-copy_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M15 5H5v10h10V5Z" class="stroke-linejoin-round awsui-icon-front"></path><path d="M13 1H1v11" class="stroke-linejoin-round awsui-icon-back"></path></svg></span></button></div><!--DEBUG: cli ()--><code class="nohighlight hljs">https://network-firewall.<code class="replaceable">&lt;region&gt;</code>.amazonaws.com</code></pre><div class="programlisting-portal"></div>
+		<p>
+			<b>Dual-stack (IPv4 and IPv6) endpoints</b>
+		</p>
+		<p>Dual-stack endpoints support both IPv4 and IPv6 traffic. When you make a request to a dual-stack endpoint, the endpoint URL resolves to an IPv6 or IPv4 address, depending on the protocol used by your network and client.</p>
+		<pre class="programlisting"><div class="zKy3ntW31EpIOUhn4g2QBg== BD-nm-vt3Tr2EY8iQBbyIg==" data-testid="codeBtnContainer"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div><button data-testid="copyCodeBtn" class="_75sMI+SpHdgbiOmB5dQCjg== awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" aria-label="Copy https://network-firewall.&lt;region&gt;.api.aws" title="Copy https://network-firewall.&lt;region&gt;.api.aws" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4s:" type="submit" data-analytics-performance-mark="33-1789097518927-1546"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-copy_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M15 5H5v10h10V5Z" class="stroke-linejoin-round awsui-icon-front"></path><path d="M13 1H1v11" class="stroke-linejoin-round awsui-icon-back"></path></svg></span></button></div><!--DEBUG: cli ()--><code class="nohighlight hljs">https://network-firewall.<code class="replaceable">&lt;region&gt;</code>.api.aws</code></pre><div class="programlisting-portal"></div>
+	 
+		<h2 id="pricing">Pricing for AWS Network Firewall<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="pricing" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="29-1789097518922-3377"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>For detailed information about pricing for Network Firewall, see <a href="https://aws.amazon.com/network-firewall/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS Network Firewall pricing</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p>
+		<p>Some configurations can incur additional costs, on top of the basic costs for using
+			Network Firewall. For example, if you use a firewall endpoint in one Availability Zone to
+			filter traffic from another zone, you can incur cross-zone traffic charges. If you
+			enable logging, you incur additional charges according to factors such as the logging
+			destination that you use and the amount of traffic that you choose to log. </p>
+	 
+		<h2 id="what-it-is-quotas">AWS Network Firewall quotas<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4k:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="what-it-is-quotas" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4l:" type="submit" data-analytics-performance-mark="30-1789097518923-461"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>AWS Network Firewall defines maximum settings and other quotas on the number of
+			Network Firewall resources that you can use. You can request an increase for some of these
+			quotas. For more information, see <a href="./quotas.html">AWS Network Firewall quotas</a>.</p>
+	 
+		<h2 id="info-resources">AWS Network Firewall additional resources<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4n:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="info-resources" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4o:" type="submit" data-analytics-performance-mark="31-1789097518923-2528"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+		<p>To get a hands-on introduction to AWS Network Firewall, complete <a href="./getting-started.html">Getting started with AWS Network Firewall</a>. </p>
+		
+		<p>Use the following resources to get additional information and guidance for using
+			AWS Network Firewall. </p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b><a href="https://forums.aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>AWS discussion forums</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a></b> – A community-based
+					forum for discussing technical questions related to this and other AWS
+					services. </p>
+			</li><li class="listitem">
+				<p><b><a href="https://aws.amazon.com/getting-started/" rel="noopener noreferrer" target="_blank"><span>Getting
+							started resource center</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a></b> – Information to help
+					you get started building on AWS.</p>
+			</li><li class="listitem">
+				<p><b><a href="https://console.aws.amazon.com/support/home#/" rel="noopener noreferrer" target="_blank"><span>Support center</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a></b> – The home page for
+					AWS Support.</p>
+			</li><li class="listitem">
+				<p><b><a href="https://aws.amazon.com/contact-us/" rel="noopener noreferrer" target="_blank"><span>Contact
+							Us</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a></b> – A central contact point for inquiries
+					concerning billing, accounts, and events.</p>
+			</li></ul></div>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="next" class="next-link" accesskey="n" href="./nfw-no-source-preservation.html">No-source-preservation mode</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Network Firewall&amp;topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/what-is-aws-network-firewall.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Network Firewall&amp;topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/what-is-aws-network-firewall.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789097518234-2167"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#aws-resources"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Network Firewall AWS resources</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#concepts"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Network Firewall concepts</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#accessing"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Accessing Network Firewall</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#regions-and-endpoints"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Regions and endpoints for
+				Network Firewall</span></a></li><li data-itemid="anchor-item-5" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#pricing"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Pricing for Network Firewall</span></a></li><li data-itemid="anchor-item-6" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#what-it-is-quotas"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Network Firewall quotas</span></a></li><li data-itemid="anchor-item-7" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#info-resources"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Network Firewall additional
+				resources</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r54:" type="submit" data-analytics-performance-mark="37-1789097518930-1975"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r56:" type="submit" data-analytics-performance-mark="38-1789097518930-9426"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r59:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r58:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=Network+Firewall&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fnetwork-firewall%2Flatest%2Fdeveloperguide%2Fwhat-is-aws-network-firewall.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./nfw-no-source-preservation.html"><span>No-source-preservation mode</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

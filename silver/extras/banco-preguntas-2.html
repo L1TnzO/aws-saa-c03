@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco de preguntas II con respuestas razonadas · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="../apendice/computo.html">Cómputo</a>
+        <a href="../apendice/almacenamiento.html">Almacenamiento</a>
+        <a href="../apendice/redes.html">Redes y conectividad</a>
+        <a href="../apendice/bases-datos.html">Bases de datos</a>
+        <a href="../apendice/seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="../apendice/contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="../apendice/integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="../apendice/analitica-datos.html">Analítica y big data</a>
+        <a href="../apendice/migracion-hibrido.html">Migración e híbrido</a>
+        <a href="../apendice/gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="cheat-sheets.html">Cheat sheets</a>
+        <a href="banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="comparativas.html">Tablas comparativas</a>
+        <a href="laboratorios.html">Ruta de laboratorios</a>
+        <a href="glosario.html">Glosario (conceptos)</a>
+        <a href="glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Extras / Banco de preguntas</div>
+        <h1>Banco de preguntas II — 24 escenarios con respuestas razonadas<span class="dom-weight">24 preguntas · 6 por dominio</span></h1>
+        <p class="page-lead">Veinticuatro escenarios al estilo oficial del SAA-C03 — en inglés, como el examen real —
+        con respuesta razonada en español: por qué la correcta es correcta y, sobre todo, por qué cada distractor falla.
+        Es el simulacro final antes de la <a href="ruta-8-semanas.html">ruta de repaso</a>.</p>
+      </header>
+
+<div class="callout tip">
+  <div class="co-title">Edición unificada</div>
+  <p>Página integrada desde la <strong>guía extendida</strong> (saa-completo). Complementa el curso por fases:
+  el mismo tema, con más profundidad técnica. Vuelve al <a href="../extras/banco-preguntas.html">curso principal</a> cuando quieras
+  retomar la ruta de 9 fases.</p>
+</div>
+
+
+      <h2 id="como-practicar"><span class="h2-num">1</span>Cómo practicar con este banco</h2>
+      <p>Estas preguntas están escritas imitando el <em>estilo oficial</em> de AWS: un escenario de 3-6 líneas
+      (empresa + requisito + calificador), cuatro opciones plausibles y una sola combinación correcta. Las reglas del
+      juego son las mismas del examen:</p>
+      <ul>
+        <li><strong>Intenta resolver antes de desplegar.</strong> Lee el escenario, elige una opción y <em>después</em>
+        abre el <span class="term-en">details</span>. Leer la respuesta antes de pensar es la forma más rápida de
+        creer que sabes algo que no sabes.</li>
+        <li><strong>Dos minutos por pregunta, en serio.</strong> El examen real da ~2,4 minutos por pregunta
+        (65 preguntas en 130 minutos). Si te pasas del tiempo, anótalo como fallo a efectos de ritmo.</li>
+        <li><strong>Las preguntas están EN INGLÉS</strong>, igual que el examen. Subraya mentalmente el
+        calificador (<em>LEAST operational overhead</em>, <em>MOST cost-effective</em>, <em>highest
+        availability</em>…) porque la mitad de la respuesta está en ese adverbio.</li>
+        <li><strong>Estudia los distractores, no solo el acierto.</strong> En el examen real ganas eliminando:
+        cada análisis explica por qué la opción tentadora es la trampa.</li>
+      </ul>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  L["Lee el escenario EN<br>(3-6 líneas)"] --> C["Marca el calificador:<br>LEAST overhead? cost?"]
+  C --> T["≤ 2 min:<br>elige una opción"]
+  T --> A["Abre<br>la respuesta"]
+  A -->|"aciertas"| S["¿Coincide tu RAZÓN?<br>si no, cuenta como fallo"]
+  A -->|"fallas"| R["Anota dominio +<br>palabra clave"]
+  R --> E["Repasa esa sección<br>en la guía"]
+  S --> N["Siguiente<br>pregunta"]
+  E --> N
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El bucle de práctica: cada fallo se convierte en una visita puntual a la guía.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Las preguntas oficiales casi siempre combinan <strong>un requisito explícito</strong> ("fail over
+        automatically", "without long-lived credentials") con <strong>un calificador de ranking</strong>
+        (<em>MOST cost-effective</em>, <em>LEAST operational overhead</em>, <em>highest availability</em>). Si dos
+        opciones cumplen el requisito, gana la que optimice el calificador — y recuerda que
+        <span class="term-en">least operational overhead</span> casi siempre premia servicios gestionados frente a
+        infraestructura que tú operas.</p>
+      </div>
+
+      <h2 id="dominio-1"><span class="h2-num">2</span>Dominio 1 · Design Secure Architectures <span class="dom-weight">30%</span></h2>
+      <p>Acceso seguro (IAM, federación, multi-cuenta), cargas de trabajo seguras (SG, WAF, Cognito) y controles de
+      datos (KMS, cifrado). Aquí el examen castiga el "parece seguro" frente al "es el patrón recomendado".</p>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.1 · dificultad: media · <em>multiple response</em></div>
+        <div class="q-text">A financial services company stores regulatory audit reports in an Amazon S3 bucket in its own AWS account. An external auditing firm that uses a separate AWS account must obtain read-only access to the bucket for one week each quarter. The company's security policy prohibits the use of long-lived credentials. Which combination of steps will meet these requirements in the MOST secure manner with the LEAST operational overhead? (Select TWO.)</div>
+        <ol type="A">
+          <li>Create an IAM user in the company's account for each auditor, and send the access keys to the auditing firm.</li>
+          <li>Create an IAM role in the company's account with a trust policy that allows the auditing firm's AWS account, and attach a policy that grants read-only access to the bucket.</li>
+          <li>Update the bucket policy to grant public read access to the bucket only during the audit week.</li>
+          <li>In the auditing firm's account, grant its IAM users permission to perform <code>sts:AssumeRole</code> on the company's new role, and instruct the auditors to use the temporary credentials of that role.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B and D</span> — Es el patrón canónico de <span class="term-en">cross-account access</span>: el rol de la empresa define <em>quién</em> puede asumirlo (trust policy) y <em>qué</em> puede hacer (policy de solo lectura sobre el bucket); el rol entrega credenciales temporales de STS, así que no hay claves de larga vida que rotar ni revocar. Pero el rol solo no basta: alguien en la cuenta del auditor debe conceder a sus propios usuarios el permiso <code>sts:AssumeRole</code> sobre el ARN del rol — sin ese paso, los auditores no pueden usarlo.</p>
+            <p><strong>A:</strong> claves de acceso de larga vida: justo lo que la política de seguridad prohíbe, y no se revocan solas al terminar la auditoría. · <strong>C:</strong> acceso público = acceso para todo internet, no para "un auditor"; el escenario es un banco con compliance.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.2 · dificultad: baja</div>
+        <div class="q-text">A startup runs a three-tier delivery-tracking application in a VPC. The Amazon EC2 instances of the application tier run in private subnets and must accept HTTPS traffic only from the web tier's instances, which run in different subnets of the same VPC. Traffic from any other source must be rejected. Which solution meets these requirements with the LEAST operational overhead?</div>
+        <ol type="A">
+          <li>Configure a network ACL on the application subnets to allow inbound HTTPS from the web subnets' CIDR blocks, and deny all other inbound traffic.</li>
+          <li>Configure the application instances' security group to allow inbound HTTPS from the VPC's CIDR block.</li>
+          <li>Configure the application instances' security group to allow inbound HTTPS from the security group that is assigned to the web tier's instances.</li>
+          <li>Remove all inbound rules from the security group, and manage the application tier through AWS Systems Manager Session Manager.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — La referencia <span class="term-en">security group to security group</span> es la joya del diseño de VPC: solo las instancias que pertenezcan al SG del web tier pueden abrir conexiones, sin importar en qué subred o con qué IP estén. El SG es <em>stateful</em>, se evalúa a nivel de instancia y viaja con ella si el Auto Scaling la mueve: cero mantenimiento de rangos.</p>
+            <p><strong>A:</strong> los NACL son stateless: además de abrir el 443 tendrías que gestionar los puertos efímeros del tráfico de retorno, regla por regla y subred por subred (puro overhead). · <strong>B:</strong> permitir el CIDR entero de la VPC es demasiado amplio — cualquier recurso de la VPC podría conectar. · <strong>D:</strong> Session Manager sirve para administrar instancias, no para tráfico de aplicación.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.3 · dificultad: media</div>
+        <div class="q-text">A healthcare company stores millions of patient records in Amazon S3. Before every write, the application calls the AWS KMS Encrypt API to encrypt each record with the company's customer managed key (CMK). Because of the growing number of records, the application is approaching the AWS KMS request quota. The company wants to reduce the number of calls to KMS while continuing to use its CMK. Which approach should a solutions architect recommend?</div>
+        <ol type="A">
+          <li>Perform envelope encryption with the AWS Encryption SDK: generate a data key, use it to encrypt many records locally, and store the encrypted data key alongside the encrypted data.</li>
+          <li>Change the bucket configuration to use server-side encryption with Amazon S3 managed keys (SSE-S3).</li>
+          <li>Request a quota increase for KMS API calls through the Service Quotas console.</li>
+          <li>Migrate the keys to an AWS CloudHSM cluster, and call the CloudHSM API directly from the application.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A</span> — Es literalmente la definición de <span class="term-en">envelope encryption</span>: la CMK solo cifra <em>data keys</em> (pocas llamadas a KMS), y los registros se cifran localmente con la data key, que viaja cifrada junto a los datos. Reduces las llamadas de "una por registro" a "una por data key" sin perder el control de la clave gestionada por el cliente.</p>
+            <p><strong>B:</strong> SSE-S3 usa claves gestionadas por S3 — abandona la CMK de la empresa, que era requisito (un banco sanitario quiere el control de auditoría de <code>kms:Decrypt</code>). · <strong>C:</strong> subir la cuota no cambia el patrón: sigue creciendo el costo y la latencia por objeto. · <strong>D:</strong> CloudHSM cambia el modelo operativo (hardware dedicado, más costo y gestión) y no elimina el antipatrón de cifrar registro a registro.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.2 · dificultad: media</div>
+        <div class="q-text">A social media startup is launching a mobile application on AWS. Users must be able to sign up and sign in with email and password or with social identity providers such as Google. The application backend consists of AWS Lambda functions behind an Amazon API Gateway REST API. The solution must scale to millions of users without the company operating any identity infrastructure. Which solution will meet these requirements?</div>
+        <ol type="A">
+          <li>Deploy an open-source identity provider on Amazon EC2 instances behind an Application Load Balancer.</li>
+          <li>Create an IAM user for each application customer, and give each customer access keys to call the API.</li>
+          <li>Use Amazon Cognito user pools for sign-up and sign-in, and validate the user pool's JSON Web Tokens (JWTs) in Amazon API Gateway or in the Lambda backend.</li>
+          <li>Use Amazon Cognito identity pools to authenticate the users directly against the social identity providers.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — Los <span class="term-en">user pools</span> son el directorio de usuarios <em>totalmente gestionado</em>: registro, login, MFA, federación con Google y otros IdPs, y emisión de JWTs que API Gateway valida sin que escribas una línea de código de autenticación. "Millones de usuarios sin operar infraestructura de identidad" es su descripción de marketing y también su <em>exam signal</em>.</p>
+            <p><strong>A:</strong> operar tu propio IdP es exactamente el overhead que la pregunta descarta. · <strong>B:</strong> el anti-patrón clásico del examen: IAM users son para personas de <em>tu</em> cuenta AWS, nunca para clientes de una app pública (claves de larga vida + sin escalado). · <strong>D:</strong> los <em>identity pools</em> no autentican: entregan credenciales temporales de AWS a usuarios que <em>ya</em> se autenticaron con otro IdP o user pool.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.2 · dificultad: media</div>
+        <div class="q-text">An ecommerce company runs its public website behind an Application Load Balancer. During flash sales, the website receives floods of malformed HTTP requests from thousands of rotating source IP addresses. The company needs to automatically block the malicious HTTP requests and to absorb volumetric Layer 3/Layer 4 floods. Which solution meets these requirements with the LEAST operational overhead?</div>
+        <ol type="A">
+          <li>Manually add the attacking IP addresses to deny rules in the subnets' network ACLs.</li>
+          <li>Use AWS Firewall Manager to centrally block the malicious IP addresses.</li>
+          <li>Deploy AWS Network Firewall at the perimeter of the VPC to inspect the HTTP requests.</li>
+          <li>Associate an AWS WAF web ACL that includes a rate-based rule with the Application Load Balancer, and enable AWS Shield Advanced for the volumetric protection.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: D</span> — La <span class="term-en">rate-based rule</span> de AWS WAF cuenta las peticiones por IP en una ventana de 5 minutos y bloquea automáticamente al superarse el umbral: no hay que perseguir IPs a mano. Shield Advanced añade la mitigación de floods volumétricos L3/L4 con el equipo del <em>Shield Response Team</em>. Ambas protegen el ALB sin tocar la aplicación.</p>
+            <p><strong>A:</strong> miles de IPs rotando = una lista negra manual imposible de mantener, y los NACL son stateless y por subred. · <strong>B:</strong> Firewall Manager <em>orquesta</em> reglas de WAF y security groups en muchas cuentas — no es un mecanismo de protección por sí mismo. · <strong>C:</strong> Network Firewall filtra tráfico dentro de la VPC (north-south/east-west), no mitigue floods globales.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 1</span> · Task 1.1 · dificultad: media</div>
+        <div class="q-text">A company manages more than 40 AWS accounts under AWS Organizations. The security team must ensure that no member account, including account administrators, can delete the organization's AWS CloudTrail trails or leave the organization. The control must be applied centrally and must not be bypassable by IAM policies inside the member accounts. Which solution will meet these requirements?</div>
+        <ol type="A">
+          <li>In every member account, apply an IAM policy to all users and roles that denies the <code>cloudtrail:DeleteTrail</code> and <code>organizations:LeaveOrganization</code> actions.</li>
+          <li>Create a service control policy (SCP) that denies the required actions, and attach it to the organization root or to the relevant organizational units (OUs).</li>
+          <li>Attach a permissions boundary that denies the actions to the administrator policies in every member account.</li>
+          <li>Configure AWS Firewall Manager to block those API calls across the organization.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B</span> — Un <span class="term-en">SCP</span> recorta el <em>techo máximo de permisos</em> de todas las identidades de las cuentas bajo ese OU, administradores incluidos. Es gobernanza de la organización: ninguna policy interna puede devolver un permiso que el SCP deniega. La palabra clave del escenario es <em>centrally</em> — se aplica en el root y hereda hacia abajo.</p>
+            <p><strong>A:</strong> un administrador de la cuenta puede modificar o desasignar esa IAM policy: es una barrera de cartón. · <strong>C:</strong> las <em>permissions boundaries</em> limitan acciones pero deben adjuntarse a <em>cada</em> usuario y rol, uno a uno — ni central ni a prueba de admins. · <strong>D:</strong> Firewall Manager gestiona WAF y security groups, no llamadas a la API de IAM/Organizations.</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="dominio-2"><span class="h2-num">3</span>Dominio 2 · Design Resilient Architectures <span class="dom-weight">26%</span></h2>
+      <p>Acoplamiento débil (SQS, colas), alta disponibilidad (multi-AZ, Multi-AZ DB, failover) y recuperación ante
+      desastres (RTO/RPO, Route 53). La trampa clásica: confundir <em>escalabilidad</em> con <em>disponibilidad</em>.</p>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.1 · dificultad: baja</div>
+        <div class="q-text">A food delivery startup receives orders through a public API that runs on Amazon EC2 instances in an Auto Scaling group. The instances write each order directly to an Amazon RDS database. During dinner rush hours, order volume spikes to more than 10 times the normal rate and the database becomes overwhelmed, which causes customers to lose orders. A solutions architect must decouple the order intake from the order processing. Which solution meets these requirements?</div>
+        <ol type="A">
+          <li>Resize the RDS instance to a larger size, and configure the DB instance as a Multi-AZ deployment.</li>
+          <li>Store incoming orders in Amazon S3, and run an AWS Lambda function every minute to load them into the database.</li>
+          <li>Split the writes across two separate RDS databases, and use the application code to route each order to one of them.</li>
+          <li>Configure the API to send orders to an Amazon Simple Queue Service (Amazon SQS) queue, and deploy worker instances that consume the queue and write to the database at a sustainable rate.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: D</span> — <em>Decouple</em> es la palabra clave: SQS actúa de amortiguador duradero entre la API y la base de datos. La API acepta pedidos y encola en milisegundos; los <span class="term-en">workers</span> escriben a RDS al ritmo que la base de datos tolera. Resultado: cero pedidos perdidos aunque la DB sea más lenta que el pico, y los workers escalan con la profundidad de la cola.</p>
+            <p><strong>A:</strong> Multi-AZ es disponibilidad (failover), no capacidad de escritura; y redimensionar solo aplasta el cuello de botella en vez de desacoplar. · <strong>B:</strong> reinventa SQS con S3 + un cronómetro — hasta 60 s de latencia y más piezas que gestionar. · <strong>C:</strong> sharding manual en la app: complejidad enorme y adiós a las transacciones entre las dos mitades.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.2 · dificultad: media · <em>multiple response</em></div>
+        <div class="q-text">A travel booking company runs a two-tier web application in a single Availability Zone: the web tier consists of EC2 instances in public subnets, and the database runs on an Amazon RDS DB instance in a private subnet. The company wants to make the application highly available. Which combination of steps should a solutions architect take to meet this requirement? (Select TWO.)</div>
+        <ol type="A">
+          <li>Create an Auto Scaling group for the web tier that spans multiple Availability Zones behind an Application Load Balancer.</li>
+          <li>Create a second VPC in another AWS Region, and deploy an identical copy of the application there.</li>
+          <li>Create new public and private subnets in a second Availability Zone in the same VPC, and deploy the database as a Multi-AZ RDS DB instance in the private subnets.</li>
+          <li>Register the existing web instances in a target group behind an Application Load Balancer in the current Availability Zone.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A and C</span> — Alta disponibilidad = redundancia en cada capa con conmutación automática. La capa web se replica con un <span class="term-en">Auto Scaling group</span> multi-AZ detrás de un ALB (si cae una AZ, la otra absorbe el tráfico). La capa de datos necesita subredes nuevas en la segunda AZ y un RDS <em>Multi-AZ</em>: standby síncrono con failover automático y el mismo endpoint.</p>
+            <p><strong>B:</strong> otra región es <em>disaster recovery</em>, no HA zonal — duplica costo y complejidad sin que la pregunta lo pida. · <strong>D:</strong> un ALB sobre instancias de una sola AZ comparte el punto único de falla: si muere la AZ, mueren las instancias <em>y</em> el balanceador.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.2 · dificultad: baja</div>
+        <div class="q-text">A company runs its production workload on an Amazon RDS for MySQL DB instance. The database must automatically fail over to a standby copy in a different Availability Zone if the primary instance fails, without any manual intervention and with no loss of committed transactions. Which solution will meet these requirements with the highest availability?</div>
+        <ol type="A">
+          <li>Configure the DB instance as a Multi-AZ deployment.</li>
+          <li>Create a read replica in another Availability Zone, and manually promote it if the primary instance fails.</li>
+          <li>Take automatic hourly snapshots of the DB instance, and restore the latest snapshot in another Availability Zone if a failure occurs.</li>
+          <li>Migrate the database to an Amazon Aurora Global Database with a secondary cluster in another Region.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A</span> — El <em>keyword</em> es <em>automatically</em>: Multi-AZ mantiene un standby síncrono en otra AZ y RDS conmuta solo (típicamente 60-120 s), con el mismo endpoint DNS y sin perder transacciones confirmadas. La palabra clave que cierra la puerta a las demás es <em>without any manual intervention</em>.</p>
+            <p><strong>B:</strong> la réplica de lectura es asíncrona (puede haber pérdida de escrituras en tránsito) y la promoción es <em>manual</em>. · <strong>C:</strong> snapshots por hora = RPO de hasta 60 minutos y RTO de restauración. · <strong>D:</strong> responde a DR cross-región, un problema distinto (y mucho más caro) del que plantea la pregunta.</p>
+          </div>
+        </details>
+      </div>
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.2 · dificultad: alta</div>
+        <div class="q-text">An insurance company must implement a disaster recovery (DR) strategy for its multi-tier application that runs in one AWS Region. Compliance requires a second environment in a different Region. The recovery point objective (RPO) is 5 minutes, the recovery time objective (RTO) is approximately 1 hour, and the company wants to MINIMIZE the cost of the DR environment. Which DR strategy should a solutions architect recommend?</div>
+        <ol type="A">
+          <li>Back up the application data to Amazon S3, and copy the backups to the DR Region; use AWS CloudFormation templates to rebuild the full environment during a disaster.</li>
+          <li>Run a scaled-down but fully functional copy of the application stack in the DR Region at all times, with the data replicated asynchronously.</li>
+          <li>Continuously replicate the data to the DR Region, keep only a minimal core of the environment (for example, the database replica) running there, and use infrastructure as code templates to scale up the rest of the stack during a disaster.</li>
+          <li>Run a full-size active deployment of the application in both Regions, and use Amazon Route 53 weighted routing to distribute the traffic.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — Es la definición de <span class="term-en">pilot light</span>: la única parte siempre encendida es el núcleo mínimo (datos replicados en continuo — Aurora Global DB, S3 CRR o DMS — más quizá una réplica). El resto de la pila se levanta bajo demanda con plantillas de CloudFormation. Cumple RPO de 5 min (replicación continua), RTO ~1 h (levantar y escalar) y deja el costo de la región DR casi en el mínimo.</p>
+            <p><strong>A:</strong> backup-and-restore es el más barato pero su RTO/RPO se mide en horas — no cumple. · <strong>B:</strong> es <em>warm standby</em>: válido para RTO de minutos, pero más caro de lo necesario (toda la pila corriendo 24/7). · <strong>D:</strong> multi-site active-active: máximo costo, para RTO ≈ 0. La pregunta regala la respuesta con <em>MINIMIZE the cost</em> + RTO 1 h.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.2 · dificultad: media</div>
+        <div class="q-text">A company hosts the primary version of its public web application in the us-east-1 Region and a fully provisioned standby environment in the eu-west-1 Region. The company wants users to be automatically routed to the standby environment only when the primary environment's health check fails. Which Amazon Route 53 configuration will meet these requirements?</div>
+        <ol type="A">
+          <li>A simple routing policy with two records that point to the primary and the standby environments.</li>
+          <li>A failover routing policy with a health check on the primary record and a secondary record for the standby environment.</li>
+          <li>A latency-based routing policy with records in both Regions.</li>
+          <li>A multivalue answer routing policy with health checks for both records.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B</span> — El <span class="term-en">failover routing</span> existe para exactamente este patrón: el registro <em>primary</em> lleva asociado un health check; mientras responde, Route 53 devuelve solo ese; si el check falla, devuelve el registro <em>secondary</em>. Determinista: primario o secundario, nunca mezcla.</p>
+            <p><strong>A:</strong> simple routing devuelve todos los valores sin conmutar nada. · <strong>C:</strong> la política de latencia optimiza <em>velocidad</em> por cercanía, no failover: repartiría tráfico entre ambos entornos. · <strong>D:</strong> multivalue answer devuelve varios registros <em>aleatorios</em> y sanos — es round-robin con health checks, no un primario garantizado.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 2</span> · Task 2.2 · dificultad: alta</div>
+        <div class="q-text">A multi-tenant SaaS company runs its application on Amazon Aurora MySQL in the us-east-1 Region. Analysts in the company's European office run heavy reporting queries against the database, and these queries add latency for the users in Europe. The company also needs disaster recovery capability in eu-west-1 with an RPO of less than 1 second. Which solution will meet these requirements?</div>
+        <ol type="A">
+          <li>Create Aurora Replicas in the eu-west-1 Region, and point the reporting queries to the replicas' reader endpoint.</li>
+          <li>Use AWS Database Migration Service (AWS DMS) with ongoing replication to a new Aurora cluster in eu-west-1.</li>
+          <li>Schedule a nightly snapshot of the cluster, and copy the snapshots to the DR Region.</li>
+          <li>Create an Aurora Global Database with a secondary cluster in eu-west-1, and point the reporting workload to the secondary cluster's reader endpoint.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: D</span> — Dos requisitos, un servicio: <span class="term-en">Aurora Global Database</span> replica en el nivel de <em>storage</em> hacia otra región con lag típico inferior a 1 segundo (RPO &lt; 1 s ✓) y el clúster secundario sirve lecturas locales a través de su reader endpoint (reporting cerca de Europa ✓). Además, puede promocionarse en minutos como DR.</p>
+            <p><strong>A:</strong> la trampa estrella del tema: las Aurora Replicas solo existen <em>dentro de la misma región</em> — cross-Region se hace con Global Database. · <strong>B:</strong> DMS puede replicar, pero es una herramienta de migración que tú operas y monitoreas: más overhead, sin las garantías de RPO del producto nativo. · <strong>C:</strong> RPO de 24 horas, lejos del "&lt; 1 second".</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="dominio-3"><span class="h2-num">4</span>Dominio 3 · Design High-Performing Architectures <span class="dom-weight">24%</span></h2>
+      <p>Almacenamiento performante (EBS, S3), caching (ElastiCache), red de alto rendimiento (CloudFront, Global
+      Accelerator), ingesta de datos (Kinesis) y bases de datos de milisegundos (DynamoDB). Aquí mandan los
+      límites por recurso: partición, prefijo, shard, IOPS.</p>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.1 · dificultad: media</div>
+        <div class="q-text">A company runs a latency-sensitive transactional database on an Amazon EC2 Linux instance. The database volume must sustain 30,000 IOPS and 500 MiB/s of throughput at all times, and the company wants the MOST cost-effective Amazon EBS volume type that will support this workload. Which volume type should a solutions architect choose?</div>
+        <ol type="A">
+          <li>General Purpose SSD (gp3), provisioned to the maximum performance that the volume supports.</li>
+          <li>Throughput Optimized HDD (st1).</li>
+          <li>Provisioned IOPS SSD (io2 Block Express), provisioned with 30,000 IOPS.</li>
+          <li>Cold HDD (sc1).</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — El número manda: gp3 llega como máximo a 16,000 IOPS por volumen, así que 30,000 IOPS <em>sostenidos</em> exigen la familia <span class="term-en">io2 Block Express</span> (hasta 256,000 IOPS, latencia sub-milisegundo, ratio IOPS:GB a medida). "Most cost-effective" aquí significa "el tipo más barato que <em>puede</em> con la carga", no "el más barato sin más".</p>
+            <p><strong>A:</strong> 16,000 IOPS es el techo de gp3 — insuficiente por definición. · <strong>B:</strong> st1 es HDD optimizado para <em>throughput secuencial</em> (big data, logs), no para IOPS aleatorias de OLTP. · <strong>D:</strong> sc1 es HDD para datos fríos de acceso esporádico: lo contrario de una DB transaccional.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.1 · dificultad: media · <em>multiple response</em></div>
+        <div class="q-text">A video post-production company stores large video files in Amazon S3. Editors must download hundreds of files each day, and each file is several gigabytes in size. The company needs to increase the throughput of downloads from the bucket. Which actions will improve the download performance? (Select TWO.)</div>
+        <ol type="A">
+          <li>Enable S3 Transfer Acceleration for the bucket, and download the files by using the acceleration endpoint.</li>
+          <li>Download the large files in parallel by using the S3 byte-range fetch capability.</li>
+          <li>Enable cross-Region replication (CRR) for the bucket.</li>
+          <li>Spread the object keys across several key prefixes in the bucket.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B and D</span> — S3 escala por <span class="term-en">prefix</span>: cada prefijo sostiene de forma independiente miles de peticiones por segundo (5,500 GET/s), así que repartir las claves en varios prefijos multiplica el techo de lectura del bucket. Y para objetos de varios GB, el <span class="term-en">byte-range fetch</span> descarga rangos en paralelo y multiplica el throughput <em>por archivo</em>. Juntos: más archivos por segundo y más MB/s por archivo.</p>
+            <p><strong>A:</strong> Transfer Acceleration acelera transferencias de clientes <em>geográficamente lejanos</em> (vía edges de CloudFront) con costo extra — no aumenta la capacidad de lectura del bucket ni el throughput por objeto grande. · <strong>C:</strong> CRR replica objetos a otra región para disponibilidad/compliance; no añade rendimiento de lectura.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.3 · dificultad: media</div>
+        <div class="q-text">An ecommerce company wants to use Amazon ElastiCache for Redis to cache its product catalog and reduce the load on its Amazon RDS database. The catalog changes infrequently, but the application must never display outdated product data to users. Which caching strategy will meet these requirements?</div>
+        <ol type="A">
+          <li>Use write-through caching: update the cache every time the application writes product data to the database.</li>
+          <li>Use lazy loading (cache-aside) with a short TTL.</li>
+          <li>Use lazy loading (cache-aside) without a TTL.</li>
+          <li>Do not cache the catalog; increase the size of the RDS instance instead.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A</span> — El requisito duro es <em>must never display outdated data</em>: con <span class="term-en">write-through</span> cada escritura actualiza cache y base de datos a la vez, así que el cache nunca sirve un dato viejo. El costo (escribir en cache datos que quizá nadie lea) es aceptable aquí porque el catálogo cambia poco — el peor caso del write-through apenas se da.</p>
+            <p><strong>B:</strong> lazy loading + TTL puede servir datos desactualizados durante toda la ventana del TTL: no garantiza frescura. · <strong>C:</strong> sin TTL, un dato cacheado queda obsoleto indefinidamente hasta invalidación manual. · <strong>D:</strong> redimensionar RDS no responde a un problema de patrón de lectura.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.4 · dificultad: alta</div>
+        <div class="q-text">A financial services company exposes a REST API through an Application Load Balancer in a single AWS Region. The API is consumed by corporate customers whose firewalls allow traffic only to static IP addresses. The company also wants to route customer traffic through the AWS global network to improve availability and performance. Which solution will meet these requirements?</div>
+        <ol type="A">
+          <li>Place Amazon CloudFront in front of the Application Load Balancer, and publish the CloudFront IP ranges to the customers.</li>
+          <li>Place AWS Global Accelerator in front of the Application Load Balancer, and give the accelerator's two static anycast IP addresses to the customers.</li>
+          <li>Use Amazon Route 53 latency-based routing to direct customers to the closest Regional endpoint.</li>
+          <li>Create an AWS Direct Connect connection for each corporate customer.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B</span> — Dos señales del escenario gritan <span class="term-en">Global Accelerator</span>: <em>static IP addresses</em> (GA te da dos IPs anycast fijas que nunca cambian, perfectas para allowlists de firewall) y <em>AWS global network</em> (el tráfico entra por el edge más cercano y viaja por la red troncal de AWS hasta el ALB, con health checks y failover entre regiones incluidos).</p>
+            <p><strong>A:</strong> CloudFront usa rangos de IP compartidos, enormes y variables — inutilizables para la allowlist de un cliente. · <strong>C:</strong> Route 53 mide latencia de DNS, pero no da IPs estáticas propias ni transporte por la red global. · <strong>D:</strong> Direct Connect es un enlace privado por cliente, con meses de despliegue y costo dedicado.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.5 · dificultad: media</div>
+        <div class="q-text">A logistics company collects vehicle telemetry in an Amazon Kinesis data stream that has 5 shards. Producer applications write approximately 8 MB of data per second during peak hours, and the producers are receiving ProvisionedThroughputExceededException errors during these peaks. A solutions architect must resolve the throttling errors. What should the solutions architect do?</div>
+        <ol type="A">
+          <li>Enable enhanced fan-out for the consumers of the stream.</li>
+          <li>Deliver the data through Amazon Kinesis Data Firehose, and use Firehose to buffer the writes to the stream.</li>
+          <li>Increase the number of shards in the stream.</li>
+          <li>Use the Amazon Kinesis Producer Library (KPL) to batch the records before sending them to the stream.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — Aritmética de <span class="term-en">shards</span>: cada shard ingiere 1 MB/s (y entrega 2 MB/s). Con 5 shards el techo es 5 MB/s; los productores envían 8 MB/s → throttling garantizado. La capacidad de ingesta escala linealmente con el número de shards, y cada registro va al shard que dicta su partition key.</p>
+            <p><strong>A:</strong> enhanced fan-out solo multiplica el throughput <em>de lectura</em> (2 MB/s por shard y por consumidor dedicado); no toca el límite de escritura. · <strong>B:</strong> Firehose es un <em>consumidor/entregador</em> del stream, no un buffer de entrada. · <strong>D:</strong> el KPL reduce peticiones HTTP y costo, pero el límite de bytes por segundo se mantiene.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 3</span> · Task 3.3 · dificultad: alta</div>
+        <div class="q-text">An ecommerce company stores product information in an Amazon DynamoDB table. During a flash sale, a single product's page is viewed thousands of times per second, and reads for that one product are throttled even though the table has far more read capacity than the rest of the traffic requires. Which solution will resolve the throttling for the popular product?</div>
+        <ol type="A">
+          <li>Increase the provisioned read capacity units (RCUs) of the table.</li>
+          <li>Enable DynamoDB global tables to replicate the table closer to the users.</li>
+          <li>Change the table to on-demand capacity mode.</li>
+          <li>Deploy Amazon DynamoDB Accelerator (DAX), and configure the application to read the popular product from the cache.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: D</span> — El síntoma delata un <span class="term-en">hot partition</span>: una única partition key (el producto viral) no puede superar ~3,000 RCUs aunque la tabla entera tenga muchísima más capacidad. DAX es el cache en memoria de DynamoDB (latencia de microsegundos): absorbe las lecturas repetidas del ítem popular y libera a la tabla de ese pico.</p>
+            <p><strong>A:</strong> más RCUs totales no rompe el techo <em>por partición</em>. · <strong>B:</strong> global tables replica la tabla a otras regiones para lecturas locales — el hot key seguirá caliente en cada réplica. · <strong>C:</strong> el modo on-demand también tiene límites por partición: escalará la factura, no el cuello de botella.</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="dominio-4"><span class="h2-num">5</span>Dominio 4 · Design Cost-Optimized Architectures <span class="dom-weight">20%</span></h2>
+      <p>Compra de cómputo (Spot, Savings Plans), clases de S3, datos que cruzan fronteras (AZ, internet) y bases de
+      datos ajustadas al workload. La técnica del dominio: dos opciones "funcionan" — gana la que optimiza el
+      calificador de costo.</p>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.2 · dificultad: media</div>
+        <div class="q-text">A genomics research company runs a nightly batch pipeline on Amazon EC2. The pipeline writes checkpoints to Amazon S3 every few minutes, so any instance can resume the work of an interrupted instance. The job takes 6 hours and must finish before 08:00. The company wants to complete the pipeline in the MOST cost-effective way. Which instance purchasing option should a solutions architect recommend?</div>
+        <ol type="A">
+          <li>Use Spot Instances for the pipeline, with an interruption handler that reloads the latest checkpoint.</li>
+          <li>Purchase a 3-year Compute Savings Plan that covers the nightly instance usage.</li>
+          <li>Use On-Demand Instances for the pipeline.</li>
+          <li>Purchase 1-year, No Upfront Convertible Reserved Instances for the nightly usage.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A</span> — Los dos ingredientes del escenario (<em>checkpoints</em> + trabajo reanudable) son la definición de carga apta para <span class="term-en">Spot Instances</span>: hasta ~90% de descuento y 2 minutos de aviso de interrupción, que el handler aprovecha para apagar y que otra instancia retome desde el último checkpoint. La caja de herramientas ya garantiza que la interrupción no rompa nada.</p>
+            <p><strong>B/D:</strong> Savings Plans y Reserved Instances premian compromiso de uso continuo — el descuento se aplica a lo comprometido, no a lo que "aparece de noche"; para 6 h diarias con tolerancia a interrupciones, Spot es más barato. · <strong>C:</strong> On-Demand es el precio de lista: la opción a eliminar primero.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.1 · dificultad: baja</div>
+        <div class="q-text">A photo-sharing application uploads photo originals to Amazon S3 Standard. The photos are accessed frequently during the first 30 days, are rarely accessed after 90 days, and must be retained for 5 years for legal reasons. The company wants to store the photos in the MOST cost-effective way. Which S3 solution will meet these requirements?</div>
+        <ol type="A">
+          <li>Transition the objects to S3 One Zone-IA after 30 days, and expire them after 5 years.</li>
+          <li>Configure an S3 Lifecycle configuration that transitions objects to S3 Standard-IA after 30 days, to S3 Glacier after 90 days, and expires them after 5 years.</li>
+          <li>Keep the objects in S3 Standard, and delete them manually after 5 years.</li>
+          <li>Upload the objects directly to S3 Glacier Deep Archive, and restore them on demand.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B</span> — El <span class="term-en">lifecycle policy</span> traduce el patrón de acceso a clases de almacenamiento: 30 días calientes en Standard, luego Standard-IA (raro, multi-AZ), a los 90 días a Glacier (archivo a precio mínimo) y borrado automático a los 5 años. Cero intervención humana: cada objeto degrada su tarifa según su temperatura.</p>
+            <p><strong>A:</strong> One Zone-IA pierde la redundancia multi-AZ para una retención legal de 5 años — riesgo innecesario a cambio de poco ahorro, y salta la clase Glacier para el tramo frío. · <strong>C:</strong> pagar Standard 5 años para datos que casi nadie lee. · <strong>D:</strong> los primeros 30 días son de acceso frecuente — Deep Archive es exactamente para el caso contrario.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.4 · dificultad: media</div>
+        <div class="q-text">An application that runs on Amazon EC2 instances in private subnets downloads large amounts of data from Amazon S3 through a NAT gateway. The data transfer costs through the NAT gateway are a significant part of the monthly AWS bill. The application must keep using private IP addressing and must not connect to the internet. Which action will reduce the costs in the MOST cost-effective way with the LEAST operational overhead?</div>
+        <ol type="A">
+          <li>Replace the NAT gateway with a NAT instance that runs on a Spot Instance.</li>
+          <li>Create a gateway VPC endpoint for Amazon S3, and update the route tables of the private subnets.</li>
+          <li>Create an interface VPC endpoint for Amazon S3 in each Availability Zone.</li>
+          <li>Move the EC2 instances to public subnets, and use the internet gateway to reach Amazon S3.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: B</span> — El <span class="term-en">gateway VPC endpoint</span> para S3 es <strong>gratis</strong>: una entrada en la route table que envía el tráfico de S3 por la red interna de AWS sin pasar por el NAT (adiós al cargo por GB procesado y al cargo por hora). Es "reduce costs" + "least overhead" en su forma más pura: una ruta, nada que operar.</p>
+            <p><strong>A:</strong> la NAT instance te ahorra parte de la tarifa pero te devuelve gestión de parches, throughput y punto único de falla. · <strong>C:</strong> el interface endpoint funciona, pero cobra por hora y por GB: para S3 es la opción <em>menos</em> coste-efectiva (los interface endpoints son para servicios sin gateway endpoint). · <strong>D:</strong> exponer instancias a internet contradice la premisa de seguridad.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.2 · dificultad: media · <em>multiple response</em></div>
+        <div class="q-text">A company runs a 40-instance development environment on Amazon EC2. Engineers use the environment only from Monday to Friday between 09:00 and 19:00. Management wants to reduce the environment's cost in the MOST cost-effective way with the LEAST operational overhead. Which combination of actions will meet these requirements? (Select TWO.)</div>
+        <ol type="A">
+          <li>Enable AWS Compute Optimizer, and right-size the instances based on its recommendations.</li>
+          <li>Purchase 1-year All Upfront Compute Savings Plans that cover the 40 instances.</li>
+          <li>Configure scheduled scaling on the Auto Scaling group so that the environment scales to zero outside of business hours.</li>
+          <li>Migrate all the development workloads to AWS Lambda functions.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A and C</span> — Dos ahorros ortogonales: <span class="term-en">right-sizing</span> con Compute Optimizer (usa métricas reales de CloudWatch para detectar instancias sobredimensionadas — pagan capacidad que no usan) y <span class="term-en">scheduled scaling</span> a mínimo cero fuera de 09:00-19:00 y fines de semana (no pagas lo que no usas; el Auto Scaling vuelve a levantar todo el lunes solo, desde el launch template).</p>
+            <p><strong>B:</strong> el compromiso de un Savings Plan se paga aunque las instancias estén apagadas 128 horas a la semana. · <strong>D:</strong> reescribir 40 instancias como funciones Lambda es un proyecto, no un ajuste de costo — overhead máximo.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.4 · dificultad: alta</div>
+        <div class="q-text">A video analytics company runs two fleets of Amazon EC2 instances in the same VPC: a producer fleet in one Availability Zone and a consumer fleet in a second Availability Zone. The fleets exchange more than 60 TB of data per month over the private network, and the cross-Availability Zone data transfer charges are significant. If an instance fails, the workload can restart on any instance, so fault tolerance across Availability Zones is not required for this workload. The company wants to reduce the data transfer costs. Which solution will meet these requirements?</div>
+        <ol type="A">
+          <li>Deploy both fleets in the same Availability Zone by using a cluster placement group.</li>
+          <li>Deploy both fleets in the same Availability Zone by using a spread placement group.</li>
+          <li>Deploy both fleets by using a partition placement group across two Availability Zones.</li>
+          <li>Enable enhanced networking (ENA) on all the instances.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: A</span> — La aritmética oculta del examen: el tráfico entre AZs se cobra ~$0.01/GB <em>en cada dirección</em>; dentro de la misma AZ, gratis. 60 TB/mes cruzando AZ son cientos de dólares que desaparecen si ambas flotas comparten AZ. El <span class="term-en">cluster placement group</span> co-localiza instancias en una AZ (mismo grupo de racks) con baja latencia y hasta 100 Gbps — y la pregunta te autoriza a renunciar a la tolerancia inter-AZ al decir que el trabajo puede reiniciarse en cualquier instancia.</p>
+            <p><strong>B:</strong> el spread group hace lo <em>contrario</em>: aislar instancias críticas en hardware distinto (máx. 7 por AZ). · <strong>C:</strong> el partition group reparte en racks/AZs — mantiene el cargo. · <strong>D:</strong> ENA acelera el throughput pero no cambia la tarifa.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <div class="q-meta"><span class="q-dom">Dominio 4</span> · Task 4.3 · dificultad: alta</div>
+        <div class="q-text">A startup is building a new multi-tenant SaaS application. The data access pattern is simple key-value lookups with no joins or complex queries. Traffic is unpredictable: near zero at night, with sudden viral spikes during the day. The company does not want to provision or manage database capacity, and it wants to pay only for the requests that the application makes. Which database solution is the MOST cost-effective for this workload?</div>
+        <ol type="A">
+          <li>Amazon RDS for MySQL as a Multi-AZ DB instance.</li>
+          <li>Amazon Aurora Serverless v2.</li>
+          <li>Amazon DynamoDB with on-demand capacity mode.</li>
+          <li>Amazon Redshift Serverless.</li>
+        </ol>
+        <details><summary>Mostrar respuesta y análisis</summary>
+          <div class="a-body">
+            <p><span class="a-ok">Correct answer: C</span> — Tres señales y las tres apuntan a DynamoDB <span class="term-en">on-demand</span>: key-value sin joins (modelo de DynamoDB), picos impredecibles (nada que provisionar: la tabla absorbe lo que venga) y <em>pay only for the requests</em> (on-mode factura por RCU/WCU consumidas, no por capacidad reservada). Latencia de un dígito a cualquier escala, sin servidores que dimensionar.</p>
+            <p><strong>A:</strong> instancias corriendo 24/7 que hay que dimensionar para el pico — lo contrario del patrón. · <strong>B:</strong> Aurora Serverless v2 escala en ACUs y es genial, pero es una base <em>relacional</em>: para lookups key-value puros, DynamoDB es más barato por request. · <strong>D:</strong> Redshift es OLAP columnar para analítica, no para servir una app transaccional.</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="tabla-repaso"><span class="h2-num">6</span>Tabla de resultados: dónde repasar cada fallo</h2>
+      <p>Usa esta tabla como hoja de resultados. Cada pregunta fallada (o acertada "por descarte") apunta a la
+      sección de la guía que cubre ese tema exacto. La disciplina importa: repasa <em>solo</em> lo que fallaste y
+      repite el banco a los 3-4 días para confirmar que el fallo no reaparece.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nº</th><th>Tema · palabra clave EN</th><th>Dominio</th><th>Apéndice</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>IAM cross-account role + <em>sts:AssumeRole</em></td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/seguridad-identidad.html">Seguridad</a></td></tr>
+            <tr><td>2</td><td>Security group vs NACL · stateful</td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/redes.html">Redes</a></td></tr>
+            <tr><td>3</td><td>Envelope encryption · data key · CMK</td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/seguridad-identidad.html">Seguridad</a></td></tr>
+            <tr><td>4</td><td>Cognito user pools vs identity pools</td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/seguridad-identidad.html">Seguridad</a></td></tr>
+            <tr><td>5</td><td>WAF rate-based rule · Shield Advanced</td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/redes.html">Redes</a></td></tr>
+            <tr><td>6</td><td>SCP · Organizations guardrails</td><td><a href="../dominios/dominio-1-deep-dive.html">D1</a></td><td><a href="../apendice/gestion-gobernanza.html">Gestión</a></td></tr>
+            <tr><td>7</td><td>SQS decouple · buffer duradero</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/integracion-mensajeria.html">Integración</a></td></tr>
+            <tr><td>8</td><td>ASG multi-AZ + ALB + RDS Multi-AZ</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/computo.html">Cómputo</a></td></tr>
+            <tr><td>9</td><td>Multi-AZ vs read replica</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/bases-datos.html">Bases de datos</a></td></tr>
+            <tr><td>10</td><td>DR strategies · pilot light · RTO/RPO</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/migracion-hibrido.html">Migración</a></td></tr>
+            <tr><td>11</td><td>Route 53 failover routing + health check</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/redes.html">Redes</a></td></tr>
+            <tr><td>12</td><td>Aurora Global Database · RPO &lt; 1 s</td><td><a href="../dominios/dominio-2-deep-dive.html">D2</a></td><td><a href="../apendice/bases-datos.html">Bases de datos</a></td></tr>
+            <tr><td>13</td><td>EBS gp3 vs io2 · IOPS sostenidos</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/almacenamiento.html">Almacenamiento</a></td></tr>
+            <tr><td>14</td><td>S3 prefixes + byte-range fetch</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/almacenamiento.html">Almacenamiento</a></td></tr>
+            <tr><td>15</td><td>Write-through vs lazy loading</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/bases-datos.html">Bases de datos</a></td></tr>
+            <tr><td>16</td><td>CloudFront vs Global Accelerator · anycast</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/redes.html">Redes</a></td></tr>
+            <tr><td>17</td><td>Kinesis shard · 1 MB/s ingesta</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/analitica-datos.html">Analítica</a></td></tr>
+            <tr><td>18</td><td>Hot partition · DAX · ~3,000 RCUs</td><td><a href="../dominios/dominio-3-deep-dive.html">D3</a></td><td><a href="../apendice/bases-datos.html">Bases de datos</a></td></tr>
+            <tr><td>19</td><td>Spot + checkpoints</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/computo.html">Cómputo</a></td></tr>
+            <tr><td>20</td><td>S3 Lifecycle · Standard-IA → Glacier</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/almacenamiento.html">Almacenamiento</a></td></tr>
+            <tr><td>21</td><td>Gateway VPC endpoint · $0</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/redes.html">Redes</a></td></tr>
+            <tr><td>22</td><td>Right-sizing · scheduled scaling</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/gestion-gobernanza.html">Gestión</a></td></tr>
+            <tr><td>23</td><td>Placement groups · data transfer cross-AZ</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/computo.html">Cómputo</a></td></tr>
+            <tr><td>24</td><td>DynamoDB on-demand vs Aurora Serverless</td><td><a href="../dominios/dominio-4-deep-dive.html">D4</a></td><td><a href="../apendice/bases-datos.html">Bases de datos</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Los enlaces de dominio llevan a la página del dominio correspondiente; los del apéndice, a la página técnica del servicio.</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Si fallas 2 o más preguntas del mismo dominio, no repases solo las secciones enlazadas: vuelve a los
+        <a href="cheat-sheets.html">cheat sheets</a> de ese dominio y rehaz las preguntas a las 48 horas. El fallo
+        repetido en el mismo tema es la señal más fiable de un hueco de concepto, no de despiste.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Practicar en español. El examen se rinde en inglés: la mitad de la dificultad está en procesar
+        <em>"with the LEAST operational overhead"</em> a velocidad de lectura. Si una pregunta de este banco te
+        resultó más fácil de lo esperado, pregúntate si fue porque la leíste despacio — y entrena el ritmo.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes oficiales (capa bronze): las 10 preguntas de muestra oficiales y su lógica de
+      respuesta están en <code>../../bronze/01-exam/sample-questions.txt</code>; el reparto de task statements por
+      dominio, en <code>../../bronze/01-exam/exam-guide.txt</code>. Los argumentos técnicos de cada análisis proceden
+      de las guías de usuario de los servicios (p. ej. <code>../../bronze/02-well-architected/</code> y
+      <code>../../bronze/05-docs/</code>).</p>
+
+      <nav class="pager">
+        <a href="cheat-sheets.html"><span class="p-dir">← Anterior</span><br>Cheat sheets</a>
+        <a class="p-next" href="ruta-8-semanas.html"><span class="p-dir">Siguiente →</span><br>Ruta de estudio</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

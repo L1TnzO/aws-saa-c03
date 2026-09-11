@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS Client VPN authorization rules - AWS Client VPN</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cvpn-working-rules" /><meta name="default_state" content="cvpn-working-rules" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-rules.html" /><meta name="description" content="Learn how to add authorization rules to Client VPN to control client access to networks." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Client VPN" /><meta name="guide" content="Administrator Guide" /><meta name="abstract" content="Describes key concepts of AWS Client VPN and provides instructions for using the features of Client VPN." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-rules.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-rules.html" hreflang="x-default" /><meta name="feedback-item" content="VPN" /><meta name="this_doc_product" content="AWS Client VPN" /><meta name="this_doc_guide" content="Administrator Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpn'}"></script><meta id="panorama-serviceSubSection" value="Administrator Guide" /><meta id="panorama-serviceConsolePage" value="AWS Client VPN authorization rules" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cvpn-working-rules.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS Client VPN authorization rules - AWS Client VPN</title><meta name="pdf" content="/pdfs/vpn/latest/clientvpn-admin/client-vpn-admin-guide.pdf#cvpn-working-rules" /><meta name="rss" content="client-vpn-admin-guide.rss" /><meta name="forums" content="https://repost.aws/tags/TA7_uy9TgXQSSEU449Dxfobg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPN&amp;topic_url=https://docs.aws.amazon.com/en_us/vpn/latest/clientvpn-admin/cvpn-working-rules.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/vpn/latest/clientvpn-admin/cvpn-working-rules.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/vpn/latest/clientvpn-admin/cvpn-working-rules.html" /><meta name="keywords" content="Client VPN administrative tasks,working with Client VPN,Client VPN authorization rules,Client VPN authorization rule behavior" /><link rel="alternate" type="text/markdown" href="cvpn-working-rules.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS VPN",
+        "item" : "https://docs.aws.amazon.com/vpn/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Administrator Guide",
+        "item" : "https://docs.aws.amazon.com/vpn/latest/clientvpn-admin"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Work with AWS Client VPN",
+        "item" : "https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS Client VPN authorization rules",
+        "item" : "https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpn/latest/clientvpn-admin/client-vpn-admin-guide.pdf#cvpn-working-rules" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/vpn/index.html">AWS VPN</a><a href="what-is.html">Administrator Guide</a></div><div id="page-toc-src"><a href="#key-points-summary">Key points</a><a href="#auth-rule-example-scenarios">Example
+				scenarios</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cvpn-working-rules">AWS Client VPN authorization rules</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Authorization rules act as ﬁrewall rules that grant access to networks. By adding authorization
+		rules, you grant specific clients access to the specified network. You should have an
+		authorization rule for each network you want to grant access to. You can add authorization
+		rules to a Client VPN endpoint using the console and the AWS CLI.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Client VPN uses longest prefix matching when evaluating authorization rules. See
+			the troubleshooting topic <a href="./ad-group-auth-rules.html">Troubleshooting AWS Client VPN: Authorization rules for Active Directory groups not working as expected</a> and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#route-tables-priority">Route
+				priority</a> in the <em>Amazon VPC User Guide</em> for more
+			details.</p></div></div>
+		<h2 id="key-points-summary">Key points for understanding authorization rules</h2>
+		<p>The following points explain some of the behavior of authorization rules:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>To allow access to a destination network, an authorization rule must be explicitly added.
+					The default behavior is to deny access.</p>
+			</li><li class="listitem">
+				<p>You cannot add an authorization rule to <em>restrict</em> access to a
+					destination network.</p>
+			</li><li class="listitem">
+				<p>The <code class="code">0.0.0.0/0</code> CIDR is handled as a special case. It is processed last,
+					regardless of the order in which the authorization rules were
+					created.</p>
+			</li><li class="listitem">
+				<p>The <code class="code">0.0.0.0/0</code> CIDR can be thought of as "any destination," or "any
+					destination not defined by other authorization rules."</p>
+			</li><li class="listitem">
+				<p>The longest prefix match is the rule that takes precedence.</p>
+			</li></ul></div>
+	<div class="highlights"><h6>Topics</h6><ul><li><p><a href="#auth-rule-example-scenarios">Example
+				scenarios</a></p></li><li><p><a href="./cvpn-working-rule-authorize-add.html">Add an authorization
+			rule</a></p></li><li><p><a href="./cvpn-working-rule-remove.html">Remove an authorization
+			rule</a></p></li><li><p><a href="./cvpn-working-rule-view.html">View authorization rules</a></p></li></ul></div>
+		<h2 id="auth-rule-example-scenarios">Example scenarios for Client VPN authorization rules</h2>
+
+		<p>This section describes how authorization rules work for AWS Client VPN. It includes key points
+			for understanding authorization rules, an example architecture, and discussion of
+			example scenarios that map to the example architecture.</p>
+		
+
+	<p><b>Scenarios</b></p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			
+		<ul class="itemizedlist"><li class="listitem"><p><a href="#example-arch-auth-rules">Example architecture for authorization rule scenarios</a></p></li><li class="listitem"><p><a href="#auth-rules1">Access to a single destination</a></p></li><li class="listitem"><p><a href="#auth-rules2">Use any destination (0.0.0.0/0) CIDR</a></p></li><li class="listitem"><p><a href="#auth-rules3">Longer IP prefix match</a></p></li><li class="listitem"><p><a href="#auth-rules4">Overlapping CIDR (same group)</a></p></li><li class="listitem"><p><a href="#auth-rules5">Additional 0.0.0.0/0 rule</a></p></li><li class="listitem"><p><a href="#auth-rules6">Add a rule for 192.168.0.0/24</a></p></li><li class="listitem"><p><a href="#auth-rules7">SAML federated authentication</a></p></li><li class="listitem"><p><a href="#auth-rules8">Access for all user groups</a></p></li></ul></div>
+		
+		
+
+		
+		
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example architecture for authorization rule scenarios" id="example-arch-auth-rules" expanded="false"><p>The following diagram shows the example architecture that is used for the example scenarios
+				found in this section.</p><div class="mediaobject">
+				 
+					<img src="/images/vpn/latest/clientvpn-admin/images/cvpn-auth-rules.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Example Client VPN architecture" />
+				 
+				 
+			</div></awsui-expandable-section></div>
+
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Access to a single destination" id="auth-rules1" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c11b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to Client VPN VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>192.168.0.0/24</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The engineering group can access only <code class="code">172.16.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>The development group can access only <code class="code">10.0.0.0/16</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access only <code class="code">192.168.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>All other traffic is dropped by the Client VPN endpoint.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>In this scenario, no user group has access to the public internet.</p></div></div></awsui-expandable-section></div>
+		
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Use any destination (0.0.0.0/0) CIDR" id="auth-rules2" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c13b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The engineering group can access only <code class="code">172.16.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>The development group can access only <code class="code">10.0.0.0/16</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet <em>and</em>
+						<code class="code">192.168.0.0/24</code>, but cannot access <code class="code">172.16.0.0/24</code> or
+							<code class="code">10.0.0/16</code>.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>In this scenario, because no rules are referencing <code class="code">192.168.0.0/24</code>, access to
+					that network is also provided by the <code class="code">0.0.0.0/0</code> rule.</p><p>A rule containing <code class="code">0.0.0.0/0</code> is always evaluated last regardless of the order
+					in which the rules were created. Because of this, keep in mind that the rules
+					evaluated before <code class="code">0.0.0.0/0</code> play a role in determining which
+					networks <code class="code">0.0.0.0/0</code> grants access to.</p></div></div></awsui-expandable-section></div>
+
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Longer IP prefix match" id="auth-rules3" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c15b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to a single host in development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.2.119/32</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The engineering group can access only <code class="code">172.16.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>The development group can access <code class="code">10.0.0.0/16</code>, <em>except</em>
+						for the single host <code class="code">10.0.2.119/32</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet, <code class="code">192.168.0.0/24</code>, and a
+						single host (<code class="code">10.0.2.119/32</code>) within the development VPC, but
+						does not have access to <code class="code">172.16.0.0/24</code> or any of the remaining
+						hosts in the development VPC.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Here you see how a rule with a longer IP prefix takes precedence over a rule with a
+					shorter IP prefix. If you want the development group to have access to
+						<code class="code">10.0.2.119/32</code>, an additional rule granting the development team
+					access to <code class="code">10.0.2.119/32</code> needs to be added.</p></div></div></awsui-expandable-section></div>
+
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Overlapping CIDR (same group)" id="auth-rules4" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c17b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to single host in development
+									VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.2.119/32</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to a smaller subnet within
+									on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.128/25</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The development group can access <code class="code">10.0.0.0/16</code>, <em>except</em>
+						for the single host <code class="code">10.0.2.119/32</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet, <code class="code">192.168.0.0/24</code>, and a
+						single host (<code class="code">10.0.2.119/32</code>) within the <code class="code">10.0.0.0/16</code>
+						network, but does not have access to <code class="code">172.16.0.0/24</code> or any of
+						the remaining hosts in the <code class="code">10.0.0.0/16</code> network.</p>
+				</li><li class="listitem">
+					<p>The engineering group has access to <code class="code">172.16.0.0/24</code>, including the more
+						specific subnet <code class="code">172.16.0.128/25</code>.</p>
+				</li></ul></div></awsui-expandable-section></div>
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Additional 0.0.0.0/0 rule" id="auth-rules5" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c19b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to single host in development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.2.119/32</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to a smaller subnet within
+									on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.128/25</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The development group can access <code class="code">10.0.0.0/16</code>, <em>except</em>
+						for the single host <code class="code">10.0.2.119/32</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet, <code class="code">192.168.0.0/24</code>, and a
+						single host (<code class="code">10.0.2.119/32</code>) within the <code class="code">10.0.0.0/16</code>
+						network, but does not have access to <code class="code">172.16.0.0/24</code> or any of
+						the remaining hosts in the <code class="code">10.0.0.0/16</code> network.</p>
+				</li><li class="listitem">
+					<p>The engineering group can access the public internet, <code class="code">192.168.0.0/24</code>, and
+							<code class="code">172.16.0.0/24</code>, including the more specific subnet
+							<code class="code">172.16.0.128/25</code>.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Notice that both the engineering and manager groups can now access
+						<code class="code">192.168.0.0/24</code>. This is because both groups have access to
+						<code class="code">0.0.0.0/0</code> (any destination) <em>and</em> no other
+					rules are referencing <code class="code">192.168.0.0/24</code>.</p></div></div></awsui-expandable-section></div>
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Add a rule for 192.168.0.0/24" id="auth-rules6" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c21b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to single host in development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.2.119/32</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to a subnet in the
+									on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.128/25</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to Client VPN VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>192.168.0.0/24</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The development group can access <code class="code">10.0.0.0/16</code>, <em>except</em>
+						for the single host <code class="code">10.0.2.119/32</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet, <code class="code">192.168.0.0/24</code>, and a
+						single host (<code class="code">10.0.2.119/32</code>) within the <code class="code">10.0.0.0/16</code>
+						network, but does not have access to <code class="code">172.16.0.0/24</code> or any of
+						the remaining hosts in the <code class="code">10.0.0.0/16</code> network.</p>
+				</li><li class="listitem">
+					<p>The engineering group can access the public internet, <code class="code">172.16.0.0/24</code>, and
+							<code class="code">172.16.0.128/25</code>.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Notice how adding the rule for the manager group to access <code class="code">192.168.0.0/24</code> results in the development group no longer having access to that destination network.</p></div></div></awsui-expandable-section></div>
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="SAML federated authentication" id="auth-rules7" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c23b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>Engineering</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>Developers</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to Client VPN VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>Managers</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>192.168.0.0/24</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>Users authenticated via SAML with the "Engineering" group attribute can access only <code class="code">172.16.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>Users authenticated via SAML with the "Developers" group attribute can access only <code class="code">10.0.0.0/16</code>.</p>
+				</li><li class="listitem">
+					<p>Users authenticated via SAML with the "Managers" group attribute can access only <code class="code">192.168.0.0/24</code>.</p>
+				</li><li class="listitem">
+					<p>All other traffic is dropped by the Client VPN endpoint.</p>
+				</li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When using SAML federated authentication, the Group ID field corresponds to the SAML attribute value that identifies the user's group membership. This attribute is configured in your SAML identity provider and passed to Client VPN during authentication.</p></div></div></awsui-expandable-section></div>
+		
+		
+		<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Access for all user groups" id="auth-rules8" expanded="false"><div class="table-container"><div class="table-contents"><table id="w107aac11b9c11c25b1b3"><thead>
+						<tr>
+							<th>Rule description</th>
+							<th>Group ID</th>
+							<th>Allow access to all users</th>
+							<th>Destination CIDR</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide development group access to development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx15</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to any destination</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to single host in development VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>10.0.2.119/32</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to a subnet in the
+									on-premises network</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>172.16.0.128/25</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide engineering group access to all networks</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx14</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide manager group access to Client VPN VPC</p>
+							</td>
+							<td tabindex="-1">
+								<p>S-xxxxx16</p>
+							</td>
+							<td tabindex="-1">
+								<p>False</p>
+							</td>
+							<td tabindex="-1">
+								<p>192.168.0.0/24</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>Provide access to all groups</p>
+							</td>
+							<td tabindex="-1">
+								<p>N/A</p>
+							</td>
+							<td tabindex="-1">
+								<p>True</p>
+							</td>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+						</tr>
+					</table></div></div><div class="itemizedlist">
+				<h6>Resulting behavior</h6>
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The development group can access <code class="code">10.0.0.0/16</code>, <em>except</em>
+						for the single host <code class="code">10.0.2.119/32</code>.</p>
+				</li><li class="listitem">
+					<p>The manager group can access the public internet, <code class="code">192.168.0.0/24</code>, and a
+						single host (<code class="code">10.0.2.119/32</code>) within the <code class="code">10.0.0.0/16</code>
+						network, but does not have access to <code class="code">172.16.0.0/24</code> or any of
+						the remaining hosts in the <code class="code">10.0.0.0/16</code> network.</p>
+				</li><li class="listitem">
+					<p>The engineering group can access the public internet, <code class="code">172.16.0.0/24</code>, and
+							<code class="code">172.16.0.128/25</code>.</p>
+				</li><li class="listitem">
+					<p>Any other user group, for example "admin group," can access the public internet, but not
+						any other destination networks defined in the other rules.</p>
+				</li></ul></div></awsui-expandable-section></div>
+
+		
+
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cvpn-self-service-portal.html">Self-service portal access</div><div id="next" class="next-link" accesskey="n" href="./cvpn-working-rule-authorize-add.html">Add an authorization
+			rule</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPN&amp;topic_url=https://docs.aws.amazon.com/en_us/vpn/latest/clientvpn-admin/cvpn-working-rules.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPN&amp;topic_url=https://docs.aws.amazon.com/en_us/vpn/latest/clientvpn-admin/cvpn-working-rules.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

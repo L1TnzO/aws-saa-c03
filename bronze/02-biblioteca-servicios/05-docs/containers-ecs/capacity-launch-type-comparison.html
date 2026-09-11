@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Amazon ECS launch types and capacity providers - Amazon Elastic Container Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="capacity-launch-type-comparison" /><meta name="default_state" content="capacity-launch-type-comparison" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" /><meta name="description" content="Amazon ECS provides multiple ways to manage the underlying compute capacity for containerized applications. Understanding the differences between launch types and capacity providers helps choose the right approach for workloads." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Elastic Container Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Run, stop, and manage Docker containers on a cluster using the Amazon Elastic Container Service Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" hreflang="x-default" /><meta name="feedback-item" content="ECS" /><meta name="this_doc_product" content="Amazon Elastic Container Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ecs'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Amazon Amazon ECS launch types and capacity providers" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="capacity-launch-type-comparison.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Amazon ECS launch types and capacity providers - Amazon Elastic Container Service</title><meta name="pdf" content="/pdfs/AmazonECS/latest/developerguide/ecs-dg.pdf#capacity-launch-type-comparison" /><meta name="rss" content="amazon-ecs-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAefn4YSprR-uCBYmbofOpHw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html" /><meta name="keywords" content="ECS,Amazon ECS,Amazon Elastic Container Service,Solution architecture,ECS launch types,ECS capacity providers,launch type comparison,capacity provider comparison" /><link rel="alternate" type="text/markdown" href="capacity-launch-type-comparison.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/ecs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Architect your solution for Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon Amazon ECS launch types and capacity providers",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonECS/latest/developerguide/ecs-dg.pdf#capacity-launch-type-comparison" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/ecs/index.html">Amazon ECS</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#comparison-launch-types-vs-capacity-providers">Best practices</a><a href="#service-mutability">Service mutability</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="capacity-launch-type-comparison">Amazon Amazon ECS launch types and capacity providers</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon ECS provides two methods for configuring capacity for workloads. You can use launch
+        types or capacity providers. Launch types include EC2, Fargate, and External. Capacity
+        providers offer enhanced flexibility and advanced features for capacity management. You can
+        run workloads on serverless compute with Fargate and Fargate Spot capacity
+        providers, on self-managed EC2 instances through Auto Scaling group capacity providers, or on
+        fully-managed compute using Amazon ECS Managed Instances capacity providers that combine the
+        simplicity of Fargate with the flexibility of EC2 compute. Capacity providers
+        offer better control over resource allocation and can help optimize both performance and
+        costs. Capacity providers are the recommended way to configure capacity for workloads compared to
+        traditional launch types. Use the following to understand the differences between capacity
+        providers and launch types.</p>
+        <h2 id="comparison-launch-types-vs-capacity-providers">Best practices</h2>
+        <p>The following are the best practices:</p>
+        <div class="variablelist">
+             
+             
+             
+        <dl>
+                <dt><span class="term">Use launch types to define infrastructure compatibility</span></dt>
+                <dd>
+                    <p>Launch types define the infrastructure on which tasks and services
+                        run. When you define tasks, specify <code class="code">RequiresCompatibilities</code> to include one
+                        or more launch types that are compatible with tasks. You can use following
+                        launch types: EC2, Fargate, External, and Amazon ECS Managed Instances. While you
+                        can also use launch type to run your tasks or services, we recommend using
+                        the launch type only for defining compatibilities in your task definitions,
+                        and use capacity providers for launching tasks or services. Note that
+                        you can choose one or more launch types to define compatibilities for
+                        tasks.</p>
+                </dd>
+             
+                <dt><span class="term">Use capacity providers to configure compute capacity</span></dt>
+                <dd>
+                    <p>When you launch tasks or services, configure a capacity provider
+                        strategy. Amazon ECS supports following capacity providers: Fargate and
+                        FARGATE_SPOT, Auto Scaling groups for self-managed EC2 instances, and Amazon ECS Managed Instances.
+                        Note that Spot Fleet is only available as a capacity provider and not as a
+                        launch type. You can create one or more Amazon ECS Managed Instances or Auto Scaling groups capacity
+                        providers in a cluster. Fargate and Fargate Spot capacity providers are created and managed
+                        by Amazon ECS on every cluster and you do not need to create them. A cluster can have a mix of all capacity provider types, however, a
+                        capacity provider strategy can't have a mix of different capacity provider types.</p>
+                </dd>
+             
+                <dt><span class="term">Update the capacity for services</span></dt>
+                <dd>
+                    <p>You can simply update a capacity provider strategy for a service to move it from one compute type to the other.</p>
+                </dd>
+            </dl></div>
+     
+        <h2 id="service-mutability">Service mutability</h2>
+        <p> Amazon ECS supports updating services between different capacity providers. This allows
+            for:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Seamless update from launch types to capacity providers</p>
+            </li><li class="listitem">
+                <p>Transitions between different capacity provider types</p>
+            </li><li class="listitem">
+                <p>Testing different compute options without service recreation</p>
+            </li></ul></div>
+        <p>The following is a high-level overview of the process:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li><p>Update the task definition – Ensure <code class="code">requiresCompatibilities</code> includes the target
+                    capacity provider, for example<code class="code"> MANAGED_INSTANCES</code>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Task definitions must pass compatibility validation for the target
+                        capacity provider. If the <code class="code">requiresCompatibilities</code> check fails
+                        for the task definition version, the <code class="code">UpdateService</code> call
+                        fails.</p></div></div>
+            </li><li><p>Create a capacity provider – If you use custom Amazon EC2 Auto Scaling groups, create the capacity
+                    provider.</p></li><li><p>Update the service – Modify the service to use a capacity provider strategy instead of the
+                    launch type.</p></li><li><p>Validate the deployment – Confirm that tasks deploy successfully.</p></li><li><p>Monitor and optimize – Adjust capacity provider settings as needed.</p></li></ol></div>
+        
+            
+             
+                <h3 id="capacity-provider-to-capacity-provider">Capacity provider to capacity provider</h3>
+                <p>All capacity provider to capacity provider updates are supported:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Amazon EC2 Auto Scaling group capacity provider to Amazon ECS Managed Instances</p>
+                    </li><li class="listitem">
+                        <p>Fargate capacity provider to Amazon ECS Managed Instances</p>
+                    </li><li class="listitem">
+                        <p>Amazon EC2 Auto Scaling group capacity provider to Fargate capacity
+                            provider</p>
+                    </li><li class="listitem">
+                        <p>Amazon ECS Managed Instances to Fargate capacity provider</p>
+                    </li><li class="listitem">
+                        <p>Fargate capacity provider to Amazon EC2 Auto Scaling group capacity
+                            provider</p>
+                    </li><li class="listitem">
+                        <p>Amazon ECS Managed Instances to Amazon EC2 Auto Scaling group capacity provider</p>
+                    </li></ul></div>
+             
+            
+             
+                <h3 id="launch-type-to-capacity-provider">Launch type to capacity provider</h3>
+                <p>All launch type to capacity provider updates are supported:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>EC2 launch type to Amazon ECS Managed Instances</p>
+                    </li><li class="listitem">
+                        <p>Fargate launch type to Amazon ECS Managed Instances</p>
+                    </li><li class="listitem">
+                        <p>EC2 launch type to Fargate capacity provider</p>
+                    </li><li class="listitem">
+                        <p>EC2 launch type to EC2 Auto Scaling group capacity provider</p>
+                    </li><li class="listitem">
+                        <p>Fargate launch type to Amazon EC2 Auto Scaling group capacity provider</p>
+                    </li><li class="listitem">
+                        <p>Fargate launch type to Fargate capacity provider</p>
+                    </li><li class="listitem">
+                        <p>External launch type to Amazon ECS Managed Instances</p>
+                    </li><li class="listitem">
+                        <p>External launch type to Fargate capacity provider</p>
+                    </li><li class="listitem">
+                        <p>External launch type to Amazon EC2 Auto Scaling group capacity provider</p>
+                    </li></ul></div>
+             
+            
+             
+                <h3 id="launch-type-to-launch-type">Launch type to launch type</h3>
+                <p>Launch type to launch type updates are not supported:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>EC2 launch type to Fargate launch type (use Fargate
+                            capacity provider instead)</p>
+                    </li><li class="listitem">
+                        <p>Fargate launch type to EC2 launch type (use Amazon EC2
+                            Auto Scaling group capacity provider instead)</p>
+                    </li></ul></div>
+                <p>Instead of migrating between launch types, migrate to the equivalent capacity provider for enhanced functionality and future compatibility.</p>
+             
+            
+             
+                <h3 id="capacity-provider-to-launch-type">Capacity provider to launch type</h3>
+                <p>Capacity provider to launch type updates are not supported. If you
+                    originally created a service with a launch type and then updated the
+                    service to use capacity providers, you can revert the service to its
+                    original launch type. To revert, pass an empty list as the
+                        <code class="code">capacityProviderStrategy</code> when you call
+                        <code class="code">UpdateService</code>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This only reverts the service to the launch type specified when the
+                        service was originally created. You cannot use this method to switch
+                        a service to a different launch type.</p></div></div>
+             
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ecs-configuration.html">Architect your solution for Amazon ECS</div><div id="next" class="next-link" accesskey="n" href="./dual-stack-endpoint.html">Using dual-stack endpoints</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/capacity-launch-type-comparison.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

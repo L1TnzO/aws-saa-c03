@@ -1,0 +1,260 @@
+<!--
+BRONZE RAW — CMP-14
+URL: https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html
+Dominios: D3
+Título doc: Target tracking scaling policies for Amazon EC2 Auto Scaling
+Fase: 3
+Servicio: EC2 Auto Scaling
+Descargado: 2026-09-11T03:23:46
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A target tracking scaling policy automatically scales the capacity of your Auto Scaling
+                group based on a target metric value. It automatically adapts
+                to the unique usage patterns of your individual applications. This allows your application to maintain
+                optimal performance and high utilization for your EC2 instances for better cost efficiency without manual intervention.</p><p>With target tracking, you select a metric and a target value to represent the
+                ideal average utilization or throughput level for your application. Amazon EC2 Auto Scaling creates
+                and manages the CloudWatch alarms that invoke scaling events when the metric deviates from
+                the target. As an example, this is similar to how a thermostat maintains a target
+                temperature.</p><p>For example, let's say that you currently have an application that runs on two
+                instances, and you want the CPU utilization of the Auto Scaling group to stay at around 50
+                percent when the load on the application changes. This gives you extra capacity to
+                handle traffic spikes without maintaining an excessive number of idle resources. </p><p>You can meet this need by creating a target tracking scaling policy that targets
+                an average CPU utilization of 50 percent. Then, your Auto Scaling group will scale out, or
+                increase capacity, when CPU exceeds 50 percent to handle increased load. It will
+                scale in, or decrease capacity, when CPU drops below 50 percent to optimize costs
+                during periods of low utilization.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#target-tracking-multiple-policies">Multiple target tracking scaling policies</a></p></li><li><p><a href="#target-tracking-choose-metrics">Choose metrics</a></p></li><li><p><a href="#target-tracking-define-target-value">Define target value</a></p></li><li><p><a href="#as-target-tracking-scaling-warmup">Define instance warmup time</a></p></li><li><p><a href="#target-tracking-considerations">Considerations</a></p></li><li><p><a href="./policy_creating.html">Create a target tracking scaling policy</a></p></li><li><p><a href="./policy-creating-high-resolution-metrics.html">Create a target tracking policy using high-resolution metrics for faster response</a></p></li><li><p><a href="./ec2-auto-scaling-target-tracking-metric-math.html">Create a target tracking scaling policy using metric math</a></p></li></ul></div>
+                <h2 id="target-tracking-multiple-policies">Multiple target tracking scaling policies<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="target-tracking-multiple-policies" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789097023891-8316"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+                <p>To help optimize scaling performance, you can use multiple target tracking
+                    scaling policies together, provided that each of them uses a different metric.
+                    For example, utilization and throughput can influence each other. Whenever one
+                    of these metrics changes, it usually implies that other metrics will also be
+                    impacted. The use of multiple metrics therefore provides additional information
+                    about the load that your Auto Scaling group is under. This can help Amazon EC2 Auto Scaling make more
+                    informed decisions when determining how much capacity to add to your group. </p>
+                <p>The intention of Amazon EC2 Auto Scaling is to always prioritize availability. It will scale
+                    out the Auto Scaling group if any of the target tracking policies are ready to scale
+                    out. It will scale in only if all of the target tracking policies (with the
+                    scale in portion enabled) are ready to scale in.</p>
+             
+                <h2 id="target-tracking-choose-metrics">Choose metrics<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="target-tracking-choose-metrics" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789097023891-8620"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+                <p>You can create target tracking scaling policies with either predefined metrics
+                    or custom metrics. Predefined metrics provide you easier access to the most
+                    commonly used metrics for scaling. Custom metrics allow you to scale
+                    on other available CloudWatch metrics including <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Resolution_definition">high-resolution metrics</a> that are published at finer intervals in
+                    the order of a few seconds. You can publish your own high-resolution metrics or metrics that other AWS
+                    services publish.</p>
+               
+                 <p>For more information about creating target tracking policies using high resolution metrics, see 
+                     <a href="./policy-creating-high-resolution-metrics.html">Create a target tracking policy using high-resolution metrics for faster response</a>.</p>
+                <p>Target tracking supports the following predefined metrics:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">ASGAverageCPUUtilization</code>—Average CPU utilization of
+                            the Auto Scaling group.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">ASGAverageNetworkIn</code>—Average number of bytes
+                            received on all network interfaces by the Auto Scaling group.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">ASGAverageNetworkOut</code>—Average number of bytes sent
+                            out on all network interfaces by the Auto Scaling group.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">ALBRequestCountPerTarget</code>—Average Application Load Balancer request
+                            count per target for your Auto Scaling group.</p>
+                    </li></ul></div>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-error_h11ix_rh18t_196"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M8 5v4M8 10v2M6.52 1.88l-5.33 9.76c-.13.23-.19.5-.19.76 0 .88.71 1.59 1.59 1.59H13.4c.88 0 1.59-.71 1.59-1.59 0-.27-.07-.53-.19-.76L9.48 1.88C9.18 1.34 8.62 1 8 1s-1.18.34-1.48.88Z" class="stroke-linejoin-round"></path></svg></span></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Other valuable information about the metrics for CPU utilization, network
+                        I/O, and Application Load Balancer request count per target can be found in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html">List the
+                            available CloudWatch metrics for your instances</a> topic in the
+                            <em>Amazon EC2 User Guide</em> and the <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html">CloudWatch metrics for your Application Load Balancer</a> topic in the
+                            <em>User Guide for Application Load Balancers</em>, respectively.</p></div></div>
+                <p>You can choose other available CloudWatch metrics or your own metrics in CloudWatch by
+                    specifying a custom metric. For an example that
+                    specifies a customized metric specification for a target tracking scaling policy
+                    using the AWS CLI, see <a href="./examples-scaling-policies.html">Example scaling policies for the AWS CLI</a>.</p>
+                <p>Keep the following in mind when choosing a metric:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>We recommend that you only use metrics that are available at
+                            one-minute or lower intervals to help you scale faster in response to utilization
+                            changes. Metrics that are published at lower intervals allow the target tracking policy to detect 
+                            and respond faster to changes in the utilization of your Auto Scaling group.</p>
+                    </li><li class="listitem">
+                        <p>If you choose predefined metrics that are published by Amazon EC2, such as CPU utilization, we recommend that you enable detailed monitoring. 
+                        By default, all Amazon EC2 metrics are published in five-minute intervals, but they are configurable to a lower interval of one minute by enabling
+                        detailed monitoring. For information on how to enable detailed monitoring, see <a href="./enable-as-instance-metrics.html">Configure monitoring for Auto Scaling instances</a>.</p>
+                    </li><li class="listitem">
+                        <p>Not all custom metrics work for target tracking. The metric must be a
+                            valid utilization metric and describe how busy an instance is. The
+                            metric value must increase or decrease proportionally to the number of
+                            instances in the Auto Scaling group. That's so the metric data can be used to
+                            proportionally scale out or in the number of instances. For example, the
+                            CPU utilization of an Auto Scaling group works (that is, the Amazon EC2 metric
+                                <code class="code">CPUUtilization</code> with the metric dimension
+                                <code class="code">AutoScalingGroupName</code>), if the load on the Auto Scaling group is
+                            distributed across the instances. </p>
+                    </li><li class="listitem">
+                        <p>The following metrics do not work for target tracking:</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>The number of requests received by the load balancer fronting
+                                    the Auto Scaling group (that is, the Elastic Load Balancing metric
+                                        <code class="code">RequestCount</code>). The number of requests received
+                                    by the load balancer doesn't change based on the utilization of
+                                    the Auto Scaling group.</p>
+                            </li><li class="listitem">
+                                <p>Load balancer request latency (that is, the Elastic Load Balancing metric
+                                        <code class="code">Latency</code>). Request latency can increase based on
+                                    increasing utilization, but doesn't necessarily change
+                                    proportionally.</p>
+                            </li><li class="listitem">
+                                <p>The CloudWatch Amazon SQS queue metric
+                                        <code class="code">ApproximateNumberOfMessagesVisible</code>. The number
+                                    of messages in a queue might not change proportionally to the
+                                    size of the Auto Scaling group that processes messages from the queue.
+                                    However, a custom metric that measures the number of messages in
+                                    the queue per EC2 instance in the Auto Scaling group can work. For more
+                                    information, see <a href="./as-using-sqs-queue.html">Scaling policy based on Amazon SQS</a>.</p>
+                            </li></ul></div>
+                    </li><li class="listitem">
+                        <p>To use the <code class="code">ALBRequestCountPerTarget</code> metric, you must
+                            specify the <code class="code">ResourceLabel</code> parameter to identify the load
+                            balancer target group that is associated with the metric. For an example
+                            that specifies the <code class="code">ResourceLabel</code> parameter for a target
+                            tracking scaling policy using the AWS CLI, see <a href="./examples-scaling-policies.html">Example scaling policies for the AWS CLI</a>.</p>
+                    </li><li class="listitem">
+                        <p>When a metric emits real 0 values to CloudWatch (for example,
+                                <code class="code">ALBRequestCountPerTarget</code>), an Auto Scaling group can scale in
+                            to 0 when there is no traffic to your application for a sustained period
+                            of time. To have your Auto Scaling group scale in to 0 when no requests are
+                            routed it, the group's minimum capacity must be set to 0.</p>
+                    </li><li class="listitem">
+                        <p>Instead of publishing new metrics to use in your scaling policy, you
+                            can use metric math to combine existing metrics. For more information,
+                            see <a href="./ec2-auto-scaling-target-tracking-metric-math.html">Create a target tracking scaling policy using metric math</a>.</p>
+                    </li></ul></div>
+             
+                <h2 id="target-tracking-define-target-value">Define target value<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="target-tracking-define-target-value" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789097023892-8944"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+                <p>When you create a target tracking scaling policy, you must specify a target
+                    value. The target value represents the optimal average utilization or throughput
+                    for the Auto Scaling group. To use resources cost efficiently, set the target value as
+                    high as possible with a reasonable buffer for unexpected traffic increases. When
+                    your application is optimally scaled out for a normal traffic flow, the actual
+                    metric value should be at or just below the target value. </p>
+                <p>When a scaling policy is based on throughput, such as the request count per
+                    target for an Application Load Balancer, network I/O, or other count metrics, the target value
+                    represents the optimal average throughput from a single instance, for a
+                    one-minute period.</p>
+             
+                <h2 id="as-target-tracking-scaling-warmup">Define instance warmup time<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="as-target-tracking-scaling-warmup" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789097023892-7479"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+                <p>You can optionally specify the number of seconds that it takes for a newly
+                    launched instance to warm up. Until its specified warmup time has expired, an
+                    instance is not counted toward the aggregated EC2 instance metrics of the Auto Scaling
+                    group.</p>
+                <p>While instances are in the warmup period, your scaling policies only scale out
+                    if the metric value from instances that are not warming up is greater than the
+                    policy's target utilization.</p>
+                <p>If the group scales out again, the instances that are still warming up are
+                    counted as part of the desired capacity for the next scale-out activity. The
+                    intention is to continuously (but not excessively) scale out.</p>
+                <p>While the scale-out activity is in progress, all scale in activities initiated
+                    by scaling policies are blocked until the instances finish warming up. When the
+                    instances finish warming up, if a scale in event occurs, any instances currently
+                    in the process of terminating will be counted towards the current capacity of
+                    the group when calculating the new desired capacity. Therefore, we don't remove
+                    more instances from the Auto Scaling group than necessary.</p>
+                 
+                    <h6>Default value</h6>
+                    <p>If no value is set, then the scaling policy will use the default value,
+                        which is the value for the <a href="./ec2-auto-scaling-default-instance-warmup.html">default instance
+                            warmup</a> defined for the group. If the default instance warmup is
+                        null, then it falls back to the value of the <a href="./ec2-auto-scaling-scaling-cooldowns.html#set-default-cooldown">default cooldown</a>. We recommend
+                        using the default instance warmup to make it easier to update all scaling
+                        policies when the warmup time changes.</p>
+                 
+             
+                <h2 id="target-tracking-considerations">Considerations<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4k:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="target-tracking-considerations" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4l:" type="submit" data-analytics-performance-mark="29-1789097023893-4338"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+                <p>The following considerations apply when working with target tracking scaling
+                    policies:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Do not create, edit, or delete the CloudWatch alarms that are used with a
+                            target tracking scaling policy. Amazon EC2 Auto Scaling creates and manages the CloudWatch
+                            alarms that are associated with your target tracking scaling policies
+                            and can edit, replace, or delete them when necessary to customize the
+                            scaling experience for your applications and their changing utilization patterns. </p>
+                    </li><li class="listitem">
+                        <p>A target tracking scaling policy prioritizes availability during
+                            periods of fluctuating traffic levels by scaling in more gradually when
+                            traffic is decreasing. If you want greater control, a step scaling policy might be the better option.
+                            You can temporarily disable the scale-in portion of a target tracking policy. This helps maintain a minimum number of instances for successful deployments.
+                      </p>
+                    </li><li class="listitem">
+                        <p>If the metric is missing data points, this causes the CloudWatch alarm state
+                            to change to <code class="code">INSUFFICIENT_DATA</code>. When this happens, Amazon EC2 Auto Scaling
+                            cannot scale your group until new data points are found.</p>
+                    </li><li class="listitem">
+                        <p>If the metric is sparsely reported by design, metric math can be
+                            helpful. For example, to use the most recent values, then use the
+                                <code class="code">FILL(m1,REPEAT)</code> function where <code class="code">m1</code> is the
+                            metric.</p>
+                    </li><li class="listitem">
+                        <p>You might see gaps between the target value and the actual metric data
+                            points. This is because we act conservatively by rounding up or down
+                            when determining how many instances to add or remove. This prevents us
+                            from adding an insufficient number of instances or removing too many
+                            instances. However, for smaller Auto Scaling groups with fewer instances, the
+                            utilization of the group might seem far from the target value.</p>
+                        
+                        <p>For example, suppose that you set a target value of 50 percent for CPU
+                            utilization and your Auto Scaling group then exceeds the target. We might
+                            determine that adding 1.5 instances will decrease the CPU utilization to
+                            close to 50 percent. Because it is not possible to add 1.5 instances, we
+                            round up and add two instances. This might decrease the CPU utilization
+                            to a value below 50 percent, but it ensures that your application has
+                            enough resources to support it. Similarly, if we determine that removing
+                            0.5 instances increases your CPU utilization to above 50 percent, we will 
+                            choose not to scale-in until the metric lowers enough that we think scaling 
+                            in won't cause oscillation. </p>
+                        
+                        <p>For larger Auto Scaling groups with more instances, the utilization is spread
+                            over a larger number of instances, in which case adding or removing
+                            instances causes less of a gap between the target value and the actual
+                            metric data points.</p>
+                    </li><li class="listitem">
+                        <p>A target tracking scaling policy assumes that it should scale out your
+                            Auto Scaling group when the specified metric is above the target value. You
+                            can't use a target tracking scaling policy to scale out your Auto Scaling group
+                            when the specified metric is below the target value.</p>
+                    </li></ul></div>
+            <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./as-scale-based-on-demand.html">Dynamic scaling</div><div id="next" class="next-link" accesskey="n" href="./policy_creating.html">Create a target tracking scaling policy</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Auto Scaling&amp;topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/as-scaling-target-tracking.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Auto Scaling&amp;topic_url=https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/as-scaling-target-tracking.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789097023706-8323"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65 awsui_anchor-item--active_swimc_1bw6y_85 awsui_anchor-item--active_17oho_5eh15_13"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17 awsui_anchor-link--active_swimc_1bw6y_145" href="#target-tracking-multiple-policies" aria-current="true"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Multiple target tracking scaling policies</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#target-tracking-choose-metrics"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Choose metrics</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#target-tracking-define-target-value"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Define target value</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#as-target-tracking-scaling-warmup"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Define instance warmup time</span></a></li><li data-itemid="anchor-item-5" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#target-tracking-considerations"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Considerations</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4n:" type="submit" data-analytics-performance-mark="30-1789097023896-2041"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4p:" type="submit" data-analytics-performance-mark="31-1789097023896-5536"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r4s:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4r:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=Auto+Scaling&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fautoscaling%2Fec2%2Fuserguide%2Fas-scaling-target-tracking.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./policy_creating.html"><span>Create a target tracking scaling policy</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./as-scale-based-on-demand.html"><span>Dynamic scaling</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

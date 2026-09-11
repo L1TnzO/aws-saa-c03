@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Work with data source connectors for Apache Spark - Amazon Athena</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="connectors-spark" /><meta name="default_state" content="connectors-spark" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/athena/latest/ug/connectors-spark.html" /><meta name="description" content="" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Athena" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Athena to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/athena/latest/ug/connectors-spark.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/athena/latest/ug/connectors-spark.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/athena/latest/ug/connectors-spark.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/athena/latest/ug/connectors-spark.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/athena/latest/ug/connectors-spark.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/connectors-spark.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/connectors-spark.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/athena/latest/ug/connectors-spark.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/athena/latest/ug/connectors-spark.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/athena/latest/ug/connectors-spark.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/athena/latest/ug/connectors-spark.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/athena/latest/ug/connectors-spark.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/athena/latest/ug/connectors-spark.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/connectors-spark.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/connectors-spark.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/athena/latest/ug/connectors-spark.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/athena/latest/ug/connectors-spark.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/athena/latest/ug/connectors-spark.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/athena/latest/ug/connectors-spark.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/athena/latest/ug/connectors-spark.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/athena/latest/ug/connectors-spark.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/connectors-spark.html" hreflang="x-default" /><meta name="feedback-item" content="Athena" /><meta name="this_doc_product" content="Amazon Athena" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'athena'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Work with data source connectors for Apache Spark" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="connectors-spark.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Work with data source connectors for Apache Spark - Amazon Athena</title><meta name="pdf" content="/pdfs/athena/latest/ug/athena-ug.pdf#connectors-spark" /><meta name="rss" content="amazon-athena-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TA78iVOM7gR62_QqDe2-CmiA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/connectors-spark.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/connectors-spark.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/connectors-spark.html" /><meta name="keywords" content="Amazon Athena,Athena,federated queries,data source connectors,Apache Spark" /><link rel="alternate" type="text/markdown" href="connectors-spark.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Athena",
+        "item" : "https://docs.aws.amazon.com/athena/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Use Athena SQL",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/using-athena-sql.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Connect to data sources",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/work-with-data-stores.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Use Amazon Athena Federated Query",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/federated-queries.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Work with data source connectors for Apache Spark",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/federated-queries.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/athena/latest/ug/athena-ug.pdf#connectors-spark" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/athena/index.html">Amazon Athena</a><a href="what-is.html">User Guide</a></div><div id="page-toc-src"><a href="#connectors-spark-specifying-the-jar-to-spark">Specify the jar to Spark</a><a href="#connectors-spark-querying-the-connector">Query the connector on Spark</a><a href="#connectors-spark-parameters">Specify parameters</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="connectors-spark">Work with data source connectors for Apache Spark</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Some Athena data source connectors are available as Spark DSV2 connectors. The Spark DSV2
+        connector names have a <code class="code">-dsv2</code> suffix (for example,
+            <code class="code">athena-dynamodb-dsv2</code>).</p><p>Following are the currently available DSV2 connectors, their Spark <code class="code">.format()</code>
+        class name, and links to their corresponding Amazon Athena Federated Query documentation:</p><div class="table-container"><div class="table-contents"><table id="w425aab7c15c15c31b7"><thead>
+                <tr>
+                    <th>DSV2 connector</th>
+                    <th>Spark .format() class name</th>
+                    <th>Documentation</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td tabindex="-1">athena-cloudwatch-dsv2</td>
+                    <td tabindex="-1"><code class="code">com.amazonaws.athena.connectors.dsv2.cloudwatch.CloudwatchTableProvider</code></td>
+                    <td tabindex="-1"><a href="./connectors-cloudwatch.html">CloudWatch</a></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1">athena-cloudwatch-metrics-dsv2</td>
+                    <td tabindex="-1"><code class="code">com.amazonaws.athena.connectors.dsv2.cloudwatch.metrics.CloudwatchMetricsTableProvider</code></td>
+                    <td tabindex="-1"><a href="./connectors-cwmetrics.html">CloudWatch metrics</a></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1">athena-aws-cmdb-dsv2</td>
+                    <td tabindex="-1"><code class="code">com.amazonaws.athena.connectors.dsv2.aws.cmdb.AwsCmdbTableProvider</code></td>
+                    <td tabindex="-1"><a href="./connectors-cmdb.html">CMDB</a></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1">athena-dynamodb-dsv2</td>
+                    <td tabindex="-1"><code class="code">com.amazonaws.athena.connectors.dsv2.dynamodb.DDBTableProvider</code></td>
+                    <td tabindex="-1"><a href="./connectors-dynamodb.html">DynamoDB</a></td>
+                </tr>
+            </table></div></div><p>To download <code>.jar</code> files for the DSV2 connectors, visit the <a href="https://github.com/awslabs/aws-athena-query-federation-dsv2" rel="noopener noreferrer" target="_blank"><span>Amazon Athena Query
+            Federation DSV2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> GitHub page and see the <b>Releases</b>,
+            <b>Release <code class="replaceable">&lt;version&gt;</code></b>,
+            <b>Assets</b> section.</p>
+        <h2 id="connectors-spark-specifying-the-jar-to-spark">Specify the jar to Spark</h2>
+        <p>To use the Athena DSV2 connectors with Spark, you submit the <code>.jar</code>
+            file for the connector to the Spark environment that you are using. The following
+            sections describe specific cases.</p>
+         
+            <h3 id="connectors-spark-ate">Athena for Spark</h3>
+            <p>For information on adding custom <code>.jar</code> files and custom
+                configuration to Amazon Athena for Apache Spark, see <a href="./notebooks-spark-custom-jar-cfg.html">Use Spark properties to specify custom configuration</a>.</p>
+         
+         
+            <h3 id="connectors-spark-general">General Spark</h3>
+            <p>To pass in the connector <code>.jar</code> file to Spark, use the
+                    <code class="code">spark-submit</code> command and specify the <code>.jar</code> file
+                in the <code class="code">--jars</code> option, as in the following example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (py)--><code class="py ">spark-submit \ 
+  --deploy-mode cluster \ 
+  --jars https://github.com/awslabs/aws-athena-query-federation-dsv2/releases/download/<code class="replaceable">some_version</code>/athena-dynamodb-dsv2-<code class="replaceable">some_version</code>.jar</code></pre>
+         
+         
+            <h3 id="connectors-spark-emr">Amazon EMR Spark</h3>
+            <p>In order to run a <code class="code">spark-submit</code> command with the <code class="code">--jars</code>
+                parameter on Amazon EMR, you must add a step to your Amazon EMR Spark cluster. For details on
+                how to use <code class="code">spark-submit</code> on Amazon EMR, see <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark-submit-step.html">Add a Spark
+                    step</a> in the <em>Amazon EMR Release Guide</em>.</p>
+         
+         
+            <h3 id="connectors-spark-glue-etl">AWS Glue ETL Spark</h3>
+            <p>For AWS Glue ETL, you can pass in the <code>.jar</code> file's GitHub.com URL
+                to the <code class="code">--extra-jars</code> argument of the <code class="code">aws glue start-job-run</code>
+                command. The AWS Glue documentation describes the <code class="code">--extra-jars</code> parameter
+                as taking an Amazon S3 path, but the parameter can also take an HTTPS URL. For more
+                information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html#w5aac32c13c11">Job parameter reference</a> in the <em>AWS Glue Developer Guide</em>.</p>
+         
+     
+        <h2 id="connectors-spark-querying-the-connector">Query the connector on Spark</h2>
+        <p>To submit the equivalent of your existing Athena federated query on Apache Spark, use
+            the <code class="code">spark.sql()</code> function. For example, suppose you have the following Athena
+            query that you want to use on Apache Spark.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (sql)--><code class="sql ">SELECT somecola, somecolb, somecolc 
+FROM ddb_datasource.some_schema_or_glue_database.some_ddb_or_glue_table 
+WHERE somecola &gt; 1</code></pre>
+        <p>To perform the same query on Spark using the Amazon Athena DynamoDB DSV2 connector, use the
+            following code:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (py)--><code class="py ">dynamoDf = (spark.read 
+    .option("athena.connectors.schema", "some_schema_or_glue_database") 
+    .option("athena.connectors.table", "some_ddb_or_glue_table") 
+    .format("com.amazonaws.athena.connectors.dsv2.dynamodb.DDBTableProvider") 
+    .load()) 
+ 
+dynamoDf.createOrReplaceTempView("ddb_spark_table") 
+ 
+spark.sql(''' 
+SELECT somecola, somecolb, somecolc 
+FROM ddb_spark_table 
+WHERE somecola &gt; 1 
+''')</code></pre>
+     
+        <h2 id="connectors-spark-parameters">Specify parameters</h2>
+        <p>The DSV2 versions of the Athena data source connectors use the same parameters as the
+            corresponding Athena data source connectors. For parameter information, refer to the
+            documentation for the corresponding Athena data source connector.</p>
+        <p>In your PySpark code, use the following syntax to configure your parameters.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (py)--><code class="py ">spark.read.option("athena.connectors.conf.<code class="replaceable">parameter</code>", "<code class="replaceable">value</code>")</code></pre>
+        <p>For example, the following code sets the Amazon Athena DynamoDB connector
+                <code class="code">disable_projection_and_casing</code> parameter to <code class="code">always</code>.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (py)--><code class="py ">dynamoDf = (spark.read 
+    .option("athena.connectors.schema", "some_schema_or_glue_database") 
+    .option("athena.connectors.table", "some_ddb_or_glue_table") 
+    .option("athena.connectors.conf.disable_projection_and_casing", "always") 
+    .format("com.amazonaws.athena.connectors.dsv2.dynamodb.DDBTableProvider") 
+    .load())</code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./connect-data-source-federation-sdk.html">Develop a data source connector</div><div id="next" class="next-link" accesskey="n" href="./datazone-using.html">Use DataZone</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/connectors-spark.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/connectors-spark.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

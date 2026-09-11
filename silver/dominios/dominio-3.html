@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D3 · High-Performing (24%) — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>D3: Design High-Performing Architectures <span class="en">24% of exam</span></h1>
+<p class="subtitle">Repaso del dominio de rendimiento: la herramienta correcta para cada patrón de acceso en storage, compute, base de datos, red e ingesta de datos — unas 12 de las 50 preguntas evaluadas.</p>
+<div class="chips">
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip">Dominio de examen</span>
+  <span class="chip">5 task statements</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="big">24%</div><div class="lbl">del peso total del examen</div></div>
+  <div class="stat"><div class="big">≈12</div><div class="lbl">preguntas de las 50 evaluadas</div></div>
+  <div class="stat"><div class="big">5</div><div class="lbl">task statements oficiales</div></div>
+  <div class="stat"><div class="big">19</div><div class="lbl">páginas de tema en la ruta</div></div>
+</div>
+
+<p>El Dominio 3 es el más ancho del examen: <strong>cinco task statements</strong>, uno por familia de servicios — almacenamiento, cómputo elástico, bases de datos, redes e ingesta/transformación de datos — y con un 24% de peso equivale a unas 12 de las 50 preguntas evaluadas. El enfoque no es "más grande es mejor", sino <span class="tag-en">the right tool for the access pattern</span>: elegir el servicio cuya forma natural de rendimiento coincide con la métrica que pide el enunciado (IOPS, throughput, latencia sub-milisegundo, millones de eventos por segundo). Casi todas las preguntas de D3 incluyen una cifra o una unidad: <em>"sub-millisecond"</em>, <em>"millions of requests"</em>, <em>"sequential throughput"</em>; tu trabajo es traducir esa cifra al servicio que la entrega de fábrica.</p>
+
+<p>Cómo estudiarlo: por familia, no por servicio. Memoriza los dos mapas de esta página (dos porque el dominio es grande) y las cinco señales de la tabla de cada task statement. Las preguntas de D3 se contestan por reconocimiento: <em>"shared file system"</em> → EFS, <em>"aggregate throughput for HPC"</em> → FSx for Lustre, <em>"cache"</em> → ElastiCache o DAX. Y repasa el vocabulario de métricas en inglés: aquí el enunciado se juega en una palabra (<em>"provisioned"</em>, <em>"burstable"</em>, <em>"on-demand"</em>).</p>
+
+<h2>Task Statement 1: Determine high-performing and/or scalable storage solutions</h2>
+
+<p>Evalúa escoger entre <span class="tag-en">object, file and block storage</span> según el patrón de acceso. <strong>S3</strong> para objetos vía API, con rendimiento por prefijo y <span class="tag-en">multipart upload</span> para paralelizar; <strong>EBS</strong> para volúmenes de bloque con gp3 de línea base alta e io2/io2 Block Express cuando el enunciado pide IOPS garantizadas y latencia uniforme; <strong>EFS</strong> para un sistema de archivos NFS compartido que crece y sirve a cientos de instancias Linux; y <strong>FSx for Lustre</strong> cuando el HPC pide throughput agregado masivo. Añade el matiz híbrido: Storage Gateway da caché local de S3 a aplicaciones on-premises y DataSync mueve datos hacia y desde AWS. Las decisiones clave: ¿acceso por objeto, bloque o archivo compartido?; ¿IOPS provisionadas o throughput secuencial barato?; ¿un consumidor o cientos en paralelo?</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"a shared file system for hundreds of Linux instances"</td><td>EFS (NFS, mount targets multi-AZ)</td></tr>
+<tr><td>"an HPC workload needs massive aggregate throughput"</td><td>FSx for Lustre (sistema de archivos paralelo)</td></tr>
+<tr><td>"boot volume with guaranteed 50,000 IOPS and sub-ms latency"</td><td>EBS io2 / io2 Block Express</td></tr>
+<tr><td>"billions of small files accessed by key over HTTP"</td><td>S3 (rendimiento por prefijo + multipart)</td></tr>
+<tr><td>"on-premises application needs low-latency access to S3 data"</td><td>Storage Gateway con caché local</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Task Statement 2: Design high-performing elastic compute solutions</h2>
+
+<p>Evalúa dimensionar y desacoplar el cómputo. La primera palanca es la familia de instancia: <strong>c</strong> para CPU-bound, <strong>r</strong> para memoria, <strong>i</strong> para I/O de storage local, <strong>p</strong> (GPU) para ML, <strong>m</strong> equilibrada — el <span class="tag-en">right-sizing</span> que también reaparece en D4. La segunda es la elasticidad: <span class="tag-en">EC2 Auto Scaling</span> con políticas que siguen métricas, <span class="tag-en">AWS Auto Scaling</span> para planes multi-servicio, y desacoplar con colas para que cada componente escale por separado. La tercera es el modelo de ejecución: <strong>Lambda</strong> para eventos con carga impredecible (donde ajustar la memoria escala CPU y capacidad a la vez), <strong>Fargate</strong> para tasks aisladas con su propia ENI, <strong>Batch</strong> para miles de jobs con dependencias y <strong>EMR</strong> para clusters de big data con Spark o Hadoop. Mide también las condiciones de escala: qué métrica dispara el scale-out y con qué métricas de CloudWatch la defines.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"video transcoding is CPU-bound and must finish nightly"</td><td>Familia c + ASG programado (Spot si es interrumpible)</td></tr>
+<tr><td>"run Spark/Hadoop clusters without managing the framework"</td><td>Amazon EMR</td></tr>
+<tr><td>"thousands of independent batch jobs with priorities"</td><td>AWS Batch (colas y prioridades)</td></tr>
+<tr><td>"event-driven thumbnails with unpredictable volume"</td><td>Lambda (concurrency) o Fargate con ECS</td></tr>
+<tr><td>"per-task isolation with its own ENI and no EC2 to manage"</td><td>Fargate (tasks con ENI propia)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Task Statement 3: Determine high-performing database solutions</h2>
+
+<p>Evalúa casar el patrón de datos con el motor. <strong>Read-intensive</strong> → read replicas (o el reader endpoint de Aurora) y <strong>ElastiCache</strong> por delante; <strong>key-value a escala con latencia de un dígito</strong> → <strong>DynamoDB</strong>, con <strong>DAX</strong> si hace falta microsegundos de caché; <strong>relacional compatible MySQL/PostgreSQL con más throughput</strong> → <strong>Aurora</strong>, con hasta 6x el rendimiento de MySQL estándar y storage que auto-escala; <strong>tormentas de conexiones</strong> (típicas de Lambda) → <strong>RDS Proxy</strong> con pooling; <strong>latencia uniforme</strong> → <span class="tag-en">Provisioned IOPS</span>. El task statement también distingue motores por caso: analítico columnar (Redshift), in-memory (ElastiCache), serverless (Aurora Serverless, DynamoDB on-demand) y las migraciones homogéneas frente a heterogéneas. La decisión maestra: primero el patrón de acceso (lectura, escritura, agregación, latencia), después el motor, y solo al final el tamaño.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"read-heavy reporting must not hit the primary"</td><td>Read replicas (+ Aurora reader endpoint)</td></tr>
+<tr><td>"key-value lookups in single-digit ms for millions of users"</td><td>DynamoDB (+ DAX para caché)</td></tr>
+<tr><td>"cache query results or sessions, sub-millisecond"</td><td>ElastiCache for Redis</td></tr>
+<tr><td>"MySQL compatibility with much higher throughput"</td><td>Amazon Aurora (hasta 6x MySQL)</td></tr>
+<tr><td>"thousands of Lambda functions exhaust DB connections"</td><td>RDS Proxy (connection pooling)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Task Statement 4: Determine high-performing and/or scalable network architectures</h2>
+
+<p>Evalúa el <span class="tag-en">placement</span> de recursos y la topología. Para contenido HTTP global, <strong>CloudFront</strong> cachea en edge y acerca bytes al usuario; para tráfico TCP/UDP no HTTP (gaming, voz, IoT), <strong>Global Accelerator</strong> con IPs anycast estáticas que llevan al edge más cercano. En el balanceo, <strong>ALB</strong> enruta en capa 7 (por path o host, ideal para microservicios) y <strong>NLB</strong> en capa 4 (latencia mínima, millones de conexiones concurrentes, static IP). El diseño de subnets, rangos IP y route tables es parte del task statement, incluida la regla de oro de la latencia: el tráfico crítico entre capas se queda en la misma AZ, la alta disponibilidad la pone el balanceador. Y para alcanzar servicios de AWS o de otro VPC sin internet, <span class="tag-en">VPC endpoints</span> y <span class="tag-en">PrivateLink</span>. La señal maestra: cifras de latencia global → edge; routing por path → ALB; static IP y millones de flujos → NLB.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"global users, HTTP content, lower latency"</td><td>CloudFront (cache en edge)</td></tr>
+<tr><td>"non-HTTP game or voice traffic to the nearest edge"</td><td>Global Accelerator (anycast, IP estática)</td></tr>
+<tr><td>"route by URL path to different microservices"</td><td>ALB (path-based routing)</td></tr>
+<tr><td>"millions of TCP connections, ultra-low latency, static IP"</td><td>NLB (capa 4)</td></tr>
+<tr><td>"reach an AWS service or another VPC privately"</td><td>VPC endpoints / PrivateLink</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Task Statement 5: Determine high-performing data ingestion and transformation solutions</h2>
+
+<p>Evalúa la ingesta según la <span class="tag-en">frequency</span> y el volumen. Tiempo real con orden por clave y posibilidad de replay → <strong>Kinesis Data Streams</strong> con shards (u on-demand); entregar a S3/Redshift/OpenSearch sin escribir código → <strong>Kinesis Data Firehose</strong> (con buffer configurable y transformación Lambda); ETL serverless con catálogo → <strong>Glue</strong> (crawlers, Data Catalog, csv a <span class="tag-en">parquet</span>); big data → <strong>EMR</strong>; consultar el lago → <strong>Athena</strong>; gobernarlo → <strong>Lake Formation</strong>; visualizarlo → <strong>QuickSight</strong>. El task statement incluye el caso puntual masivo (DataSync o AWS Snow según volumen y enlace) y la seguridad del punto de ingesta (API Gateway, PrivateLink). El patrón estrella del examen: convertir csv en parquet y particionar en S3 para que Athena escanee y cobre mucho menos.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"ingest millions of events per second, ordered per key, with replay"</td><td>Kinesis Data Streams (shards / on-demand)</td></tr>
+<tr><td>"load streaming data into S3 with no custom code"</td><td>Kinesis Data Firehose</td></tr>
+<tr><td>"serverless ETL: transform csv to parquet and catalog it"</td><td>AWS Glue (crawlers + Data Catalog)</td></tr>
+<tr><td>"run Spark jobs over a data lake"</td><td>EMR (o Glue para ETL serverless)</td></tr>
+<tr><td>"dashboards on the data lake for business users"</td><td>QuickSight</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph S1["Task 1: Storage"]
+        OBJ["S3: objetos,<br>prefijos y multipart"]
+        BLK["EBS: gp3 e io2,<br>IOPS y throughput"]
+        FIL["EFS y FSx: NFS,<br>Lustre para HPC"]
+    end
+    subgraph S2["Task 2: Elastic compute"]
+        EC2["EC2: familias<br>c, m, r, i, p"]
+        LMB["Lambda: memoria<br>escala la CPU"]
+        FRG["Fargate y Batch:<br>tasks y jobs"]
+    end
+    subgraph S3["Task 3: Databases"]
+        AUR["Aurora: hasta 6x,<br>endpoints"]
+        DDB["DynamoDB: particiones<br>y DAX"]
+        ELC["ElastiCache:<br>sub-milisegundo"]
+    end
+    S1 --> S2
+    S2 --> S3
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class OBJ,EC2,AUR navy
+    class BLK,LMB,DDB green
+    class FIL,FRG,ELC amber
+</div>
+<figcaption>Figura 1 — Mapa de servicios del Dominio 3 (parte 1): storage, elastic compute y databases, un subgraph por task statement.</figcaption>
+</figure>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph N1["Task 4: Network"]
+        CF["CloudFront: cache<br>HTTP en edge"]
+        GA["Global Accelerator:<br>anycast, IP estatica"]
+        LBS["ALB / NLB:<br>capa 7 o capa 4"]
+        PLK["PrivateLink:<br>acceso privado"]
+    end
+    subgraph N2["Task 5: Ingestion"]
+        KIN["Kinesis Streams:<br>shards y orden"]
+        FHO["Firehose: entrega<br>a S3 o Redshift"]
+        GLU["Glue: ETL y<br>csv a parquet"]
+        EMR["EMR: Spark y<br>big data"]
+    end
+    N1 --> N2
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class CF,GA navy
+    class LBS,PLK,KIN green
+    class FHO,GLU,EMR amber
+</div>
+<figcaption>Figura 2 — Mapa de servicios del Dominio 3 (parte 2): red (Task 4) e ingesta y transformación (Task 5).</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+En D3 la respuesta se reconoce por la <strong>unidad del enunciado</strong>: IOPS garantizadas → io2; sub-millisecond → ElastiCache o DAX; prefijos y multipart → S3; shards → Kinesis; anycast y static IP → Global Accelerator; "per-key ordering" → Kinesis (no SQS estándar); "aggregate throughput" → FSx for Lustre o EFS. Si la pregunta incluye una cifra de latencia, throughput o conexiones, esa cifra es la pista: elimina los servicios que no la alcanzan de fábrica.
+</div>
+
+<h2>Ruta de estudio de este dominio</h2>
+
+<p>La ruta va por bloques alineados con los task statements, en orden recomendado:</p>
+
+<ol>
+<li><a href="../temas/s3.html">S3 y Glacier</a> — <strong>TS1</strong> · objetos, prefijos y multipart.</li>
+<li><a href="../temas/ebs.html">EBS: block storage</a> — <strong>TS1</strong> · gp3/io2 y el límite de IOPS.</li>
+<li><a href="../temas/efs-fsx.html">EFS y FSx</a> — <strong>TS1</strong> · NFS compartido y Lustre para HPC.</li>
+<li><a href="../temas/storage-hibrido.html">Storage Gateway / DataSync</a> — <strong>TS1</strong> · el matiz híbrido.</li>
+<li><a href="../temas/ec2.html">EC2: instancias y compra</a> — <strong>TS2</strong> · familias y right-sizing.</li>
+<li><a href="../temas/auto-scaling.html">Auto Scaling</a> — <strong>TS2</strong> · métricas y políticas de escala.</li>
+<li><a href="../temas/lambda.html">Lambda</a> — <strong>TS2</strong> · memoria, concurrency y cold starts.</li>
+<li><a href="../temas/contenedores.html">ECS, EKS y Fargate</a> — <strong>TS2</strong> · tasks aisladas.</li>
+<li><a href="../temas/otros-compute.html">Batch, EMR, Beanstalk</a> — <strong>TS2</strong> · jobs y big data.</li>
+<li><a href="../temas/elasticache.html">ElastiCache</a> — <strong>TS3</strong> · Redis vs Memcached y caching.</li>
+<li><a href="../temas/rds.html">RDS: Multi-AZ y réplicas</a> — <strong>TS3</strong> · réplicación y RDS Proxy.</li>
+<li><a href="../temas/aurora.html">Aurora</a> — <strong>TS3</strong> · 6x, endpoints y storage auto-scaling.</li>
+<li><a href="../temas/dynamodb.html">DynamoDB</a> — <strong>TS3</strong> · particiones, RCU/WCU y DAX.</li>
+<li><a href="../temas/cloudfront.html">CloudFront y Global Accelerator</a> — <strong>TS4</strong> · edge y anycast.</li>
+<li><a href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a> — <strong>TS4</strong> · capa 7 vs capa 4.</li>
+<li><a href="../temas/vpc.html">VPC, subnets y rutas</a> — <strong>TS4</strong> · topología y placement.</li>
+<li><a href="../temas/conectividad.html">TGW, PrivateLink, DX/VPN</a> — <strong>TS4</strong> · conectividad privada.</li>
+<li><a href="../temas/kinesis.html">Kinesis</a> — <strong>TS5</strong> · shards, orden y Firehose.</li>
+<li><a href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a> — <strong>TS5</strong> · ETL, parquet y visualización.</li>
+</ol>
+
+<h2>Repaso rápido: 5 preguntas de señal</h2>
+
+<p>Cinco escenarios con la métrica como pista; cada uno cae en un task statement distinto:</p>
+
+<div class="question"><details><summary><span class="qnum">D3-R1</span> <em>A team needs interactive queries over 10 TB of Parquet files in S3 with no servers to manage. Which service fits?</em></summary>
+<div class="q-answer"><span class="verdict">Amazon Athena</span><div class="why">SQL serverless sobre S3 que cobra por datos escaneados; Redshift exige un warehouse y EMR clusters.</div></div></details></div>
+
+<div class="question"><details><summary><span class="qnum">D3-R2</span> <em>Stateless web servers must share session data with sub-millisecond reads. Which solution improves performance?</em></summary>
+<div class="q-answer"><span class="verdict">ElastiCache for Redis</span><div class="why">Caché in-memory compartida por todas las instancias; DynamoDB responde en milisegundos.</div></div></details></div>
+
+<div class="question"><details><summary><span class="qnum">D3-R3</span> <em>An HPC cluster needs a parallel file system with massive aggregate throughput in the same AZ. Which storage fits?</em></summary>
+<div class="q-answer"><span class="verdict">FSx for Lustre</span><div class="why">Sistema de archivos paralelo para HPC; EFS es NFS compartido y S3 no se monta como filesystem.</div></div></details></div>
+
+<div class="question"><details><summary><span class="qnum">D3-R4</span> <em>Users worldwide report slow loading of a website's images and videos. What improves latency MOST?</em></summary>
+<div class="q-answer"><span class="verdict">Amazon CloudFront</span><div class="why">Cachea el contenido en edge locations cercanas al usuario.</div></div></details></div>
+
+<div class="question"><details><summary><span class="qnum">D3-R5</span> <em>Producers send more data than the Kinesis data stream can ingest. Which action increases throughput?</em></summary>
+<div class="q-answer"><span class="verdict">Increase the shard count</span><div class="why">Cada shard aporta capacidad propia de lectura/escritura; más shards (o modo on-demand) = más throughput.</div></div></details></div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar de D3</div>
+<ol>
+<li>Elige storage por <strong>patrón de acceso</strong>: objeto (S3), bloque (EBS), archivo (EFS/FSx).</li>
+<li>Rendimiento: S3 = prefijos y multipart; EBS = gp3/io2 con IOPS provisionadas; EFS = crece con los clientes.</li>
+<li><strong>FSx for Lustre</strong> para HPC paralelo; <strong>FSx for Windows</strong> para SMB y Active Directory.</li>
+<li>Compute: familia <strong>c/m/r/i/p</strong> según CPU, equilibrio, memoria o GPU; subir la <strong>memoria de Lambda</strong> escala CPU y red.</li>
+<li><strong>Desacoplar también es rendimiento</strong>: SQS/SNS dejan escalar cada componente a su ritmo.</li>
+<li>Read-heavy → <strong>read replicas + ElastiCache</strong>; DynamoDB + <strong>DAX</strong> para single-digit ms.</li>
+<li><strong>Aurora</strong> hasta 6x MySQL, 6 copias del storage en 3 AZs, endpoints writer/reader.</li>
+<li><strong>CloudFront</strong> cachea HTTP en edge; <strong>Global Accelerator</strong> para TCP/UDP con IPs anycast estáticas.</li>
+<li><strong>ALB</strong> enruta capa 7 (paths/hosts); <strong>NLB</strong> capa 4 con latencia mínima y static IP.</li>
+<li>Ingesta: <strong>Kinesis</strong> (shards, orden, replay) para streams; <strong>Firehose</strong> entrega sin código; <strong>Glue</strong> transforma a parquet y abarata las consultas.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">EXAM-02</span> AWS Certified Solutions Architect – Associate (SAA-C03) Exam Guide — Content outline, Domain 3 · <a href="https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html" target="_blank" rel="noopener">docs.aws.amazon.com</a></li>
+<li><span class="id">EXAM-03</span> SAA-C03 Exam Guide (PDF v1.0) — Task statements 3.1-3.5 · <a href="https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide_C03.pdf" target="_blank" rel="noopener">d1.awsstatic.com</a></li>
+<li>Trazabilidad completa del dominio — <a href="../fuentes.html">Ver todas las fuentes de este dominio</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../dominios/dominio-2.html"><span class="dir">← Anterior</span>D2 · Design Resilient (26%)</a><a class="next" href="../dominios/dominio-4.html"><span class="dir">Siguiente →</span>D4 · Cost-Optimized (20%)</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

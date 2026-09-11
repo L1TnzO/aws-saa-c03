@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Multicast in AWS Transit Gateway - Amazon VPC</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tgw-multicast-overview" /><meta name="default_state" content="tgw-multicast-overview" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html" /><meta name="description" content="Learn about using multicast on transit gateways." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon VPC" /><meta name="guide" content="AWS Transit Gateway" /><meta name="abstract" content="A transit gateway is a network transit hub that you can use to interconnect your virtual private clouds and on-premises networks. A transit gateway is a network transit hub that you can use to interconnect your virtual private clouds and on-premises networks." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html" hreflang="x-default" /><meta name="feedback-item" content="TGW" /><meta name="this_doc_product" content="Amazon VPC" /><meta name="this_doc_guide" content="AWS Transit Gateway" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc'}"></script><meta id="panorama-serviceSubSection" value="AWS Transit Gateway" /><meta id="panorama-serviceConsolePage" value="Multicast in AWS Transit Gateway" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tgw-multicast-overview.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Multicast in AWS Transit Gateway - Amazon VPC</title><meta name="pdf" content="/pdfs/vpc/latest/tgw/vpc-tgw.pdf#tgw-multicast-overview" /><meta name="rss" content="transit-gateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TATGuEiYydTVCPMhSnXFN6gA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/tgw-multicast-overview.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/tgw-multicast-overview.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/tgw-multicast-overview.html" /><meta name="keywords" content="shared,transit gateway,attachment,vpc,peering,connect,connect peer,policy table,route table,multicast,vpn,site-to-site,unshare,subnet,operations,modify,create,delete,resource,account,ram,gateway,direct connect,resource access manager,security group referencing,domain,igmp,group member,source,multicast routing,acl,security group,protocol,traffic,destination,ipv6,ipv4,multicast router,traffic routing" /><link rel="alternate" type="text/markdown" href="tgw-multicast-overview.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "AWS Transit Gateway",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/tgw"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Work with AWS Transit Gateway",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/tgw/working-with-transit-gateways.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Multicast in AWS Transit Gateway",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/tgw/working-with-transit-gateways.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpc/latest/tgw/vpc-tgw.pdf#tgw-multicast-overview" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/vpc/index.html">Amazon VPC</a><a href="what-is-transit-gateway.html">AWS Transit Gateway</a></div><div id="page-toc-src"><a href="#concepts">Multicast concepts</a><a href="#limits">Considerations</a><a href="#how-multicast-works">Multicast routing</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tgw-multicast-overview">Multicast in AWS Transit Gateway</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Multicast is a communication protocol used for delivering a single stream of data to
+    multiple receiving computers simultaneously. Transit Gateway supports routing multicast traffic
+    between subnets of attached VPCs, and it serves as a multicast router for instances sending
+    traffic destined for multiple receiving instances. </p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#concepts">Multicast concepts</a></p></li><li><p><a href="#limits">Considerations</a></p></li><li><p><a href="#how-multicast-works">Multicast routing</a></p></li><li><p><a href="./multicast-domains-about.html">Multicast domains</a></p></li><li><p><a href="./multicast-share-domain.html">Shared multicast domains</a></p></li><li><p><a href="./add-source-multicast-group.html">Register sources with a multicast
+      group</a></p></li><li><p><a href="./add-members-multicast-group.html">Register members with a multicast
+      group</a></p></li><li><p><a href="./remove-source-multicast-group.html">Deregister sources from a multicast group</a></p></li><li><p><a href="./remove-members-multicast-group.html">Deregister members from a multicast
+      group</a></p></li><li><p><a href="./view-multicast-group.html">View multicast groups</a></p></li><li><p><a href="./multicastwin.html">Set up multicast for Windows Server</a></p></li><li><p><a href="./multicast-configurations-igmp.html">Example: Manage IGMP configurations</a></p></li><li><p><a href="./multicast-configurations-no-igmp.html">Example: Manage static source configurations</a></p></li><li><p><a href="./multicast-configurations-no-igmp-source.html">Example: Manage static group member
+      configurations</a></p></li></ul></div>
+    <h2 id="concepts">Multicast concepts</h2>
+    <div class="itemizedlist">
+      <p>The following are the key concepts for multicast:</p>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><span class="topcom">Multicast domain</span> — Allows segmentation of a
+          multicast network into different domains, and makes the transit gateway act as multiple multicast
+          routers. You define multicast domain membership at the subnet level. </p>
+      </li><li class="listitem">
+        <p><span class="topcom">Multicast group</span> — Identifies a set of hosts that
+          will send and receive the same multicast traffic. A multicast group is identified by a
+          group IP address. Multicast group membership is defined by individual elastic network
+          interfaces attached to EC2 instances.</p>
+      </li><li class="listitem">
+        <p><span class="topcom">Internet Group Management Protocol (IGMP)</span> — An
+          internet protocol that allows hosts and routers to dynamically manage multicast group
+          membership. An IGMP multicast domain contains hosts that use the IGMP protocol to join,
+          leave, and send messages. AWS supports the IGMPv2 protocol and both IGMP and static
+          (API-based) group membership multicast domains.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><span class="topcom">Multicast source</span> — An elastic network interface
+          associated with a supported EC2 instance that is statically configured to send multicast
+          traffic. A multicast source only applies to static source configurations. </p>
+        <p>A static source multicast domain contains hosts that do not use the IGMP protocol to
+          join, leave, and send messages. You use the AWS CLI to add a source and group members. The
+          statically-added source sends multicast traffic and the members receive multicast
+          traffic.</p>
+      </li><li class="listitem">
+        <p><span class="topcom">Multicast group member</span> — An elastic network
+          interface associated with a supported EC2 instance that receives multicast traffic. A
+          multicast group has multiple group members. In a static source group membership
+          configuration, multicast group members can only receive traffic. In an IGMP group
+          configuration, members can both send and receive traffic. </p>
+      </li></ul></div>
+   
+    <h2 id="limits">Considerations</h2>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Transit gateway multicast may not be suitable for high-frequency trading or
+          performance-sensitive applications. We strongly recommend that you review the <a href="./transit-gateway-quotas.html#multicast-quotas">Multicast quotas</a> for the limits. Contact your account or Solution Architect team for a
+          detailed review of your performance requirements.</p>
+      </li><li class="listitem">
+        <p>For information about supported Regions, see <a href="https://aws.amazon.com/transit-gateway/faqs/" rel="noopener noreferrer" target="_blank"><span>AWS Transit Gateway FAQs</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>You must create a new transit gateway to support multicast.</p>
+      </li><li class="listitem">
+        <p>Multicast group membership is managed using the Amazon Virtual Private Cloud Console or the
+          AWS CLI, or IGMP. </p>
+      </li><li class="listitem">
+        <p>A subnet can only be in one multicast domain. </p>
+      </li><li class="listitem">
+        <p>If you use a non-Nitro instance, you must disable the <b>Source/Dest</b>
+          checkbox. For information about disabling the check, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#change_source_dest_check">Changing the source or
+            destination checking</a> in the <em>Amazon EC2 User Guide</em>.</p>
+      </li><li class="listitem">
+        <p>A non-Nitro instance cannot be a multicast sender.</p>
+      </li><li class="listitem">
+        <p>Multicast routing is not supported over Direct Connect, Site-to-Site VPN, peering attachments, or
+          transit gateway Connect attachments.</p>
+      </li><li class="listitem">
+        <p>A transit gateway does not support fragmentation of multicast packets. Fragmented multicast
+          packets are dropped. For more information, see <a href="./transit-gateway-quotas.html#mtu-quotas">Maximum transmission unit (MTU)</a>.</p>
+      </li><li class="listitem">
+        <p>At startup, an IGMP host sends multiple IGMP JOIN messages to join a
+          multicast group (typically 2 to 3 retries). In the unlikely event that all the IGMP
+          JOIN messages get lost, the host will not become part of transit gateway multicast
+          group. In such a scenario you will need to re-trigger the IGMP JOIN message
+          from the host using application specific methods.</p>
+      </li><li class="listitem">
+        <p>A group membership starts with the receipt of IGMPv2 JOIN message by the 
+          transit gateway and ends with the receipt of the IGMPv2 LEAVE message. The transit gateway keeps 
+          track of hosts that successfully joined the group. As a cloud multicast router, transit gateway issues 
+          an IGMPv2 QUERY message to all members every two minutes. Each member sends 
+          an IGMPv2 JOIN message in response, which is how the members renew their 
+          membership. If a member fails to reply to three consecutive queries, the transit gateway removes this 
+          membership from all joined groups. However, it continues sending queries to this member for 
+          12 hours before permanently removing the member from its to-be-queried list. An explicit 
+          IGMPv2 LEAVE message immediately and permanently removes the host from any 
+          further multicast processing.</p>
+      </li><li class="listitem">
+        <p>The transit gateway keeps track of hosts that successfully joined the group. In the event of a
+          transit gateway outage, the transit gateway continues to send multicast data to the host for seven minutes (420
+          seconds) after the last successful IGMP JOIN message. The transit gateway continues to
+          send membership queries to the host for up to 12 hours or until it receives a  IGMP
+          LEAVE message from the host.</p>
+      </li><li class="listitem">
+        <p>The transit gateway sends membership query packets to all the IGMP members  so that it can track
+          multicast group membership.  The source IP of these IGMP query packets is 0.0.0.0/32, and
+          the destination IP is 224.0.0.1/32 and the protocol is 2. Your security group
+          configuration on the IGMP hosts (instances), and any ACLs configuration on the host
+          subnets must allow these IGMP protocol messages. </p>
+      </li><li class="listitem">
+        <p>When the multicast source and destination are in the same VPC, you cannot use
+          security group referencing to set the destination security group to accept traffic from
+          the source's security group.</p>
+      </li><li class="listitem">
+        <p>For static multicast groups and sources, AWS Transit Gateway automatically remove static
+          groups and sources for ENIs that no longer exist. This is performed by periodically
+          assuming the <a href="./service-linked-roles.html#tgw-service-linked-roles">Transit Gateway service-linked
+            role</a> to describe ENIs in the account. </p>
+      </li><li class="listitem">
+        <p>Only static multicast supports IPv6. Dynamic multicast does not. </p>
+      </li></ul></div>
+
+   
+    <h2 id="how-multicast-works">Multicast routing</h2>
+    <p>When you enable multicast on a transit gateway, it acts as a multicast router. When you add a subnet
+        to a multicast domain, we send all multicast traffic to the transit gateway that is associated with
+        that multicast domain.</p>
+     
+        <h3 id="multicast-nacl">Network ACLs</h3>
+        <p>Network ACL rules operate at the subnet level. They apply to multicast traffic,
+            because transit gateways reside outside of the subnet. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html">Network ACLs</a> in the <em>
+                Amazon VPC User Guide</em>.</p>
+        <p>For Internet Group Management Protocol (IGMP) multicast traffic, the following are the
+            minimum inbound rules. The remote host is the host sending the multicast traffic.</p>
+        <div class="table-container"><div class="table-contents"><table id="w112aac13c31c11b5b7"><thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Protocol</th>
+                        <th>Source</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">IGMP(2)</td>
+                        <td tabindex="-1">0.0.0.0/32</td>
+                        <td tabindex="-1">IGMP query </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom UDP Protocol</td>
+                        <td tabindex="-1">UDP</td>
+                        <td tabindex="-1">Remote host IP address</td>
+                        <td tabindex="-1">Inbound multicast traffic</td>
+                    </tr>
+                </table></div></div>
+        <p>The following are the minimum outbound rules for IGMP.</p>
+        <div class="table-container"><div class="table-contents"><table id="w112aac13c31c11b5c11"><thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Protocol</th>
+                        <th>Destination</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">IGMP(2)</td>
+                        <td tabindex="-1">224.0.0.2/32</td>
+                        <td tabindex="-1">IGMP leave</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">IGMP(2)</td>
+                        <td tabindex="-1">Multicast group IP address</td>
+                        <td tabindex="-1">IGMP join</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom UDP Protocol</td>
+                        <td tabindex="-1">UDP</td>
+                        <td tabindex="-1">Multicast group IP address</td>
+                        <td tabindex="-1">Outbound multicast traffic</td>
+                    </tr>
+                </table></div></div>
+     
+
+     
+        <h3 id="mulicast-security-group">Security groups</h3>
+        <p>Security group rules operate at the instance level. They can be applied to both
+            inbound and outbound multicast traffic. The behavior is the same as with unicast
+            traffic. For all group member instances, you must allow inbound traffic from the group
+            source. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html">Security groups</a> in the <em>Amazon VPC User Guide</em>.</p>
+        <p>For IGMP multicast traffic, you must have the following inbound rules at a minimum.
+            The remote host is the host sending the multicast traffic. You can't specify a security
+            group as the source of the UDP inbound rule.</p>
+        <div class="table-container"><div class="table-contents"><table id="w112aac13c31c11b7b7"><thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Protocol</th>
+                        <th>Source</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">2</td>
+                        <td tabindex="-1">0.0.0.0/32</td>
+                        <td tabindex="-1">IGMP query </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom UDP Protocol</td>
+                        <td tabindex="-1">UDP</td>
+                        <td tabindex="-1">Remote host IP address</td>
+                        <td tabindex="-1">Inbound multicast traffic</td>
+                    </tr>
+                </table></div></div>
+        <p>For IGMP multicast traffic, you must have the following outbound rules at a
+            minimum.</p>
+        <div class="table-container"><div class="table-contents"><table id="w112aac13c31c11b7c11"><thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Protocol</th>
+                        <th>Destination</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">2</td>
+                        <td tabindex="-1">224.0.0.2/32</td>
+                        <td tabindex="-1">IGMP leave</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom Protocol</td>
+                        <td tabindex="-1">2</td>
+                        <td tabindex="-1">Multicast group IP address</td>
+                        <td tabindex="-1">IGMP join</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Custom UDP Protocol</td>
+                        <td tabindex="-1">UDP</td>
+                        <td tabindex="-1">Multicast group IP address</td>
+                        <td tabindex="-1">Outbound multicast traffic</td>
+                    </tr>
+                </table></div></div>
+     
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tgw-policy-tables-related.html">Related resources</div><div id="next" class="next-link" accesskey="n" href="./multicast-domains-about.html">Multicast domains</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/tgw-multicast-overview.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/tgw-multicast-overview.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

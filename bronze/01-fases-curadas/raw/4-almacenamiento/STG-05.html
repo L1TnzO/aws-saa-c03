@@ -1,0 +1,259 @@
+<!--
+BRONZE RAW — STG-05
+URL: https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html
+Dominios: D2
+Título doc: Replicating objects within and across Regions
+Fase: 4
+Servicio: Amazon S3
+Descargado: 2026-09-11T03:12:08
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use replication to enable automatic, asynchronous copying of objects across Amazon S3
+    buckets. Buckets that are configured for object replication can be owned by the same
+    AWS account or by different accounts. You can replicate objects to a single destination bucket
+    or to multiple destination buckets. The destination buckets can be in different AWS Regions or
+    within the same Region as the source bucket.</p><p>There are two types of replication: <em>live replication</em> and
+      <em>on-demand replication</em>.</p><div class="itemizedlist">
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>Live replication</b> – <b>To
+          automatically replicate new and updated objects</b> as they are written to the
+        source bucket, use live replication. Live replication doesn't replicate any objects that
+        existed in the bucket before you set up replication. To replicate objects that existed
+        before you set up replication, use on-demand replication.</p>
+    </li><li class="listitem">
+      <p><b>On-demand replication</b> – <b>To
+          replicate existing objects</b> from the source bucket to one or more destination
+        buckets on demand, use S3 Batch Replication. For more information about replicating
+        existing objects, see <a href="#batch-replication-scenario">When to use S3 Batch Replication</a>.</p>
+    </li></ul></div><p>There are two forms of live replication: <em>Cross-Region Replication
+      (CRR)</em> and <em>Same-Region Replication
+    (SRR)</em>.</p><div class="itemizedlist">
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>Cross-Region Replication (CRR)</b> – You can use CRR
+        to replicate objects across Amazon S3 buckets in different AWS Regions. For more information
+        about CRR, see <a href="#crr-scenario">When to use Cross-Region Replication</a>.</p>
+    </li><li class="listitem">
+      <p><b>Same-Region Replication (SRR)</b> – You can use
+        SRR to copy objects across Amazon S3 buckets in the same AWS Region. For more information about
+        SRR, see <a href="#srr-scenario">When to use Same-Region Replication</a>.</p>
+    </li></ul></div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#replication-scenario">Why use replication?</a></p></li><li><p><a href="#crr-scenario">When to use Cross-Region Replication</a></p></li><li><p><a href="#srr-scenario">When to use Same-Region Replication</a></p></li><li><p><a href="#two-way-replication-scenario">When to use two-way replication (bi-directional replication)</a></p></li><li><p><a href="#batch-replication-scenario">When to use S3 Batch Replication</a></p></li><li><p><a href="#replication-workload-requirements">Workload requirements and live replication</a></p></li><li><p><a href="./replication-what-is-isnot-replicated.html">What does Amazon S3 replicate?</a></p></li><li><p><a href="./replication-requirements.html">Requirements and considerations for replication</a></p></li><li><p><a href="./replication-how-setup.html">Setting up live replication overview</a></p></li><li><p><a href="./disable-replication.html">Managing or pausing live replication</a></p></li><li><p><a href="./s3-batch-replication-batch.html">Replicating existing objects with Batch Replication</a></p></li><li><p><a href="./replication-troubleshoot.html">Troubleshooting replication</a></p></li><li><p><a href="./replication-metrics.html">Monitoring replication with metrics, event notifications, and statuses</a></p></li></ul></div>
+    <h2 id="replication-scenario">Why use replication?<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="replication-scenario" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789096147000-7990"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Replication can help you do the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Replicate objects while retaining metadata</b> –
+          You can use replication to make copies of your objects that retain all metadata, such as
+          the original object creation times and version IDs. This capability is important if you
+          must ensure that your replica is identical to the source object.</p>
+      </li><li class="listitem">
+        <p><b>Replicate objects into different storage classes</b>
+          – You can use replication to directly put objects into S3 Glacier Flexible Retrieval,
+          S3 Glacier Deep Archive, or another storage class in the destination buckets. You
+          can also replicate your data to the same storage class and use lifecycle configurations on
+          the destination buckets to move your objects to a colder storage class as they age.</p>
+      </li><li class="listitem">
+        <p><b>Maintain object copies under different ownership</b>
+          – Regardless of who owns the source object, you can tell Amazon S3 to change replica
+          ownership to the AWS account that owns the destination bucket. This is referred to as
+          the <em>owner override</em> option. You can use this option to restrict access
+          to object replicas.</p>
+      </li><li class="listitem">
+        <p><b>Keep objects stored over multiple AWS Regions</b>
+          – To ensure geographic differences in where your data is kept, you can set multiple
+          destination buckets across different AWS Regions. This feature might help you meet
+          certain compliance requirements. </p>
+      </li><li class="listitem">
+        <p><b>Replicate objects within 15 minutes</b> – To
+          replicate your data in the same AWS Region or across different Regions within a
+          predictable time frame, you can use S3 Replication Time Control (S3 RTC). S3 RTC replicates 99.99 percent of new
+          objects stored in Amazon S3 within 15 minutes (backed by a service-level agreement). For more
+          information, see <a href="./replication-time-control.html">Meeting compliance requirements with S3 Replication Time Control</a>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>S3 RTC does not apply to Batch Replication. Batch Replication is an on-demand
+            replication job, and can be tracked with S3 Batch Operations. For more information, see <a href="./batch-ops-job-status.html">Tracking job status and completion reports</a>.</p></div></div>
+      </li><li class="listitem">
+        <p><b>Sync buckets, replicate existing objects, and replicate
+            previously failed or replicated objects</b> – To sync buckets and
+          replicate existing objects, use Batch Replication as an on-demand replication action. For
+          more information about when to use Batch Replication, see <a href="#batch-replication-scenario">When to use S3 Batch Replication</a>.</p>
+      </li><li class="listitem">
+        <p><b>Replicate objects and fail over to a bucket in another
+            AWS Region</b> – To keep all metadata and objects in sync across buckets
+          during data replication, use two-way replication (also known as bi-directional
+          replication) rules before configuring Amazon S3 Multi-Region Access Point failover controls. Two-way replication
+          rules help ensure that when data is written to the S3 bucket that traffic fails over to,
+          that data is then replicated back to the source bucket.</p>
+      </li></ul></div>
+   
+    <h2 id="crr-scenario">When to use Cross-Region Replication<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="crr-scenario" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789096147001-5828"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>S3 Cross-Region Replication (CRR) is used to copy objects across Amazon S3 buckets in different
+      AWS Regions. CRR can help you do the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Meet compliance requirements</b> – Although Amazon S3
+          stores your data across multiple geographically distant Availability Zones by default,
+          compliance requirements might dictate that you store data at even greater distances. To
+          satisfy these requirements, use Cross-Region Replication to replicate data between distant
+          AWS Regions.</p>
+      </li><li class="listitem">
+        <p><b>Minimize latency</b> – If your customers are in
+          two geographic locations, you can minimize latency in accessing objects by maintaining
+          object copies in AWS Regions that are geographically closer to your users.</p>
+      </li><li class="listitem">
+        <p><b>Increase operational efficiency</b> – If you have
+          compute clusters in two different AWS Regions that analyze the same set of objects, you
+          might choose to maintain object copies in those Regions.</p>
+      </li></ul></div>
+    
+   
+    <h2 id="srr-scenario">When to use Same-Region Replication<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="srr-scenario" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789096147002-2485"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Same-Region Replication (SRR) is used to copy objects across Amazon S3 buckets in the same
+      AWS Region. SRR can help you do the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Aggregate logs into a single bucket</b> – If you
+          store logs in multiple buckets or across multiple accounts, you can easily replicate logs
+          into a single, in-Region bucket. Doing so allows for simpler processing of logs in a
+          single location.</p>
+      </li><li class="listitem">
+        <p><b>Configure live replication between production and test
+            accounts</b> – If you or your customers have production and test accounts
+          that use the same data, you can replicate objects between those multiple accounts, while
+          maintaining object metadata.</p>
+      </li><li class="listitem">
+        <p><b>Abide by data sovereignty laws</b> – You might be
+          required to store multiple copies of your data in separate AWS accounts within a certain
+          Region. Same-Region Replication can help you automatically replicate critical data when
+          compliance regulations don't allow the data to leave your country.</p>
+      </li></ul></div>
+   
+    <h2 id="two-way-replication-scenario">When to use two-way replication (bi-directional replication)<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="two-way-replication-scenario" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789096147003-2392"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Build shared datasets across multiple AWS Regions</b>
+          – With replica modification sync, you can easily replicate metadata changes, such
+          as object access control lists (ACLs), object tags, or object locks, on replication
+          objects. This two-way replication is important if you want to keep all objects and object
+          metadata changes in sync. You can <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication-for-metadata-changes.html#enabling-replication-for-metadata-changes">enable replica modification sync</a> on a new or existing replication rule when
+          performing two-way replication between two or more buckets in the same or different
+          AWS Regions.</p>
+      </li><li class="listitem">
+        <p><b>Keep data synchronized across Regions during failover</b>
+          – You can synchronize data in buckets between AWS Regions by configuring two-way
+          replication rules with S3 Cross-Region Replication (CRR) directly from a Multi-Region Access Point. To make
+          an informed decision on when to initiate failover, you can also enable S3 replication
+          metrics so that you can monitor the replication in Amazon CloudWatch, in S3 Replication Time Control (S3 RTC), or from the
+          Multi-Region Access Point.</p>
+      </li><li class="listitem">
+        <p><b>Make your application highly available</b> – Even
+          in the event of a Regional traffic disruption, you can use two-way replication rules to
+          keep all metadata and objects in sync across buckets during data replication.</p>
+      </li></ul></div>
+   
+    <h2 id="batch-replication-scenario">When to use S3 Batch Replication<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4k:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="batch-replication-scenario" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4l:" type="submit" data-analytics-performance-mark="29-1789096147003-3849"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Batch Replication replicates existing objects to different buckets as an on-demand
+      option. Unlike live replication, these jobs can be run as needed. Batch Replication can help
+      you do the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Replicate existing objects</b> – You can use
+          Batch Replication to replicate objects that were added to the bucket before Same-Region
+          Replication or Cross-Region Replication were configured.</p>
+      </li><li class="listitem">
+        <p><b>Replicate objects that previously failed to replicate</b>
+          – You can filter a Batch Replication job to attempt to replicate objects with a
+          replication status of <b>FAILED</b>.</p>
+      </li><li class="listitem">
+        <p><b>Replicate objects that were already replicated</b>
+          – You might be required to store multiple copies of your data in separate
+          AWS accounts or AWS Regions. Batch Replication can replicate existing objects to
+          newly added destinations.</p>
+      </li><li class="listitem">
+        <p><b>Replicate replicas of objects that were created from a
+            replication rule</b> – Replication configurations create replicas of
+          objects in destination buckets. Replicas of objects can be replicated only with
+          Batch Replication.</p>
+      </li></ul></div>
+   
+    <h2 id="replication-workload-requirements">Workload requirements and live replication<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4n:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="replication-workload-requirements" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4o:" type="submit" data-analytics-performance-mark="30-1789096147004-3661"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Depending on your workload requirements, some types of live replication will be better
+      suited to your use case than others. Use the following table to determine which type of
+      replication to use for your situation, and whether to use S3 Replication Time Control (S3 RTC) for your workload.
+      S3 RTC replicates 99.99 percent of new objects stored in Amazon S3 within 15 minutes (backed by a
+      service-level agreement, or SLA). For more information, see <a href="./replication-time-control.html">Meeting compliance requirements with S3 Replication Time Control</a>.</p>
+    <div class="table-container"><div class="table-contents disable-scroll"><table id="w702aac28c13c25b5"><thead>
+          <tr>
+            <th>Workload requirement</th>
+            <th>S3 RTC (15-minute SLA)</th>
+            <th>Cross-Region Replication (CRR)</th>
+            <th>Same-Region Replication (SRR)</th>
+          </tr>
+        </thead>
+          <tbody><tr>
+            <td tabindex="-1">Replicate objects between different AWS accounts</td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">Yes</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">Replicate objects within the same AWS Region within 24-48 hours (not SLA
+              backed)</td>
+            <td tabindex="-1">No</td>
+            <td tabindex="-1">No</td>
+            <td tabindex="-1">Yes</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">Replicate objects between different AWS Regions within 24-48 hours (not SLA
+              backed)</td>
+            <td tabindex="-1">No</td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">No</td>
+          </tr>
+          <tr>
+            <td tabindex="-1">
+              <p>Predictable replication time: Backed by SLA to replicate 99.9 percent of objects
+                within 15 minutes</p>
+            </td>
+            <td tabindex="-1">Yes</td>
+            <td tabindex="-1">No</td>
+            <td tabindex="-1">No</td>
+          </tr>
+        </tbody></table></div></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./data-protection.html">Data protection</div><div id="next" class="next-link" accesskey="n" href="./replication-what-is-isnot-replicated.html">What's replicated?</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/replication.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/replication.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096146763-603"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#replication-scenario"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Why use replication?</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#crr-scenario"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">When to use Cross-Region Replication</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#srr-scenario"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">When to use Same-Region Replication</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#two-way-replication-scenario"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">When to use two-way replication (bi-directional replication)</span></a></li><li data-itemid="anchor-item-5" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#batch-replication-scenario"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">When to use S3 Batch Replication</span></a></li><li data-itemid="anchor-item-6" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#replication-workload-requirements"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Workload requirements and live replication</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r52:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r51:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html"><span>Amazon S3 API Reference</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r55:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r54:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/cli/latest/reference/s3/"><span>AWS CLI commands for Amazon S3</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r58:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r57:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/tools/"><span>SDKs &amp; Tools</span><span class="awsui_icon-wrapper_4c84z_1n50m_460">&nbsp;<span class="awsui_icon_4c84z_1n50m_460" aria-label="Opens in a new tab" role="img"><span class="awsui_icon_h11ix_rh18t_13 awsui_icon-flex-height_h11ix_rh18t_21 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-external_h11ix_rh18t_219" style="height: 20px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5a:" type="submit" data-analytics-performance-mark="33-1789096147058-8854"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5c:" type="submit" data-analytics-performance-mark="34-1789096147059-8515"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r5f:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r5e:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=S3&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2FAmazonS3%2Flatest%2Fuserguide%2Freplication.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./replication-what-is-isnot-replicated.html"><span>What's replicated?</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./data-protection.html"><span>Data protection</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

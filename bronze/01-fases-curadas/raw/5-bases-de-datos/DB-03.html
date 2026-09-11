@@ -1,0 +1,217 @@
+<!--
+BRONZE RAW — DB-03
+URL: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html
+Dominios: D2,D3
+Título doc: Working with DB instance read replicas
+Fase: 5
+Servicio: Amazon RDS
+Descargado: 2026-09-11T03:11:34
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <em class="glossterm">read replica</em> is a read-only copy of a DB instance. You can reduce the
+        load on your primary DB instance by routing queries from your applications to the read replica. In
+        this way, you can elastically scale out beyond the capacity constraints of a single DB instance
+        for read-heavy database workloads.</p><p>To create a read replica from a source DB instance, Amazon RDS uses the built-in replication features
+        of the DB engine. For information about using read replicas with a specific engine, see the
+        following sections:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><a href="./db2-replication.html">Working with replicas for Amazon RDS for Db2</a></p>
+        </li><li class="listitem">
+            <p><a href="./USER_MariaDB.Replication.ReadReplicas.html">Working with MariaDB read replicas</a></p>
+        </li><li class="listitem">
+            <p><a href="./SQLServer.ReadReplicas.html">Working with read replicas for Microsoft SQL Server in Amazon RDS</a></p>
+        </li><li class="listitem">
+            <p><a href="./USER_MySQL.Replication.ReadReplicas.html">Working with MySQL read replicas</a></p>
+        </li><li class="listitem">
+            <p><a href="./oracle-read-replicas.html">Working with read replicas for Amazon RDS for Oracle</a></p>
+        </li><li class="listitem">
+            <p><a href="./USER_PostgreSQL.Replication.ReadReplicas.html">Working with read replicas for Amazon RDS for PostgreSQL</a></p>
+        </li></ul></div><p>After you create a read replica from a source DB instance, the source becomes the primary DB instance.
+        When you make updates to the primary DB instance, Amazon RDS copies them asynchronously to the read
+        replica. The following diagram shows a source DB instance replicating to a read replica in a
+        different Availability Zone (AZ). Clients have read/write access to the primary DB instance and
+        read-only access to the replica.</p><div class="mediaobject">
+         
+            <img src="/images/AmazonRDS/latest/UserGuide/images/read-replica.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Read replica configuration." style="max-width:100%">
+         
+         
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4b:" type="submit" data-analytics-performance-mark="26-1789096290727-4913"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p>Read replicas are billed as standard DB instances at the same rates as the DB instance class used for
+        the replica. You aren't charged for the data transfer incurred in replicating data between
+        the source DB instance and a read replica within the same AWS Region. For more information, see
+            <a href="./USER_ReadRepl.XRgn.html#USER_ReadRepl.XRgn.Costs">Cross-Region replication costs</a> and
+            <a href="./User_DBInstanceBilling.html">DB instance billing for Amazon RDS </a>.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#USER_ReadRepl.Overview">Overview of Amazon RDS read replicas</a></p></li><li><p><a href="./USER_ReadRepl.Overview.Differences.html">Differences between read replicas for DB engines</a></p></li><li><p><a href="./USER_ReadRepl.Create.html">Creating a read replica</a></p></li><li><p><a href="./USER_ReadRepl.Promote.html">Promoting a read replica to be a standalone DB instance</a></p></li><li><p><a href="./USER_ReadRepl.Monitoring.html">Monitoring read replication</a></p></li><li><p><a href="./USER_ReadRepl.XRgn.html">Creating a read replica in a different AWS Region</a></p></li></ul></div>
+    <h2 id="USER_ReadRepl.Overview">Overview of Amazon RDS read replicas<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="USER_ReadRepl.Overview" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789096290725-4606"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>The following sections discuss DB <em>instance</em> read
+        replicas. For information about Multi-AZ DB <em>cluster</em> read
+        replicas, see <a href="./USER_MultiAZDBCluster_ReadRepl.html">Working with Multi-AZ DB cluster read replicas for Amazon RDS</a>.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#USER_ReadRepl.Overview.use-cases">Use cases for read replicas</a></p></li><li><p><a href="#USER_ReadRepl.Overview.how-it-works">How read replicas work</a></p></li><li><p><a href="#USER_ReadRepl.Overview.maz-replicas">Read replicas in a Multi-AZ deployment</a></p></li><li><p><a href="#USER_ReadRepl.Overview.xregion-replicas">Cross-Region read replicas</a></p></li><li><p><a href="#USER_ReadRepl.Overview.replica-storage">Read replica storage types</a></p></li><li><p><a href="#USER_ReadRepl.Overview.circular-replication">Restrictions for creating a replica from a replica</a></p></li><li><p><a href="#USER_ReadRepl.Overview.deletion-considerations">Considerations when deleting replicas</a></p></li></ul></div>
+     
+        <h3 id="USER_ReadRepl.Overview.use-cases">Use cases for read replicas</h3>
+        <p>Deploying one or more read replicas for a given source DB instance might make sense in a
+            variety of scenarios, including the following: </p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Scaling beyond the compute or I/O capacity of a single DB instance for read-heavy
+                    database workloads. You can direct this excess read traffic to one or more read
+                    replicas.</p>
+            </li><li class="listitem">
+                <p>Serving read traffic while the source DB instance is unavailable. In some cases,
+                    your source DB instance might not be able to take I/O requests, for example due to I/O
+                    suspension for backups or scheduled maintenance. In these cases, you can direct
+                    read traffic to your read replicas. For this use case, keep in mind that the
+                    data on the read replica might be stale because the source DB instance is
+                    unavailable.</p>
+            </li><li class="listitem">
+                <p>Business reporting or data warehousing scenarios where you might want business
+                    reporting queries to run against a read replica, rather than your production
+                    DB instance. </p>
+            </li><li class="listitem">
+                <p>Implementing disaster recovery. You can promote a read replica to a standalone
+                    instance as a disaster recovery solution if the primary DB instance fails.</p>
+            </li></ul></div>
+     
+     
+        <h3 id="USER_ReadRepl.Overview.how-it-works">How read replicas work</h3>
+        <p>When you create a read replica, you specify an existing DB instance as the source. Then
+            Amazon RDS takes a snapshot of the source instance and creates a read-only instance from the
+            snapshot. Amazon RDS then uses the asynchronous replication method for the DB engine to
+            update the read replica whenever there is a change to the primary DB instance. </p>
+        <p>The read replica operates as a DB instance that allows only read-only
+            connections. Exceptions are the RDS for Db2 and the RDS for Oracle DB engines, which support replica
+            databases in standby mode and mounted mode, respectively. A standby replica and mounted
+            replica don't accept user connections and so can't serve read-only workloads. The
+            primary use for standby replicas and mounted replicas is cross-Region disaster recovery.
+            For more information, see <a href="./db2-replication.html">Working with replicas for Amazon RDS for Db2</a> and <a href="./oracle-read-replicas.html">Working with read replicas for Amazon RDS for Oracle</a>.</p>
+        <p>Applications connect to a read replica just as they do to any DB instance. Amazon RDS replicates
+            all databases from the source DB instance.</p>
+        <p>You must manually create read replicas. RDS doesn't support autoscaling of read
+            replicas, which is the automatic add or removing of read replicas as read demand
+            changes.</p>
+     
+     
+        <h3 id="USER_ReadRepl.Overview.maz-replicas">Read replicas in a Multi-AZ deployment</h3>
+        <p>You can configure a read replica for a DB instance that also has a standby replica
+            configured for high availability in a Multi-AZ deployment. Replication with the standby replica is
+            synchronous. Unlike a read replica, a standby replica can't serve read traffic. </p>
+        <p>In the following scenario, clients have read/write access to a primary DB instance in one
+            AZ. The primary instance copies updates asynchronously to a read replica in a second AZ
+            and also copies them synchronously to a standby replica in a third AZ. Clients have read
+            access only to the read replica.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/AmazonRDS/latest/UserGuide/images/read-and-standby-replica.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Read replica and standby replica configuration." style="max-width:100%">
+             
+             
+        <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789096290728-6752"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+        <p>For more information about high availability and standby replicas, see <a href="./Concepts.MultiAZ.html">Configuring and managing a Multi-AZ deployment for Amazon RDS</a>.</p>
+     
+     
+        <h3 id="USER_ReadRepl.Overview.xregion-replicas">Cross-Region read replicas</h3>
+        <p>In some cases, a read replica resides in a different AWS Region from its primary
+            DB instance. In these cases, Amazon RDS sets up a secure communications channel between the primary
+            DB instance and the read replica. Amazon RDS establishes any AWS security configurations needed
+            to enable the secure channel, such as adding security group entries. For more
+            information about cross-Region read replicas, see <a href="./USER_ReadRepl.XRgn.html">Creating a read replica in a different AWS Region</a>.</p>
+        <p>The information in this chapter applies to creating Amazon RDS read replicas either in the
+            same AWS Region as the source DB instance, or in a separate AWS Region. The following
+            information doesn't apply to setting up replication with an instance that is running on
+            an Amazon EC2 instance or that is on-premises.</p>
+     
+
+
+
+     
+        <h3 id="USER_ReadRepl.Overview.replica-storage">Read replica storage types</h3>
+        <p>By default, a read replica is created with the same storage type as the source DB
+            instance. However, you can create a read replica that has a different storage type from
+            the source DB instance based on the options listed in the following table.</p>
+        <div class="table-container" id="rds-read-replica-storage-reference"><div class="table-contents"><table id="w1611aac19c45c17c15b5"><thead>
+                    <tr>
+                        <th>Source DB instance storage type</th>
+                        <th>Source DB instance storage allocation</th>
+                        <th>Read replica storage type options</th>
+                    </tr>
+                </thead>
+                    <tbody><tr>
+                        <td tabindex="-1">Provisioned IOPS</td>
+                        <td tabindex="-1">100 GiB–64 TiB</td>
+                        <td tabindex="-1">Provisioned IOPS, General Purpose, Magnetic</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">General Purpose</td>
+                        <td tabindex="-1">100 GiB–64 TiB</td>
+                        <td tabindex="-1">Provisioned IOPS, General Purpose, Magnetic</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">General Purpose</td>
+                        <td tabindex="-1">&lt;100 GiB</td>
+                        <td tabindex="-1">General Purpose, Magnetic</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Magnetic</td>
+                        <td tabindex="-1">100 GiB–6 TiB</td>
+                        <td tabindex="-1">Provisioned IOPS, General Purpose, Magnetic</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Magnetic</td>
+                        <td tabindex="-1">&lt;100 GiB</td>
+                        <td tabindex="-1">General Purpose, Magnetic</td>
+                    </tr>
+                </tbody></table></div></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you increase the allocated storage of a read replica, it must be by at least
+                10 percent. If you try to increase the value by less than 10 percent, you get an
+                error.</p></div></div>
+     
+     
+        <h3 id="USER_ReadRepl.Overview.circular-replication">Restrictions for creating a replica from a replica</h3>
+        <p>Amazon RDS doesn't support circular replication. You can't configure a DB instance to serve as a
+            replication source for an existing DB instance. You can only create a new read replica from an
+            existing DB instance. For example, if <code class="userinput">MySourceDBInstance</code> replicates to
+                <code class="userinput">ReadReplica1</code>, you can't configure
+                <code class="userinput">ReadReplica1</code> to replicate back to
+                <code class="userinput">MySourceDBInstance</code>. </p>
+        <p>For RDS for MariaDB and RDS for MySQL, and for certain versions of RDS for PostgreSQL, you can
+            create a read replica from an existing read replica. For example, you can create new
+            read replica <code class="userinput">ReadReplica2</code> from existing replica
+                <code class="userinput">ReadReplica1</code>. For RDS for Db2, RDS for Oracle, and RDS for SQL Server, you
+            can't create a read replica from an existing read replica.</p>
+     
+     
+        <h3 id="USER_ReadRepl.Overview.deletion-considerations">Considerations when deleting replicas</h3>
+        <p>RDS doesn't support autoscaling of read replicas. Thus, RDS won't increase the number
+            of replicas when demand increases or decrease the number of replicas when demand
+            decreases. If you no longer need read replicas, manually delete them using the same
+            mechanisms for deleting a DB instance. If you delete a source DB instance without deleting its read
+            replicas in the same AWS Region, each replica is promoted to a standalone DB instance. </p>
+        <p>For information about deleting a DB instance, see <a href="./USER_DeleteInstance.html">Deleting a DB instance</a>. For information about read replica promotion,
+            see <a href="./USER_ReadRepl.Promote.html">Promoting a read replica to be a standalone DB instance</a>. For
+            information related to deleting the source DB instance for a cross-Region read replica, see
+                <a href="./USER_ReadRepl.XRgn.html#USER_ReadRepl.XRgn.Cnsdr">Cross-Region replication considerations</a>.</p>
+     
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./USER_RenameInstance.html">Renaming a DB instance</div><div id="next" class="next-link" accesskey="n" href="./USER_ReadRepl.Overview.Differences.html">Differences between DB
+            engines</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_ReadRepl.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_ReadRepl.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096290604-4130"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#USER_ReadRepl.Overview"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Overview</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r57:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r56:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/index.html"><span>Amazon RDS API Reference</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r5a:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r59:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/cli/latest/reference/rds/"><span>AWS CLI commands for Amazon RDS</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r5d:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r5c:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/tools/"><span>SDKs &amp; Tools</span><span class="awsui_icon-wrapper_4c84z_1n50m_460">&nbsp;<span class="awsui_icon_4c84z_1n50m_460" aria-label="Opens in a new tab" role="img"><span class="awsui_icon_h11ix_rh18t_13 awsui_icon-flex-height_h11ix_rh18t_21 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-external_h11ix_rh18t_219" style="height: 20px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5f:" type="submit" data-analytics-performance-mark="34-1789096290757-1988"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r5h:" type="submit" data-analytics-performance-mark="35-1789096290758-810"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r5k:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r5j:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=RDS&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2FAmazonRDS%2Flatest%2FUserGuide%2FUSER_ReadRepl.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./USER_ReadRepl.Overview.Differences.html"><span>Differences between DB
+            engines</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./USER_RenameInstance.html"><span>Renaming a DB instance</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

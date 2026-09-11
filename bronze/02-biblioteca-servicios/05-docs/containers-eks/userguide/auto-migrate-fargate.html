@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Migrate from EKS Fargate to EKS Auto Mode - Amazon EKS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="auto-migrate-fargate" /><meta name="default_state" content="auto-migrate-fargate" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/eks/latest/userguide/auto-migrate-fargate.html" /><meta name="description" content="This topic walks you through the process of migrating workloads from EKS Fargate to Amazon EKS Auto Mode using kubectl . The migration can be performed gradually, allowing you to move workloads at your own pace while maintaining cluster stability and application availability throughout the transition." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EKS" /><meta name="guide" content="User Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Elastic Kubernetes Service (Amazon EKS). Amazon EKS is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters. Kubernetes is an open source system for automating the deployment, scaling, and management of containerized applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/eks/latest/userguide/auto-migrate-fargate.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eks/latest/userguide/auto-migrate-fargate.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eks/latest/userguide/auto-migrate-fargate.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eks/latest/userguide/auto-migrate-fargate.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eks/latest/userguide/auto-migrate-fargate.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/auto-migrate-fargate.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/auto-migrate-fargate.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eks/latest/userguide/auto-migrate-fargate.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eks/latest/userguide/auto-migrate-fargate.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eks/latest/userguide/auto-migrate-fargate.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eks/latest/userguide/auto-migrate-fargate.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eks/latest/userguide/auto-migrate-fargate.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eks/latest/userguide/auto-migrate-fargate.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/auto-migrate-fargate.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/auto-migrate-fargate.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/auto-migrate-fargate.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/auto-migrate-fargate.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eks/latest/userguide/auto-migrate-fargate.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eks/latest/userguide/auto-migrate-fargate.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/auto-migrate-fargate.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/auto-migrate-fargate.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/auto-migrate-fargate.html" hreflang="x-default" /><meta name="feedback-item" content="Amazon EKS" /><meta name="this_doc_product" content="Amazon EKS" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'eks'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Migrate from EKS Fargate to EKS Auto Mode" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="auto-migrate-fargate.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Migrate from EKS Fargate to EKS Auto Mode - Amazon EKS</title><meta name="pdf" content="/pdfs/eks/latest/userguide/eks-ug.pdf#auto-migrate-fargate" /><meta name="github" content="https://github.com/awsdocs/amazon-eks-user-guide/tree/mainline/latest/ug/automode/auto-migrate-fargate.adoc" /><meta name="rss" content="doc-history.rss" /><meta name="forums" content="https://repost.aws/tags/TA4IvCeWI1TE66q4jEj4Z9zg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon%20EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/auto-migrate-fargate.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/auto-migrate-fargate.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/auto-migrate-fargate.html" /><link rel="alternate" type="text/markdown" href="auto-migrate-fargate.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EKS",
+        "item" : "https://docs.aws.amazon.com/eks/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Automate cluster infrastructure with EKS Auto Mode",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/automode.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Enable EKS Auto Mode on existing EKS clusters",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/migrate-auto.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Migrate from EKS Fargate to EKS Auto Mode",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/migrate-auto.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/eks/latest/userguide/eks-ug.pdf#auto-migrate-fargate" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-eks-user-guide/tree/mainline/latest/ug/automode/auto-migrate-fargate.adoc" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/eks/index.html">Amazon EKS</a><a href="what-is-eks.html">User Guide</a></div><div id="page-toc-src"><a href="#comparing_amazon_eks_auto_mode_and_eks_with_shared_aws_fargate">Comparing Amazon EKS Auto Mode and EKS with AWS Fargate</a><a href="#_prerequisites">Prerequisites</a><a href="#_step_1_check_the_fargate_cluster">Step 1: Check the Fargate cluster</a><a href="#_step_2_enable_eks_auto_mode_on_the_cluster">Step 2: Enable EKS Auto Mode on the cluster</a><a href="#_step_3_update_workloads_for_migration">Step 3: Update workloads for migration</a><a href="#_step_4_gradually_migrate_workloads">Step 4: Gradually migrate workloads</a><a href="#_step_5_remove_the_original_fargate_profile">Step 5: Remove the original fargate profile</a><a href="#_step_6_scale_down_coredns">Step 6: Scale down CoreDNS</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>
+         <strong>Help improve this page</strong>
+      </p><p>To contribute to this user guide, choose the <strong>Edit this page on GitHub</strong> link that is located in the right pane of every page.</p></awsui-alert><h1 class="topictitle" id="auto-migrate-fargate">Migrate from EKS Fargate to EKS Auto Mode</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This topic walks you through the process of migrating workloads from EKS Fargate to Amazon EKS Auto Mode using <code class="code">kubectl</code>.
+The migration can be performed gradually, allowing you to move workloads at your own pace while maintaining cluster stability and application availability throughout the transition.</p><p>The step-by-step approach outlined below enables you to run EKS Fargate and EKS Auto Mode side by side during the migration period.
+This dual-operation strategy helps ensure a smooth transition by allowing you to validate workload behavior on EKS Auto Mode before completely decommissioning EKS Fargate.
+You can migrate applications individually or in groups, providing flexibility to accommodate your specific operational requirements and risk tolerance.</p>
+      <h2 id="comparing_amazon_eks_auto_mode_and_eks_with_shared_aws_fargate">Comparing Amazon EKS Auto Mode and EKS with AWS Fargate</h2>
+      <p>Amazon EKS with AWS Fargate remains an option for customers who want to run EKS, but Amazon EKS Auto Mode is the recommended approach moving forward.
+EKS Auto Mode is fully Kubernetes conformant, supporting all upstream Kubernetes primitives and platform tools like Istio, which Fargate is unable to support.
+EKS Auto Mode also fully supports all EC2 runtime purchase options, including GPU and Spot instances, enabling customers to leverage negotiated EC2 discounts and other savings mechanisms
+These capabilities are not available when using EKS with Fargate.</p>
+      <p>Furthermore, EKS Auto Mode allows customers to achieve the same isolation model as Fargate, using standard Kubernetes scheduling capabilities to ensure each EC2 instance runs a single application container.
+By adopting Amazon EKS Auto Mode, customers can unlock the full benefits of running Kubernetes on AWS — a fully Kubernetes-conformant platform that provides the flexibility to leverage the entire breadth of EC2 and purchasing options while retaining the ease of use and abstraction from infrastructure management that Fargate provides.</p>
+       
+         <h3 id="_achieving_fargate_like_isolation_in_eks_auto_mode">Achieving Fargate-like isolation in EKS Auto Mode</h3>
+         <p>To replicate Fargate’s pod isolation model where each pod runs on its own dedicated instance, you can use Kubernetes topology spread constraints. This is the recommended approach for controlling pod distribution across nodes:</p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: isolated-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: isolated-app
+  template:
+    metadata:
+      labels:
+        app: isolated-app
+      annotations:
+        eks.amazonaws.com/compute-type: ec2
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: isolated-app
+        minDomains: 1
+      containers:
+      - name: app
+        image: nginx
+        ports:
+        - containerPort: 80</code></pre>
+         <p>In this configuration:</p>
+         <div class="itemizedlist">
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p>
+                  <code class="code">maxSkew: 1</code> ensures that the difference in pod count between any two nodes is at most 1, effectively distributing one pod per node</p>
+            </li><li class="listitem">
+               <p>
+                  <code class="code">topologyKey: kubernetes.io/hostname</code> defines the node as the topology domain</p>
+            </li><li class="listitem">
+               <p>
+                  <code class="code">whenUnsatisfiable: DoNotSchedule</code> prevents scheduling if the constraint cannot be met</p>
+            </li><li class="listitem">
+               <p>
+                  <code class="code">minDomains: 1</code> ensures at least one domain (node) exists before scheduling</p>
+            </li></ul></div>
+         <p>EKS Auto Mode will automatically provision new EC2 instances as needed to satisfy this constraint, providing the same isolation model as Fargate while giving you access to the full range of EC2 instance types and purchasing options.</p>
+         <p>Alternatively, you can use pod anti-affinity rules for stricter isolation:</p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: isolated-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: isolated-app
+  template:
+    metadata:
+      labels:
+        app: isolated-app
+      annotations:
+        eks.amazonaws.com/compute-type: ec2
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - isolated-app
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - name: app
+        image: nginx
+        ports:
+        - containerPort: 80</code></pre>
+         <p>The <code class="code">podAntiAffinity</code> rule with <code class="code">requiredDuringSchedulingIgnoredDuringExecution</code> ensures that no two pods with the label <code class="code">app: isolated-app</code> can be scheduled on the same node. This approach provides hard isolation guarantees similar to Fargate.</p>
+       
+    
+      <h2 id="_prerequisites">Prerequisites</h2>
+      <p>Before beginning the migration, ensure you have:</p>
+      <div class="itemizedlist">
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>Set up a cluster with Fargate. For more information, see <a href="./fargate-getting-started.html">Get started with AWS Fargate for your cluster</a>.</p>
+         </li><li class="listitem">
+            <p>Installed and connected <code class="code">kubectl</code> to your cluster. For more information, see <a href="./setting-up.html">Set up to use Amazon EKS</a>.</p>
+         </li></ul></div>
+    
+      <h2 id="_step_1_check_the_fargate_cluster">Step 1: Check the Fargate cluster</h2>
+      <div class="orderedlist">
+          
+          
+          
+          
+          
+          
+      <ol style="list-style-type:arabic ! important;"><li>
+            <p>Check if the EKS cluster with Fargate is running:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get node</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME STATUS ROLES AGE VERSION
+fargate-ip-192-168-92-52.ec2.internal Ready &lt;none&gt; 25m v1.30.8-eks-2d5f260
+fargate-ip-192-168-98-196.ec2.internal Ready &lt;none&gt; 24m v1.30.8-eks-2d5f260</code></pre>
+         </li><li>
+            <p>Check running pods:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get pod -A</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAMESPACE NAME READY STATUS RESTARTS AGE
+kube-system coredns-6659cb98f6-gxpjz 1/1 Running 0 26m
+kube-system coredns-6659cb98f6-gzzsx 1/1 Running 0 26m</code></pre>
+         </li><li>
+            <p>Create a deployment in a file called <code class="code">deployment_fargate.yaml</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        eks.amazonaws.com/compute-type: fargate
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80</code></pre>
+         </li><li>
+            <p>Apply the deployment:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl apply -f deployment_fargate.yaml</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">deployment.apps/nginx-deployment created</code></pre>
+         </li><li>
+            <p>Check the pods and deployments:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get pod,deploy</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME                                    READY   STATUS    RESTARTS   AGE
+pod/nginx-deployment-5c7479459b-6trtm   1/1     Running   0          61s
+pod/nginx-deployment-5c7479459b-g8ssb   1/1     Running   0          61s
+pod/nginx-deployment-5c7479459b-mq4mf   1/1     Running   0          61s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-deployment   3/3     3            3           61s</code></pre>
+         </li><li>
+            <p>Check the node:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get node -owide</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME                                    STATUS  ROLES  AGE VERSION             INTERNAL-IP     EXTERNAL-IP OS-IMAGE       KERNEL-VERSION                  CONTAINER-RUNTIME
+fargate-ip-192-168-111-43.ec2.internal  Ready   &lt;none&gt; 31s v1.30.8-eks-2d5f260 192.168.111.43  &lt;none&gt;      Amazon Linux 2 5.10.234-225.910.amzn2.x86_64  containerd://1.7.25
+fargate-ip-192-168-117-130.ec2.internal Ready   &lt;none&gt; 36s v1.30.8-eks-2d5f260 192.168.117.130 &lt;none&gt;      Amazon Linux 2 5.10.234-225.910.amzn2.x86_64  containerd://1.7.25
+fargate-ip-192-168-74-140.ec2.internal  Ready   &lt;none&gt; 36s v1.30.8-eks-2d5f260 192.168.74.140  &lt;none&gt;      Amazon Linux 2 5.10.234-225.910.amzn2.x86_64  containerd://1.7.25</code></pre>
+         </li></ol></div>
+    
+      <h2 id="_step_2_enable_eks_auto_mode_on_the_cluster">Step 2: Enable EKS Auto Mode on the cluster</h2>
+      <div class="orderedlist">
+          
+          
+      <ol style="list-style-type:arabic ! important;"><li>
+            <p>Enable EKS Auto Mode on your existing cluster using the AWS CLI or Management Console. For more information, see <a href="./auto-enable-existing.html">Enable EKS Auto Mode on an existing cluster</a>.</p>
+         </li><li>
+            <p>Check the nodepool:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get nodepool</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME              NODECLASS   NODES   READY   AGE
+general-purpose   default     1       True    6m58s
+system            default     0       True    3d14h</code></pre>
+         </li></ol></div>
+    
+      <h2 id="_step_3_update_workloads_for_migration">Step 3: Update workloads for migration</h2>
+      <p>Identify and update the workloads you want to migrate to EKS Auto Mode.</p>
+      <p>To migrate a workload from Fargate to EKS Auto Mode, apply the annotation <code class="code">eks.amazonaws.com/compute-type: ec2</code>.
+This ensures that the workload will not be scheduled by Fargate, despite the Fargate profile,
+and will be caught up by the EKS Auto Mode NodePool.
+For more information, see <a href="./create-node-pool.html">Create a Node Pool for EKS Auto Mode</a>.</p>
+      <div class="orderedlist">
+          
+          
+          
+          
+      <ol style="list-style-type:arabic ! important;"><li>
+            <p>Modify your deployments (for example, the <code class="code">deployment_fargate.yaml</code> file) to change the compute type to <code class="code">ec2</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        eks.amazonaws.com/compute-type: ec2
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80</code></pre>
+         </li><li>
+            <p>Apply the deployment. This change allows the workload to be scheduled on the new EKS Auto Mode nodes:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl apply -f deployment_fargate.yaml</code></pre>
+         </li><li>
+            <p>Check that the deployment is running in the EKS Auto Mode cluster:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get pod -o wide</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME                               READY   STATUS    RESTARTS   AGE     IP               NODE                  NOMINATED NODE   READINESS GATES
+nginx-deployment-97967b68d-ffxxh   1/1     Running   0          3m31s   192.168.43.240   i-0845aafcb51630ffb   &lt;none&gt;           &lt;none&gt;
+nginx-deployment-97967b68d-mbcgj   1/1     Running   0          2m37s   192.168.43.241   i-0845aafcb51630ffb   &lt;none&gt;           &lt;none&gt;
+nginx-deployment-97967b68d-qpd8x   1/1     Running   0          2m35s   192.168.43.242   i-0845aafcb51630ffb   &lt;none&gt;           &lt;none&gt;</code></pre>
+         </li><li>
+            <p>Verify there is no Fargate node running and deployment running in the EKS Auto Mode managed nodes:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl get node -owide</code></pre>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">NAME                STATUS ROLES  AGE   VERSION             INTERNAL-IP     EXTERNAL-IP OS-IMAGE                                         KERNEL-VERSION CONTAINER-RUNTIME
+i-0845aafcb51630ffb Ready  &lt;none&gt; 3m30s v1.30.8-eks-3c20087 192.168.41.125  3.81.118.95 Bottlerocket (EKS Auto) 2025.3.14 (aws-k8s-1.30) 6.1.129        containerd://1.7.25+bottlerocket</code></pre>
+         </li></ol></div>
+    
+      <h2 id="_step_4_gradually_migrate_workloads">Step 4: Gradually migrate workloads</h2>
+      <p>Repeat Step 3 for each workload you want to migrate.
+This allows you to move workloads individually or in groups, based on your requirements and risk tolerance.</p>
+    
+      <h2 id="_step_5_remove_the_original_fargate_profile">Step 5: Remove the original fargate profile</h2>
+      <p>Once all workloads have been migrated, you can remove the original <code class="code">fargate</code> profile.
+Replace <code class="replaceable">&lt;fargate profile name&gt;</code> with the name of your Fargate profile:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws eks delete-fargate-profile --cluster-name eks-fargate-demo-cluster --fargate-profile-name &lt;fargate profile name&gt;</code></pre>
+    
+      <h2 id="_step_6_scale_down_coredns">Step 6: Scale down CoreDNS</h2>
+      <p>Because EKS Auto Mode handles CoreDNS, scale the <code class="code">coredns</code> deployment down to 0:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">kubectl scale deployment coredns -n kube-system --replicas=0</code></pre>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./auto-migrate-mng.html">Migrate from MNGs</div><div id="next" class="next-link" accesskey="n" href="./auto-workloads.html">Run workloads</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/auto-migrate-fargate.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/auto-migrate-fargate.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

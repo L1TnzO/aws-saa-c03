@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómputo: EC2 y la familia de servidores · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Cómputo</div>
+        <h1>Cómputo: Amazon EC2 y la familia de servidores<span class="dom-weight">Apéndice</span></h1>
+        <p class="page-lead">El cómputo es el corazón del SAA-C03: casi la mitad de las preguntas terminan eligiendo
+        <em>dónde</em> ejecutar una carga de trabajo. Esta página cubre Amazon EC2 a fondo (anatomía, familias,
+        <span class="term-en">instance metadata</span>, AMIs, hibernación), las opciones de compra y los servicios
+        administrados que compiten con EC2: AWS Lambda, AWS Batch, Elastic Beanstalk, Outposts y Wavelength.</p>
+      </header>
+
+      <!-- ================= 1. PANORAMA ================= -->
+      <h2 id="panorama"><span class="h2-num">1</span>Panorama de la familia de cómputo</h2>
+      <p>AWS ofrece un espectro continuo de opciones de cómputo que van del máximo control al máximo despreocupamiento.
+      En un extremo, Amazon EC2 te da una <span class="term-en">instance</span> (servidor virtual) donde eliges sistema
+      operativo, tamaño, red y parches. En el otro extremo, AWS Lambda ejecuta tu código sin que exista ningún servidor
+      visible. En medio quedan los contenedores (ECS, EKS, Fargate), los trabajos por lotes (AWS Batch) y las plataformas
+      gestionadas (Elastic Beanstalk). El examen no pregunta "¿qué es EC2?", sino "dada esta carga y estos requisitos,
+      ¿cuál es la opción correcta?".</p>
+      <p>La regla mental es simple: <strong>más control implica más operación</strong>. Si eliges EC2, tú respondes por el
+      sistema operativo, el escalado y las parchadas; si eliges Lambda o Fargate, AWS se encarga de la infraestructura y
+      tú solo pagas por uso. Por eso el calificador del examen es tu brújula: <span class="term-en">least operational
+      overhead</span> empuja hacia la derecha del espectro (Lambda, Fargate), mientras que requisitos como
+      <span class="term-en">long-running</span>, acceso al SO o software legado empujan hacia EC2.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q["¿Qué carga quieres ejecutar?"] -->|"Código corto<br>disparado por eventos"| L["AWS Lambda"]
+  Q -->|"Contenedores Docker"| F["Fargate o ECS"]
+  Q -->|"Lotes masivos<br>planificados"| B["AWS Batch"]
+  Q -->|"App web completa<br>sin gestionar servidores"| E["Elastic Beanstalk"]
+  Q -->|"Control total del SO<br>o app long-running"| C["Amazon EC2"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Árbol de decisión exprés: el tipo de carga y el calificador de la pregunta eligen el servicio.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Si la pregunta dice <span class="term-en">run continuously for hours</span>, <span class="term-en">full
+        administrative access</span> o <span class="term-en">custom OS / legacy software</span>, la respuesta casi siempre
+        es EC2. Si dice <span class="term-en">event-driven</span>, <span class="term-en">short tasks</span> o
+        <span class="term-en">no servers to manage</span>, piensa en Lambda o Fargate antes que en EC2.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/compute-ec2/concepts.md</code> ·
+      <code>../../bronze/05-docs/compute-batch/what-is-batch.md</code> ·
+      <code>../../bronze/05-docs/compute-beanstalk/welcome.md</code></p>
+
+      <!-- ================= 2. AMAZON EC2 ================= -->
+      <h2 id="ec2"><span class="h2-num">2</span>Amazon EC2 a fondo</h2>
+      <p>Amazon EC2 (<span class="term-en">Elastic Compute Cloud</span>) provee capacidad de cómputo escalable bajo
+      demanda: lanzas tantos servidores virtuales como necesites, en segundos, y pagas por lo que usas. Una
+      <span class="term-en">instance</span> es el servidor virtual; su <span class="term-en">instance type</span>
+      determina la combinación de CPU, memoria, red y almacenamiento que recibes. Las piezas básicas que el examen
+      espera que domines son la <span class="term-en">AMI</span> (la plantilla de software), el
+      <span class="term-en">EBS root volume</span> (el disco del sistema, persistente tras un
+      <span class="term-en">stop</span>), los <span class="term-en">security groups</span> (el firewall virtual
+      <span class="term-en">stateful</span> de la instancia) y los <span class="term-en">key pairs</span> (las credenciales
+      para login por SSH o RDP).</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["AMI<br>plantilla de software"] -->|"launch"| I["Instancia EC2<br>servidor virtual"]
+  I --- T["Instance type<br>cpu · ram · red"]
+  I --- V["EBS root volume<br>disco persistente"]
+  I --- S["Security groups<br>firewall stateful"]
+  I --- K["Key pair<br>login SSH o RDP"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Anatomía de una instancia: la AMI define el software, el tipo define el músculo y el security group la protege.</figcaption>
+      </figure>
+
+      <h3>Familias de instancias: qué letra, qué músculo</h3>
+      <p>El nombre de un <span class="term-en">instance type</span> (por ejemplo <code>c7g.xlarge</code>) codifica la
+      familia, la generación y el tamaño. La letra inicial es lo importante para el examen porque resume el caso de uso
+      típico: una <code>r</code> para hambre de memoria, una <code>i</code> para hambre de disco. Los tamaños van de
+      <code>nano</code> a <code>metal</code>, y la generación alta suele traer mejores procesadores (los
+      <code>g</code> finales — como en <code>t4g</code> o <code>c7g</code> — indican chips Graviton basados en Arm,
+      más baratos que x86).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Familia</th><th>Ejemplos</th><th>Optimizada para</th><th>Uso típico en el examen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>t (burstable)</strong></td><td>t3, t4g</td><td>Uso general con créditos de CPU</td><td>Webs pequeñas, entornos de prueba, carga irregular (<span class="term-en">burst</span>)</td></tr>
+            <tr><td><strong>c (compute)</strong></td><td>c6i, c7g</td><td>Relación CPU/memoria alta</td><td>Transcodificación, batch intensivo, HPC, servidores web de cómputo</td></tr>
+            <tr><td><strong>m (general)</strong></td><td>m6i, m7g</td><td>Equilibrio CPU/memoria</td><td>Apps de propósito general, backends, cachés pequeñas</td></tr>
+            <tr><td><strong>r (memory)</strong></td><td>r6i, r7g</td><td>Mucha RAM</td><td>Bases de datos en memoria, análisis en memoria, Memcached</td></tr>
+            <tr><td><strong>x (extra memory)</strong></td><td>x2iedn, u-*.tb1</td><td>Memoria extrema</td><td>SAP HANA, bases de datos enormes</td></tr>
+            <tr><td><strong>i (storage)</strong></td><td>i4i, im4gn</td><td>Almacenamiento NVMe local de alta IOPS</td><td>NoSQL intensivo en escritura, data warehouses (<span class="term-en">instance store</span>)</td></tr>
+            <tr><td><strong>f / g / p (aceleradas)</strong></td><td>f2, g5, p5</td><td>FPGA, GPU de inferencia, GPU de entrenamiento</td><td>ML (entrenar con <code>p</code>, inferir con <code>g</code>), gráficos, genómica</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-ec2/instance-types.md y concepts.md.</p>
+
+      <h3>Instance Metadata Service v2 (IMDSv2) y la mitigación de SSRF</h3>
+      <p>Cada instancia expone sus propios datos (su <span class="term-en">instance metadata</span>: ID, tipo, rol IAM,
+      dirección IP) en la dirección link-local <code>169.254.169.254</code>, accesible solo desde dentro de la propia
+      instancia. La versión 1 (IMDSv1) respondía a un simple GET, y eso la hacía vulnerable a ataques
+      <span class="term-en">SSRF</span> (<span class="term-en">Server-Side Request Forgery</span>): si un atacante lograba
+      que tu aplicación web hiciera una petición a esa IP, podía robar las credenciales temporales del rol IAM de la
+      instancia. IMDSv2 cierra esa puerta exigiendo un flujo de dos pasos, orientado a sesión: primero un
+      <span class="term-en">PUT</span> para obtener un <span class="term-en">token</span> con TTL y después el GET de
+      metadata ya con ese token.</p>
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant A["App en la instancia"]
+  participant M["IMDSv2<br>169.254.169.254"]
+  A->>M: PUT /latest/api/token (TTL)
+  M-->>A: token de sesión
+  A->>M: GET /latest/meta-data/ + token
+  M-->>A: metadata de la instancia
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — IMDSv2: sin token de sesión no hay metadata; un atacante externo por SSRF no puede completar el flujo.</figcaption>
+      </figure>
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>La metadata <strong>no</strong> está cifrada ni autenticada: cualquiera con acceso a la instancia puede leerla.
+        Nunca guardes contraseñas ni secretos en el <span class="term-en">user data</span> de lanzamiento, y fuerza
+        IMDSv2 (con <span class="term-en">hop limit 1</span>) para mitigar SSRF desde contenedores o apps web.</p>
+      </div>
+
+      <h3>AMIs: tu propia, de Marketplace o de la comunidad</h3>
+      <p>Una <span class="term-en">AMI</span> (Amazon Machine Image) empaqueta el sistema operativo, el software y el
+      <span class="term-en">block device mapping</span> con el que arranca una instancia. Las AMIs son
+      <strong>regionales</strong>: pertenecen a una Región concreta, aunque puedes copiarlas a otra Región o compartirlas
+      con otras cuentas. Para el examen hay tres orígenes que debes distinguir porque cambian el costo y el control:
+      crear la tuya propia (desde una instancia configurada o con EC2 Image Builder), comprarla en AWS Marketplace, o
+      usar una pública/comunitaria. Las AMIs de la propia AWS (por ejemplo, Amazon Linux 2023) son el punto de partida
+      habitual.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Origen de la AMI</th><th>Quién la mantiene</th><th>Cuándo la elige el examen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Propia</strong></td><td>Tú (creada desde una instancia, snapshot o Image Builder)</td><td>Configuración reproducible y auditada; compartir entre cuentas o copiar a otra Región</td></tr>
+            <tr><td><strong>AWS Marketplace</strong></td><td>Vendedor externo (pago por uso o por hora)</td><td>Software comercial ya certificado (firewalls, ERPs) sin negociar licencias</td></tr>
+            <tr><td><strong>Comunidad / pública</strong></td><td>Cualquier usuario AWS</td><td>Pruebas rápidas; nunca producción sin auditar</td></tr>
+            <tr><td><strong>AWS-provided</strong></td><td>AWS (Amazon Linux, Windows, Ubuntu…)</td><td>Base limpia y actualizada para tus propias AMIs de oro (<span class="term-en">golden images</span>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-ec2/amis.md.</p>
+
+      <h3>Hibernación: stop vs stop-hibernate vs terminate</h3>
+      <p>Una instancia puede pausarse de dos maneras. Con <span class="term-en">stop</span> el sistema operativo se
+      apaga: el EBS root volume sobrevive, pero la RAM se pierde y el arranque vuelve a arrancar de cero. Con
+      <span class="term-en">stop-hibernate</span> (hibernación) EC2 ordena al SO volcar la RAM al EBS root volume
+      (<span class="term-en">suspend-to-disk</span>): al reiniciar, se recarga la memoria y los procesos continúan donde
+      estaban, con el mismo instance ID. Requiere habilitarla al lanzar la instancia, volumen raíz EBS cifrado, RAM
+      soportada y tipos de instancia compatibles; no se paga por la instancia detenida, pero sí por el almacenamiento
+      EBS (incluido el que ocupa la RAM). <span class="term-en">terminate</span> destruye la instancia y, por defecto,
+      el volumen raíz asociado.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Acción</th><th>RAM</th><th>EBS root volume</th><th>Instance store</th><th>Facturación</th></tr></thead>
+          <tbody>
+            <tr><td><strong>stop</strong></td><td>Se pierde</td><td>Persiste</td><td>Se pierde</td><td>Sin cargo de instancia; sí se paga el EBS</td></tr>
+            <tr><td><strong>stop-hibernate</strong></td><td>Volcada al EBS root</td><td>Persiste (con la RAM dentro)</td><td>Se pierde</td><td>Sin cargo de instancia; se paga EBS ampliado</td></tr>
+            <tr><td><strong>terminate</strong></td><td>Se pierde</td><td>Se borra por defecto (<span class="term-en">delete on termination</span>)</td><td>Se pierde</td><td>Todo desaparece</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-ec2/hibernate.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  R["running"] -->|"stop"| S["stopped"]
+  R -->|"stop-hibernate"| H["hibernated"]
+  R -->|"terminate"| X["terminated"]
+  S -->|"start"| R
+  H -->|"start: RAM restaurada"| R
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Ciclo de vida de una instancia: la hibernación es la única pausa que conserva la memoria.</figcaption>
+      </figure>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>La hibernación es la respuesta cuando la pregunta menciona una app que tarda mucho en
+        <span class="term-en">bootstrap</span> (calentar memoria, caches) y quieres <span class="term-en">pre-warm</span>
+        la instancia o pausar sin perder estado. Si en cambio la pregunta quiere ahorrar en instancias detenidas por
+        largo tiempo, recuerda: igual pagas el EBS.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/compute-ec2/ec2-instance-metadata.md</code> ·
+      <code>../../bronze/05-docs/compute-ec2/amis.md</code> ·
+      <code>../../bronze/05-docs/compute-ec2/hibernate.md</code> ·
+      <code>../../bronze/04-faqs/amazon-ec2.md</code></p>
+
+      <!-- ================= 3. PURCHASING OPTIONS ================= -->
+      <h2 id="compra"><span class="h2-num">3</span>Purchasing options: cómo pagar tus instancias</h2>
+      <p>El mismo servidor EC2 puede costar muy distinto según cómo lo compres, y el examen (sobre todo en el dominio
+      <span class="term-en">cost-optimized</span>) te hará elegir el modelo correcto en una frase. Las cuatro opciones
+      básicas son <span class="term-en">On-Demand</span> (pago por segundo, sin compromiso), <span class="term-en">Spot</span>
+      (capacidad sobrante con hasta 90% de descuento a cambio de interrupciones con 2 minutos de aviso),
+      <span class="term-en">Reserved Instances</span> (compromiso de 1 o 3 años sobre una configuración concreta) y
+      <span class="term-en">Savings Plans</span> (compromiso de gasto por hora en USD, más flexible). A ellas se suman
+      <span class="term-en">Dedicated Hosts</span> (servidor físico completo para licencias o compliance) y
+      <span class="term-en">Capacity Reservations</span> (reservar capacidad en una AZ específica sin compromiso de
+      descuento).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción</th><th>Descuento típico</th><th>Compromiso</th><th>Cuándo la elige el examen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>On-Demand</strong></td><td>—</td><td>Ninguno; pago por segundo (mín. 60 s)</td><td>Cargas impredecibles, pruebas, apps que no pueden interrumpirse</td></tr>
+            <tr><td><strong>Spot</strong></td><td>Hasta ~90%</td><td>Ninguno; puede interrumpirse con aviso de 2 min</td><td>Cargas tolerantes a fallos: batch, CI/CD, rendering, workers de cola</td></tr>
+            <tr><td><strong>Reserved Instances</strong></td><td>Hasta ~72%</td><td>1 o 3 años sobre instancia+Región (Standard o Convertible)</td><td>Uso estable y previsible 24/7: bases de datos, ERPs</td></tr>
+            <tr><td><strong>Savings Plans</strong></td><td>Hasta ~66-72%</td><td>1 o 3 años sobre USD/hora (Compute o EC2 Instance)</td><td>Uso flexible: Compute Savings Plans cubre EC2 + Fargate + Lambda</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-ec2.md (Savings Plans: hasta 66% en Compute, 72% en EC2 Instance).</p>
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">fault-tolerant batch workload, MOST cost-effective</span> → Spot.
+        <span class="term-en">steady state, 3-year commitment</span> → Reserved/Savings Plans.
+        <span class="term-en">cannot be interrupted</span> → On-Demand o Reserved. El análisis costo-beneficio completo
+        (incluyendo cómo combinar estos modelos con Auto Scaling) está en <a href="../dominios/dominio-4-deep-dive.html">Dominio 4 ·
+        Cost-optimized</a>.</p>
+      </div>
+
+      <!-- ================= 4. AWS LAMBDA ================= -->
+      <h2 id="lambda"><span class="h2-num">4</span>AWS Lambda a fondo</h2>
+      <p>AWS Lambda es el cómputo <span class="term-en">serverless</span> por excelencia: subes tu código (una
+      <span class="term-en">function</span>), eliges un <span class="term-en">runtime</span> (Python, Node.js, Java, .NET,
+      Ruby o uno propio) y AWS lo ejecuta automáticamente cuando ocurre un evento. No hay servidores que aprovisionar,
+      parchear ni escalar: Lambda crea un <span class="term-en">execution environment</span> aislado por cada solicitud
+      concurrente y lo escala horizontalmente sin que toques nada. Pagas por el número de invocaciones y por la duración,
+      medida en <span class="term-en">GB-seconds</span> (memoria configurada × tiempo). Es la respuesta por defecto
+      cuando el requisito es <span class="term-en">minimal operational overhead</span> y la carga es
+      <span class="term-en">event-driven</span>.</p>
+
+      <h3>Modos de invocación</h3>
+      <p>La forma en que Lambda recibe el evento define quién espera la respuesta. En la invocación
+      <span class="term-en">synchronous</span> el cliente bloquea hasta recibir el resultado: es el caso de API Gateway,
+      ALB o el SDK. En la <span class="term-en">asynchronous</span> Lambda encola el evento, responde inmediatamente y
+      reintenta solo ante errores (2 reintentos por defecto, con <span class="term-en">destinations</span> o DLQ para
+      capturar fallos): es el caso de S3 o SNS disparando funciones. En el modo <span class="term-en">stream / queue-based</span>
+      es Lambda quien sondea (<span class="term-en">polls</span>) la fuente mediante un <span class="term-en">event source
+      mapping</span>, recibiendo registros en lotes: Kinesis, DynamoDB Streams, SQS y MSK funcionan así.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Modo</th><th>Ejemplos de origen</th><th>Quién espera</th><th>Reintentos ante error</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Síncrona</strong></td><td>API Gateway, ALB, SDK/CLI, Function URL</td><td>El cliente (bloquea)</td><td>Manuales: el error vuelve al llamador</td></tr>
+            <tr><td><strong>Asíncrona</strong></td><td>S3 (eventos), SNS, EventBridge, CloudWatch</td><td>Nadie: Lambda encola</td><td>Automáticos (2) + <span class="term-en">destinations</span> o DLQ</td></tr>
+            <tr><td><strong>Stream / cola</strong></td><td>SQS, Kinesis, DynamoDB Streams, MQ, MSK</td><td>Nadie: Lambda sondea</td><td>Gestionados por el <span class="term-en">event source mapping</span> (hasta caducar en la cola)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/serverless-lambda/lambda-invocation.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant C["Cliente"]
+  participant G["API Gateway"]
+  participant F["Función Lambda"]
+  C->>G: HTTPS POST /pedidos
+  G->>F: Invoke (síncrono)
+  F->>F: init + handler
+  F-->>G: respuesta 200
+  G-->>C: JSON de resultado
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Invocación síncrona vía API Gateway: el cliente espera el resultado completo de la función.</figcaption>
+      </figure>
+
+      <h3>Concurrency: reserved vs provisioned</h3>
+      <p>La <span class="term-en">concurrency</span> es el número de ejecuciones simultáneas; por defecto la cuenta
+      tiene un límite de 1.000 por Región, compartido por todas las funciones. La
+      <span class="term-en">reserved concurrency</span> aparta un cupo para una función crítica: le garantiza capacidad
+      y a la vez actúa como techo (si pones 20, la función nunca pasará de 20). La <span class="term-en">provisioned
+      concurrency</span> es distinta: inicializa y mantiene caliente un número fijo de entornos para eliminar los
+      <span class="term-en">cold starts</span>, y se paga aunque nadie invoque la función; se asigna a una
+      versión+alias concreta y puede auto-escalar programándose. El examen distingue la primera (garantía/techo, gratis)
+      de la segunda (pre-calentar, con costo).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mecanismo</th><th>Qué hace</th><th>Costo</th><th>Pregunta típica</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Reserved concurrency</strong></td><td>Reserva un cupo del límite de cuenta; actúa como máximo</td><td>Gratis</td><td>"Asegurar que la función X siempre tenga capacidad" o "proteger a las demás de una función voraz"</td></tr>
+            <tr><td><strong>Provisioned concurrency</strong></td><td>Mantiene N entornos inicializados y listos</td><td>Se paga continuamente</td><td>"Eliminar latencia de arranque en una API sensible" (junto a SnapStart)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/serverless-lambda/lambda-concurrency.md y provisioned-concurrency.md.</p>
+
+      <h3>Cold starts y SnapStart</h3>
+      <p>Un <span class="term-en">cold start</span> ocurre cuando ninguna instancia del entorno está disponible y Lambda
+      debe crear una: descargar código, arrancar el runtime e inicializarlo antes de ejecutar el handler. Para Python o
+      Node.js suele ser decenas de milisegundos; para Java con frameworks pesados puede llegar a varios segundos.
+      <span class="term-en">Lambda SnapStart</span> ataca ese problema tomando un snapshot cifrado (memoria + disco) del
+      entorno ya inicializado cuando publicas una versión: las invocaciones siguientes
+      <span class="term-en">resume</span> desde esa imagen y arrancan en menos de un segundo, sin tocar el código.
+      Nació para Java 11+ (hoy también .NET 8 y Python 3.12+) y es la respuesta del examen cuando la pregunta menciona
+      JVM + latencia de arranque; si el requisito es aún más estricto (doble dígito de milisegundos), la respuesta es
+      provisioned concurrency.</p>
+
+      <h3>Layers, versiones y alias</h3>
+      <p>Las <span class="term-en">layers</span> son paquetes de dependencias o runtimes que varias funciones comparten:
+      en lugar de empaquetar la misma librería en cada ZIP, la subes una vez como capa y la adjuntas (hasta 5 por
+      función). Cada vez que publicas código obtienes una <span class="term-en">version</span> inmutable con su propio
+      ARN; <code>$LATEST</code> es la única puntera y mutable. Los <span class="term-en">alias</span> son punteros
+      con nombre a una versión concreta (por ejemplo <code>prod</code> → v42) y permiten un
+      <span class="term-en">traffic shifting</span> entre dos versiones para despliegues canary o blue/green. Los
+      triggers y el provisioned concurrency se configuran sobre alias, no sobre versiones directas.</p>
+
+      <h3>Límites que el examen cita de memoria</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Límite</th><th>Valor</th><th>Consecuencia de diseño</th></tr></thead>
+          <tbody>
+            <tr><td>Memoria</td><td>128 MB – 10 GB</td><td>Más memoria = más CPU y red proporcionalmente</td></tr>
+            <tr><td>Timeout</td><td>Máx. 15 min</td><td>Nada más largo puede ser Lambda: piensa en Batch o contenedores</td></tr>
+            <tr><td>Directorio /tmp</td><td>512 MB – 10 GB</td><td>Almacenamiento efímero ampliable por configuración</td></tr>
+            <tr><td>Payload síncrono</td><td>6 MB</td><td>Binarios grandes: subirlos a S3 y pasar la referencia</td></tr>
+            <tr><td>Payload asíncrono</td><td>256 KB</td><td>Eventos compactos; para más, ir por SQS/streams</td></tr>
+            <tr><td>Variables de entorno</td><td>4 KB total</td><td>Cifradas en reposo; con CMK de KMS opcional</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/serverless-lambda (configuration-memory, configuration-envvars, quotas).</p>
+
+      <p>Sobre las <span class="term-en">environment variables</span>: se leen en claro dentro del runtime pero viajan
+      cifradas en reposo; con una <span class="term-en">customer managed key</span> de KMS controlas la rotación y los
+      permisos de quién puede actualizar la configuración. Y en cuanto al escalado, no existe nada que configurar: cada
+      solicitud concurrente recibe su entorno, de modo que 1.000 peticiones simultáneas significan hasta 1.000 entornos
+      en paralelo (escala horizontal pura), solo frenada por los límites de concurrencia de la cuenta.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">least operational overhead</span> o <span class="term-en">no infrastructure to
+        manage</span> + carga corta → Lambda. Pero cuidado con las trampas: si la tarea dura más de 15 minutos, si
+        necesita GPU o acceso al SO, o si la pregunta menciona <span class="term-en">container image</span> pesada y
+        controlada por ti, Lambda ya no vale. <span class="term-en">Java cold start</span> → SnapStart;
+        <span class="term-en">consistent latency</span> → provisioned concurrency.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/serverless-lambda/lambda-invocation.md</code> ·
+      <code>../../bronze/05-docs/serverless-lambda/lambda-concurrency.md</code> ·
+      <code>../../bronze/05-docs/serverless-lambda/snapstart.md</code> ·
+      <code>../../bronze/05-docs/serverless-lambda/lambda-runtimes.md</code></p>
+
+      <!-- ================= 5. BATCH · BEANSTALK · OUTPOSTS · WAVELENGTH ================= -->
+      <h2 id="batch-beanstalk"><span class="h2-num">5</span>Batch, Beanstalk y cómputo híbrido/edge</h2>
+      <p>AWS Batch es el servicio gestionado para <span class="term-en">batch computing</span>: planifica y ejecuta miles
+      de trabajos en contenedores sin que instales ni un planificador. Tú defines <span class="term-en">job
+      definitions</span> (imagen Docker, vCPU y memoria), las envías a <span class="term-en">job queues</span> con
+      prioridad, y los <span class="term-en">compute environments</span> (EC2 On-Demand/Spot gestionados o Fargate)
+      provisionan la capacidad según la demanda. Internamente Batch se apoya en la orquestación de contenedores de ECS
+      y EKS, pero tú solo ves colas y trabajos. Es la respuesta del examen para <span class="term-en">large-scale
+      batch workloads</span> — rendering, simulaciones, ETL masivo — cuando gestionar EC2 a mano sería absurdo.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  J["Job<br>definición Docker"] --> Q["Job queue<br>prioridades"]
+  Q --> S["Scheduler<br>gestionado por AWS"]
+  S --> C["Compute environment"]
+  C -->|"EC2 On-Demand/Spot"| E["Instancias gestionadas"]
+  C -->|"Fargate"| F["Sin servidores"]
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — AWS Batch: tú envías trabajos a una cola; el scheduler y los compute environments hacen el resto.</figcaption>
+      </figure>
+
+      <p>AWS Elastic Beanstalk es la capa <span class="term-en">platform as a service</span>: subes tu código (Go, Java,
+      .NET, Node.js, PHP, Python, Ruby o Docker) y Beanstalk provisiona y opera por debajo los EC2, el balanceador, el
+      Auto Scaling y la monitorización con buenas prácticas. No cobra extra: pagas solo los recursos subyacentes, y con
+      <span class="term-en">managed platform updates</span> las parchadas son automáticas. Además de entornos
+      <span class="term-en">web server</span>, ofrece entornos <span class="term-en">worker</span> que consumen de una
+      cola SQS para tareas asíncronas. Lo que el examen pregunta una y otra vez son sus políticas de despliegue.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Política de despliegue</th><th>Cómo funciona</th><th>Downtime / costo</th><th>Cuándo elegirla</th></tr></thead>
+          <tbody>
+            <tr><td><strong>All at once</strong></td><td>Reemplaza todas las instancias de golpe</td><td>Downtime breve; más barato y rápido</td><td>Entornos de desarrollo o pruebas</td></tr>
+            <tr><td><strong>Rolling</strong></td><td>Sustituye por lotes con capacidad reducida mientras tanto</td><td>Sin downtime, pero menos capacidad en el proceso</td><td>Producción sin presupuesto extra</td></tr>
+            <tr><td><strong>Rolling with additional batch</strong></td><td>Levanta un lote extra antes de rodar, mantiene capacidad plena</td><td>Sin downtime ni pérdida de capacidad; costo temporal extra</td><td>Producción estable sin tocar DNS</td></tr>
+            <tr><td><strong>Immutable</strong></td><td>Crea un Auto Scaling group nuevo con instancias frescas y conmuta</td><td>Sin downtime; el más lento y costoso; el más seguro (rollback fácil)</td><td>Despliegues críticos</td></tr>
+            <tr><td><strong>Blue/Green</strong></td><td>Entorno paralelo completo + swap de CNAME (o URL swap en consola)</td><td>Sin downtime; dos entornos pagando durante la transición</td><td>Validación real antes del corte, rollbacks instantáneos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-beanstalk/welcome.md (políticas documentadas en la guía del servicio).</p>
+
+      <p>Finalmente, hay cargas que no pueden subir a la nube o que necesitan estar pegadas al usuario: ahí entran
+      <span class="term-en">AWS Outposts</span> y <span class="term-en">AWS Wavelength</span>. Outposts instala hardware
+      diseñado por AWS <em>dentro</em> de tu datacenter, para correr cómputo, almacenamiento y bases de datos con las
+      mismas APIs y la misma consola, gestionado como parte de tu Región de AWS (racks o servidores 1U/2U). Wavelength
+      extiende la VPC hasta el borde de las redes 5G de los operadores para dar latencias de un dígito de milisegundos
+      a dispositivos móviles. Junto con <span class="term-en">Local Zones</span> (centros de datos urbanos de baja
+      latencia), completan el mapa híbrido/edge que el examen menciona con las frases
+      <span class="term-en">data residency</span> y <span class="term-en">ultra-low latency</span>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción</th><th>Dónde vive</th><th>Caso típico</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Outposts</strong></td><td>Tu datacenter, hardware AWS gestionado</td><td>Latencia local extrema, residencia de datos, migraciones graduales con las mismas APIs</td></tr>
+            <tr><td><strong>Wavelength</strong></td><td>Edge de las redes 5G del operador</td><td>Apps móviles con latencias de un dígito (AR, juegos, telemetría de vehículos)</td></tr>
+            <tr><td><strong>Local Zones</strong></td><td>Metro a metro de tus usuarios</td><td>Contenido interactivo y edge computing cerca de grandes ciudades</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/compute-outposts/what-is-outposts.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"Ejecutar cargas en tu propio datacenter con los mismos servicios y APIs de AWS" → Outposts. "Latencia mínima
+        para usuarios 5G" → Wavelength. "Colas de trabajos masivos sin gestionar infraestructura" → Batch. Y con
+        Beanstalk, cuidado: si la pregunta exige <span class="term-en">full control of the underlying EC2</span>, ya no
+        es Beanstalk; si exige <span class="term-en">just upload the code</span>, sí lo es.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/compute-batch/what-is-batch.md</code> ·
+      <code>../../bronze/05-docs/compute-batch/compute-environments.md</code> ·
+      <code>../../bronze/05-docs/compute-beanstalk/welcome.md</code> ·
+      <code>../../bronze/05-docs/compute-outposts/what-is-outposts.md</code></p>
+
+      <!-- ================= 6. CIERRE ================= -->
+      <h2 id="resumen"><span class="h2-num">6</span>Resumen exprés: criterio → servicio</h2>
+      <p>Antes del examen convierte toda esta página en una tabla de reflejos. Cuando leas el escenario, localiza el
+      criterio dominante (control, overhead, duración, costo, latencia) y salta directamente al servicio asociado.
+      Practica esta tabla hasta que la recites sin pensar, porque en el examen no tendrás tiempo de razonar cada
+      alternativa desde cero: la respuesta correcta suele ser el servicio administrado que cumple el calificador
+      <em>y nada más que eso</em>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Si la pregunta dice…</th><th>Elige</th></tr></thead>
+          <tbody>
+            <tr><td>Control total del SO, GPU, o carga <span class="term-en">long-running</span> sin límite</td><td><strong>Amazon EC2</strong></td></tr>
+            <tr><td>Código corto <span class="term-en">event-driven</span> de menos de 15 min, cero administración</td><td><strong>AWS Lambda</strong></td></tr>
+            <tr><td>Contenedores sin gestionar servidores</td><td><strong>Fargate</strong> (detalles en la página de contenedores)</td></tr>
+            <tr><td>Miles de trabajos por lotes planificados con prioridades</td><td><strong>AWS Batch</strong></td></tr>
+            <tr><td>"Solo subir el código" de una app web en plataformas gestionadas</td><td><strong>Elastic Beanstalk</strong></td></tr>
+            <tr><td>Cargas tolerantes a interrupciones al menor costo</td><td><strong>Spot</strong> (EC2, Fargate Spot o Spot en Batch)</td></tr>
+            <tr><td>Uso constante comprometido a 1-3 años</td><td><strong>Reserved / Savings Plans</strong></td></tr>
+            <tr><td>AWS dentro de tu datacenter, mismas APIs</td><td><strong>Outposts</strong></td></tr>
+            <tr><td>Latencia mínima en redes 5G</td><td><strong>Wavelength</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis propia a partir de la documentación bronze citada en cada sección.</p>
+
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Ruta de lectura recomendada: <code>../../bronze/05-docs/compute-ec2/concepts.md</code> →
+        <code>../../bronze/05-docs/serverless-lambda/lambda-concurrency.md</code> →
+        <code>../../bronze/04-faqs/amazon-ec2.md</code>. La página hermana
+        <a href="contenedores-serverless.html">Contenedores y serverless</a> cubre ECS, EKS, ECR y Fargate.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Elegir Lambda por reflejo en cualquier pregunta con la palabra "serverless". Si la carga es de larga duración
+        (más de 15 minutos), con estado pesado o empaquetada como contenedor con dependencias complejas, la respuesta
+        correcta suele ser Fargate. Lee el límite de duración antes que la palabra bonita.</p>
+      </div>
+
+      <!-- ================= PAGER ================= -->
+      <nav class="pager">
+        <a href="../dominios/dominio-4-deep-dive.html"><span class="p-dir">← Anterior</span><br>D4 · Cost-optimized</a>
+        <a class="p-next" href="almacenamiento.html"><span class="p-dir">Siguiente →</span><br>Almacenamiento</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

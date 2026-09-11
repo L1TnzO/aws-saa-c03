@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bases de datos: relacionales, NoSQL, caché y OLAP · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Bases de datos</div>
+        <h1>Bases de datos: relacionales, NoSQL, caché y analíticas <span class="dom-weight">D3 · Performant</span></h1>
+        <p class="page-lead">El examen SAA-C03 no pregunta «¿qué es RDS?» sino «¿cuál base de datos elegiste y por qué?».
+        Esta página cubre el mapa completo — RDS, Aurora, DynamoDB, ElastiCache, Redshift y las especializadas — con las
+        tablas de decisión que necesitas para responder en dos minutos.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.2</div>
+        <div class="tb-title">Determine high-performing and/or scalable database solutions for a workload</div>
+        <div class="tb-meta">Knowledge: AWS database services (RDS, Aurora, DynamoDB, ElastiCache, Redshift) · Skills: elegir el motor según el
+        workload, escalar lecturas/escrituras, HA y failover (toca también D2 y D4: resiliencia y costo por base elegida)</div>
+      </div>
+
+      <!-- ============ 1. PANORAMA ============ -->
+      <h2 id="panorama"><span class="h2-num">1</span>El panorama: elegir por el workload, no por la marca</h2>
+      <p>Toda pregunta de bases de datos del SAA-C03 se responde clasificando primero el <span class="term-en">workload</span>:
+      ¿la aplicación necesita <span class="term-en">joins</span>, esquemas rígidos y transacciones ACID? Entonces es
+      relacional (RDS o Aurora). ¿Solo busca y escribe por clave con millones de peticiones impredecibles? Es
+      <span class="term-en">key-value</span>: DynamoDB. ¿Vuelve a leer siempre los mismos datos y el origen es lento?
+      Necesita un caché en memoria: ElastiCache o DAX. ¿Y si el objetivo es agregar terabytes para BI y reporting en vez
+      de servir transacciones en línea? Eso ya es <span class="term-en">OLAP</span>: Redshift. Confundir la capa del
+      problema es el error más caro del examen, porque AWS diseña cada servicio exactamente para uno de esos cuatro
+      patrones y los <span class="term-en">distractors</span> suelen ser el servicio «hermano» correcto en la capa
+      equivocada.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿Qué patrón de<br>acceso domina?"}
+  Q -->|"SQL, joins,<br>schema fijo"| R["Relacional<br>RDS o Aurora"]
+  Q -->|"key-value,<br>escala masiva"| D["DynamoDB"]
+  Q -->|"leer lo mismo<br>una y otra vez"| C["ElastiCache<br>caché en memoria"]
+  Q -->|"agregados, BI,<br>petabytes"| W["Redshift<br>OLAP"]
+  R -->|"máx rendimiento<br>o 15 réplicas"| A["Aurora"]
+  R -->|"estándar y<br>más barato"| S["RDS clásico"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El árbol de decisión raíz: primero el workload, después el servicio. Si tu escenario cae en dos ramas, la pregunta pedía dos servicios combinados.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Workload</th><th>Servicio</th><th>Señal en la pregunta (EN)</th></tr></thead>
+          <tbody>
+            <tr><td>Relacional, tamaño mediano, costo bajo</td><td>Amazon RDS</td><td><em>existing MySQL/PostgreSQL app</em>, <em>minimal changes</em></td></tr>
+            <tr><td>Relacional, alto rendimiento / HA agresiva</td><td>Amazon Aurora</td><td><em>high throughput</em>, <em>15 read replicas</em>, <em>storage auto-scaling</em></td></tr>
+            <tr><td>Key-value masivo, tráfico impredecible</td><td>DynamoDB</td><td><em>millions of concurrent users</em>, <em>any scale</em>, <em>single-digit ms</em></td></tr>
+            <tr><td>Latencia de microsegundos sobre datos calientes</td><td>ElastiCache / DAX</td><td><em>read-heavy</em>, <em>reduce database load</em>, <em>session store</em></td></tr>
+            <tr><td>Analítica de petabytes, reporting, BI</td><td>Redshift</td><td><em>data warehouse</em>, <em>complex queries</em>, <em>OLAP</em>, <em>columnar</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: guías oficiales por servicio (bronze/05-docs y bronze/04-faqs).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Cuando la pregunta dice <span class="term-en">database</span> sin más, casi siempre cae en relacional o
+        DynamoDB. El empate se rompe con el calificador: <em>least operational overhead</em> empuja a Aurora Serverless
+        o DynamoDB (nada que administrar); <em>most cost-effective</em> empuja a RDS con instancias más pequeñas o
+        <span class="term-en">on-demand</span> solo si el tráfico es esporádico. Y si aparece <em> leaderboard</em>,
+        <em>session data</em> o <em>sub-millisecond</em>, la respuesta tiene «cache» en el nombre.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/aurora-faq.md</code> ·
+      <code>../../bronze/04-faqs/amazon-dynamodb.md</code></p>
+
+      <!-- ============ 2. RDS ============ -->
+      <h2 id="rds"><span class="h2-num">2</span>Amazon RDS a fondo</h2>
+      <p>Amazon RDS es el servicio <span class="term-en">managed</span> para motores relacionales: AWS se encarga del
+      aprovisionamiento, parches del sistema operativo y del motor, backups y detección de fallos, mientras tú conservas
+      el control de esquemas, índices y <span class="term-en">query tuning</span> — ese reparto es el
+      <span class="term-en">shared responsibility model</span> de RDS. Seleccionas la clase de instancia
+      (db.m7g, db.r7g…), el almacenamiento y el motor, y RDS lo opera. La pregunta típica del examen te da una
+      aplicación que ya usa un motor concreto y espera que sepas qué puede hacerse <em>sin tocar código</em>: Multi-AZ,
+      <span class="term-en">read replicas</span>, RDS Proxy y backups son los cuatro trucos de infraestructura que
+      resuelven la mayoría de escenarios.</p>
+
+      <h3>2.1 Los siete motores (y dónde encaja cada uno)</h3>
+      <p>RDS soporta seis motores estándar más Aurora, que pertenece a la misma familia de consola/API pero tiene
+      arquitectura propia (sección 3). En el examen el motor casi nunca es la decisión difícil; lo es leer bien el
+      requisito: licencias Oracle o SQL Server existentes (<span class="term-en">License Included</span> vs
+      <span class="term-en">BYOL</span>), compatibilidad con herramientas internas, o migrar «tal cual» desde
+      <span class="term-en">on-premises</span>. Db2 es el más nuevo del catálogo y aparece poco; Aurora es el que más
+      preguntas genera.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Motor</th><th>Caso típico</th><th>Nota para el examen</th></tr></thead>
+          <tbody>
+            <tr><td>MySQL</td><td>Apps web open-source; el más usado</td><td>Ruta natural de migración a Aurora MySQL</td></tr>
+            <tr><td>MariaDB</td><td>Fork de MySQL, licencia GPL pura</td><td>No tiene Multi-AZ DB cluster</td></tr>
+            <tr><td>PostgreSQL</td><td>Extensiones, JSON, GIS</td><td>Ruta a Aurora PostgreSQL y a Babelfish</td></tr>
+            <tr><td>Oracle</td><td>ERPs legacy, PL/SQL</td><td>BYOL o incluida; sin RDS Proxy ni Multi-AZ cluster</td></tr>
+            <tr><td>SQL Server</td><td>Stack Microsoft, T-SQL</td><td>Hasta 100 BDs por instancia; Multi-AZ vía mirroring/AG</td></tr>
+            <tr><td>Db2</td><td>Cargas IBM/zSystems en cloud</td><td>El más limitado en features nuevas</td></tr>
+            <tr><td>Aurora (MySQL/PostgreSQL)</td><td>Rendimiento y HA máximos</td><td>Arquitectura distinta: storage del cluster (sección 3)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-rds/welcome.md (lista oficial de motores y límites por instancia).</p>
+
+      <h3>2.2 Multi-AZ DB instance vs Multi-AZ DB cluster vs read replicas</h3>
+      <p>Aquí está la tabla que el examen cobra cara: los tres mecanismos de réplica se confunden a propósito en los
+      <span class="term-en">distractors</span>. El <span class="term-en">Multi-AZ DB instance deployment</span> crea una
+      <span class="term-en">standby replica</span> síncrona en otra AZ que <strong>no sirve tráfico de lectura</strong>:
+      existe solo para <span class="term-en">failover</span>. El <span class="term-en">Multi-AZ DB cluster</span>
+      (solo MySQL y PostgreSQL) añade <strong>dos standbys legibles</strong> en tres AZs con menor latencia de commit.
+      Y las <span class="term-en">read replicas</span> son asíncronas, <strong>atienden SELECT</strong>, pueden estar
+      en otra Región y pueden promoverse a primarias — pero su lag asíncrono implica posible
+      <span class="term-en">replication lag</span> en las respuestas.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Multi-AZ DB instance</th><th>Multi-AZ DB cluster</th><th>Read replicas</th></tr></thead>
+          <tbody>
+            <tr><td>Propósito</td><td>Alta disponibilidad (HA)</td><td>HA + lecturas + commits rápidos</td><td>Escalado de lectura</td></tr>
+            <tr><td>Sincronía</td><td>Síncrona</td><td>Síncrona (semi-síncrona optimizada con RDMA)</td><td><strong>Asíncrona</strong></td></tr>
+            <tr><td>La réplica sirve lecturas</td><td>No (standby pasiva)</td><td>Sí (2 standbys legibles)</td><td>Sí (es su razón de ser)</td></tr>
+            <tr><td>Failover</td><td>60–120 s: promueve el standby</td><td>Más rápido: 2 candidatos legibles</td><td>Manual: debes promoverla</td></tr>
+            <tr><td>Escalado</td><td>Vertical (clase de instancia)</td><td>Vertical + 2 réplicas de lectura</td><td>Horizontal (hasta 15 en Aurora)</td></tr>
+            <tr><td>Cross-Region</td><td>No</td><td>No</td><td>Sí (y pueden promoverse)</td></tr>
+            <tr><td>Motores</td><td>Todos</td><td>Solo MySQL y PostgreSQL</td><td>MySQL, MariaDB, PostgreSQL, Oracle</td></tr>
+            <tr><td>Costo relativo</td><td>x2 instancias</td><td>x3 instancias</td><td>x1 por cada réplica</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-rds/concepts-multiazsinglestandby.md y concepts-rds-fea-regions-db-eng-feature-multiazdbclusters.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant App as App
+  participant DNS as Endpoint DNS
+  participant P as Primary AZ A
+  participant S as Standby AZ B
+  App->>P: escrituras y lecturas
+  P->>S: replicación síncrona
+  Note over P: fallo detectado
+  P--xApp: sin respuesta
+  Note over S: RDS promueve el standby
+  DNS->>App: CNAME ahora apunta a AZ B
+  App->>S: reconecta y sigue escribiendo
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Failover de Multi-AZ DB instance: la app reconecta al mismo endpoint; el DNS (CNAME) pasa de la primaria a la standby sin cambiar la cadena de conexión.</figcaption>
+      </figure>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>«Instalaré Multi-AZ para escalar mis lecturas». Falso: la standby del Multi-AZ DB instance es
+        <strong>pasiva</strong>. Para leer necesitas read replicas (o Multi-AZ DB cluster). Al revés también:
+        una read replica <strong>no</strong> hace failover automática por sí sola — eso es Multi-AZ. El examen mezcla
+        las dos frases deliberadamente.</p>
+      </div>
+
+      <h3>2.3 Backups automáticos vs snapshots</h3>
+      <p>RDS maneja dos mecanismos de protección que el examen contrasta constantemente. Los
+      <span class="term-en">automated backups</span> combinan un snapshot diario durante el
+      <span class="term-en">preferred backup window</span> con logs de transacciones cada cinco minutos; juntos permiten
+      <span class="term-en">point-in-time recovery (PITR)</span> a cualquier segundo dentro de la retención de
+      <strong>1 a 35 días</strong> (por defecto 7). Los <span class="term-en">manual snapshots</span> se disparan cuando
+      tú quieres, no expiran nunca y <strong>sobreviven a la eliminación de la instancia</strong> — detalle clave si la
+      pregunta dice <em>«decomisionar la base pero conservar el poder restaurar»</em>. En instancias Single-AZ el
+      snapshot genera una breve pausa de I/O; en Multi-AZ se toma sobre la standby sin afectar a la primaria.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Automated backups</th><th>Manual snapshots</th></tr></thead>
+          <tbody>
+            <tr><td>Disparo</td><td>Diario, en la backup window</td><td>Cuando tú lo pides</td></tr>
+            <tr><td>Retención</td><td>0–35 días (por defecto 7)</td><td>Indefinida, hasta que las borres</td></tr>
+            <tr><td>PITR</td><td>Sí (granularidad de 5 min)</td><td>No: restaura al punto exacto del snapshot</td></tr>
+            <tr><td>Si borras la instancia</td><td>Se pierden</td><td>Se conservan</td></tr>
+            <tr><td>Cross-Region copy</td><td>Sí (configurable)</td><td>Sí (copia explícita)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-rds.md (sección «Automatic backups and database snapshots»).</p>
+
+      <h3>2.4 Maintenance window, RDS Proxy y storage</h3>
+      <p>La <span class="term-en">maintenance window</span> semanal es la franja en la que RDS aplica parches del motor
+      y del SO y completa cambios pendientes (como cambiar clase de instancia); puedes elegir la franja y diferir
+      parches menores, y los eventos se notifican por EventBridge/SNS. El <span class="term-en">RDS Proxy</span> es un
+      <span class="term-en">fully managed database proxy</span> que agrupa y multiplexa conexiones: invaluable cuando
+      miles de funciones Lambda saturan los límites de conexión, obliga autenticación vía IAM y guarda credenciales en
+      Secrets Manager, y en failover recoloca conexiones de forma transparente, reduciendo el tiempo de failover de
+      Aurora Multi-AZ <strong>hasta en un 66%</strong> según la documentación oficial. En storage, hoy el default es
+      <span class="term-en">gp3</span> (SSD de uso general con línea base de 3.000 IOPS) y para OLTP exigente se usa
+      <span class="term-en">io1</span> con IOPS provisionadas consistentes.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Storage RDS</th><th>IOPS</th><th>Cuándo elegirlo</th></tr></thead>
+          <tbody>
+            <tr><td>gp3 (default)</td><td>Línea base 3.000; ampliable</td><td>Cargas generales: mejor $/GB que gp2</td></tr>
+            <tr><td>io1 (Provisioned IOPS)</td><td>Miles, consistentes</td><td>OLTP intensivo con latencia de I/O crítica</td></tr>
+            <tr><td>gp2 (legado)</td><td>3 IOPS por GB</td><td>Solo aparece en preguntas antiguas</td></tr>
+            <tr><td>Magnetic (legado)</td><td>Bajas</td><td>No aparece en el examen moderno</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-rds.md (secciones «Hardware and scaling» y «RDS Proxy»).</p>
+
+      <h3>2.5 Límites clave para responder rápido</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Límite</th><th>Valor</th><th>Truco de lectura</th></tr></thead>
+          <tbody>
+            <tr><td>Retención de backups</td><td>Hasta 35 días</td><td>«retention 35 days» = automated + PITR</td></tr>
+            <tr><td>Read replicas — Aurora</td><td>Hasta 15</td><td>Y failover típicamente por debajo de 30 s</td></tr>
+            <tr><td>Read replicas — RDS</td><td>5 por fuente (límite clásico del material de examen; la doc. actual sube a 15 en MySQL/MariaDB/PostgreSQL/Oracle)</td><td>Si el enunciado da un número, úsalo</td></tr>
+            <tr><td>Storage RDS</td><td>Hasta 64 TiB (16 TiB en SQL Server)</td><td>Petabytes → Aurora (256 TiB) o Redshift</td></tr>
+            <tr><td>RDS Proxy</td><td>No disponible para Oracle ni Db2</td><td>Distractor típico en preguntas de pooling</td></tr>
+            <tr><td>Multi-AZ DB cluster</td><td>Solo MySQL y PostgreSQL; 3 AZs</td><td>2 standbys <strong>legibles</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Frases que delatan la respuesta: <em>«Lambda functions overwhelm the database with connections»</em> →
+        RDS Proxy; <em>«reads have increased 3x»</em> → read replicas; <em>«database must survive an AZ failure»</em> →
+        Multi-AZ; <em>«recover to any point in the last month»</em> → automated backups con retención 30+ días. Y la
+        combinación estrella: <em>«highly available AND scale reads»</em> → Multi-AZ <strong>más</strong> read replicas,
+        no solo una de las dos.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/amazon-rds.md</code> ·
+      <code>../../bronze/05-docs/db-rds/welcome.md</code> · <code>../../bronze/05-docs/db-rds/concepts-multiazsinglestandby.md</code> ·
+      <code>../../bronze/05-docs/db-rds/concepts-rds-fea-regions-db-eng-feature-multiazdbclusters.md</code> ·
+      <code>../../bronze/05-docs/db-rds/concepts-rds-fea-regions-db-eng-feature-rdsproxy.md</code></p>
+
+      <!-- ============ 3. AURORA ============ -->
+      <h2 id="aurora"><span class="h2-num">3</span>Amazon Aurora a fondo</h2>
+      <p>Aurora es «MySQL/PostgreSQL con otro chasis»: compatible a nivel de driver y SQL, pero con
+      <span class="term-en">separation of storage and compute</span>. El <span class="term-en">cluster volume</span>
+      guarda <strong>6 copias de cada bloque en 3 AZs</strong> (dos por AZ), se repara solo y crece automáticamente
+      hasta <strong>256 TiB</strong> pagando solo una copia lógica — la replicación física es gratis. El compute es un
+      <span class="term-en">writer</span> más hasta <strong>15 Aurora Replicas</strong> legibles con replicación
+      asíncrona; si el writer falla, se promueve una réplica y el servicio suele restablecerse en menos de 30–60 s.
+      El examen adora Aurora porque casi cada feature suya es la respuesta «premium» cuando el calificador pide
+      rendimiento, disponibilidad o menos operación.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  W["Writer instance"] --> V["Cluster volume<br>auto-crece hasta 256 TiB"]
+  V --> A1["AZ 1 · 2 copias"]
+  V --> A2["AZ 2 · 2 copias"]
+  V --> A3["AZ 3 · 2 copias"]
+  A2 -->|"bloque dañado"| SH["self-healing:<br>se repara solo"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — El storage de Aurora: 6 copias en 3 AZs. Pierdes un AZ entero y sigues teniendo 4 copias; el disco se repara en background sin <span class="term-en">downtime</span>.</figcaption>
+      </figure>
+
+      <h3>3.1 Endpoints: el truco de routing que resuelve preguntas enteras</h3>
+      <p>Un cluster Aurora expone URLs que ya hacen el trabajo de un router. El <span class="term-en">writer endpoint
+      (cluster endpoint)</span> siempre apunta a la instancia primaria actual — es el único que acepta DDL, INSERT y
+      UPDATE, y tras un failover su DNS pasa a apuntar al nuevo writer, así que la cadena de conexión no cambia nunca.
+      El <span class="term-en">reader endpoint</span> hace balanceo round-robin entre todas las réplicas: enrutando
+      los SELECT allí escalas lecturas sin tocar la app. Los <span class="term-en">custom endpoints</span> agrupan
+      subconjuntos de instancias (por ejemplo, «las réplicas grandes para reporting»). Si la pregunta dice
+      <em>«without modifying the connection string»</em> o <em>«route read traffic automatically»</em>, la respuesta
+      es un endpoint, no código de la aplicación.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  WR["INSERT / DDL"] --> WE["Writer endpoint"]
+  RD["SELECT"] --> RE["Reader endpoint"]
+  WE --> WI["Writer instance<br>una sola por cluster"]
+  RE --> RR["Réplicas<br>hasta 15 · round-robin"]
+  WI -.->|"failover ~30 s<br>y el DNS re-apunta"| RR
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Enrutamiento por endpoints: escrituras siempre al writer endpoint; lecturas al reader endpoint con balanceo entre réplicas.</figcaption>
+      </figure>
+
+      <h3>3.2 Serverless v2, Global Database, backtrack y Babelfish</h3>
+      <p><strong>Aurora Serverless v2</strong> escala el compute en incrementos de 0.5
+      <span class="term-en">ACU</span> (Aurora Capacity Units) hasta 128 ACUs por instancia, en segundos, y puedes
+      mezclar instancias serverless con aprovisionadas en el mismo cluster — es la respuesta cuando el workload es
+      <em>intermittent</em> o <em>unpredictable</em> y no quieres pagar capacidad ociosa. La
+      <strong>Aurora Global Database</strong> replica de forma asíncrona pero típicamente por debajo de 1 segundo hacia
+      Regiones secundarias: da lecturas globales de baja latencia y <span class="term-en">disaster recovery</span>
+      ante fallos de Región completa (se promueve una secundaria y el RTO ronda el minuto). El
+      <strong>backtrack</strong> (MySQL, y PostgreSQL reciente) rebobina el cluster a un punto anterior sin restaurar
+      desde backup — la respuesta a <em>«undo a bad UPDATE without a restore»</em>. Y <strong>Babelfish</strong>
+      permite a Aurora PostgreSQL entender el protocolo y T-SQL de SQL Server para migrar aplicaciones con
+      <span class="term-en">little or no code changes</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>RDS (MySQL/PostgreSQL…)</th><th>Aurora MySQL/PostgreSQL</th></tr></thead>
+          <tbody>
+            <tr><td>Storage</td><td>Lo asignas (gp3/io1, hasta 64 TiB)</td><td>Cluster volume automático hasta 256 TiB</td></tr>
+            <tr><td>Replicación física</td><td>Multi-AZ paga standby extra</td><td>6 copias en 3 AZs incluidas</td></tr>
+            <tr><td>Réplicas legibles</td><td>Hasta 5 (clásico) / 15 (docs actuales)</td><td>Hasta 15, con reader endpoint</td></tr>
+            <tr><td>Failover</td><td>60–120 s (Multi-AZ)</td><td>Típicamente por debajo de 30 s</td></tr>
+            <tr><td>Serverless</td><td>No (solo Aurora/Redshift/etc.)</td><td>Sí — v2 con ACUs de 0.5 a 128</td></tr>
+            <tr><td>Global (cross-Region)</td><td>Cross-Region read replicas</td><td>Aurora Global Database (llegando a ~1 s)</td></tr>
+            <tr><td>Costo</td><td>Más barato en cargas pequeñas/estables</td><td>Premium, ~20% sobre RDS equivalente</td></tr>
+            <tr><td>Extras</td><td>—</td><td>Backtrack, Babelfish, zero-ETL a Redshift</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/db-aurora/chap-auroraoverview.md, concepts-aurorahighavailability.md y 04-faqs/aurora-faq.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><em>«storage grows automatically»</em>, <em>«single-digit-second failover»</em>, <em>«15 replicas»</em> o
+        <em>«recovery from a full Region outage»</em> apuntan a Aurora o a Aurora Global Database. Ojo con el distractor
+        inverso: para una app pequeña y estable con presupuesto ajustado, la respuesta correcta suele ser RDS — Aurora
+        es <em>over-engineering</em> si el calificador es <span class="term-en">most cost-effective</span> y el
+        escenario no pide su rendimiento.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/aurora-faq.md</code> ·
+      <code>../../bronze/05-docs/db-aurora/chap-auroraoverview.md</code> ·
+      <code>../../bronze/05-docs/db-aurora/aurora-endpoints-cluster.md</code> ·
+      <code>../../bronze/05-docs/db-aurora/concepts-aurorahighavailability.md</code> ·
+      <code>../../bronze/05-docs/db-aurora/babelfish.md</code></p>
+
+      <!-- ============ 4. DYNAMODB ============ -->
+      <h2 id="dynamodb"><span class="h2-num">4</span>Amazon DynamoDB a fondo</h2>
+      <p>DynamoDB es el NoSQL <span class="term-en">serverless</span> de AWS: tablas con latencia de milisegundo a
+      <em>cualquier</em> escala, sin administrar servidores, parches ni capacidad (si eliges on-demand). El modelo es
+      simple a propósito: una <strong>tabla</strong> contiene <strong>items</strong> (hasta 400 KB cada uno) de
+      atributos flexibles, y el acceso siempre se diseña alrededor de la clave. Con solo
+      <span class="term-en">partition key</span>, cada clave mapea a un ítem único; con
+      <span class="term-en">partition key + sort key</span> (clave compuesta), los ítems se agrupan por partición y se
+      ordenan dentro del grupo, lo que permite queries por rango del sort key. La pregunta de diseño que el examen
+      repite es: «¿tu acceso es por clave exacta (o rango ordenado)?» — si necesitas filtrar por otros atributos, ya no
+      buscas en la tabla principal: necesitas un índice secundario.</p>
+
+      <h3>4.1 GSI vs LSI: los índices secundarios</h3>
+      <p>El <span class="term-en">Global Secondary Index (GSI)</span> usa una partition key (y sort key) distintas de
+      la tabla, puede crearse en cualquier momento y se replica de forma independiente — pero solo es
+      <em>eventually consistent</em> y consume su propia capacidad. El <span class="term-en">Local Secondary Index
+      (LSI)</span> comparte la partition key de la tabla y cambia solo el sort key; permite consistencia fuerte, se
+      crea únicamente al crear la tabla y su límite clásico son 10 GB de datos por valor de partition key (hasta 5 LSIs
+      por tabla, 20 GSIs). Ambos permiten <span class="term-en">projections</span> para copiar solo los atributos que
+      el índice necesita: cuanto más delgada la proyección, menos storage y escritura duplicada.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>GSI (Global)</th><th>LSI (Local)</th></tr></thead>
+          <tbody>
+            <tr><td>Partition key</td><td>Diferente a la de la tabla</td><td>La misma que la tabla</td></tr>
+            <tr><td>Sort key</td><td>Diferente</td><td>Diferente (esto es lo que cambia)</td></tr>
+            <tr><td>Momento de creación</td><td>Cualquiera (y se borra aparte)</td><td>Solo al crear la tabla</td></tr>
+            <tr><td>Consistencia</td><td>Solo eventual</td><td>Eventual o fuerte</td></tr>
+            <tr><td>Límite clásico</td><td>20 por tabla</td><td>5 por tabla · 10 GB por partition key</td></tr>
+            <tr><td>Capacidad</td><td>Propia (WCU/RCU del índice)</td><td>Comparte la de la tabla</td></tr>
+            <tr><td>Cuándo</td><td>Acceso por otro atributo cualquiera</td><td>Alternativa de orden dentro de la misma partición</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-dynamodb.md (secciones Storage e Integrations).</p>
+
+      <h3>4.2 Capacity modes: provisioned vs on-demand</h3>
+      <p>En modo <span class="term-en">provisioned</span> reservas <span class="term-en">RCU/WCU</span> (unidades de
+      lectura/escritura) y activas <span class="term-en">auto scaling</span> con un objetivo de utilización: es el modo
+      más barato por unidad para tráfico predecible. En <span class="term-en">on-demand</span> pagas por petición
+      (WRU/RRU) sin planear nada: perfecto para picos impredecibles o tráfico esporádico, a costa de un precio por
+      unidad notablemente mayor. La tabla del examen casi siempre se resuelve con el adjetivo del tráfico:
+      <em>predictable</em> → provisioned; <em>unknown/new product launch</em> → on-demand.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿El tráfico es<br>predecible?"}
+  Q -->|"sí, estable"| P["Provisioned<br>+ auto scaling"]
+  Q -->|"no, esporádico<br>o con picos"| O["On-demand"]
+  P --> C1["pagas RCU/WCU<br>reservadas: más barato"]
+  O --> C2["pagas por petición:<br>cero planeación"]
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — La decisión de capacity mode en dos ramas: previsibilidad del tráfico versus costo por unidad.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Provisioned (+ auto scaling)</th><th>On-demand</th></tr></thead>
+          <tbody>
+            <tr><td>Planeación</td><td>Debes definir RCU/WCU objetivo</td><td>Ninguna</td></tr>
+            <tr><td>Costo relativo por unidad</td><td>Menor (referencia 1x)</td><td>Mayor (típicamente ~2–3x por petición)</td></tr>
+            <tr><td>Throttling</td><td>Posible si el autoscaling va por detrás del pico</td><td>Prácticamente eliminado</td></tr>
+            <tr><td>Ideal para</td><td>Tráfico estable y conocido</td><td>Nuevos productos, picos impredecibles</td></tr>
+            <tr><td>Free tier</td><td>25 WCU + 25 RCU permanentes</td><td>No aplicable (todo paga)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.3 Particiones, hot partitions y bucketing</h3>
+      <p>DynamoDB reparte los ítems entre particiones aplicando un hash a la partition key; cada partición tiene
+      capacidad propia (las cifras clásicas de estudio: 3.000 RCU y 1.000 WCU por partición). Si el diseño de la clave
+      concentra todo el tráfico en un valor — el usuario «celebridad», el ítem «último pedido» — nace una
+      <span class="term-en">hot partition</span> y verás <span class="term-en">throttling</span> aunque la tabla
+      total tenga capacidad de sobra. La solución didáctica favorita del examen es el <span class="term-en">sharding
+      de la clave</span> (bucketing): añadir un sufijo aleatorio o calculado (orderid-1…orderid-N) para esparcir las
+      escrituras entre particiones; también ayudan las <span class="term-en">adaptive capacity</span> y elegir GSIs
+      de alta cardinalidad. La regla de diseño: elige la partition key pensando en <em>cómo escribes</em>, no solo en
+      cómo lees.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  I["Item escrito"] --> H["hash de la<br>partition key"]
+  H --> SP["las claves se reparten<br>entre particiones"]
+  SP --> P1["Partición 1"]
+  SP --> P2["Partición 2"]
+  SP --> P3["Partición N"]
+  H -->|"clave sesgada<br>(hot key)"| HP["hot partition:<br>throttling"]
+  HP --> FX["fix: sufijo aleatorio<br>en la clave"]
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — Distribución por hash: una clave con sesgo satura una partición; el bucketing la esparce.</figcaption>
+      </figure>
+
+      <h3>4.4 El kit operativo: TTL, Streams, global tables, DAX y backups</h3>
+      <p>El <span class="term-en">Time To Live (TTL)</span> borra ítems vencidos sin coste de escritura (ideal para
+      sesiones o tokens). <span class="term-en">DynamoDB Streams</span> captura los cambios por ítem en orden temporal
+      durante 24 horas — la base de los triggers con Lambda — y su variante <span class="term-en">Kinesis Data Streams
+      for DynamoDB</span> ofrece el mismo flujo con retención ampliable y más consumidores. Las
+      <span class="term-en">global tables</span> replican la tabla en varias Regiones en modo
+      <strong>active-active</strong>: cualquier Réplica acepta escrituras (conflictos por «última escritura») y
+      cualquiera es legible localmente. <span class="term-en">DAX</span> es el caché <em>write-through</em> de DynamoDB:
+      microsegundos para lecturas calientes sin cambiar una línea de código. En protección, <span class="term-en">PITR</span>
+      mantiene un histórico continuo de 35 días, y los <span class="term-en">on-demand backups</span> se conservan hasta
+      que los borres (AWS Backup los orquesta). Para operaciones masivas existen
+      <span class="term-en">BatchGetItem/BatchWriteItem</span> (25 escrituras por lote), y para idempotencia los
+      <span class="term-en">conditional writes</span> (<span class="term-en">ConditionExpression</span>) — la
+      respuesta estándar a «evitar duplicados si el mensaje llega dos veces».</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Patrones que delatan a DynamoDB: <em>«key-value at any scale»</em>, <em>«schema flexibility»</em>,
+        <em>«single-digit millisecond latency»</em>, <em>«no servers to manage»</em>. Si aparecen
+        <em>«microseconds»</em> → DAX encima de DynamoDB; <em>«multi-Region active-active»</em> → global tables;
+        <em>«react to changes»</em> → Streams + Lambda; <em>«duplicate items must be prevented»</em> → conditional
+        writes. El distractor clásico: ofrecer RDS para un acceso puramente clave-valor.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/amazon-dynamodb.md</code> (secciones
+      Storage, Availability and resilience, Integrations y Billing: TTL, Streams, global tables, DAX, on-demand vs
+      provisioned).</p>
+
+      <!-- ============ 5. ELASTICACHE ============ -->
+      <h2 id="elasticache"><span class="h2-num">5</span>Amazon ElastiCache: Redis vs Memcached</h2>
+      <p>ElastiCache administra motores de caché en memoria (hoy Valkey, Redis OSS y Memcached) con la misma filosofía
+      de servicio gestionado que RDS: tú eliges nodos y placement, AWS parchea, monitorea y reemplaza nodos fallidos.
+      La decisión real es el motor. <strong>Redis (y Valkey)</strong> aporta estructuras de datos ricas,
+      <span class="term-en">replication</span> con primary y réplicas de lectura, <span class="term-en">Multi-AZ con
+      auto failover</span>, sharding con <span class="term-en">cluster mode</span>, persistencia (snapshots/AOF),
+      <span class="term-en">pub/sub</span> y <span class="term-en">sorted sets</span>. <strong>Memcached</strong> es
+      deliberadamente simple: multihilo (aprovecha nodos grandes), llave-valor plano, sin replicación, sin
+      persistencia, sin pub/sub — pura y barata memoria volátil. Para el examen, Redis es la respuesta por defecto
+      y Memcached solo gana si el enunciado subraya <em>simplicidad extrema</em> o <em>large nodes multithreaded</em>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>ElastiCache para Redis/Valkey</th><th>ElastiCache para Memcached</th></tr></thead>
+          <tbody>
+            <tr><td>Alta disponibilidad</td><td>Réplicas + Multi-AZ + failover automático</td><td>No (nodos independientes)</td></tr>
+            <tr><td>Sharding</td><td>Sí, cluster mode (particiona el dataset)</td><td>El cliente reparte entre nodos</td></tr>
+            <tr><td>Persistencia</td><td>Sí (RDB snapshots / AOF)</td><td>No: todo es volátil</td></tr>
+            <tr><td>Pub/Sub</td><td>Sí</td><td>No</td></tr>
+            <tr><td>Sorted sets / ranking</td><td>Sí (leaderboards nativos)</td><td>No</td></tr>
+            <tr><td>Multithreading</td><td>Limitado</td><td>Sí — su punto fuerte</td></tr>
+            <tr><td>TLS + AUTH</td><td>Sí, cifrado en tránsito y en reposo</td><td>TLS llegó tarde: el examen lo trata como el motor «simple»</td></tr>
+            <tr><td>Cross-Region</td><td>Global Datastore</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-elasticache-memcached-y-redis.md y bronze/05-docs/db-elasticache/red-ug/whatis.md.</p>
+
+      <p>Los tres casos de uso que aparecen una y otra vez: el <span class="term-en">session store</span> (la sesión
+      del usuario vive en Redis y sobrevive al reinicio del servidor web), el <span class="term-en">leaderboard</span>
+      (sorted sets con ZADD/ZRANGE en O(log N)) y el patrón <span class="term-en">cache-aside</span> (lazy loading):
+      la app mira primero al caché y solo si falla consulta la base y rellena la entrada con un
+      <span class="term-en">TTL</span>. El TTL es la red de seguridad contra datos obsoletos — sin él, un cache-aside
+      sirve basura para siempre. Y recuerda el orden de descarte: si la pregunta menciona sesiones con
+      <em>failover</em> o <em>persistence</em>, Memcached ya quedó eliminado.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant A as App
+  participant C as ElastiCache
+  participant D as RDS o DynamoDB
+  A->>C: GET clave
+  C-->>A: cache miss
+  A->>D: query al origen
+  D-->>A: resultado
+  A->>C: SET clave con TTL
+  A->>C: GET clave (segunda vez)
+  C-->>A: hit en microsegundos
+          </pre>
+        </div>
+        <figcaption>Fig. 7 — El patrón cache-aside: la app es la responsable de poblar el caché; el TTL evita datos obsoletos indefinidamente.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><em>«reduce load on the database»</em> + <em>«same results repeatedly»</em> → ElastiCache (o DAX si la base
+        es DynamoDB). <em>«session data must survive web server restarts»</em> → Redis como session store. Cuidado con
+        la trama «database is slow because of complex <span class="term-en">JOINs</span>»: ahí la respuesta correcta es
+        una <span class="term-en">read replica</span> o reformular el modelo — el caché no acelera consultas que
+        nunca se repiten.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/amazon-elasticache-memcached-y-redis.md</code> ·
+      <code>../../bronze/05-docs/db-elasticache/red-ug/whatis.md</code> ·
+      <code>../../bronze/05-docs/db-elasticache/mem-ug/whatis.md</code></p>
+
+      <!-- ============ 6. ANALÍTICAS ============ -->
+      <h2 id="analiticas"><span class="h2-num">6</span>Analíticas: Redshift y OpenSearch</h2>
+      <p><strong>Amazon Redshift</strong> es el <span class="term-en">data warehouse</span> de AWS: una base
+      <span class="term-en">columnar</span> con procesamiento <span class="term-en">MPP</span> (massively parallel
+      processing: un leader node reparte el trabajo entre compute nodes) pensada para <span class="term-en">OLAP</span>
+      — agregados sobre petabytes, no transacciones por fila. Sus nodos <span class="term-en">RA3</span> separan compute
+      y storage (SSD para datos calientes, S3 para fríos) y gestionan el almacenamiento automáticamente: eliges cuántos
+      nodos por rendimiento y pagas el storage consumido. <span class="term-en">Redshift Spectrum</span> consulta
+      exabytes en S3 <strong>sin cargarlos</strong> al warehouse (tablas externas), <span class="term-en">Redshift
+      Serverless</span> factura solo mientras corren las consultas en RPUs, y <span class="term-en">Concurrency
+      Scaling</span> añade clusters transitorios para ráfagas de consultas concurrentes. Para búsqueda
+      <span class="term-en">full-text</span> y logs está <strong>Amazon OpenSearch Service</strong>: índice invertido,
+      dominios gestionados, OpenSearch Dashboards para visualizar, y la familia UltraWarm para logs viejos y baratos
+      de consultar — el destino natural de CloudWatch Logs, Firehose y la integración zero-ETL de DynamoDB.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Necesidad</th><th>Servicio</th><th>Por qué</th></tr></thead>
+          <tbody>
+            <tr><td>Warehouse OLAP de petabytes</td><td>Redshift (RA3)</td><td>Columnar + MPP; compute separado del storage</td></tr>
+            <tr><td>Consultar el data lake sin cargarlo</td><td>Redshift Spectrum</td><td>Tablas externas sobre S3</td></tr>
+            <tr><td>Analítica esporádica sin clúster</td><td>Redshift Serverless</td><td>Paga por consulta (RPUs)</td></tr>
+            <tr><td>Búsqueda full-text y dashboards de logs</td><td>OpenSearch Service</td><td>Índice invertido + Dashboards</td></tr>
+            <tr><td>SQL ad-hoc sobre S3 (sin servidor)</td><td>Athena</td><td>El «SQL sobre el lago» más barato para consultas sueltas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-redshift.md (RA3, serverless, scalability) y bronze/05-docs/analytics-opensearch/what-is.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>La palabra <em>«warehouse»</em> o <em>«business intelligence»</em> → Redshift; <em>«search»</em>,
+        <em>«log analytics»</em> o <em>«dashboards»</em> → OpenSearch; <em>«query data in S3»</em> ocasional → Athena
+        o Spectrum. El distractor favorito: DynamoDB o RDS para analítica — ambos son OLTP y mueren con los
+        <span class="term-en">table scans</span> masivos.</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/amazon-redshift.md</code> ·
+      <code>../../bronze/05-docs/analytics-opensearch/what-is.md</code></p>
+
+      <!-- ============ 7. ESPECIALIZADAS ============ -->
+      <h2 id="especializadas"><span class="h2-num">7</span>Bases especializadas y el cierre de decisión</h2>
+      <p>Cuando el workload tiene una forma muy particular — documentos JSON, grafos, filas estilo Cassandra o un
+      registro inmutable — las bases de propósito específico superan a cualquier generalista. Para el examen no
+      necesitas profundidad aquí: necesitas el «gatillo» semántico que asocia el enunciado con el servicio. Esta
+      tabla de una línea por servicio es suficiente; QLDB merece una nota aparte porque AWS lo puso en
+      <span class="term-en">end of support</span> (julio de 2025), así que no aparece en preguntas vigentes — pero el
+      concepto <span class="term-en">ledger</span> (registro verificable e inmutable de cada cambio) sigue siendo
+      lenguaje útil para leer material antiguo, y la migración oficial recomendada apunta a Aurora PostgreSQL.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Modelo</th><th>Gatillo en la pregunta</th></tr></thead>
+          <tbody>
+            <tr><td>DocumentDB</td><td>Documentos JSON (compatible MongoDB)</td><td><em>«MongoDB compatible»</em>, catálogos, perfiles, contenido</td></tr>
+            <tr><td>Neptune</td><td>Grafo (Gremlin, openCypher, SPARQL)</td><td><em>«fraud rings»</em>, relaciones profundas, knowledge graph</td></tr>
+            <tr><td>Keyspaces</td><td>Wide-column (compatible Cassandra, serverless)</td><td><em>«Cassandra workloads without servers»</em></td></tr>
+            <tr><td>QLDB</td><td>Led central inmutable (en retiro: end of support 2025)</td><td>Concepto histórico; hoy se resuelve en Aurora PostgreSQL</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/amazon-documentdb.md, amazon-neptune.md, amazon-keyspaces.md.</p>
+
+      <h3>7.1 La tabla final: requisito → base</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Si el requisito es…</th><th>La base es…</th></tr></thead>
+          <tbody>
+            <tr><td>SQL con joins, ACID, app existente estándar</td><td>RDS (motor del enunciado)</td></tr>
+            <tr><td>SQL + máximo rendimiento, HA sub-30s o storage auto-escalable</td><td>Aurora</td></tr>
+            <tr><td>Escalado de lectura sin tocar la app</td><td>Read replicas (o Aurora + reader endpoint)</td></tr>
+            <tr><td>Sobrevivir fallo de AZ sin perder transacciones</td><td>Multi-AZ DB instance (o cluster)</td></tr>
+            <tr><td>Miles de conexiones (Lambda) contra la base</td><td>RDS Proxy</td></tr>
+            <tr><td>Key-value a escala planetaria, esquema flexible</td><td>DynamoDB (+ DAX si piden microsegundos)</td></tr>
+            <tr><td>Escritura y lectura en varias Regiones a la vez</td><td>DynamoDB global tables (o Aurora Global DB si es SQL)</td></tr>
+            <tr><td>Reaccionar a cada cambio de dato (CDC)</td><td>DynamoDB Streams → Lambda</td></tr>
+            <tr><td>Caché de sesiones / leaderboard / cache-aside</td><td>ElastiCache for Redis</td></tr>
+            <tr><td>Reporting y BI sobre petabytes</td><td>Redshift (Spectrum si el dato vive en S3)</td></tr>
+            <tr><td>Búsqueda full-text / análisis de logs</td><td>OpenSearch Service</td></tr>
+            <tr><td>Documentos JSON estilo MongoDB sin servidores</td><td>DocumentDB</td></tr>
+            <tr><td>Relaciones de varios saltos (fraude, recomendación)</td><td>Neptune</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">La tabla de decisión final: repásala la última semana antes del examen.</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Los cinco números que se repiten: <strong>35 días</strong> de retención/PITR (RDS y DynamoDB),
+        <strong>15</strong> réplicas legibles (Aurora), <strong>6 copias en 3 AZs</strong> (storage Aurora),
+        <strong>400 KB</strong> (item DynamoDB) y <strong>256 TiB</strong> (cluster volume Aurora). Los cinco caben
+        en una tarjeta y aparecen como criterio de eliminación entre opciones.</p>
+      </div>
+
+      <div class="callout exam">
+        <div class="co-title">Exam tips transversales de bases de datos</div>
+        <p>1) Antes de elegir servicio, clasifica el workload — el 90% de los errores es de capa, no de conocimiento.
+        2) <span class="term-en">Highly available</span> = Multi-AZ como mínimo; «Región completa» = Global Database
+        o global tables. 3) <span class="term-en">Least operational overhead</span> premia serverless: Aurora
+        Serverless v2, DynamoDB, Keyspaces. 4) <span class="term-en">Most cost-effective</span>: el más pequeño que
+        cumpla — on-demand solo con tráfico esporádico, reservadas/Compute Savings Plans con carga estable.
+        5) Si la pregunta dice <em>«without application changes»</em>, piensa en endpoints, RDS Proxy, réplicas y
+        cachés — nunca en «reescribir la app».</p>
+      </div>
+      <p class="bronze-link">Bronze de referencia: <code>../../bronze/04-faqs/amazon-documentdb.md</code> ·
+      <code>../../bronze/04-faqs/amazon-neptune.md</code> · <code>../../bronze/04-faqs/amazon-keyspaces.md</code> ·
+      <code>../../bronze/04-faqs/amazon-rds.md</code></p>
+
+      <nav class="pager">
+        <a href="redes.html"><span class="p-dir">← Anterior</span><br>Redes y conectividad</a>
+        <a class="p-next" href="seguridad-identidad.html"><span class="p-dir">Siguiente →</span><br>Seguridad e identidad</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

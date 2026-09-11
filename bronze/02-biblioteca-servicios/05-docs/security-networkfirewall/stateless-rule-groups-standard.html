@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Working with stateless rule groups in AWS Network Firewall - AWS Network Firewall</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="stateless-rule-groups-standard" /><meta name="default_state" content="stateless-rule-groups-standard" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" /><meta name="description" content="Use a stateless rule to inspect each network packet in isolation, without considering context such as traffic direction or other packets in the same traffic flow." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Network Firewall" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Describes how to use AWS Network Firewall, the Amazon Virtual Private Cloud firewall service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" hreflang="x-default" /><meta name="feedback-item" content="Network Firewall" /><meta name="this_doc_product" content="AWS Network Firewall" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'network-firewall'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Working with stateless rule groups in AWS Network Firewall" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="stateless-rule-groups-standard.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Working with stateless rule groups in AWS Network Firewall - AWS Network Firewall</title><meta name="pdf" content="/pdfs/network-firewall/latest/developerguide/network-firewall-developer-guide.pdf#stateless-rule-groups-standard" /><meta name="rss" content="network-firewall-developer-guide.rss" /><meta name="forums" content="https://repost.aws/tags/TAvScvs9JyS2WMsdy5EEA1cg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Network%20Firewall&amp;topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/stateless-rule-groups-standard.html" /><meta name="keywords" content="VPC,AWS Network Firewall,Network Firewall,Amazon Virtual Private Cloud,Amazon VPC,virtual private cloud firewall,firewall,firewall policy,rule group,ACL,access control list" /><link rel="alternate" type="text/markdown" href="stateless-rule-groups-standard.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Network Firewall",
+        "item" : "https://docs.aws.amazon.com/network-firewall/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/network-firewall/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing your own rule groups in AWS Network Firewall",
+        "item" : "https://docs.aws.amazon.com/network-firewall/latest/developerguide/rule-groups.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Working with stateless rule groups in AWS Network Firewall",
+        "item" : "https://docs.aws.amazon.com/network-firewall/latest/developerguide/rule-groups.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/network-firewall/latest/developerguide/network-firewall-developer-guide.pdf#stateless-rule-groups-standard" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/network-firewall/index.html">AWS Network Firewall</a><a href="what-is-aws-network-firewall.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="stateless-rule-groups-standard">Working with stateless rule groups in AWS Network Firewall</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>For stateless rule groups, the AWS Network Firewall stateless rules engine examines each packet
+                            in isolation. Network Firewall doesn't consider context such as traffic direction or other
+                            related packets. </p><p>Network Firewall supports standard network connection identifiers (source IP address, source port, destination IP address, destination port, and protocol) for network traffic inspection. When Network Firewall finds a match between a rule's inspection
+                            criteria and a packet, we say that the packet matches the rule and its rule group, and
+                            Network Firewall applies the rule's specified action to the packet. </p><p>You can add multiple stateless rules to your stateless rule group.</p><p>All rule groups have the common settings that are defined at <a href="./rule-group-settings.html">Common rule group settings in AWS Network Firewall</a>.</p>
+                            <h6>General settings</h6>
+                            <p>A stateless rule has the following general settings.</p>
+                    <div class="itemizedlist">
+                             
+                             
+                    <ul class="itemizedlist"><li class="listitem">
+                                    <p><b>Priority</b> – Number that indicates the processing
+                                            order of the stateless rule within the rule group. This must
+                                            be unique within the stateless rule group and it must be a
+                                            positive integer. Network Firewall processes the rules starting
+                                            from the lowest numbered priority setting. When you plan the
+                                            rules in your rule group, provide priority settings with
+                                            space in between, to leave yourself room to add rules later.
+                                            For example, you might start by using priority settings that
+                                            are multiples of 100.</p>
+                            </li><li class="listitem">
+                                    <p><b>Actions</b> – Defines how Network Firewall handles a
+                                            packet that matches the rule match settings. You assign one standard setting,
+                                            from among pass, drop, and forward to stateful. You can optionally add a custom
+                                            setting, for example, to send metrics for the rule match to Amazon CloudWatch metrics.
+                                            For more information about actions, see <a href="./rule-action.html">Defining rule actions in AWS Network Firewall</a>.</p>
+                            </li></ul></div>
+                            <h6>Match settings</h6>
+                            <p>A stateless rule has the following match settings. These specify what the
+                                    Network Firewall stateless rules engine looks for in a packet. To be a match, a packet
+                                    must satisfy all of the match settings in the rule. </p>
+                    <div class="itemizedlist">
+                             
+                             
+                             
+                             
+                             
+                             
+                    <ul class="itemizedlist"><li class="listitem">
+                                    <p><b>Protocol</b> – Valid settings include
+                                            <code class="code">ALL</code> and specific protocol settings, like <code class="code">UDP</code> and
+                                            <code class="code">TCP</code>. You can choose more than one specific setting.</p>
+                            </li><li class="listitem">
+                                    <p><b>Source IP</b> – Source IP addresses and
+                                            ranges. If specified, a packet must come from a source address that's included
+                                            in this list in order to match.</p>
+                            </li><li class="listitem">
+                                    <p><b>Source port range</b> – Source ports and
+                                            port ranges. If specified, a packet must have a source port that's included in
+                                            this list in order to match.</p>
+                            </li><li class="listitem">
+                                    <p><b>Destination IP</b> – Destination IP addresses
+                                            and ranges. If specified, a packet must have a destination address that's
+                                            included in this list in order to match.</p>
+                            </li><li class="listitem">
+                                    <p><b>Destination port range</b> – Destination
+                                            ports and port ranges. If specified, a packet must have a destination port
+                                            that's included in this list in order to match.</p>
+                            </li><li class="listitem">
+                                    <p><b>Optional TCP flags</b> – Optional, standard TCP flag
+                                            settings, which indicate which flags to inspect and the values to inspect for.
+                                            Each flag can be either enabled or disabled. You indicate the flags that you
+                                            want to inspect in a masks setting, and then you indicate which of those flags
+                                            must be enabled in the flags setting in order to match. The flags that you
+                                            specify in the masks setting and don't specify in the flags setting must be
+                                            unset in order to match. </p>
+                            </li></ul></div>
+                            <h6>Example</h6>
+                            <p>To create a very simple stateless rule group that passes all traffic from two CIDR blocks,
+                                    you could provide the following stateless rule settings in a single rule: </p>
+                    <div class="itemizedlist">
+                             
+                             
+                             
+                             
+                    <ul class="itemizedlist"><li class="listitem">
+                                    <p><b>Priority</b> – <code class="code">100</code></p>
+                            </li><li class="listitem">
+                                    <p><b>Action</b> – <code class="code">PASS</code></p>
+                            </li><li class="listitem">
+                                    <p><b>Protocol</b> – <code class="code">ALL</code></p>
+                            </li><li class="listitem">
+                                    <p><b>Source</b> – <code class="code">192.0.2.0/8</code>,
+                                            <code class="code">198.51.100.0/16</code></p>
+                            </li></ul></div><p>To block all other traffic, you would set the firewall policy's stateless default
+                            actions to <code class="code">Drop</code>. For more information, see <a href="./firewall-policy-settings.html">Firewall policy settings in AWS Network Firewall</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./suricata-examples.html">Rule examples</div><div id="next" class="next-link" accesskey="n" href="./rule-group-stateless-creating.html">Creating a stateless rule
+                                                    group</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Network Firewall&amp;topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/stateless-rule-groups-standard.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Network Firewall&amp;topic_url=https://docs.aws.amazon.com/en_us/network-firewall/latest/developerguide/stateless-rule-groups-standard.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

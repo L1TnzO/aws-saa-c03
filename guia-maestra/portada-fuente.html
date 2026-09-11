@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @page { size: 794px 1123px; margin: 0; }
+  :root {
+    --c-bg: #eff0f1;
+    --c-accent: #3681a6;
+    --c-text: #1a1b1c;
+    --c-muted: #6f7578;
+    --c-mid: #334650;
+  }
+  html, body { margin: 0; padding: 0; width: 794px; height: 1123px; background: var(--c-bg); color: var(--c-text); font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+  @media screen {
+    html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: var(--c-bg); }
+    body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.18); }
+  }
+  .cover { width: 794px; height: 1123px; position: relative; box-sizing: border-box; border: none; outline: none; box-shadow: none; }
+
+  /* Layer 1 — grid de fondo (2% de opacidad) */
+  .layer1 { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(51,70,80,0.05) 0.5px, transparent 0.5px),
+      linear-gradient(to bottom, rgba(51,70,80,0.05) 0.5px, transparent 0.5px);
+    background-size: 50px 50px;
+  }
+
+  /* Layer 2 — línea de anclaje vertical (6pt = 8px) */
+  .layer2 { position: absolute; inset: 0; z-index: 2; }
+  .anchor-line { position: absolute; left: 95px; top: 112px; bottom: 112px; width: 8px; background: var(--c-mid); }
+
+  /* Layer 3 — contenido */
+  .layer3 { position: absolute; inset: 0; z-index: 3; }
+  .kicker {
+    position: absolute; left: 150px; top: 168px; width: 560px;
+    font-size: 15px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--c-text); opacity: 0.6;
+  }
+  .hero {
+    position: absolute; left: 150px; top: 330px; max-width: 590px;
+    font-size: 46px; font-weight: 900; line-height: 1.15; color: var(--c-text);
+  }
+  .summary {
+    position: absolute; left: 150px; top: 600px; max-width: 470px;
+    font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--c-text); opacity: 0.85;
+  }
+  .meta {
+    position: absolute; left: 150px; top: 830px; max-width: 520px;
+    font-size: 17px; font-weight: 500; line-height: 1.7; color: var(--c-mid);
+  }
+  .meta .sub { font-size: 14px; font-weight: 400; color: var(--c-muted); letter-spacing: 1px; }
+  .meta .tag {
+    display: inline-block; margin-top: 14px; padding: 5px 14px;
+    border: 1.2px solid var(--c-accent); border-radius: 3px;
+    font-size: 12.5px; letter-spacing: 2px; color: var(--c-accent); font-weight: 500; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="layer1"><div class="grid"></div></div>
+    <div class="layer2"><div class="anchor-line"></div></div>
+    <div class="layer3">
+      <div class="kicker">Guía maestra de estudio · Trazabilidad oficial</div>
+      <div class="hero">AWS Certified<br>Solutions Architect<br>Associate (SAA-C03)</div>
+      <div class="summary">
+        Guía de estudio end-to-end con trazabilidad 100% oficial: 155 documentos de AWS en la capa
+        bronze, ruta optimizada de 9 fases, y curso web autocontenido en la capa silver.
+        Dominio a dominio, task statement a task statement, con URL y respaldo verificado.
+      </div>
+      <div class="meta">
+        Paquete medallion: <b>bronze</b> · <b>silver</b> · guía maestra<br>
+        <span class="sub">Fuentes: docs.aws.amazon.com · skillbuilder.aws · aws.amazon.com/certification</span><br>
+        <span class="tag">Septiembre 2026 · v1.0</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

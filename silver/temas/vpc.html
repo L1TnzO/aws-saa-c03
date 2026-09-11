@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VPC, subnets y rutas — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Amazon VPC, subnets y route tables <span class="en">Amazon Virtual Private Cloud</span></h1>
+<p class="subtitle">La red privada lógica donde vive casi toda arquitectura del examen: si lees los diagramas de VPC con soltura, el 70% de las preguntas de redes se responden solas.</p>
+<div class="chips">
+  <span class="chip">Fase 2 · Redes y conectividad</span>
+  <span class="chip d1">Dominio 1 · 30%</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip core">Servicio core del examen</span>
+</div>
+
+<p><strong>Amazon VPC</strong> es tu apartamento dentro del edificio AWS: una red virtual <em>lógicamente aislada</em> de las demás, donde lanzas los recursos que tú defines y que se parece a la red tradicional de un data center propio — pero con la infraestructura escalable de AWS detrás. El aislamiento lo marca el bloque <span class="tag-en">CIDR</span> de IPv4 que eliges al crearla (por ejemplo <code>10.0.0.0/16</code>); a partir de ahí, las paredes internas del apartamento son las <strong>subnets</strong> (porciones del CIDR asignadas a una AZ concreta) y el sistema de señalización es la <strong>route table</strong>, que decide a dónde va cada paquete según su IP de destino.</p>
+
+<p>Esta página es la "core" de redes porque el patrón que aquí se describe — VPC con subnets públicas y privadas en varias AZs, internet gateway para las públicas, NAT gateway para la salida de las privadas y route tables dirigiendo el tráfico — es el sustrato de todos los demás temas: load balancers, endpoints, peering, VPN y seguridad de red lo presuponen. El examen dice <span class="tag-en">public subnet</span> y <span class="tag-en">private subnet</span> sin explicarlas: publica es la que tiene ruta directa al internet gateway; privada es la que no la tiene y necesita un dispositivo NAT para salir. Ni más ni menos.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    NET["Internet"] --> IGW["Internet gateway"]
+    subgraph VPC["VPC 10.0.0.0/16 · una Region"]
+        subgraph AZA["AZ A"]
+            PUBA["Public subnet<br>10.0.1.0/24<br>ALB y NAT GW"]
+            PRIVA["Private subnet<br>10.0.11.0/24<br>servidores"]
+        end
+        subgraph AZB["AZ B"]
+            PUBB["Public subnet<br>10.0.2.0/24"]
+            PRIVB["Private subnet<br>10.0.12.0/24<br>base de datos"]
+        end
+    end
+    IGW --> PUBA
+    IGW --> PUBB
+    PRIVA -->|"salida via NAT"| PUBA
+    PRIVB -->|"salida via NAT"| PUBB
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class NET,IGW navy
+    class PUBA,PUBB green
+    class PRIVA,PRIVB amber
+</div>
+<figcaption>Figura 1 — El patrón estrella del examen: VPC multi-AZ con subnets públicas (verde) y privadas (ámbar), IGW en la frontera y salida a internet de las privadas vía NAT.</figcaption>
+</figure>
+
+<h2>Qué es una VPC y qué se despliega en ella</h2>
+
+<p>Con Amazon VPC lanzas recursos AWS en una red virtual aislada que tú defines, y que se parece a la red que operarías en tu propio data center. Es un recurso <strong>regional</strong>: una VPC vive en una Region y se extiende sobre todas sus AZs — son sus subnets las que se anclan a una AZ concreta. Al crearla le das un bloque CIDR IPv4 (el rango de direcciones privadas de toda la red); opcionalmente puede ser <span class="tag-en">dual-stack</span> añadiendo un bloque IPv6, e incluso existen subnets IPv6-only. Cada Region de cada cuenta incluye una <strong>VPC por defecto</strong> ya configurada con subnets públicas listas para lanzar instancias — perfecta para experimentar, casi nunca la arquitectura que pide el examen.</p>
+
+<p>Dentro de la VPC despliegues la práctica totalidad de los recursos con interfaz de red: instancias EC2, bases de datos RDS (hoy en subnets dedicadas llamadas <em>DB subnets</em> en ≥2 AZs), contenedores, Lambda conectada a VPC, endpoints de PrivateLink, load balancers y gateways de todo tipo. Los recursos de una misma VPC se comunican por direcciones IP privadas dentro del CIDR sin atravesar internet; la comunicación hacia fuera — internet, otras VPCs o tu data center — requiere piezas explícitas: internet gateway, NAT, peering, Transit Gateway, VPN o endpoints. Esa es la tesis de diseño de toda la familia de páginas de red: <em>nada sale de la VPC salvo que construyas la ruta</em>.</p>
+
+<h2>Subnets: el tipo lo define el routing, no el nombre</h2>
+
+<p>Una <strong>subnet</strong> es un rango de direcciones IP dentro de tu VPC. Regla estructural insoslayable: cada subnet reside <em>íntegramente</em> en una Availability Zone y no puede abarcar dos — por eso lanzar recursos en subnets de AZs distintas protege las aplicaciones del fallo de una AZ. El tipo de subnet no es una casilla que se marca, sino el resultado de cómo configuras su routing: una <strong>public subnet</strong> tiene ruta directa a un internet gateway y sus recursos pueden hablar con internet; una <strong>private subnet</strong> carece de esa ruta directa y necesita un dispositivo NAT para acceder a internet (solo salida); una <strong>VPN-only subnet</strong> encamina hacia una conexión Site-to-Site VPN a través de un virtual private gateway sin tocar internet; y una <strong>isolated subnet</strong> no tiene rutas a destino fuera de la VPC — solo ve lo que hay dentro, el patrón típico de capas de datos.</p>
+
+<p>Añade a la definición la dirección IP: las instancias de subnets privadas usan IP privadas del CIDR; en una pública, además, decides si la subnet auto-asigna IP pública a los recursos nuevos (<span class="tag-en">auto-assign public IP</span>), un ajuste por subnet que provoca clásicas preguntas "mi EC2 en la subnet pública no tiene IP pública". Y si vas a IPv6: las subnets dual-stack llevan ambos CIDRs, las IPv6-only solo IPv6 (con direcciones link-local 169.254.0.0/16 para servicios internos de la VPC), y para salida única de IPv6 existe el <span class="tag-en">egress-only internet gateway</span>, el equivalente asimétrico del NAT.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Tipo de subnet</th><th>Definición (routing)</th><th>Uso típico</th></tr></thead>
+<tbody>
+<tr><td><strong>Public</strong></td><td>Ruta directa al internet gateway</td><td>ALB, NAT gateway, bastion host, proxies</td></tr>
+<tr><td><strong>Private</strong></td><td>Sin ruta directa a IGW; salida vía NAT</td><td>Servidores de aplicación y web (sin IP pública)</td></tr>
+<tr><td><strong>VPN-only</strong></td><td>Ruta a Site-to-Site VPN vía virtual private gateway; sin IGW</td><td>Recursos que solo hablan con on-premises</td></tr>
+<tr><td><strong>Isolated</strong></td><td>Sin rutas fuera de la VPC</td><td>Capas de datos (RDS, ElastiCache) sin salida</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q1{"Necesita recibir<br>trafico de internet"}
+    Q1 -->|"si"| PUBLIC["Public subnet<br>ruta 0.0.0.0/0 a IGW"]
+    Q1 -->|"no"| Q2{"Necesita iniciar<br>salida a internet"}
+    Q2 -->|"si"| PRIVATE["Private subnet<br>mas NAT gateway"]
+    Q2 -->|"no"| Q3{"Solo habla con<br>on-premises"}
+    Q3 -->|"si"| VPN["VPN-only subnet<br>via virtual private gateway"]
+    Q3 -->|"no"| ISO["Isolated subnet<br>sin rutas externas"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q1,Q2,Q3 navy
+    class PUBLIC,VPN green
+    class PRIVATE,ISO amber
+</div>
+<figcaption>Figura 2 — ¿Qué tipo de subnet necesito? El tipo lo decide el destino del tráfico, no una etiqueta de la consola.</figcaption>
+</figure>
+
+<h2>Route tables: el controlador de tráfico de la VPC</h2>
+
+<p>La <strong>route table</strong> es literalmente el <em>traffic controller</em> de la VPC: un conjunto de reglas — <span class="tag-en">routes</span> — que determinan hacia dónde se dirige el tráfico que sale de una subnet o un gateway. Cada ruta especifica un <strong>destino</strong> (un bloque CIDR o un prefix list) y un <strong>target</strong>: internet gateway, NAT gateway, conexión de peering, VPN, Transit Gateway, gateway endpoint, ENI… El paquete se enruta comparando su IP de destino con los destinos de las rutas; gana la ruta más específica (el prefijo más largo), y la ruta <code>local</code> — que permite el tráfico dentro del CIDR de la VPC — viene incluida por defecto y no se borra. Así se montan las arquitecturas de subnets públicas, privadas, VPN-only e isolated que describen las tablas de rutas.</p>
+
+<p>Al crear la VPC se crea su <strong>main route table</strong>, y cada subnet que no asocies explícitamente a otra hereda la main — la trampa clásica de "creé una subnet y ya salía a internet": era la main la que tenía la ruta al IGW. Lo operativo es crear route tables propias por tipo de subnet: la de las públicas con <code>0.0.0.0/0 → igw</code> y la de las privadas con <code>0.0.0.0/0 → nat-gateway</code>. Una subnet solo puede estar asociada a una route table a la vez, pero una route table sirve a muchas subnets — por eso mismo se comparte patrón de routing por capas. También existen route tables de gateway (asociadas a IGW o virtual private gateway) para redirigir tráfico al entrar o salir de la VPC, típicamente para inspección con appliances.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Route table</th><th>Destination</th><th>Target</th><th>Efecto</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>Public subnets</strong></td><td>10.0.0.0/16</td><td>local</td><td>Tráfico interno de la VPC</td></tr>
+<tr><td>0.0.0.0/0</td><td>igw-xxx</td><td>Salida/entrada directa a internet</td></tr>
+<tr><td rowspan="2"><strong>Private subnets</strong></td><td>10.0.0.0/16</td><td>local</td><td>Tráfico interno de la VPC</td></tr>
+<tr><td>0.0.0.0/0</td><td>nat-xxx</td><td>Salida a internet vía NAT gateway</td></tr>
+<tr><td rowspan="2"><strong>VPN-only subnets</strong></td><td>10.0.0.0/16</td><td>local</td><td>Tráfico interno de la VPC</td></tr>
+<tr><td>0.0.0.0/0</td><td>vgw-xxx</td><td>Todo hacia on-premises por VPN</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>CIDR y diseño de direccionamiento</h2>
+
+<p>El bloque CIDR es una decisión de arquitectura, no un trámite: condiciona cuántas subnets puedes crear, cuántos hosts caben en cada una y con quién podrás interconectar la VPC después. Elige rangos privados RFC 1918 (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>) y planifica <strong>sin solapamientos</strong> con tus otras VPCs ni con la red on-premises: la documentación de VPN y peering recomienda expresamente CIDRs no superpuestos, porque un solape impide el enrutado correcto. Un patrón sano es CIDR de VPC amplio (p. ej. <code>10.0.0.0/16</code>) dividido en subnets /24 por AZ (p. ej. <code>10.0.1.0/24</code>, <code>10.0.2.0/24</code>…), reservando espacio para AZs futuras y para segmentos nuevos.</p>
+
+<p>Piensa también en el crecimiento de cada capa: la subnet de datos no necesita el mismo tamaño que la de aplicación, y ciertos rangos quedan reservados dentro de cada subnet (AWS reserva la primera dirección — red —, las dos siguientes y la última: en una /24 quedan 251 direcciones utilizables). Si conectas muchas VPCs entre sí o con on-premises, el diseño de CIDRs es lo que decide entre "peering directo" y "habrá que renumerar". El destino puede ser también un <span class="tag-en">prefix list</span> — una lista nombrada de CIDRs gestionada centralizadamente — útil para no repetir la misma lista de redes en mil rutas. Con IPv6 el diseño cambia: los blocos los asigna AWS de su espacio y el reto se desplaza al routing y a los mecanismos de salida (egress-only IGW, NAT64/DNS64).</p>
+
+<figure class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant App as Servidor en private subnet
+    participant RT as Route table privada
+    participant NAT as NAT gateway
+    participant IGW as Internet gateway
+    App->>RT: paquete a 0.0.0.0/0
+    RT->>NAT: siguiente salto nat-gateway
+    NAT->>IGW: traduce origen a su IP
+    IGW->>App: respuesta traducida de vuelta
+    Note over App,IGW: Sin ruta 0.0.0.0/0 a NAT la instancia no puede salir
+</div>
+<figcaption>Figura 3 — Salida a internet desde una private subnet: la route table envía el tráfico al NAT gateway, que lo traduce y lo entrega al IGW.</figcaption>
+</figure>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+Ante cualquier diagrama o fallo de conectividad, recorre la checklist en orden: 1) ¿la subnet es del tipo que crees (mira su route table, no el nombre)?; 2) ¿la ruta 0.0.0.0/0 apunta al target correcto (IGW para pública, NAT para privada)?; 3) ¿la subnet heredó la main route table por accidente?; 4) ¿el CIDR se solapa con la red con la que quieres conectar?; 5) ¿la subnet está en la AZ que el escenario pide? El 90% de las preguntas de conectividad fallan en uno de esos cinco puntos.
+</div>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"resources must survive the failure of an AZ"</td><td>Subnets en distintas AZs (una subnet = una AZ)</td></tr>
+<tr><td>"instances need internet access but no public IPs"</td><td>Private subnet + NAT gateway + ruta 0.0.0.0/0</td></tr>
+<tr><td>"database must not be reachable from the internet"</td><td>Isolated/private subnet sin ruta a IGW</td></tr>
+<tr><td>"new subnet unexpectedly reaches the internet"</td><td>Heredó la main route table con ruta al IGW</td></tr>
+<tr><td>"cannot establish peering/VPN routing"</td><td>CIDRs solapados entre redes</td></tr>
+<tr><td>"route traffic to an inspection appliance"</td><td>Route table con la ENI/appliance como target</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+"Public" y "private" no son propiedades de la subnet sino de su <strong>routing</strong>: una subnet sin ruta al IGW es privada aunque la llames pública, y una instancia con IP pública en una subnet sin ruta al IGW no tiene salida a internet. Otro distractor habitual: crear la NAT gateway <em>en la private subnet</em> — la pública NAT gateway va en una public subnet con Elastic IP y el IGW detrás.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>La VPC es una red virtual <strong>lógicamente aislada</strong>, regional, definida por su CIDR IPv4 (dual-stack/IPv6 opcional).</li>
+<li>Una <strong>subnet</strong> reside íntegramente en una AZ; el tipo (public, private, VPN-only, isolated) lo decide su routing.</li>
+<li><strong>Public</strong> = ruta directa al internet gateway; <strong>private</strong> = salida solo mediante NAT; <strong>isolated</strong> = sin rutas externas.</li>
+<li>La <strong>route table</strong> mapea destination (CIDR/prefix list) → target (IGW, NAT, peering, VPN, TGW, endpoint); gana el prefijo más específico.</li>
+<li>Toda subnet sin asociación explícita hereda la <strong>main route table</strong> de la VPC.</li>
+<li>Diseña CIDRs <strong>sin solapamientos</strong> con otras VPCs y on-premises; reserva espacio por AZ y capa.</li>
+<li>La ruta <code>local</code> viene por defecto y habilita el tráfico dentro del CIDR de la VPC.</li>
+<li>En IPv6, la salida "solo-out" se resuelve con un <span class="tag-en">egress-only internet gateway</span>.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">NET-01</span> Amazon VPC — What is Amazon VPC · <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html</a></li>
+<li><span class="id">NET-02</span> VPC — Subnets (public vs private, CIDR) · <a href="https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html</a></li>
+<li><span class="id">NET-03</span> VPC — Route tables · <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html" target="_blank" rel="noopener">docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/organizaciones.html"><span class="dir">← Anterior</span>Organizations y multi-cuenta</a><a class="next" href="../temas/seguridad-red.html"><span class="dir">Siguiente →</span>SG, NACL y NAT</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

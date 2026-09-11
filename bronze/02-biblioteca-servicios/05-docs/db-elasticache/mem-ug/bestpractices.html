@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ElastiCache best practices and caching strategies - Amazon ElastiCache</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="BestPractices" /><meta name="default_state" content="BestPractices" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/BestPractices.html" /><meta name="description" content="Identifies common customer issues and provides guidance on how to avoid these issues." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon ElastiCache" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Amazon ElastiCache is a web service that makes it easy to set up, manage, and scale a distributed in-memory data store or cache in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/BestPractices.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/BestPractices.html" hreflang="x-default" /><meta name="feedback-item" content="ElastiCache" /><meta name="this_doc_product" content="Amazon ElastiCache" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'elasticache'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="ElastiCache best practices and caching strategies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="BestPractices.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ElastiCache best practices and caching strategies - Amazon ElastiCache</title><meta name="pdf" content="/pdfs/AmazonElastiCache/latest/dg/redis-ug.pdf#BestPractices" /><meta name="rss" content="amazon-elcr-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TARDe-88acTLSr8i9rSAfn_Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/BestPractices.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/BestPractices.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/BestPractices.html" /><meta name="keywords" content="ElastiCache,Amazon ElastiCache,cache,cluster,cache cluster,Redis,replication,replication group,redis,memcached,implementation,best practices,caching strategies" /><link rel="alternate" type="text/markdown" href="BestPractices.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ElastiCache",
+        "item" : "https://docs.aws.amazon.com/elasticache/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with ElastiCache",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WorkingWithElastiCache.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "ElastiCache best practices and caching strategies",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WorkingWithElastiCache.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonElastiCache/latest/dg/redis-ug.pdf#BestPractices" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/elasticache/index.html">Amazon ElastiCache</a><a href="WhatIs.html">User Guide</a></div><div id="page-toc-src"><a href="#network-type-configuring-tls-enabled-dual-stack">TLS enabled dual stack ElastiCache clusters</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="BestPractices">ElastiCache best practices and caching strategies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Below you can find recommended best practices for Amazon ElastiCache. Following these improves
+		your cache's performance and reliability. </p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="./WorkingWithRedis.html">Overall best practices</a></p></li><li><p><a href="./ReadReplicas.html">Best Practices for using Read Replicas</a></p></li><li><p><a href="./SupportedCommands.html">Supported and restricted Valkey, Memcached, and Redis OSS commands</a></p></li><li><p><a href="./RedisConfiguration.html">Valkey and Redis OSS configuration and limits</a></p></li><li><p><a href="./network-type-best-practices.html">IPv6 client examples for Valkey, Memcached, and Redis OSS</a></p></li><li><p><a href="./BestPractices.Clients.redis.html">Best practices for clients (Valkey and Redis OSS)</a></p></li><li><p><a href="./BestPractices.Clients.memcached.html">Best practices for clients (Memcached)</a></p></li><li><p><a href="#network-type-configuring-tls-enabled-dual-stack">TLS enabled dual stack ElastiCache clusters</a></p></li><li><p><a href="./redis-memory-management.html">Managing reserved memory for Valkey and Redis OSS</a></p></li><li><p><a href="./BestPractices.SelfDesigned.html">Best practices when working with Valkey and Redis OSS node-based clusters</a></p></li><li><p><a href="./caching-database-query-results.html">Caching database query results</a></p></li><li><p><a href="./Strategies.html">Caching strategies for Memcached</a></p></li><li><p><a href="./ecommerce-caching-valkey.html">Amazon ElastiCache (Valkey) for e-commerce applications</a></p></li></ul></div>
+		<h2 id="network-type-configuring-tls-enabled-dual-stack">TLS enabled dual stack ElastiCache clusters</h2>           
+		
+		<p>When TLS is enabled for ElastiCache clusters the cluster discovery functions <span>(<code class="code">cluster slots</code>, 
+			<code class="code">cluster shards</code>, and <code class="code">cluster nodes</code> for Redis)</span> or <span><code class="code">config get cluster</code> for Memcached</span> return
+			hostnames instead of IPs. The hostnames are then used instead of IPs to connect to the ElastiCache cluster and perform a TLS handshake. 
+			This means that clients won't be affected by the IP Discovery parameter. For TLS enabled clusters the IP Discovery parameter has no effect 
+			on the preferred IP protocol. Instead, the IP protocol used will be determined by which IP protocol
+			the client prefers when resolving DNS hostnames.</p>
+		
+		
+		<p><b>Java clients</b></p>
+		<p>When connecting from a Java environment that supports both IPv4 and IPv6, Java will by default prefer IPv4 over IPv6 for backwards compatibility. 
+			However, the IP protocol preference is configurable through the JVM arguments. 
+			To prefer IPv4, the JVM accepts <code class="code">-Djava.net.preferIPv4Stack=true</code> and to prefer IPv6 set <code class="code">-Djava.net.preferIPv6Stack=true</code>. 
+			Setting <code class="code">-Djava.net.preferIPv4Stack=true</code> means that the JVM will no longer make any IPv6 connections. 
+			<span><b>For Valkey or Redis OSS, this includes those to other non-Valkey and non-Redis OSS applications.</b></span></p>      
+		
+		<p><b>Host Level Preferences</b></p>
+		<p>In general, if the client or client runtime don't provide configuration options for setting an IP protocol preference, when performing DNS resolution, the IP protocol will depend on the host's configuration. By default, most hosts prefer IPv6 over IPv4 but this preference can be configured at the host level. This will affect all DNS requests from that host, not just those to ElastiCache clusters.</p>      
+		
+		<p><b>Linux hosts</b></p>
+		
+		<p>For Linux, an IP protocol preference can be configured by modifying the <code class="code">gai.conf</code> file. The <code class="code">gai.conf</code> file can be 
+			found under <code class="code">/etc/gai.conf</code>. If there is no <code class="code">gai.conf</code> specified then an example one should be available under 
+			<code class="code">/usr/share/doc/glibc-common-x.xx/gai.conf</code> which can be copied to <code class="code">/etc/gai.conf</code> and then the default configuration 
+			should be un-commented. To update the configuration to prefer IPv4 when connecting to an ElastiCache cluster update the precedence for 
+			the CIDR range encompassing the cluster IPs to be above the precedence for default IPv6 connections. 
+			By default IPv6 connections have a precedence of 40. For example, assuming the cluster is located in a subnet with the CIDR 172.31.0.0:0/16,
+			the configuration below would cause clients to prefer IPv4 connections to that cluster.</p>    
+		<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">label ::1/128       0
+label ::/0          1
+label 2002::/16     2
+label ::/96         3
+label ::ffff:0:0/96 4
+label fec0::/10     5
+label fc00::/7      6
+label 2001:0::/32   7
+label ::ffff:172.31.0.0/112 8
+#
+#    This default differs from the tables given in RFC 3484 by handling
+#    (now obsolete) site-local IPv6 addresses and Unique Local Addresses.
+#    The reason for this difference is that these addresses are never
+#    NATed while IPv4 site-local addresses most probably are.  Given
+#    the precedence of IPv6 over IPv4 (see below) on machines having only
+#    site-local IPv4 and IPv6 addresses a lookup for a global address would
+#    see the IPv6 be preferred.  The result is a long delay because the
+#    site-local IPv6 addresses cannot be used while the IPv4 address is
+#    (at least for the foreseeable future) NATed.  We also treat Teredo
+#    tunnels special.
+#
+# precedence  &lt;mask&gt;   &lt;value&gt;
+#    Add another rule to the RFC 3484 precedence table.  See section 2.1
+#    and 10.3 in RFC 3484.  The default is:
+#
+precedence  ::1/128       50
+precedence  ::/0          40
+precedence  2002::/16     30
+precedence ::/96          20
+precedence ::ffff:0:0/96  10
+precedence ::ffff:172.31.0.0/112 100</code></pre>   
+		
+		
+		<p>More details on <code class="code">gai.conf</code> are available on the <a href="https://man7.org/linux/man-pages/man5/gai.conf.5.html" rel="noopener noreferrer" target="_blank"><span>Linux man page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> </p>
+		<p><b>Windows hosts</b></p>
+		
+		<p>The process for Windows hosts is similar. For Windows hosts you can run <code class="code">netsh interface ipv6 set prefix CIDR_CONTAINING_CLUSTER_IPS PRECEDENCE LABEL</code>. 
+			This has the same effect as modifying the <code class="code">gai.conf</code> file on Linux hosts.</p>
+		
+		<p>This will update the preference policies to prefer IPv4 connections over IPv6 connections for the specified CIDR range. For example, assuming that the cluster is in a subnet with the 172.31.0.0:0/16 CIDR executing <code class="code">netsh interface ipv6 set prefix ::ffff:172.31.0.0:0/112  100 15</code> would result in the following precedence table which would cause clients to prefer IPv4 when connecting to the cluster.
+		</p>    
+		<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">C:\Users\Administrator&gt;netsh interface ipv6 show prefixpolicies
+Querying active state...
+
+Precedence Label Prefix
+---------- ----- --------------------------------
+100 15 ::ffff:172.31.0.0:0/112
+20 4 ::ffff:0:0/96
+50 0 ::1/128
+40 1 ::/0
+30 2 2002::/16
+5 5 2001::/32
+3 13 fc00::/7
+1 11 fec0::/10
+1 12 3ffe::/16
+1 3 ::/96</code></pre>           
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./VersionManagement-upgrade-considerations.html">Upgrade considerations when working with node-based clusters</div><div id="next" class="next-link" accesskey="n" href="./WorkingWithRedis.html">Overall best practices</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/BestPractices.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/BestPractices.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

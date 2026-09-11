@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Almacenamiento: objetos, bloques y archivos · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Almacenamiento</div>
+        <h1>Almacenamiento: objetos, bloques y archivos<span class="dom-weight">Apéndice · D3 24%</span></h1>
+        <p class="page-lead">El storage es uno de los territorios más rentables del SAA-C03: casi todas las preguntas
+        de rendimiento y de costo acaban eligiendo entre <span class="term-en">S3</span>, <span class="term-en">EBS</span>,
+        <span class="term-en">EFS</span> y <span class="term-en">FSx</span>. Esta página reúne las tres abstracciones,
+        los servicios de cada una y los trucos de lectura para escoger la respuesta correcta a la primera.</p>
+      </header>
+
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 3.1</div>
+        <div class="tb-title">Determine high-performing and/or scalable storage solutions</div>
+        <div class="tb-meta">Knowledge: hybrid storage solutions · storage services (S3, EFS, EBS) · storage types (object, file, block) — Skills: elegir el servicio y configuración que cumplen la demanda de rendimiento y escala</div>
+      </div>
+
+      <!-- ================= 1. TRES ABSTRACCIONES ================= -->
+      <h2 id="abstracciones"><span class="h2-num">1</span>Las tres abstracciones: objeto, bloque y archivo</h2>
+      <p>AWS ofrece tres formas de organizar los bytes, y el examen espera que elijas la correcta sin dudar. El
+      <strong>almacenamiento de objetos</strong> guarda datos como objetos planos con metadatos, se direcciona por
+      HTTP y escala a cantidades ilimitadas: es el reino de <span class="term-en">Amazon S3</span>. El
+      <strong>almacenamiento en bloques</strong> presenta un disco virtual que la instancia formatea y gestiona a
+      nivel de bloque, ideal para sistemas operativos y bases de datos: es <span class="term-en">Amazon EBS</span>.
+      El <strong>almacenamiento de archivos</strong> ofrece un sistema de archivos compartido con permisos
+      <span class="term-en">POSIX</span> o <span class="term-en">SMB</span>, al que muchas instancias se montan a la
+      vez: es el mundo de <span class="term-en">Amazon EFS</span> y la familia <span class="term-en">Amazon FSx</span>.</p>
+      <p>La distinción no es académica: cada abstracción impone un tipo de acceso, una latencia y un precio distintos. Si
+      la pregunta menciona un disco de arranque o una base de datos en una única instancia, piensa en bloques; si habla de
+      millones de archivos compartidos entre cientos de servidores Linux, piensa en archivos; si habla de contenido
+      estático, backups, data lake o acceso por API, piensa en objetos.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Object storage</th><th>Block storage</th><th>File storage</th></tr></thead>
+          <tbody>
+            <tr><td>Unidad de acceso</td><td>Objeto completo vía HTTP (GET/PUT)</td><td>Bloque de disco (el SO gestiona el sistema de archivos)</td><td>Archivo/ruta sobre protocolo de red</td></tr>
+            <tr><td>Escala típica</td><td>Bytes hasta 5 TB por objeto; ilimitada en total</td><td>1 GiB – 64 TiB por volumen</td><td>Petabytes, millones de archivos</td></tr>
+            <tr><td>Latencia</td><td>Milisegundos (decenas típicas)</td><td>Sub-milisegundo (la más baja)</td><td>Milisegundos – sub-milisegundo</td></tr>
+            <tr><td>Protocolo</td><td>API REST/HTTP(S)</td><td>Disco adjunto a una instancia (NVMe/xvd)</td><td>NFS (Linux), SMB (Windows), Lustre, iSCSI</td></tr>
+            <tr><td>Servicio AWS</td><td>Amazon S3 (+ Glacier)</td><td>Amazon EBS, instance store</td><td>Amazon EFS, familia FSx</td></tr>
+            <tr><td>Adjunción múltiple</td><td>Ilimitada (es HTTP)</td><td>1 instancia (Multi-Attach en io1/io2, hasta 16, misma AZ)</td><td>Nativa: miles de instancias</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: AWS exam guide (storage types) + docs bronze 05-docs/storage-s3, storage-ebs, storage-efs.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  D["¿Qué debes guardar?"] --> B["¿Disco de SO o base de datos<br>en UNA instancia?"]
+  D --> O["¿Datos no estructurados<br>accedidos por API/HTTP?"]
+  D --> F["¿Carpeta compartida por<br>MUCHAS instancias?"]
+  B -->|"sí"| EBS["Amazon EBS<br>(bloque)"]
+  O -->|"sí"| S3["Amazon S3<br>(objeto)"]
+  F -->|"sí"| FS["Amazon EFS / FSx<br>(archivo)"]
+  FS -->|"Linux + NFS"| EF["EFS"]
+  FS -->|"Windows / SMB"| FW["FSx para Windows"]
+  FS -->|"HPC / ML"| FL["FSx para Lustre"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Árbol de decisión inicial: la pregunta de storage siempre empieza por la abstracción.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Palabras que delatan la abstracción: <span class="term-en">boot volume</span>,
+        <span class="term-en">Amazon Machine Image (AMI)</span>, <span class="term-en">database on EC2</span> →
+        <strong>EBS</strong>. <span class="term-en">shared file system</span>, <span class="term-en">many EC2
+        instances</span>, <span class="term-en">home directories</span> → <strong>EFS/FSx</strong>.
+        <span class="term-en">static assets</span>, <span class="term-en">data lake</span>,
+        <span class="term-en">unlimited scale</span> → <strong>S3</strong>. Si aparece
+        <span class="term-en">instance store</span> junto a <span class="term-en">durable</span>, es la opción trampa: es
+        <em>ephemeral</em>, no persistente.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial de base: <code>../../bronze/05-docs/storage-efs/whatisefs.md</code>,
+      <code>../../bronze/05-docs/storage-ebs/what-is-ebs.md</code>,
+      <code>../../bronze/05-docs/storage-s3/welcome.md</code> y la FAQ comparativa
+      <code>../../bronze/04-faqs/amazon-elastic-file-system-efs.md</code>.</p>
+
+      <!-- ================= 2. S3 ================= -->
+      <h2 id="s3"><span class="h2-num">2</span>Amazon S3 a fondo</h2>
+      <p><span class="term-en">Amazon S3</span> guarda datos en <strong>buckets</strong> (contenedores con nombre
+      globalmente único) y <strong>objects</strong> (los datos + metadatos); un objeto puede medir de 0 bytes a
+      <strong>5 TB</strong> y por encima de 100 MB conviene <span class="term-en">multipart upload</span>. Desde
+      diciembre de 2020 S3 ofrece <strong>consistencia read-after-write fuerte</strong> para nuevos PUTs: una vez
+      confirmada la escritura, cualquier lectura posterior ve el objeto — ya no existen los matices de consistencia
+      eventual de las guías antiguas.</p>
+
+      <h3 id="s3-clases">Storage classes: la tabla que cae en el examen</h3>
+      <p>Todas las clases ofrecen la misma durabilidad de <strong>11 nueves (99,999999999%)</strong>; lo que cambia
+      es la disponibilidad, el tiempo de recuperación y el precio. Memoriza la pareja
+      <em>duración mínima de facturación + tarifa de recuperación</em>, porque ahí se decide el costo real.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Clase</th><th>Acceso</th><th>Retrieval</th><th>Min. días</th><th>Caso de uso típico</th></tr></thead>
+          <tbody>
+            <tr><td>S3 Standard</td><td>milisegundos</td><td>—</td><td>ninguno</td><td>Datos accedidos más de una vez al mes</td></tr>
+            <tr><td>S3 Intelligent-Tiering</td><td>milisegundos</td><td>sin tarifa (solo cuota de monitoreo por objeto)</td><td>ninguno</td><td>Patrones de acceso <em>desconocidos o cambiantes</em></td></tr>
+            <tr><td>S3 Standard-IA</td><td>milisegundos</td><td>tarifa por GB</td><td>30</td><td>Datos largos accedidos ~1 vez al mes; backups</td></tr>
+            <tr><td>S3 One Zone-IA</td><td>milisegundos</td><td>tarifa por GB</td><td>30</td><td>Igual pero en 1 AZ: datos <em>recreables</em> o réplicas</td></tr>
+            <tr><td>S3 Express One Zone</td><td>milisegundo simple (10x más rápido)</td><td>—</td><td>ninguno</td><td>Latencia extrema, directory buckets (HPC, analytics)</td></tr>
+            <tr><td>S3 Glacier Instant Retrieval</td><td>milisegundos</td><td>tarifa por GB</td><td>90</td><td>Archivo accedido 1 vez por trimestre, aún en ms</td></tr>
+            <tr><td>S3 Glacier Flexible Retrieval</td><td>minutos–horas (requiere RestoreObject)</td><td>expedited 1-5 min / standard 3-5 h / bulk 5-12 h</td><td>90</td><td>Archivo accedido ~1 vez al año</td></tr>
+            <tr><td>S3 Glacier Deep Archive</td><td>horas (requiere RestoreObject)</td><td>standard 12 h / bulk 48 h</td><td>180</td><td><strong>El archivo más barato</strong>; cumplimiento a 7-10 años</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-s3/storage-class-intro.md (tabla oficial de comparación).</p>
+
+      <p><span class="term-en">S3 Intelligent-Tiering</span> merece su propio párrafo porque es la respuesta cuando la
+      pregunta dice <span class="term-en">unknown access patterns</span> o <span class="term-en">minimize costs
+      without performance impact</span>. Mueve objetos entre tres niveles automáticos —
+      <span class="term-en">Frequent Access</span>, <span class="term-en">Infrequent Access</span> (30 días sin acceso)
+      y <span class="term-en">Archive Instant Access</span> (90 días) — cobrando solo una pequeña cuota de monitoreo
+      por objeto y <strong>sin tarifa de recuperación</strong>. Opcionalmente activas los niveles
+      <span class="term-en">Archive Access</span> (90 días) y <span class="term-en">Deep Archive Access</span>
+      (180 días) para datos que toleran recuperación asíncrona. Los objetos menores de 128 KB no se monitorean:
+      siempre quedan en Frequent Access.</p>
+
+      <h3 id="s3-ciclo-vida">Lifecycle, versioning y MFA Delete</h3>
+      <p>Las <span class="term-en">lifecycle configurations</span> automatizan transiciones (Standard → IA → Glacier →
+      Deep Archive) y expiraciones por prefijo o etiqueta, y es la respuesta estándar a
+      <span class="term-en">most cost-effective over time</span>. El <span class="term-en">versioning</span> guarda
+      cada variante de un objeto: borrar no destruye, solo inserta un <span class="term-en">delete marker</span>, y
+      puedes restaurar versiones anteriores. Es prerrequisito para MFA Delete y para la replicación. El
+      <span class="term-en">MFA Delete</span> exige un código MFA para eliminar versiones definitivamente — solo lo
+      puede configurar el <strong>root account</strong> de la cuenta propietaria del bucket, un detalle que el examen
+      pregunta directamente.</p>
+
+      <h3 id="s3-encriptacion">Cifrado: cuatro variantes SSE + TLS</h3>
+      <p>Para el examen necesitas las cuatro formas de <span class="term-en">server-side encryption</span> y cuándo
+      exige cada una. En tránsito, S3 habla HTTPS/TLS en su endpoint REST, y una bucket policy con condición
+      <span class="term-en">aws:SecureTransport = false</span> deniega cualquier petición sin cifrar.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mecanismo</th><th>Quién tiene la clave</th><th>Detalle clave para el examen</th></tr></thead>
+          <tbody>
+            <tr><td>SSE-S3</td><td>Amazon S3 (AES-256, claves gestionadas por S3)</td><td>Opción más simple; auditoría limitada del uso de la clave</td></tr>
+            <tr><td>SSE-KMS</td><td>Tu CMK en AWS KMS</td><td>Permisos separados (kms:Decrypt), cada uso queda en CloudTrail; es la respuesta a <em>audit key usage</em></td></tr>
+            <tr><td>DSSE-KMS</td><td>Tu CMK en AWS KMS (doble capa)</td><td>Doble cifrado con dos claves KMS: la respuesta a <em>strongest encryption</em> en S3</td></tr>
+            <tr><td>SSE-C</td><td>Tú (envías la clave en cada petición)</td><td>Obligatorio HTTPS; S3 no almacena la clave; pierdes la clave = pierdes el dato</td></tr>
+            <tr><td>En tránsito</td><td>TLS</td><td>HTTPS en el endpoint REST; deny con aws:SecureTransport false</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-s3/serv-side-encryption.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant App as "Aplicación"
+  participant S3 as "Amazon S3"
+  participant K as "AWS KMS"
+  App->>S3: PUT object (cabecera SSE-KMS + CMK)
+  S3->>K: GenerateDataKey(CMK)
+  K-->>S3: data key en claro + data key cifrada
+  S3->>S3: cifra el objeto y descarta la key en claro
+  S3-->>App: 200 OK
+  App->>S3: GET object
+  S3->>K: Decrypt(data key cifrada)
+  K-->>S3: data key (evento auditable)
+  S3-->>App: objeto descifrado
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Subida y descarga con SSE-KMS: cada llamada a KMS queda auditada en CloudTrail.</figcaption>
+      </figure>
+
+      <h3 id="s3-replicacion">Replicación: CRR, SRR y RTC</h3>
+      <p>La replicación de S3 copia objetos de forma automática y asíncrona entre buckets (misma cuenta o cuentas
+      distintas). <span class="term-en">Cross-Region Replication (CRR)</span> replica entre Regiones: cumplimiento
+      geográfico, menor latencia para usuarios lejanos y DR. <span class="term-en">Same-Region Replication (SRR)</span>
+      replica dentro de la misma Región: agregar logs en un solo bucket, sincronizar cuentas de producción y test, o
+      soberanía de datos. <span class="term-en">S3 Replication Time Control (RTC)</span> añade un SLA que replica el
+      99,99% de los objetos en <strong>15 minutos</strong>. La replicación en vivo no copia objetos previos: para esos
+      existe <span class="term-en">S3 Batch Replication</span>; y para failover entre Regiones se combina replicación
+      bidireccional con <span class="term-en">Multi-Region Access Points</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Necesidad</th><th>Replicación correcta</th></tr></thead>
+          <tbody>
+            <tr><td>Cumplimiento: copia a distancia geográfica</td><td>CRR</td></tr>
+            <tr><td>Agregar logs de varios buckets en uno</td><td>SRR</td></tr>
+            <tr><td>SLA de 15 minutos (99,99% de objetos)</td><td>RTC</td></tr>
+            <tr><td>Copiar objetos que existían antes de configurar</td><td>Batch Replication</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-s3/replication.md.</p>
+
+      <h3 id="s3-extras">Presigned URLs, web hosting, eventos y más</h3>
+      <p>Varias features de S3 son respuestas rápidas en el examen. Las <span class="term-en">presigned URLs</span>
+      comparten un objeto o permiten subirlo a tu bucket con credenciales temporales, sin hacerlo público ni crear
+      usuarios IAM: piensa en ellas ante <span class="term-en">allow a partner to download one file temporarily</span>.
+      El <span class="term-en">static website hosting</span> sirve index/error documents en un endpoint web del bucket;
+      ese endpoint no da HTTPS por sí solo, así que la respuesta con HTTPS es poner
+      <span class="term-en">Amazon CloudFront</span> delante. Las <span class="term-en">event notifications</span>
+      disparan <span class="term-en">SNS</span>, <span class="term-en">SQS</span>, <span class="term-en">Lambda</span> o
+      <span class="term-en">EventBridge</span> cuando llega un objeto: el patrón decoupled típico de subida de archivos.
+      <span class="term-en">Requester Pays</span> traslada al lector el costo de transferencia, ideal para compartir
+      datasets grandes con terceros. <span class="term-en">S3 Batch Operations</span> ejecuta copias, restauraciones o
+      invocaciones Lambda sobre <em>billones</em> de objetos con un manifiesto. Por último, los
+      <span class="term-en">Multi-Region Access Points</span> exponen un endpoint global que enruta a buckets de varias
+      Regiones con failover controlado.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">share an object with a vendor for 5 minutes</span> → presigned URL (nunca credenciales
+        IAM). <span class="term-en">trigger a process when a file is uploaded</span> → S3 event notifications (o
+        EventBridge si necesitas enrutamiento avanzado). <span class="term-en">HTTPS for a static website</span> →
+        CloudFront delante del bucket, no el website endpoint solo. <span class="term-en">durability 11 nines</span> →
+        cualquier clase de S3: no confundas durabilidad con disponibilidad.</p>
+      </div>
+
+      <p class="bronze-link">Para profundizar: <code>../../bronze/05-docs/storage-s3/storage-class-intro.md</code>,
+      <code>../../bronze/05-docs/storage-s3/serv-side-encryption.md</code>,
+      <code>../../bronze/05-docs/storage-s3/replication.md</code>,
+      <code>../../bronze/05-docs/storage-s3/versioning.md</code>,
+      <code>../../bronze/05-docs/storage-s3/using-presigned-url.md</code>,
+      <code>../../bronze/05-docs/storage-s3/websitehosting.md</code> y
+      <code>../../bronze/04-faqs/amazon-s3.md</code>.</p>
+
+      <!-- ================= 3. EBS ================= -->
+      <h2 id="ebs"><span class="h2-num">3</span>Amazon EBS: bloques para tu instancia</h2>
+      <p><span class="term-en">Amazon EBS</span> provee volúmenes de bloque persistentes y adjuntos a una instancia
+      EC2 en <strong>una sola Availability Zone</strong>. Un volumen EBS sobrevive al stop de la instancia y puede
+      re-adjuntarse a otra instancia de la misma AZ; montarlo en otra AZ exige moverlo vía snapshot. Para exprimir las
+      IOPS provisionadas conviene usar instancias <span class="term-en">EBS-optimized</span>. La distinción clave al
+      dimensionar: las <strong>IOPS</strong> mandan en I/O pequeño y aleatorio (SSD), mientras que el
+      <strong>throughput</strong> (MiB/s) manda en lecturas grandes y secuenciales (HDD).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo</th><th>Categoría</th><th>Máx. IOPS</th><th>Máx. throughput</th><th>Para qué</th></tr></thead>
+          <tbody>
+            <tr><td>gp3</td><td>SSD general purpose</td><td>hasta 16.000 (base 3.000, ampliables)</td><td>hasta 1.000 MiB/s (base 125)</td><td>Default: boot volumes, apps transaccionales, dev/test; performance desacoplada del tamaño</td></tr>
+            <tr><td>io2 / io2 Block Express</td><td>SSD provisioned IOPS</td><td>hasta 256.000</td><td>hasta 4.000 MiB/s</td><td>Bases de datos críticas; 99,999% durabilidad; latencia &lt; 500 μs; Multi-Attach</td></tr>
+            <tr><td>st1</td><td>HDD throughput optimized</td><td>500 (I/O de 1 MiB)</td><td>500 MiB/s</td><td>Big data, data warehouses, log processing — secuencial</td></tr>
+            <tr><td>sc1</td><td>HDD cold</td><td>250</td><td>250 MiB/s</td><td>El almacenamiento EBS más barato; datos raramente accesibles</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-ebs/ebs-volume-types.md (gp3/io2/st1/sc1). Nota: los HDD
+      (st1/sc1) no pueden ser boot volumes.</p>
+
+      <h3 id="ebs-snapshots">Snapshots: incrementales, archive tier y FSR</h3>
+      <p>Un <span class="term-en">snapshot</span> es una copia point-in-time <strong>incremental</strong>: solo se
+      guardan los bloques que cambiaron desde el snapshot anterior, lo que abarata el almacenamiento (que vive en S3,
+      aunque no accesible directamente). El primer snapshot es siempre completo. Puedes compartirlos entre cuentas,
+      copiarlos a otras Regiones y construir AMIs. El <span class="term-en">snapshot archive tier</span> los mueve a un
+      nivel un 75% más barato a cambio de una recuperación de 24-72 horas. El
+      <span class="term-en">Fast Snapshot Restore (FSR)</span> elimina la latencia de inicialización del primer acceso
+      tras restaurar un volumen — útil para bases de datos grandes — pero se paga por AZ y por snapshot, así que el
+      examen lo castiga si lo eliges sin necesidad.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  V["Volumen EBS<br>en uso"] --> S1["Snapshot 1<br>(completo)"]
+  V --> S2["Snapshot 2<br>(solo bloques nuevos)"]
+  S2 --> S3["Snapshot 3<br>(solo cambios)"]
+  S3 --> ARC["Archive tier<br>(-75% de costo)"]
+  S3 --> FSR["Fast Snapshot<br>Restore (sin latencia)"]
+  S3 --> AZ2["Copiar a otra<br>Región / cuenta"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Cadena incremental de snapshots y sus opciones de costo/velocidad.</figcaption>
+      </figure>
+
+      <h3 id="ebs-multi-attach">Multi-Attach, RAID 0 e instance store</h3>
+      <p>El <span class="term-en">EBS Multi-Attach</span> permite adjuntar un volumen io1/io2 a <strong>hasta 16
+      instancias</strong> de la <em>misma AZ</em>: lo usan aplicaciones cluster-aware que gestionan la coherencia de
+      escritura ellas mismas (Oracle RAC, por ejemplo). Si necesitas más de 256.000 IOPS o 4 GiB/s, la respuesta clásica
+      es <span class="term-en">RAID 0</span>: repartir datos entre varios volúmenes EBS para sumar rendimiento (a costa
+      de tolerancia a fallos). Y no confundas EBS con el <span class="term-en">instance store</span>: los discos efímeros
+      viven físicamente en el host, ofrecen latencia brutal, pero se <strong>pierden al stop/terminate</strong> de la
+      instancia — perfectos para caches, buffers y datos temporales, y trampa mortal ante cualquier requisito de
+      <span class="term-en">durable</span>.</p>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Elegir st1/sc1 para una base de datos porque "es más barato por GB": las bases de datos hacen I/O aleatorio
+        pequeño y necesitan SSD (gp3/io2); st1 es para streaming secuencial. Otro: activar FSR "porque sí" cuando la
+        pregunta no pide eliminar la latencia de primera lectura — cuesta por AZ y es <em>cost overhead</em>.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/storage-ebs/ebs-volume-types.md</code>,
+      <code>../../bronze/05-docs/storage-ebs/ebs-snapshots.md</code>,
+      <code>../../bronze/05-docs/storage-ebs/ebs-fast-snapshot-restore.md</code>,
+      <code>../../bronze/05-docs/storage-ebs/ebs-multi-attach-perf.md</code> y
+      <code>../../bronze/04-faqs/amazon-elastic-block-store-ebs.md</code>.</p>
+
+      <!-- ================= 4. EFS ================= -->
+      <h2 id="efs"><span class="h2-num">4</span>Amazon EFS: archivos compartidos NFS</h2>
+      <p><span class="term-en">Amazon EFS</span> es un sistema de archivos <span class="term-en">NFSv4</span>
+      totalmente administrado y elástico: crece hasta petabytes sin aprovisionar nada y se paga por lo usado. Un
+      filesystem <span class="term-en">Regional</span> replica los datos en múltiples AZ de la Región (el
+      recomendado); la variante <span class="term-en">One Zone</span> vive en una sola AZ y cuesta menos. El acceso
+      ocurre por <span class="term-en">mount targets</span>: una ENI que creas en cada AZ de tu VPC para que las
+      instancias monten el sistema sin cruzar tráfico entre AZs innecesariamente. Lo montan a la vez miles de
+      instancias EC2, contenedores ECS/EKS e incluso Lambda, lo que lo convierte en la respuesta por defecto a
+      <span class="term-en">shared storage for many Linux instances</span>.</p>
+
+      <h3 id="efs-throughput">Modos de throughput y clases de almacenamiento</h3>
+      <p>EFS separa el <em>modo de rendimiento</em> (General Purpose vs Max I/O, herencia del examen) del
+      <em>modo de throughput</em>. El modo <span class="term-en">Elastic</span> (por defecto, recomendado) escala el
+      throughput automáticamente con la actividad; el modo <span class="term-en">Bursting</span> da un throughput base
+      ligado al tamaño de los datos con créditos de burst; y el modo <span class="term-en">Provisioned</span> permite
+      fijar MB/s por encima de lo que el tamaño justificaría, para datasets pequeños que exigen mucho rendimiento. En
+      costo, EFS tiene clases <span class="term-en">Standard</span>, <span class="term-en">Infrequent Access (IA)</span>
+      y <span class="term-en">One Zone-IA</span>; la <span class="term-en">lifecycle management</span> mueve archivos
+      sin acceso (p. ej. tras 30 días) a IA y los devuelve transparentemente cuando alguien los lee — el paralelo
+      exacto de Intelligent-Tiering pero a nivel de archivo.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  subgraph VPC["Tu VPC"]
+    MT1["Mount target AZ-A"] --- EFS["EFS Regional<br>(multi-AZ)"]
+    MT2["Mount target AZ-B"] --- EFS
+  end
+  EC2A["Instancias<br>Linux AZ-A"] --> MT1
+  EC2B["ECS / EKS / Lambda<br>AZ-B"] --> MT2
+  ONP["On-premises<br>(DX o VPN)"] --> MT1
+  EFS --> LCM["Lifecycle:<br>30 días sin acceso → IA"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — EFS: mount targets por AZ, acceso masivo multi-instancia y lifecycle a IA.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon EFS</th><th>Amazon FSx (familia)</th></tr></thead>
+          <tbody>
+            <tr><td>Protocolo</td><td>NFSv4 (Linux/macOS; Windows no soportado)</td><td>NFS, SMB, Lustre, iSCSI según variante</td></tr>
+            <tr><td>Apuesta</td><td>Elasticidad sin aprovisionar</td><td>Rendimiento y features de FS comerciales</td></tr>
+            <tr><td>Windows</td><td>No</td><td>FSx for Windows (SMB + AD nativo)</td></tr>
+            <tr><td>HPC/ML</td><td>Aceptable</td><td>FSx for Lustre: sub-ms, TBps, millones de IOPS</td></tr>
+            <tr><td>Pago</td><td>Por GB usado (+ acceso IA)</td><td>Por capacidad provisionada (SSD/HDD, throughput)</td></tr>
+            <tr><td>Multi-AZ</td><td>Nativo en Regional</td><td>Opción Multi-AZ en Windows/ONTAP</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-efs/whatisefs.md + guías FSx (bronze 05-docs/storage-fsx).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">content management system</span>, <span class="term-en">shared home directories</span>,
+        <span class="term-en">many EC2 instances need the same files</span> → EFS. <span class="term-en">reduce costs
+        for files rarely accessed</span> → EFS IA + lifecycle management. <span class="term-en">Windows workloads</span>
+        → nunca EFS: FSx for Windows. Recuerda también que EFS One Zone-IA es la opción de ahorro cuando el dato es
+        recreable, igual que One Zone-IA en S3.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/storage-efs/whatisefs.md</code>,
+      <code>../../bronze/05-docs/storage-efs/view-storage-class-size.md</code>,
+      <code>../../bronze/05-docs/storage-efs/accessing-fs.md</code> y
+      <code>../../bronze/04-faqs/amazon-elastic-file-system-efs.md</code>.</p>
+
+      <!-- ================= 5. FSx ================= -->
+      <h2 id="fsx"><span class="h2-num">5</span>La familia FSx: Lustre, Windows, ONTAP y OpenZFS</h2>
+      <p>Cuando el sistema de archivos genérico no basta, <span class="term-en">Amazon FSx</span> ofrece cuatro
+      sabores especializados, todos totalmente administrados. La lógica de elección es el <em>ecosistema</em>: FSx no
+      compite con EFS en elasticidad; gana por compatibilidad y rendimiento bruto con la tecnología que tu carga ya
+      usa. Para el examen, identifica la palabra clave de cada variante y la respuesta sale sola.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Variante</th><th>Protocolo</th><th>Palabra clave del examen</th><th>Detalles que importan</th></tr></thead>
+          <tbody>
+            <tr><td>FSx for Lustre</td><td>POSIX (Lustre), Linux</td><td>HPC, ML, video processing, financial modeling</td><td>Sub-ms, hasta TBps y millones de IOPS; <span class="term-en">scratch</span> (temporal) vs <span class="term-en">persistent</span>; bucket S3 como <span class="term-en">data repository</span> con metadatos separados de los datos; acelera SageMaker/Batch</td></tr>
+            <tr><td>FSx for Windows File Server</td><td>SMB 2.0-3.1.1</td><td>Windows, Active Directory, DFS</td><td>AD gestionado o self-managed, Windows ACLs, DFS Namespaces/Replication, opción Multi-AZ, backups VSS, dedupe</td></tr>
+            <tr><td>FSx for NetApp ONTAP</td><td>NFS, SMB, iSCSI (y NVMe)</td><td>NetApp, multiprotocolo, ONTAP on-prem</td><td>NAS+SAN en un filesystem; tiering automático de datos fríos; SnapMirror y FlexCache; para quien ya opera ONTAP</td></tr>
+            <tr><td>FSx for OpenZFS</td><td>NFS v3-v4.2</td><td>ZFS, snapshots instantáneos, migrar de un filer Linux/ZFS</td><td>Hasta ~1M IOPS con cientos de μs de latencia (caché NVMe/in-memory); snapshots y clones instantáneos, compresión, cuotas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-fsx/{lustreguide,windowsguide,ontapguide,openzfsguide}/what-is*.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  S3B["Bucket S3<br>(dataset durable)"] -->|"import al crear"| FL["FSx for Lustre<br>(copia rápida)"]
+  FL -->|"procesa a TBps"| HPC["Clúster HPC /<br>entrenamiento ML"]
+  HPC -->|"export con data<br>repository tasks"| S3B
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — FSx for Lustre como capa de alta velocidad sobre un dataset durable en S3.</figcaption>
+      </figure>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">machine learning training on data in S3, fastest file access</span> → FSx for Lustre
+        (enlazado al bucket). <span class="term-en">lift and shift a Windows app that uses SMB and AD</span> → FSx for
+        Windows. <span class="term-en">company already runs NetApp ONTAP, wants managed</span> → FSx for ONTAP.
+        <span class="term-en">migrate from on-premises ZFS without changing code</span> → FSx for OpenZFS.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/storage-fsx/lustreguide/what-is.md</code>,
+      <code>../../bronze/05-docs/storage-fsx/windowsguide/what-is.md</code>,
+      <code>../../bronze/05-docs/storage-fsx/ontapguide/what-is-fsx-ontap.md</code>,
+      <code>../../bronze/05-docs/storage-fsx/openzfsguide/what-is-fsx.md</code> y
+      <code>../../bronze/04-faqs/amazon-fsx-lustre-windows-ontap-openzfs.md</code>.</p>
+
+      <!-- ================= 6. GLACIER + GATEWAY + BACKUP ================= -->
+      <h2 id="archivo-hibrido"><span class="h2-num">6</span>Archivo profundo, híbrido y backups centralizados</h2>
+
+      <h3 id="glacier">S3 Glacier en profundidad</h3>
+      <p>El examen llama "Glacier" a las tres clases de archivo <em>dentro de S3</em> (Instant Retrieval, Flexible
+      Retrieval y Deep Archive), pero existió un servicio independiente de bóvedas: el
+      <span class="term-en">Amazon Glacier</span> original organizaba archivos en <span class="term-en">vaults</span>
+      con su propia API REST y ya no acepta clientes nuevos. De él heredas dos conceptos que aún aparecen: el
+      <span class="term-en">vault lock</span> (política WORM inmutable para cumplimiento) y los
+      <strong>modos de recuperación</strong> de Flexible Retrieval. En las clases de S3, recuperar un objeto de
+      Flexible/Deep Archive exige llamar antes a <span class="term-en">RestoreObject</span>: expedited (1-5 minutos,
+      más caro, para emergencias), standard (3-5 horas) y bulk (5-12 horas, gratis) — y en Deep Archive, standard 12
+      horas y bulk 48 horas. Deep Archive es la respuesta automática a <span class="term-en">cheapest long-term
+      archive</span> o <span class="term-en">compliance 7 years</span>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Modo de recuperación</th><th>Tiempo</th><th>Coste relativo</th></tr></thead>
+          <tbody>
+            <tr><td>Expedited (Flexible)</td><td>1-5 min</td><td>el más caro; para urgencias puntuales</td></tr>
+            <tr><td>Standard (Flexible)</td><td>3-5 h</td><td>medio</td></tr>
+            <tr><td>Bulk (Flexible)</td><td>5-12 h</td><td>gratuito</td></tr>
+            <tr><td>Standard (Deep Archive)</td><td>12 h</td><td>medio</td></tr>
+            <tr><td>Bulk (Deep Archive)</td><td>48 h</td><td>gratuito</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-glacier/introduction.md + storage-s3/glacier-storage-classes.md.</p>
+
+      <h3 id="storage-gateway">AWS Storage Gateway: el puente híbrido</h3>
+      <p><span class="term-en">AWS Storage Gateway</span> conecta aplicaciones on-premises con almacenamiento en la
+      nube exponiendo protocolos estándar (NFS, SMB, iSCSI o cintas virtuales) con una <strong>cache local</strong>
+      que sirve los datos calientes con baja latencia mientras el dato primario vive en AWS. Es la respuesta a
+      <span class="term-en">on-premises application needs low-latency access to cloud storage</span> o
+      <span class="term-en">extend data center without new hardware</span>. Se despliega como appliance virtual
+      (VMware/Hyper-V/EC2) o hardware appliance dedicado.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo de gateway</th><th>Expone</th><th>Backend en AWS</th><th>Caso de uso</th></tr></thead>
+          <tbody>
+            <tr><td>S3 File Gateway</td><td>NFS / SMB (archivos)</td><td>Objetos en S3</td><td>Compartir archivos cuyo dato primario vive en S3; backups de file servers a S3</td></tr>
+            <tr><td>FSx File Gateway</td><td>SMB</td><td>FSx for Windows File Server</td><td>Acceso on-prem de baja latencia a shares de FSx en la nube</td></tr>
+            <tr><td>Volume Gateway (cached)</td><td>iSCSI (bloques)</td><td>Dato primario en S3, cache local</td><td>Discos on-prem respaldados en la nube, acceso frecuente servido localmente</td></tr>
+            <tr><td>Volume Gateway (stored)</td><td>iSCSI (bloques)</td><td>Todo el dato local + backups asíncronos a S3 (EBS snapshots)</td><td>Latencia local total con copia en AWS para DR</td></tr>
+            <tr><td>Tape Gateway</td><td>Cintas virtuales (VTL)</td><td>S3 → Glacier para archivar</td><td>Reemplazar la librería de cintas física con tu software de backup</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/storage-gateway/welcome.md + bronze/04-faqs/aws-storage-gateway.md.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  APP["App on-premises<br>(NFS/SMB/iSCSI)"] --> GW["Storage Gateway<br>+ cache local"]
+  GW -->|"lecturas calientes<br>desde la cache"| APP
+  GW -->|"dato primario<br>cifrado por TLS"| S3["Amazon S3<br>(objetos)"]
+  S3 -->|"lifecycle"| GL["S3 Glacier<br>(archivo)"]
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — Storage Gateway: el dato primario vive en S3, la cache local da la baja latencia.</figcaption>
+      </figure>
+
+      <h3 id="aws-backup">AWS Backup: un solo plano de backups</h3>
+      <p><span class="term-en">AWS Backup</span> centraliza y automatiza la protección de datos a través de servicios
+      — EBS, EFS, RDS, DynamoDB, FSx, Storage Gateway — con <span class="term-en">backup plans</span> basados en
+      horario, retención, lifecycle a <span class="term-en">cold storage</span> y asignación por etiquetas.
+      Los backups viven en <span class="term-en">backup vaults</span> cifrados con KMS, se pueden copiar
+      <span class="term-en">cross-Region</span> y <span class="term-en">cross-account</span> dentro de Organizations,
+      lo que cubre DR y cumplimiento con un solo servicio. Sus backups son incrementales tras
+      la primera copia y Audit Manager genera la evidencia de cumplimiento. Ante
+      <span class="term-en">centralize and automate backups across services</span>, es la respuesta; ante un solo
+      servicio, usa la feature nativa (snapshots EBS, backups automáticos RDS).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p><span class="term-en">on-prem app requiring low-latency reads, data must live in S3</span> → S3 File
+        Gateway. <span class="term-en">replace tape library / backup software keeps working</span> → Tape Gateway.
+        <span class="term-en">central backup policy across AWS services, cross-region copies</span> → AWS Backup.
+        Y el clásico: <span class="term-en">cheapest way to retain 7 years of audit archives</span> → S3 Glacier Deep
+        Archive, no Flexible.</p>
+      </div>
+
+      <p class="bronze-link">Documentación oficial: <code>../../bronze/05-docs/storage-glacier/introduction.md</code>,
+      <code>../../bronze/05-docs/storage-s3/glacier-storage-classes.md</code>,
+      <code>../../bronze/05-docs/storage-gateway/welcome.md</code>,
+      <code>../../bronze/05-docs/storage-backup/whatisbackup.md</code>,
+      <code>../../bronze/05-docs/storage-backup/about-backup-plans.md</code>,
+      <code>../../bronze/05-docs/storage-backup/vaults.md</code>,
+      <code>../../bronze/04-faqs/aws-storage-gateway.md</code> y
+      <code>../../bronze/04-faqs/aws-backup.md</code>.</p>
+
+      <!-- ================= 7. CIERRE ================= -->
+      <h2 id="cierre"><span class="h2-num">7</span>Cierre: la tabla de decisión final</h2>
+      <p>Antes del examen, reduce toda esta página a reflejos. La primera pregunta es siempre la abstracción (objeto,
+      bloque o archivo); la segunda es el matiz de costo o rendimiento que impone el calificador. Esta tabla condensa
+      los emparejamientos que aparecen una y otra vez en los bancos oficiales.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cuando la pregunta dice…</th><th>La respuesta es</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">cheapest long-term archive</span> / retención 7+ años</td><td>S3 Glacier Deep Archive</td></tr>
+            <tr><td>Archivo con <em>acceso en milisegundos</em> 1 vez por trimestre</td><td>S3 Glacier Instant Retrieval</td></tr>
+            <tr><td>Patrones de acceso <em>desconocidos</em>, cero gestión</td><td>S3 Intelligent-Tiering</td></tr>
+            <tr><td>Boot volume / base de datos en una instancia EC2</td><td>EBS (gp3; io2 para &gt;64k IOPS / Multi-Attach)</td></tr>
+            <tr><td>Secuencial masivo (logs, big data) barato</td><td>EBS st1 (o sc1 si es aún más frío)</td></tr>
+            <tr><td>Carpeta compartida entre muchas instancias Linux</td><td>Amazon EFS (Regional; One Zone-IA si es recreable)</td></tr>
+            <tr><td>Shares SMB + Active Directory / DFS</td><td>FSx for Windows File Server</td></tr>
+            <tr><td>HPC / ML sobre datos que ya están en S3</td><td>FSx for Lustre</td></tr>
+            <tr><td>Ya usan NetApp ONTAP y quieren multiprotocolo</td><td>FSx for ONTAP</td></tr>
+            <tr><td>Datos efímeros de máxima velocidad (cache, buffer)</td><td>Instance store (¡se pierde al apagar!)</td></tr>
+            <tr><td>App on-prem con baja latencia + dato primario en la nube</td><td>Storage Gateway (file/volume/tape)</td></tr>
+            <tr><td>Backups centralizados multi-servicio</td><td>AWS Backup</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis de todas las fuentes bronze de esta página — repásala la víspera del examen.</p>
+
+      <div class="callout deep">
+        <div class="co-title">Los cuatro reflejos innegociables</div>
+        <p><strong>1)</strong> Durabilidad de 11 nueves = <em>todas</em> las clases de S3; no la confundas con
+        disponibilidad. <strong>2)</strong> "Cheapest long-term archive" → Deep Archive, siempre.
+        <strong>3)</strong> OS y bases de datos viven en <em>bloque</em> (EBS). <strong>4)</strong> Compartir entre
+        muchas instancias Linux con adjunción masiva → EFS; Multi-Attach de EBS solo existe en io1/io2 y en la misma
+        AZ. Domina estos cuatro y ya tienes la mitad de las preguntas de storage del SAA-C03.</p>
+      </div>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Escribe de memoria la tabla de storage classes tres veces en días distintos: clase → tiempo de acceso →
+        mínimos de días → caso. Es la tabla con mayor densidad de preguntas por centímetro cuadrado de todo el
+        examen, y las distracciones (Standard-IA vs One Zone-IA vs Glacier IR) se distinguen solo por dos palabras
+        del enunciado.</p>
+      </div>
+
+      <nav class="pager">
+        <a href="computo.html"><span class="p-dir">← Anterior</span><br>Cómputo</a>
+        <a class="p-next" href="redes.html"><span class="p-dir">Siguiente →</span><br>Redes y conectividad</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

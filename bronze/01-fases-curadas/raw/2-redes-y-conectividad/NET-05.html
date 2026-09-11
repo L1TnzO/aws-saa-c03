@@ -1,0 +1,130 @@
+<!--
+BRONZE RAW — NET-05
+URL: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html
+Dominios: D1
+Título doc: Control subnet traffic with network access control lists
+Fase: 2
+Servicio: Amazon VPC
+Descargado: 2026-09-11T03:05:35
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <em>network access control list (ACL)</em> allows or denies specific inbound
+    or outbound traffic at the subnet level. You can use the default network ACL for your VPC, or
+    you can create a custom network ACL for your VPC with rules similar to your security group
+    rules. Custom network ACLs add an additional layer of security to your VPC.</p><p>There is no additional charge for using network ACLs.</p><p>The following diagram shows a VPC with two subnets. Each subnet has a network ACL. When
+    traffic enters the VPC (for example, from a peered VPC, VPN connection, or the internet), the
+    router sends the traffic to its destination. Network ACL A determines which traffic destined for
+    subnet 1 is allowed to enter subnet 1, and which traffic destined for a location outside subnet
+    1 is allowed to leave subnet 1. Similarly, network ACL B determines which traffic is allowed to
+    enter and leave subnet 2.</p><div class="mediaobject">
+     
+      <img src="/images/vpc/latest/userguide/images/network-acl.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A VPC with two subnets and a network ACL for each subnet.">
+     
+     
+  <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4b:" type="submit" data-analytics-performance-mark="26-1789095933389-1805"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p>For information about the differences between security groups and network ACLs, see 
+    <a href="./infrastructure-security.html#VPC_Security_Comparison">Compare security groups and network ACLs</a>.</p><div class="highlights"><h6>Contents</h6><ul><li><p><a href="#nacl-basics">Network ACL basics</a></p></li><li><p><a href="./nacl-rules.html">Network ACL rules</a></p></li><li><p><a href="./default-network-acl.html">Default network ACL for a VPC</a></p></li><li><p><a href="./custom-network-acl.html">Custom network ACLs for your VPC</a></p></li><li><p><a href="./path_mtu_discovery.html">Path MTU Discovery and network ACLs</a></p></li><li><p><a href="./create-network-acl.html">Create a network ACL for your VPC</a></p></li><li><p><a href="./network-acl-associations.html">Manage network ACL associations for your VPC</a></p></li><li><p><a href="./delete-network-acl.html">Delete a network ACL for your VPC</a></p></li><li><p><a href="./nacl-examples.html">Example: Control access to instances in a subnet</a></p></li></ul></div>
+    <h2 id="nacl-basics">Network ACL basics<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="nacl-basics" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789095933387-447"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    
+    <p>The following are the basic things to know about network ACLs before you begin.</p>
+    <div class="itemizedlist">
+      <h6>Network ACL associations</h6>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Each subnet in your VPC must be associated with a network ACL. If you don't explicitly
+          associate a subnet with a network ACL, the subnet is automatically associated with the
+          <a href="./default-network-acl.html">default network ACL</a>.</p>
+      </li><li class="listitem">
+        <p>You can create a <a href="./custom-network-acl.html">custom network ACL</a> and 
+          associate it with a subnet to allow or deny specific inbound or outbound traffic at 
+          the subnet level.</p>
+      </li><li class="listitem">
+        <p>You can associate a network ACL with multiple subnets. However, a subnet can be
+          associated with only one network ACL at a time. When you associate a network ACL with a
+          subnet, the previous association is removed.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+      <h6>Network ACL rules</h6>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>A network ACL has inbound rules and outbound rules. There are <a href="./amazon-vpc-limits.html#vpc-limits-nacls">quotas (or limits) to the number of rules you can have per network ACL</a>. Each
+          rule can either allow or deny traffic. Each rule has a number from 1 to 32766. We evaluate
+          the rules in order, starting with the lowest numbered rule, when deciding whether allow or
+          deny traffic. If the traffic matches a rule, the rule is applied and we do not evaluate
+          any additional rules. We recommend that you start by creating rules in increments (for
+          example, increments of 10 or 100) so that you can insert new rules later on, if
+          needed.</p>
+      </li><li class="listitem">
+        <p>We evaluate the network ACL rules when traffic enters and leaves the subnet, not as it
+          is routed within a subnet.</p>
+      </li><li class="listitem">
+        <p>NACLs are <em>stateless</em>, which means that information
+          about previously sent or received traffic is not saved. If, for example, you create a NACL
+          rule to allow specific inbound traffic to a subnet, responses to that traffic are not
+          automatically allowed. This is in contrast to how security groups work. Security groups
+          are <em>stateful</em>, which means that information about
+          previously sent or received traffic is saved. If, for example, a security group allows
+          inbound traffic to an EC2 instance, responses are automatically allowed regardless of
+          outbound security group rules.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+      <h6>Limitations</h6>
+       
+       
+       
+      
+       
+    <ul class="itemizedlist"><li class="listitem">        
+        <p>There are quotas (also known as limits) for network ACLs. For more information, see
+          <a href="./amazon-vpc-limits.html#vpc-limits-nacls">Network ACLs</a>.</p>
+      </li><li class="listitem">
+        <p>Network ACLs can't block DNS requests to or from the Route&nbsp;53 Resolver (also known as the VPC+2 
+          IP address or AmazonProvidedDNS). To filter DNS requests through the Route&nbsp;53 Resolver, you can 
+          enable <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html">Route&nbsp;53 Resolver DNS Firewall</a>.</p>
+      </li><li class="listitem">
+        <p>Network ACLs can't block traffic to the Instance Metadata Service (IMDS). To manage
+          access to IMDS, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <em>Amazon EC2 User Guide</em>.</p>
+      </li><li class="listitem">
+        <p>Network ACLs do not filter traffic destined to and from the following:</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Amazon Domain Name Services (DNS)</p>
+          </li><li class="listitem">
+            <p>Amazon Dynamic Host Configuration Protocol (DHCP)</p>
+          </li><li class="listitem">
+            <p>Amazon EC2 instance metadata</p>
+          </li><li class="listitem">
+            <p>Amazon ECS task metadata endpoints</p>
+          </li><li class="listitem">
+            <p>License activation for Windows instances</p>
+          </li><li class="listitem">
+            <p>Amazon Time Sync Service</p>
+          </li><li class="listitem">
+            <p>Reserved IP addresses used by the default VPC router</p>
+          </li></ul></div>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-group-sharing.html">Share security groups with AWS Organizations</div><div id="next" class="next-link" accesskey="n" href="./nacl-rules.html">Network ACL rules</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-network-acls.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-network-acls.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789095933230-3624"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#nacl-basics"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Network ACL basics</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r69:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r68:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/vpc/latest/peering/"><span>VPC Peering Guide</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r6c:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6b:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/vpc/latest/tgw/"><span>Amazon VPC Transit Gateways</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r6f:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6e:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/ec2/latest/devguide/"><span>Amazon EC2 Developer Guide</span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r6h:" type="submit" data-analytics-performance-mark="31-1789095933492-6600"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r6j:" type="submit" data-analytics-performance-mark="32-1789095933492-9442"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r6m:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6l:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=VPC&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fvpc%2Flatest%2Fuserguide%2Fvpc-network-acls.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./nacl-rules.html"><span>Network ACL rules</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./security-group-sharing.html"><span>Share security groups with AWS Organizations</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Troubleshooting image scanning in Amazon ECR - Amazon ECR</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="image-scanning-troubleshooting" /><meta name="default_state" content="image-scanning-troubleshooting" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" /><meta name="description" content="Troubleshooting image scanning in Amazon ECR." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon ECR" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Store Docker and Open Container Initiative (OCI) images in the AWS cloud with Amazon Elastic Container Registry." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" hreflang="x-default" /><meta name="feedback-item" content="ECR" /><meta name="this_doc_product" content="Amazon ECR" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ecr'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Troubleshooting image scanning in Amazon ECR" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="image-scanning-troubleshooting.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Troubleshooting image scanning in Amazon ECR - Amazon ECR</title><meta name="pdf" content="/pdfs/AmazonECR/latest/userguide/ecr-ug.pdf#image-scanning-troubleshooting" /><meta name="rss" content="amazon-ecr-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAefn4YSprR-uCBYmbofOpHw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECR&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonECR/latest/userguide/image-scanning-troubleshooting.html" /><meta name="keywords" content="ECR,Amazon ECR,Amazon Elastic Container Registry,Image scanning" /><link rel="alternate" type="text/markdown" href="image-scanning-troubleshooting.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ECR",
+        "item" : "https://docs.aws.amazon.com/ecr/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonECR/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Scan images for software vulnerabilities in Amazon ECR",
+        "item" : "https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Troubleshooting image scanning in Amazon ECR",
+        "item" : "https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonECR/latest/userguide/ecr-ug.pdf#image-scanning-troubleshooting" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/ecr/index.html">Amazon ECR</a><a href="what-is-ecr.html">User Guide</a></div><div id="page-toc-src"><a href="#image-scanning-troubleshooting-eligibility">Understanding scan status SCAN_ELIGIBILITY_EXPIRED</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="image-scanning-troubleshooting">Troubleshooting image scanning in Amazon ECR</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The following are common image scan failures. You can view errors like this in the
+            Amazon ECR console by displaying the image details or through the API or AWS CLI by using the <code class="code">
+            DescribeImageScanFindings</code> API.</p><div class="variablelist">
+             
+             
+        <dl>
+                <dt><span class="term">UnsupportedImageError</span></dt>
+                <dd>
+                    <p>You may get an <code class="code">UnsupportedImageError</code> error when attempting to
+                        perform a basic scan on an image that was built using an operating system
+                        that Amazon ECR doesn't support basic image scanning for. Amazon ECR supports package
+                        vulnerability scanning for major versions of Amazon Linux, Amazon Linux 2, Debian, Ubuntu,
+                        CentOS, Oracle Linux, Alpine, and RHEL Linux distributions. Once a
+                        distribution loses support from its vendor, Amazon ECR may no longer support
+                        scanning it for vulnerabilities. Amazon ECR does not support scanning images
+                        built from the <a href="https://hub.docker.com/_/scratch" rel="noopener noreferrer" target="_blank"><span>Docker
+                            scratch</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> image.</p>
+                    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When using enhanced scanning, Amazon Inspector supports scanning for specific
+                            operating systems and media types. For a full list, see <a href="https://docs.aws.amazon.com/inspector/latest/user/enable-disable-scanning-ecr.html#ecr-supported-media">Supported
+                            operating systems and media types</a> in the <em>Amazon Inspector User
+                            Guide</em>.</p></div></div>
+                </dd>
+             
+                <dt><span class="term">An <code class="code">UNDEFINED</code> severity level is returned</span></dt>
+                <dd>
+                    <p>You may receive a scan finding that has a severity level of <code class="code">
+                        UNDEFINED</code>. The following are the common causes for this:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>The vulnerability was not assigned a priority by the CVE
+                                source.</p>
+                        </li><li class="listitem">
+                            <p>The vulnerability was assigned a priority that Amazon ECR did not
+                                recognize.</p>
+                        </li></ul></div>
+                    <p>To determine the severity and description of a vulnerability, you can view
+                        the CVE directly from the source.</p>
+                </dd>
+            </dl></div>
+            <h2 id="image-scanning-troubleshooting-eligibility">Understanding scan status <code class="code">SCAN_ELIGIBILITY_EXPIRED</code></h2>
+            <p>When enhanced scanning using Amazon Inspector is enabled for your private registry and
+                you are viewing your scan vulnerabilities, you may see a scan status of <code class="code">
+                SCAN_ELIGIBILITY_EXPIRED</code>. The following are the most common causes of this.</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>When you initially turn on enhanced scanning for your private registry,
+                        Amazon Inspector only recognizes images pushed to Amazon ECR in the last 30 days, based on
+                        the image push timestamp. Older images will have the <code class="code">
+                        SCAN_ELIGIBILITY_EXPIRED</code> scan status. If you'd like these images to
+                        be scanned by Amazon Inspector you should push them again to your repository.</p>
+                </li><li class="listitem">
+                    <p>If the <b>ECR re-scan duration</b> is changed in the Amazon Inspector
+                        console and that time elapses, the scan status of the image is changed to <code class="code">
+                        inactive</code> with a reason code of <code class="code">expired</code>, and all
+                        associated findings for the image are scheduled to be closed. This results
+                        in the Amazon ECR console listing the scan status as <code class="code">
+                        SCAN_ELIGIBILITY_EXPIRED</code>.</p>
+                </li></ul></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./describe-scan-findings.html">Retrieving findings</div><div id="next" class="next-link" accesskey="n" href="./pull-through-cache.html">Sync an upstream registry</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECR&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECR/latest/userguide/image-scanning-troubleshooting.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ECR&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECR/latest/userguide/image-scanning-troubleshooting.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Glacier Data Retrieval Policies - Amazon Glacier</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="data-retrieval-policy" /><meta name="default_state" content="data-retrieval-policy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html" /><meta name="description" content="Using Amazon Glacier data retrieval policies, you can easily set data retrieval quotas and manage the peak data retrieval rate across your AWS account in each AWS Region." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Glacier" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Glacier (Amazon Glacier) provides a low-cost storage service optimized for durable storage with security features for data archiving and backup of infrequently used data, or &#34;cold data.&#34; The Amazon Glacier Developer Guide explains how to use the Amazon Glacier web service to create, configure, and manage vaults and archives using both the AWS Management Console and the Amazon Glacier API." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Glacier" /><meta name="this_doc_guide" content="Developer Guide" /><meta name="robots" content="noindex, nofollow" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'glacier'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Amazon Glacier Data Retrieval Policies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="data-retrieval-policy.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Glacier Data Retrieval Policies - Amazon Glacier</title><meta name="pdf" content="/pdfs/amazonglacier/latest/dev/glacier-dg.pdf#data-retrieval-policy" /><meta name="rss" content="glacier-dev-guide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAXOPAoohFRn26117HpzUNYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/amazonglacier/latest/dev/data-retrieval-policy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amazonglacier/latest/dev/data-retrieval-policy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amazonglacier/latest/dev/data-retrieval-policy.html" /><meta name="keywords" content="Amazon Glacier,glacier vault,glacier archive" /><link rel="alternate" type="text/markdown" href="data-retrieval-policy.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Glacier",
+        "item" : "https://docs.aws.amazon.com/glacier/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazonglacier/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Glacier Data Retrieval Policies",
+        "item" : "https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazonglacier/latest/dev/glacier-dg.pdf#data-retrieval-policy" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/glacier/index.html">Amazon Glacier</a><a href="introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#data-retrieval-policy-details">Choosing an Amazon Glacier Data Retrieval Policy</a><a href="#data-retrieval-policy-using-console">Using the Amazon Glacier Console to Set Up a Data Retrieval Policy</a><a href="#data-retrieval-policy-using-api">Using the Amazon Glacier API to Set Up a Data Retrieval Policy</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>	
+		<b>This page is only for existing customers of the Amazon Glacier service using Vaults and the original REST API from 2012.</b></p><p>If you're looking for archival storage solutions, we recommend using the Amazon Glacier storage classes in Amazon S3, S3 Glacier Instant Retrieval, S3 Glacier Flexible Retrieval, and S3 Glacier Deep Archive. To learn more about these storage options, see <a href="https://aws.amazon.com/s3/storage-classes/glacier/" rel="noopener noreferrer" target="_blank"><span>Amazon Glacier storage classes</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p>Amazon Glacier (original standalone vault-based service) is no longer accepting new customers. Amazon Glacier is a standalone service with its own APIs that stores data in vaults and is distinct from Amazon S3 and the Amazon S3 Glacier storage classes. Your existing data will remain secure and accessible in Amazon Glacier indefinitely. No migration is required. For low-cost, long-term archival storage, AWS recommends the <a href="https://aws.amazon.com/s3/storage-classes/glacier/" rel="noopener noreferrer" target="_blank"><span>Amazon S3 Glacier storage classes</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, which deliver a superior customer experience with S3 bucket-based APIs, full AWS Region availability, lower costs, and AWS service integration. If you want enhanced capabilities, consider migrating to Amazon S3 Glacier storage classes by using our <a href="https://aws.amazon.com/solutions/guidance/data-transfer-from-amazon-s3-glacier-vaults-to-amazon-s3/" rel="noopener noreferrer" target="_blank"><span>AWS Solutions Guidance for transferring data from Amazon Glacier vaults to Amazon S3 Glacier storage classes</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></awsui-alert><h1 class="topictitle" id="data-retrieval-policy">Amazon Glacier Data Retrieval Policies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p> With Amazon Glacier data retrieval policies, you can easily set data retrieval quotas and manage
+		the data retrieval activities across your AWS account in each AWS Region. For more
+		information about Amazon Glacier data retrieval charges, see <a href="https://aws.amazon.com/s3/glacier/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon Glacier pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>A data retrieval policy applies only to Standard retrievals and manages retrieval requests
+			made directly to Amazon Glacier. </p><p>For more information about the Amazon Glacier storage classes, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html#sc-glacier">Storage classes for archiving
+				objects</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html">Transitioning
+				objects</a> in the <em>Amazon Simple Storage Service User Guide</em>. </p></div></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#data-retrieval-policy-details">Choosing an Amazon Glacier Data Retrieval Policy</a></p></li><li><p><a href="#data-retrieval-policy-using-console">Using the Amazon Glacier Console to Set Up a Data Retrieval Policy</a></p></li><li><p><a href="#data-retrieval-policy-using-api">Using the Amazon Glacier API to Set Up a Data Retrieval Policy</a></p></li></ul></div>
+		<h2 id="data-retrieval-policy-details">Choosing an Amazon Glacier Data Retrieval Policy</h2>
+		<p>You can choose from three types of Amazon Glacier data retrieval policies: No Retrieval Limit,
+			Free Tier Only, and Max Retrieval Rate. </p>
+		<p>No Retrieval Limit is the default data retrieval policy that's used for retrievals. If
+			you use the No Retrieval Limit policy, no retrieval quota is set, and all valid data
+			retrieval requests are accepted. </p>
+		<p>By using a Free Tier Only policy, you can keep your retrievals within your daily AWS Free
+			Tier allowance and not incur any data retrieval costs. If you want to retrieve more data
+			than is in your AWS Free Tier allowance, you can use a Max Retrieval Rate policy to
+			set a bytes-per-hour retrieval-rate quota. The Max Retrieval Rate policy ensures that
+			the peak retrieval rate from all retrieval jobs across your account in an AWS Region
+			does not exceed the bytes-per-hour quota that you set. </p>
+		<p>With both the Free Tier Only and Max Retrieval Rate policies, data retrieval requests that
+			exceed the retrieval quotas that you specified are not accepted. If you use a Free Tier
+			Only policy, Amazon Glacier synchronously rejects retrieval requests that exceed your AWS
+			Free Tier allowance. If you use a Max Retrieval Rate policy, Amazon Glacier rejects retrieval
+			requests that cause the peak retrieval rate of the in-progress jobs to exceed the
+			bytes-per-hour quota set by the policy. These policies help you simplify data retrieval
+			cost management. </p>
+		<p>The following are some useful facts about data retrieval policies:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Data retrieval policy settings do not change the 3- to 5-hour period that it takes to
+					retrieve data from Amazon Glacier by using Standard retrievals.</p>
+			</li><li class="listitem">
+				<p>Setting a new data retrieval policy does not affect previously accepted retrieval jobs
+					that are already in progress. </p>
+			</li><li class="listitem">
+				<p>If a retrieval job request is rejected because of a data retrieval policy, you are not
+					charged for the job or the request. </p>
+			</li><li class="listitem">
+				<p>You can set one data retrieval policy for each AWS Region, which will govern all data
+					retrieval activities in the AWS Region under your account. A data retrieval
+					policy is specific to a particular AWS Region because data retrieval costs
+					vary across AWS Regions. For more information, see <a href="https://aws.amazon.com/s3/glacier/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon Glacier
+					pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+			</li></ul></div>
+		 
+			<h3 id="data-retrieval-policy-free-tier-only">Free Tier Only Policy</h3>
+			<p>You can set a data retrieval policy to Free Tier Only to ensure that your retrievals always
+				stay within your AWS Free Tier allowance, so that you don't incur data retrieval
+				charges. If a retrieval request is rejected, you receive an error message stating
+				that the request has been denied by the current data retrieval policy.</p>
+			<p>You can set the data retrieval policy to Free Tier Only on a per-Region basis. After the
+				policy is set, you cannot retrieve more data in a day than your prorated daily AWS
+				Free Tier retrieval allowance for that AWS Region. You also do not incur data
+				retrieval fees. </p>
+			<p>You can also switch to a Free Tier Only policy after you have incurred data retrieval
+				charges within a month. In that case, the Free Tier Only policy takes effect for new
+				retrieval requests, but does not affect past requests. You will be billed for the
+				previously incurred charges. </p>
+		 
+		 
+			<h3 id="data-retrieval-policy-managed-max-retrieval-rate">Max Retrieval Rate Policy</h3>
+			<p>You can set your data retrieval policy to Max Retrieval Rate to control the peak retrieval
+				rate by specifying a data retrieval quota that has a bytes-per-hour maximum. When
+				you set the data retrieval policy to Max Retrieval Rate, a new retrieval request is
+				rejected if it would cause the peak retrieval rate of the in-progress jobs to exceed
+				the bytes-per-hour quota that's specified by the policy. If a retrieval job request
+				is rejected, you receive an error message stating that the request has been denied
+				by the current data retrieval policy. </p>
+			<p>Setting your data retrieval policy to the Max Retrieval Rate policy can affect how much of
+				your AWS Free Tier allowance that you can use in a day. For example, suppose you
+				set Max Retrieval Rate to 1 MB per hour. This is less than the AWS Free Tier
+				policy rate. To ensure that you make good use of the daily AWS Free Tier
+				allowance, you can first set your policy to Free Tier Only, and then switch to the
+				Max Retrieval Rate policy later if you need to. For more information about how your
+				retrieval allowance is calculated, go to <a href="https://aws.amazon.com/glacier/faqs/" rel="noopener noreferrer" target="_blank"><span>Amazon Glacier FAQs</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+		 
+		 
+			<h3 id="data-retrieval-policy-no-retrieval-policy">No Retrieval Limit Policy</h3>
+			<p>If your data retrieval policy is set to No Retrieval Limit, all valid data retrieval
+				requests are accepted and your data retrieval costs will vary based on your usage. </p>
+		 
+	 
+		<h2 id="data-retrieval-policy-using-console">Using the Amazon Glacier Console to Set Up a Data Retrieval Policy</h2>
+	
+		
+		<div class="procedure"><h6>To create a data retrieval policy by using the Amazon Glacier console</h6><ol><li><p> Sign in to the AWS Management Console and open the Amazon Glacier console at <a href="https://console.aws.amazon.com/glacier/home" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/glacier/home</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li> <p>Under <b>Select a Region</b>, choose an AWS Region from the dropdown menu.
+					You can configure a data retrieval policy for each AWS Region.</p></li><li> <p>In the left navigation pane, choose <b>Data retrieval settings</b>.</p>
+			</li><li>
+				<p>Choose <b>Edit</b>. The <b>Edit data retrieval policies</b>
+					page appears.</p>
+			</li><li>
+				<p>Under <b>Data retrieval policies</b>, choose a policy.</p>
+				<p>You can select one of the three data retrieval policies: <b>No retrieval
+						limit</b>, <b>Free Tier only</b>, or <b>Specify
+						a max retrieval rate</b>.</p>
+					
+				<div class="itemizedlist">
+					 
+					 
+					
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>If you choose <b>No retrieval limit</b>, all valid data retrieval requests
+							are accepted. </p>
+					</li><li class="listitem">
+						<p>If you choose <b>Free Tier only</b>, data retrieval requests that exceed
+							the AWS Free Tier are not accepted. </p>
+					</li><li class="listitem">
+						<p>If you choose <b>Specify a max retrieval rate</b>, data retrieval requests
+							are rejected if they would cause the peak retrieval rate of the
+							in-progress jobs to exceed the max retrieval rate that you specify. You
+							must specify a gigabytes (GB) per hour value in the
+								<b>GB/hour</b> box under <b>Max retrieval
+								rate</b>. When you enter a value for
+								<b>GB/hour</b>, the console calculates an estimated
+							cost for you. </p>
+					</li></ul></div>
+			</li><li> <p> Choose <b>Save changes</b>. </p> </li></ol></div>
+		
+	 
+		<h2 id="data-retrieval-policy-using-api">Using the Amazon Glacier API to Set Up a Data Retrieval Policy</h2>
+		
+		<p> You can view and set a data retrieval policy by using the Amazon Glacier REST API or by using the
+			AWS SDKs.</p>
+
+		 
+			<h3 id="data-retrieval-policy-using-api-rest">Using the Amazon Glacier REST API to Set Up a Data Retrieval Policy</h3>
+
+
+			<p>You can view and set a data retrieval policy by using the Amazon Glacier REST API. You can view
+				an existing data retrieval policy by using the <a href="./api-GetDataRetrievalPolicy.html">Get Data Retrieval Policy (GET policy)</a> operation. You set a data retrieval policy by using the <a href="./api-SetDataRetrievalPolicy.html">Set Data Retrieval Policy (PUT policy)</a> operation. </p>
+			<p>When using the <code class="code">PUT</code> policy operation, you select the data retrieval policy type
+				by setting the JSON <code class="code">Strategy</code> field value to <code class="code">BytesPerHour</code>,
+					<code class="code">FreeTier</code>, or <code class="code">None</code>. <code class="code">BytesPerHour</code> is
+				equivalent to choosing <b>Specify a max retrieval rate</b> in the
+				console, <code class="code">FreeTier</code> to choosing <b>Free Tier only</b>, and
+					<code class="code">None</code> to choosing <b>No retrieval limit</b>.</p>
+			<p>When you use the <a href="./api-initiate-job-post.html">Initiate Job (POST jobs)</a> operation to initiate a data retrieval
+				job that will exceed the maximum retrieval rate set in your data retrieval policy,
+				the <code class="code">Initiate Job</code> operation stops and throws an exception. </p>
+		 
+
+		 
+			<h3 id="data-retrieval-policy-managed-using-api-sdk">Using the AWS SDKs to Set Up a Data Retrieval Policy</h3>
+			
+			<p>AWS provides SDKs for you to develop applications for Amazon Glacier. These SDKs provide
+				libraries that map to the underlying REST API and provide objects that enable you to
+				easily construct requests and process responses. For more information, see <a href="./using-aws-sdk.html">Using the AWS SDKs with Amazon Glacier</a>. </p>
+		 
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./network-isolation.html">Infrastructure Security</div><div id="next" class="next-link" accesskey="n" href="./tagging.html">Tagging Resources</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/amazonglacier/latest/dev/data-retrieval-policy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/amazonglacier/latest/dev/data-retrieval-policy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

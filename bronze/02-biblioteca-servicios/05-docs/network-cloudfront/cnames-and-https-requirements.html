@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Requirements for using SSL/TLS certificates with CloudFront - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cnames-and-https-requirements" /><meta name="default_state" content="cnames-and-https-requirements" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" /><meta name="description" content="Learn about the requirements and restrictions for using SSL/TLS certificates with CloudFront." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Requirements for using SSL/TLS certificates with CloudFront" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cnames-and-https-requirements.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Requirements for using SSL/TLS certificates with CloudFront - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#cnames-and-https-requirements" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,CloudFront security,CloudFront alternate domain name,CloudFront HTTPS,CloudFront SSL/TLS,CloudFront certificates" /><link rel="alternate" type="text/markdown" href="cnames-and-https-requirements.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configure secure access and restrict access to content",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecurityAndPrivateContent.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use alternate domain names and HTTPS",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Requirements for using SSL/TLS certificates with CloudFront",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#cnames-and-https-requirements" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#https-requirements-certificate-issuer">Certificate issuer</a><a href="#https-requirements-aws-region">AWS Region for AWS Certificate Manager</a><a href="#https-requirements-certificate-format">Certificate format</a><a href="#https-requirements-intermediate-certificates">Intermediate certificates</a><a href="#https-requirements-key-type">Key type</a><a href="#https-requirements-private-key">Private key</a><a href="#https-requirements-permissions">Permissions</a><a href="#https-requirements-size-of-public-key">Size of the certificate key</a><a href="#https-requirements-supported-types">Supported types of certificates</a><a href="#https-requirements-cert-expiration">Certificate expiration date and renewal</a><a href="#https-requirements-domain-names-in-cert">Domain names in the CloudFront distribution and in the certificate</a><a href="#https-requirements-minimum-ssl-protocol-version">Minimum SSL/TLS protocol version</a><a href="#https-requirements-supported-http-versions">Supported HTTP versions</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cnames-and-https-requirements">Requirements for using SSL/TLS certificates with CloudFront</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The requirements for SSL/TLS certificates are described in this topic. They apply to both
+				of the following, except as noted:</p><div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>Certificates for using HTTPS between viewers and CloudFront </p>
+				</li><li class="listitem">
+					<p>Certificates for using HTTPS between CloudFront and your origin</p>
+				</li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#https-requirements-certificate-issuer">Certificate issuer</a></p></li><li><p><a href="#https-requirements-aws-region">AWS Region for AWS Certificate Manager</a></p></li><li><p><a href="#https-requirements-certificate-format">Certificate format</a></p></li><li><p><a href="#https-requirements-intermediate-certificates">Intermediate certificates</a></p></li><li><p><a href="#https-requirements-key-type">Key type</a></p></li><li><p><a href="#https-requirements-private-key">Private key</a></p></li><li><p><a href="#https-requirements-permissions">Permissions</a></p></li><li><p><a href="#https-requirements-size-of-public-key">Size of the certificate key</a></p></li><li><p><a href="#https-requirements-supported-types">Supported types of certificates</a></p></li><li><p><a href="#https-requirements-cert-expiration">Certificate expiration date and renewal</a></p></li><li><p><a href="#https-requirements-domain-names-in-cert">Domain names in the CloudFront distribution and in the certificate</a></p></li><li><p><a href="#https-requirements-minimum-ssl-protocol-version">Minimum SSL/TLS protocol version</a></p></li><li><p><a href="#https-requirements-supported-http-versions">Supported HTTP versions</a></p></li></ul></div>
+				<h2 id="https-requirements-certificate-issuer">Certificate issuer</h2>
+				<p>We recommend that you use a public certificate issued by <a href="https://aws.amazon.com/certificate-manager/" rel="noopener noreferrer" target="_blank"><span>AWS Certificate Manager (ACM)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. For
+					information about getting a certificate from ACM, see the <em><a href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a></em>. To use an ACM certificate with a
+					CloudFront distribution, make sure you request (or import) the certificate in the
+					US East (N. Virginia) Region (<code class="code">us-east-1</code>).</p>
+				<p> CloudFront supports the same certificate authorities (CAs) as Mozilla, so if you don’t use
+					ACM, use a certificate issued by a CA on the <a href="https://wiki.mozilla.org/CA/Included_Certificates" rel="noopener noreferrer" target="_blank"><span>Mozilla Included CA
+						Certificate List</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+				<p>TLS certificates used by the origin that you specified for your CloudFront
+					distribution also need to be issued from the CA on the Mozilla Included CA
+					Certificate List.</p>
+				<p>For more information about getting and installing a certificate, refer to the
+					documentation for your HTTP server software and to the documentation for the
+					CA.</p>
+			 
+				<h2 id="https-requirements-aws-region">AWS Region for AWS Certificate Manager</h2>
+				<p>To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and
+					CloudFront, make sure you request (or import) the certificate in the
+					US East (N. Virginia) Region (<code class="code">us-east-1</code>).</p>
+				<p>If you want to require HTTPS between CloudFront and your origin, and you’re using a load
+					balancer in Elastic Load Balancing as your origin, you can request or import the certificate in
+					any AWS Region.</p>
+			 
+				<h2 id="https-requirements-certificate-format">Certificate format</h2>
+				<p>The certificate must be in X.509 PEM format. This is the default format if you’re using
+					AWS Certificate Manager.</p>
+			 
+				<h2 id="https-requirements-intermediate-certificates">Intermediate certificates</h2>
+				<p>If you’re using a third-party certificate authority (CA), list all of the intermediate
+					certificates in the certificate chain that’s in the <code>.pem</code>
+					file, beginning with one for the CA that signed the certificate for your domain.
+					Typically, you’ll find a file on the CA website that lists intermediate and root
+					certificates in the proper chained order.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Do not include the following: the root certificate, intermediate certificates that are
+						not in the trust path, or your CA’s public key certificate.</p></div></div>
+				<p>Here’s an example:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">-----BEGIN CERTIFICATE-----
+<code class="replaceable">Intermediate certificate 2</code>
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+<code class="replaceable">Intermediate certificate 1</code>
+-----END CERTIFICATE-----</code></pre>
+			 
+				<h2 id="https-requirements-key-type">Key type</h2>
+				<p>CloudFront supports RSA and ECDSA public–private key pairs.</p>
+				<p>CloudFront supports HTTPS connections to both viewers and origins using RSA and
+					ECDSA certificates. With <a href="https://console.aws.amazon.com/acm" rel="noopener noreferrer" target="_blank"><span>AWS Certificate Manager
+						(ACM)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, you can request and import RSA or ECDSA certificates and then associate them with your CloudFront distribution.</p>
+				<p>For lists of the RSA and ECDSA ciphers supported by CloudFront that you can
+					negotiate in HTTPS connections, see <a href="./secure-connections-supported-viewer-protocols-ciphers.html">Supported protocols and ciphers between viewers and CloudFront</a> and <a href="./secure-connections-supported-ciphers-cloudfront-to-origin.html">Supported protocols and ciphers between CloudFront and the origin</a>.</p>
+			 
+				<h2 id="https-requirements-private-key">Private key</h2>
+				<p>If you're using a certificate from a third-party certificate authority (CA),
+					note the following: </p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>The private key must match the public key that is in the
+							certificate.</p>
+					</li><li class="listitem">
+						<p>The private key must be in PEM format.</p>
+					</li><li class="listitem">
+						<p>The private key cannot be encrypted with a password.</p>
+					</li></ul></div>
+				<p>If AWS Certificate Manager (ACM) provided the certificate, ACM doesn’t release the private key. The
+					private key is stored in ACM for use by AWS services that are integrated
+					with ACM.</p>
+			 
+				<h2 id="https-requirements-permissions">Permissions</h2>
+				<p>You must have permission to use and import the SSL/TLS certificate. If you’re using
+					AWS Certificate Manager (ACM), we recommend that you use AWS Identity and Access Management permissions to restrict
+					access to the certificates. For more information, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/security-iam.html">Identity
+						and access management</a> in the
+					<em>AWS Certificate Manager User Guide</em>.</p>
+			 
+				<h2 id="https-requirements-size-of-public-key">Size of the certificate key</h2>
+				<p>The certificate key size that CloudFront supports depends on the type of key and
+					certificate.</p>
+				<div class="variablelist">
+					 
+					 
+				<dl>
+						<dt><b><span class="term">For RSA certificates:</span></b></dt>
+						<dd>
+							<p>CloudFront supports 1024-bit, 2048-bit, and 3072-bit, and 4096-bit RSA keys. The maximum key length for an RSA certificate that
+								you use with CloudFront is 4096 bits.</p>
+							<p>
+							Note that ACM issues RSA certificates with up to 2048-bit keys. 
+							To use a 3072-bit or 4096-bit RSA certificate, you need to obtain the certificate externally and import it into ACM, after which it will be available for you to use with CloudFront.
+							</p>
+							<p>For information about how to determine the size of an RSA key, see
+									<a href="./cnames-and-https-size-of-public-key.html">Determine the size of the public key in an SSL/TLS RSA certificate</a>.</p>
+						</dd>
+					
+						<dt><b><span class="term">For ECDSA certificates:</span></b></dt>
+						<dd>
+							<p>CloudFront supports 256-bit and 384-bit keys. To use an ECDSA
+								certificate in ACM to require HTTPS between viewers and
+								CloudFront, use the prime256v1 or secp384r1 elliptic
+								curve.</p>
+						</dd>
+					</dl></div>
+			 
+				<h2 id="https-requirements-supported-types">Supported types of certificates</h2>
+				<p>CloudFront supports all types of certificates issued by a trusted certificate authority.</p>
+			 
+				<h2 id="https-requirements-cert-expiration">Certificate expiration date and renewal</h2>
+				<p>If you’re using certificates that you get from a third-party certificate authority (CA),
+					you must monitor certificate expiration dates and renew the certificates that
+					you import into AWS Certificate Manager (ACM) or upload to the AWS Identity and Access Management certificate store
+					before they expire.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>To avoid certificate expiration issues, renew or reimport your certificate
+						at least 24 hours before the <code class="code">NotAfter</code> value of your current
+						certificate. If your certificate expires within 24 hours, request a new
+						certificate from ACM or import a new certificate to ACM. Next, associate
+						the new certificate to the CloudFront distribution.</p><p>CloudFront might continue to use the previous certificate while your certificate
+						renewal or reimport is in progress. This is an asynchronous process that can
+						take up to 24 hours before CloudFront shows your changes.</p></div></div>
+				<p>If you’re using ACM provided certificates, ACM manages certificate renewals for you.
+					For more information, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html">Managed renewal</a> in the
+						<em>AWS Certificate Manager User Guide</em>.</p>
+			 
+				<h2 id="https-requirements-domain-names-in-cert">Domain names in the CloudFront distribution and in the certificate</h2>
+				<p>When you’re using a custom origin, the SSL/TLS certificate on your origin includes a
+					domain name in the <b>Common Name</b> field, and possibly several
+					more in the <b>Subject Alternative Names</b> field. (CloudFront supports
+					wildcard characters in certificate domain names.) </p>
+				<p>One of the domain names in the certificate must match the domain name that you
+					specify for Origin Domain Name. If no domain name matches, CloudFront returns HTTP
+					status code <code class="code">502 (Bad Gateway)</code> to the viewer.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you add an alternate domain name to a distribution, CloudFront checks that the alternate
+						domain name is covered by the certificate that you’ve attached. The
+						certificate must cover the alternate domain name in the subject alternate
+						name (SAN) field of the certificate. This means the SAN field must contain
+						an exact match for the alternate domain name, or contain a wildcard at the
+						same level of the alternate domain name that you’re adding.</p><p>For more information, see <a href="./CNAMEs.html#alternate-domain-names-requirements">Requirements for using alternate domain names</a>.</p></div></div>
+			 
+				<h2 id="https-requirements-minimum-ssl-protocol-version">Minimum SSL/TLS protocol version</h2>
+				<p>If you’re using dedicated IP addresses, set the minimum SSL/TLS protocol version for the
+					connection between viewers and CloudFront by choosing a security policy.</p>
+				<p>For more information, see <a href="./DownloadDistValuesGeneral.html#DownloadDistValues-security-policy">Security policy (minimum SSL/TLS version)</a> in the topic <a href="./distribution-web-values-specify.html">All distribution settings reference</a>.</p>
+			 
+				<h2 id="https-requirements-supported-http-versions">Supported HTTP versions</h2>
+				<p>If you associate one certificate with more than one CloudFront distribution, all the
+					distributions associated with the certificate must use the same option for <a href="./DownloadDistValuesGeneral.html#DownloadDistValuesSupportedHTTPVersions">Supported HTTP versions</a>. You specify this
+					option when you create or update a CloudFront distribution.</p>
+			<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cnames-https-dedicated-ip-or-sni.html">Choose how CloudFront serves HTTPS requests</div><div id="next" class="next-link" accesskey="n" href="./cnames-and-https-limits.html">Quotas on using SSL/TLS certificates with CloudFront (HTTPS between viewers and CloudFront only)</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Example Compliance Change Notification - AWS Config</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="example-config-rule-compliance-notification" /><meta name="default_state" content="example-config-rule-compliance-notification" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/config/latest/developerguide/example-config-rule-compliance-notification.html" /><meta name="description" content="See an example notification when AWS Config evaluates resources against a rule." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Config" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="AWS Config provides a detailed view of the configuration of AWS resources in your AWS account. This includes how the resources are related to one another and how they were configured in the past so that you can see how the configurations and relationships change over time." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/config/latest/developerguide/example-config-rule-compliance-notification.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/config/latest/developerguide/example-config-rule-compliance-notification.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Config" /><meta name="this_doc_product" content="AWS Config" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'config'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Example Compliance Change Notification" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="example-config-rule-compliance-notification.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Example Compliance Change Notification - AWS Config</title><meta name="pdf" content="/pdfs/config/latest/developerguide/config-dg.pdf#example-config-rule-compliance-notification" /><meta name="rss" content="aws-config-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAh2aOShjeSGiuPX-5ga8tOQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/example-config-rule-compliance-notification.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/example-config-rule-compliance-notification.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/example-config-rule-compliance-notification.html" /><meta name="keywords" content="AWS Config,Config,Rule,Aggregator,AWS Config delivery channel,configuration management,cloud resource tracking,AWS configuration history,configuration snapshots,AWS Config notifications,Amazon SNS,configuration monitoring,cloud compliance,AWS alerts" /><link rel="alternate" type="text/markdown" href="example-config-rule-compliance-notification.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Config",
+        "item" : "https://docs.aws.amazon.com/config/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with the Delivery Channel",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide/manage-delivery-channel.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Notifications that AWS Config Sends to an Amazon SNS topic",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Example Compliance Change Notification",
+        "item" : "https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/config/latest/developerguide/config-dg.pdf#example-config-rule-compliance-notification" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/config/index.html">AWS Config</a><a href="WhatIsConfig.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="example-config-rule-compliance-notification">Example Compliance Change Notification</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>When AWS Config evaluates your resources against a custom or managed rule, AWS Config sends a
+            notification that shows whether the resources are compliant against the rule. </p><p>The following is an example notification where the CloudTrail trail resource is compliant
+            against the <code class="code">cloudtrail-enabled </code>managed rule.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight "><span>{</span>
+    "Type": "Notification",
+    "MessageId": "11fd05dd-47e1-5523-bc01-55b988bb9478",
+    "TopicArn": "arn:aws:sns:us-east-2:123456789012:config-topic-ohio",
+    "Subject": "[AWS Config:us-east-2] AWS::::Account 123456789012 is COMPLIANT with cloudtrail-enabled in Accoun...",
+    "Message": <span>{</span>
+        "awsAccountId": "123456789012",
+        "configRuleName": "cloudtrail-enabled",
+        "configRuleARN": "arn:aws:config:us-east-2:123456789012:config-rule/config-rule-9rpvxc",
+        "resourceType": "AWS::::Account",
+        "resourceId": "123456789012",
+        "awsRegion": "us-east-2",
+        "newEvaluationResult": <span>{</span>
+            "evaluationResultIdentifier": <span>{</span>
+                "evaluationResultQualifier": <span>{</span>
+                    "configRuleName": "cloudtrail-enabled",
+                    "resourceType": "AWS::::Account",
+                    "resourceId": "123456789012"
+                },
+                "orderingTimestamp": "2016-09-27T19:48:40.619Z"
+            },
+            "complianceType": "COMPLIANT",
+            "resultRecordedTime": "2016-09-27T19:48:41.405Z",
+            "configRuleInvokedTime": "2016-09-27T19:48:40.914Z",
+            "annotation": null,
+            "resultToken": null
+        },
+        "oldEvaluationResult": <span>{</span>
+            "evaluationResultIdentifier": <span>{</span>
+                "evaluationResultQualifier": <span>{</span>
+                    "configRuleName": "cloudtrail-enabled",
+                    "resourceType": "AWS::::Account",
+                    "resourceId": "123456789012"
+                },
+                "orderingTimestamp": "2016-09-27T16:30:49.531Z"
+            },
+            "complianceType": "NON_COMPLIANT",
+            "resultRecordedTime": "2016-09-27T16:30:50.717Z",
+            "configRuleInvokedTime": "2016-09-27T16:30:50.105Z",
+            "annotation": null,
+            "resultToken": null
+        },
+        "notificationCreationTime": "2016-09-27T19:48:42.620Z",
+        "messageType": "ComplianceChangeNotification",
+        "recordVersion": "1.0"
+    },
+    "Timestamp": "2016-09-27T19:48:42.749Z",
+    "SignatureVersion": "1",
+    "Signature": "XZ9FfLb2ywkW9yj0yBkNtIP5q7Cry6JtCEyUiHmG9gpOZi3seQ41udhtAqCZoiNiizAEi+6gcttHCRV1hNemzp/YmBmTfO6azYXt0FJDaEvd86k68VCS9aqRlBBjYlNo7ILi4Pqd5rE4BX2YBQSzcQyERGkUfTZ2BIFyAmb1Q/y4/6ez8rDyi545FDSlgcGEb4LKLNR6eDi4FbKtMGZHA7Nz8obqs1dHbgWYnp3c80mVLl7ohP4hilcxdywAgXrbsN32ekYr15gdHozx8YzyjfRSo3SjH0c5PGSXEAGNuC3mZrKJip+BIZ21ZtkcUtY5B3ImgRlUO7Yhn3L3c6rZxQ==",
+    "SigningCertURL": "https://sns.us-east-2.amazonaws.com/SimpleNotificationService-b95095beb82e8f6a046b3aafc7f4149a.pem",
+    "UnsubscribeURL": "https://sns.us-east-2.amazonaws.com/?Action=Unsubscribe&amp;SubscriptionArn=arn:aws:sns:us-east-2:123456789012:config-topic-ohio:956fe658-0ce3-4fb3-b409-a45f22a3c3d4"
+}</code></pre><p><b>Example: Config Configuration Item Change | Amazon EventBridge</b></p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight "><span>{</span>
+  "version": "0",
+  "id": "00bdf13e-1111-b2f5-cef0-e9cbbe7cd533",
+  "detail-type": "Config Configuration Item Change",
+  "source": "aws.config",
+  "account": "123456789012",
+  "time": "2022-03-16T01:10:51Z",
+  "region": "us-east-1",
+  "resources": ["arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-01f0d526165b57f95"],
+  "detail": <span>{</span>
+    "recordVersion": "1.3",
+    "messageType": "ConfigurationItemChangeNotification",
+    "configurationItemDiff": <span>{</span>
+      "changedProperties": <span>{</span>
+        "Configuration.FileSystemTags.0": <span>{</span>
+          "updatedValue": <span>{</span>
+            "Key": "test",
+            "Value": "me"
+          },
+          "changeType": "CREATE"
+        },
+        "Tags.2": <span>{</span>
+          "updatedValue": "me",
+          "changeType": "CREATE"
+        }
+      },
+      "changeType": "UPDATE"
+    },
+    "notificationCreationTime": "2022-03-16T01:10:51.976Z",
+    "configurationItem": <span>{</span>
+      "relatedEvents": [],
+      "relationships": [],
+      "configuration": <span>{</span>
+        "FileSystemId": "fs-01f0d526165b57f95",
+        "Arn": "arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-01f0d526165b57f95",
+        "Encrypted": true,
+        "FileSystemTags": [<span>{</span>
+          "Key": "Name",
+          "Value": "myname"
+        }, <span>{</span>
+          "Key": "test",
+          "Value": "me"
+        }],
+        "PerformanceMode": "generalPurpose",
+        "ThroughputMode": "bursting",
+        "LifecyclePolicies": [<span>{</span>
+          "TransitionToIA": "AFTER_30_DAYS"
+        }, <span>{</span>
+          "TransitionToPrimaryStorageClass": "AFTER_1_ACCESS"
+        }],
+        "BackupPolicy": <span>{</span>
+          "Status": "ENABLED"
+        },
+        "FileSystemPolicy": <span>{</span>},
+        "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/0e6c91d5-e23b-4ed3-bd36-1561fbbc0a2d"
+      },
+      "supplementaryConfiguration": <span>{</span>},
+      "tags": <span>{</span>
+        "aws:elasticfilesystem:default-backup": "enabled",
+        "test": "me",
+        "Name": "cloudcontroltest1"
+      },
+      "configurationItemVersion": "1.3",
+      "configurationItemCaptureTime": "2022-03-16T01:10:50.837Z",
+      "configurationStateId": 1647393050837,
+      "awsAccountId": "123456789012",
+      "configurationItemStatus": "OK",
+      "resourceType": "AWS::EFS::FileSystem",
+      "resourceId": "fs-01f0d526165b57f95",
+      "resourceName": "fs-01f0d526165b57f95",
+      "ARN": "arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-01f0d526165b57f95",
+      "awsRegion": "us-east-1",
+      "availabilityZone": "Regional",
+      "configurationStateMd5Hash": ""
+    }
+  }
+}</code></pre><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./example-configuration-snapshot-notification.html">Example Configuration Snapshot Delivery Notification</div><div id="next" class="next-link" accesskey="n" href="./config-rules-evaluation-started.html">Example Rules Evaluation Started Notification</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/example-config-rule-compliance-notification.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Config&amp;topic_url=https://docs.aws.amazon.com/en_us/config/latest/developerguide/example-config-rule-compliance-notification.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

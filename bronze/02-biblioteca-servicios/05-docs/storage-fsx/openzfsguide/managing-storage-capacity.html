@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Modifying provisioned SSD storage capacity and IOPS - FSx for OpenZFS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="managing-storage-capacity" /><meta name="default_state" content="managing-storage-capacity" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" /><meta name="description" content="Learn how to increase the storage capacity configured on your Amazon FSx for OpenZFS file system when you need additional storage." /><meta name="deployment_region" content="IAD" /><meta name="product" content="FSx for OpenZFS" /><meta name="guide" content="OpenZFS User Guide" /><meta name="abstract" content="This is the official Amazon Web Services documentation for FSx for OpenZFS. FSx for OpenZFS is an AWS service that makes it easier to launch and run fully-featured OpenZFS file systems in the AWS Cloud. The FSx for OpenZFS User Guide describes key concepts for FSx for OpenZFS and provides instructions for launching and using your file system." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" hreflang="x-default" /><meta name="feedback-item" content="FSx" /><meta name="this_doc_product" content="FSx for OpenZFS" /><meta name="this_doc_guide" content="OpenZFS User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'fsx'}"></script><meta id="panorama-serviceSubSection" value="OpenZFS User Guide" /><meta id="panorama-serviceConsolePage" value="Modifying provisioned SSD storage capacity and IOPS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="managing-storage-capacity.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Modifying provisioned SSD storage capacity and IOPS - FSx for OpenZFS</title><meta name="pdf" content="/pdfs/fsx/latest/OpenZFSGuide/OpenZFSGuide.pdf#managing-storage-capacity" /><meta name="rss" content="OpenZFSGuide.rss" /><meta name="forums" content="https://repost.aws/tags/TA74tGK04VRAGj9SRHphNQrA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-storage-capacity.html" /><meta name="keywords" content="file system,create, list, update, and delete,AWS Management Console, AWS CLI, and API,configurable,FSx for OpenZFS file system properties,quick create,standard create,modify file system properties,update an FSx for OpenZFS file system's configuration,SSD storage capacity,provisioned IOPS,storage for your dataset,Automatic mode,User-provisioned mode,increase storage capacity,monitor storage capacity and IOPS updates,when to increase storage capacity" /><link rel="alternate" type="text/markdown" href="managing-storage-capacity.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon FSx",
+        "item" : "https://docs.aws.amazon.com/fsx/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "OpenZFS User Guide",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing Amazon FSx for OpenZFS file system resources",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-file-systems.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Updating an Amazon FSx for OpenZFS file system",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/updating-file-system.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Modifying provisioned SSD storage capacity and IOPS",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/updating-file-system.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/fsx/latest/OpenZFSGuide/OpenZFSGuide.pdf#managing-storage-capacity" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/fsx/index.html">Amazon FSx</a><a href="what-is-fsx.html">OpenZFS User Guide</a></div><div id="page-toc-src"><a href="#scaling-considerations">Considerations when updating storage and IOPS</a><a href="#when-to-modify-storage-capacity">When to increase storage capacity</a><a href="#increase-storage-capacity">Updating SSD storage capacity and provisioned IOPS</a><a href="#monitoring-storage-capacity-increase">Monitoring storage capacity and IOPS updates</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="managing-storage-capacity">Modifying provisioned SSD storage capacity and IOPS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>When you need additional storage for your dataset, you can increase the solid state drive
+        (SSD) storage capacity of your Amazon FSx for OpenZFS file system without any disruption to your
+        end users or applications by using the Amazon FSx console, Amazon FSx API, or AWS Command Line Interface
+        (AWS CLI).</p><p>You can also change the provisioned SSD IOPS for your file system when you increase SSD
+        storage capacity, or as an independent action. To specify the amount of provisioned SSD IOPS
+        for your file system, use one of two IOPS modes:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Use <b>Automatic</b> mode if you want Amazon FSx to automatically scale
+                your SSD IOPS.</p>
+        </li><li class="listitem">
+            <p>Use <b>User-provisioned</b> mode if you want to provision a specific
+                amount of SSD IOPS.</p>
+        </li></ul></div><p> For more information about these modes, see <a href="#scaling-considerations">Considerations when updating storage and IOPS</a>.</p><p>When you increase the SSD storage capacity of your Amazon FSx file system, the new capacity is
+        available for use within minutes. These updates do not impact the availability of your file
+        system in any way. You will be billed for the new SSD storage capacity after it becomes
+        available to you. For more information, see
+        <a href="https://aws.amazon.com/fsx/openzfs/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon FSx for OpenZFS Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p> You can track the progress of an SSD storage capacity increase or SSD IOPS update at any time 
+        by using the Amazon FSx console, CLI, and API. For more information, see 
+        <a href="#monitoring-storage-capacity-increase">Monitoring storage capacity and IOPS updates</a>.</p><p>Once the increased SSD capacity is available, if the file system's root volume storage capacity quota is set to the 
+        same size as the file system, FSx will automatically update the volume's storage capacity quota to match the 
+        newly-increased file system capacity. Otherwise, you need to manually increase the <code class="code">storage capacity quota</code> of the 
+        root volume, and any other volumes in your file system. For more information, see 
+        <a href="./updating-volumes.html">Updating an Amazon FSx for OpenZFS volume</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#scaling-considerations">Considerations when updating storage and IOPS</a></p></li><li><p><a href="#when-to-modify-storage-capacity">When to increase storage capacity</a></p></li><li><p><a href="#increase-storage-capacity">Updating SSD storage capacity and provisioned IOPS</a></p></li><li><p><a href="#monitoring-storage-capacity-increase">Monitoring storage capacity and IOPS updates</a></p></li></ul></div>
+        <h2 id="scaling-considerations">Considerations when updating storage and IOPS</h2>
+        <p>Here are a few important considerations when modifying your SSD storage capacity
+            and provisioned IOPS:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+       <ul class="itemizedlist"><li class="listitem"><p><b>Storage capacity increase only</b> – You can only
+                        <em>increase</em> the amount of SSD storage capacity for a file
+                    system; you cannot decrease the storage capacity.</p></li><li class="listitem"><p><b>Storage capacity minimum increase</b> – Each SSD storage
+                    capacity increase must be a minimum of 10 percent of the file system's
+                    current SSD storage capacity, up to the maximum allowed value of 512
+                    Tebibytes (TiB)*.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>*The maximum storage capacity of your file system depends on the AWS Region in which it is located. For more information, see 
+                    <a href="./limits.html#limits-openzfs-resources-file-system">Resource quotas for each file system</a>.</p></div></div>
+            </li><li class="listitem"><p><b>Time between increases</b> – You can't request an SSD
+                storage capacity increase or provisioned SSD IOPS change on a file system until 6 hours after the previous change
+                request. For Multi-AZ and Intelligent-Tiering file systems, you also can't make SSD storage capacity or provisioned SSD
+                IOPS changes within 6 hours of a throughput capacity change, and vice versa. For more information, see
+                <a href="./managing-throughput-capacity.html">Modifying throughput capacity</a>.</p></li><li class="listitem"><p><b>Allocating increased storage capacity</b> – If the file system's 
+                root volume storage capacity quota is set to the same size as the file system, FSx will automatically update the 
+                volume's storage capacity quota to match the newly-increased file system capacity. Otherwise, you will need to 
+            manually <a href="./updating-volumes.html">increase storage</a> on the root volume and any other volumes in your file system.</p></li><li class="listitem"><p><b>Provisioned IOPS modes</b> – For a provisioned IOPS
+                    change, you must specify a mode. The two IOPS modes are the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem"><p><b>Automatic</b> mode – Amazon FSx automatically
+                        scales your SSD IOPS to maintain 3 SSD IOPS per GiB of storage
+                        capacity, up to the maximum number of IOPS for your file system.</p>
+                     </li><li class="listitem"><p><b>User-provisioned</b> mode – You specify the number of SSD IOPS, which
+                        must be greater than or equal to 3 IOPS per GiB of storage capacity. If the amount of SSD IOPS is not at 
+                        least 3 IOPS per GiB, the request will fail. You can optionally provision a higher level of IOPS. 
+                        If you do so, you pay for the average IOPS provisioned above 3 IOPS per GiB per file system.</p>
+                        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For file systems that are already configured with <b>User-provisioned</b> SSD IOPS, you 
+                            must specify a value for <b>User-provisioned</b> SSD IOPS when you are updating your file system, 
+                        or the update request will fail.</p></div></div>                       
+                        </li></ul></div>                
+            </li></ul></div>
+     
+  <h2 id="when-to-modify-storage-capacity">When to increase storage capacity</h2>
+        <p>If you are running out of SSD storage, we recommend that you
+            increase the storage capacity of your file system. You can monitor SSD storage capacity
+            on the file system using these file system-level Amazon CloudWatch metrics.</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p><code class="code">StorageCapacity</code> measure the total amount of file system SSD storage capacity.</p></li><li class="listitem"><p><code class="code">UsedStorageCapacity</code> measures the amount of used SSD storage capacity.</p></li></ul></div>
+        <p>You can use these metrics to measure storage capacity and create alarms. The following are some examples:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p>Per cent storage capacity used = <code class="code">UsedStorageCapacity</code>  ÷ <code class="code">StorageCapacity</code></p></li><li class="listitem"><p>Per cent storage capacity available = <code class="code">StorageCapacity</code> ÷ <code class="code">UsedStorageCapacity</code></p></li><li class="listitem"><p>Amount of free storage capacity = <code class="code">StorageCapacity</code> − <code class="code">UsedStorageCapacity</code></p></li></ul></div>
+        <p>You can create a CloudWatch alarm on a metric and get notified when it drops below a specific
+            threshold. For more information, see <a href="./monitoring-cloudwatch.html">Monitoring with Amazon CloudWatch</a>.</p>
+ 
+  <h2 id="increase-storage-capacity">Updating SSD storage capacity and provisioned IOPS</h2>
+     <p>You can increase a file system's SSD storage capacity and modify your provisioned
+            SSD IOPS by using the Amazon FSx console, the AWS CLI, or the Amazon FSx API.</p>
+  <div class="collapsible"><awsui-expandable-section variant="container" header="To update SSD storage capacity and provisioned IOPS for a file system (console)" id="increase-storage-console" expanded="true"><div class="procedure"><ol><li><p>Open the Amazon FSx console at <a href="https://console.aws.amazon.com/fsx/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/fsx/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the left navigation pane, choose <b>File systems</b>. In the <b>File
+                                systems</b> list, choose the FSx for OpenZFS file system that you
+                            want to update SSD storage capacity and SSD IOPS for.</p></li><li><p>On the <b>Summary</b> panel, choose <b>Update</b> next to the file system's
+                                <b>SSD storage capacity</b> value.</p>
+           <p>The <b>Update SSD storage capacity and IOPS</b> dialog box appears.</p>
+           
+    </li><li><p>To increase SSD storage capacity, select <b>Modify storage capacity</b>.</p></li><li><p>For <b>Input type</b>, choose one of the following: </p>
+                        <div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>To enter the new SSD storage capacity as a percentage change
+                                    from the current value, choose <b>Percentage</b>.</p>
+                                <p>For <b>Desired % increase</b>, enter the percentage by which you want to increase storage capacity. This value must be
+                                    at least 10 percent.</p>
+                            </li><li class="listitem"><p>To enter the new value in GiB, choose <b>Absolute</b>.</p>
+                                <p>For <b>Desired storage capacity</b>, enter the new value for SSD storage capacity value in GiB, up to the maximum allowed value
+                                    of 512 TiB*.</p>
+                                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>*The maximum storage capacity of your file system depends on the AWS Region in which it is located. For more information, see 
+                                    <a href="./limits.html#limits-openzfs-resources-file-system">Resource quotas for each file system</a>.</p></div></div>
+                            </li></ul></div></li><li>
+           <p>For <b>Provisioned SSD IOPS</b>, you have two options to modify
+               the number of provisioned SSD IOPS for your file system:</p>
+           <div class="itemizedlist">
+                
+               
+                
+           <ul class="itemizedlist"><li class="listitem"><p>If you want Amazon FSx to automatically scale your SSD IOPS to maintain 3 provisioned SSD IOPS per
+               GiB of primary storage capacity, up to a maximum of 160,000 for Single-AZ 1 (non-HA and HA) and 400,000 for Single-AZ 2 (non-HA) and Multi-AZ (HA)*, choose <b>Automatic</b>.</p></li><li class="listitem"><p>If you want to specify the number of SSD IOPS, choose <b>User-provisioned</b>.
+               Enter an absolute number of IOPS that is at least 3 times the amount of GiB of your primary storage tier, and less than or
+               equal to the maximum number of IOPS for your file system.</p>
+               </li></ul></div>
+       </li><li><p>Choose <b>Update</b>.</p>
+       </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="To update SSD storage capacity and provisioned IOPS for a file system (CLI)" id="increase-storage-cli" expanded="false"><p>To update the SSD storage capacity and provisioned IOPS for an FSx for OpenZFS file system,
+                    use the AWS CLI command <a href="https://docs.aws.amazon.com/cli/latest/reference/fsx/update-file-system.html">update-file-system</a> (UpdateFileSystem is the equivalent API action). Set the following parameters:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem"><p>Set <code class="code">--file-system-id</code> to the ID of the file system that you are updating.</p></li><li class="listitem"><p>To increase your SSD primary storage capacity, set <code class="code">--storage-capacity</code> to
+         a value that is at least 10 percent greater than the current value.</p></li><li class="listitem">
+            <p>To modify your provisioned SSD IOPS, use the <code class="code">--open-zfs-configuration
+                                DiskIopsConfiguration</code> property. This property has two
+                            parameters, <code class="code">Iops</code> and <code class="code">Mode</code>:</p>
+            <div class="itemizedlist">
+
+                 
+
+                 
+            <ul class="itemizedlist"><li class="listitem"><p>If you want to specify the number of provisioned SSD IOPS, use <code class="code">Iops=<code class="replaceable">number_of_IOPS</code></code>, 
+                                    up to a maximum of 160,000 for Single-AZ 1 (non-HA and HA) and 400,000 for Single-AZ 2 (non-HA and HA) and Multi-AZ (HA)*, and <code class="code">Mode=USER_PROVISIONED</code>. The SSD IOPS value must be greater than or equal to 3 times the requested SSD storage
+                                    capacity. If you're not increasing the storage capacity, the
+                                    IOPs value must be greater than or equal to 3 times the current
+                                    SSD storage capacity.</p>
+                    
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>*The maximum SSD IOPS you can provision for Multi-AZ file systems depends on the AWS Region your file system is located in. For more information, see 
+                        <a href="./performance-ssd.html#data-access-disk">Data access from disk</a>.</p></div></div></li><li class="listitem"><p>If you want Amazon FSx to automatically increase your SSD IOPS, use <code class="code">Mode=AUTOMATIC</code> and
+                                    don't use the <code class="code">Iops</code> parameter. Amazon FSx will
+                                    automatically maintain 3 provisioned SSD IOPS per GiB of your
+                                    primary storage capacity, up to a maximum of 160,000 for Single-AZ 1 (non-HA and HA) and 400,000 for Single-AZ 2 (non-HA and HA) and Multi-AZ (HA).</p>
+                    
+                </li></ul></div>
+        </li></ul></div><p>The following example requests an increase of 2000 GiB to the file system's SSD storage
+                    capacity. It also requests 7000 provisioned SSD IOPS.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="userinput">aws fsx update-file-system \
+    --file-system-id <code class="replaceable">fs-0123456789abcdef0</code> \
+    --storage-capacity <code class="replaceable">2000</code> \
+    --open-zfs-configuration 'DiskIopsConfiguration=<span>{</span>Iops=<code class="replaceable">7000</code>,Mode=<code class="replaceable">USER_PROVISIONED</code>}'</code></code></pre><p>To monitor the progress of the update, use the <a href="https://docs.aws.amazon.com/cli/latest/reference/fsx/describe-file-systems.html">describe-file-systems</a> AWS CLI command. Look for the <code class="code">AdministrativeActions</code> section in the output.</p><p>For more information, see <a href="https://docs.aws.amazon.com/fsx/latest/APIReference/API_AdministrativeAction.html">AdministrativeAction</a> in the <em>Amazon FSx for OpenZFS API Reference</em>.</p></awsui-expandable-section></div>
+  
+ <h2 id="monitoring-storage-capacity-increase">Monitoring storage capacity and IOPS updates</h2>
+    <p>You can monitor the progress of an SSD storage capacity and IOPS update by using the Amazon FSx
+       console, the API, or the AWS CLI.</p> 
+ 
+  
+  <h3 id="monitor-storage-action-console">Monitoring updates in the console</h3>
+    <p>You can monitor file system updates in the <b>Updates</b> tab on the <b>File system details</b> page.</p>
+     
+  <div class="variablelist">
+   <p>For SSD storage capacity and IOPS updates, you can view the following information:</p>
+    
+    
+    
+    
+  <dl>
+    <dt><b><span class="term"><b>Update type</b></span></b></dt>
+    <dd>
+        <p>Supported types are <b>Storage capacity</b>, <b>IOPS Mode</b>,
+            and <b>SSD IOPS</b>. The <b>IOPS Mode</b> and <b>SSD IOPS</b>
+            values are listed for all storage capacity and IOPS scaling requests.
+            </p>
+    </dd>
+   
+    <dt><b><span class="term"><b>Target value</b></span></b></dt>
+    <dd>
+     <p>The updated value for the file system's SSD storage capacity or IOPs.</p>
+    </dd>
+   
+    <dt><b><span class="term"><b>Status</b></span></b></dt>
+    <dd>
+     <p>The current status of the update. The possible values are as follows:</p>
+     <div class="itemizedlist">
+       
+       
+       
+       
+     <ul class="itemizedlist"><li class="listitem"><p><b>Pending</b> – Amazon FSx has received the update request, but has not
+          started processing it.</p></li><li class="listitem"><p><b>In progress</b> – Amazon FSx is processing the update request.</p></li><li class="listitem"><p><b>Completed</b> – The update finished successfully.</p></li><li class="listitem"><p><b>Failed</b> – The update request failed. Choose the question
+         mark (<b>?</b>) to see details on why the request failed.</p></li></ul></div>
+    </dd>
+   
+    <dt><b><span class="term"><b>Request time</b></span></b></dt>
+    <dd>
+     <p>The time that Amazon FSx received the update action request.</p>
+    </dd>
+   </dl></div>
+  
+  
+  <h3 id="monitor-storage-action-cli-api">Monitoring increases with the AWS CLI and API</h3>
+  <p>You can view and monitor file system SSD storage capacity increase requests using the
+      <a href="https://docs.aws.amazon.com/cli/latest/reference/fsx/describe-file-systems.html">describe-file-systems</a> AWS CLI command and the  
+      <a href="https://docs.aws.amazon.com/fsx/latest/APIReference/API_DescribeFileSystems.html">DescribeFileSystems</a> API operation. The <code class="code">AdministrativeActions</code> array 
+      lists the 10 most recent update actions for each administrative action type. When you 
+      increase a file system's SSD storage capacity, a <code class="code">FILE_SYSTEM_UPDATE</code> 
+      <code class="code">AdministrativeActions</code> is generated.</p>
+     <p>The following example shows an excerpt of the response of a <code class="code">describe-file-systems</code> 
+         CLI command. The file system has a pending administrative action to increase the SSD storage 
+         capacity to 2000 GiB and the provisioned SSD IOPS to 7000.</p>
+  <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">"AdministrativeActions": [
+    <span>{</span>
+        "AdministrativeActionType": "FILE_SYSTEM_UPDATE",
+        "RequestTime": 1586797629.095,
+        "Status": "PENDING",
+        "TargetFileSystemValues": <span>{</span>
+            "StorageCapacity": 2000,
+            "OpenZFSConfiguration": <span>{</span>
+                "DiskIopsConfiguration": <span>{</span>
+                    "Mode": "USER_PROVISIONED",
+                    "Iops": 7000
+                }
+            }
+        }
+    }
+]</code></pre>
+    <p>Amazon FSx processes the <code class="code">FILE_SYSTEM_UPDATE</code> action, increasing the file system's 
+        storage capacity. When the new storage is available to the file system, the 
+     <code class="code">FILE_SYSTEM_UPDATE</code> status changes to <code class="code">COMPLETED</code>. The storage 
+     capacity shows the new larger value. This behavior is shown in the following excerpt of the
+     response of a <code class="code">describe-file-systems</code> CLI command. </p>
+    
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">"AdministrativeActions": [
+    <span>{</span>
+        "AdministrativeActionType": "FILE_SYSTEM_UPDATE",
+        "RequestTime": 1586799169.445,
+        "Status": "UPDATED_OPTIMIZING",
+        "TargetFileSystemValues": <span>{</span>
+            "StorageCapacity": 2000,
+            "OpenZFSConfiguration": <span>{</span>
+                "DiskIopsConfiguration": <span>{</span>
+                    "Mode": "USER_PROVISIONED",
+                    "Iops": 7000
+                }
+            }
+        }
+    }
+]</code></pre>
+  <p> If the storage capacity or IOPS update request fails, the status of the
+                    <code class="code">FILE_SYSTEM_UPDATE</code> action changes to <code class="code">FAILED</code>, as shown
+                in the following example. The <code class="code">FailureDetails</code> property provides
+                information about the failure.</p>
+  
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">"AdministrativeActions": [
+    <span>{</span>
+        "AdministrativeActionType": "FILE_SYSTEM_UPDATE",
+        "RequestTime": 1586373915.697,
+        "Status": "FAILED",
+        "TargetFileSystemValues": <span>{</span>
+            "StorageCapacity": 2000,
+            "OpenZFSConfiguration": <span>{</span>
+                "DiskIopsConfiguration": <span>{</span>
+                    "Mode": "USER_PROVISIONED",
+                    "Iops": 7000
+                }
+            }
+        },
+        "FailureDetails": <span>{</span>
+            "Message": "<code class="replaceable">failure-message</code>"
+        }
+    }
+]</code></pre>
+     
+  
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./updating-file-system.html">Updating a file system</div><div id="next" class="next-link" accesskey="n" href="./managing-ssd-read-cache.html">Modifying SSD read cache</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-storage-capacity.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-storage-capacity.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

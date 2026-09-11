@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using AWS CDK to create a Standard workflow in Step Functions - AWS Step Functions</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tutorial-lambda-state-machine-cdk" /><meta name="default_state" content="tutorial-lambda-state-machine-cdk" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" /><meta name="description" content="Learn how to create an Step Functions workflow that integrates with an AWS Lambda function using AWS CDK." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Step Functions" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Describes how to build workflows and orchestrate services with AWS Step Functions." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" hreflang="x-default" /><meta name="feedback-item" content="Step Functions" /><meta name="this_doc_product" content="AWS Step Functions" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'step-functions'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Using AWS CDK to create a Standard workflow in Step Functions" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tutorial-lambda-state-machine-cdk.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using AWS CDK to create a Standard workflow in Step Functions - AWS Step Functions</title><meta name="pdf" content="/pdfs/step-functions/latest/dg/step-functions-dg.pdf#tutorial-lambda-state-machine-cdk" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAcY-U_PLNSpyRRpAaT3B35A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step%20Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html" /><meta name="keywords" content="Step Functions,Workflow,state machine,visual workflow,microservices,service orchestration,infrastructure as code,development environment,state machine definition,workflow,cloud development kit,CDK" /><link rel="alternate" type="text/markdown" href="tutorial-lambda-state-machine-cdk.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Step Functions",
+        "item" : "https://docs.aws.amazon.com/step-functions/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/step-functions/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Developing workflows with Step Functions",
+        "item" : "https://docs.aws.amazon.com/step-functions/latest/dg/developing-workflows.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using AWS CDK to create a Standard workflow in Step Functions",
+        "item" : "https://docs.aws.amazon.com/step-functions/latest/dg/developing-workflows.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/step-functions/latest/dg/step-functions-dg.pdf#tutorial-lambda-state-machine-cdk" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/step-functions/index.html">AWS Step Functions</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#lambda-state-machine-cdk-step-1">Step 1: Set up your AWS CDK project</a><a href="#lambda-state-machine-cdk-step-2">Step 2: Use AWS CDK to create a state machine</a><a href="#lambda-state-machine-cdk-step-3">Step 3: Start a state machine execution</a><a href="#lambda-state-machine-cdk-step-4">Step 4: Clean Up</a><a href="#lambda-state-machine-cdk-next-steps">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tutorial-lambda-state-machine-cdk">Using AWS CDK to create a Standard workflow in Step Functions</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use the AWS Cloud Development Kit (AWS CDK) Infrastructure as Code (IAC) framework, to create
+        an AWS Step Functions state machine that contains an AWS Lambda
+        function.</p><p>You will define AWS infrastructure using one of the CDK's
+        supported languages. After you define your infrastructure, you will synthesize your app to
+        a CloudFormation template and deploy it to your AWS account.</p><p> You will use this method to define a Step Functions state machine containing a Lambda function, and
+        then run the state machine from the use the Step Functions AWS Management Console. </p><p>Before you begin this tutorial, you must set up your AWS CDK development
+        environment as described in <a href="https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_prerequisites">Getting Started
+        With the AWS CDK - Prerequisites</a> in the
+        <em>AWS Cloud Development Kit (AWS CDK) Developer Guide</em>. Then, install the AWS CDK with the
+        following command at the AWS CLI:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">npm install -g aws-cdk</code></pre><p>This tutorial produces the same result as <a href="./tutorial-lambda-state-machine-cloudformation.html">Using CloudFormation to create a workflow in Step Functions</a>. However, in this tutorial, the
+        AWS CDK doesn't require you to create any IAM roles; the
+        AWS CDK does it for you. The AWS CDK version also includes a <a href="./state-succeed.html">Succeed workflow state</a> step to illustrate how to add
+        additional steps to your state machine.</p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>To deploy a sample serverless application that starts a Step Functions workflow
+            using AWS CDK with TypeScript, see <a href="https://catalog.workshops.aws/stepfunctions/iac/deploy-with-cdk" rel="noopener noreferrer" target="_blank"><span>Deploy with AWS CDK</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+            in <em>The AWS Step Functions Workshop</em>.</p></div></div>
+        <h2 id="lambda-state-machine-cdk-step-1">Step 1: Set up your AWS CDK project</h2>
+
+
+        <div class="procedure"><ol><li>
+                <p>In your home directory, or another directory if you prefer, run the following
+                    command to create a directory for your new AWS CDK app.</p>
+
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Be sure to name the directory <code>step</code>. The
+                        AWS CDK application template uses the name of the directory to
+                        generate names for source files and classes. If you use a different name,
+                        your app will not match this tutorial.</p></div></div>
+
+                <awsdocs-tabs><dl style="display: none">
+
+                    <dt>TypeScript</dt><dd tab-id="typescript">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir step &amp;&amp; cd step</code></pre>
+                        </dd>
+
+                    <dt>JavaScript</dt><dd tab-id="javascript">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir step &amp;&amp; cd step</code></pre>
+                        </dd>
+
+                    <dt>Python</dt><dd tab-id="python">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir step &amp;&amp; cd step</code></pre>
+                        </dd>
+
+                    <dt>Java</dt><dd tab-id="java">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir step &amp;&amp; cd step</code></pre>
+                        </dd>
+
+                    <dt>C#</dt><dd tab-id="csharp">
+                            <p>Make sure you've installed .NET version 6.0 or higher. For information, see <a href="https://dotnet.microsoft.com/en-us/download/dotnet" rel="noopener noreferrer" target="_blank"><span>Supported versions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">mkdir step &amp;&amp; cd step</code></pre>
+
+                        </dd>
+
+                </dl></awsdocs-tabs>
+
+            </li><li>
+                <p>Initialize the app by using the <b>cdk init</b>
+                    command. Specify the desired template ("app") and programming language as shown
+                    in the following examples.</p>
+
+                <awsdocs-tabs><dl style="display: none">
+
+                    <dt>TypeScript</dt><dd tab-id="typescript">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">cdk init --language typescript</code></pre>
+                        </dd>
+
+                    <dt>JavaScript</dt><dd tab-id="javascript">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">cdk init --language javascript</code></pre>
+                        </dd>
+
+                    <dt>Python</dt><dd tab-id="python">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">cdk init --language python</code></pre>
+
+                            <p>After the project is initialized, activate the project's virtual
+                                environment and install the AWS CDK's baseline
+                                dependencies.</p>
+
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">source .venv/bin/activate
+python -m pip install -r requirements.txt</code></pre>
+
+                        </dd>
+
+                    <dt>Java</dt><dd tab-id="java">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">cdk init --language java</code></pre>
+                        </dd>
+
+                    <dt>C#</dt><dd tab-id="csharp">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">cdk init --language csharp</code></pre>
+                        </dd>
+
+                </dl></awsdocs-tabs>
+
+
+            </li></ol></div>
+
+     
+        <h2 id="lambda-state-machine-cdk-step-2">Step 2: Use AWS CDK to create a state machine</h2>
+
+        <p>First, we'll present the individual pieces of code that define the
+            Lambda function and the Step Functions state machine. Then, we'll
+            explain how to put them together in your AWS CDK app. Finally, you'll see
+            how to synthesize and deploy these resources.</p>
+
+         
+            <h3 id="lambda-state-machine-cdk-create-function">To create a Lambda function</h3>
+
+            <p>The following AWS CDK code defines the Lambda function,
+                providing its source code inline.</p>
+
+            <awsdocs-tabs><dl style="display: none">
+
+                <dt>TypeScript</dt><dd tab-id="typescript">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">const helloFunction = new lambda.Function(this, 'MyLambdaFunction', <span>{</span>
+    code: lambda.Code.fromInline(`
+          exports.handler = (event, context, callback) =&gt; <span>{</span>
+              callback(null, "Hello World!");
+          };
+      `),
+    runtime: lambda.Runtime.NODEJS_18_X,
+    handler: "index.handler",
+    timeout: cdk.Duration.seconds(3)
+});</code></pre>
+                    </dd>
+
+
+                <dt>JavaScript</dt><dd tab-id="javascript">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">const helloFunction = new lambda.Function(this, 'MyLambdaFunction', <span>{</span>
+    code: lambda.Code.fromInline(`
+          exports.handler = (event, context, callback) =&gt; <span>{</span>
+              callback(null, "Hello World!");
+          };
+      `),
+    runtime: lambda.Runtime.NODEJS_18_X,
+    handler: "index.handler",
+    timeout: cdk.Duration.seconds(3)
+});</code></pre>
+                    </dd>
+
+
+                <dt>Python</dt><dd tab-id="python">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">hello_function = lambda_.Function(
+            self, "MyLambdaFunction",
+            code=lambda_.Code.from_inline("""
+            exports.handler = (event, context, callback) =&gt; <span>{</span>
+                callback(null, "Hello World!");
+                }"""),
+                runtime=lambda_.Runtime.NODEJS_18_X,
+                handler="index.handler",
+                timeout=Duration.seconds(25))</code></pre>
+
+                    </dd>
+
+
+                <dt>Java</dt><dd tab-id="java">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">final Function helloFunction = Function.Builder.create(this, "MyLambdaFunction")
+        .code(Code.fromInline(
+                "exports.handler = (event, context, callback) =&gt; <span>{</span> callback(null, 'Hello World!' );}"))
+        .runtime(Runtime.NODEJS_18_X)
+        .handler("index.handler")
+        .timeout(Duration.seconds(25))
+        .build();</code></pre>
+                    </dd>
+
+
+                <dt>C#</dt><dd tab-id="csharp">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">var helloFunction = new Function(this, "MyLambdaFunction", new FunctionProps
+<span>{</span>
+    Code = Code.FromInline(@"`
+      exports.handler = (event, context, callback) =&gt; <span>{</span>
+        callback(null, 'Hello World!');
+      }"),
+    Runtime = Runtime.NODEJS_12_X,
+    Handler = "index.handler",
+    Timeout = Duration.Seconds(25)
+});</code></pre>
+                    </dd>
+
+            </dl></awsdocs-tabs>
+
+            <p>You can see in this short example code:</p>
+
+            <div class="itemizedlist">
+
+                 
+
+                 
+
+                 
+
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The function's logical name, <code class="code">MyLambdaFunction</code>.</p>
+                </li><li class="listitem">
+                    <p>The source code for the function, embedded as a string in the source code
+                        of the AWS CDK app.</p>
+                </li><li class="listitem">
+                    <p>Other function attributes, such as the runtime to be used (Node 18.x), the
+                        function's entry point, and a timeout.</p>
+                </li></ul></div>
+
+         
+
+
+         
+            <h3 id="lambda-state-machine-cdk-create">To create a state machine</h3>
+
+            <p>Our state machine has two states: a Lambda function task, and a
+                <a href="./state-succeed.html">Succeed workflow state</a> state. The function requires
+                that we create a Step Functions <a href="./state-task.html">Task workflow state</a> that invokes our function. This Task
+                state is used as the first step in the state machine. The success state is added to
+                the state machine using the Task state's <code class="code">next()</code> method. The following
+                code first invokes the function named <code class="code">MyLambdaTask</code>, then uses the
+                <code class="code">next()</code> method to define a success state named
+                <code class="code">GreetedWorld</code>.</p>
+
+            <awsdocs-tabs><dl style="display: none">
+
+                <dt>TypeScript</dt><dd tab-id="typescript">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">const stateMachine = new sfn.StateMachine(this, 'MyStateMachine', <span>{</span>
+  definition: new tasks.LambdaInvoke(this, "MyLambdaTask", <span>{</span>
+    lambdaFunction: helloFunction
+  }).next(new sfn.Succeed(this, "GreetedWorld"))
+});</code></pre>
+                    </dd>
+
+
+                <dt>JavaScript</dt><dd tab-id="javascript">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">const stateMachine = new sfn.StateMachine(this, 'MyStateMachine', <span>{</span>
+  definition: new tasks.LambdaInvoke(this, "MyLambdaTask", <span>{</span>
+    lambdaFunction: helloFunction
+  }).next(new sfn.Succeed(this, "GreetedWorld"))
+});</code></pre>
+                    </dd>
+
+
+                <dt>Python</dt><dd tab-id="python">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">state_machine = sfn.StateMachine(
+                                 self, "MyStateMachine",
+                                 definition=tasks.LambdaInvoke(
+                                 self, "MyLambdaTask",
+                                 lambda_function=hello_function)
+                                 .next(sfn.Succeed(self, "GreetedWorld")))</code></pre>
+                    </dd>
+
+
+                <dt>Java</dt><dd tab-id="java">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">final StateMachine stateMachine = StateMachine.Builder.create(this, "MyStateMachine")
+        .definition(LambdaInvoke.Builder.create(this, "MyLambdaTask")
+            .lambdaFunction(helloFunction)
+            .build()
+            .next(new Succeed(this, "GreetedWorld")))
+        .build();</code></pre>
+                    </dd>
+
+
+                <dt>C#</dt><dd tab-id="csharp">
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">var stateMachine = new StateMachine(this, "MyStateMachine", new StateMachineProps <span>{</span>
+    DefinitionBody = DefinitionBody.FromChainable(new LambdaInvoke(this, "MyLambdaTask", new LambdaInvokeProps
+    <span>{</span>
+        LambdaFunction = helloFunction
+    })
+    .Next(new Succeed(this, "GreetedWorld")))
+});</code></pre>
+                    </dd>
+
+            </dl></awsdocs-tabs>
+
+         
+
+
+         
+            <h3 id="lambda-state-machine-cdk-app">To build and deploy the AWS CDK app</h3>
+
+            <p>In your newly created AWS CDK project, edit the file that contains
+                the stack's definition to look like the following example code. You'll recognize the
+                definitions of the Lambda function and the Step Functions state
+                machine from previous sections.</p>
+
+            <div class="procedure"><ol><li>
+                    <p>Update the stack as shown in the following examples.</p>
+
+                    <awsdocs-tabs><dl style="display: none">
+
+                        <dt>TypeScript</dt><dd tab-id="typescript">
+                                <p>Update <code>lib/step-stack.ts</code> with the
+                                    following code.</p>
+
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import * as tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
+
+export class StepStack extends cdk.Stack <span>{</span>
+  constructor(app: cdk.App, id: string) <span>{</span>
+    super(app, id);
+
+    const helloFunction = new lambda.Function(this, 'MyLambdaFunction', <span>{</span>
+      code: lambda.Code.fromInline(`
+          exports.handler = (event, context, callback) =&gt; <span>{</span>
+              callback(null, "Hello World!");
+          };
+      `),
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: "index.handler",
+      timeout: cdk.Duration.seconds(3)
+    });
+
+    const stateMachine = new sfn.StateMachine(this, 'MyStateMachine', <span>{</span>
+      definition: new tasks.LambdaInvoke(this, "MyLambdaTask", <span>{</span>
+        lambdaFunction: helloFunction
+      }).next(new sfn.Succeed(this, "GreetedWorld"))
+    });
+  }
+}</code></pre>
+                            </dd>
+
+
+                        <dt>JavaScript</dt><dd tab-id="javascript">
+                                <p>Update <code>lib/step-stack.js</code> with the
+                                    following code.</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
+import * as tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
+
+export class StepStack extends cdk.Stack <span>{</span>
+  constructor(app, id) <span>{</span>
+    super(app, id);
+
+    const helloFunction = new lambda.Function(this, 'MyLambdaFunction', <span>{</span>
+      code: lambda.Code.fromInline(`
+          exports.handler = (event, context, callback) =&gt; <span>{</span>
+              callback(null, "Hello World!");
+          };
+      `),
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: "index.handler",
+      timeout: cdk.Duration.seconds(3)
+    });
+
+    const stateMachine = new sfn.StateMachine(this, 'MyStateMachine', <span>{</span>
+      definition: new tasks.LambdaInvoke(this, "MyLambdaTask", <span>{</span>
+        lambdaFunction: helloFunction
+      }).next(new sfn.Succeed(this, "GreetedWorld"))
+    });
+  }
+}</code></pre>
+                            </dd>
+
+
+                        <dt>Python</dt><dd tab-id="python">
+                                <p>Update <code>step/step_stack.py</code> with the
+                                    following code.</p>
+
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">from aws_cdk import (
+    Duration,
+    Stack,
+    aws_stepfunctions as sfn,
+    aws_stepfunctions_tasks as tasks,
+    aws_lambda as lambda_
+)
+class StepStack(Stack):
+
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -&gt; None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        hello_function = lambda_.Function(
+            self, "MyLambdaFunction",
+            code=lambda_.Code.from_inline("""
+            exports.handler = (event, context, callback) =&gt; <span>{</span>
+                callback(null, "Hello World!");
+                }"""),
+                runtime=lambda_.Runtime.NODEJS_18_X,
+                handler="index.handler",
+                timeout=Duration.seconds(25))
+
+        state_machine = sfn.StateMachine(
+            self, "MyStateMachine",
+            definition=tasks.LambdaInvoke(
+            self, "MyLambdaTask",
+            lambda_function=hello_function)
+            .next(sfn.Succeed(self, "GreetedWorld")))</code></pre>
+                            </dd>
+
+
+                        <dt>Java</dt><dd tab-id="java">
+                                <p>Update
+                                    <code>src/main/java/com.myorg/StepStack.java</code> with
+                                    the following code.</p>
+
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">package com.myorg;
+
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
+import software.amazon.awscdk.Duration;
+import software.amazon.awscdk.services.lambda.Code;
+import software.amazon.awscdk.services.lambda.Function;
+import software.amazon.awscdk.services.lambda.Runtime;
+import software.amazon.awscdk.services.stepfunctions.StateMachine;
+import software.amazon.awscdk.services.stepfunctions.Succeed;
+import software.amazon.awscdk.services.stepfunctions.tasks.LambdaInvoke;
+
+public class StepStack extends Stack <span>{</span>
+    public StepStack(final Construct scope, final String id) <span>{</span>
+        this(scope, id, null);
+    }
+
+    public StepStack(final Construct scope, final String id, final StackProps props) <span>{</span>
+        super(scope, id, props);
+
+        final Function helloFunction = Function.Builder.create(this, "MyLambdaFunction")
+                .code(Code.fromInline(
+                        "exports.handler = (event, context, callback) =&gt; <span>{</span> callback(null, 'Hello World!' );}"))
+                .runtime(Runtime.NODEJS_18_X)
+                .handler("index.handler")
+                .timeout(Duration.seconds(25))
+                .build();
+
+        final StateMachine stateMachine = StateMachine.Builder.create(this, "MyStateMachine")
+                .definition(LambdaInvoke.Builder.create(this, "MyLambdaTask")
+                        .lambdaFunction(helloFunction)
+                        .build()
+                        .next(new Succeed(this, "GreetedWorld")))
+                .build();
+    }
+}</code></pre>
+                            </dd>
+
+
+                        <dt>C#</dt><dd tab-id="csharp">
+                                <p>Update <code>src/Step/StepStack.cs</code> with the
+                                    following code.</p>
+
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">using Amazon.CDK;
+using Constructs;
+using Amazon.CDK.AWS.Lambda;
+using Amazon.CDK.AWS.StepFunctions;
+using Amazon.CDK.AWS.StepFunctions.Tasks;
+
+namespace Step
+<span>{</span>
+    public class StepStack : Stack
+    <span>{</span>
+        internal StepStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
+        <span>{</span>
+            var helloFunction = new Function(this, "MyLambdaFunction", new FunctionProps
+            <span>{</span>
+                Code = Code.FromInline(@"exports.handler = (event, context, callback) =&gt; <span>{</span>
+                    callback(null, 'Hello World!');
+                }"),
+                Runtime = Runtime.NODEJS_18_X,
+                Handler = "index.handler",
+                Timeout = Duration.Seconds(25)
+            });
+
+            var stateMachine = new StateMachine(this, "MyStateMachine", new StateMachineProps
+            <span>{</span>
+                DefinitionBody = DefinitionBody.FromChainable(new LambdaInvoke(this, "MyLambdaTask", new LambdaInvokeProps
+                <span>{</span>
+                    LambdaFunction = helloFunction
+                })
+                .Next(new Succeed(this, "GreetedWorld")))
+            });
+        }
+    }
+}</code></pre>
+                            </dd>
+
+                    </dl></awsdocs-tabs>
+
+                </li><li>
+                    <p>Save the source file, and then run the <code class="code">cdk synth</code> command in
+                        the app's main directory.</p>
+
+                    <p>AWS CDK runs the app and synthesizes an CloudFormation
+                        template from it. AWS CDK then displays the template.</p>
+
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you used TypeScript to create your AWS CDK project,
+                            running the <code class="code">cdk synth</code> command may return the following
+                            error.</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">TSError: ⨯ Unable to compile TypeScript:
+bin/step.ts:7:33 - error TS2554: Expected 2 arguments, but got 3.</code></pre><p>Modify the <code class="code">bin/step.ts</code> file as shown in the following
+                            example to resolve this error.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import <span>{</span> StepStack } from '../lib/step-stack';
+
+const app = new cdk.App();
+new StepStack(app, 'StepStack');
+app.synth();</code></pre></div></div>
+
+                </li><li>
+                    <p>To deploy the Lambda function and the Step Functions state machine to your AWS
+                        account, issue <code class="code">cdk deploy</code>. You'll be asked to approve the IAM
+                        policies the AWS CDK has generated.</p>
+                </li></ol></div>
+
+         
+
+     
+        <h2 id="lambda-state-machine-cdk-step-3">Step 3: Start a state machine execution</h2>
+
+        <p>After you create your state machine, you can start its execution.</p>
+
+         
+
+            <h3 id="to-start-the-state-machine-execution">To start the state machine execution</h3>
+
+            <div class="procedure"><ol><li>
+                    <p>Open the <a href="https://console.aws.amazon.com/states/home" rel="noopener noreferrer" target="_blank"><span>Step Functions
+                        console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and choose the name of the state machine that you created
+                        using AWS CDK.</p>
+                </li><li>
+                    <p>On the state machine page, choose <b>Start
+                        execution</b>.</p>
+                    <p>The <b>Start execution</b> dialog box is displayed.</p>
+                </li><li><p>(Optional) Enter a custom execution name to override the generated default.</p> <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Non-ASCII names and logging</h6></div><div class="awsdocs-note-text"><p>Step Functions accepts names for state machines, executions, activities, and labels that contain non-ASCII characters. Because such characters will prevent Amazon CloudWatch from logging data, we recommend using only ASCII characters so you can track Step Functions metrics.</p></div></div></li><li>
+                    <p>Choose <b>Start Execution</b>.</p>
+                    <p>Your state machine's execution starts, and a new page showing your running
+                        execution is displayed.</p>
+                </li><li>
+                    <p>The Step Functions console directs you to a page that's titled with your
+                        execution ID. This page is known as the <em>Execution
+                        Details</em> page. On this page, you can review the execution results
+                        as the execution progresses or after it's complete.</p>
+
+                    <p>To review the execution results, choose individual states on the
+                        <b>Graph view</b>, and then choose the individual tabs on the
+                        <a href="./concepts-view-execution-details.html#exec-details-intf-step-details">Step details</a> pane to view each
+                        state's details including input, output, and definition respectively.
+                        For details about the execution information you can view on the
+                        <em>Execution Details</em> page, see <a href="./concepts-view-execution-details.html#exec-details-interface-overview">Execution details overview</a>.</p>
+
+                </li></ol></div>
+
+         
+
+     
+        <h2 id="lambda-state-machine-cdk-step-4">Step 4: Clean Up</h2>
+
+        <p>After you've tested your state machine, we recommend that you remove both your state
+            machine and the related Lambda function to free up resources in your AWS account. Run
+            the <code class="code">cdk destroy</code> command in your app's main directory to remove your state
+            machine.</p>
+
+     
+        <h2 id="lambda-state-machine-cdk-next-steps">Next steps</h2>
+
+        <p>To learn more about developing AWS infrastructure using AWS CDK, see
+            the <a href="https://docs.aws.amazon.com/cdk/v2/guide/home.html">AWS CDK
+            Developer Guide</a>.</p>
+
+        <p>For information about writing AWS CDK apps in your language of choice,
+            see:</p>
+
+        <awsdocs-tabs><dl style="display: none">
+
+            <dt>TypeScript</dt><dd tab-id="typescript">
+                    <p>
+                        <a href="https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-typescript.html">Working with AWS CDK in TypeScript</a>
+                    </p>
+                </dd>
+
+            <dt>JavaScript</dt><dd tab-id="javascript">
+                    <p>
+                        <a href="https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-javascript.html">Working with AWS CDK in JavaScript</a>
+                    </p>
+                </dd>
+
+            <dt>Python</dt><dd tab-id="python">
+                    <p>
+                        <a href="https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-python.html">Working with AWS CDK in Python</a>
+                    </p>
+                </dd>
+
+            <dt>Java</dt><dd tab-id="java">
+                    <p>
+                        <a href="https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-java.html">Working with AWS CDK in Java</a>
+                    </p>
+                </dd>
+
+            <dt>C#</dt><dd tab-id="csharp">
+                    <p>
+                        <a href="https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-csharp.html">Working with AWS CDK in C#</a>
+                    </p>
+                </dd>
+
+        </dl></awsdocs-tabs>
+
+        <p>For more information about the AWS Construct Library modules used in this tutorial,
+            see the following AWS CDK API Reference overviews:</p>
+
+        <div class="itemizedlist">
+
+             
+
+             
+
+             
+
+        <ul class="itemizedlist"><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html">aws-lambda</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions-readme.html">aws-stepfunctions</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions_tasks-readme.html">aws-stepfunctions-tasks</a>
+                </p>
+            </li></ul></div>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorial-lambda-state-machine-cloudformation.html">Create a state machine with CloudFormation</div><div id="next" class="next-link" accesskey="n" href="./tutorial-step-functions-rest-api-integration-cdk.html">Using CDK to create an Express workflow</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/tutorial-lambda-state-machine-cdk.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

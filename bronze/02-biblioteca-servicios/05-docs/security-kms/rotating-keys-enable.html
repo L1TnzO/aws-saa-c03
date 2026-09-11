@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Enable automatic key rotation - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="rotating-keys-enable" /><meta name="default_state" content="rotating-keys-enable" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable.html" /><meta name="description" content="By default, when you enable automatic key rotation for a KMS key, AWS KMS generates new cryptographic material for the KMS key every year. You can also specify a custom to define the number of days after you enable automatic key rotation that AWS KMS will rotate your key material, and the number of days between each automatic rotation thereafter." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Learn how to use AWS Key Management Service (AWS KMS) to securely store and manage encryption keys and perform encryption and decryption of user data." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/rotating-keys-enable.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/rotating-keys-enable.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/rotating-keys-enable.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/rotating-keys-enable.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/rotating-keys-enable.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/rotating-keys-enable.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/rotating-keys-enable.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/rotating-keys-enable.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/rotating-keys-enable.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/rotating-keys-enable.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/rotating-keys-enable.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/rotating-keys-enable.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/rotating-keys-enable.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/rotating-keys-enable.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/rotating-keys-enable.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/rotating-keys-enable.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/rotating-keys-enable.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/rotating-keys-enable.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotating-keys-enable.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Enable automatic key rotation" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="rotating-keys-enable.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Enable automatic key rotation - AWS Key Management Service</title><meta name="pdf" content="/pdfs/kms/latest/developerguide/kms-dg.pdf#rotating-keys-enable" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAMC3vcPOPTF-rPAHZVRj1PQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/rotating-keys-enable.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/rotating-keys-enable.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/rotating-keys-enable.html" /><meta name="keywords" content="KMS,key management service,encryption key management,encryption key,,envelope encryption,KMS key rotation,Automatic KMS key rotation,Manual KMS key rotation" /><link rel="alternate" type="text/markdown" href="rotating-keys-enable.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Rotate AWS KMS keys",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Enable automatic key rotation",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kms/latest/developerguide/kms-dg.pdf#rotating-keys-enable" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="rotating-keys-enable">Enable automatic key rotation</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>By default, when you enable <em>automatic key rotation</em>
+            for a KMS key, AWS KMS generates new cryptographic material for the KMS key every
+            year. You can also specify a custom <a href="./rotate-keys.html#rotation-period">rotation-period</a> to define the
+            number of days after you enable automatic key rotation that AWS KMS will rotate your key
+            material, and the number of days between each automatic rotation thereafter.</p><p>Automatic key rotation has the following benefits:</p><div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The properties of the KMS key, including its <a href="./concepts.html#key-id-key-id">key ID</a>, <a href="./concepts.html#key-id-key-ARN">key ARN</a>, region,
+                    policies, and permissions, do not change when the key is rotated.</p>
+            </li><li class="listitem">
+                <p>You do not need to change applications or aliases that refer to the key ID or
+                    key ARN of the KMS key.</p>
+            </li><li class="listitem">
+                <p>Rotating key material does not affect the use of the KMS key in any
+                    AWS service. </p>
+            </li><li class="listitem">
+                <p>After you enable key rotation, AWS KMS rotates the KMS key automatically on
+                    the next rotation date defined by your rotation period. You don't need to
+                    remember or schedule the update.</p>
+            </li></ul></div><p>You can enable automatic key rotation in the AWS KMS console or by using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html">EnableKeyRotation</a> operation.
+            To enable automatic key rotation, you need <code class="code">kms:EnableKeyRotation</code>
+            permissions. For more information about AWS KMS permissions, see the <a href="./kms-api-permissions-reference.html">Permissions reference</a>.</p><div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the AWS KMS console" id="rotate-keys-console" expanded="false"><div class="procedure"><ol><li>
+     <p>Sign in to the AWS Management Console and open the AWS Key Management Service (AWS KMS) console at <a href="https://console.aws.amazon.com/kms" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/kms</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+    </li><li>
+     <p>To change the AWS Region, use the Region selector in the upper-right corner of the page.</p>
+    </li><li>
+                        <p>In the navigation pane, choose <b>Customer managed keys</b>. (You cannot enable or disable rotation of
+                            AWS managed keys. They are automatically rotated every year.)</p>
+                    </li><li>
+                        <p>Choose the alias or key ID of a KMS key.</p>
+                    </li><li>
+                        <p>Choose the <b>Key rotation</b> tab.</p>
+                        <p>The <b>Key rotation</b> tab appears only on the detail
+                            page of symmetric encryption KMS keys with key material that AWS KMS
+                            generated (the <b>Origin</b> is
+                                <b>AWS_KMS</b>), including <a href="./rotate-keys.html#multi-region-rotate">multi-Region</a> symmetric
+                            encryption KMS keys.</p>
+                        <p>You cannot automatically rotate asymmetric KMS keys, HMAC
+                            KMS keys, KMS keys with <a href="./importing-keys.html">imported key
+                                material</a>, or KMS keys in <a href="./key-store-overview.html#custom-key-store-overview">custom key stores</a>.
+                            However, you can <a href="./rotate-keys-manually.html">rotate them
+                                manually</a>.</p>
+                    </li><li>
+                        <p>In the <b>Automatic key rotation</b> section, choose
+                                <b>Edit</b>.</p>
+                    </li><li>
+                        <p>For <b>Key rotation</b>, select
+                                <b>Enable</b>.</p>
+                        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If a KMS key is disabled or pending deletion, AWS KMS does not
+                                rotate the key material and you cannot update the automatic key
+                                rotation status or rotation period. Enable the KMS key or cancel
+                                deletion to update the automatic key rotation configuration. For
+                                details, see <a href="./rotate-keys.html#rotate-keys-how-it-works">How key rotation works</a> and <a href="./key-state.html">Key states of AWS KMS keys</a>.</p></div></div>
+                    </li><li>
+                        <p>(Optional) Type a rotation period between 90 and 2560 days. The
+                            default value is 365 days. If you do not specify a custom rotation
+                            period, AWS KMS will rotate the key material every year.</p>
+                        <p>You can use the <a href="./conditions-kms.html#conditions-kms-rotation-period-in-days">kms:RotationPeriodInDays</a> condition key to limit the values
+                            that principals can specify for the rotation period.</p>
+                    </li><li>
+                        <p>Choose <b>Save</b>.</p>
+                    </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS KMS API" id="rotate-keys-api" expanded="false"><p>You can use the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">AWS Key Management Service (AWS KMS) API</a> to
+                    enable automatic key rotation and view the current rotation status of any
+                    customer managed key. These examples use the <a href="https://aws.amazon.com/cli/" rel="noopener noreferrer" target="_blank"><span>AWS Command Line Interface
+                        (AWS CLI)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, but you can use any supported programming language. </p><p>The <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html">EnableKeyRotation</a> operation enables automatic key rotation for the
+                    specified KMS key. To identify the KMS key in this operation, use its <a href="./concepts.html#key-id-key-id">key ID</a> or <a href="./concepts.html#key-id-key-ARN">key
+                        ARN</a>. By default, key rotation is disabled for customer managed keys.</p><p>You can use the <a href="./conditions-kms.html#conditions-kms-rotation-period-in-days">
+                        kms:RotationPeriodInDays</a> condition key to limit the values that
+                    principals can specify for the <code class="code">RotationPeriodInDays</code> parameter of an
+                        <code class="code">EnableKeyRotation</code> request.</p><p>The following example enables key rotation with a rotation period of 180 days
+                    on the specified symmetric encryption KMS key and uses the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html">GetKeyRotationStatus</a> operation to see the result.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash "><code class="prompt" copy="false">$ </code><code class="userinput">aws kms enable-key-rotation \
+    --key-id <code class="replaceable">1234abcd-12ab-34cd-56ef-1234567890ab</code> \
+    --rotation-period-in-days <code class="replaceable">180</code></code>
+
+<code class="prompt" copy="false">$ </code><code class="userinput">aws kms get-key-rotation-status --key-id <code class="replaceable">1234abcd-12ab-34cd-56ef-1234567890ab</code></code>
+<code class="computeroutput" copy="false"><span>{</span>
+    "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+    "KeyRotationEnabled": true,
+    "RotationPeriodInDays": 180,
+    "NextRotationDate": "2024-02-14T18:14:33.587000+00:00"
+}</code>
+</code></pre></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./rotate-keys.html">Rotate keys</div><div id="next" class="next-link" accesskey="n" href="./rotating-keys-disable.html">Disable automatic key rotation</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/rotating-keys-enable.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/rotating-keys-enable.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

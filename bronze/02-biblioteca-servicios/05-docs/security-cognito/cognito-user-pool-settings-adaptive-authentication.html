@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Working with adaptive authentication - Amazon Cognito</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cognito-user-pool-settings-adaptive-authentication" /><meta name="default_state" content="cognito-user-pool-settings-adaptive-authentication" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" /><meta name="description" content="Configure adaptive authentication in threat protection for Amazon Cognito user pools. Add session data and provide event feedback. Configure notification messages. Adaptive authentication uses multi-factor authentication (MFA) to limit the ability of user pool users to sign in and refresh tokens when risky account activity is detected." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Cognito" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Cognito is a service that you can use to sign in users, federate with identity providers, control permissions to access your backend resources, and save mobile user data in the AWS Cloud. This guide provides an overview of Amazon Cognito and includes development instructions for its features." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" hreflang="x-default" /><meta name="feedback-item" content="Cognito" /><meta name="this_doc_product" content="Amazon Cognito" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cognito'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Working with adaptive authentication" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cognito-user-pool-settings-adaptive-authentication.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Working with adaptive authentication - Amazon Cognito</title><meta name="pdf" content="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-user-pool-settings-adaptive-authentication" /><meta name="forums" content="https://repost.aws/tags/TAkhAE7QaGSoKZwd6utGhGDA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html" /><meta name="keywords" content="Cognito,Amazon Cognito,Amazon Cognito user pools,user pools,user pool features,user pool security features,user pool user experience,user pool security,security features,security overview,advanced security,advanced security features,ASF,access token customization,threat protection,log export,email MFA,password history,password reuse,adaptive,adaptive auth,adaptive authentication,enforcement,automatic,response,IP address,denylist,allowlist,risk" /><link rel="alternate" type="text/markdown" href="cognito-user-pool-settings-adaptive-authentication.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Cognito",
+        "item" : "https://docs.aws.amazon.com/cognito/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Cognito user pools",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using Amazon Cognito user pools security features",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/managing-security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Advanced security with threat protection",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-threat-protection.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Working with adaptive authentication",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-threat-protection.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-user-pool-settings-adaptive-authentication" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cognito/index.html">Amazon Cognito</a><a href="what-is-amazon-cognito.html">Developer Guide</a></div><div id="page-toc-src"><a href="#security-cognito-user-pool-settings-adaptive-authentication-overview">Adaptive authentication overview</a><a href="#user-pool-settings-adaptive-authentication-device-fingerprint">Adding session data to API requests</a><a href="#user-pool-settings-adaptive-authentication-event-user-history">Viewing user event history</a><a href="#user-pool-settings-adaptive-authentication-feedback">Providing event feedback</a><a href="#user-pool-settings-adaptive-authentication-messages">Sending notification messages</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cognito-user-pool-settings-adaptive-authentication">Working with adaptive authentication</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>With adaptive authentication, you can configure your user pool to block suspicious
+        sign-ins or add second factor authentication in response to an increased risk level. For
+        each sign-in attempt, Amazon Cognito generates a risk score for how likely the sign-in request is to
+        be from a compromised source. This risk score is based on device and user factors that your
+        application provides, and others that Amazon Cognito derives from the request. Some factors that
+        contribute to the risk evaluation by Amazon Cognito are IP
+        address, user agent, and geographical distance from other sign-in
+        attempts. Adaptive authentication can turn on or require multi-factor
+        authentication (MFA) for a user in your user pool when Amazon Cognito detects risk in a user's
+        session, and the user hasn't yet chosen an MFA method. When you activate MFA for a user,
+        they always receive a challenge to provide or set up a second factor during authentication,
+        regardless of how you configured adaptive authentication. From your user's perspective, your
+        app offers to help them set up MFA, and optionally Amazon Cognito prevents them from signing in again
+        until they have configured an additional factor.</p><p>Amazon Cognito publishes metrics about sign-in attempts, their risk levels, and failed challenges
+        to Amazon CloudWatch. For more information, see <a href="./metrics-for-cognito-user-pools.html#user-pool-settings-viewing-threat-protection-metrics">Viewing threat protection metrics</a>.</p><p>To add adaptive authentication to your user pool, see <a href="./cognito-user-pool-settings-threat-protection.html">Advanced security with threat protection</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#security-cognito-user-pool-settings-adaptive-authentication-overview">Adaptive authentication overview</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-device-fingerprint">Adding user device and session data to API requests</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-event-user-history">Viewing and exporting user event history</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-feedback">Providing event feedback</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-messages">Sending notification messages</a></p></li></ul></div>
+        <h2 id="security-cognito-user-pool-settings-adaptive-authentication-overview">Adaptive authentication overview</h2>
+        <p>From the <b>Threat protection</b> menu in the Amazon Cognito console, you can
+          choose settings for adaptive authentication, including what actions to take at different
+          risk levels and customization of notification messages to users. You can assign a global
+          threat protection configuration to all of your app clients, but apply a client-level
+          configuration to individual app clients.</p>
+        <p>Amazon Cognito adaptive authentication assigns one of the following risk levels to each user
+          session: <b>High</b>, <b>Medium</b>, <b>Low</b>,
+          or <b>No Risk</b>.</p>
+        <p>Consider your options carefully when you change your <b>Enforcement
+            method</b> from <b>Audit-only</b> to
+            <b>Full-function</b>. The automatic responses that you apply to risk
+          levels influence the risk level that Amazon Cognito assigns to subsequent user sessions with the
+          same characteristics. For example, after you choose to take no action, or
+            <b>Allow</b>, user sessions that Amazon Cognito initially evaluates to be
+          high-risk, Amazon Cognito considers similar sessions to have a lower risk.</p>
+        <div class="table-container"><div class="table-contents"><table id="w131aac21c29c19c33c11b9"><caption>For each risk level, you can choose from the following options:</caption><thead>
+              <tr>
+                <th>
+                  <p>Option</p>
+                </th>
+                <th>
+                  <p>Action</p>
+                </th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Allow</td>
+                <td tabindex="-1">Users can sign in without an additional factor.</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">Optional MFA</td>
+                <td tabindex="-1">Users who have a second factor configured must complete a second factor
+                  challenge to sign in. A phone number for SMS and a TOTP software token are the
+                  available second factors. Users without a second factor configured can sign in
+                  with only one set of credentials.</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">Require MFA</td>
+                <td tabindex="-1">Users who have a second factor configured must complete a second factor
+                  challenge to sign in. Amazon Cognito blocks sign-in for users who don't have a second
+                  factor configured.</td>
+              </tr>
+              <tr>
+                <td tabindex="-1">Block</td>
+                <td tabindex="-1">Amazon Cognito blocks all sign-in attempts at the designated risk level.</td>
+              </tr>
+            </table></div></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You don't have to verify phone numbers to use them for SMS as a second
+            authentication factor.</p></div></div>
+       
+        <h2 id="user-pool-settings-adaptive-authentication-device-fingerprint">Adding user device and session data to API requests</h2>
+        <p>You can collect and pass information about your user's session to Amazon Cognito threat
+          protection when you use the API to sign them up, sign them in, and reset their password.
+          This information includes your user's IP address and a unique device identifier.</p>
+        <p>You might have a intermediate network device between your users and Amazon Cognito, like a
+          proxy service or an application server. You can collect users' context data and pass it to
+          Amazon Cognito so that adaptive authentication calculates your risk based on the characteristics of
+          the user endpoint, instead of your server or proxy. If your client-side app calls Amazon Cognito
+          API operations directly, adaptive authentication automatically records the source IP
+          address. However, it does not record other device information like the
+            <code class="code">user-agent</code> unless you also collect a device fingerprint.</p>
+        <p>Generate this data with the Amazon Cognito context data collection library and submit it to
+          Amazon Cognito threat protection with the <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ContextDataType.html">ContextData</a> and <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserContextDataType.html">UserContextData</a> parameters. The context data collection library is included in
+          the AWS SDKs. For more information, see <a href="./cognito-integrate-apps.html">Integrating Amazon Cognito authentication and authorization with web and mobile apps</a>. You can submit <code class="code">ContextData</code> if you have
+          the Plus feature plan. For more information, see <a href="./cognito-user-pool-settings-threat-protection.html#cognito-user-pool-settings-configure-threat-protection">Setting up threat protection</a>.</p>
+        <p>When you call the following Amazon Cognito authenticated API operations from your application
+          server, pass the IP of the user’s device in the <code class="code">ContextData</code> parameter. In
+          addition, pass your server name, server path, and encoded device-fingerprinting
+          data.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html">AdminInitiateAuth </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html">AdminRespondToAuthChallenge </a></p>
+          </li></ul></div>
+        <p>When you call Amazon Cognito unauthenticated API operations, you can submit
+            <code class="code">UserContextData</code> to Amazon Cognito threat protection. This data includes a device
+          fingerprint in the <code class="code">EncodedData</code> parameter. You can also submit an
+            <code class="code">IpAddress</code> parameter in your <code class="code">UserContextData</code> if you meet the
+          following conditions:</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Your user pool is on the Plus feature plan. For more information, see <a href="./cognito-sign-in-feature-plans.html">User pool feature plans</a>.</p>
+          </li><li class="listitem">
+            <p>Your app client has a client secret. For more information, see <a href="./user-pool-settings-client-apps.html">Application-specific settings with app clients</a>.</p>
+          </li><li class="listitem">
+            <p>You have activated <b>Accept additional user context data</b> in
+              your app client. For more information, see <a href="#user-pool-settings-adaptive-authentication-accept-user-context-data">Accepting additional user context data (AWS Management Console)</a>.</p>
+          </li></ul></div>
+        <p>Your app can populate the <code class="code">UserContextData</code> parameter with encoded
+          device-fingerprinting data and the IP address of the user's device in the following Amazon Cognito
+          unauthenticated API operations.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html">InitiateAuth </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html">RespondToAuthChallenge </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html">SignUp
+              </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html">ConfirmSignUp </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html">ForgotPassword </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html">ConfirmForgotPassword </a></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html">ResendConfirmationCode </a></p>
+          </li></ul></div>
+         
+          <h3 id="user-pool-settings-adaptive-authentication-accept-user-context-data">Accepting additional user context data (AWS Management Console)</h3>
+          <p>Your user pool accepts an IP address in a <code class="code">UserContextData</code> parameter
+            after you activate the <b>Accept additional user context data</b> feature.
+            You don’t need to activate this feature if:</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Your users only sign in with authenticated API operations like <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html">AdminInitiateAuth </a>, and you use the <code class="code">ContextData</code>
+                parameter.</p>
+            </li><li class="listitem">
+              <p>You only want your unauthenticated API operations to send a device fingerprint,
+                but not an IP address, to Amazon Cognito threat protection.</p>
+            </li></ul></div>
+          <p>Update your app client as follows in the Amazon Cognito console to add support for additional
+            user context data.</p>
+          <div class="procedure"><ol><li>
+              <p>Sign in to the <a href="https://console.aws.amazon.com/cognito/home" rel="noopener noreferrer" target="_blank"><span>Amazon Cognito console
+                </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+              <p>In the navigation pane, choose <b>Manage your User Pools</b>, and
+                choose the user pool you want to edit.</p>
+            </li><li>
+              <p>Choose the <b>App clients</b> menu.</p>
+            </li><li>
+              <p>Choose or create an app client. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-idp-settings.html">
+                  Configuring a user pool app client</a>.</p>
+            </li><li>
+              <p>Choose <b>Edit</b> from the <b>App client
+                  information</b> container.</p>
+            </li><li>
+              <p>In the <b>Advanced authentication settings</b> for your app
+                client, choose <b>Accept additional user context data</b>.</p>
+            </li><li>
+              <p>Choose <b>Save changes</b>.</p>
+            </li></ol></div>
+          <p>To configure your app client to accept user context data in the Amazon Cognito API, set
+              <code class="code">EnablePropagateAdditionalUserContextData</code> to <code class="code">true</code> in a <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html">CreateUserPoolClient</a> or <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPoolClient.html">UpdateUserPoolClient</a> request. For information about how to work with threat
+            protection in your web or mobile app, see <a href="./user-pool-settings-viewing-threat-protection-app.html">Collecting data for threat protection in applications</a>. When your app calls
+            Amazon Cognito from your server, collect user context data from the client side. The following is
+            an example that uses the JavaScript SDK method <code class="code">getData</code>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">var EncodedData = AmazonCognitoAdvancedSecurityData.getData(<code class="replaceable">username</code>, <code class="replaceable">userPoolId</code>, <code class="replaceable">clientId</code>);</code></pre>
+          <p>When you design your app to use adaptive authentication, we recommend that you
+            incorporate the latest Amazon Cognito SDK into your app.. The latest version of the SDK collects
+            device fingerprinting information like device ID, model, and time zone. For more
+            information about Amazon Cognito SDKs, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html">Install a user pool
+              SDK</a>. Amazon Cognito threat protection only saves and assigns a risk score to events
+            that your app submits in the correct format. If Amazon Cognito returns an error response, check
+            that your request includes a valid secret hash and that the <code class="code">IPaddress</code>
+            parameter is a valid IPv4 or IPv6 address.</p>
+          <div class="itemizedlist">
+            <h6><code class="code">ContextData</code> and <code class="code">UserContextData</code> resources</h6>
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>AWS Amplify SDK for Android: <a href="https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoidentityprovider/src/main/java/com/amazonaws/mobileconnectors/cognitoidentityprovider/CognitoUserPool.java#L626" rel="noopener noreferrer" target="_blank"><span>GetUserContextData</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+            </li><li class="listitem">
+              <p>AWS Amplify SDK for iOS: <a href="https://github.com/aws-amplify/aws-sdk-ios/blob/d3cd4fa0086b526f2f5c9c6c58880c9da7004c66/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.m#L21" rel="noopener noreferrer" target="_blank"><span>userContextData</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+            </li><li class="listitem">
+              <p>JavaScript: <a href="https://amazon-cognito-assets.us-east-1.amazoncognito.com/amazon-cognito-advanced-security-data.min.js" rel="noopener noreferrer" target="_blank"><span>amazon-cognito-advanced-security-data.min.js</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+            </li></ul></div>
+         
+       
+        <h2 id="user-pool-settings-adaptive-authentication-event-user-history">Viewing and exporting user event history</h2>
+        <p>Amazon Cognito generates a log for each authentication event by a user when you enable threat
+          protection. By default, you can view user logs in the <b>Users</b> menu in
+          the Amazon Cognito console or with the <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminListUserAuthEvents.html">AdminListUserAuthEvents</a> API operation. You can also export these events to an
+          external system like CloudWatch Logs, Amazon S3, or Amazon Data Firehose. The export feature can make security
+          information about user activity in your application more accessible to your own
+          security-analysis systems.</p>
+        <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#user-pool-settings-adaptive-authentication-event-user-history-console">Viewing user event history (AWS Management Console)</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-event-user-history-api-cli">Viewing user event history (API/CLI)</a></p></li><li><p><a href="#user-pool-settings-adaptive-authentication-event-user-history-exporting">Exporting user authentication events</a></p></li></ul></div>
+         
+          <h3 id="user-pool-settings-adaptive-authentication-event-user-history-console">Viewing user event history (AWS Management Console)</h3>
+          <p>To see the sign-in history for a user, you can choose the user from the
+              <b>Users</b> menu in the Amazon Cognito console. Amazon Cognito retains user event history
+            for two years.</p>
+          <div class="mediaobject">
+             
+              <img src="/images/cognito/latest/developerguide/images/cup-advanced-security-event-history.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="User event history" />
+             
+            
+            
+             
+          </div>
+          <p>Each sign-in event has an event ID. The event also has corresponding context data,
+            such as location, device details, and risk detection results.</p>
+          <p>You can also correlate the event ID with the token that Amazon Cognito issued at the time
+            that it recorded the event. The ID and access tokens include this event ID in their
+            payload. Amazon Cognito also correlates refresh token use to the original event ID. You can trace
+            the original event ID back to the event ID of the sign-in event that resulted in issuing
+            the Amazon Cognito tokens. You can trace token usage within your system to a particular
+            authentication event. For more information, see <a href="./amazon-cognito-user-pools-using-tokens-with-identity-providers.html">Understanding user pool JSON web tokens (JWTs)</a>.</p>
+         
+         
+          <h3 id="user-pool-settings-adaptive-authentication-event-user-history-api-cli">Viewing user event history (API/CLI)</h3>
+          <p>You can query user event history with the Amazon Cognito API operation <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminListUserAuthEvents.html">AdminListUserAuthEvents</a>
+            or with the AWS Command Line Interface (AWS CLI) with <a href="https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-list-user-auth-events.html">admin-list-user-auth-events</a>.</p>
+          <awsdocs-tabs><dl style="display: none">
+            <dt>AdminListUserAuthEvents request</dt><dd tab-id="adminlistuserauthevents-request">
+                <p>The following request body for <code class="code">AdminListUserAuthEvents</code> returns
+                  the most recent activity log for one user.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+  "UserPoolId": "us-west-2_EXAMPLE", 
+  "Username": "myexampleuser", 
+  "MaxResults": 1
+}</code></pre>
+              </dd>
+            <dt>admin-list-user-auth-events request</dt><dd tab-id="admin-list-user-auth-events-request">
+                <p>The following request for <code class="code">admin-list-user-auth-events</code> returns the
+                  most recent activity log for one user.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (shell)--><code class="shell ">aws cognito-idp admin-list-user-auth-events --max-results 1 --username myexampleuser --user-pool-id us-west-2_EXAMPLE</code></pre>
+              </dd>
+            <dt>Response</dt><dd tab-id="response">
+                <p>Amazon Cognito returns the same JSON response body to both requests. The following is
+                  an example response for a managed login sign-in event that wasn't found to contain
+                  risk factors:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "AuthEvents": [
+        <span>{</span>
+            "EventId": "<code class="replaceable">[event ID]</code>",
+            "EventType": "SignIn",
+            "CreationDate": "<code class="replaceable">[Timestamp]</code>",
+            "EventResponse": "Pass",
+            "EventRisk": <span>{</span>
+                "RiskDecision": "NoRisk",
+                "CompromisedCredentialsDetected": false
+            },
+            "ChallengeResponses": [
+                <span>{</span>
+                    "ChallengeName": "Password",
+                    "ChallengeResponse": "Success"
+                }
+            ],
+            "EventContextData": <span>{</span>
+                "IpAddress": "192.168.2.1",
+                "DeviceName": "Chrome 125, Windows 10",
+                "Timezone": "-07:00",
+                "City": "Bellevue",
+                "Country": "United States"
+            }
+        }
+    ],
+    "NextToken": "<code class="replaceable">[event ID]</code>#<code class="replaceable">[Timestamp]</code>"
+}</code></pre>
+              </dd>
+          </dl></awsdocs-tabs>
+         
+         
+          <h3 id="user-pool-settings-adaptive-authentication-event-user-history-exporting">Exporting user authentication events</h3>
+          <p>Configure your user pool to export user events from threat protection to an external
+            system. The supported external systems–Amazon S3, CloudWatch Logs, and Amazon Data Firehose–might add
+            costs to your AWS bill for data that you send or retrieve. For more information, see
+              <a href="./exporting-quotas-and-usage.html#exporting-quotas-and-usage-user-activity">Exporting threat protection user activity logs</a>.</p>
+          <awsdocs-tabs><dl style="display: none">
+            <dt>AWS Management Console</dt><dd tab-id="aws-management-console">
+                <div class="procedure"><ol><li>
+                    <p>Sign in to the <a href="https://console.aws.amazon.com/cognito/home" rel="noopener noreferrer" target="_blank"><span>Amazon Cognito
+                        console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                  </li><li>
+                    <p>Choose <b>User Pools</b>.</p>
+                  </li><li>
+                    <p>Choose an existing user pool from the list, or <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html">create a user
+                        pool</a>.</p>
+                  </li><li>
+                    <p>Choose the <b>Log streaming</b> menu. Select
+                        <b>Edit</b>.</p>
+                  </li><li>
+                    <p>Under <b>Logging status</b>, select the checkbox next to
+                        <b>Activate user activity log export</b>.</p>
+                  </li><li>
+                    <p>Under <b>Logging destination</b>, choose the AWS service
+                      that you want to handle your logs: <b>CloudWatch log group</b>,
+                        <b>Amazon Data Firehose stream</b>, or <b>S3
+                      bucket</b>.</p>
+                  </li><li>
+                    <p>Your selection will populate the resource selector with the corresponding
+                      resource type. Select a log group, stream, or bucket from the list. You can
+                      also select the <b>Create</b> button to navigate to the
+                      AWS Management Console for the selected service and create a new resource.</p>
+                  </li><li>
+                    <p>Select <b>Save changes</b>.</p>
+                  </li></ol></div>
+              </dd>
+            <dt>API</dt><dd tab-id="api">
+                <p>Choose one type of destination for your user activity logs.</p>
+                <p>The following is an example <code class="code">SetLogDeliveryConfiguration</code> request
+                  body that sets a Firehose stream as the log destination.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+   "LogConfigurations": [
+      <span>{</span>
+         "EventSource": "userAuthEvents",
+         "FirehoseConfiguration": <span>{</span>
+            "StreamArn": "<code class="replaceable">arn:aws:firehose:us-west-2:123456789012:deliverystream/example-user-pool-activity-exported</code>"
+         },
+         "LogLevel": "INFO"
+      }
+   ],
+   "UserPoolId": "us-west-2_EXAMPLE"
+}</code></pre>
+                <p>The following is an example <code class="code">SetLogDeliveryConfiguration</code> request
+                  body that sets a Amazon S3 bucket as the log destination.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+   "LogConfigurations": [
+      <span>{</span>
+         "EventSource": "userAuthEvents",
+         "S3Configuration": <span>{</span> 
+            "BucketArn": "<code class="replaceable">arn:aws:s3:::amzn-s3-demo-logging-bucket</code>"
+         },
+         "LogLevel": "INFO"
+      }
+   ],
+   "UserPoolId": "us-west-2_EXAMPLE"
+}</code></pre>
+                <p>The following is an example <code class="code">SetLogDeliveryConfiguration</code> request
+                  body that sets a CloudWatch log group as the log destination.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+   "LogConfigurations": [
+      <span>{</span>
+         "EventSource": "userAuthEvents",
+         "CloudWatchLogsConfiguration": <span>{</span> 
+            "LogGroupArn": "<code class="replaceable">arn:aws:logs:us-west-2:123456789012:log-group:DOC-EXAMPLE-LOG-GROUP</code>"
+         },
+         "LogLevel": "INFO"
+      }
+   ],
+   "UserPoolId": "us-west-2_EXAMPLE"
+}</code></pre>
+              </dd>
+          </dl></awsdocs-tabs>
+         
+       
+        <h2 id="user-pool-settings-adaptive-authentication-feedback">Providing event feedback</h2>
+        <p>Event feedback affects risk evaluation in real time and improves the risk evaluation
+          algorithm over time. You can provide feedback on the validity of sign-in attempts through
+          the Amazon Cognito console and API operations. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Your event feedback influences the risk level that Amazon Cognito assigns to subsequent user
+            sessions with the same characteristics.</p></div></div>
+        <p>In the Amazon Cognito console, choose a user from the <b>Users</b> menu and
+          select <b>Provide event feedback</b>. You can review the event details and
+            <b>Set as valid</b> or <b>Set as invalid</b>.</p>
+        <p>The console lists the sign-in history in user details in the
+            <b>Users</b> menu. If you select an entry, you can mark the event as valid
+          or not valid. You can also provide feedback through the user pool API operation <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateAuthEventFeedback.html">AdminUpdateAuthEventFeedback</a>, and through the AWS CLI command <a href="https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-update-auth-event-feedback.html">admin-update-auth-event-feedback</a>. </p>
+        <p>When you select <b>Set as valid</b> in the Amazon Cognito console or provide a
+            <code class="code">FeedbackValue</code> value of <code class="code">valid</code> in the API, you tell Amazon Cognito that
+          you trust a user session where Amazon Cognito has evaluated some level of risk. When you select
+            <b>Set as invalid</b> in the Amazon Cognito console or provide a
+            <code class="code">FeedbackValue</code> value of <code class="code">invalid</code> in the API, you tell Amazon Cognito that
+          you don't trust a user session, or you don't believe that Amazon Cognito evaluated a
+          high-enough risk level.</p>
+       
+        <h2 id="user-pool-settings-adaptive-authentication-messages">Sending notification messages</h2>
+        <p>With threat protection, Amazon Cognito can notify your users of risky sign-in attempts. Amazon Cognito
+          can also prompt users to select links to indicate if the sign-in was valid or not valid.
+          Amazon Cognito uses this feedback to improve the risk detection accuracy for your user pool. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon Cognito only sends notification messages to users when their action generates an
+            automated risk response: block sign-in, allow sign-in, set MFA to optional, or require
+            MFA. Some requests might be assigned a level of risk but don't generate adaptive
+            authentication automated risk responses; for these, your user pool doesn't send
+            notifications. For example, incorrect passwords might be logged with a risk rating, but
+            the response by Amazon Cognito is to fail sign-in, not to apply an adaptive authentication
+            rule.</p></div></div>
+        <p>In the <b>Automatic risk response</b> section choose <b>Notify
+            Users</b> for low, medium, or high-risk cases.</p>
+        <div class="mediaobject">
+           
+            <img src="/images/cognito/latest/developerguide/images/cup-adaptive-auth.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Notify users" />
+           
+          
+          
+           
+        </div>
+        <p>Amazon Cognito sends email notifications to your users regardless of whether they have verified
+          their email address.</p>
+        <p>You can customize notification email messages, and provide both plaintext and HTML
+          versions of these messages. To customize your email notifications, open <b>Email
+            templates</b> from <b>Adaptive authentication messages</b> in your
+          threat protection configuration. To learn more about email templates, see <a href="./cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-message-templates">Message templates</a>.</p>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cognito-user-pool-settings-compromised-credentials.html">Compromised credentials</div><div id="next" class="next-link" accesskey="n" href="./user-pool-settings-viewing-threat-protection-app.html">Data collection</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

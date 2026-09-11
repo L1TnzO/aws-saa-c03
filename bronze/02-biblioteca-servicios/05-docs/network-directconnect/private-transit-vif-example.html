@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Direct Connect private virtual interface routing example - AWS Direct Connect</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="private-transit-vif-example" /><meta name="default_state" content="private-transit-vif-example" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/private-transit-vif-example.html" /><meta name="description" content="This shows an example of a Direct Connect private virtual interface routing." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Direct Connect" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Direct Connect links your internal network to a Direct Connect location over fiber-optic cable. One end of the cable is connected to your router and the other to a Direct Connect router. With this connection in place, you can create virtual interfaces directly to the AWS cloud (for example, to Amazon EC2 and Amazon S3), bypassing Internet service providers in your network path." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/private-transit-vif-example.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/private-transit-vif-example.html" hreflang="x-default" /><meta name="feedback-item" content="Direct Connect" /><meta name="this_doc_product" content="AWS Direct Connect" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'directconnect'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Direct Connect private virtual interface routing example" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="private-transit-vif-example.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Direct Connect private virtual interface routing example - AWS Direct Connect</title><meta name="pdf" content="/pdfs/directconnect/latest/UserGuide/dc-ug.pdf#private-transit-vif-example" /><meta name="rss" content="direct-connect-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAUXv9yROwR7mwDCP95yyx6Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct%20Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/private-transit-vif-example.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/private-transit-vif-example.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/private-transit-vif-example.html" /><meta name="keywords" content="Direct Connect,Direct Connect location,internal network,virtual interface connection,learn about using Direct Connect,Learn about the routing policies and BGP communities that are supported by Direct Connect,An example of Direct Connect private virtual interface routing" /><link rel="alternate" type="text/markdown" href="private-transit-vif-example.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Direct Connect",
+        "item" : "https://docs.aws.amazon.com/directconnect/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "What is Direct Connect?",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Direct Connect routing policies and BGP communities",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide/routing-and-bgp.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Direct Connect private virtual interface routing example",
+        "item" : "https://docs.aws.amazon.com/directconnect/latest/UserGuide/routing-and-bgp.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/directconnect/latest/UserGuide/dc-ug.pdf#private-transit-vif-example" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/directconnect/index.html">AWS Direct Connect</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="private-transit-vif-example">Direct Connect private virtual interface routing example</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Consider the configuration where the Direct Connect location 1 home Region is the same as
+            the VPC home Region. There is a redundant Direct Connect location in a different Region  There
+            are two private VIFs (VIF A and VIF B) from Direct Connect location 1 (us-east-1) to the
+            Direct Connect gateway. There is one private VIF (VIF C) from Direct Connect location
+            (us-west-1) to the Direct Connect gateway. To have AWS route traffic over VIF B before
+            VIF A, set the AS_PATH attribute of VIF B to be shorter than the VIF A AS_PATH
+            attribute.</p><p>The VIFs have the following configurations:</p><div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>VIF A (in us-east-1) advertises 172.16.0.0/16 and has an AS_PATH attribute of
+                    65001, 65001, 65001</p>
+            </li><li class="listitem">
+                <p>VIF B (in us-east-1) advertises 172.16.0.0/16 and has an AS_PATH attribute of
+                    65001, 65001</p>
+            </li><li class="listitem">
+                <p>VIF C (in us-west-1) advertises 172.16.0.0/16 and has an AS_PATH attribute of
+                    65001</p>
+            </li></ul></div><div class="mediaobject">
+             
+                <img src="/images/directconnect/latest/UserGuide/images/private-vif-as-path-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Private VIF Routing no AS_PATH" style="max-width:70%" />
+             
+             
+        </div><p>If you change the CIDR range configuration of VIF C, routes that fall in to the VIF C
+            CIDR range use VIF C because it has the longest prefix length. </p><div class="itemizedlist">
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>VIF C (in us-west-1) advertises 172.16.0.0/24 and has an AS_PATH attribute of
+                    65001</p>
+            </li></ul></div><div class="mediaobject">
+             
+                <img src="/images/directconnect/latest/UserGuide/images/private-vif-as-path-2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Private VIF Routing" style="max-width:70%" />
+             
+             
+        </div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./routing-and-bgp.html">Routing policies and BGP communities</div><div id="next" class="next-link" accesskey="n" href="./connection_options.html">Connection options</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/private-transit-vif-example.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Direct Connect&amp;topic_url=https://docs.aws.amazon.com/en_us/directconnect/latest/UserGuide/private-transit-vif-example.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

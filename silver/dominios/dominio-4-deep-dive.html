@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominio 4 · Design Cost-Optimized Architectures (20%) · SAA-C03 · deep dive</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="dominio-1.html">D1 · Secure 30%</a>
+        <a href="dominio-2.html">D2 · Resilient 26%</a>
+        <a href="dominio-3.html">D3 · Performant 24%</a>
+        <a href="dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="../apendice/computo.html">Cómputo</a>
+        <a href="../apendice/almacenamiento.html">Almacenamiento</a>
+        <a href="../apendice/redes.html">Redes y conectividad</a>
+        <a href="../apendice/bases-datos.html">Bases de datos</a>
+        <a href="../apendice/seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="../apendice/contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="../apendice/integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="../apendice/analitica-datos.html">Analítica y big data</a>
+        <a href="../apendice/migracion-hibrido.html">Migración e híbrido</a>
+        <a href="../apendice/gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Dominio 4</div>
+        <h1>Design Cost-Optimized Architectures<span class="dom-weight">20% del examen</span></h1>
+        <p class="page-lead">El cuarto dominio convierte el costo en un requisito de diseño, no en una ocurrencia tardía.
+        Aquí aprenderás a leer el patrón de acceso, elegir la <span class="term-en">purchasing option</span> correcta,
+        dimensionar bases de datos sin <span class="term-en">overprovisioning</span> y trazar rutas de red que minimizan
+        el <span class="term-en">data transfer</span> — las cuatro palancas del ahorro en AWS.</p>
+      </header>
+
+<div class="callout tip">
+  <div class="co-title">Edición unificada</div>
+  <p>Página integrada desde la <strong>guía extendida</strong> (saa-completo). Complementa el curso por fases:
+  el mismo tema, con más profundidad técnica. Vuelve al <a href="dominio-4.html">curso principal</a> cuando quieras
+  retomar la ruta de 9 fases.</p>
+</div>
+
+
+      <!-- ================= 1 · MAPA DEL DOMINIO ================= -->
+      <h2 id="mapa-dominio"><span class="h2-num">1</span>Mapa del dominio: qué te van a preguntar</h2>
+      <p>El dominio 4 pesa un <strong>20% del examen</strong>: aproximadamente 13 de las 65 preguntas. Es el dominio más
+      transversal de los cuatro, porque casi cualquier escenario de seguridad, resiliencia o rendimiento tiene una
+      contraparte de costo — el mismo escenario cambia de respuesta si el calificador pasa de
+      <span class="term-en">highly available</span> a <span class="term-en">most cost-effective</span>. Los cuatro
+      <span class="term-en">task statements</span> oficiales se organizan por capa del stack: 4.1 almacenamiento, 4.2
+      cómputo, 4.3 bases de datos y 4.4 red. Y hay un denominador común que el propio <em>study guide</em> repite en las
+      cuatro secciones de <span class="term-en">Knowledge</span>: las herramientas de gestión
+      (<span class="term-en">cost allocation tags</span>, <span class="term-en">AWS Cost Explorer</span>,
+      <span class="term-en">AWS Budgets</span>, <span class="term-en">AWS Cost and Usage Report</span>) y el
+      <em>billing</em> multi-cuenta. Estúdialas primero en la sección 2: son transversales a todo el dominio.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  D4["Dominio 4 · 20%<br>Cost-Optimized"] --> A["Task 4.1<br>Storage"]
+  D4 --> B["Task 4.2<br>Compute"]
+  D4 --> C["Task 4.3<br>Database"]
+  D4 --> E["Task 4.4<br>Network"]
+  A --> A1["S3 classes · lifecycle ·<br>EBS gp3 · Requester Pays"]
+  B --> B1["Spot · RI · Savings Plans ·<br>right-sizing · Fargate"]
+  C --> C1["Aurora · DynamoDB on-demand ·<br>ElastiCache · Athena"]
+  E --> E1["data transfer rules ·<br>endpoints · CloudFront · DX"]
+  D4 --> T["Transversal: tags ·<br>Explorer · Budgets · CUR"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — Los cuatro task statements del dominio y sus temas de examen.</figcaption>
+      </figure>
+
+      <p class="bronze-link">Fuentes bronze oficiales de esta página:
+      <code>../bronze/01-exam/study-guide/solutions-architect-associate-03-domain4.md</code> (task statements y
+      knowledge/skills literales) y <code>../bronze/01-exam/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf</code>.</p>
+
+      <!-- ================= 2 · MENTALIDAD DE COSTOS ================= -->
+      <h2 id="mentalidad-costos"><span class="h2-num">2</span>La mentalidad de costos: cloud financial management</h2>
+      <p>AWS llama a esta disciplina <span class="term-en">cloud financial management</span> (CFM) y el pilar
+      <span class="term-en">cost optimization</span> del Well-Architected Framework la resume así: consumir de forma
+      rentable significa <strong>medir la eficiencia global</strong>, <strong>asignar el gasto a quien lo genera</strong>
+      y <strong>dejar de pagar por recursos sin uso</strong>. En la práctica eso se traduce en tres reflejos que el
+      examen premia: primero, el costo se decide en el momento del diseño (elegir región, tamaño y tipo de recurso ya
+      es una decisión económica); segundo, no se puede optimizar lo que no se ve, por eso las herramientas de
+      <span class="term-en">cost awareness</span> son el corazón del dominio; tercero, la respuesta
+      <span class="term-en">most cost-effective</span> no es "la más barata" sino la que <strong>cumple todos los
+      requisitos del escenario al menor precio</strong> — una opción más barata que viola un requisito (por ejemplo,
+      una sola AZ cuando piden tolerar la caída de una AZ) es un distractor, no la respuesta.</p>
+      <p>La pieza que habilita todo es el <span class="term-en">cost allocation tag</span>: una etiqueta de recurso
+      (por ejemplo <code>team:payments</code> o <code>project:alpha</code>) que, una vez <strong>activada</strong> en la
+      consola de Billing, aparece como dimensión de agrupación y filtro en Cost Explorer y en el CUR. AWS distingue
+      etiquetas <span class="term-en">user-defined</span> (las que tú creas) de las
+      <span class="term-en">AWS-generated</span> (creadas automáticamente al crear el recurso); ambas deben activarse
+      explícitamente para entrar en el reporte de costos. En organizaciones multi-cuenta, el
+      <span class="term-en">consolidated billing</span> de AWS Organizations agrega el gasto en una sola factura,
+      suma el uso de todas las cuentas para los descuentos por volumen y <strong>comparte</strong> los descuentos de
+      Reserved Instances y Savings Plans entre cuentas miembros — gratis.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Herramienta</th><th>Qué resuelve</th><th>Palabra clave del examen</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Cost Allocation Tags</span></td><td>Asignar el gasto a equipos, proyectos o entornos: activas una etiqueta y la usas como filtro/agrupación en Explorer y CUR. Requisito previo de todo <em>showback</em>/<em>chargeback</em></td><td>"allocate costs by team / project"</td></tr>
+            <tr><td><span class="term-en">AWS Cost Explorer</span></td><td>Analizar y visualizar costos y uso con filtros (servicio, cuenta, tag, región), guardar reportes y — clave — <strong>proyectar <span class="term-en">forecast</span></strong> del gasto hasta 12 meses</td><td>"forecast spending"</td></tr>
+            <tr><td><span class="term-en">AWS Budgets</span></td><td>Definir presupuestos de costo o uso y recibir <strong>alertas</strong> (email/SNS) al superar umbrales (p. ej. 80%, 100%). También vigila utilización y cobertura de RI/Savings Plans</td><td>"receive alerts if costs exceed"</td></tr>
+            <tr><td><span class="term-en">Cost and Usage Report</span> (CUR)</td><td>El dato más <strong>granular</strong>: línea por recurso, hasta con granularity horaria, con todos los tags, entregado como CSV a S3 para analizarlo con Athena/QuickSight</td><td>"most granular / detailed cost data"</td></tr>
+            <tr><td><span class="term-en">Billing alarm</span> en CloudWatch</td><td>Alarma simple sobre el <em>estimated charges</em> de la cuenta: un número, sin filtros por servicio ni tags. La opción rápida cuando no hay requisitos de desglose</td><td>"simple alarm on total charges"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../bronze/05-docs/cost-management/what-is-costmanagement.md</code> (features of AWS Billing and Cost Management).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Distinción top del dominio: si la pregunta pide una notificación de gasto <em>con filtros</em> (por servicio,
+        tag o cuenta vinculada), la respuesta es <strong>AWS Budgets</strong>; si solo pide "una alarma si la factura
+        supera X USD" sin desglose, basta un <strong>billing alarm</strong> de CloudWatch. Y si piden el detalle más fino
+        posible para análisis offline, es el <strong>CUR</strong> — Cost Explorer es para explorar y proyectar, no para
+        exportar granularidad horaria por recurso.</p>
+      </div>
+
+      <p class="bronze-link">Profundiza en bronze:
+      <code>../bronze/05-docs/cost-management/what-is-costmanagement.md</code>,
+      <code>../bronze/05-docs/cost-management/create-savingsplans-budget.md</code> (budgets de utilización/cobertura) y
+      <code>../bronze/02-well-architected/cost-cfm.html</code> / <code>../bronze/02-well-architected/cost-optimization.html</code> (pilar completo).</p>
+
+      <!-- ================= 3 · TASK 4.1 STORAGE ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 4.1</div>
+        <div class="tb-title">Design cost-optimized storage solutions</div>
+        <div class="tb-meta">Knowledge: storage tiering · data lifecycles · storage access patterns · block storage (SSD/HDD) · backup strategies · Requester Pays · cost management tools · Skills: select the appropriate storage tier · manage S3 object lifecycles · select the most cost-effective storage service</div>
+      </div>
+
+      <h2 id="storage-costo"><span class="h2-num">3</span>Storage: el patrón de acceso decide la factura</h2>
+      <p>Casi toda pregunta de storage en este dominio se responde con una sola pregunta previa:
+      <strong>¿cada cuánto se accede a estos datos y con qué latencia?</strong> La mina de oro de S3 son sus
+      <span class="term-en">storage classes</span>: la misma API, la misma durabilidad de 11 nueves, precios
+      radicalmente distintos. La regla general es que el precio de almacenar baja a medida que aceptas recuperar más
+      lento o más caro, con <span class="term-en">minimum storage duration</span> que penalizan los datos que viven
+      menos tiempo del mínimo. La tabla siguiente — que conviene memorizar— cruza las siete clases que AWS compara en
+      la documentación oficial.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Clase S3</th><th>Acceso típico</th><th>Precio relativo de almacenaje</th><th>Retrieval</th><th>Mín. días</th><th>Caso de uso canónico</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">S3 Standard</span></td><td>Frecuente (varias veces/mes)</td><td>1× (referencia)</td><td>milisegundos, sin fee</td><td>ninguno</td><td>Datos calientes de la app, sitios web</td></tr>
+            <tr><td><span class="term-en">Intelligent-Tiering</span></td><td>Desconocido o cambiante</td><td>≈ Standard; baja sola</td><td>milisegundos, sin fee</td><td>ninguno</td><td>Patrones impredecibles: monitorea y mueve entre tiers (fee por objeto)</td></tr>
+            <tr><td><span class="term-en">Standard-IA</span></td><td>~1 vez al mes</td><td>≈ mitad de Standard</td><td>milisegundos + fee por GB</td><td>30 días</td><td>Backups, datos que aún necesitan milisegundos</td></tr>
+            <tr><td><span class="term-en">One Zone-IA</span></td><td>~1 vez al mes</td><td>~20% menos que Standard-IA</td><td>milisegundos + fee</td><td>30 días</td><td>Datos recreables o réplicas de CRR; <strong>no</strong> resiste la pérdida de la AZ</td></tr>
+            <tr><td><span class="term-en">Glacier Instant Retrieval</span></td><td>~1 vez por trimestre</td><td>mucho menor que IA</td><td>milisegundos + fee alto</td><td>90 días</td><td>Archivos con acceso instantáneo: imágenes médicas, hojas de vida</td></tr>
+            <tr><td><span class="term-en">Glacier Flexible Retrieval</span></td><td>~1 vez al año</td><td>muy bajo</td><td>minutos a horas (bulk gratis)</td><td>90 días</td><td>Backups/DR: requiere <span class="term-en">restore</span> previo</td></tr>
+            <tr><td><span class="term-en">Glacier Deep Archive</span></td><td>&lt; 1 vez al año</td><td>el más bajo de AWS</td><td>12–48 h (standard/bulk)</td><td>180 días</td><td>Retención por compliance de años</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../bronze/05-docs/storage-s3/storage-class-intro.md</code> y <code>../bronze/05-docs/storage-s3/glacier-storage-classes.md</code> (tablas oficiales de comparación).</p>
+
+      <h3>3.1 Lifecycle policies: que los datos bajen solos de clase</h3>
+      <p>Una <span class="term-en">lifecycle policy</span> es un conjunto de reglas por bucket (con filtros por prefijo
+      o tag) que ejecuta dos tipos de acción sobre los objetos: <span class="term-en">transition</span> (mover el
+      objeto a otra storage class) y <span class="term-en">expiration</span> (borrarlo definitivamente). Es la forma
+      estándar de implementar el arquetipo "los datos se enfrían con la edad": nacen en Standard, a los 30 días bajan a
+      una clase IA, a los 90 al archivo. Hay que respetar mínimos: AWS no te deja transicionar a Standard-IA/One
+      Zone-IA/Glacier Instant Retrieval objetos con menos de 30 días de vida, y las clases de archivo cobran el mínimo
+      completo si te vas antes. Las políticas también limpian restos invisibles que igual facturan: los
+      <span class="term-en">incomplete multipart uploads</span> (con la acción <code>AbortIncompleteMultipartUpload</code>),
+      las versiones antiguas (<span class="term-en">noncurrent versions</span>) y los <em>delete markers</em> huérfanos
+      en buckets con <span class="term-en">versioning</span>.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  U["Upload del objeto"] --> S["S3 Standard"]
+  S -->|"30 días"| IA["Standard-IA"]
+  S -->|"90 días"| GI["Glacier<br>Instant Retrieval"]
+  IA -->|"90 días"| GF["Glacier<br>Flexible"]
+  GF -->|"180 días"| DA["Deep Archive"]
+  S -.->|"expiración<br>N días"| X["Delete"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Ciclo de vida típico: transitions sucesivas hacia clases más frías y expiración final.</figcaption>
+      </figure>
+
+      <h3>3.2 Requester Pays y block storage: EBS bien elegido</h3>
+      <p>Un bucket <span class="term-en">S3 Requester Pays</span> invierte quién paga: el
+      <strong>solicitante</strong> paga las peticiones y la descarga de datos, mientras el dueño siempre paga el
+      almacenamiento. Es el patrón para publicar <em>datasets</em> grandes (datos geoespaciales, referencia, crawling)
+      sin financiar el tráfico de terceros. Requisito: ninguna petición anónima — todo request debe estar autenticado
+      y confirmar el cobro con la cabecera <code>x-amz-request-payer</code>. En block storage, la palanca principal
+      es el tipo de volumen: <span class="term-en">gp3</span> es <strong>20% más barato que gp2</strong> y desacopla
+      rendimiento de tamaño (3000 IOPS y 125 MB/s de base, ampliables por separado), mientras gp2 acopla IOPS a los GB
+      y funciona con créditos de <em>burst</em>. Para datos secuenciales masivos, los HDD
+      <span class="term-en">st1</span> (Throughput Optimized) y <span class="term-en">sc1</span> (Cold HDD) cobran por
+      MB/s de throughput a un precio por GB muy inferior — pero no pueden ser volumen de arranque. Y los
+      <em>snapshots</em> también se jerarquizan: el <span class="term-en">snapshot archive tier</span> de EBS guarda
+      copias de acceso raro con ~75% de descuento.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Volumen EBS</th><th>Tipo</th><th>Precio/perfil</th><th>Uso correcto</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">gp3</span></td><td>SSD general</td><td>−20% vs gp2 · 3000 IOPS + 125 MB/s base independientes del tamaño</td><td>Default moderno: boot y datos de app</td></tr>
+            <tr><td><span class="term-en">gp2</span></td><td>SSD general</td><td>IOPS acoplados al tamaño, crédito de burst</td><td>Legado; el examen casi siempre prefiere gp3</td></tr>
+            <tr><td><span class="term-en">io2 / io1</span></td><td>SSD premium</td><td>Hasta 64.000+ IOPS provisionados</td><td>Bases de datos críticas con latencia baja</td></tr>
+            <tr><td><span class="term-en">st1</span></td><td>HDD throughput</td><td>40 MB/s por TB · barato por GB</td><td>Data warehouses, logs, big data secuencial</td></tr>
+            <tr><td><span class="term-en">sc1</span></td><td>HDD cold</td><td>12 MB/s por TB · el más barato</td><td>Datos de acceso esporádico y secuencial</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../bronze/04-faqs/amazon-elastic-block-store-ebs.md</code> (FAQ oficial de tipos y rendimiento).</p>
+
+      <h3>3.3 Elegir el servicio de storage por patrón de uso</h3>
+      <p>La última decisión de storage es el <strong>servicio</strong>, no la clase. El examen cruza cuatro opciones
+      con la misma lógica de siempre: ¿cómo se accede y desde dónde? Un volumen EBS se paga provisionado y por AZ
+      aunque nadie lo lea; EFS cobra por GB realmente almacenado y crece solo; S3 cobra GB más peticiones; FSx brilla
+      cuando necesitas un filesystem con semántica Windows/HPC a cambio de precio premium.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Modelo de cobro</th><th>Gana cuando…</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">S3</span></td><td>GB almacenados + peticiones + tiering automático</td><td>Objetos, cualquier escala, acceso por API/HTTP</td></tr>
+            <tr><td><span class="term-en">EBS</span></td><td>GB provisionados por hora, por AZ — se paga estando ocioso</td><td>Block device exclusivo para UNA instancia EC2</td></tr>
+            <tr><td><span class="term-en">EFS</span></td><td>GB usados, crece/encoge solo, modos Standard/IA</td><td>Filesystem compartido Linux, múltiples EC2 simultáneas</td></tr>
+            <tr><td><span class="term-en">FSx</span></td><td>Por capacidad y throughput provisionados</td><td>Windows (SMB), Lustre para HPC, semánticas especiales</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: study guide oficial (task 4.1: "storage services with appropriate use cases").</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>most cost-effective</em>" + datos con acceso trimestral e instantáneo → Glacier Instant Retrieval, no
+        Standard-IA (trampa clásica: IA es para mensual). Acceso impredecible → Intelligent-Tiering. La palabra
+        "<em>recreatable</em>" o "replica" habilita One Zone-IA; si el escenario además exige sobrevivir la caída de
+        una AZ, One Zone-IA queda descartada. Y "los mismos milisegundos" + retención de años = Glacier IR, no Deep
+        Archive (que tarda 12–48 h).</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze de la sección:
+      <code>../bronze/05-docs/storage-s3/storage-class-intro.md</code>,
+      <code>../bronze/05-docs/storage-s3/glacier-storage-classes.md</code>,
+      <code>../bronze/05-docs/storage-s3/requesterpaysbuckets.md</code>,
+      <code>../bronze/05-docs/storage-s3/mpu-abort-incomplete-mpu-lifecycle-config.md</code> (lifecycle).</p>
+
+      <!-- ================= 4 · TASK 4.2 COMPUTE ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 4.2</div>
+        <div class="tb-title">Design cost-optimized compute solutions</div>
+        <div class="tb-meta">Knowledge: purchasing options (Spot, Reserved Instances, Savings Plans) · instance types/families/sizes · optimization of compute utilization (containers, serverless) · scaling strategies (auto scaling, hibernation) · Skills: select appropriate instance size · determine cost-effective compute services (Lambda, EC2, Fargate) · determine required availability per workload class</div>
+      </div>
+
+      <h2 id="compute-costo"><span class="h2-num">4</span>Compute: comprar la capacidad correcta, del modo correcto</h2>
+      <p>En cómputo hay dos decisiones económicas independientes que el examen mezcla a propósito:
+      <strong>qué instancia</strong> (familia y tamaño — el <span class="term-en">right-sizing</span>) y
+      <strong>cómo la pagas</strong> (la <span class="term-en">purchasing option</span>). Para la segunda, AWS ofrece
+      cinco modos de compra que se distinguen por dos variables: descuento que otorgan y compromiso que exigen. La
+      regla mental es un continuo de flexibilidad: <span class="term-en">Spot</span> ofrece hasta 90% de descuento a
+      cambio de tolerar interrupciones; <span class="term-en">Reserved Instances</span> y
+      <span class="term-en">Savings Plans</span> llegan hasta 72% a cambio de compromiso de 1 o 3 años;
+      <span class="term-en">On-Demand</span> no pide nada y no regala nada. La documentación oficial es explícita en
+      recomendar Savings Plans sobre RI por flexibilidad, y en que el gasto Spot no consume el compromiso de un
+      Compute Savings Plan.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Modo de compra</th><th>Descuento típico</th><th>Compromiso</th><th>Caso de uso canónico</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">On-Demand</span></td><td>— (precio base)</td><td>Ninguno, pago por segundo (mín. 60 s)</td><td>Cargas intermitentes, pruebas, picos impredecibles</td></tr>
+            <tr><td><span class="term-en">Reserved Instances</span></td><td>Hasta 72%</td><td>1 o 3 años sobre <strong>atributos exactos</strong> (familia+tamaño+OS+tenancy+región). Es un descuento de facturación, no una instancia física</td><td>Estado estable con configuración que no cambiará</td></tr>
+            <tr><td><span class="term-en">Savings Plans</span></td><td>Hasta 66% Compute / 72% EC2 Instance</td><td>1 o 3 años sobre un <strong>monto USD/hora</strong> de uso</td><td>Estado estable con flexibilidad de instancia, región e incluso servicio (Compute SP cubre EC2+Fargate+Lambda)</td></tr>
+            <tr><td><span class="term-en">Spot Instances</span></td><td>Hasta 90%</td><td>Ninguno, pero AWS puede reclamar la capacidad con aviso de 2 minutos</td><td>Batch, CI/CD, procesamiento distribuido, stateless interrumpibles</td></tr>
+            <tr><td><span class="term-en">Capacity Reservations</span></td><td>0% (tarifa On-Demand)</td><td>Reserva capacidad en una AZ específica; se paga se use o no</td><td>Garantizar capacidad en lanzamientos críticos (migraciones, eventos)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../bronze/05-docs/compute-ec2/ec2-reserved-instances.md</code>, <code>../bronze/05-docs/compute-ec2/using-spot-instances.md</code> y <code>../bronze/04-faqs/savings-plans.md</code>.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  W["Workload EC2"] --> Q1{"¿Puede ser<br>interrumpido?"}
+  Q1 -->|"sí"| SP["Spot<br>hasta -90%"]
+  Q1 -->|"no"| Q2{"¿Estado estable<br>1–3 años?"}
+  Q2 -->|"sí"| PL["Savings Plans<br>o RI · hasta -72%"]
+  Q2 -->|"no"| Q3{"¿Necesita capacidad<br>garantizada en una AZ?"}
+  Q3 -->|"sí"| CR["Capacity<br>Reservation"]
+  Q3 -->|"no"| OD["On-Demand"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Árbol de decisión de purchasing options: interrumpibilidad primero, compromiso después.</figcaption>
+      </figure>
+
+      <h3>4.1 Fargate vs EC2: pagar por tarea o por caja</h3>
+      <p>La pregunta "¿EC2 o Fargate?" es en el fondo una pregunta de costo con dos variables: densidad y gestión.
+      Con <span class="term-en">AWS Fargate</span> pagas solo los vCPU y GB de memoria que cada
+      <span class="term-en">task</span> consume por segundo — no hay instancias ociosas que esperar, ni parchear
+      sistemas operativos, y el <span class="term-en">operational overhead</span> desaparece. Con EC2 gestionas
+      instancias completas y pagas por hora de caja, pero logras <strong>densidad</strong> (empaquetar muchos
+      contenedores por host) y acceso a modos de compra con descuento. Por eso el patrón del examen es estable:
+      cargas esporádicas o con picos, o equipos sin plataforma → Fargate; flotas grandes y constantes → EC2 con
+      Savings Plans, y todo lo interrumpible del pipeline → Spot.</p>
+
+      <h3>4.2 Right-sizing, Compute Optimizer y Auto Scaling con métricas de costo</h3>
+      <p>El <span class="term-en">right-sizing</span> es la práctica de ajustar tipo y tamaño de instancia al uso real
+      — típicamente hacia abajo, porque las cargas migradas del on-premise llegan sobredimensionadas. Su herramienta
+      oficial es <span class="term-en">AWS Compute Optimizer</span>, que analiza CloudWatch durante los últimos 14
+      días (93 si pagas <em>enhanced infrastructure metrics</em>) y emite recomendaciones clasificadas como
+      <em>Optimized</em>, <em>Over-provisioned</em> o <em>Under-provisioned</em> para EC2, Auto Scaling groups, EBS,
+      Lambda, servicios ECS sobre Fargate, bases de datos Aurora/RDS e incluso NAT Gateways. La otra pata es escalar
+      con la demanda en vez de dimensionar para el pico: <span class="term-en">target tracking</span> sobre CPU o
+      peticiones, <span class="term-en">scheduled scaling</span> para patrones horarios conocidos (apagar el entorno
+      de desarrollo de noche) y <span class="term-en">scale-in</span> agresivo cuando la carga baja. La síntesis de
+      ambas: <strong>no pagues capacidad vacía</strong>.</p>
+
+      <h3>4.3 Hibernate vs stop vs terminate</h3>
+      <p>Las tres formas de apagar una instancia tienen facturas distintas y el examen las cruza con el costo de
+      <em>bootstrap</em>. Al <span class="term-en">hibernate</span>, EC2 vuelca la RAM al volumen raíz EBS: al
+      reanudar, los procesos siguen donde estaban — ideal para instancias cuyo arranque en frío tarda mucho
+      (pre-warming). Al <span class="term-en">stop</span>, el sistema operativo se apaga normalmente y al arrancar
+      hace boot completo pero conserva los volúmenes. Al <span class="term-en">terminate</span>, todo se destruye
+      (el volumen raíz se borra por defecto).</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Acción</th><th>RAM</th><th>Qué se sigue pagando</th><th>Cuándo es la respuesta</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">Hibernate</span></td><td>Se guarda en el EBS raíz</td><td>Solo EBS (no horas de instancia)</td><td>Boot lento; retomar exactamente donde quedó</td></tr>
+            <tr><td><span class="term-en">Stop</span></td><td>Se pierde</td><td>Solo EBS</td><td>Ahorrar fuera de horario con reinicio limpio</td></tr>
+            <tr><td><span class="term-en">Terminate</span></td><td>Se pierde</td><td>Nada (raíz borrado por defecto)</td><td>El recurso ya no se necesita en absoluto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: <code>../bronze/05-docs/compute-ec2/hibernate.md</code> (modelo de cobro de la hibernación).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>batch</em>", "<em>fault-tolerant</em>", "<em>can be interrupted</em>", "<em>non-critical</em>" →
+        <strong>Spot</strong> casi sin discusión. "<em>consistent, long-running workload</em>" + ya sabes familia y
+        región → <strong>Savings Plans</strong> (la documentación los recomienda sobre RI). Ojo con la trampa de
+        <span class="term-en">Dedicated Hosts</span>: son para requisitos de licencia/aislamiento físico, no una
+        estrategia de ahorro. Y "avoid paying for idle capacity" + contenedores → Fargate.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze de la sección:
+      <code>../bronze/05-docs/compute-ec2/ec2-reserved-instances.md</code>,
+      <code>../bronze/05-docs/compute-ec2/using-spot-instances.md</code>,
+      <code>../bronze/05-docs/compute-ec2/hibernate.md</code>,
+      <code>../bronze/05-docs/mgmt-compute-optimizer/what-is-compute-optimizer.md</code> y
+      <code>../bronze/04-faqs/savings-plans.md</code>.</p>
+
+      <!-- ================= 5 · TASK 4.3 DATABASE ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 4.3</div>
+        <div class="tb-title">Design cost-optimized database solutions</div>
+        <div class="tb-meta">Knowledge: caching strategies · database capacity planning (capacity units) · database replication (read replicas) · database types and services (relational vs non-relational, Aurora, DynamoDB) · Skills: determine cost-effective database services · design backup/retention policies · determine cost-effective database types</div>
+      </div>
+
+      <h2 id="database-costo"><span class="h2-num">5</span>Database: el pecado caro del overprovisioning</h2>
+      <p>Las bases de datos son el recurso que más tiempo pasa encendido sin trabajar, y de ahí sale el eje de
+      lectura de costos de esta sección: <strong>¿provisiono capacidad o pago por uso?</strong> Una instancia RDS
+      clásica es <span class="term-en">provisioned</span>: eliges un <span class="term-en">DB instance class</span>,
+      pagas 24/7 esté ociosa o no, y si sube la carga toca <span class="term-en">vertical scaling</span> con ventana
+      de mantenimiento. Aurora mejora el modelo en dos frentes: el <span class="term-en">storage</span> del clúster
+      crece automáticamente en incrementos de 10 GB — nunca reservas discos vacíos — y sus
+      <span class="term-en">read replicas</span> comparten ese mismo volumen del clúster, así que añadir réplicas de
+      lectura es comparativamente más barato que en RDS, donde cada réplica arrastra su propio storage e instancia.
+      Con <span class="term-en">Aurora Serverless v2</span> el pago pasa a
+      <span class="term-en">ACUs</span> (Aurora Capacity Units) escalando de segundos a decenas de segundos, y con
+      <span class="term-en">DynamoDB</span> eliges entre <span class="term-en">provisioned capacity</span> (barato y
+      plano, con <em>reserved capacity</em> disponible) y el <span class="term-en">on-demand mode</span>, diseñado
+      para tráfico impredecible: pagas por request, sin capacidad sentada.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción</th><th>Modelo de costo</th><th>Cuándo es la más barata</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term-en">RDS</span> (provisioned)</td><td>Instancia por hora 24/7 + storage; RI/Savings para steady-state</td><td>Carga relacional constante y predecible durante años</td></tr>
+            <tr><td><span class="term-en">Aurora</span></td><td>Por ACU/GB usados; storage compartido del clúster; réplicas baratas</td><td>Relacional con rélicas de lectura y storage variable</td></tr>
+            <tr><td><span class="term-en">Aurora Serverless v2</span></td><td>ACUs que escalan 0.5→128 con la demanda</td><td>Cargas variables o intermitentes sin adminstrar servidores</td></tr>
+            <tr><td><span class="term-en">DynamoDB on-demand</span></td><td>Por request leído/escrito</td><td>Tráfico impredecible o esporádico, key-value a escala</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Lente de costo sobre <code>../bronze/05-docs/db-rds/welcome.md</code>, <code>../bronze/05-docs/db-aurora/chap-auroraoverview.md</code> y <code>../bronze/04-faqs/amazon-dynamodb.md</code>.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["Workload de BD"] --> B["Tráfico impredecible<br>o esporádico"]
+  A --> C["Relacional,<br>carga variable"]
+  A --> D["Relacional,<br>constante 24/7"]
+  A --> E["Datos fríos de<br>consulta ocasional"]
+  B --> F["DynamoDB<br>on-demand"]
+  C --> G["Aurora Serverless v2<br>por ACUs"]
+  D --> H["RDS / Aurora<br>+ RI o Savings Plans"]
+  E --> I["S3 + Athena<br>por TB escaneado"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Enrutamiento de motores por patrón de costo: la predictibilidad elige el modelo de facturación.</figcaption>
+      </figure>
+
+      <h3>5.1 ElastiCache: pagar un nodo para no pagar tres</h3>
+      <p><span class="term-en">Amazon ElastiCache</span> (Redis/Memcached) entra en la ecuación de costo cuando la
+      carga es <strong>read-heavy</strong> con <em>hot keys</em>: la primera lectura toca la base de datos, el resto
+      se sirve de memoria. El detalle económico que el examen formula como "¿cuándo se paga solo?" es sencillo:
+      <strong>pagas únicamente el nodo de caché por hora</strong> — no hay commit ni capacidad reservada — y ese
+      gasto se justifica si evita algo más caro: <span class="term-en">read replicas</span> adicionales, subir de
+      instancia, o los IOPS provisionados. Es la respuesta clásica a "reduce database costs for a read-intensive
+      workload" cuando DynamoDB no aplica porque el patrón es relacional.</p>
+
+      <h3>5.2 Datos fríos: S3 + Athena en lugar de una RDS encendida</h3>
+      <p>Mantener un histórico de años en la misma base operacional es el anti-patrón más caro del dominio. El
+      patrón correcto: exportar a S3 a una clase fría (o dejar que el lifecycle lo haga) y consultar con
+      <span class="term-en">Amazon Athena</span> — serverless, sin infraestructura, facturado por TB escaneado
+      (particiona por fecha y el costo cae en picada). <span class="term-en">S3 Select</span> es la versión
+      quirúrgica: recuperar solo las filas o el subconjunto de bytes del objeto con SQL, pagando la fracción
+      transferida en vez del objeto completo. La comparación de examen es directa: RDS corriendo 24/7 para datos que
+      se leen una vez al trimestre pierde siempre contra S3+Athena.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>unpredictable traffic</em>" + key-value → DynamoDB <strong>on-demand</strong> (la trampa es
+        provisioned, que exige estimar capacidad). "<em>infrequent access, seconds to spin up, relational</em>" →
+        Aurora Serverless. "reduce load on the database" / "read-intensive" → ElastiCache o DAX según el motor. Y
+        "query archived data occasionally without servers" → Athena. Ojo: si la pregunta menciona RPO/RTO o
+        replicación, estás en D2, no en costo — primero el requisito, después el precio.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze de la sección:
+      <code>../bronze/05-docs/db-rds/welcome.md</code>,
+      <code>../bronze/05-docs/db-aurora/chap-auroraoverview.md</code>,
+      <code>../bronze/05-docs/db-elasticache/red-ug/whatis.md</code>,
+      <code>../bronze/05-docs/analytics-athena/what-is.md</code>.</p>
+
+      <!-- ================= 6 · TASK 4.4 NETWORK ================= -->
+      <div class="task-banner">
+        <div class="tb-label">Task Statement oficial 4.4</div>
+        <div class="tb-title">Design cost-optimized network architectures</div>
+        <div class="tb-meta">Knowledge: NAT gateways (NAT instance vs gateway costs) · network connectivity (private/dedicated lines, VPN) · routing, topology, peering (Transit Gateway, VPC peering) · Skills: configure routes to minimize network transfer costs · Direct Connect vs VPN vs internet · CDNs and edge caching · configure appropriate NAT gateway types</div>
+      </div>
+
+      <h2 id="network-costo"><span class="h2-num">6</span>Network: el data transfer es el impuesto invisible</h2>
+      <p>En red, el ahorro no está en comprar hardware sino en <strong>rutas</strong>: el
+      <span class="term-en">data transfer</span> es el impuesto invisible que se cobra cuando los datos cruzan
+      fronteras que podían no cruzar. Las reglas que el examen espera que sepas de memoria: el tráfico entre dos
+      instancias <strong>en la misma AZ, en el mismo VPC y con IPs privadas es gratis</strong>; cruzar AZ cuesta
+      (~USD 0.01/GB por dirección); cruzar región cuesta más por GB; y la salida a internet
+      (<span class="term-en">egress</span>) se factura por GB en tramos. Sobre esas reglas se montan las tres
+      soluciones de ahorro clásicas: <span class="term-en">VPC endpoints</span> para que el tráfico hacia S3 o
+      DynamoDB no pague NAT, <span class="term-en">CloudFront</span> para servir contenido global desde el edge, y
+      <span class="term-en">Direct Connect</span> cuando el volumen entre tu datacenter y AWS justifica un enlace
+      dedicado con precio por GB inferior al egress público.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ruta del tráfico</th><th>¿Se paga?</th><th>Palanca de ahorro</th></tr></thead>
+          <tbody>
+            <tr><td>Misma AZ, mismo VPC, <span class="term-en">private IP</span></td><td>No</td><td>Colocar productor y consumidor en la misma AZ cuando el diseño lo permita</td></tr>
+            <tr><td>Cross-AZ (mismo VPC o peered)</td><td>Sí, ~USD 0.01/GB por dirección</td><td>Co-locación; <span class="term-en">cross-zone load balancing</span> solo si el HA lo exige</td></tr>
+            <tr><td>Cross-Region</td><td>Sí, más caro que cross-AZ</td><td>Replicar solo lo que la residencia/latencia exige</td></tr>
+            <tr><td><span class="term-en">Egress a internet</span></td><td>Sí, por GB (tramos; primeros 100 GB/mes gratis)</td><td><span class="term-en">CloudFront</span>: caché en edge + tarifas de salida CDN</td></tr>
+            <tr><td>Subnet privada → S3/DynamoDB vía <span class="term-en">NAT Gateway</span></td><td>Sí: hora del NAT + <strong>GB procesados</strong></td><td><span class="term-en">Gateway VPC endpoint</span>: gratis, el tráfico sale por la tabla de rutas</td></tr>
+            <tr><td>On-premises ↔ AWS por internet/VPN</td><td>Sí, egress por GB</td><td><span class="term-en">Direct Connect</span> para volúmenes grandes: enlace dedicado con coste por GB menor y estable</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Reglas de cobro según el study guide oficial (task 4.4) y la documentación de VPC/Direct Connect en bronze.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  T["Tráfico de datos"] --> A{"Misma AZ,<br>IP privada?"}
+  A -->|"sí"| G["Gratis"]
+  A -->|"no"| C{"¿Cruza AZ<br>o región?"}
+  C -->|"cross-AZ"| D["~USD 0.01/GB<br>por dirección"]
+  C -->|"cross-Region"| E["mayor por GB"]
+  T --> F{"¿Destino es<br>S3 / DynamoDB?"}
+  F -->|"sí"| H["Gateway VPC endpoint<br>evita el NAT"]
+  T --> I{"¿Usuarios<br>globales?"}
+  I -->|"sí"| J["CloudFront<br>caché de edge"]
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Rutas de datos con su costo y la palanca que lo elimina en cada caso.</figcaption>
+      </figure>
+
+      <h3>6.1 NAT Gateway vs VPC endpoints: el cobro silencioso por GB</h3>
+      <p>El <span class="term-en">NAT Gateway</span> cobra una tarifa horaria <em>y un monto por GB procesado</em>;
+      por eso una arquitectura que arrastra descargas grandes de S3 a través del NAT es la fuga favorita del examen.
+      La solución es un <span class="term-en">gateway endpoint</span> para S3 o DynamoDB: gratis, sin la tarifa por GB
+      del NAT y con el tráfico dentro de la red de AWS — además de más seguro. Cuando el destino es otro servicio
+      (p. ej. una API de AWS o un endpoint de un tercero), el <span class="term-en">interface endpoint</span> de
+      AWS PrivateLink cobra por hora y por GB, y es la respuesta cuando el ahorro de NAT supera ese costo fijo. El
+      diseño topológico también pesa: un NAT Gateway por AZ evita el cargo cross-AZ del NAT de otra zona, y
+      compartir un solo NAT entre muchas AZ ahorra hora pero paga el cruce — el study guide llama a esa decisión
+      "single shared NAT gateway compared with NAT gateways for each AZ".</p>
+
+      <h3>6.2 Edge caching y volúmenes grandes</h3>
+      <p>Para usuarios distribuidos geográficamente, <span class="term-en">Amazon CloudFront</span> reduce el egress
+      de dos maneras: sirve desde el edge más cercano con tarifas de salida por región de edge, y evita que cada
+      request golpee el origen — la transferencia del origen EC2 hacia CloudFront no se cobra como egress a internet.
+      Combinado con <span class="term-en">Origin Shield</span> y buenos TTL, el patrón "static content to global
+      users, minimize data transfer costs" se resuelve casi siempre con CloudFront. En el otro extremo está
+      <span class="term-en">Direct Connect</span>: si tu patrón es mover TB constantes entre on-premises y AWS, el
+      enlace dedicado (1/10/100 Gbps) tiene un precio fijo mensual y una tarifa por GB menor que la salida por
+      internet — el corte donde uno supera al otro es la matemática que la pregunta te da como pistas de
+      "large volumes, consistent throughput".</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"<em>minimize data transfer costs</em>" es la frase bandera: piensa misma AZ, gateway endpoints,
+        CloudFront o Direct Connect, en ese orden de sospecha. La trampa favorita es el
+        <strong>NAT Gateway cobrando por GB procesado</strong> en un diagrama que "funciona" — la pregunta pide
+        reducir costo, no connectivity. Y si el escenario menciona volúmenes desde/hacia on-premises con
+        "dedicated, consistent" → Direct Connect; si dijera "encrypted over the internet, cheap" → Site-to-Site VPN.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze de la sección:
+      <code>../bronze/05-docs/network-vpc/vpc-nat.md</code>,
+      <code>../bronze/05-docs/network-privatelink/gateway-endpoints.md</code>,
+      <code>../bronze/05-docs/network-directconnect/welcome.md</code>,
+      <code>../bronze/05-docs/network-cloudfront/introduction.md</code>.</p>
+
+      <!-- ================= 7 · GOBERNANZA CONTINUA ================= -->
+      <h2 id="gobernanza-costos"><span class="h2-num">7</span>Gobernanza continua: el ciclo de optimización</h2>
+      <p>El pilar de <span class="term-en">cost optimization</span> describe un ciclo, no un proyecto: medir,
+      asignar, optimizar y verificar, una y otra vez. Sin ese ciclo, cada ahorro puntual (una compra de Savings
+      Plans, una migración a S3 IA) se degrada con el tiempo porque los workloads cambian. La correspondencia de
+      herramientas por etapa es la que el examen repite: para <strong>medir y proyectar</strong>,
+      <span class="term-en">Cost Explorer</span> con sus <span class="term-en">forecasts</span> de hasta 12 meses; para
+      <strong>asignar</strong>, los <span class="term-en">cost allocation tags</span> activados y las
+      <span class="term-en">cost categories</span>; para <strong>optimizar</strong>, recomendaciones de
+      <span class="term-en">Compute Optimizer</span>, los checks de costo de <span class="term-en">Trusted Advisor</span>
+      (load balancers ociosos, EIPs sin asociar, volúmenes EBS subutilizados) y el
+      <span class="term-en">Cost Optimization Hub</span>; para <strong>verificar</strong>, <span class="term-en">AWS
+      Budgets</span> con alertas por email/SNS e incluso <span class="term-en">budget actions</span> que aplican políticas
+      IAM al superar el umbral. El registro histórico fino que alimenta todo queda en el
+      <span class="term-en">Cost and Usage Report</span>: granularidad horaria, línea por recurso, todos los tags,
+      entregado en S3 para consultarlo con Athena.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  M["1. Medir<br>CUR + Explorer"] --> AS["2. Asignar<br>tags activados"]
+  AS --> O["3. Optimizar<br>right-size · SP · endpoints"]
+  O --> V["4. Verificar<br>Budgets + alertas SNS"]
+  V -->|"ciclo continuo"| M
+          </pre>
+        </div>
+        <figcaption>Fig. 6 — El ciclo de gobernanza de costos: cada vuelta parte del dato, no de la intuición.</figcaption>
+      </figure>
+
+      <p>El requisito previo de todo el ciclo son los <strong>tags</strong>: sin etiquetas activadas en Billing no
+      existe la dimensión "proyecto" o "equipo" con que agrupar, y las demás herramientas pierden su poder de
+      diagnóstico. En organizaciones multi-cuenta, además, el <span class="term-en">consolidated billing</span>
+      convierte la gobernanza en un activo compartido: una sola factura, uso agregado para descuentos por volumen y
+      RI/Savings Plans aplicables a todas las cuentas. Cerrar el ciclo tiene premio doble: además de bajar la
+      factura, produce la evidencia que la pregunta de examen suele pedir — "informe de costos por equipo"
+      (tags + Explorer), "alerta si el gasto proyectado supera X" (Budgets), "detalle por recurso y hora" (CUR).</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Asocia la herramienta con el verbo de la pregunta: <em>forecast</em> → Cost Explorer; <em>alert /
+        notify</em> → Budgets (con SNS para notificar a más destinatarios); <em>granular / detailed / hourly</em> →
+        CUR; <em>identify idle resources / cost checks</em> → Trusted Advisor; <em>rightsizing recommendations</em> →
+        Compute Optimizer. La trampa: elegir Cost Explorer cuando piden "alertas" — Explorer no notifica, solo
+        muestra.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze de la sección:
+      <code>../bronze/05-docs/cost-management/what-is-costmanagement.md</code>,
+      <code>../bronze/05-docs/cost-management/create-savingsplans-budget.md</code>,
+      <code>../bronze/04-faqs/aws-trusted-advisor.md</code>,
+      <code>../bronze/05-docs/mgmt-compute-optimizer/what-is-compute-optimizer.md</code>.</p>
+
+      <!-- ================= 8 · CIERRE ================= -->
+      <h2 id="cierre-dominio"><span class="h2-num">8</span>Cierre: las 8 preguntas de costo antes de responder</h2>
+      <p>Antes de elegir una opción en cualquier pregunta cuyo calificador sea <span class="term-en">most
+      cost-effective</span>, <span class="term-en">minimize costs</span> o <span class="term-en">lowest cost</span>,
+      corre este checklist mental. Cada pregunta es un filtro que elimina distractores — y en conjunto cubren los
+      cuatro task statements del dominio.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Pregunta de filtro</th><th>Si la respuesta es "sí"…</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>¿El workload puede interrumpirse sin daño? (batch, CI, stateless)</td><td><span class="term-en">Spot Instances</span></td></tr>
+            <tr><td>2</td><td>¿La carga es estable y vivirá 1–3 años?</td><td><span class="term-en">Savings Plans</span> (o <span class="term-en">Reserved Instances</span>)</td></tr>
+            <tr><td>3</td><td>¿Conozco el patrón de acceso de los datos?</td><td>Clase S3 correcta + <span class="term-en">lifecycle policy</span></td></tr>
+            <tr><td>4</td><td>¿No lo conozco o cambia sin aviso?</td><td><span class="term-en">Intelligent-Tiering</span> / <span class="term-en">on-demand</span></td></tr>
+            <tr><td>5</td><td>¿Las instancias van sobredimensionadas?</td><td><span class="term-en">Right-sizing</span> + Compute Optimizer + Auto Scaling</td></tr>
+            <tr><td>6</td><td>¿Hay capacidad pagada sin usar (idle / tiempo muerto)?</td><td>Serverless: <span class="term-en">Fargate</span> / Lambda / Aurora Serverless</td></tr>
+            <tr><td>7</td><td>¿El tráfico cruza AZ, región o internet sin necesidad?</td><td>Misma AZ, <span class="term-en">VPC endpoints</span>, CloudFront, Direct Connect</td></tr>
+            <tr><td>8</td><td>¿Quién necesita ver y controlar este gasto?</td><td>Tags activados + Explorer / Budgets / CUR según el verbo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Los ocho filtros aplican en orden: interrumpibilidad, compromiso, patrón de datos, incertidumbre, tamaño, ociosidad, rutas y visibilidad.</p>
+
+      <h3>8.1 Tres escenarios típicos, resueltos en dos líneas</h3>
+      <ul>
+        <li><strong>Logs de auditoría con retención de 7 años, recuperables en 48 horas, costo mínimo</strong> →
+        <span class="term-en">S3 Glacier Deep Archive</span>: es la clase más barata de AWS y su retrieval bulk (48 h)
+        cumple el requisito. Glacier Flexible sería más caro sin necesidad.</li>
+        <li><strong>Render de video en lote, tolerante a fallos, "most cost-effective"</strong> →
+        <span class="term-en">Spot Instances</span> (hasta 90% de descuento) en un <span class="term-en">Spot
+        Fleet</span> o ASG mixto; el aviso de 2 minutos basta para checkpoint y reintento.</li>
+        <li><strong>Instancias en subnets privadas descargando grandes volúmenes de S3 vía NAT Gateway</strong> →
+        crear un <span class="term-en">gateway VPC endpoint</span> para S3: gratis y sin el cargo por GB procesado
+        del NAT; la ruta de la tabla de subred apunta al endpoint.</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Dominio 4 completado. Repasa los <a href="../extras/cheat-sheets.html">cheat sheets</a> para las tablas
+        condensadas (storage classes, purchasing options, data transfer) y pon a prueba el checklist con el
+        <a href="../extras/banco-preguntas-2.html">banco de preguntas</a> filtrando por dominio 4 — hasta que las ocho
+        preguntas salgan solas.</p>
+      </div>
+
+      <nav class="pager">
+        <a href="dominio-3-deep-dive.html"><span class="p-dir">← Anterior</span><br>Dominio 3 · Performant Architectures</a>
+        <a class="p-next" href="../extras/cheat-sheets.html"><span class="p-dir">Siguiente →</span><br>Cheat sheets</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

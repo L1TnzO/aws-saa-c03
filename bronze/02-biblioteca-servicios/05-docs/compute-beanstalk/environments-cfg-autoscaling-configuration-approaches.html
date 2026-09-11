@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Capacity configuration for your Elastic Beanstalk environment - AWS Elastic Beanstalk</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="environments-cfg-autoscaling-configuration-approaches" /><meta name="default_state" content="environments-cfg-autoscaling-configuration-approaches" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" /><meta name="description" content="This topic describes the different approaches to configure Auto Scaling capacity for your Elastic Beanstalk environment. You can use the Elastic Beanstalk console, the EB CLI, the AWS CLI, or namespace options." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Elastic Beanstalk" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Read conceptual and detailed instructions for using AWS Elastic Beanstalk to quickly deploy and manage applications in the AWS cloud without worrying about the infrastructure that runs those applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" hreflang="x-default" /><meta name="feedback-item" content="AEB" /><meta name="this_doc_product" content="AWS Elastic Beanstalk" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'elastic-beanstalk'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Capacity configuration for your Elastic Beanstalk environment" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="environments-cfg-autoscaling-configuration-approaches.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Capacity configuration for your Elastic Beanstalk environment - AWS Elastic Beanstalk</title><meta name="pdf" content="/pdfs/elasticbeanstalk/latest/dg/awseb-dg.pdf#environments-cfg-autoscaling-configuration-approaches" /><meta name="forums" content="https://repost.aws/tags/TAhZCjgK8eQvuM45ihyzqV6g" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AEB&amp;topic_url=https://docs.aws.amazon.com/en_us/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html" /><meta name="keywords" content="AWS Elastic Beanstalk,Elastic Beanstalk,ebextension,eb extension,deployment,resource management,web application,development" /><link rel="alternate" type="text/markdown" href="environments-cfg-autoscaling-configuration-approaches.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Elastic Beanstalk",
+        "item" : "https://docs.aws.amazon.com/elastic-beanstalk/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configuring Elastic Beanstalk environments",
+        "item" : "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-containers.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Auto Scaling your Elastic Beanstalk environment instances",
+        "item" : "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.as.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Spot Instance support for your Elastic Beanstalk environment",
+        "item" : "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-spot.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Capacity configuration for your Elastic Beanstalk environment",
+        "item" : "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-spot.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/elasticbeanstalk/latest/dg/awseb-dg.pdf#environments-cfg-autoscaling-configuration-approaches" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/elastic-beanstalk/index.html">AWS Elastic Beanstalk</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#environments-cfg-autoscaling-console">Console</a><a href="#environments-cfg-autoscaling-namespace">Namespace
+            options</a><a href="#environments-cfg-autoscaling-aws-cli">AWS CLI</a><a href="#environments-cfg-autoscaling-ebcli">EB CLI</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="environments-cfg-autoscaling-configuration-approaches">Capacity configuration for your Elastic Beanstalk environment</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This topic describes the different approaches to configure Auto Scaling capacity for your Elastic Beanstalk
+        environment. You can use the Elastic Beanstalk console, the EB CLI, the AWS CLI, or namespace
+        options.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code>EnableSpot</code>
+          <span>option setting can cause Elastic Beanstalk to migrate an existing environment with launch configurations to launch
+  templates. Doing so requires the necessary permissions to manage launch templates. These permissions are included in our managed policy. If you use custom
+  policies instead of our managed policies, environment creation or updates might fail when you update your environment 
+  configuration. For more information
+  and other considerations, see <a href="./environments-cfg-autoscaling-launch-templates.html">Migrating your Elastic Beanstalk environment to launch templates</a>.</span></p></div></div>
+        <h2 id="environments-cfg-autoscaling-console">Configuration using the console</h2>
+        <p>You can configure the capacity management of an Auto Scaling group by editing
+            <b>Capacity</b> on the environment's <b>Configuration</b>
+          page in the <a href="./environments-console.html">Elastic Beanstalk console</a>.</p>
+        <div class="procedure"><h6>To configure Auto Scaling group capacity in the Elastic Beanstalk console</h6><ol><li><p>Open the <a href="https://console.aws.amazon.com/elasticbeanstalk" rel="noopener noreferrer" target="_blank"><span>Elastic Beanstalk console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+  and in the <b>Regions</b> list, select your AWS Region.</p></li><li>
+  <p>In the navigation pane, choose <b>Environments</b>, and then choose the name of your environment from the list.</p>
+</li><li><p>In the navigation pane, choose <b>Configuration</b>.</p></li><li>
+            <p>In the <b>Capacity</b> configuration category, choose
+                <b>Edit</b>.</p>
+          </li><li>
+            <p>In the <b>Auto Scaling group</b> section, configure the following
+              settings.</p>
+            
+            <div class="itemizedlist">
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem">
+                <p><b>Environment type</b> – Select <b>Load
+                    balanced</b>.</p>
+              </li><li class="listitem">
+                <p><b>Min instances</b> – The minimum number of EC2
+                  instances that the group should contain at any time. The group starts with the
+                  minimum count and adds instances when the scale-up trigger condition is
+                  met.</p>
+              </li><li class="listitem">
+                <p><b>Max instances</b> – The maximum number of EC2
+                  instances that the group should contain at any time.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use rolling updates, be sure that the maximum instance count is
+                    higher than the <a href="./using-features.rollingupdates.html#rollingupdates-configure">Minimum
+                        instances in service setting</a> for rolling updates.</p></div></div>
+              </li><li class="listitem">
+                <p><b>Fleet composition</b> – The default is
+                    <b>On-Demand Instances</b>. To enable <em>Spot
+                    Instance</em> requests, select <b>Combined purchase options and
+                    instances</b>.</p>
+                
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code>EnableSpot</code>
+                    <span>option setting can cause Elastic Beanstalk to migrate an existing environment with launch configurations to launch
+  templates. Doing so requires the necessary permissions to manage launch templates. These permissions are included in our managed policy. If you use custom
+  policies instead of our managed policies, environment creation or updates might fail when you update your environment 
+  configuration. For more information
+  and other considerations, see <a href="./environments-cfg-autoscaling-launch-templates.html">Migrating your Elastic Beanstalk environment to launch templates</a>.</span></p></div></div>
+                <p>The following options are enabled if you select to enable <em>Spot
+                    Instance</em> requests:</p>
+                <div class="itemizedlist">
+                   
+                   
+                   
+                   
+                   
+                <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Spot allocation strategy</b> – Determines the
+                      method used to manage and provision the Spot Instances in your environment,
+                      based on available capacity, price, and selection of instance types. Select
+                      from <em>Capacity optimized</em> (default), <em>Price
+                        capacity optimized</em>, <em>Capacity optimized
+                        prioritized</em>, or <em>Lowest price</em>. For a
+                      description of each allocation strategy and more information, see <a href="./environments-cfg-autoscaling-spot-allocation-strategy.html">Spot Instance allocation strategy</a>.</p>
+                  </li><li class="listitem">
+                    <p><b>Maximum spot price</b> –
+                      For recommendations about maximum price options for Spot Instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances-history.html">Spot Instance pricing history</a> in the
+                    <em>Amazon EC2 User Guide</em>.</p>
+                  </li><li class="listitem">
+                    <p><b>On-Demand base</b> – The minimum number of
+                      On-Demand Instances that your Auto Scaling group provisions before considering Spot
+                      Instances as your environment scales out.</p>
+                  </li><li class="listitem">
+                    <p><b>On-Demand above base</b> – The percentage of
+                      On-Demand Instances as part of any additional capacity that your Auto Scaling group
+                      provisions beyond the On-Demand base instances.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The options <b>On-Demand base</b> and <b>On-Demand
+                          above base</b> correlate to the <b>Min</b> and
+                          <b>Max</b>
+                        <em>Instances</em> options listed earlier. For more information
+                        about these options and examples, see <a href="./environments-cfg-autoscaling-spot.html">Spot Instance support for your Elastic Beanstalk environment</a>. </p></div></div>
+                  </li><li class="listitem">
+                    <p><b>Capacity Rebalancing</b> – This option is only
+                      relevant when there is at least one Spot Instance in your Auto Scaling group. When
+                      this feature is enabled, EC2 automatically attempts to replace Spot Instances
+                      in the Auto Scaling group before they're interrupted, minimizing Spot Instance
+                      interruptions to your applications. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/capacity-rebalance.html">Capacity Rebalancing</a> in the <em>Amazon EC2 Auto Scaling User
+                        Guide</em></p>
+                  </li></ul></div>
+              </li><li class="listitem">
+                <p><b>Architecture</b> – The processor architecture for your
+                  EC2 instances. The processor architecture determines the EC2 Instance types that
+                  become available in the next field.</p>
+              </li><li class="listitem">
+                <p><b>Instance types</b> – The types of Amazon EC2 instance
+                  launched to run your application. For details, see <a href="./using-features.managing.ec2.console.html#using-features.managing.ec2.instancetypes">Instance types</a>.</p>
+              </li><li class="listitem">
+                <p><b>AMI ID</b> – The machine image that Elastic Beanstalk uses to
+                  launch Amazon EC2 instances in your environment. For details, see <a href="./using-features.managing.ec2.console.html#using-features.managing.ec2.customami">AMI ID</a>.</p>
+              </li><li class="listitem">
+                <p><b>Availability Zones</b> – Choose the number of
+                  Availability Zones to spread your environment's instances across. By default, the
+                  Auto Scaling group launches instances evenly across all usable zones. To concentrate your
+                  instances in fewer zones, choose the number of zones to use. For production
+                  environments, use at least two zones to ensure that your application is available
+                  in case one Availability Zone goes out.</p>
+              </li><li class="listitem">
+                <p><b>Placement</b> (optional) – Choose the Availability
+                  Zones to use. Use this setting if your instances need to connect to resources in
+                  specific zones, or if you have purchased <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html">reserved
+                    instances</a>, which are zone-specific.
+                  
+                  If you launch your environment in a custom VPC, you cannot configure this option.
+                  In a custom VPC, you choose Availability Zones for the subnets that you assign to
+                  your environment.</p>
+              </li><li class="listitem">
+                <p><b>Scaling cooldown</b> – The amount of time, in seconds,
+                  to wait for instances to launch or terminate after scaling, before continuing to
+                  evaluate triggers. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling Cooldowns</a>.</p>
+              </li></ul></div>
+            
+            
+
+          </li><li>
+<p>To save the changes choose <b>Apply</b> at the bottom of the page.</p></li></ol></div>
+       
+        <h2 id="environments-cfg-autoscaling-namespace">Configuration using namespace options</h2>
+        <p>Elastic Beanstalk provides <a href="./command-options.html">configuration options</a> for Auto Scaling
+          settings in two namespaces: <a href="./command-options-general.html#command-options-general-autoscalingasg">aws:autoscaling:asg</a> and <a href="./command-options-general.html#command-options-general-ec2instances">aws:ec2:instances</a>.</p>
+
+         
+          <h3 id="environments-cfg-autoscaling-namespace.asg">The aws:autoscaling:asg namespace</h3>
+
+          <p>The <a href="./command-options-general.html#command-options-general-autoscalingasg">aws:autoscaling:asg</a> namespace provides options for overall
+            scale and availability.</p>
+
+          
+          <p>The following <a href="./ebextensions.html">configuration file</a> example
+            configures the Auto Scaling group to use two to four instances, specific availability zones, and
+            a cooldown period of 12 minutes (720 seconds). It enables <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/capacity-rebalance.html">Capacity Rebalancing</a>
+            for Spot Instances. This <code class="code">EnableCapacityRebalancing</code> option only takes effect
+            if <code class="code">EnableSpot</code> is set to <code class="code">true</code> in the <a href="./command-options-general.html#command-options-general-ec2instances">aws:ec2:instances</a>
+            namespace, as shown in the configuration file example following this one.</p>
+
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">option_settings:
+  aws:autoscaling:asg:
+    Availability Zones: Any
+    Cooldown: '720'
+    Custom Availability Zones: 'us-west-2a,us-west-2b'
+    MaxSize: '4'
+    MinSize: '2'
+    EnableCapacityRebalancing: true</code></pre>
+         
+        
+
+         
+          <h3 id="environments-cfg-autoscaling-namespace.instances">The aws:ec2:instances namespace</h3>
+
+          
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you update your environment configuration and remove one or more instance types from the <code class="code">InstanceTypes</code> option, Elastic Beanstalk terminates
+        any Amazon EC2 instances running on any of the removed instance types. Your environment's Auto Scaling group then launches new instances, as necessary to complete
+        the desired capacity, using your current specified instance types.</p></div></div>
+
+
+          <p>The <a href="./command-options-general.html#command-options-general-ec2instances">aws:ec2:instances</a> namespace provides options related to your
+            environment's instances, including Spot Instance management. It complements <a href="./command-options-general.html#command-options-general-autoscalinglaunchconfiguration">aws:autoscaling:launchconfiguration</a> and <a href="./command-options-general.html#command-options-general-autoscalingasg">aws:autoscaling:asg</a>.</p>
+
+          
+          <p>The following <a href="./ebextensions.html">configuration file</a> example
+            configures the Auto Scaling group to enable Spot Instance requests for your environment. It
+            designates three possible instance types that can be used. At least one On-Demand
+            Instance is used for baseline capacity, and a sustained 33% of On-Demand Instances is
+            used for any additional capacity. </p>
+          <p>The configuration sets the <a href="./environments-cfg-autoscaling-spot-allocation-strategy.html">spot allocation
+              strategy</a> to <code class="code">capacity-optimized-prioritized</code>. This particular
+            allocation strategy prioritizes the instance launches from the pool based on the order
+            of the instance types specified in the <code class="code">InstanceTypes</code> option. If
+              <code class="code">SpotAllocationStrategy</code> is not specified it defaults to
+              <code class="code">capacity-optimized</code>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">option_settings:
+  aws:ec2:instances:
+    EnableSpot: true
+    InstanceTypes: 't2.micro,t3.micro,t3.small'    
+    SpotAllocationStrategy: capacity-optimized-prioritized
+    SpotFleetOnDemandBase: '1'
+    SpotFleetOnDemandAboveBasePercentage: '33'</code></pre>
+          <p>To choose Spot Instance types, use the <a href="https://aws.amazon.com/ec2/spot/instance-advisor/" rel="noopener noreferrer" target="_blank"><span>Spot Instance
+            Advisor</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+
+          
+          <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code>EnableSpot</code>
+              <span>option setting can cause Elastic Beanstalk to migrate an existing environment with launch configurations to launch
+  templates. Doing so requires the necessary permissions to manage launch templates. These permissions are included in our managed policy. If you use custom
+  policies instead of our managed policies, environment creation or updates might fail when you update your environment 
+  configuration. For more information
+  and other considerations, see <a href="./environments-cfg-autoscaling-launch-templates.html">Migrating your Elastic Beanstalk environment to launch templates</a>.</span></p></div></div>
+         
+        
+       
+        <h2 id="environments-cfg-autoscaling-aws-cli">Configuration using the AWS CLI</h2>
+
+        <p>This section provides examples of how you can use the AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/elasticbeanstalk/create-environment.html">create-environment</a> command to configure your environment with the Auto Scaling and
+          Capacity options described in these sections. You'll notice the namespace settings for
+            <a href="./command-options-general.html#command-options-general-autoscalingasg">aws:autoscaling:asg</a> and <a href="./command-options-general.html#command-options-general-ec2instances">aws:ec2:instances</a>, as
+          described in the previous <a href="#environments-cfg-autoscaling-namespace">namespace
+            configuration options</a> section are also configured with this example.</p>
+
+        <p>The AWS Command Line Interface provides commands to create and configure Elastic Beanstalk
+          environments. With the <code class="code">--option-settings</code> option, you can pass in namespace
+          options that are supported by Elastic Beanstalk. This means that the <a href="#environments-cfg-autoscaling-namespace">namespace configuration options</a>
+          described previously can be passed into applicable AWS CLI commands to configure your Elastic Beanstalk
+          environment.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can also use the <a href="https://docs.aws.amazon.com/cli/latest/reference/elasticbeanstalk/update-environment.html">update-environment</a> command with <code class="code">--option-settings</code> to add or
+            update namespace options. If you need to remove any namespace options from your
+            environment use the <b>update-environment</b> command with
+              <code class="code">--options-to-remove</code>.</p></div></div>
+
+        <p>The following example creates a new environment. Refer to the previous topic <a href="#environments-cfg-autoscaling-namespace">namespace configuration options</a>
+          for more context about the options that are passed in.</p>
+
+        <p>The fist option listed, <code class="code">IamInstanceProfile</code> in the <a href="./command-options-general.html#command-options-general-autoscalinglaunchconfiguration">aws:autoscaling:launchconfiguration</a> namespace, is the
+          Elastic Beanstalk <a href="./concepts-roles-instance.html">instance profile</a>. It's required when
+          you create a new environment.</p>
+
+        
+        <div class="example"><h6>Example— create-environment with Auto Scaling options (namespace options inline)</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws elasticbeanstalk create-environment \
+--region <code class="userinput">us-east-1</code> \
+--application-name <code class="userinput">my-app</code> \
+--environment-name <code class="userinput">my-env</code> \
+--solution-stack-name <code class="userinput">"64bit Amazon Linux 2023 v4.3.0 running Python 3.12"</code> \
+--option-settings \
+Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=<code class="userinput">aws-elasticbeanstalk-ec2-role</code>
+Namespace=aws:autoscaling:asg,OptionName=Availability Zones,Value=<code class="userinput">Any</code> \
+Namespace=aws:autoscaling:asg,OptionName=Cooldown,Value=<code class="userinput">720</code> \
+Namespace=aws:autoscaling:asg,OptionName=Custom Availability Zones,Value=<code class="userinput">us-west-2a,us-west-2b</code> \
+Namespace=aws:autoscaling:asg,OptionName=MaxSize,Value=<code class="userinput">4</code> \
+Namespace=aws:autoscaling:asg,OptionName=MinSize,Value=<code class="userinput">2</code> \
+Namespace=aws:autoscaling:asg,OptionName=EnableCapacityRebalancing,Value=<code class="userinput">true</code> \
+Namespace=aws:ec2:instances,OptionName=EnableSpot,Value=<code class="userinput">true</code> \
+Namespace=aws:ec2:instances,OptionName=InstanceTypes,Value=<code class="userinput">t2.micro,t3.micro,t3.small</code> \
+Namespace=aws:ec2:instances,OptionName=SpotAllocationStrategy,Value=<code class="userinput">capacity-optimized-prioritized</code> \
+Namespace=aws:ec2:instances,OptionName=SpotFleetOnDemandBase,Value=<code class="userinput">1</code> \
+Namespace=aws:ec2:instances,OptionName=SpotFleetOnDemandAboveBasePercentage,Value=<code class="userinput">33</code></code></pre></div></div>
+        
+        <p></p>
+        <p></p>
+        
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code>EnableSpot</code>
+            <span>option setting can cause Elastic Beanstalk to migrate an existing environment with launch configurations to launch
+  templates. Doing so requires the necessary permissions to manage launch templates. These permissions are included in our managed policy. If you use custom
+  policies instead of our managed policies, environment creation or updates might fail when you update your environment 
+  configuration. For more information
+  and other considerations, see <a href="./environments-cfg-autoscaling-launch-templates.html">Migrating your Elastic Beanstalk environment to launch templates</a>.</span></p></div></div>
+        <p></p>
+        <p></p>
+        <p>As an alternative, use an <code>options.json</code> file to specify the
+          namespace options instead of including them inline.</p>
+        <div class="example"><h6>Example—create-environment with Auto Scaling options (namespace options in <code>options.json</code> file)</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws elasticbeanstalk create-environment \
+--region <code class="userinput">us-east-1</code> \
+--application-name <code class="userinput">my-app</code> \
+--environment-name <code class="userinput">my-env</code> \
+--solution-stack-name <code class="userinput">"64bit Amazon Linux 2023 v4.3.0 running Python 3.12"</code>
+--option-settings <code class="userinput">file://options.json</code></code></pre></div></div>
+        <div class="example"><h6>Example</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">### example options.json ###
+[
+    <span>{</span>
+        "Namespace": "aws:autoscaling:launchconfiguration",
+        "OptionName": "IamInstanceProfile",
+        "Value": "aws-elasticbeanstalk-ec2-role"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "Availability Zones",
+        "Value": "Any"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "Cooldown",
+        "Value": "720"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "Custom Availability Zones",
+        "Value": "us-west-2a,us-west-2b"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "MaxSize",
+        "Value": "4"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "MinSize",
+        "Value": "2"
+    },
+    <span>{</span>
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "EnableCapacityRebalancing",
+        "Value": "true"
+    },
+    <span>{</span>
+        "Namespace": "aws:ec2:instances",
+        "OptionName": "EnableSpot",
+        "Value": "true"
+    },
+    <span>{</span>
+        "Namespace": "aws:ec2:instances",
+        "OptionName": "InstanceTypes",
+        "Value": "t2.micro,t3.micro,t3.small"
+    },
+    <span>{</span>
+        "Namespace": "aws:ec2:instances",
+        "OptionName": "SpotAllocationStrategy",
+        "Value": "capacity-optimized-prioritized"
+    },
+    <span>{</span>
+        "Namespace": "aws:ec2:instances",
+        "OptionName": "SpotFleetOnDemandBase",
+        "Value": "1"
+    },
+    <span>{</span>
+        "Namespace": "aws:ec2:instances",
+        "OptionName": "SpotFleetOnDemandAboveBasePercentage",
+        "Value": "33"
+    }
+]</code></pre></div></div>
+
+       
+        <h2 id="environments-cfg-autoscaling-ebcli">Configuration using the EB CLI</h2>
+        <p>When creating an environment using the <a href="./eb3-create.html">eb
+              create</a> command, you can specify a few options that are related to
+          your environment's Auto Scaling group. These are some of the options that help you control the
+          capacity of your environment.</p>
+        <div class="variablelist">
+           
+           
+        <dl>
+            <dt><span class="term"><code class="code">--single</code></span></dt>
+            <dd>
+              <p>Creates the environment with one Amazon EC2 instance and no load balancer. If you
+                don't use this option, a load-balancer is added to the environment that's
+                created.</p>
+            </dd>
+           
+            
+            <dt><span class="term"><code class="code">--enable-spot</code></span></dt>
+            <dd>
+              <p>Enables Spot Instance requests for your environment.</p>
+
+              
+              <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code>enable-spot</code>
+                  <span>option setting can cause Elastic Beanstalk to migrate an existing environment with launch configurations to launch
+  templates. Doing so requires the necessary permissions to manage launch templates. These permissions are included in our managed policy. If you use custom
+  policies instead of our managed policies, environment creation or updates might fail when you update your environment 
+  configuration. For more information
+  and other considerations, see <a href="./environments-cfg-autoscaling-launch-templates.html">Migrating your Elastic Beanstalk environment to launch templates</a>.</span></p></div></div>
+
+              <p>The following options for the <a href="./eb3-create.html">eb
+                    create</a> command can only be used with
+                <code class="code">--enable-spot</code>.</p>
+              <div class="variablelist">
+                 
+                 
+                 
+                 
+              <dl>
+                  <dt><span class="term"><code class="code">--instance-types</code></span></dt>
+                  <dd>
+                    <p>Lists the Amazon EC2 instance types that you want your environment to
+                      use.</p>
+                  </dd>
+                 
+                  <dt><span class="term"><code class="code">--spot-max-price</code></span></dt>
+                  <dd>
+                    <p>The maximum price per unit hour, in US dollars, that you're willing to pay
+                      for a Spot Instance. For recommendations about maximum price options for Spot Instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances-history.html">Spot Instance pricing history</a> in the
+                    <em>Amazon EC2 User Guide</em>.</p>
+                  </dd>
+                 
+                  <dt><span class="term"><code class="code">--on-demand-base-capacity</code></span></dt>
+                  <dd>
+                    <p>The minimum number of On-Demand Instances that your Auto Scaling group provisions
+                      before considering Spot Instances as your environment scales up.</p>
+                  </dd>
+                 
+                  <dt><span class="term"><code class="code">--on-demand-above-base-capacity</code></span></dt>
+                  <dd>
+                    <p>The percentage of On-Demand Instances as part of additional capacity that
+                      your Auto Scaling group provisions that's more than the number of instances that's
+                      specified by the <code class="code">--on-demand-base-capacity</code> option.</p>
+                  </dd>
+                </dl></div>
+            </dd>
+          </dl></div>
+
+
+        <p>The following example creates an environment and configures the Auto Scaling group to enable
+          Spot Instance requests for the new environment. For this example, three possible instance
+          types can be used.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">$ <code class="userinput">eb create --enable-spot --instance-types "t2.micro,t3.micro,t3.small"</code></code></pre>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>There is another similarly named option that's called <code class="code">--instance-type</code>
+            (no “s”) that the EB CLI only recognizes when processing On-Demand Instances. Don't use
+              <code class="code">--instance-type</code> (no "s") with the <code class="code">--enable-spot</code> option. If
+            you do, the EB CLI ignores it. Instead use <code class="code">--instance-types</code> (with "s") with
+            the <code class="code">--enable-spot</code> option. </p></div></div>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./environments-cfg-autoscaling-spot-and-demand.html">On-Demand and
+          Spot instances</div><div id="next" class="next-link" accesskey="n" href="./environments-cfg-autoscaling-triggers.html">Triggers</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AEB&amp;topic_url=https://docs.aws.amazon.com/en_us/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AEB&amp;topic_url=https://docs.aws.amazon.com/en_us/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-configuration-approaches.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Managing instance classes - Amazon DocumentDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="db-instance-classes" /><meta name="default_state" content="db-instance-classes" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/documentdb/latest/devguide/db-instance-classes.html" /><meta name="description" content="Overview of Amazon DocumentDB instance classes, which determine the computation and memory capacity of an instance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DocumentDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of Amazon DocumentDB and provides instructions on using the various features with both the console and the command line interface." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/documentdb/latest/devguide/db-instance-classes.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/documentdb/latest/devguide/db-instance-classes.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/documentdb/latest/devguide/db-instance-classes.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/documentdb/latest/devguide/db-instance-classes.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/documentdb/latest/devguide/db-instance-classes.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/documentdb/latest/devguide/db-instance-classes.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/documentdb/latest/devguide/db-instance-classes.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/documentdb/latest/devguide/db-instance-classes.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/documentdb/latest/devguide/db-instance-classes.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/documentdb/latest/devguide/db-instance-classes.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/documentdb/latest/devguide/db-instance-classes.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/documentdb/latest/devguide/db-instance-classes.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/documentdb/latest/devguide/db-instance-classes.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/documentdb/latest/devguide/db-instance-classes.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/documentdb/latest/devguide/db-instance-classes.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/documentdb/latest/devguide/db-instance-classes.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/documentdb/latest/devguide/db-instance-classes.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/documentdb/latest/devguide/db-instance-classes.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/documentdb/latest/devguide/db-instance-classes.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/documentdb/latest/devguide/db-instance-classes.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/documentdb/latest/devguide/db-instance-classes.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/documentdb/latest/devguide/db-instance-classes.html" hreflang="x-default" /><meta name="feedback-item" content="DocumentDB" /><meta name="this_doc_product" content="Amazon DocumentDB" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'documentdb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Managing instance classes" /><meta name="uiVersion" content="2024.10" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="db-instance-classes.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Managing instance classes - Amazon DocumentDB</title><meta name="pdf" content="/pdfs/documentdb/latest/devguide/devguide.pdf#db-instance-classes" /><meta name="rss" content="developerguide.rss" /><meta name="forums" content="https://repost.aws/tags/TAeCCo4G99RSWdEcbwRH2bdQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DocumentDB&amp;topic_url=https://docs.aws.amazon.com/en_us/documentdb/latest/devguide/db-instance-classes.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/documentdb/latest/devguide/db-instance-classes.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/documentdb/latest/devguide/db-instance-classes.html" /><meta name="keywords" content="Amazon DocumentDB,DocumentDB,Amazon DocumentDB instance,DocumentDB instance,Amazon DocumentDB cluster,DocumentDB cluster,AWS,Managing Clusters,Managing Instances,Database Management,Subnet Groups,Parameter Groups,High Availability,Replication,Global Clusters,Endpoints,Tagging,Maintenance,Service-Linked Roles" /><link rel="alternate" type="text/markdown" href="db-instance-classes.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DocumentDB",
+        "item" : "https://docs.aws.amazon.com/documentdb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/documentdb/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing Amazon DocumentDB clusters and instances",
+        "item" : "https://docs.aws.amazon.com/documentdb/latest/devguide/managing-documentdb.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Managing Amazon DocumentDB instances",
+        "item" : "https://docs.aws.amazon.com/documentdb/latest/devguide/db-instances.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Managing instance classes",
+        "item" : "https://docs.aws.amazon.com/documentdb/latest/devguide/db-instances.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/documentdb/latest/devguide/devguide.pdf#db-instance-classes" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/documentdb/index.html">Amazon DocumentDB</a><a href="what-is.html">Developer Guide</a></div><div id="page-toc-src"><a href="#db-instance-class-determining">Determining an instance class</a><a href="#db-instance-class-changing">Changing an instance's class</a><a href="#db-instance-classes-by-region">Supported instance classes by Region</a><a href="#db-instance-class-specs">Instance class specifications</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="db-instance-classes">Managing instance classes</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The instance class determines the computation and memory capacity of an Amazon DocumentDB (with MongoDB compatibility)
+      instance. The instance class you need depends on your processing power and memory
+      requirements. </p><p>Amazon DocumentDB supports the R4, R5, R6G, R8G, T3, and T4G families of instance classes. These classes
+      are current-generation instance classes that are optimized for memory-intensive applications.
+      For the specifications on these classes, see <a href="#db-instance-class-specs">Instance class specifications</a>. </p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#db-instance-class-determining">Determining an instance class</a></p></li><li><p><a href="#db-instance-class-changing">Changing an instance's class</a></p></li><li><p><a href="#db-instance-classes-by-region">Supported instance classes by Region</a></p></li><li><p><a href="#db-instance-class-specs">Instance class specifications</a></p></li></ul></div>
+      <h2 id="db-instance-class-determining">Determining an instance class</h2>
+
+      <p>To determine the class of an instance, you can use the AWS Management Console or the
+            <code class="code">describe-db-instances</code> AWS CLI operation.</p>
+
+      <awsdocs-tabs><dl style="display: none">
+         <dt>Using the AWS Management Console</dt><dd tab-id="using-the-aws-management-console">
+               <p>To determine the instance class for your cluster's instances, complete the
+                  following steps in the console.</p>
+               
+               <div class="procedure"><ol><li>
+                     <p>Sign in to the AWS Management Console, and open the Amazon DocumentDB console at <a href="https://console.aws.amazon.com/docdb" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/docdb</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                  </li><li>
+                     <p>In the navigation pane, choose <b>Clusters </b>to find the
+                        instance that you're interested in. </p>
+                     <div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>If you don't see the navigation pane on the left side of your screen, choose the menu icon
+      (<span class="inlinemediaobject"><img src="/images/documentdb/latest/devguide/images/docdb-menu-icon.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" alt="Menu button." data-alt-text-source="generated" style="max-width:85%" /></span>) 
+      in the upper-left corner of the page.</p></div></div>
+                  </li><li>
+                     <p>In the Clusters navigation box, you’ll see the column <b>Cluster
+                        Identifier</b>. Your instances are listed under clusters, similar to
+                        the following screenshot.</p>
+                     
+                     <div class="mediaobject">
+                         
+                           <img src="/images/documentdb/latest/devguide/images/choose-clusters.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Clusters table showing how an instance is nested under a cluster." style="max-width:70%" />
+                         
+                         
+                     </div>
+                     
+                  </li><li>
+                     <p>In the list of instances, expand the cluster to find the instances you are
+                        interested in. Find the instance that you want. Then, look at the
+                        <b>Size</b> column of the instance's row to see its instance
+                        class.</p>
+                     
+                     <p>In the following image, the instance class for instance <code class="code">robo3t</code>
+                        is <code class="code">db.r5.4xlarge</code>.</p>
+                     
+                     <div class="mediaobject">
+                         
+                           <img src="/images/documentdb/latest/devguide/images/instance-class.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="List of instances in the Clusters table with the Size column showing the instance type." style="max-width:100%" />
+                         
+                         
+                     </div>
+                     
+                  </li></ol></div>
+            </dd>
+         
+         <dt>Using the AWS CLI</dt><dd tab-id="using-the-aws-cli">
+               <p>To determine the class of an instance using the AWS CLI, use the
+                  <code class="code">describe-db-instances</code> operation with the following parameters.</p>
+               <div class="itemizedlist">
+                   
+                   
+               <ul class="itemizedlist"><li class="listitem">
+                     <p><code class="userinput">--db-instance-identifier</code> —
+                        Optional. Specifies the instance that you want to find the instance class for.
+                        If this parameter is omitted, <code class="code">describe-db-instances</code> returns a
+                        description for up to 100 of your instances.</p>
+                  </li><li class="listitem">
+                     <p><code class="userinput">--query</code> — Optional. Specifies
+                        the members of the instance to include in the results. If this parameter is
+                        omitted, all instance members are returned.</p>
+                  </li></ul></div>
+               
+               <div class="example"><h6>Example</h6><div class="example-contents"><p>The following example finds the instance name and class for the instance
+                     <code class="code">sample-instance-1</code>.</p><p>For Linux, macOS, or Unix:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws docdb describe-db-instances \
+    --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceClass]' \
+    --db-instance-identifier sample-instance-1</code></pre><p>For Windows:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws docdb describe-db-instances ^
+    --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceClass]' ^
+    --db-instance-identifier sample-instance-1</code></pre><p>Output from this operation looks something like the following.</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json ">[
+    [
+        "sample-instance-1",
+        "db.r5.large"
+    ]</code></pre></div></div>
+               
+               <div class="example"><h6>Example</h6><div class="example-contents"><p>The following example finds the instance name and class for up to 100 Amazon DocumentDB
+                     instances.</p><p>For Linux, macOS, or Unix:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws docdb describe-db-instances \
+    --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceClass]' \
+    --filter Name=engine,Values=docdb</code></pre><p>For Windows:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws docdb describe-db-instances ^
+    --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceClass]' ^
+    --filter Name=engine,Values=docdb</code></pre><p>Output from this operation looks something like the following.</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json ">[
+    [
+        "sample-instance-1",
+        "db.r5.large"
+    ],
+    [
+        "sample-instance-2",
+        "db.r5.large"
+    ],<code class="userinput">
+    [
+        "sample-instance-3",
+        "db.r5.4xlarge"
+    ]</code>,
+    [
+        "sample-instance-4",
+        "db.r5.4xlarge"
+    ]
+]</code></pre></div></div>
+               
+               <p>For more information, see <a href="./db-instance-view-details.html">Describing Amazon DocumentDB instances</a>. </p>
+            </dd>
+      </dl></awsdocs-tabs>
+      
+      
+      
+      
+    
+      <h2 id="db-instance-class-changing">Changing an instance's class</h2>
+
+      <p>You can change the instance class of your instance using the AWS Management Console or the AWS CLI. For
+         more information, see <a href="./db-instance-modify.html">Modifying an Amazon DocumentDB instance</a>. </p>
+    
+      <h2 id="db-instance-classes-by-region">Supported instance classes by Region</h2>
+
+      <p>Amazon DocumentDB supports the following instance classes:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">R8G</code>—Latest generation of memory-optimized instances powered by
+               Arm-based AWS Graviton4 processors that provide up to 30% better performance over R6G
+               instances.</p>
+         </li><li class="listitem">
+            <p><code class="code">R6G</code>—Memory-optimized instances powered by
+               Arm-based AWS Graviton2 processors that provide up to 30% better performance over R5
+               instances at 5% less cost.</p>
+         </li><li class="listitem">
+            <p><code class="code">R6GD</code>—Memory-optimized R6G instances with local non-volatile memory 
+               express (NVMe)-based Solid-State Drive (SSD) storage for ephemeral data.</p>
+         </li><li class="listitem">
+            <p><code class="code">R5</code>—Memory-optimized instances that provide up to 100% better
+               performance over R4 instances for the same instance cost.</p>
+         </li><li class="listitem">
+            <p><code class="code">R4</code>—Previous generation of memory-optimized instances.</p>
+         </li><li class="listitem">
+            <p><code class="code">T4G</code>—Latest-generation low cost burstable general-purpose
+               instance type powered by Arm-based AWS Graviton2 processors that provides a baseline
+               level of CPU performance, delivering up to 35% better price performance over T3
+               instances and ideal for running applications with moderate CPU usage that experience
+               temporary spikes in usage.</p>
+         </li><li class="listitem">
+            <p><code class="code">T3</code>—Low cost burstable general-purpose instance type that
+               provides a baseline level of CPU performance with the ability to burst CPU usage at
+               any time for as long as required.</p>
+         </li></ul></div>
+      <p>For detailed specifications on the instance classes, see <a href="#db-instance-class-specs">Instance class specifications</a>. </p>
+
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>I/O-Optimized storage is only available on engine versions 5.0 and 8.0 (instance-based clusters).</p></div></div>
+
+      <p>A particular instance class may or may not be supported in a given Region. The following
+         table specifies which instance classes are supported by Amazon DocumentDB in each Region.</p>
+
+      <div class="table-container"><div class="table-contents disable-scroll"><table id="w192aac17c13c11c13c13"><caption>Supported instance classes by Region</caption><thead>
+         <tr>
+            <th></th>
+            <th colspan="8" align="center" style="text-align: center;">Instance Classes</th>
+         </tr>
+         <tr>
+            <th>Region</th>
+            <th align="center" style="text-align: center;">R8G</th>
+            <th align="center" style="text-align: center;">R6GD</th>
+            <th align="center" style="text-align: center;">R6G</th>
+            <th align="center" style="text-align: center;">R5</th>
+            <th align="center" style="text-align: center;">R4</th>
+            <th align="center" style="text-align: center;">T4G</th>
+            <th align="center" style="text-align: center;">T3</th>
+            <th align="center" style="text-align: center;">Serverless</th>
+         </tr>
+      </thead>
+         <tr>
+            
+            <td tabindex="-1"><p>US East (Ohio)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>US East (N. Virginia)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>US West (Oregon)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Africa (Cape Town)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>South America (São Paulo)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Hong Kong)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Hyderabad)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Malaysia)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Mumbai)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Osaka)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Seoul)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Sydney)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Jakarta)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Melbourne)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Singapore)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Thailand)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Asia Pacific (Tokyo)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Canada (Central)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Canada West (Calgary)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Frankfurt)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Zurich)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Ireland)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (London)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Milan)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Paris)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Spain)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Europe (Stockholm)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Mexico (Central)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>Middle East (UAE)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>China (Beijing)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1"><p>China (Ningxia)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr> 
+         <tr>
+            
+            <td tabindex="-1"><p>Israel (Tel Aviv)</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr> 
+         
+         <tr>
+            
+            <td tabindex="-1">AWS GovCloud (US-West)</td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+         <tr>
+            
+            <td tabindex="-1">AWS GovCloud (US-East)</td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p></p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+            <td align="center" style="text-align: center;" tabindex="-1"><p>Supported</p></td>
+         </tr>
+      </table></div></div>
+    
+      <h2 id="db-instance-class-specs">Instance class specifications</h2>
+
+      <p>The following table provides details of the Amazon DocumentDB instance classes, including which instance types are supported in each class. You can find
+         explanations for each table column below the table.</p>
+
+      <div class="table-container"><div class="table-contents disable-scroll"><table id="w192aac17c13c11c15b5"><thead>
+               <tr>
+                  <th>Instance class</th>
+                  <th align="right" style="text-align: right;">vCPU<sup>1</sup></th>
+                  <th align="right" style="text-align: right;">Memory (GiB)<sup>2</sup></th>
+                  <th align="right" style="text-align: right;">NVMe SSD tiered cache (GiB)<sup>3</sup></th>
+                  <th align="right" style="text-align: right;">Max. temp. storage (GiB)<sup>4</sup></th>
+                  <th align="right" style="text-align: right;">Baseline / burst bandwidth (Gbps)<sup>5</sup></th>
+                  <th align="right" style="text-align: right;">Supporting Engines<sup>6</sup></th>
+               </tr>
+            </thead>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>R8G –
+                     Current Generation Memory-Optimized Instance Class based on
+                     Graviton4</b>
+                     <p>R8G is the newest instance family (Graviton4), available on engine versions 5.0 and 8.0 only.</p></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.large</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">30</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.937 / 12.5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">60</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1.875 / 12.5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.2xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">121</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.75 / 15.0</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.4xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">128</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">243</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">7.5 / 15.0</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.8xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">256</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">488</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">15</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.12xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">48</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">384</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">732</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">22</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.16xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">512</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">987</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">30</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.24xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">96</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">768</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1484</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">40</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r8g.48xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">192</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1536</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2967</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">50</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>R6G –
+                        Current Generation Memory-Optimized Instance Class based on
+                        Graviton2</b></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.large</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.75 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">63</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1.25 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.2xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">126</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2.5 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.4xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">128</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">252</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.8xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">256</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">504</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">12</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.12xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">48</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">384</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">756</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">20</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6g.16xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">512</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1008</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">25</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>R6GD –
+                     Current Generation NVMe-backed Instance Class based on
+                     Graviton2</b></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">173</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1.25 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.2xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">346</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">128</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2.5 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.4xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">128</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">694</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">256</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.8xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">256</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1388</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">512</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">12</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.12xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">48</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">384</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2082</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">768</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">20</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r6gd.16xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">512</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2776</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1024</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">25</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0.0 and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>R5 –
+                        Previous Generation Memory-Optimized Instance Class</b></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.large</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">31</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.75 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">62</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1.25 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.2xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">124</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2.5 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.4xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">128</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">249</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.8xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">256</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">504</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.12xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">48</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">384</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">748</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">12</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.16xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">512</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1008</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">20</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r5.24xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">96</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">768</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1500</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">25</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>R4 –
+                        Previous Generation Memory-Optimized Instance Class</b>
+                     <p>R4 instances are only supported on engine version 3.6. Note that Amazon DocumentDB 3.6 reaches end of standard support on March 30, 2026. Extended Support (paid) is available until March 2029.</p></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.large</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">15.25</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">30</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.75 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">30.5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">60</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">1.25 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.2xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">61</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">120</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2.5 / 10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.4xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">16</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">122</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">240</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">5.0 /10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.8xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">32</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">244</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">480</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">10</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.r4.16xlarge</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">64</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">488</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">960</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">25</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0 only</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>T4G –
+                     Latest Generation Burstable Performance Instance Classes based on Graviton2</b>
+                     <p>T-series instances run in Unlimited CPU burst mode. Burst usage beyond the baseline is billed extra. Not supported for Global Clusters.</p></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.t4g.medium</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">8.13</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.256 / 5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1"><b>T3 –
+                        Previous Generation Burstable Performance Instance Classes</b></td>
+               </tr>
+               <tr>
+                  <td style="vertical-align: top;" tabindex="-1"><code class="code">db.t3.medium</code></td>
+                  <td align="right" style="text-align: right;" tabindex="-1">2</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">4</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">-</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">7.5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">0.256 / 5</td>
+                  <td align="right" style="text-align: right;" tabindex="-1">3.6.0, 4.0.0, 5.0.0, and 8.0.0</td>
+               </tr>
+               <tr>
+                  <td colspan="7" tabindex="-1">
+                     <div class="orderedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                     <ol><li>
+                           <p><b>vCPU</b> — The number of
+                              virtual central processing units (CPUs). A virtual CPU is a unit of
+                              capacity that you can use to compare instance classes. Instead of
+                              purchasing or leasing a particular processor to use for several months
+                              or years, you are renting capacity by the hour. Our goal is to provide
+                              a consistent amount of CPU capacity no matter what the actual
+                              underlying hardware. </p>
+                        </li><li>
+                           <p><b>Memory (GiB)</b> — The RAM, in
+                              gigabytes, that is allocated to the instance. There is often a
+                              consistent ratio between memory and vCPU.</p>
+                        </li><li>
+                           <p><b>NVMe SSD tiered cache</b> — The space on the SSD volume, measured in gigabytes, allocated as extended cache for storing ephemeral data. 
+                              This cache is only available in NVMe-backed instances.</p>
+                        </li><li>
+                           <p><b>Max. temp. storage (GiB)</b> — The space, measured in gigabytes, allocated to the instance for non-persistent temporary file storage. 
+                              For NVMe-backed instances, this storage is hosted on an NVMe-based SSD volume. 
+                              In all other instances, it is hosted on Amazon Elastic Block Store (EBS).</p>
+                        </li><li>
+                           <p><b>Baseline / burst bandwidth (Gbps)</b> — Burst bandwidth represents the maximum bandwidth in gigabits per second. 
+                              Divide by 8 to get the expected throughput in gigabytes per second. 
+                              Instances of size 4xlarge and smaller have a baseline bandwidth. 
+                              To meet additional demand, they can use a network I/O credit mechanism to burst beyond their baseline bandwidth. 
+                              Instances can use burst bandwidth for a limited time, typically from 5 to 60 minutes, depending on the instance size.</p>
+                        </li><li>
+                           <p><b>Supporting Engines</b> — The
+                              Amazon DocumentDB engines that support the instance class.</p>
+                        </li></ol></div>
+                  </td>
+               </tr>
+            </table></div></div>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./db-instance-delete.html">Deleting an instance</div><div id="next" class="next-link" accesskey="n" href="./db-instance-nvme.html">NVMe-backed instances</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DocumentDB&amp;topic_url=https://docs.aws.amazon.com/en_us/documentdb/latest/devguide/db-instance-classes.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DocumentDB&amp;topic_url=https://docs.aws.amazon.com/en_us/documentdb/latest/devguide/db-instance-classes.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>How AWS Transit Gateway works - Amazon VPC</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="how-transit-gateways-work" /><meta name="default_state" content="how-transit-gateways-work" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html" /><meta name="description" content="Learn how transit gateways work in routing traffic as it flows between your VPCs and on-premises networks." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon VPC" /><meta name="guide" content="AWS Transit Gateway" /><meta name="abstract" content="A transit gateway is a network transit hub that you can use to interconnect your virtual private clouds and on-premises networks. A transit gateway is a network transit hub that you can use to interconnect your virtual private clouds and on-premises networks." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html" hreflang="x-default" /><meta name="feedback-item" content="TGW" /><meta name="this_doc_product" content="Amazon VPC" /><meta name="this_doc_guide" content="AWS Transit Gateway" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc'}"></script><meta id="panorama-serviceSubSection" value="AWS Transit Gateway" /><meta id="panorama-serviceConsolePage" value="How AWS Transit Gateway works" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="how-transit-gateways-work.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>How AWS Transit Gateway works - Amazon VPC</title><meta name="pdf" content="/pdfs/vpc/latest/tgw/vpc-tgw.pdf#how-transit-gateways-work" /><meta name="rss" content="transit-gateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TATGuEiYydTVCPMhSnXFN6gA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/how-transit-gateways-work.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/how-transit-gateways-work.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/how-transit-gateways-work.html" /><meta name="keywords" content="resource attachments,route table,scenario,transit gateway,example,isolated,shared service,shared,peering,nat,gateway,router,appliance" /><link rel="alternate" type="text/markdown" href="how-transit-gateways-work.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "AWS Transit Gateway",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/tgw"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "How AWS Transit Gateway works",
+        "item" : "https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpc/latest/tgw/vpc-tgw.pdf#how-transit-gateways-work" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/vpc/index.html">Amazon VPC</a><a href="what-is-transit-gateway.html">AWS Transit Gateway</a></div><div id="page-toc-src"><a href="#architecture-diagram">Example architecture diagram</a><a href="#tgw-attachments-overview">Resource attachments</a><a href="#tgw-ecmp">Equal Cost Multipath routing</a><a href="#tgw-az-overview">Availability Zones</a><a href="#tgw-routing-overview">Routing</a><a href="#nf-attachment-overview">Network function attachments</a><a href="#TGW_Scenarios">Example transit gateway scenarios</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="how-transit-gateways-work">How AWS Transit Gateway works</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In AWS Transit Gateway, a transit gateway acts as a Regional virtual router for traffic flowing between your
+        virtual private clouds (VPCs) and on-premises networks. A transit gateway scales elastically based on
+        the volume of network traffic. Routing through a transit gateway operates at layer 3, where the
+        packets are sent to a specific next-hop attachment, based on the destination IP
+        addresses.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#architecture-diagram">Example architecture diagram</a></p></li><li><p><a href="#tgw-attachments-overview">Resource attachments</a></p></li><li><p><a href="#tgw-ecmp">Equal Cost Multipath routing</a></p></li><li><p><a href="#tgw-az-overview">Availability Zones</a></p></li><li><p><a href="#tgw-routing-overview">Routing</a></p></li><li><p><a href="#nf-attachment-overview">Network function attachments</a></p></li><li><p><a href="#TGW_Scenarios">Example transit gateway scenarios</a></p></li></ul></div>
+        <h2 id="architecture-diagram">Example architecture diagram</h2>
+        <p>The following diagram shows a transit gateway with three VPC attachments. The route table for each
+            of these VPCs includes the local route and routes that send traffic destined for the other
+            two VPCs to the transit gateway.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/vpc/latest/tgw/images/transit-gateway-overview.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="VPC connectivity options" />
+             
+             
+        </div>
+
+        <p>The following is an example of a default transit gateway route table for the attachments
+            shown in the previous diagram. The CIDR blocks for each VPC propagate to the route table.
+            Therefore, each attachment can route packets to the other two attachments.</p>
+        <div class="table-container"><div class="table-contents"><table id="w112aab7b7b9"><thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Target</th>
+                        <th>Route type</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">
+                            <code class="replaceable">VPC A CIDR</code>
+                        </td>
+                        <td tabindex="-1">
+                            <code class="replaceable">Attachment for VPC A</code>
+                        </td>
+                        <td tabindex="-1">propagated</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <code class="replaceable">VPC B CIDR</code>
+                        </td>
+                        <td tabindex="-1">
+                            <code class="replaceable">Attachment for VPC B</code>
+                        </td>
+                        <td tabindex="-1">propagated</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <code class="replaceable">VPC C CIDR</code>
+                        </td>
+                        <td tabindex="-1">
+                            <code class="replaceable">Attachment for VPC C</code>
+                        </td>
+                        <td tabindex="-1">propagated</td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="tgw-attachments-overview">Resource attachments</h2>
+        <p>A transit gateway attachment is both a source and a destination of packets. You can attach the
+            following resources to your transit gateway:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>One or more VPCs. AWS Transit Gateway deploys an elastic network interface within VPC
+                    subnets, which is then used by the transit gateway to route traffic to and from the chosen
+                    subnets. You must have at least one subnet for each Availability Zone, which
+                    then enables traffic to reach resources in every subnet of that zone. During
+                    attachment creation, resources within a particular Availability Zone can reach a
+                    transit gateway only if a subnet is enabled within the same zone. If a subnet route table
+                    includes a route to the transit gateway, traffic is only forwarded to the transit gateway if the
+                    transit gateway has an attachment in the subnet of the same Availability Zone.</p>
+            </li><li class="listitem">
+                <p>One or more VPN connections</p>
+            </li><li class="listitem">
+                <p>One or more VPN Concentrators</p>
+            </li><li class="listitem">
+                <p>One or more AWS Direct Connect gateways</p>
+            </li><li class="listitem">
+                <p>One or more Transit Gateway Connect attachments</p>
+            </li><li class="listitem">
+                <p>One or more transit gateway peering connections</p>
+            </li></ul></div>
+     
+        <h2 id="tgw-ecmp">Equal Cost Multipath routing</h2>
+         
+            <p>AWS Transit Gateway supports Equal Cost Multipath (ECMP) routing for most attachments. For a
+                VPN attachment, you can enable or disable ECMP support using the console when
+                creating or modifying a transit gateway. For all other attachment types, the following ECMP
+                restrictions apply:</p>
+         
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>VPC - VPC does not support ECMP since CIDR blocks cannot overlap. For example,
+                    you can't attach a VPC with a CIDR 10.1.0.0/16 with a second VPC using the same
+                    CIDR to a transit gateway, and then set up routing to load balance the traffic between
+                    them.</p>
+            </li><li class="listitem">
+                <p>VPN - When the <b>VPN ECMP support </b>option is disabled, a
+                    transit gateway uses internal metrics to determine the preferred path in the event of
+                    equal prefixes across multiple paths.  For more information on enabling or
+                    disabling ECMP for a VPN attachment, see <a href="./tgw-transit-gateways.html">Transit gateways in AWS Transit Gateway</a>. </p>
+            </li><li class="listitem">
+                <p>AWS Transit Gateway Connect - AWS Transit Gateway Connect attachments automatically support
+                    ECMP. </p>
+            </li><li class="listitem">
+                <p>AWS Direct Connect Gateway - AWS Direct Connect Gateway attachments automatically
+                    support ECMP across multiple Direct Connect Gateway attachments when the network
+                    prefix, prefix length, and AS_PATH are exactly the same. </p>
+            </li><li class="listitem">
+                <p>Transit gateway peering - Transit gateway peering does not support ECMP since
+                    it neither supports dynamic routing nor can you configure the same static route
+                    against two different targets.</p>
+            </li><li class="listitem">
+                <p>VPN Concentrator - VPN Concentrator does not support ECMP.</p>
+            </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>BGP Multipath AS-Path Relax is not supported, so you can't use ECMP over
+                        different Autonomous System Numbers (ASNs).</p>
+                </li><li class="listitem">
+                    <p>ECMP is not supported between different attachment types. For example, you
+                        can't enable ECMP between a VPN and a VPC attachment. Instead, transit gateway routes
+                        are evaluated and traffic routed accordingly to the evaluated route. For
+                        more information, see <a href="#tgw-route-evaluation-overview">Route evaluation order</a>.</p>
+                </li><li class="listitem">
+                    <p>A single Direct Connect gateway supports ECMP across multiple transit
+                        virtual interfaces. Therefore, we recommended that you set up and use only a
+                        single Direct Connect gateway and to not set up and use multiple gateways to
+                        take advantage of ECMP. For more information about Direct Connect gateways
+                        and public virtual interfaces, see <a href="https://repost.aws/knowledge-center/dx-create-dx-connection-from-public-vif" rel="noopener noreferrer" target="_blank"><span>How do I set up an Active/Active or Active/Passive Direct Connect
+                            connection to AWS from a public virtual interface?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li></ul></div></div></div>
+     
+        <h2 id="tgw-az-overview">Availability Zones</h2>
+        <p>When you attach a VPC to a transit gateway, you must enable one or more Availability Zones to be
+            used by the transit gateway to route traffic to resources in the VPC subnets. To enable each
+            Availability Zone, you specify exactly one subnet. The transit gateway places a network interface
+            in that subnet using one IP address from the subnet. After you enable an Availability
+            Zone by specifying a subnet, traffic can be routed to all subnets in that Availability
+            Zone, not just the one you specified. However, only resources that reside in
+            Availability Zones where there is a transit gateway attachment can reach the transit gateway.</p>
+        <p>If traffic is sourced from an Availability Zone that the destination attachment is not
+            present in, AWS Transit Gateway will internally route that traffic to a random Availability Zone
+            where the attachment is present. There is no additional transit gateway charge for this
+            type of cross-Availability Zone traffic.</p>
+        <p>We recommend that you enable multiple Availability Zones to ensure
+            availability.</p>
+         
+            <h6>Using appliance mode support</h6>
+            <p>If you plan to configure a stateful network appliance in your VPC, you can enable
+                appliance mode support for the VPC attachment in which the appliance is located.
+                This ensures that the transit gateway uses the same Availability Zone for that VPC attachment
+                for the lifetime of a flow of traffic between source and destination. It also allows
+                the transit gateway to send traffic to any Availability Zone in the VPC, as long as there is a
+                subnet association in that zone. For more information, see <a href="#transit-gateway-appliance-scenario">Example: Appliance in a shared services VPC</a>.</p>
+         
+     
+        <h2 id="tgw-routing-overview">Routing</h2>
+        <p>Your transit gateway routes IPv4 and IPv6 packets between attachments using transit gateway route tables.
+            You can configure these route tables to propagate routes from the route tables for the
+            attached VPCs, VPN connections, and Direct Connect gateways. You can also add static
+            routes to the transit gateway route tables. When a packet comes from one attachment, it is routed
+            to another attachment using the route that matches the destination IP address.</p>
+        <p>For transit gateway peering attachments, only static routes are supported.</p>
+        <div class="highlights" id="inline-topiclist"><h6>Routing topics</h6><ul><li><p><a href="#tgw-route-tables-overview">Route tables</a></p></li><li><p><a href="#tgw-route-table-association-overview">Route table association</a></p></li><li><p><a href="#tgw-route-propagation-overview">Route propagation</a></p></li><li><p><a href="#tgw-route-table-peering">Routes for peering attachments</a></p></li><li><p><a href="#tgw-route-evaluation-overview">Route evaluation order</a></p></li></ul></div>
+         
+            <h3 id="tgw-route-tables-overview">Route tables</h3>
+            <p>Your transit gateway automatically comes with a default route table. By default, this route
+                table is the default association route table and the default propagation route
+                table. If you disable both route propagation and route table association, AWS does
+                not create a default route table for the transit gateway. However, if either route propagation
+                or route table association is enabled, AWS then creates a default route
+                table.</p>
+            <p>You can create additional route tables for your transit gateway. This enables you to isolate
+                subsets of attachments. Each attachment can be associated with one route table. An
+                attachment can propagate its routes to one or more route tables.</p>
+            <p>You can create a blackhole route in your transit gateway route table that drops traffic that
+                matches the route.</p>
+            <p>When you attach a VPC to a transit gateway, you must add a route to your subnet
+                route table in order for traffic to route through the transit gateway. For more
+                information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/route-table-options.html#route-tables-tgw">Routing for a
+                    Transit Gateway</a> in the <em>Amazon VPC User Guide</em>.</p>
+         
+
+         
+            <h3 id="tgw-route-table-association-overview">Route table association</h3>
+            <p>You can associate a transit gateway attachment with a single route table. Each route table
+                can be associated with zero to many attachments and can forward packets to other
+                attachments.</p>
+         
+
+         
+            <h3 id="tgw-route-propagation-overview">Route propagation</h3>
+            <p>Each attachment comes with routes that can be installed in one or more transit gateway route
+                tables. When an attachment is propagated to a transit gateway route table, these routes are
+                installed in the route table. You can't filter on advertised routes.</p>
+            <p>For a VPC attachment, the CIDR blocks of the VPC are propagated to the transit
+                gateway route table. </p>
+            <p>When dynamic routing is used with a VPN attachment, VPN Concentrator attachment or a Direct Connect gateway
+                attachment, you can propagate the routes learned from the on-premises router through
+                BGP to any of the transit gateway route tables.</p>
+            <p>When dynamic routing is used with a VPN attachment or a VPN Concentrator attachment, the routes in the route table
+                associated with the VPN attachment or VPN Concentrator attachment are advertised to the customer gateway through
+                BGP.</p>
+            <p>For a Connect attachment, routes in the route table associated with the Connect
+                attachment are advertised to the third-party virtual appliances, such as SD-WAN
+                appliances, running in a VPC through BGP.</p>
+            <p>For a Direct Connect gateway attachment, <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/allowed-to-prefixes.html">allowed prefixes interactions</a> 
+                control which routes are advertised to the customer network from AWS.</p>
+            <p>When a static route and a propagated route have the same destination, the static
+                route has the higher priority, so the propagated route is not included in the route
+                table. If you remove the static route, the overlapping propagated route is included
+                in the route table.</p>
+         
+
+         
+            <h3 id="tgw-route-table-peering">Routes for peering attachments</h3>
+            <p>You can peer two transit gateways, and route traffic between them. To do this, you create a
+                peering attachment on your transit gateway, and specify the peer transit gateway with which to create
+                the peering connection. You then create a static route in your transit gateway route table to
+                route traffic to the transit gateway peering attachment. Traffic that's routed to the peer
+                transit gateway can then be routed to the VPC and VPN attachments for the peer transit gateway.</p>
+            <p>For more information, see <a href="#transit-gateway-peering-scenario">Example: Peered transit gateways</a>.</p>
+         
+
+         
+            <h3 id="tgw-route-evaluation-overview">Route evaluation order</h3>
+            <p>Transit gateway routes are evaluated in the following order:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The most specific route for the destination address.</p>
+                </li><li class="listitem">
+                    <p>For routes with the same CIDR, but from different attachment types, the
+                        route priority is as follows:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Static routes (for example, Site-to-Site VPN static routes)</p>
+                        </li><li class="listitem">
+                            <p>Prefix list referenced routes </p>
+                        </li><li class="listitem">
+                            <p>VPC-propagated routes</p>
+                        </li><li class="listitem">
+                            <p>Direct Connect gateway-propagated routes </p>
+                        </li><li class="listitem">
+                            <p>Transit Gateway Connect-propagated routes </p>
+                        </li><li class="listitem">
+                            <p>Site-to-Site VPN over private Direct Connect-propagated
+                                routes</p>
+                        </li><li class="listitem">
+                            <p>Site-to-Site VPN-propagated routes</p>
+                        </li><li class="listitem">
+                            <p>Site-to-Site VPN-Concentrator propagated routes</p>
+                        </li><li class="listitem">
+                            <p>Client VPN propagated routes</p>
+                        </li><li class="listitem">
+                            <p>Transit Gateway peering-propagated routes (Cloud WAN)</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>Some attachments support route advertisement over BGP. For routes with the same
+                CIDR, and from the same attachment type, the route priority is controlled by BGP
+                attributes:</p>
+                    <div class="itemizedlist">
+                 
+                 
+                 
+
+                    <ul class="itemizedlist"><li class="listitem">
+                    <p>Shorter AS Path length</p>
+                </li><li class="listitem">
+                    <p>Lower MED value</p>
+                </li><li class="listitem">
+                    <p>eBGP over iBGP routes are preferred, if the attachment supports it</p>
+<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>AWS can't guarantee a consistent route prioritization order
+                                    for BGP routes with the same CIDR, attachment type, and BGP
+                                    attributes as listed above.</p>
+                            </li><li class="listitem">
+                                <p>For routes advertised to a transit gateway without MED,
+                                    AWS Transit Gateway will assign the following default values:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>0 for inbound routes advertised on Direct Connect
+                                            attachments.</p>
+                                    </li><li class="listitem">
+                                        <p>100 for inbound routes advertised on VPN and Connect
+                                            attachments.</p>
+                                    </li></ul></div>
+                            </li></ul></div></div></div>
+                </li></ul></div>
+                   
+                
+            <p>AWS Transit Gateway only shows a preferred route. A backup route will only appear in the
+                transit gateway route table if the previously active route is no longer advertised —
+                for example, if you are advertising the same routes over the Direct Connect gateway
+                and over Site-to-Site VPN. AWS Transit Gateway will only show the routes received from the
+                Direct Connect gateway route, which is the preferred route. The Site-to-Site VPN,
+                which is the backup route, will only display when the Direct Connect gateway is no
+                longer advertised.</p>
+             
+                <h4 id="tgw-vpc-route-tbl">VPC and transit gateway route table differences</h4>
+                <p>Route table evaluation differs between whether you're using a VPC route table
+                    or a transit gateway route table. </p>
+            <p>The following example shows a VPC route table. The VPC local route has the highest
+                    priority, followed by the routes that are the most specific. When a static route
+                    and a propagated route have the same destination, the static route has a higher
+                    priority.</p>
+            <div class="table-container"><div class="table-contents"><table id="w112aab7c15c17c13b7"><thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Target</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">10.0.0.0/16</td>
+                            <td tabindex="-1">
+                                <p>local</p>
+                            </td>
+                            <td tabindex="-1">1</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">192.168.0.0/16</td>
+                            <td tabindex="-1">pcx-12345</td>
+                            <td tabindex="-1">2</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">172.31.0.0/16</td>
+                            <td tabindex="-1">vgw-12345 (static) or<p>tgw-12345 (static)</p></td>
+                            <td tabindex="-1">2</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">172.31.0.0/16</td>
+                            <td tabindex="-1">vgw-12345 (propagated)</td>
+                            <td tabindex="-1">3</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">0.0.0.0/0</td>
+                            <td tabindex="-1">igw-12345</td>
+                            <td tabindex="-1">4</td>
+                        </tr>
+                    </table></div></div>
+            <p>The following example shows a transit gateway route table. If you prefer the Direct Connect
+                    gateway attachment to the VPN attachment, use a BGP VPN connection and propagate
+                    the routes in the transit gateway route table.</p>
+            <div class="table-container"><div class="table-contents"><table id="w112aab7c15c17c13c11"><thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Attachment (Target)</th>
+                            <th>Resource type</th>
+                            <th>Route type</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">10.0.0.0/16</td>
+                            <td tabindex="-1">tgw-attach-123 | vpc-1234</td>
+                            <td tabindex="-1">VPC</td>
+                            <td tabindex="-1">Static or propagated</td>
+                            <td tabindex="-1">1</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">192.168.0.0/16</td>
+                            <td tabindex="-1">tgw-attach-789 | vpn-5678</td>
+                            <td tabindex="-1">VPN</td>
+                            <td tabindex="-1">Static</td>
+                            <td tabindex="-1">2</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">172.31.0.0/16</td>
+                            <td tabindex="-1">tgw-attach-456 | dxgw_id</td>
+                            <td tabindex="-1">Direct Connect gateway</td>
+                            <td tabindex="-1">Propagated</td>
+                            <td tabindex="-1">3</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">172.31.0.0/16</td>
+                            <td tabindex="-1">tgw-attach-789 | tgw-connect-peer-123</td>
+                            <td tabindex="-1">Connect</td>
+                            <td tabindex="-1">Propagated</td>
+                            <td tabindex="-1">4</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">172.31.0.0/16</td>
+                            <td tabindex="-1">tgw-attach-789 | vpn-5678</td>
+                            <td tabindex="-1">VPN</td>
+                            <td tabindex="-1">Propagated</td>
+                            <td tabindex="-1">5</td>
+                        </tr>
+                    </table></div></div>
+         
+         
+        
+
+
+     
+        <h2 id="nf-attachment-overview">Network function attachments</h2>
+        <p> A network function attachment is a resource that connects a network security function
+            —  for example, an AWS Network Firewall attachment — directly to your transit gateway. It
+            eliminates the need to manually create and manage inspection VPCs. </p>
+        <p>With a network function attachment: </p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>AWS automatically creates and manages the underlying infrastructure </p>
+            </li><li class="listitem">
+                <p>Traffic can be inspected as it flows through your transit gateway</p>
+            </li><li class="listitem">
+                <p>Security policies are applied consistently across your network </p>
+            </li></ul></div>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You can direct traffic through the firewall using simple routing rules</p>
+            </li><li class="listitem">
+                <p>The attachment works across multiple Availability Zones for high availability
+                </p>
+            </li></ul></div>
+                   <p> This integration simplifies network security by allowing you to attach
+            firewalls directly to your transit gateway rather than creating complex routing
+            configurations and managing separate endpoints through separate VPCs. </p>
+        
+         
+            <h3 id="nf-attachment-nfw">AWS Network Firewall integration</h3>
+            <p>AWS Network Firewall integration allows you to connect a firewall in the form of a group of
+                Gateway Load Balancer Endpoints, one per Availability Zone, in a service-managed
+                buffer VPC. A Network Firewall attachment is created with appliance mode automatically
+                enabled. This eliminates the need to explicitly manage inspection VPCs. </p>
+        <p>With Network Firewall integration, you no longer need to create and manage inspection
+                VPCs for your Network Firewall deployments. Instead of selecting a VPC and subnets
+                when creating your firewall, you directly select the Transit Gateway, and AWS
+                automatically provisions and manages all the necessary resources behind the scenes.
+                You'll see a new transit gateway network function attachment rather than an
+                individual firewall endpoint.</p>
+        <p>For cross-account scenarios, the Transit Gateway can be RAM-shared from the Transit Gateway owner to the Network Firewall owner account, allowing either account to manage the firewall attachment. Once your firewall and attachment are ready, you can simply modify your Transit Gateway route tables to send traffic to the attachment for inspection.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Transit Gateway supports only static routing on Network Firewall
+                            attachments.</p>
+                    </li><li class="listitem">
+                        <p>Third-party firewalls are not supported.</p>
+                    </li></ul></div></div></div>
+        <p>For more information about firewalls and attachments see <a href="./tgw-nf-fw.html">Transit gateway network function attachments</a>.</p>
+     
+ 
+     
+	<h2 id="TGW_Scenarios">Example transit gateway scenarios</h2>
+	
+	<p>The following are common use cases for transit gateways. Your transit gateways are not 
+		limited to these use cases.</p>
+	<div class="highlights" id="inline-topiclist"><h6>Examples</h6><ul></ul></div>
+	
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Centralized router" id="transit-gateway-centralized-router" expanded="false"><p>You can configure your transit gateway as a centralized router that connects all of your VPCs,
+		AWS Direct Connect, and Site-to-Site VPN connections. In this scenario, all attachments are associated
+		with the transit gateway default route table and propagate to the transit gateway default
+		route table. Therefore, all attachments can route packets to each other, with the transit gateway
+		serving as a simple layer 3 IP router.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#transit-gateway-centralized-router-overview">Overview</a></p></li><li><p><a href="#transit-gateway-centralized-router-resources">Resources</a></p></li><li><p><a href="#transit-gateway-centralized-router-routing">Routing</a></p></li></ul></div>
+		<h4 id="transit-gateway-centralized-router-overview">Overview</h4>
+		
+		<p>The following diagram shows the key components of the configuration for this scenario. In
+            this scenario, there are three VPC attachments and one Site-to-Site VPN attachment to the transit gateway.
+            Packets from the subnets in VPC A, VPC B, and VPC C that are destined for a subnet in
+            another VPC or for the VPN connection first route through the transit gateway.</p>
+		
+		 <div class="mediaobject">
+			 
+				<img src="/images/vpc/latest/tgw/images/transit-gateway-three-vpcs.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A transit gateway with three VPC attachments and one VPN attachment." style="max-width:100%" />
+			 
+		 	 
+		 </div>
+	 
+		<h4 id="transit-gateway-centralized-router-resources">Resources</h4>
+    	<p>Create the following resources for this scenario:</p>
+    	<div class="itemizedlist">
+    		 
+    		 
+    		 
+    		 
+    	<ul class="itemizedlist"><li class="listitem">
+    			<p>Three VPCs. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a>
+					in the <em>Amazon VPC User Guide</em>.</p>
+    		</li><li class="listitem">
+    			<p>A transit gateway. For more information, see <a href="./create-tgw.html">Create a transit gateway in AWS Transit Gateway</a>.</p>
+    		</li><li class="listitem">
+    			<p>Three VPC attachments on the transit gateway. For more information, see <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.</p>
+    		</li><li class="listitem">
+    			<p>A Site-to-Site VPN attachment on the transit gateway. The CIDR blocks for each VPC propagate to
+    				the transit gateway route table. When the VPN connection is up, the BGP session is established and 
+    				the Site-to-Site VPN CIDR propagates to the transit gateway route table and the VPC CIDRs are added to the 
+    				customer gateway BGP table. For more information, see <a href="./create-vpn-attachment.html">Create a transit gateway attachment to a VPN in AWS Transit Gateway</a>.</p> 
+    			<p>Ensure that you review the <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html#CGRequirements">requirements for your customer gateway device</a> in the <em>AWS Site-to-Site VPN 
+    					User Guide</em>.</p>
+    		</li></ul></div>
+     
+		<h4 id="transit-gateway-centralized-router-routing">Routing</h4>
+		<p>Each VPC has a route table and there is a route table for the transit gateway.</p>
+		 
+			<h5 id="transit-gateway-centralized-router-vpc-route-tables">VPC route tables</h5>
+			<p>Each VPC has a route table with 2 entries. The first entry is the default entry for local
+				IPv4 routing in the VPC; this entry enables the instances in this VPC to communicate
+				with each other. The second entry routes all other IPv4 subnet traffic to the transit gateway.
+				The following table shows the VPC A routes.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19b7b1c11b5b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.1.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1">
+								<p><em>tgw-id</em></p>
+							</td>
+						</tr>
+					</table></div></div>
+			
+		 
+		
+		 
+			<h5 id="transit-gateway-centralized-router-tgw-route-table">Transit gateway route table</h5>
+			<p>The following is an example of a default route table for the attachments shown in
+				the previous diagram, with route propagation enabled.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19b7b1c11b7b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.1.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC A</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.2.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC B</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.3.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC C</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.99.99.0/24</p>
+							</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPN connection </code></td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+					</table></div></div>
+		 
+		 
+			<h5 id="transit-gateway-centralized-router-vpn-route-table">Customer gateway BGP table</h5>
+			<p>The customer gateway BGP table contains the following VPC CIDRs.</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>10.1.0.0/16</p>
+				</li><li class="listitem">
+					<p>10.2.0.0/16</p>
+				</li><li class="listitem">
+					<p>10.3.0.0/16</p>
+				</li></ul></div>
+		 
+	</awsui-expandable-section></div>
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Isolated VPCs" id="transit-gateway-isolated" expanded="false"><p>You can configure your transit gateway as multiple isolated routers. This is similar to using multiple
+		transit gateways, but provides more flexibility in cases where the routes and attachments might
+		change. In this scenario, each isolated router has a single route table. All attachments
+		associated with an isolated router propagate and associate with its route table. Attachments
+		associated with one isolated router can route packets to each other, but cannot route
+		packets to or receive packets from the attachments for another isolated router.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#transit-gateway-isolated-overview">Overview</a></p></li><li><p><a href="#transit-gateway-isolated-resources">Resources</a></p></li><li><p><a href="#transit-gateway-isolated-routes">Routing</a></p></li></ul></div>
+		<h4 id="transit-gateway-isolated-overview">Overview</h4>
+		
+		<p>The following diagram shows the key components of the configuration for this scenario.
+            Packets from VPC A, VPC B, and VPC C route to the transit gateway. Packets from the subnets in
+            VPC A, VPC B, and VPC C that have the internet as a destination first route through the
+            transit gateway and then route to the Site-to-Site VPN connection (if the destination is within that
+            network). Packets from one VPC that have a destination of a subnet in another VPC, for
+            example from 10.1.0.0 to 10.2.0.0, route through the transit gateway, where they are blocked
+            because there is no route for them in the transit gateway route table. </p>
+		
+		 <div class="mediaobject">
+			 
+				<img src="/images/vpc/latest/tgw/images/transit-gateway-isolated.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A transit gateway with three VPC attachments and one VPN attachment." style="max-width:60%" />
+			 
+		 	 
+		 </div>
+	 
+		<h4 id="transit-gateway-isolated-resources">Resources</h4>
+		<p>Create the following resources for this scenario:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Three VPCs. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a> 
+					in the <em>Amazon VPC User Guide</em>.</p>
+			</li><li class="listitem">
+				<p>A transit gateway. For more information, see <a href="./create-tgw.html">Create a transit gateway in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>Three attachments on the transit gateway for the three VPCs. For more information, see <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>A Site-to-Site VPN attachment on the transit gateway. For more information, see <a href="./create-vpn-attachment.html">Create a transit gateway attachment to a VPN in AWS Transit Gateway</a>. Ensure that you review the <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html#CGRequirements">requirements for your
+						customer gateway device</a> in the <em>AWS Site-to-Site VPN
+							User Guide</em>.</p>
+			</li></ul></div>
+		<p>When the VPN connection is up, the BGP session is established and the VPN CIDR propagates to
+			the transit gateway route table and the VPC CIDRs are added to the customer gateway BGP
+			table.</p>
+	 
+		<h4 id="transit-gateway-isolated-routes">Routing</h4>
+		<p>Each VPC has a route table, and the transit gateway has two route tables—one for the VPCs and one for
+            the VPN connection.</p>
+		 
+			<h5 id="transit-gateway-isolated-route-tables">VPC A, VPC B, and VPC C route tables</h5>
+			<p>Each VPC has a route table with 2 entries. The first entry is the default entry for local
+                IPv4 routing in the VPC. This entry enables the instances in this VPC to communicate
+                with each other. The second entry routes all other IPv4 subnet traffic to the transit gateway.
+                The following table shows the VPC A routes.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19b9b1c11b5b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.1.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">0.0.0.0/0</td>
+							<td tabindex="-1">
+								<p><em>tgw-id</em></p>
+							</td>
+						</tr>
+					</table></div></div>
+			
+		 
+		
+		 
+			<h5 id="transit-gateway-isolated-route-table-tgw-route-table">Transit gateway route tables</h5>
+			<p>This scenario uses one route table for the VPCs and one route table for the VPN connection. </p>
+            <p>The VPC attachments are associated with the following route table, which has a
+                propagated route for the VPN attachment.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19b9b1c11b7b7"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">10.99.99.0/24</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPN connection</code></td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+					</table></div></div>
+			<p>The VPN attachment is associated with the following route table, which has propagated
+                routes for each of the VPC attachments. </p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19b9b1c11b7c11"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.1.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC A</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.2.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC B</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.3.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC C</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+					</table></div></div>
+		    <p>For more information about propagating routes in a transit gateway route table, see <a href="./enable-tgw-route-propagation.html">Enable route propagation to a transit gateway route table in AWS Transit Gateway</a>.</p>
+		 
+		 
+			<h5 id="transit-gateway-isolated-route-table-bgp-table">Customer gateway BGP table</h5>
+			<p>The customer gateway BGP table contains the following VPC CIDRs.</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>10.1.0.0/16</p>
+				</li><li class="listitem">
+					<p>10.2.0.0/16</p>
+				</li><li class="listitem">
+					<p>10.3.0.0/16</p>
+				</li></ul></div>
+		 
+	</awsui-expandable-section></div>
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Isolated VPCs with shared services" id="transit-gateway-isolated-shared" expanded="false"><p>You can configure your transit gateway as multiple isolated routers that use a shared service. This is
+        similar to using multiple transit gateways, but provides more flexibility in cases where the routes
+        and attachments might change. In this scenario, each isolated router has a single route
+        table. All attachments associated with an isolated router propagate and associate with its
+        route table. Attachments associated with one isolated router can route packets to each
+        other, but cannot route packets to or receive packets from the attachments for another
+        isolated router. Attachments can route packets to or receive packets from the shared
+        services. You can use this scenario when you have groups that need to be isolated, but use a
+        shared service, for example a production system.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#Ttransit-gateway-isolated-shared-overview">Overview</a></p></li><li><p><a href="#transit-gateway-isolated-shared-resources">Resources</a></p></li><li><p><a href="#transit-gateway-isolated-shared-routes">Routing</a></p></li></ul></div>
+		<h4 id="Ttransit-gateway-isolated-shared-overview">Overview</h4>
+		
+		<p>The following diagram shows the key components of the configuration for this scenario.
+			Packets from the subnets in VPC A, VPC B, and VPC C that have the internet as a
+			destination, first route through the transit gateway and then route to the customer gateway for
+			Site-to-Site VPN. Packets from subnets in VPC A, VPC B, or VPC C that have a destination of a
+			subnet in VPC A, VPC B, or VPC C route through the transit gateway, where they are blocked because
+			there is no route for them in the transit gateway route table. Packets from VPC A, VPC B, and VPC
+			C that have VPC D as the destination route through the transit gateway and then to VPC D.</p>
+		
+		 <div class="mediaobject">
+			 
+				<img src="/images/vpc/latest/tgw/images/transit-gateway-isolated_shared.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A transit gateway with four VPC attachments and one VPN attachment." style="max-width:60%" />
+			 
+		 	 
+		 </div>
+	 
+		<h4 id="transit-gateway-isolated-shared-resources">Resources</h4>
+		<p>Create the following resources for this scenario:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Four VPCs. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a> 
+					in the <em>Amazon VPC User Guide</em>.</p>
+			</li><li class="listitem">
+				<p>A transit gateway. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-transit-gateways.html">Create a transit gateway</a>.</p>
+			</li><li class="listitem">
+				<p>Four attachments on the transit gateway, one per VPC. For more information, see <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>A Site-to-Site VPN attachment on the transit gateway. For more information, see <a href="./create-vpn-attachment.html">Create a transit gateway attachment to a VPN in AWS Transit Gateway</a>.</p> 
+				<p>Ensure that you review the <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html#CGRequirements">requirements 
+					for your customer gateway device</a> in the <em>AWS Site-to-Site VPN User Guide</em>.</p>
+			</li></ul></div>
+		<p>When the VPN connection is up, the BGP session is established and the VPN CIDR propagates to
+			the transit gateway route table and the VPC CIDRs are added to the customer gateway BGP
+			table.</p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Each isolated VPC is associated with the isolated route table and propagated
+					to the shared route table.</p>
+			</li><li class="listitem">
+				<p>Each shared services VPC is associated with the shared route table and
+					propagated to both route tables.</p>
+			</li></ul></div>
+	 
+		<h4 id="transit-gateway-isolated-shared-routes">Routing</h4>
+		<p>Each VPC has a route table, and the transit gateway has two route tables—one for the VPCs and
+            one for the VPN connection and shared services VPC.</p>
+		 
+			<h5 id="transit-gateway-isolated-shared-route-tables">VPC A, VPC B, VPC C, and VPC D route tables</h5>
+			<p>Each VPC has a route table with two entries. The first entry is the default entry for local
+				routing in the VPC; this entry enables the instances in this VPC to communicate with
+				each other. The second entry routes all other IPv4 subnet traffic to the
+				transit gateway.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c11b1c11b5b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">10.1.0.0/16</td>
+							<td tabindex="-1">local</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">0.0.0.0/0</td>
+							<td tabindex="-1"><code class="replaceable">transit gateway ID</code></td>
+						</tr>
+					</table></div></div>
+			
+		 
+		
+		 
+			<h5 id="transit-gateway-isolated-shared-route-table-tgw-route-table">Transit gateway route tables</h5>
+            <p>This scenario uses one route table for the VPCs and one route table for the VPN
+                connection. </p>
+            <p>The VPC A, B, and C attachments are associated with the following route table,
+                which has a propagated route for the VPN attachment and a propagated route for the
+                attachment for VPC D.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c11b1c11b7b7"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">10.99.99.0/24</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPN connection</code></td>
+							<td tabindex="-1">propagated</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">10.4.0.0/16</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPC D</code></td>
+							<td tabindex="-1">propagated</td>
+						</tr>
+					</table></div></div>
+			<p>The VPN attachment and shared services VPC (VPC D) attachments are associated with the
+				following route table, which has entries that point to each of the VPC attachments.
+				This enables communication to the VPCs from the VPN connection and the shared
+				services VPC.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c11b1c11b7c11"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">10.1.0.0/16</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPC A</code></td>
+							<td tabindex="-1">propagated</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">10.2.0.0/16</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPC B</code></td>
+							<td tabindex="-1">propagated</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">10.3.0.0/16</td>
+							<td tabindex="-1"><code class="replaceable">Attachment for VPC C</code></td>
+							<td tabindex="-1">propagated</td>
+						</tr>
+					</table></div></div>
+		    <p>For more information, see <a href="./enable-tgw-route-propagation.html">Enable route propagation to a transit gateway route table in AWS Transit Gateway</a>.</p>
+		 
+		 
+			<h5 id="transit-gateway-isolated-shared-route-table-bgp-table">Customer gateway BGP table</h5>
+			<p>The customer gateway BGP table contains the CIDRs for all four VPCs.</p>
+		 
+	</awsui-expandable-section></div>
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Peered transit gateways" id="transit-gateway-peering-scenario" expanded="false"><p>You can create a transit gateway peering connection between transit gateways. You can then
+		route traffic between the attachments for each of the transit gateways. In this scenario,
+		VPC and VPN attachments are associated with the transit gateway default route tables, and
+		they propagate to the transit gateway default route tables. Each transit gateway route table
+		has a static route that points to the transit gateway peering attachment.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#transit-gateway-peering-overview">Overview</a></p></li><li><p><a href="#transit-gateway-peering-resources">Resources</a></p></li><li><p><a href="#transit-gateway-peering-routing">Routing</a></p></li></ul></div>
+        <h4 id="transit-gateway-peering-overview">Overview</h4>
+        <p>The following diagram shows the key components of the configuration for this scenario.
+            Transit gateway 1 has two VPC attachments, and transit gateway 2 has one Site-to-Site VPN
+            attachment. Packets from the subnets in VPC A and VPC B that have the internet as a
+            destination first route through transit gateway 1, then transit gateway 2, and then route to the VPN
+            connection.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/vpc/latest/tgw/images/transit-gateway-peering.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Two peered transit gateways, one with two VPC attachments and the other with a VPN attachment." style="max-width:60%" />
+             
+        	 
+        </div>
+     
+		<h4 id="transit-gateway-peering-resources">Resources</h4>
+		<p>Create the following resources for this scenario:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Two VPCs. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a> 
+					in the <em>Amazon VPC User Guide</em>.</p>
+			</li><li class="listitem">
+				<p>Two transit gateways. They can be in the same Region or in different Regions. For more information,
+					see <a href="./create-tgw.html">Create a transit gateway in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>Two VPC attachments on the first transit gateway. For more information, see <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>A Site-to-Site VPN attachment on the second transit gateway. For more information, see <a href="./create-vpn-attachment.html">Create a transit gateway attachment to a VPN in AWS Transit Gateway</a>. Ensure that you review the <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html#CGRequirements">requirements for your
+						customer gateway device</a> in the <em>AWS Site-to-Site VPN User
+						Guide</em>.</p>
+			</li><li class="listitem">
+				<p>A transit gateway peering attachment between the two transit gateways. For more
+					information, see <a href="./tgw-peering.html">Transit gateway peering attachments in AWS Transit Gateway</a>.</p>
+			</li></ul></div>
+		<p>When you create the VPC attachments, the CIDRs for each VPC propagate to the route
+			table for transit gateway 1. When the VPN connection is up, the following actions occur:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>The BGP session is established</p>
+			</li><li class="listitem">
+				<p>The Site-to-Site VPN CIDR propagates to the route table for transit gateway 2</p>
+			</li><li class="listitem">
+				<p>The VPC CIDRs are added to the customer gateway BGP table</p>
+			</li></ul></div>
+	 
+        <h4 id="transit-gateway-peering-routing">Routing</h4>
+		<p>Each VPC has a route table and each transit gateway has a route table.</p>
+		 
+			<h5 id="transit-gateway-centralized-router-vpc-route-tables">VPC A and VPC B route tables</h5>
+			<p>Each VPC has a route table with 2 entries. The first entry is the default entry for local
+                IPv4 routing in the VPC. This default entry enables the resources in this VPC to
+                communicate with each other. The second entry routes all other IPv4 subnet traffic
+                to the transit gateway. The following table shows the VPC A routes.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c13b1c11b5b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1">
+								<p><em>tgw-1-id</em></p>
+							</td>
+						</tr>
+					</table></div></div>
+			
+		 
+		
+		 
+			<h5 id="transit-gateway-centralized-router-tgw-route-table">Transit gateway route tables</h5>
+			<p>The following is an example of the default route table for transit gateway 1, with route
+                propagation enabled.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c13b1c11b7b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment ID for VPC A</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>10.2.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment ID for VPC B</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1"><code class="replaceable">Attachment ID for peering connection </code></td>
+							<td tabindex="-1">
+								<p>static</p>
+							</td>
+						</tr>
+					</table></div></div>
+		    <p>The following is an example of the default route table for transit gateway 2, with route
+                propagation enabled.</p>
+		    <div class="table-container"><div class="table-contents"><table id="w112aab7c19c13b1c11b7b9"><thead>
+		                <tr>
+		                    <th>Destination</th>
+		                    <th>Target</th>
+		                    <th>Route type</th>
+		                </tr>
+		            </thead>
+		                <tr>
+		                    <td tabindex="-1">
+		                        <p>172.31.0.0/24</p>
+		                    </td>
+		                    <td tabindex="-1"><code class="replaceable">Attachment ID for VPN connection </code></td>
+		                    <td tabindex="-1">
+		                        <p>propagated</p>
+		                    </td>
+		                </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>10.0.0.0/16</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p><code class="replaceable">Attachment ID for peering connection
+                                    </code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>static</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>10.2.0.0/16</p>
+                            </td>
+                            <td tabindex="-1"><code class="replaceable">Attachment ID for peering connection
+                                </code></td>
+                            <td tabindex="-1">static</td>
+                        </tr>
+		            </table></div></div>
+		 
+		 
+			<h5 id="transit-gateway-centralized-router-vpn-route-table">Customer gateway BGP table</h5>
+			<p>The customer gateway BGP table contains the following VPC CIDRs.</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>10.0.0.0/16</p>
+				</li><li class="listitem">
+					<p>10.2.0.0/16</p>
+				</li></ul></div>
+		 
+	</awsui-expandable-section></div>
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Centralized outbound routing to the internet" id="transit-gateway-nat-igw" expanded="false"><p>You can configure a transit gateway to route outbound internet traffic from a VPC without an internet
+		gateway to a VPC that contains a NAT gateway and an internet gateway.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#transit-gateway-nat-igw-overview">Overview</a></p></li><li><p><a href="#transit-gateway-nat-igw-resources">Resources</a></p></li><li><p><a href="#transit-gateway-nat-igw-routing">Routing</a></p></li></ul></div>
+		<h4 id="transit-gateway-nat-igw-overview">Overview</h4>
+		<p>The following diagram shows the key components of the configuration for this scenario. You
+			have applications in VPC A and VPC B that need outbound only internet access. You
+			configure VPC C with a public NAT gateway and an internet gateway, and a private subnet
+			for the VPC attachment. Connect all VPCs to a transit gateway. Configure routing so that outbound
+			internet traffic from VPC A and VPC B traverses the transit gateway to VPC C. The NAT gateway in
+			VPC C routes the traffic to the internet gateway.</p>
+		
+		<div class="mediaobject">
+			 
+				<img src="/images/vpc/latest/tgw/images/tgw-centralized-nat-igw.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A transit gateway with three VPC attachments." style="max-width:60%" />
+			 
+			 
+		</div>
+	 
+		<h4 id="transit-gateway-nat-igw-resources">Resources</h4>
+		<p>Create the following resources for this scenario:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Three VPCs with IP address ranges that are neither identical nor overlap. For more information, 
+					see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a> 
+					in the <em>Amazon VPC User Guide</em>.</p>
+			</li><li class="listitem">
+				<p>VPC A and VPC B each have private subnets with EC2 instances.</p>
+			</li><li class="listitem">
+				<p>VPC C has the following:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>An internet gateway attached to the VPC. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#Add_IGW_Attach_Gateway">Create and attach an internet gateway</a> in the <em>Amazon VPC User Guide</em>.</p>
+					</li><li class="listitem">
+						<p>A public subnet with a NAT gateway. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create
+								a NAT gateway</a> in the
+							<em>Amazon VPC User Guide</em>.</p>
+					</li><li class="listitem">
+						<p>A private subnet for the transit gateway attachment. The private subnet should be in the same
+							Availability Zone as the public subnet.</p>
+					</li></ul></div>
+			</li><li class="listitem">
+				<p>One transit gateway. For more information, see <a href="./create-tgw.html">Create a transit gateway in AWS Transit Gateway</a>.</p>
+			</li><li class="listitem">
+				<p>Three VPC attachments on the transit gateway. The CIDR blocks for each VPC propagate to the transit gateway
+					route table. For more information, see <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.
+					For VPC C, you must create the attachment using the private subnet. If you
+					create the attachment using the public subnet, the instance traffic is routed to
+					the internet gateway, but the internet gateway drops the traffic because the
+					instances don't have public IP addresses. By placing the attachment in the
+					private subnet, the traffic is routed to the NAT gateway, and the NAT gateway
+					sends the traffic to the internet gateway using its Elastic IP address as the
+					source IP address.</p>
+			</li></ul></div>
+	 
+		<h4 id="transit-gateway-nat-igw-routing">Routing</h4>
+
+		<p>There are route tables for each VPC and a route table for the transit gateway.</p>
+        <div class="highlights" id="inline-topiclist"><h6>Route tables</h6><ul><li><p><a href="#transit-gateway-nat-igw-vpc-a-route-table">VPC A</a></p></li><li><p><a href="#transit-gateway-nat-igw-vpc-b-route-table">VPC B</a></p></li><li><p><a href="#transit-gateway-nat-igw-nat-vpc-c-route-tables">VPC C</a></p></li><li><p><a href="#transit-gateway-nat-igw-tgw-route-table">Transit gateway</a></p></li></ul></div>
+
+		 
+			<h5 id="transit-gateway-nat-igw-vpc-a-route-table">Route table for VPC A</h5>
+			<p>The following is an example route table. The first entry enables instances in the VPC to
+				communicate with each other. The second entry routes all other IPv4 subnet traffic
+				to the transit gateway.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c15b1c11b7b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p><code class="replaceable">VPC A CIDR</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">transit-gateway-id</code></p>
+							</td>
+						</tr>
+					</table></div></div>
+		 
+
+		 
+			<h5 id="transit-gateway-nat-igw-vpc-b-route-table">Route table for VPC B</h5>
+			<p>The following is an example route table. The first entry enables the instances in the VPC
+				to communicate with each other. The second entry routes all other IPv4 subnet
+				traffic to the transit gateway.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c15b1c11b9b5"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p><code class="replaceable">VPC B CIDR</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">transit-gateway-id</code></p>
+							</td>
+						</tr>
+					</table></div></div>
+		 
+		
+		 
+			<h5 id="transit-gateway-nat-igw-nat-vpc-c-route-tables">Route tables for VPC C</h5>
+			
+			<p>Configure the subnet with the NAT gateway as a public subnet by adding a route to the
+				internet gateway. Leave the other subnet as a private subnet.</p>
+			<p>The following is an example route table for the public subnet. The first entry enables
+				instances in the VPC to communicate with each other. The second and third entries route 
+				traffic for VPC A and VPC B to the transit gateway. The remaining entry routes all other IPv4 subnet 
+				traffic to the internet gateway.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c15b1c11c11b7"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1"><code class="replaceable">VPC C CIDR</code></td>
+							<td tabindex="-1">local</td>
+						</tr>
+						<tr>
+							<td tabindex="-1"><code class="replaceable">VPC A CIDR</code></td>
+							<td tabindex="-1"><code class="replaceable">transit-gateway-id</code></td>
+						</tr>
+						<tr>
+							<td tabindex="-1"><code class="replaceable">VPC B CIDR</code></td>
+							<td tabindex="-1"><code class="replaceable">transit-gateway-id</code></td>
+						</tr>
+						<tr>
+							<td tabindex="-1">0.0.0.0/0</td>
+							<td tabindex="-1"><code class="replaceable">internet-gateway-id</code></td>
+						</tr>
+					</table></div></div>
+			
+			<p>The following is an example route table for the private subnet. 
+				The first entry enables instances in the VPC to communicate with each other.
+				The second entry routes all other IPv4 subnet traffic to the NAT gateway.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c15b1c11c11c11"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1"><code class="replaceable">VPC C CIDR</code></td>
+							<td tabindex="-1">local</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">0.0.0.0/0</td>
+							<td tabindex="-1"><code class="replaceable">nat-gateway-id</code></td>
+						</tr>
+					</table></div></div>
+		 
+
+		 
+			<h5 id="transit-gateway-nat-igw-tgw-route-table">Transit gateway route table</h5>
+			<p>The following is an example of the transit gateway route table.
+				The CIDR blocks for each VPC propagate to the transit gateway route table.
+				The static route sends outbound internet traffic to VPC C. 
+				You can optionally prevent inter-VPC communication by adding a blackhole route for each VPC CIDR.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c15b1c11c13b5"><thead>
+						<tr>
+							<th>CIDR</th>
+							<th>Attachment</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p><code class="replaceable">VPC A CIDR</code></p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC A</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p><code class="replaceable">VPC B CIDR</code></p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC B</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p><code class="replaceable">VPC C CIDR</code></p>
+							</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC C</code></p>
+							</td>
+							<td tabindex="-1">
+								<p>propagated</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">0.0.0.0/0</td>
+							<td tabindex="-1">
+								<p><code class="replaceable">Attachment for VPC C</code></p>
+							</td>
+							<td tabindex="-1">static</td>
+						</tr>
+					</table></div></div>
+		 
+	</awsui-expandable-section></div>
+	<div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example: Appliance in a shared services VPC" id="transit-gateway-appliance-scenario" expanded="false"><p>You can configure an appliance (such as a security appliance) in a shared services VPC. All
+        traffic that's routed between transit gateway attachments is first inspected by the
+        appliance in the shared services VPC.  When appliance mode is enabled, a transit gateway selects a
+        single network interface in the appliance VPC, using a flow hash algorithm, to send traffic
+        to for the life of the flow. The transit gateway uses the same network interface for the return
+        traffic. This ensures that bidirectional traffic is routed symmetrically—it's routed
+        through the same Availability Zone in the VPC attachment for the life of the flow. If you
+        have multiple transit gateways in your architecture, each transit gateway maintains its own session affinity,
+        and each transit gateway can select a different network interface. </p><p>You must connect exactly one transit gateway to the appliance VPC to guarantee flow stickiness.
+        Connecting multiple transit gateways to a single appliance VPC does not guarantee flow stickiness
+        because the transit gateways do not share flow state information with each other.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Traffic in appliance mode is routed correctly as long as the source and
+                    destination traffic are coming to a centralized VPC (Inspection VPC) from the
+                    same transit gateway attachment. Traffic can drop if the source and destination
+                    are on two different transit gateway attachments. Traffic can drop if the
+                    centralized VPC receives the traffic from a different gateway — for example, an
+                    Internet gateway — and then sends that traffic to the transit gateway attachment
+                    after inspection.</p>
+            </li><li class="listitem">
+                <p>Enabling appliance mode on an existing attachment might affect that
+                    attachment's current route as the attachment can flow through any Availability
+                    Zone. When appliance mode is not enabled, traffic is kept to the originating
+                    Availability Zone.</p>
+            </li></ul></div></div></div><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><p><a href="#transit-gateway-appliance-overview">Overview</a></p></li><li><p><a href="#transit-gateway-appliance-support">Stateful appliances and appliance mode</a></p></li><li><p><a href="#transit-gateway-appliance-routing">Routing</a></p></li></ul></div>
+        <h4 id="transit-gateway-appliance-overview">Overview</h4>
+        <p>The following diagram shows the key components of the configuration for this scenario.
+            The transit gateway has three VPC attachments. VPC C is a shared services VPC. Traffic
+            between VPC A and VPC B is routed to the transit gateway, then routed to a security
+            appliance in VPC C for inspection before it's routed to the final destination. The
+            appliance is a stateful appliance, therefore both the request and response traffic is
+            inspected. For high availability, there is an appliance in each Availability Zone in VPC
+            C. </p>
+        <div class="mediaobject">
+             
+                <img src="/images/vpc/latest/tgw/images/transit-gateway-appliance.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="An appliance in a shared services VPC" style="max-width:100%" />
+             
+             
+        </div>
+        <p>You create the following resources for this scenario:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Three VPCs. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html">Create a VPC</a>
+                    in the <em>Amazon VPC User Guide</em>.</p>
+            </li><li class="listitem">
+                <p>A transit gateway. For more information, see <a href="./create-tgw.html">Create a transit gateway in AWS Transit Gateway</a>.</p>
+            </li><li class="listitem">
+                <p>Three VPC attachments - one for each of the VPCs. For more information, see
+                        <a href="./create-vpc-attachment.html">Create a VPC attachment in AWS Transit Gateway</a>.</p>
+                <p>For each VPC attachment, specify a subnet in each Availability Zone. For the
+                    shared services VPC, these are the subnets where traffic is routed to the VPC
+                    from the transit gateway. In the preceding example, these are subnets A and
+                    C.</p>
+                <p>For the VPC attachment for VPC C, enable appliance mode support so that
+                    response traffic is routed to the same Availability Zone in VPC C as the source
+                    traffic.</p>
+                <p>The Amazon VPC console supports appliance mode. You can also use the Amazon VPC API, an
+                    AWS SDK, the AWS CLI to enable appliance mode, or CloudFormation. For example, add
+                        <code class="code">--options ApplianceModeSupport=enable</code> to the <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-transit-gateway-vpc-attachment.html">create-transit-gateway-vpc-attachment</a> or <a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-transit-gateway-vpc-attachment.html">modify-transit-gateway-vpc-attachment</a> command.</p>
+            </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Flow stickiness in appliance mode is guaranteed only for source and destination
+                traffic that originate towards the Inspection VPC.</p></div></div>
+     
+        <h4 id="transit-gateway-appliance-support">Stateful appliances and appliance mode</h4>
+        <p>If your VPC attachments span multiple Availability Zones and you require traffic 
+            between source and destination hosts to be routed through the same appliance for stateful 
+            inspection, enable appliance mode support for the VPC attachment in which the appliance 
+            is located.</p>
+        <p>For more information, see <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-inspection-architecture-with-aws-gateway-load-balancer-and-aws-transit-gateway/" rel="noopener noreferrer" target="_blank"><span>Centralized inspection architecture</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the AWS blog.</p>
+        
+         
+            <h6>Behavior when appliance mode is not enabled</h6>
+            <p>When appliance mode is not enabled, a transit gateway attempts to keep traffic routed between VPC 
+                attachments in the originating Availability Zone until it reaches its destination.
+                Traffic crosses Availability Zones between attachments only if there is an Availability 
+                Zone failure or if there are no subnets associated with a VPC attachment in that 
+                Availability Zone.</p>
+         
+        
+        <p>The following diagram shows a traffic flow when appliance mode support is not
+            enabled. The response traffic that originates from Availability Zone 2 in VPC B is
+            routed by the transit gateway to the same Availability Zone in VPC C. The traffic is
+            therefore dropped, because the appliance in Availability Zone 2 is not aware of the
+            original request from the source in VPC A.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/vpc/latest/tgw/images/transit-gateway-appliance-dropped-traffic.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Dropped response traffic to an appliance" style="max-width:100%" />
+             
+             
+        </div>
+     
+        <h4 id="transit-gateway-appliance-routing">Routing</h4>
+		<p>Each VPC has one or more route tables and the transit gateway has two route tables.</p>
+         
+			<h5 id="transit-gateway-appliance-vpc-route-table">VPC route tables</h5>
+            <p><b>VPC A and VPC B</b></p>
+			<p>VPCs A and B have route tables with 2 entries. The first entry is the default entry for
+                local IPv4 routing in the VPC. This default entry enables the resources in this VPC
+                to communicate with each other. The second entry routes all other IPv4 subnet
+                traffic to the transit gateway. The following is the route table for VPC A.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c17b1c15b5b7"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>10.0.0.0/16</p>
+							</td>
+							<td tabindex="-1">
+								<p>local</p>
+							</td>
+						</tr>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1">
+								<p><em>tgw-id</em></p>
+							</td>
+						</tr>
+					</table></div></div>
+            <p><b>VPC C</b></p>
+            <p>The shared services VPC (VPC C) has different route tables for each subnet. Subnet
+                A is used by the transit gateway (you specify this subnet when you create the VPC
+                attachment). The route table for subnet A routes all traffic to the appliance in
+                subnet B.</p>
+            <div class="table-container"><div class="table-contents"><table id="w112aab7c19c17b1c15b5c13"><thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Target</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>192.168.0.0/16</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>local</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>0.0.0.0/0</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p><em>appliance-eni-id</em></p>
+                            </td>
+                        </tr>
+                    </table></div></div>
+            <p>The route table for subnet B (which contains the appliance) routes the traffic
+                back to the transit gateway.</p>
+            <div class="table-container"><div class="table-contents"><table id="w112aab7c19c17b1c15b5c17"><thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Target</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>192.168.0.0/16</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>local</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>0.0.0.0/0</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p><em>tgw-id</em></p>
+                            </td>
+                        </tr>
+                    </table></div></div>
+			
+		 
+		
+		 
+		    <h5 id="transit-gateway-appliance-route-table">Transit gateway route tables</h5>
+			<p>This transit gateway uses one route table for VPC A and VPC B, and one route table for the
+                shared services VPC (VPC C). </p>
+            <p>The VPC A and VPC B attachments are associated with the following route table. The
+                route table routes all traffic to VPC C.</p>
+			<div class="table-container"><div class="table-contents"><table id="w112aab7c19c17b1c15b7b7"><thead>
+						<tr>
+							<th>Destination</th>
+							<th>Target</th>
+							<th>Route type</th>
+						</tr>
+					</thead>
+						<tr>
+							<td tabindex="-1">
+								<p>0.0.0.0/0</p>
+							</td>
+							<td tabindex="-1"><p><code class="replaceable">Attachment ID for VPC C</code></p></td>
+							<td tabindex="-1">
+								<p>static</p>
+							</td>
+						</tr>
+					</table></div></div>
+		    <p>The VPC C attachment is associated with the following route table. It routes traffic to
+                VPC A and VPC B.</p>
+		    <div class="table-container"><div class="table-contents"><table id="w112aab7c19c17b1c15b7c11"><thead>
+		                <tr>
+		                    <th>Destination</th>
+		                    <th>Target</th>
+		                    <th>Route type</th>
+		                </tr>
+		            </thead>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>10.0.0.0/16</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p><code class="replaceable">Attachment ID for VPC A</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>propagated</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>10.1.0.0/16</p>
+                            </td>
+                            <td tabindex="-1"><p><code class="replaceable">Attachment ID for VPC B</code></p></td>
+                            <td tabindex="-1">propagated</td>
+                        </tr>
+		            </table></div></div>
+		 
+	</awsui-expandable-section></div>
+	
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./what-is-transit-gateway.html">What is AWS Transit Gateway?</div><div id="next" class="next-link" accesskey="n" href="./tgw-getting-started.html">Get started with transit gateways</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/how-transit-gateways-work.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=TGW&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/tgw/how-transit-gateways-work.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

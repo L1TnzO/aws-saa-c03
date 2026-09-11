@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Managing throughput capacity automatically with DynamoDB auto scaling - Amazon DynamoDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="AutoScaling" /><meta name="default_state" content="AutoScaling" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html" /><meta name="description" content="DynamoDB auto scaling uses Application Auto Scaling to dynamically adjust provisioned throughput capacity, enabling tables or global secondary indexes to handle sudden traffic increases without throttling. When workload decreases, throughput is reduced to avoid paying for unused capacity. Auto scaling policies specify target utilization, min/max capacity, and which capacity type to manage. CloudWatch alarms trigger scaling adjustments." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DynamoDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon DynamoDB is a fast, fully managed NoSQL database as a service that makes it simple and cost-effective to store and retrieve any amount of data, and serve any level of request traffic." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html" hreflang="x-default" /><meta name="feedback-item" content="DynamoDB" /><meta name="this_doc_product" content="Amazon DynamoDB" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dynamodb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Managing throughput capacity automatically with DynamoDB auto scaling" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="AutoScaling.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Managing throughput capacity automatically with DynamoDB auto scaling - Amazon DynamoDB</title><meta name="pdf" content="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#AutoScaling" /><meta name="rss" content="dynamodbupdates.rss" /><meta name="forums" content="https://repost.aws/tags/TAljkKQ0MDQJCjDdxSeDQBJw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/AutoScaling.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/AutoScaling.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/AutoScaling.html" /><meta name="keywords" content="DynamoDB,Amazon DynamoDB,database,NoSQL database,nonrelational database,managed database,DynamoDB capacity modes,on-demand mode,provisioned mode,throughput capacity,read/write capacity units,burst capacity,adaptive capacity,cost optimization,scalability,performance,DynamoDB capacity mode,DynamoDB capacity planning,DynamoDB provisioned mode,provisioned capacity mode,DynamoDB provisioned tables,auto scaling,throughput,capacity,management,CloudWatch,alarms,target,utilization" /><link rel="alternate" type="text/markdown" href="AutoScaling.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DynamoDB",
+        "item" : "https://docs.aws.amazon.com/dynamodb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "DynamoDB throughput capacity",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/capacity-mode.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "DynamoDB provisioned capacity mode",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Managing throughput capacity automatically with DynamoDB auto scaling",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#AutoScaling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/dynamodb/index.html">Amazon DynamoDB</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#AutoScaling.HowItWorks">How DynamoDB auto scaling works</a><a href="#AutoScaling.UsageNotes">Usage notes</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="AutoScaling">Managing throughput capacity automatically with DynamoDB auto scaling</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Many database workloads are cyclical in nature, while others are difficult to predict in
+        advance. For one example, consider a social networking app where most of the users are
+        active during daytime hours. The database must be able to handle the daytime activity, but
+        there's no need for the same levels of throughput at night. For another example, consider a
+        new mobile gaming app that is experiencing unexpectedly rapid adoption. If the game becomes
+        too popular it could exceed the available database resources, resulting in slow performance
+        and unhappy customers. These kinds of workloads often require manual intervention to scale
+        database resources up or down in response to varying usage levels.</p><p>Amazon DynamoDB auto scaling uses the AWS Application Auto Scaling service to dynamically adjust provisioned
+        throughput capacity on your behalf, in response to actual traffic patterns. This enables a
+        table or a global secondary index (GSI) to increase its provisioned read and write capacity to handle sudden
+        increases in traffic, without throttling. When the workload decreases, Application Auto Scaling decreases
+        the throughput so that you don't pay for unused provisioned capacity.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use the AWS Management Console to create a table or a global secondary index, DynamoDB auto scaling is enabled
+            by default. You can modify your auto scaling settings at any time. For more information,
+            see <a href="./AutoScaling.Console.html">Using the AWS Management Console with DynamoDB auto scaling</a>.</p><p>When you delete a table or global table replica then any associated scalable targets,
+            scaling polices, or CloudWatch alarms are not automatically deleted with it.</p></div></div><p>With Application Auto Scaling, you create a <em>scaling policy</em> for a table or a global secondary index.
+        The scaling policy specifies whether you want to scale read capacity or write capacity (or
+        both), and the minimum and maximum provisioned capacity unit settings for the table or
+        index.</p><p>The scaling policy also contains a <em>target utilization</em>—the
+        percentage of consumed provisioned throughput at a point in time. Application Auto Scaling uses a
+            <em>target tracking</em> algorithm to adjust the provisioned throughput of
+        the table (or index) upward or downward in response to actual workloads, so that the actual
+        capacity utilization remains at or near your target utilization.</p><p>DynamoDB outputs consumed provisioned throughput for one-minute periods. Auto scaling triggers when your consumed capacity breaches the configured target utilization for two consecutive minutes. CloudWatch alarms might have a short delay of up to a few minutes before triggering auto scaling. This delay ensures accurate CloudWatch metric evaluation. If the consumed throughput spikes are more than a minute apart, auto scaling might not trigger. Similarly, a scale down event can occur when 15 consecutive data points are lower than the target utilization. In either case, after auto scaling triggers, the <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html">UpdateTable</a> API is invoked. It then takes several minutes to update the provisioned capacity for the table or index. During this period, any requests that exceed the previous provisioned capacity of the tables are throttled.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You can't adjust the number of data points to breach to trigger the underlying alarm (though the current number could change in the future).</p></div></div><p> You can set the auto scaling target utilization values between 20 and 90 percent for your
+        read and write capacity. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>In addition to tables, DynamoDB auto scaling also supports global secondary indexes.
+            Every global secondary index has its own provisioned throughput capacity, separate from that of its base
+            table. When you create a scaling policy for a global secondary index, Application Auto Scaling adjusts the provisioned
+            throughput settings for the index to make sure that its actual utilization stays at or near
+            your desired utilization ratio.</p></div></div>
+        <h2 id="AutoScaling.HowItWorks">How DynamoDB auto scaling works</h2>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To get started quickly with DynamoDB auto scaling, see <a href="./AutoScaling.Console.html">Using the AWS Management Console with DynamoDB auto scaling</a>.</p></div></div>
+        <p>The following diagram provides a high-level overview of how DynamoDB auto scaling manages
+            throughput capacity for a table.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/amazondynamodb/latest/developerguide/images/auto-scaling.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="DynamoDB auto scaling adjusts a table’s throughput capacity to meet demand." style="max-width:100%" />
+             
+            
+            
+            
+             
+            
+        </div>
+        <p>The following steps summarize the auto scaling process as shown in the previous
+            diagram:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>You create an Application Auto Scaling policy for your DynamoDB table.</p>
+            </li><li>
+                <p>DynamoDB publishes consumed capacity metrics to Amazon CloudWatch. </p>
+            </li><li>
+                <p>If the table's consumed capacity exceeds your target utilization (or falls
+                    below the target) for a specific length of time, Amazon CloudWatch triggers an alarm. You
+                    can view the alarm on the console and receive notifications using Amazon Simple Notification Service
+                    (Amazon SNS).</p>
+            </li><li>
+                <p>The CloudWatch alarm invokes Application Auto Scaling to evaluate your scaling policy.</p>
+            </li><li>
+                <p>Application Auto Scaling issues an <code class="code">UpdateTable</code> request to adjust your table's
+                    provisioned throughput.</p>
+            </li><li>
+                <p>DynamoDB processes the <code class="code">UpdateTable</code> request, dynamically increasing
+                    (or decreasing) the table's provisioned throughput capacity so that it
+                    approaches your target utilization.</p>
+            </li></ol></div>
+
+        <p>To understand how DynamoDB auto scaling works, suppose that you have a table named
+                <code class="code">ProductCatalog</code>. The table is bulk-loaded with data infrequently, so it
+            doesn't incur very much write activity. However, it does experience a high degree of
+            read activity, which varies over time. By monitoring the Amazon CloudWatch metrics for
+                <code class="code">ProductCatalog</code>, you determine that the table requires 1,200 read
+            capacity units (to avoid DynamoDB throttling read requests when activity is at its peak).
+            You also determine that <code class="code">ProductCatalog</code> requires 150 read capacity units at
+            a minimum, when read traffic is at its lowest point. For more information about
+            preventing throttling, see <a href="./TroubleshootingThrottling.html">Troubleshooting throttling in Amazon DynamoDB</a>.</p>
+        <p>Within the range of 150 to 1,200 read capacity units, you decide that a target
+            utilization of 70 percent would be appropriate for the <code class="code">ProductCatalog</code>
+            table. <em>Target utilization</em> is the ratio of consumed capacity units
+            to provisioned capacity units, expressed as a percentage. Application Auto Scaling uses its target
+            tracking algorithm to make sure that the provisioned read capacity of
+                <code class="code">ProductCatalog</code> is adjusted as required so that utilization remains at
+            or near 70 percent.</p>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>DynamoDB auto scaling modifies provisioned throughput settings only when the actual
+                workload stays elevated or depressed for a sustained period of several minutes. The
+                Application Auto Scaling target tracking algorithm seeks to keep the target utilization at or near
+                your chosen value over the long term.</p><p>Sudden, short-duration spikes of activity are accommodated by the table's built-in
+                burst capacity. For more information, see <a href="./burst-adaptive-capacity.html#burst-capacity">Burst capacity</a>.</p></div></div>
+
+        <p>To enable DynamoDB auto scaling for the <code class="code">ProductCatalog</code> table, you create a
+            scaling policy. This policy specifies the following:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The table or global secondary index that you want to manage</p>
+            </li><li class="listitem">
+                <p>Which capacity type to manage (read capacity or write capacity)</p>
+            </li><li class="listitem">
+                <p>The upper and lower boundaries for the provisioned throughput settings</p>
+            </li><li class="listitem">
+                <p>Your target utilization</p>
+            </li></ul></div>
+        <p>When you create a scaling policy, Application Auto Scaling creates a pair of Amazon CloudWatch alarms on your
+            behalf. Each pair represents the upper and lower boundaries for your provisioned
+            throughput settings. These CloudWatch alarms are triggered when the table's actual utilization
+            deviates from your target utilization for a sustained period of time.</p>
+
+
+        <p>When one of the CloudWatch alarms is triggered, Amazon SNS sends you a notification (if you have
+            enabled it). The CloudWatch alarm then invokes Application Auto Scaling, which in turn notifies DynamoDB to
+            adjust the <code class="code">ProductCatalog</code> table's provisioned capacity upward or downward
+            as appropriate.</p>
+        
+        <p>During a scaling event, AWS Config is charged per configuration item recorded. When a scaling event occurs, four CloudWatch alarms are created for each read and write auto-scaling event: ProvisionedCapacity alarms: ProvisionedCapacityLow, ProvisionedCapacityHigh and ConsumedCapacity alarms: AlarmHigh, AlarmLow. This results in a total of eight alarms. Therefore, AWS Config records eight configuration items for every scaling event.</p>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can also schedule your DynamoDB scaling so it happens at certain times. Learn the
+                basic steps <a href="https://docs.aws.amazon.com/autoscaling/application/userguide/get-started-exercise.html">here</a>.</p></div></div>
+
+     
+        <h2 id="AutoScaling.UsageNotes">Usage notes</h2>
+
+        <p>Before you begin using DynamoDB auto scaling, you should be aware of the
+            following:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+
+             
+
+        <ul class="itemizedlist"><li class="listitem">
+                <p>DynamoDB auto scaling can increase read capacity or write capacity as often as
+                    necessary, in accordance with your auto scaling policy. All DynamoDB quotas remain
+                    in effect, as described in <a href="./ServiceQuotas.html">Quotas in Amazon DynamoDB</a>.</p>
+            </li><li class="listitem">
+                <p>DynamoDB auto scaling doesn't prevent you from manually modifying provisioned
+                    throughput settings. These manual adjustments don't affect any existing CloudWatch
+                    alarms that are related to DynamoDB auto scaling.</p>
+            </li><li class="listitem">
+                <p>If you enable DynamoDB auto scaling for a table that has one or more global secondary indexes, we
+                    highly recommend that you also apply auto scaling uniformly to those indexes.
+                    This will help ensure better performance for table writes and reads, and help
+                    avoid throttling. You can enable auto scaling by selecting <b>Apply same
+                        settings to global secondary indexes</b> in the AWS Management Console. For more information, see
+                        <a href="./AutoScaling.Console.html#AutoScaling.Console.ExistingTable">Enabling DynamoDB auto scaling on existing tables</a>.</p>
+            </li><li class="listitem">
+                <p>When you delete a table or global table replica, any associated scalable
+                    targets, scaling polices or CloudWatch alarms are not automatically deleted with
+                    it.</p>
+            </li><li class="listitem">
+                <p>When creating a GSI for an existing table, auto scaling is not enabled for the
+                    GSI. You will have to manually manage the capacity while the GSI is being built.
+                    Once the backfill on the GSI completes and it reaches active status, auto
+                    scaling will operate as normal.</p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./provisioned-capacity-mode.html">Provisioned capacity mode</div><div id="next" class="next-link" accesskey="n" href="./AutoScaling.Console.html">Using the AWS Management Console with DynamoDB auto scaling</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/AutoScaling.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/AutoScaling.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

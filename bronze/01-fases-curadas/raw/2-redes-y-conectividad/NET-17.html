@@ -1,0 +1,235 @@
+<!--
+BRONZE RAW — NET-17
+URL: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
+Dominios: D2,D3
+Título doc: What is an Application Load Balancer?
+Fase: 2
+Servicio: Elastic Load Balancing
+Descargado: 2026-09-11T03:22:48
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Elastic Load Balancing automatically distributes your incoming traffic across multiple targets, such as EC2
+        instances, containers, and IP addresses, in one or more Availability Zones. It monitors the
+        health of its registered targets, and routes traffic only to the healthy targets. Elastic Load Balancing
+        scales your load balancer as your incoming traffic changes over time. It can automatically
+        scale to the vast majority of workloads.</p><p>Elastic Load Balancing supports the following load balancers: Application Load Balancers, Network Load Balancers, Gateway Load Balancers, and Classic Load Balancers. 
+        You can select the type of load balancer that best suits your needs. This guide
+        discusses Application Load Balancers. For more information about the other load balancers, see the
+        <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/">User Guide for Network Load Balancers</a>, the <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/">User Guide for Gateway Load Balancers</a>, and the <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/">User Guide for Classic Load Balancers</a>.</p>
+        <h2 id="application-load-balancer-components">Application Load Balancer components<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r45:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application-load-balancer-components" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r46:" type="submit" data-analytics-performance-mark="25-1789096967207-2639"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+        <p>A <em>load balancer</em> serves as the single point of contact for
+            clients. The load balancer distributes incoming application traffic across multiple
+            targets, such as EC2 instances, in multiple Availability Zones. This increases the
+            availability of your application. You add one or more listeners to your load
+            balancer.</p>
+        <p>A <em>listener</em> checks for connection requests from clients, using the
+            protocol and port that you configure. The rules that you define for a listener determine
+            how the load balancer routes requests to its registered targets. Each rule consists of a
+            priority, one or more actions, and one or more conditions. When the conditions for a
+            rule are met, then its actions are performed. You must define a default rule for each
+            listener, and you can optionally define additional rules.</p>
+        <p>Each <em>target group</em> routes requests to one or more registered
+            targets, such as EC2 instances, using the protocol and port number that you specify. You
+            can register a target with multiple target groups. You can configure health checks on a
+            per target group basis. Health checks are performed on all targets registered to a
+            target group that is specified in a listener rule for your load balancer.</p>
+
+        <p>The following diagram illustrates the basic components. Notice that each listener
+            contains a default rule, and one listener contains another rule that routes requests to
+            a different target group. One target is registered with two target groups.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/elasticloadbalancing/latest/application/images/component_architecture.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The components of a basic Application Load Balancer">
+             
+             
+        <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4k:" type="submit" data-analytics-performance-mark="30-1789096967210-507"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+
+        <p>For more information, see the following documentation:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="./application-load-balancers.html">Load balancers</a></p>
+            </li><li class="listitem">
+                <p><a href="./load-balancer-listeners.html">Listeners</a></p>
+            </li><li class="listitem">
+                <p><a href="./load-balancer-target-groups.html">Target groups</a></p>
+            </li></ul></div>
+
+     
+        <h2 id="application-load-balancer-overview">Application Load Balancer overview<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application-load-balancer-overview" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="26-1789096967207-6199"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+        <p>An Application Load Balancer functions at the application layer, the seventh layer of the Open Systems
+            Interconnection (OSI) model. After the load balancer receives a request, it evaluates
+            the listener rules in priority order to determine which rule to apply, and then selects
+            a target from the target group for the rule action. You can configure listener rules to
+            route requests to different target groups based on the content of the application
+            traffic. Routing is performed independently for each target group, even when a target is
+            registered with multiple target groups. You can configure the routing algorithm used at
+            the target group level. The default routing algorithm is round robin; alternatively, you
+            can specify the least outstanding requests routing algorithm.</p>
+
+        <p>You can add and remove targets from your load balancer as your needs change, without
+            disrupting the overall flow of requests to your application. Elastic Load Balancing scales your load
+            balancer as traffic to your application changes over time. Elastic Load Balancing can scale to the vast
+            majority of workloads automatically.</p>
+
+        <p>You can configure health checks, which are used to monitor the health of the
+            registered targets so that the load balancer can send requests only to the healthy
+            targets.</p>
+
+        <p>For more information, see <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html">How Elastic Load Balancing works</a> in
+            the <em>Elastic Load Balancing User Guide</em>.</p>
+
+     
+        <h2 id="application-load-balancer-benefits">Benefits of migrating from a Classic Load Balancer<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application-load-balancer-benefits" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="27-1789096967208-4330"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+        <p>Using an Application Load Balancer instead of a Classic Load Balancer has the following benefits:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Support for <a href="./rule-condition-types.html#path-conditions">Path conditions</a>.
+                    You can configure rules for your listener that forward requests based on the URL
+                    in the request. This enables you to structure your application as smaller
+                    services, and route requests to the correct service based on the content of the
+                    URL.</p>
+            </li><li class="listitem">
+                <p>Support for <a href="./rule-condition-types.html#host-conditions">Host conditions</a>.
+                    You can configure rules for your listener that forward requests based on the
+                    host field in the HTTP header. This enables you to route requests to multiple
+                    domains using a single load balancer.</p>
+            </li><li class="listitem">
+                <p>Support for routing based on fields in the request, such as <a href="./rule-condition-types.html#http-header-conditions">HTTP header conditions</a>
+                    and methods, query parameters, and source IP addresses.</p>
+            </li><li class="listitem">
+                <p>Support for routing requests to multiple applications on a single EC2
+                    instance. You can register an instance or IP address with multiple target
+                    groups, each on a different port.</p>
+            </li><li class="listitem">
+                <p>Support for redirecting requests from one URL to another.</p>
+            </li><li class="listitem">
+                <p>Support for returning a custom HTTP response.</p>
+            </li><li class="listitem">
+                <p>Support for registering targets by IP address, including targets outside the
+                    VPC for the load balancer.</p>
+            </li><li class="listitem">
+                <p>Support for registering Lambda functions as targets.</p>
+            </li><li class="listitem">
+                <p>Support for the load balancer to authenticate users of your applications
+                    through their corporate or social identities before routing requests.</p>
+            </li><li class="listitem">
+                <p>Support for containerized applications. Amazon Elastic Container Service (Amazon ECS) can select an unused
+                    port when scheduling a task and register the task with a target group using this
+                    port. This enables you to make efficient use of your clusters.</p>
+            </li><li class="listitem">
+                <p>Support for monitoring the health of each service independently, as health
+                    checks are defined at the target group level and many CloudWatch metrics are reported
+                    at the target group level. Attaching a target group to an Auto Scaling group enables you
+                    to scale each service dynamically based on demand.</p>
+            </li><li class="listitem">
+                <p>Access logs contain additional information and are stored in compressed
+                    format.</p>
+            </li><li class="listitem">
+                <p>Improved load balancer performance.</p>
+            </li></ul></div>
+
+        <p>For more information about the features supported by each load
+            balancer type, see <a href="https://aws.amazon.com/elasticloadbalancing/features/" rel="noopener noreferrer" target="_blank"><span>Elastic Load Balancing features</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p>
+        
+
+     
+        <h2 id="application-load-balancer-related-services">Related services<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application-load-balancer-related-services" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="28-1789096967208-2987"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+        <p>Elastic Load Balancing works with the following services to improve the availability and scalability of
+            your applications.</p>
+
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>Amazon EC2</b> — Virtual servers that run your applications
+                    in the cloud. You can configure your load balancer to route traffic to your EC2
+                    instances.</p>
+            </li><li class="listitem">
+                <p><b>Amazon EC2 Auto Scaling</b> — Ensures that you are running your
+                    desired number of instances, even if an instance fails, and enables you to
+                    automatically increase or decrease the number of instances as the demand on your
+                    instances changes. If you enable Auto Scaling with Elastic Load Balancing, instances that are launched by
+                    Auto Scaling are automatically registered with the target group, and instances that are
+                    terminated by Auto Scaling are automatically de-registered from the target group.</p>
+            </li><li class="listitem">
+                <p><b>AWS Certificate Manager</b> — When you create an HTTPS listener, you
+                    can specify certificates provided by ACM. The load balancer uses certificates
+                    to terminate connections and decrypt requests from clients. For more
+                    information, see <a href="./https-listener-certificates.html">SSL certificates for your Application Load Balancer</a>.</p>
+            </li><li class="listitem">
+                <p><b>Amazon CloudWatch</b> — Enables you to monitor your load
+                    balancer and take action as needed. For more information, see <a href="./load-balancer-cloudwatch-metrics.html">CloudWatch metrics for your Application Load Balancer</a>.</p>
+            </li><li class="listitem">
+                <p><b>Amazon ECS</b> — Enables you to run, stop, and manage Docker
+                    containers on a cluster of EC2 instances. You can configure your load balancer
+                    to route traffic to your containers. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html">Service load
+                        balancing</a> in the <em>Amazon Elastic Container Service Developer Guide</em>.</p>
+            </li><li class="listitem">
+                <p><b>AWS Global Accelerator</b> — Improves the availability and
+                    performance of your application. Use an accelerator to distribute traffic across
+                    multiple load balancers in one or more AWS Regions. For more information, see
+                    the <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/">AWS Global Accelerator Developer Guide</a>.</p>
+            </li><li class="listitem">
+                <p><b>Route&nbsp;53</b> — Provides a reliable and cost-effective way
+                    to route visitors to websites by translating domain names (such as
+                        <code class="code">www.example.com</code>) into the numeric IP addresses (such as
+                        <code class="code">192.0.2.1</code>) that computers use to connect to each other. AWS
+                    assigns URLs to your resources, such as load balancers. However, you might want
+                    a URL that is easy for users to remember. For example, you can map your domain
+                    name to a load balancer. For more information, see 
+                    <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html">Routing traffic to 
+                        an ELB load balancer</a> in the <em>Amazon Route&nbsp;53 Developer Guide</em>.</p>
+            </li><li class="listitem">
+                <p><b>AWS WAF</b> — You can use AWS WAF with your Application Load Balancer to allow
+                    or block requests based on the rules in a web access control list (web ACL). For
+                    more information, see <a href="./load-balancer-integrations.html#load-balancer-waf">AWS WAF</a>.</p>
+            </li></ul></div>
+
+        <p>To view information about services that are integrated with your load balancer, select
+            your load balancer in the AWS Management Console and choose the <b>Integrated
+                services</b> tab.</p>
+     
+        <h2 id="application-load-balancer-pricing">Pricing<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application-load-balancer-pricing" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="29-1789096967208-8525"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+
+        <p>With your load balancer, you pay only for what you use. For more information, see
+                <a href="https://aws.amazon.com/elasticloadbalancing/pricing/" rel="noopener noreferrer" target="_blank"><span>Elastic Load Balancing
+            pricing</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="next" class="next-link" accesskey="n" href="./application-load-balancers.html">Application Load Balancers</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ELB&amp;topic_url=https://docs.aws.amazon.com/en_us/elasticloadbalancing/latest/application/introduction.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ELB&amp;topic_url=https://docs.aws.amazon.com/en_us/elasticloadbalancing/latest/application/introduction.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096967094-3326"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65 awsui_anchor-item--active_swimc_1bw6y_85 awsui_anchor-item--active_17oho_5eh15_13"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17 awsui_anchor-link--active_swimc_1bw6y_145" href="#application-load-balancer-components" aria-current="true"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Application Load Balancer components</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#application-load-balancer-overview"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Application Load Balancer overview</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#application-load-balancer-benefits"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Benefits of migrating from a Classic Load Balancer</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#application-load-balancer-related-services"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Related services</span></a></li><li data-itemid="anchor-item-5" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#application-load-balancer-pricing"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Pricing</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4o:" type="submit" data-analytics-performance-mark="31-1789096967212-1626"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4q:" type="submit" data-analytics-performance-mark="32-1789096967212-699"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r4t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=ELB&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Felasticloadbalancing%2Flatest%2Fapplication%2Fintroduction.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./application-load-balancers.html"><span>Application Load Balancers</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

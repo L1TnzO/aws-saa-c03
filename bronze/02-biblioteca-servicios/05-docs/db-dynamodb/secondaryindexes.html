@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Improving data access with secondary indexes in DynamoDB - Amazon DynamoDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="SecondaryIndexes" /><meta name="default_state" content="SecondaryIndexes" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html" /><meta name="description" content="Improve data access in DynamoDB using secondary indexes. Enhance query performance and provide alternate data access patterns for your application." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DynamoDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon DynamoDB is a fast, fully managed NoSQL database as a service that makes it simple and cost-effective to store and retrieve any amount of data, and serve any level of request traffic." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html" hreflang="x-default" /><meta name="feedback-item" content="DynamoDB" /><meta name="this_doc_product" content="Amazon DynamoDB" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dynamodb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Improving data access with secondary indexes in DynamoDB" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="SecondaryIndexes.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Improving data access with secondary indexes in DynamoDB - Amazon DynamoDB</title><meta name="pdf" content="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#SecondaryIndexes" /><meta name="rss" content="dynamodbupdates.rss" /><meta name="forums" content="https://repost.aws/tags/TAljkKQ0MDQJCjDdxSeDQBJw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/SecondaryIndexes.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/SecondaryIndexes.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/SecondaryIndexes.html" /><meta name="keywords" content="DynamoDB,Amazon DynamoDB,database,NoSQL database,nonrelational database,managed database,DynamoDB tables,DynamoDB table operations,DynamoDB table management,DynamoDB table items,DynamoDB indexes,DynamoDB global tables,DynamoDB transactions,DynamoDB Streams,DynamoDB secondary indexes,DynamoDB table indexes,DynamoDB data access patterns,DynamoDB local secondary index,DynamoDB global secondary index" /><link rel="alternate" type="text/markdown" href="SecondaryIndexes.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DynamoDB",
+        "item" : "https://docs.aws.amazon.com/dynamodb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with tables, items, queries, scans, and indexes",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDynamo.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Improving data access with secondary indexes in DynamoDB",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDynamo.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#SecondaryIndexes" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/dynamodb/index.html">Amazon DynamoDB</a><a href="Introduction.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="SecondaryIndexes">Improving data access with secondary indexes in DynamoDB</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon DynamoDB supports two families of indexes, which serve different access
+        patterns:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>Secondary indexes</b> — Give your
+                application alternate keys to query by, in addition to the base table primary
+                key. You read them with <code class="code">Query</code> and <code class="code">Scan</code>. This page
+                describes secondary indexes.</p>
+        </li><li class="listitem">
+            <p><b>Vector indexes</b> — Enable similarity
+                search over vector embeddings stored in your items. They are not an alternate
+                key for lookups, and you read them with <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_SearchVectors.html">SearchVectors</a> rather than
+                <code class="code">Query</code> or <code class="code">Scan</code>. For more information, see
+                <a href="./VectorSearch.html">Using vector indexes in DynamoDB</a>.</p>
+        </li></ul></div><p>Amazon DynamoDB provides fast access to items in a table by specifying primary key values.
+        However, many applications might benefit from having one or more secondary (or alternate)
+        keys available, to allow efficient access to data with attributes other than the primary
+        key. To address this, you can create one or more secondary indexes on a table and issue
+            <code class="code">Query</code> or <code class="code">Scan</code> requests against these indexes.</p><p>A <em>secondary index</em> is a data structure that contains a subset of attributes from
+        a table, along with an alternate key to support <code class="code">Query</code> operations. You can
+        retrieve data from the index using a <code class="code">Query</code>, in much the same way as you use
+            <code class="code">Query</code> with a table. A table can have multiple secondary indexes, which give
+        your applications access to many different query patterns.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can also <code class="code">Scan</code> an index, in much the same way as you would
+                <code class="code">Scan</code> a table. 
+        </p><p>Cross-account access for secondary index scan
+            operations is currently not supported with <a href="./access-control-resource-based.html">resource-based policies</a>.</p></div></div><p>Every secondary index is associated with exactly one table, from which it obtains its data. This is
+        called the <em>base table</em> for the index. When you create an index, you
+        define an alternate key for the index (partition key and sort key). You also define the
+        attributes that you want to be <em>projected</em>, or copied, from
+        the base table into the index. DynamoDB copies these attributes into the index, along with the
+        primary key attributes from the base table. You can then query or scan the index just as you
+        would query or scan a table. </p><p>Every secondary index is automatically maintained by DynamoDB. When you add, modify, or delete items in
+        the base table, any indexes on that table are also updated to reflect these changes.</p><p>DynamoDB supports two types of secondary indexes:</p><div class="itemizedlist">
+         
+         
+
+    <ul class="itemizedlist"><li class="listitem">
+            <p><span class="topcom"><a href="GSI.html" rel="noopener noreferrer" target="_blank">Global secondary index</a> — </span>An
+                index with a partition key and a sort key that can be different from those on the
+                base table. A global secondary index is considered "global" because queries on the index can span all
+                of the data in the base table, across all partitions. A global secondary index is stored in its own
+                partition space away from the base table and scales separately from the base
+                table.</p>
+        </li><li class="listitem">
+            <p><span class="topcom"><a href="LSI.html" rel="noopener noreferrer" target="_blank">Local secondary index</a> — </span>An
+                index that has the same partition key as the base table, but a different sort key. A
+                local secondary index is "local" in the sense that every partition of a local secondary index is scoped to a base
+                table partition that has the same partition key value.</p>
+        </li></ul></div><p>For a comparison of global secondary indexes and local secondary indexes, see this
+        video.</p><div class="mediaobject">
+         
+            <iframe width="480" height="390" frameborder="0" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" sandbox="allow-scripts allow-same-origin allow-popups" src="https://www.youtube-nocookie.com/embed/BkEu7zBWge8"></iframe>
+         
+    </div><div class="highlights"><h6>Topics</h6><ul><li><p><a href="./GSI.html">Using Global Secondary Indexes in DynamoDB</a></p></li><li><p><a href="./LSI.html">Local secondary indexes</a></p></li></ul></div><p>You should consider your application's requirements when you determine which type of index
+        to use. The following table shows the main differences between a global secondary index and a local secondary index.</p><div class="table-container"><div class="table-contents"><table id="w436aac17c13c29"><thead>
+                <tr>
+                    <th>Characteristic</th>
+                    <th>Global secondary index</th>
+                    <th>Local secondary index</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td tabindex="-1"><b>Key Schema</b></td>
+                    <td tabindex="-1">The primary key of a global secondary index can be either simple (partition key) or
+                        composite (partition key and sort key).</td>
+                    <td tabindex="-1">The primary key of a local secondary index must be composite (partition key and sort
+                        key).</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Key Attributes</b></td>
+                    <td tabindex="-1">The index partition key and sort key (if present) can be any base table
+                        attributes of type string, number, or binary.</td>
+                    <td tabindex="-1">The partition key of the index is the same attribute as the partition key
+                        of the base table. The sort key can be any base table attribute of type
+                        string, number, or binary.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Size Restrictions Per Partition Key
+                            Value</b></td>
+                    <td tabindex="-1">There are no size restrictions for global secondary indexes.</td>
+                    <td tabindex="-1">For each partition key value, the total size of all indexed items must be
+                        10 GB or less.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Online Index Operations</b></td>
+                    <td tabindex="-1">Global secondary indexes can be created at the same time that you create a table. You can
+                        also add a new global secondary index to an existing table, or delete an existing global secondary index. For
+                        more information, see <a href="./GSI.OnlineOps.html">Managing Global Secondary Indexes in DynamoDB</a>. </td>
+                    <td tabindex="-1">Local secondary indexes are created at the same time that you create a table. You cannot
+                        add a local secondary index to an existing table, nor can you delete any local secondary indexes that
+                        currently exist.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Queries and Partitions</b></td>
+                    <td tabindex="-1">A global secondary index lets you query over the entire table, across all partitions. </td>
+                    <td tabindex="-1">A local secondary index lets you query over a single partition, as specified by the
+                        partition key value in the query.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Read Consistency</b></td>
+                    <td tabindex="-1">Queries on global secondary indexes support eventual consistency only.</td>
+                    <td tabindex="-1">When you query a local secondary index, you can choose either eventual consistency or
+                        strong consistency.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Provisioned Throughput
+                        Consumption</b></td>
+                    <td tabindex="-1">Every global secondary index has its own provisioned throughput settings for read and
+                        write activity. Queries or scans on a global secondary index consume capacity units from the
+                        index, not from the base table. The same holds true for global secondary index updates due to
+                        table writes. A global secondary index associated with global tables consumes write capacity
+                        units. </td>
+                    <td tabindex="-1">Queries or scans on a local secondary index consume read capacity units from the base
+                        table. When you write to a table its local secondary indexes are also updated, and these
+                        updates consume write capacity units from the base table. A local secondary index associated
+                        with global tables consumes replicated write capacity units.</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><b>Projected Attributes</b></td>
+                    <td tabindex="-1">With global secondary index queries or scans, you can only request the attributes that are
+                        projected into the index. DynamoDB does not fetch any attributes from the
+                        table.</td>
+                    <td tabindex="-1">If you query or scan a local secondary index, you can request attributes that are not
+                        projected in to the index. DynamoDB automatically fetches those attributes from
+                        the table.</td>
+                </tr>
+            </table></div></div><p>If you want to create more than one table with secondary indexes, you must do so sequentially. For
+        example, you would create the first table and wait for it to become <code class="code">ACTIVE</code>,
+        create the next table and wait for it to become <code class="code">ACTIVE</code>, and so on. If you try
+        to concurrently create more than one table with a secondary index, DynamoDB returns a
+            <code class="code">LimitExceededException</code>.</p><p>Each secondary index uses the same <a href="HowItWorks.TableClasses.html" rel="noopener noreferrer" target="_blank">table
+            class</a> and <a href="./capacity-mode.html">capacity mode</a> as the base table
+        it is associated with. For each secondary index, you must specify the following:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>The type of index to be created – either a global secondary index or a local secondary index.</p>
+        </li><li class="listitem">
+            <p>A name for the index. The naming rules for indexes are the same as those for
+                tables, as listed in <a href="./ServiceQuotas.html">Quotas in Amazon DynamoDB</a>.
+                The name must be unique for the base table it is associated with, but you can use
+                the same name for indexes that are associated with different base tables.</p>
+        </li><li class="listitem">
+            <p>The key schema for the index. Every attribute in the index key schema must be a
+                top-level attribute of type <code class="code">String</code>, <code class="code">Number</code>, or
+                    <code class="code">Binary</code>. Other data types, including documents and sets, are not
+                allowed. Other requirements for the key schema depend on the type of index: </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For a global secondary index, the partition key can be any scalar attribute of the base
+                        table. A sort key is optional, and it too can be any scalar attribute of the
+                        base table.</p>
+                </li><li class="listitem">
+                    <p>For a local secondary index, the partition key must be the same as the base table's
+                        partition key, and the sort key must be a non-key base table
+                        attribute.</p>
+                </li></ul></div>
+        </li><li class="listitem">
+            <p>Additional attributes, if any, to project from the base table into the index.
+                These attributes are in addition to the table's key attributes, which are
+                automatically projected into every index. You can project attributes of any data
+                type, including scalars, documents, and sets.</p>
+        </li><li class="listitem">
+            <p>The provisioned throughput settings for the index, if necessary:</p>
+
+            <div class="itemizedlist">
+                 
+
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For a global secondary index, you must specify read and write capacity unit settings. These
+                        provisioned throughput settings are independent of the base table's
+                        settings.</p>
+                </li><li class="listitem">
+                    <p>For a local secondary index, you do not need to specify read and write capacity unit
+                        settings. Any read and write operations on a local secondary index draw from the provisioned
+                        throughput settings of its base table.</p>
+                </li></ul></div>
+        </li></ul></div><p>For maximum query flexibility, you can create up to 20 global secondary
+        indexes (default quota) and up to 5 local secondary indexes per
+        table.</p><p>To get a detailed listing of secondary indexes on a table, use the
+            <code class="code">DescribeTable</code> operation. <code class="code">DescribeTable</code> returns the name,
+        storage size, and item counts for every secondary index on the table. These values are not updated in
+        real time, but they are refreshed approximately every six hours.</p><p>You can access the data in a secondary index using either the <code class="code">Query</code> or <code class="code">Scan</code>
+        operation. You must specify the name of the base table and the name of the index that you
+        want to use, the attributes to be returned in the results, and any condition expressions or
+        filters that you want to apply. DynamoDB can return the results in ascending or descending
+        order.</p><p>When you delete a table, all of the indexes associated with that table are also
+        deleted.</p><p>For best practices, see <a href="./bp-indexes.html">Best practices for using secondary indexes in DynamoDB</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./LowLevelDotNetBinaryTypeExample.html">Example: Handling binary type attributes - .NET low-level API</div><div id="next" class="next-link" accesskey="n" href="./GSI.html">Global secondary indexes</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/SecondaryIndexes.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/SecondaryIndexes.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

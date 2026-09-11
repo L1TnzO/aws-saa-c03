@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Set up alternating users rotation for AWS Secrets Manager - AWS Secrets Manager</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tutorials_rotation-alternating" /><meta name="default_state" content="tutorials_rotation-alternating" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" /><meta name="description" content="Learn how to set up automatic rotation for database credentials." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Secrets Manager" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Walks you through creating and managing your secrets, retrieving them in your application, and automatically rotating them to help keep them secure." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" hreflang="x-default" /><meta name="feedback-item" content="Secrets Manager" /><meta name="this_doc_product" content="AWS Secrets Manager" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'secretsmanager'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Set up alternating users rotation for AWS Secrets Manager" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tutorials_rotation-alternating.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Set up alternating users rotation for AWS Secrets Manager - AWS Secrets Manager</title><meta name="pdf" content="/pdfs/secretsmanager/latest/userguide/secretsmanager-userguide.pdf#tutorials_rotation-alternating" /><meta name="rss" content="aws-secretsmanager-documentation-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAJAqKRtZ5RY6XCoNAUTcVzQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Secrets%20Manager&amp;topic_url=https://docs.aws.amazon.com/en_us/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/secretsmanager/latest/userguide/tutorials_rotation-alternating.html" /><meta name="keywords" content="Secrets Manager,secrets,storing credentials,storing secrets,rotating credentials,rotating secrets,list secrets,multi-region secrets" /><link rel="alternate" type="text/markdown" href="tutorials_rotation-alternating.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Secrets Manager",
+        "item" : "https://docs.aws.amazon.com/secretsmanager/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/secretsmanager/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Secrets Manager tutorials",
+        "item" : "https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Set up alternating users rotation for AWS Secrets Manager",
+        "item" : "https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/secretsmanager/latest/userguide/secretsmanager-userguide.pdf#tutorials_rotation-alternating" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/secretsmanager/index.html">AWS Secrets Manager</a><a href="intro.html">User Guide</a></div><div id="page-toc-src"><a href="#tutorials_rotation-alternating-permissions">Permissions</a><a href="#tutorials_rotation-alternating-step-setup">Prerequisites</a><a href="#tutorials_rotation-alternating-step-database">Step 1: Create an Amazon RDS database user</a><a href="#tutorials_rotation-alternating_step-rotate">Step 2: Create a secret for the user credentials</a><a href="#tutorials_rotation-alternating_step-test-secret">Step 3: Test the rotated secret</a><a href="#tutorials_rotation-alternating_step-cleanup">Step 4: Clean up resources</a><a href="#tutorials_rotation-alternating_step-next">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tutorials_rotation-alternating">Set up alternating users rotation for AWS Secrets Manager</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In this tutorial, you learn how to set up alternating users rotation for a secret that
+        contains database credentials. <em>Alternating users rotation</em> is a rotation
+        strategy where Secrets Manager clones the user and then alternates which user's credentials are
+        updated. This strategy is a good choice if you need high availability for your secret,
+        because one of the alternating users has current credentials to the database while the other
+        one is being updated. For more information, see <a href="./rotation-strategy.html#rotating-secrets-two-users">Rotation strategy: alternating users</a>. </p><p>To set up alternating users rotation, you need two secrets:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>One secret with the credentials that you want to rotate.</p>
+        </li><li class="listitem">
+            <p>A second secret that has admin credentials. </p>
+            <p>This user has
+                permissions to clone the first user and change the first users' password. In this tutorial, you have Amazon RDS create this secret for an admin user. Amazon RDS also manages the admin password rotation. For more information, see <a href="./rotate-secrets_managed.html">Managed rotation for AWS Secrets Manager secrets</a>.</p>
+        </li></ul></div><p>The first part of this tutorial is setting up a realistic environment. To show you how
+        rotation works, this tutorial uses an example Amazon RDS MySQL database. For security, the
+        database is in a VPC that restricts inbound internet access. To connect to the database from
+        your local computer through the internet, you use a <em>bastion host</em>, a
+        server in the VPC that can connect to the database, but that also allows SSH connections
+        from the internet. The bastion host in this tutorial is an Amazon EC2 instance, and the security
+        groups for the instance prevent other types of connections. </p><p>After you finish the tutorial, we recommend that you clean up the resources from the
+        tutorial. Don't use them in a production setting.</p><p>Secrets Manager rotation uses an AWS Lambda function to update the secret and the database. For
+        information about the costs of using a Lambda function, see <a href="./intro.html#asm_pricing">Pricing</a>.</p><div class="highlights" id="inline-topiclist"><h6>Tutorial:</h6><ul><li><p><a href="#tutorials_rotation-alternating-permissions">Permissions</a></p></li><li><p><a href="#tutorials_rotation-alternating-step-setup">Prerequisites</a></p></li><li><p><a href="#tutorials_rotation-alternating-step-database">Step 1: Create an Amazon RDS database user</a></p></li><li><p><a href="#tutorials_rotation-alternating_step-rotate">Step 2: Create a secret for the user credentials</a></p></li><li><p><a href="#tutorials_rotation-alternating_step-test-secret">Step 3: Test the rotated secret</a></p></li><li><p><a href="#tutorials_rotation-alternating_step-cleanup">Step 4: Clean up resources</a></p></li><li><p><a href="#tutorials_rotation-alternating_step-next">Next steps</a></p></li></ul></div>
+        <h2 id="tutorials_rotation-alternating-permissions">Permissions</h2>
+        <p>For the tutorial prerequisites, you need administrative permissions to your
+            AWS account. In a production setting, it is a best practice to use different roles for
+            each of the steps. For example, a role with database admin permissions would create the
+            Amazon RDS database, and a role with network admin permissions would set up the VPC and
+            security groups. For the tutorial steps, we recommend you continue using the same
+            identity.</p>
+        <p>For information about how to set up permissions in a production environment, see <a href="./auth-and-access.html">Authentication and access control for AWS Secrets Manager</a>.</p>
+     
+        <h2 id="tutorials_rotation-alternating-step-setup">Prerequisites</h2>
+
+
+        <div class="highlights" id="inline-topiclist"><h6>For this tutorial, you need the following:</h6><ul><li><p><a href="#tutorials_rotation-alternating-step-vpc">Prereq A: Amazon VPC</a></p></li><li><p><a href="#tutorials_rotation-alternating-step-setup_ec2">Prereq B: Amazon EC2 instance</a></p></li><li><p><a href="#tutorials_rotation-alternating-step-database">Prereq C: Amazon RDS database and a Secrets Manager secret for the admin credentials</a></p></li><li><p><a href="#tutorials_rotation-alternating-step-ec2connect">Prereq D: Allow your local computer to connect to the EC2 instance</a></p></li></ul></div>
+
+         
+            <h3 id="tutorials_rotation-alternating-step-vpc">Prereq A: Amazon VPC</h3>
+            <p>In this step, you create a VPC that you can launch an Amazon RDS database and an Amazon EC2
+                instance into. In a later step, you'll use your computer to connect through the
+                internet to the bastion and then to the database, so you need to allow traffic out
+                of the VPC. To do this, Amazon VPC attaches an internet gateway to the VPC and adds a
+                route in the route table so that traffic destined for outside the VPC is sent to the
+                internet gateway.</p>
+            <p>Within the VPC, you create a Secrets Manager endpoint and an Amazon RDS endpoint. When you set up
+                automatic rotation in a later step, Secrets Manager creates a Lambda rotation function within
+                the VPC so that it can access the database. The Lambda rotation function also calls
+                Secrets Manager to update the secret, and it calls Amazon RDS to get the database connection
+                information. By creating endpoints within the VPC, you ensure that calls from the
+                Lambda function to Secrets Manager and Amazon RDS don't leave AWS infrastructure. Instead, they
+                are routed to the endpoints within the VPC.</p>
+
+            <div class="procedure"><h6>To create a VPC</h6><ol><li><p>Open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>Choose <b>Create VPC</b>.</p>
+                </li><li>
+                    <p>On the <b>Create VPC</b> page, choose <b>VPC and
+                        more</b>.</p>
+                </li><li>
+                    <p>Under <b>Name tag auto-generation</b>, under
+                        <b>Auto-generate</b>, enter
+                        <code class="userinput">SecretsManagerTutorial</code>.</p>
+                </li><li>
+                    <p>For <b>DNS options</b>, choose both <code class="userinput">Enable DNS
+                        hostnames</code> and <code class="userinput">Enable DNS
+                        resolution</code>.</p>
+                </li><li>
+                    <p>Choose <b>Create VPC</b>.</p>
+                </li></ol></div>
+            <div class="procedure"><h6>To create a Secrets Manager endpoint within the VPC</h6><ol><li>
+                    <p>In the Amazon VPC console, under <b>Endpoints</b>, choose
+                        <b>Create Endpoint</b>.</p>
+                </li><li>
+                    <p>Under <b>Endpoint settings</b>, for
+                        <b>Name</b>, enter
+                        <code class="userinput">SecretsManagerTutorialEndpoint</code>.</p>
+                </li><li>
+                    <p>Under <b>Services</b>, enter
+                        <code class="userinput">secretsmanager</code> to filter the list, and then select
+                        the Secrets Manager endpoint in your AWS Region. For example, in the
+                        US East (N. Virginia), choose
+                        <code class="code">com.amazonaws.us-east-1.secretsmanager</code>. </p>
+                </li><li>
+                    <p>For <b>VPC</b>, choose <code class="userinput">vpc****
+                        (SecretsManagerTutorial)</code>.</p>
+                </li><li>
+                    <p>For <b>Subnets</b>, select all <b>Availability
+                        Zones</b>, and then for each one, choose a <b>Subnet
+                        ID</b> to include.</p>
+                </li><li>
+                    <p>For <b>IP address type</b>, choose
+                        <code class="userinput">IPv4</code>.</p>
+                </li><li>
+                    <p>For <b>Security groups</b>, choose the default security
+                        group.</p>
+                </li><li>
+                    <p>For <b>Policy</b>, choose <code class="userinput">Full
+                        access</code>. </p>
+                </li><li>
+                    <p>Choose <b>Create endpoint</b>.</p>
+                </li></ol></div>
+            <div class="procedure"><h6>To create an Amazon RDS endpoint within the VPC</h6><ol><li>
+                    <p>In the Amazon VPC console, under <b>Endpoints</b>, choose
+                        <b>Create Endpoint</b>.</p>
+                </li><li>
+                    <p>Under <b>Endpoint settings</b>, for
+                        <b>Name</b>, enter
+                        <code class="userinput">RDSTutorialEndpoint</code>.</p>
+                </li><li>
+                    <p>Under <b>Services</b>, enter <code class="userinput">rds</code> to
+                        filter the list, and then select the Amazon RDS endpoint in your AWS Region.
+                        For example, in the US East (N. Virginia), choose
+                        <code class="code">com.amazonaws.us-east-1.rds</code>. </p>
+                </li><li>
+                    <p>For <b>VPC</b>, choose <code class="userinput">vpc****
+                        (SecretsManagerTutorial)</code>.</p>
+                </li><li>
+                    <p>For <b>Subnets</b>, select all <b>Availability
+                        Zones</b>, and then for each one, choose a <b>Subnet
+                        ID</b> to include.</p>
+                </li><li>
+                    <p>For <b>IP address type</b>, choose
+                        <code class="userinput">IPv4</code>.</p>
+                </li><li>
+                    <p>For <b>Security groups</b>, choose the default security
+                        group.</p>
+                </li><li>
+                    <p>For <b>Policy</b>, choose <code class="userinput">Full
+                        access</code>. </p>
+                </li><li>
+                    <p>Choose <b>Create endpoint</b>.</p>
+                </li></ol></div>
+
+         
+
+         
+            <h3 id="tutorials_rotation-alternating-step-setup_ec2">Prereq B: Amazon EC2 instance</h3>
+            <p>The Amazon RDS database you create in a later step will be in the VPC, so to access it,
+                you need a bastion host. The bastion host is also in the VPC, but in a later step,
+                you configure a security group to allow your local computer to connect to the
+                bastion host with SSH. </p>
+            <div class="procedure"><h6>To create an EC2 instance for a bastion host</h6><ol><li><p>Open the Amazon EC2 console at
+         <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>Choose <b>Instances</b> and then choose <b>Launch
+                        Instances</b>.</p>
+                </li><li>
+                    <p>Under <b>Name and tags</b>, for <b>Name</b>,
+                        enter <code class="userinput">SecretsManagerTutorialInstance</code>.</p>
+                </li><li>
+                    <p>Under <b>Application and OS Images</b>, keep the default
+                        <code class="userinput">Amazon Linux 2 AMI (HMV) Kernel 5.10</code>.</p>
+                </li><li>
+                    <p>Under <b>Instance type</b>, keep the default
+                        <code class="userinput">t2.micro</code>.</p>
+                </li><li>
+                    <p>Under <b>Key pair</b>, choose <b>Create key
+                        pair</b>.</p>
+                    <p>In the <b>Create key pair</b> dialog box, for <b>Key
+                        pair name</b>, enter
+                        <code class="userinput">SecretsManagerTutorialKeyPair</code>, and then choose
+                        <b>Create key pair</b>.</p>
+                    <p>The key pair is automatically downloaded.</p>
+                </li><li>
+                    <p>Under <b>Network settings</b>, choose
+                        <b>Edit</b>, and then do the following:</p>
+                    <ol><li>
+                            <p>For <b>VPC</b>, choose <code class="userinput">vpc-****
+                                SecretsManagerTutorial</code>.</p>
+                        </li><li>
+                            <p>For <b>Auto-assign Public IP</b>, choose
+                                <code class="userinput">Enable</code>.</p>
+                        </li><li>
+                            <p>For <b>Firewall</b>, choose <b>Select
+                                existing security group</b>.</p>
+                        </li><li>
+                            <p>For <b>Common security groups</b>, choose
+                                <code class="userinput">default</code>. </p>
+                        </li></ol>
+                </li><li>
+                    <p>Choose <b>Launch instance</b>.</p>
+                </li></ol></div>
+         
+
+         
+            <h3 id="tutorials_rotation-alternating-step-database">Prereq C: Amazon RDS database and a Secrets Manager secret for the admin credentials</h3>
+            <p>In this step, you create an Amazon RDS MySQL database and configure it so that Amazon RDS
+                creates a secret to contain the admin credentials. Then Amazon RDS automatically manages
+                rotation of the admin secret for you. For more information, see <a href="./rotate-secrets_managed.html">Managed rotation</a>.</p>
+            <p>As part of creating your database, you specify the bastion host you created in the
+                previous step. Then Amazon RDS sets up security groups so that the database and the
+                instance can access each other. You add a rule to the security group attached to the
+                instance to allow your local computer to connect to it as well. </p>
+            <div class="procedure"><h6>To create an Amazon RDS database with an Secrets Manager secret that contains the admin credentials</h6><ol><li>
+                    <p>In the Amazon RDS console, choose <b>Create database</b>.</p>
+                </li><li>
+                    <p>In the <b>Engine options</b> section, for <b>Engine
+                        type</b>, choose <code class="userinput">MySQL</code>.</p>
+                </li><li>
+                    <p>In the <b>Templates</b> section, choose <code class="userinput">Free
+                        tier</code>.</p>
+                </li><li>
+                    <p>In the <b>Settings</b> section, do the following:</p>
+                    <ol><li>
+                            <p>For <b>DB instance identifier</b>, enter
+                                <code class="userinput">SecretsManagerTutorial</code>.</p>
+                        </li><li>
+                            <p>Under <b>Credential settings</b>, select
+                                <b>Manage master credentials in AWS Secrets Manager</b>.</p>
+                        </li></ol>
+                </li><li>
+                    <p>In the <b>Connectivity</b> section, for <b>Computer
+                        resource</b>, choose <b>Connect to an EC2 computer
+                        resource</b>, and then for <b>EC2 Instance</b>, choose
+                        <code class="userinput">SecretsManagerTutorialInstance</code>.</p>
+                </li><li>
+                    <p>Choose <b>Create database</b>.</p>
+                </li></ol></div>
+         
+         
+            <h3 id="tutorials_rotation-alternating-step-ec2connect">Prereq D: Allow your local computer to connect to the EC2 instance</h3>
+            <p>In this step, you configure the EC2 instance you created in Prereq B to allow your
+                local computer to connect to it. To do this, you edit the security group that Amazon RDS
+                added in Prereq C to include a rule that allows your computer's IP address to
+                connect with SSH. The rule allows your local computer (identified by your current IP
+                address) to connect to the bastion host by using SSH over the internet.</p>
+            <div class="procedure"><h6>To allow your local computer to connect to the EC2 instance</h6><ol><li><p>Open the Amazon EC2 console at
+         <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>On the EC2 instance <b>SecretsManagerTutorialInstance</b>,
+                        on the <b>Security</b> tab, under <b>Security
+                        groups</b>, choose <code class="userinput">sg-*** (ec2-rds-X)</code>.</p>
+                </li><li>
+                    <p>Under <b>Input rules</b>, choose <b>Edit inbound
+                        rules</b>.</p>
+                </li><li>
+                    <p>Choose <b>Add rule</b>, and then for the rule, do the
+                        following:</p>
+                    <ol><li>
+                            <p>For <b>Type</b>, choose
+                                <code class="userinput">SSH</code>.</p>
+                        </li><li>
+                            <p>For <b>Source type</b>, choose <code class="userinput">My
+                                IP</code>.</p>
+                        </li></ol>
+                </li></ol></div>
+
+         
+
+     
+        <h2 id="tutorials_rotation-alternating-step-database">Step 1: Create an Amazon RDS database user</h2>
+        <p>First, you need a user whose credentials will be stored in the secret. To create the
+            user, log into the Amazon RDS database with admin credentials. For simplicity, in the
+            tutorial, you create a user with full permission to a database. In a production setting,
+            this is not typical, and we recommend that you follow the principle of least
+            privilege.</p>
+        <p>To connect to the database, you use a MySQL client tool. In this tutorial, you use
+            MySQL Workbench, a GUI-based application. To install MySQL Workbench, see <a href="http://dev.mysql.com/downloads/workbench/" rel="noopener noreferrer" target="_blank"><span>Download MySQL Workbench</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        <p>To connect to the database, create a connection configuration in MySQL Workbench. For the
+            configuration, you need some information from both Amazon EC2 and Amazon RDS.</p>
+        <div class="procedure"><h6>To create a database connection in MySQL Workbench</h6><ol><li>
+                <p>In MySQL Workbench, next to <b>MySQL Connections</b>, choose the (+)
+                    button.</p>
+            </li><li>
+                <p>In the <b>Setup New Connection</b> dialog box, do the
+                    following:</p>
+                <ol><li>
+                        <p>For <b>Connection Name</b>, enter
+                            <code class="userinput">SecretsManagerTutorial</code>.</p>
+                    </li><li>
+                        <p>For <b>Connection Method</b>, choose <code class="userinput">Standard
+                            TCP/IP over SSH</code>.</p>
+                    </li><li>
+                        <p>On the <b>Parameters</b> tab, do the following:</p>
+                        <ol><li>
+                                <p>For <b>SSH Hostname</b>, enter the public IP
+                                    address of the Amazon EC2 instance.</p>
+                                <p>You can find the IP address on the Amazon EC2 console by choosing
+                                    the instance
+                                    <b>SecretsManagerTutorialInstance</b>. Copy the IP
+                                    address under <b>Public IPv4 DNS</b>.</p>
+                            </li><li>
+                                <p>For <b>SSH Username</b>, enter
+                                    <code class="userinput">ec2-user</code>.</p>
+                            </li><li>
+                                <p>For <b>SSH Keyfile</b>, choose the key pair file
+                                    <b>SecretsManagerTutorialKeyPair.pem</b> you
+                                    downloaded in the previous prerequisite. </p>
+                            </li><li>
+                                <p>For <b>MySQL Hostname</b>, enter the Amazon RDS
+                                    endpoint address.</p>
+                                <p>You can find the endpoint address on the Amazon RDS console by
+                                    choosing the database instance
+                                    <b>secretsmanagertutorialdb</b>. Copy the address
+                                    under <b>Endpoint</b>.</p>
+                            </li><li>
+                                <p>For <b>Username</b>, enter
+                                    <code class="userinput">admin</code>.</p>
+                            </li></ol>
+                    </li><li>
+                        <p>Choose <b>OK</b>.</p>
+                    </li></ol>
+            </li></ol></div>
+        <div class="procedure"><h6>To retrieve the admin password</h6><ol><li>
+                <p>In the Amazon RDS console, navigate to your database.</p>
+            </li><li>
+                <p>On the <b>Configuration</b> tab, under <b>Master
+                    Credentials ARN</b>, choose <b>Manage in Secrets Manager</b>.</p>
+                <p>The Secrets Manager console opens.</p>
+            </li><li>
+                <p>In the secret details page, choose <b>Retrieve secret
+                    value</b>.</p>
+            </li><li>
+                <p>The password appears in the <b>Secret value</b> section.</p>
+            </li></ol></div>
+        <div class="procedure"><h6>To create a database user</h6><ol><li>
+                <p>In MySQL Workbench, choose the connection
+                    <b>SecretsManagerTutorial</b>. </p>
+            </li><li>
+                <p>Enter the admin password you retrieved from the secret. </p>
+            </li><li>
+                <p> In MySQL Workbench, in the <b>Query</b> window, enter the following
+                    commands (including a strong password) and then choose
+                    <b>Execute</b>. The rotation function tests the updated secret by
+                    using SELECT, so the <code class="userinput">appuser</code> must have that privilege at
+                    minimum.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">CREATE DATABASE myDB;
+CREATE USER 'appuser'@'%' IDENTIFIED BY '<code class="replaceable">EXAMPLE-PASSWORD</code>';
+GRANT SELECT ON myDB . * TO 'appuser'@'%';</code></pre>
+                <p>In the <b>Output</b> window, you see the commands are
+                    successful.</p>
+            </li></ol></div>
+     
+        <h2 id="tutorials_rotation-alternating_step-rotate">Step 2: Create a secret for the user credentials</h2>
+        <p>Next, you create a secret to store the credentials of the user you just created. This
+            is the secret you'll be rotating. You turn on automatic rotation, and to indicate the
+            alternating users strategy, you choose a separate superuser secret that has permission
+            to change the first user's password.</p>
+        <div class="procedure"><ol><li><p>Open the Secrets Manager console at <a href="https://console.aws.amazon.com/secretsmanager/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/secretsmanager/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose <b>Store a new secret</b>.</p>
+            </li><li>
+                <p>On the <b>Choose secret type</b> page, do the following:</p>
+                <ol><li>
+                        <p>For <b>Secret type</b>, choose <b>Credentials for
+                            Amazon RDS database</b>.</p>
+                    </li><li>
+                        <p>For <b>Credentials</b>, enter the username
+                            <code class="userinput">appuser</code> and the password you entered for the
+                            database user you created using MySQL Workbench.</p>
+                    </li><li>
+                        <p>For <b>Database</b>, choose
+                            <b>secretsmanagertutorialdb</b>.</p>
+                    </li><li>
+                        <p>Choose <b>Next</b>.</p>
+                    </li></ol>
+            </li><li>
+                <p>On the <b>Configure secret</b> page, for <b>Secret
+                    name</b>, enter <code class="userinput">SecretsManagerTutorialAppuser</code> and
+                    then choose <b>Next</b>.</p>
+            </li><li>
+                <p>On the <b>Configure rotation</b> page, do the following:</p>
+                <ol><li>
+                        <p>Turn on <b>Automatic rotation</b>.</p>
+                    </li><li>
+                        <p>For <b>Rotation schedule</b>, set a schedule of
+                            <b>Days</b>: <code class="userinput">2</code> Days with
+                            <b>Duration</b>: <code class="userinput">2h</code>. Keep
+                            <b>Rotate immediately</b> selected. </p>
+                    </li><li>
+                        <p>For <b>Rotation function</b>, choose <b>Create a
+                            rotation function</b>, and then for the function name, enter
+                            <code class="userinput">tutorial-alternating-users-rotation</code>.</p>
+                    </li><li>
+                        <p>For <b>Rotation strategy</b>, choose
+                            <b>Alternating users</b>, and then under <b>Admin
+                            credential secret</b>, choose the secret named
+                            <b>rds!cluster...</b> which has a
+                            <b>Description</b> that includes the name of the database
+                            you created in this tutorial
+                            <code class="userinput">secretsmanagertutorial</code>, for example <code class="code">Secret
+                            associated with primary RDS DB instance:
+                            arn:aws:rds:<code class="replaceable">Region</code>:<code class="replaceable">AccountId</code>:db:secretsmanagertutorial</code>.</p>
+                    </li><li>
+                        <p>Choose <b>Next</b>.</p>
+                    </li></ol>
+            </li><li>
+                <p>On the <b>Review</b> page, choose
+                    <b>Store</b>.</p>
+                    <p>Secrets Manager returns to the secret details page. At the top of the page, you
+                        can see the rotation configuration status. Secrets Manager uses CloudFormation to create resources such as the Lambda rotation function
+                        and an execution role that runs the Lambda function. When CloudFormation finishes,
+                    the banner changes to <b>Secret scheduled for rotation</b>. The
+                    first rotation is complete.</p>
+            </li></ol></div>
+     
+        <h2 id="tutorials_rotation-alternating_step-test-secret">Step 3: Test the rotated secret</h2>
+        <p>Now that the secret is rotated, you can check that the secret contains valid new
+            credentials. The password in the secret has changed from the original
+            credentials.</p>
+        <div class="procedure"><h6>To retrieve the new password from the secret</h6><ol><li><p>Open the Secrets Manager console at <a href="https://console.aws.amazon.com/secretsmanager/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/secretsmanager/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose <b>Secrets</b>, and then choose the secret
+                    <code class="userinput">SecretsManagerTutorialAppuser</code>.</p>
+            </li><li>
+                <p>On the <b>Secret details</b> page, scroll down and choose
+                    <b>Retrieve secret value</b>.</p>
+            </li><li>
+                <p>In the <b>Key/value</b> table, copy the <b>Secret
+                    value</b> for <code class="userinput">password</code>.</p>
+            </li></ol></div>
+        <div class="procedure"><h6>To test the credentials</h6><ol><li>
+                <p>In MySQL Workbench, right-click the connection
+                    <b>SecretsManagerTutorial</b> and then choose <b>Edit
+                    Connection</b>.</p>
+            </li><li>
+                <p>In the <b>Manage Server Connections</b> dialog box, for
+                    <b>Username</b>, enter <code class="userinput">appuser</code>, and then
+                    choose <b>Close</b>.</p>
+            </li><li>
+                <p>Back in MySQL Workbench, choose the connection
+                    <b>SecretsManagerTutorial</b>.</p>
+            </li><li>
+                <p>In the <b>Open SSH Connection</b> dialog box, for
+                    <b>Password</b>, paste the password you retrieved from the secret,
+                    and then choose <b>OK</b>.</p>
+                <p>If the credentials are valid, then MySQL Workbench opens to the design page for
+                    the database.</p>
+            </li></ol></div>
+        <p>This shows that the secret rotation is successful. The credentials in the secret have
+            been updated and it is a valid password to connect to the database. </p>
+     
+        <h2 id="tutorials_rotation-alternating_step-cleanup">Step 4: Clean up resources</h2>
+        <p>If you want to try another rotation strategy, <em>single user
+            rotation</em>, skip cleaning up resources and go to <a href="./tutorials_rotation-single.html">Set up single user rotation for AWS Secrets Manager</a>. </p>
+        <p>Otherwise, to avoid potential charges, and to remove the EC2 instance that has access
+            to the internet, delete the following resources you created in this tutorial and its
+            prerequisites:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Amazon RDS database instance. For instructions, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">Deleting a DB
+                    instance</a> in the <em>Amazon RDS User Guide</em>.</p>
+            </li><li class="listitem">
+                <p>Amazon EC2 instance. For instructions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#terminating-instances-console">Terminate an instance</a> in the
+                    <em>Amazon EC2 User Guide</em>.</p>
+            </li><li class="listitem">
+                <p>Secrets Manager secret <code class="code">SecretsManagerTutorialAppuser</code>. For instructions, see
+                    <a href="./manage_delete-secret.html">Delete an AWS Secrets Manager secret</a>.</p>
+            </li><li class="listitem">
+                <p>Secrets Manager endpoint. For instructions, see <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/delete-vpc-endpoint.html">Delete a VPC
+                    endpoint</a> in the <em>AWS PrivateLink Guide</em>.</p>
+            </li><li class="listitem">
+                <p>VPC endpoint. For instructions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html#VPC_Deleting">Delete your
+                    VPC</a> in the <em>AWS PrivateLink Guide</em>.</p>
+            </li></ul></div>
+     
+        <h2 id="tutorials_rotation-alternating_step-next">Next steps</h2>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Learn how to <a href="./retrieving-secrets.html">retrieve secrets in your
+                    applications</a>.</p>
+            </li><li class="listitem">
+                <p>Learn about <a href="./rotate-secrets_schedule.html">other rotation
+                    schedules</a>.</p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./hardcoded-db-creds.html">Replace hardcoded DB credentials </div><div id="next" class="next-link" accesskey="n" href="./tutorials_rotation-single.html">Single user rotation</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Secrets Manager&amp;topic_url=https://docs.aws.amazon.com/en_us/secretsmanager/latest/userguide/tutorials_rotation-alternating.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Secrets Manager&amp;topic_url=https://docs.aws.amazon.com/en_us/secretsmanager/latest/userguide/tutorials_rotation-alternating.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

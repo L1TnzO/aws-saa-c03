@@ -1,0 +1,419 @@
+<!--
+BRONZE RAW — DB-08
+URL: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html
+Dominios: D2,D3
+Título doc: Amazon RDS Proxy - Amazon Relational Database Service
+Fase: 5
+Servicio: Amazon RDS
+Descargado: 2026-09-11T03:21:47
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>By using Amazon RDS Proxy, you can allow your applications to pool and share database
+    connections to improve their ability to scale. RDS Proxy makes applications more resilient to
+    database failures by automatically connecting to a standby DB instance while preserving
+    application connections. By using RDS Proxy, you can enforce AWS Identity and Access Management (IAM) authentication 
+    for clients connecting to the proxy, and the proxy can connect to databases using either IAM 
+    database authentication or credentials stored in AWS Secrets Manager.
+  </p><div class="mediaobject">
+     
+      <img src="/images/AmazonRDS/latest/UserGuide/images/Proxy-Overview.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="An overview of how applications connect to RDS Proxy." style="max-width:100%">
+     
+     
+  <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4e:" type="submit" data-analytics-performance-mark="27-1789096904751-8204"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p> Using RDS Proxy, you can handle unpredictable surges in database traffic. Otherwise, these
+    surges might cause issues due to oversubscribing connections or new connections being created at a
+    fast rate. RDS Proxy establishes a database connection pool and reuses connections in this pool.
+    This approach avoids the memory and CPU overhead of opening a new database connection each time.
+    To protect a database against oversubscription, you can control the number of database
+    connections that are created. </p><p>
+    RDS Proxy queues or throttles application connections that can't be served immediately from the connection pool. 
+    Although latencies might increase, your application can continue to scale without abruptly failing
+    or overwhelming the database. If connection requests exceed the limits you specify, RDS Proxy rejects application
+    connections (that is, it sheds load). At the same time, it maintains predictable performance for the load that RDS can serve with the available capacity.
+  </p><div class="mediaobject">
+     
+      <img src="/images/AmazonRDS/latest/UserGuide/images/Proxy-detail.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A detailed view of how applications connect to RDS Proxy and the types connections involved." style="max-width:100%">
+     
+     
+  <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789096904754-9375"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p>
+    You can reduce the overhead to process credentials and establish a secure connection for each new connection.
+    RDS Proxy can handle some of that work on behalf of the database.
+  </p><p>
+    RDS Proxy is fully compatible with the engine versions that it supports. You can enable RDS Proxy for most applications with no
+    code changes.
+  </p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#rds-proxy.RegionVersionAvailability">Region and version availability</a></p></li><li><p><a href="#rds-proxy.limitations">Quotas and limitations for RDS Proxy</a></p></li><li><p><a href="./rds-proxy-planning.html">Planning where to use RDS Proxy</a></p></li><li><p><a href="./rds-proxy.howitworks.html">RDS Proxy concepts and terminology</a></p></li><li><p><a href="./rds-proxy-setup.html">Getting started with RDS Proxy</a></p></li><li><p><a href="./rds-proxy-managing.html">Managing an RDS Proxy</a></p></li><li><p><a href="./rds-proxy-endpoints.html">Working with Amazon RDS Proxy endpoints</a></p></li><li><p><a href="./rds-proxy.monitoring.html">Monitoring RDS Proxy metrics with Amazon CloudWatch</a></p></li><li><p><a href="./rds-proxy.events.html">Working with RDS Proxy events</a></p></li><li><p><a href="./rds-proxy.troubleshooting.html">Troubleshooting for RDS Proxy</a></p></li><li><p><a href="./rds-proxy-cfn.html">Using RDS Proxy with AWS CloudFormation</a></p></li><li><p><a href="./rds-proxy-blue-green.html">Using RDS Proxy with Blue/Green Deployments</a></p></li><li><p><a href="./rds-proxy-best-practices.html">Best practices with RDS Proxy</a></p></li></ul></div>
+    <h2 id="rds-proxy.RegionVersionAvailability">Region and version availability<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="rds-proxy.RegionVersionAvailability" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789096904747-8589"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>Feature availability and support varies across specific versions of each database engine, and across AWS Regions.  
+      For more information on version and Region availability of Amazon RDS with RDS Proxy, see 
+      <a href="./Concepts.RDS_Fea_Regions_DB-eng.Feature.RDSProxy.html">Supported Regions and DB engines for Amazon RDS Proxy</a>.</p>
+      
+   
+      <h2 id="rds-proxy.limitations">Quotas and limitations for RDS Proxy<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="rds-proxy.limitations" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789096904747-6265"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    <p>
+      The following quotas and limitations apply to RDS Proxy:
+    </p>
+    <div class="itemizedlist">
+       
+      
+       
+      
+       
+
+       
+
+       
+      
+      
+      
+           
+      
+       
+      
+       
+
+       
+      
+       
+      
+       
+      
+       
+      
+       
+      
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p> Each AWS account ID is limited to 20 proxies. If your application requires more
+          proxies, request an increase via the <b>Service Quotas</b> page within the
+          AWS Management Console. In the <b>Service Quotas</b> page, select <b>Amazon Relational Database Service
+            (Amazon RDS)</b> and locate <b>Proxies</b> to request a quota increase.
+          AWS can automatically increase your quota or pending review of your request by
+          Support.</p>
+      </li><li class="listitem">
+        <p>Each proxy can have up to 200 associated Secrets Manager secrets, thus limiting connections 
+          to up to 200 different user accounts when using secrets.
+        </p>
+      </li><li class="listitem">
+        <p>
+          Each proxy has a default endpoint which is provisioned across only two Availability Zones selected from the proxy's configured subnets. 
+          If subnets in more than two AZs are configured, any two will be selected.
+        </p>
+      </li><li class="listitem">
+        <p>
+          You can add up to 20 additional proxy endpoints for each proxy. 
+          These additional endpoints are provisioned across all the Availability Zones specified during their creation. 
+          You can create, view, modify, and delete these endpoints.
+        </p>
+      </li><li class="listitem">
+        
+        
+        <p>For RDS DB instances in replication configurations, you can associate a proxy only
+          with the writer DB instance, not a read replica.</p>
+      </li><li class="listitem">
+        <p>Your RDS Proxy must be in the same virtual private cloud (VPC) as the database. The
+          proxy can't be publicly accessible, although the database can be. For example, if you're 
+          prototyping your database on a local host, you can't connect to your proxy unless you set up 
+          the necessary network requirements to allow connection to the proxy. 
+          This is because your local host is outside of the proxy’s VPC.
+        </p>
+        
+        
+      </li><li class="listitem">
+        <p>
+          You can't use RDS Proxy with a VPC that has its tenancy set to <code class="code">dedicated</code>.
+        </p>
+      </li><li class="listitem">
+        <p>
+            You can't use RDS Proxy in a VPC that has encryption controls with <code class="code">Enforce Mode</code> enabled.
+        </p>
+      </li><li class="listitem">
+        <p>For IPv6 endpoint network types, configure your VPC and subnets to support only IPv6. 
+          For both IPv4 and IPv6 target connection network types, configure your VPC and subnets to support dual-stack mode.
+        </p>
+      </li><li class="listitem">
+        <p>If you use RDS Proxy with an <span>RDS DB
+          instance</span> that has IAM authentication enabled,
+          the proxy can connect to the database using either IAM authentication or credentials stored in Secrets Manager. 
+          Clients connecting to the proxy must authenticate using IAM credentials. For detailed configuration instructions, 
+          see <a href="./rds-proxy-secrets-arns.html">Setting up database credentials for RDS Proxy</a> 
+          and <a href="./rds-proxy-iam-setup.html">Configuring IAM authentication for RDS Proxy</a></p>
+      </li><li class="listitem">
+        <p> You can't use RDS Proxy with custom DNS when using SSL hostname validation. </p>
+      </li><li class="listitem">
+        <p> Each proxy can be associated with a single target DB <span>instance</span>
+          . However, you
+          can associate multiple proxies with the same DB <span>instance</span>
+          .</p>
+      </li><li class="listitem"><p>Any statement with a text size greater than 16 KB causes the proxy to pin the session to the current connection.</p></li><li class="listitem">
+        <p>Certain Regions have Availability-Zone (AZ) restrictions to consider while creating your proxy. 
+          US East (N. Virginia) Region does not support RDS Proxy in the <code class="code">use1-az3</code> Availability Zone. 
+          US West (N. California) Region does not support RDS Proxy in the <code class="code">usw1-az2</code> Availability Zone. 
+          When selecting subnets while creating your proxy, 
+          make sure that you don't select subnets in the Availability Zones mentioned above.
+        </p>
+      </li><li class="listitem">
+        <p>Currently, RDS Proxy doesn't support any global condition context keys.</p>
+        <p>For more information about global condition context keys, 
+          see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition context keys</a> in the
+          <em>IAM User Guide</em>.</p>
+      </li><li class="listitem">
+        <p>You can't use RDS Proxy with RDS Custom for SQL Server.</p>
+      </li><li class="listitem">
+        <p>To reflect any database parameter group modification to your proxy, 
+          an instance reboot is required even if your chose to apply your changes immediately. 
+          For cluster-level parameters, a cluster-wide reboot is required.</p>
+      </li><li class="listitem">
+        <p>Your proxy automatically creates the <code class="code">rdsproxyadmin</code> DB user when you 
+          register a proxy target. This is a protected user that is essential for proxy functionality. 
+          You should avoid tampering with the <code class="code">rdsproxyadmin</code> user in any capacity. 
+          Deleting or modifying the <code class="code">rdsproxyadmin</code> user 
+          or its permissions can result in complete unavailability of the proxy to your application.</p>
+        
+        <p>Starting in RDS for MariaDB version 12.3, the database engine
+          enforces this protection. Attempts to <code class="code">CREATE</code>, <code class="code">DROP</code>,
+          <code class="code">RENAME</code>, <code class="code">GRANT</code>, <code class="code">REVOKE</code>, or
+          <code class="code">SET PASSWORD</code> for <code class="code">rdsproxyadmin</code> return an error. For
+          details, see <a href="./MariaDB.Concepts.UsersAndPrivileges.html">MariaDB security on Amazon RDS</a>.</p>
+      </li></ul></div>
+    
+    <p>For additional limitations for each DB engine, see the following sections:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem"><p><a href="#rds-proxy.limitations-mdb">Additional limitations for RDS for MariaDB</a></p></li><li class="listitem"><p><a href="#rds-proxy.limitations-ms">Additional limitations for RDS for Microsoft SQL Server</a></p></li><li class="listitem"><p><a href="#rds-proxy.limitations-my">Additional limitations for RDS for MySQL</a></p></li><li class="listitem"><p><a href="#rds-proxy.limitations-pg">Additional limitations for RDS for PostgreSQL</a></p></li></ul></div>
+    
+    
+     
+      <h3 id="rds-proxy.limitations-mdb">Additional limitations for RDS for MariaDB</h3>
+    <p> The following additional 
+      limitations apply to RDS Proxy with RDS for MariaDB databases:</p>
+    <div class="itemizedlist">        
+        
+            
+            
+           
+       
+       
+       
+         
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>
+          Currently, all proxies listen on port 3306 for MariaDB. The proxies still connect to your database using
+          the port that you specified in the database settings.
+        </p>
+      </li><li class="listitem">
+        <p>You can't use RDS Proxy with self-managed MariaDB databases in Amazon EC2
+          instances.</p>
+      </li><li class="listitem">
+        <p>You can't use RDS Proxy with an RDS for MariaDB DB instance that has the
+          <code class="code">read_only</code> parameter in its DB parameter group set to
+          <code class="code">1</code>.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy doesn't support MariaDB compressed mode. For example, it doesn't
+          support the compression used by the <code class="code">--compress</code> or <code class="code">-C</code> options
+          of the <code class="code">mysql</code> command.</p>
+      </li><li class="listitem">
+        <p>Some SQL statements and functions can change the connection state without causing
+          pinning. For the most current pinning behavior, see <a href="./rds-proxy-pinning.html">Avoiding pinning an RDS Proxy</a>.</p>
+      </li><li class="listitem"><p>RDS Proxy doesn't support the MariaDB <code class="code">auth_ed25519</code> plugin.</p></li><li class="listitem"><p>RDS Proxy doesn't support Transport Layer Security (TLS) version 1.3 for MariaDB databases.</p></li><li class="listitem">
+          <p>Database connections processing a <code class="code">GET DIAGNOSTIC</code> command might return
+            inaccurate information when RDS Proxy reuses the same database connection to run another
+            query. This can happen when RDS Proxy multiplexes database connections. For more information, 
+            see <a href="./rds-proxy.howitworks.html#rds-proxy-overview">Overview of RDS Proxy concepts</a>.</p>
+        </li><li class="listitem">
+        <p>RDS Proxy currently doesn't support the <code class="code">caching_sha2_password</code> option for <code class="code">ClientPasswordAuthType</code> for MariaDB.</p>
+      </li></ul></div>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-error_h11ix_rh18t_196"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M8 5v4M8 10v2M6.52 1.88l-5.33 9.76c-.13.23-.19.5-.19.76 0 .88.71 1.59 1.59 1.59H13.4c.88 0 1.59-.71 1.59-1.59 0-.27-.07-.53-.19-.76L9.48 1.88C9.18 1.34 8.62 1 8 1s-1.18.34-1.48.88Z" class="stroke-linejoin-round"></path></svg></span></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>
+        For proxies associated with MariaDB databases, don't set the configuration parameter
+        <code class="code">sql_auto_is_null</code> to <code class="code">true</code> or a nonzero value in the initialization
+        query. Doing so might cause incorrect application behavior.
+      </p></div></div>
+     
+
+    
+     
+      <h3 id="rds-proxy.limitations-ms">Additional limitations for RDS for Microsoft SQL Server</h3>
+    <p> The following additional
+      limitations apply to RDS Proxy with RDS for Microsoft SQL Server databases:</p>
+    <div class="itemizedlist">
+       
+       
+
+       
+       
+       
+         
+         
+         
+       
+    <ul class="itemizedlist"><li class="listitem"><p>The number of Secrets Manager secrets that you need to create for a proxy depends on the collation that
+          your DB instance uses. For example, suppose that your DB instance uses case-sensitive
+          collation. If your application accepts both "Admin" and "admin," then your proxy needs two
+          separate secrets. For more information about collation in SQL Server, see the <a href="https://docs.microsoft.com/en-us/sql/relational-databases/collations/collation-and-unicode-support?view=sql-server-ver16" rel="noopener noreferrer" target="_blank"><span> Microsoft SQL Server</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>
+          documentation.</p></li><li class="listitem"><p>RDS Proxy doesn't support connections that use Active Directory.</p></li><li class="listitem"><p>You can't use IAM authentication with clients that don't support token properties. For more information, see <a href="./rds-proxy-connecting.html#rds-proxy-connecting-sqlserver">Considerations for connecting to Microsoft SQL Server</a>.</p>
+      </li><li class="listitem"><p>The results of <code class="code">@@IDENTITY</code>, <code class="code">@@ROWCOUNT</code>, and
+            <code class="code">SCOPE_IDENTITY</code> aren't always accurate. As a work-around, retrieve their
+          values in the same session statement to ensure that they return the correct
+          information.</p></li><li class="listitem"><p>If the connection uses multiple active result sets (MARS), RDS Proxy doesn't run the initialization queries. For information about MARS, see the <a href="https://docs.microsoft.com/en-us/sql/relational-databases/native-client/features/using-multiple-active-result-sets-mars?view=sql-server-ver16" rel="noopener noreferrer" target="_blank"><span>
+        Microsoft SQL Server</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> documentation.</p></li><li class="listitem">
+          <p>Currently, RDS Proxy does not support RDS for SQL Server DB instances that run on major version
+              <em>SQL Server 2022</em>.</p>
+        </li><li class="listitem">
+          <p>RDS Proxy does not support RDS for SQL Server DB instances that run on major version <em>SQL
+              Server 2014</em>.</p>
+        </li><li class="listitem">
+          <p>RDS Proxy does not support client applications that can't handle multiple response
+            messages in one TLS record.</p>
+        </li><li class="listitem">
+        <p>RDS Proxy does not support end-to-end IAM authentication for RDS for SQL Server.</p>
+      </li></ul></div>
+     
+    
+    
+     
+      <h3 id="rds-proxy.limitations-my">Additional limitations for RDS for MySQL</h3>
+      <p> The following additional
+      limitations apply to RDS Proxy with RDS for MySQL databases:</p>
+      
+    
+    <div class="itemizedlist">          
+      
+            
+       
+       
+        
+            
+            
+       
+             
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>RDS Proxy support for <code class="code">caching_sha2_password</code> authentication requires a secure (TLS) connection.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy support for <code class="code">caching_sha2_password</code> is known to have compatibility issues with certain
+          go-sql driver versions.</p>
+      </li><li class="listitem">
+        <p>When using the MySQL 8.4 C driver, the <code class="code">mysql_stmt_bind_named_param</code> API might form malformed packets 
+          if parameter count exceeds placeholder count in a prepared statements. This results in incorrect responses. For
+          more information, see <a href="https://bugs.mysql.com/bug.php?id=116860&amp;thanks=4" rel="noopener noreferrer" target="_blank"><span>MySQL bug report</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>Currently, all proxies listen on port 3306 for MySQL. The proxies still connect to your database using
+          the port that you specified in the database settings.
+        </p>
+      </li><li class="listitem">
+        <p> You can't use RDS Proxy with self-managed MySQL databases in EC2
+          instances.</p>
+      </li><li class="listitem">
+        <p> You can't use RDS Proxy with an RDS for MySQL DB instance that has the
+          <code class="code">read_only</code> parameter in its DB parameter group set to
+          <code class="code">1</code>.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy doesn't support MySQL compressed mode. For example, it doesn't
+          support the compression used by the <code class="code">--compress</code> or <code class="code">-C</code> options
+          of the <code class="code">mysql</code> command.</p>
+      </li><li class="listitem">
+          <p>Database connections processing a <code class="code">GET DIAGNOSTIC</code> command might return
+            inaccurate information when RDS Proxy reuses the same database connection to run another
+            query. This can happen when RDS Proxy multiplexes database connections.</p>
+        </li><li class="listitem">
+        <p>Some SQL statements and functions such as <code class="code">SET LOCAL</code> can
+            change the connection state without causing pinning. For the most current pinning
+            behavior, see <a href="./rds-proxy-pinning.html">Avoiding pinning an RDS Proxy</a>.</p>
+      </li><li class="listitem">
+        <p>Using the <code class="code">ROW_COUNT()</code> function in a multi-statement query is not
+            supported.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy does not support client applications that can't 
+          handle multiple response messages in one TLS record.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy does not support the MySQL dual passwords.</p>
+      </li><li class="listitem">
+        <p>RDS Proxy might not work as expected when you configure the <code class="code">init_connect</code> parameter in your
+          RDS DB parameter group to set session state variables. Instead, set the initialization query for your proxy 
+          to run session initialization statements when using proxy to connect to your database.</p>
+      </li></ul></div>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-error_h11ix_rh18t_196"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M8 5v4M8 10v2M6.52 1.88l-5.33 9.76c-.13.23-.19.5-.19.76 0 .88.71 1.59 1.59 1.59H13.4c.88 0 1.59-.71 1.59-1.59 0-.27-.07-.53-.19-.76L9.48 1.88C9.18 1.34 8.62 1 8 1s-1.18.34-1.48.88Z" class="stroke-linejoin-round"></path></svg></span></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>
+        For proxies associated with MySQL databases, don't set the configuration parameter
+        <code class="code">sql_auto_is_null</code> to <code class="code">true</code> or a nonzero value in the initialization
+        query. Doing so might cause incorrect application behavior.
+      </p></div></div>
+     
+
+    
+     
+      <h3 id="rds-proxy.limitations-pg">Additional limitations for RDS for PostgreSQL</h3>
+      <p> The following additional limitations apply to RDS Proxy with RDS for PostgreSQL databases:</p>
+      
+    <div class="itemizedlist">
+       
+      
+      
+      
+           
+           
+        
+       
+       
+       
+       
+       
+       
+      
+    <ul class="itemizedlist"><li class="listitem"><p>RDS Proxy doesn't support session pinning filters for PostgreSQL.</p></li><li class="listitem">
+        <p> Currently, all proxies listen on port 5432 for PostgreSQL.</p>
+      </li><li class="listitem">
+        <p>For PostgreSQL, RDS Proxy doesn't currently support canceling a query from a client by
+          issuing a <code class="code">CancelRequest</code>. This is the case, for example, when you cancel a
+          long-running query in an interactive psql session by using Ctrl+C. </p>
+      </li><li class="listitem">
+        <p> The results of the PostgreSQL function <a href="https://www.postgresql.org/docs/current/functions-sequence.html" rel="noopener noreferrer" target="_blank"><span>lastval</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>
+          aren't always accurate. As a work-around, use the <a href="https://www.postgresql.org/docs/current/sql-insert.html" rel="noopener noreferrer" target="_blank"><span>INSERT</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a> statement
+          with the <code class="code">RETURNING</code> clause.</p>
+      </li><li class="listitem"><p>RDS Proxy currently doesn't support streaming replication mode.</p></li><li class="listitem"><p>RDS Proxy doesn't support direct SSL negotiation mode.</p></li><li class="listitem"><p>RDS Proxy only supports version 3.0 of the PostgreSQL messaging protocol.</p></li><li class="listitem">
+        <p>With RDS for PostgreSQL 16, modifications to the <code class="code">scram_iterations</code> value exclusively impact 
+          the authentication process between the proxy and the database. 
+          Specifically, if you configure <code class="code">ClientPasswordAuthType</code> to <code class="code">scram-sha-256</code>, 
+          any customizations made to the <code class="code">scram_iterations</code> value doesn't influence client-to-proxy password authentication. 
+          Instead, the iteration value for client-to-proxy password authentication is fixed at 4096.</p>
+      </li><li class="listitem">
+        <p>The default <code class="code">postgres</code> database must exist on the RDS for PostgreSQL instance
+            for RDS Proxy to function. Don't delete this database even if your application uses
+            different databases.</p>
+      </li><li class="listitem">
+        <p>If you use <code class="code">ALTER ROLE</code> to change the user role with <code class="code">SET ROLE</code>, subsequent connections as that 
+          user to the proxy might not use this role setting, if those connections encounter pinning. To prevent this, when using proxy, 
+          use <code class="code">SET ROLE</code> in the initialization query of the proxy. For more information, 
+          see <b>Initialization query</b> in <a href="./rds-proxy-creating.html">Creating a proxy for Amazon RDS</a>.</p>
+      </li></ul></div>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-error_h11ix_rh18t_196"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M8 5v4M8 10v2M6.52 1.88l-5.33 9.76c-.13.23-.19.5-.19.76 0 .88.71 1.59 1.59 1.59H13.4c.88 0 1.59-.71 1.59-1.59 0-.27-.07-.53-.19-.76L9.48 1.88C9.18 1.34 8.62 1 8 1s-1.18.34-1.48.88Z" class="stroke-linejoin-round"></path></svg></span></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>For existing proxies with PostgreSQL databases, if you modify the database authentication to use <code class="code">SCRAM</code> only,  
+        the proxy becomes unavailable for up to 60 seconds. To avoid the issue, do one of the following:</p><div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem"><p>Ensure that the database allows both <code class="code">SCRAM</code> and <code class="code">MD5</code> authentication.</p></li><li class="listitem"><p>To use only <code class="code">SCRAM</code> authentication, create a new proxy, migrate your application traffic to the new proxy, then delete the proxy previously associated with the database.</p></li></ul></div></div></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./rds-on-outposts.restoring.html">Considerations for restoring DB instances</div><div id="next" class="next-link" accesskey="n" href="./rds-proxy-planning.html">Planning where to use RDS Proxy</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/rds-proxy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/rds-proxy.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096904543-3415"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#rds-proxy.RegionVersionAvailability"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Region and version availability</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#rds-proxy.limitations"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Quotas and limitations</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:rcr:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:rcq:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/index.html"><span>Amazon RDS API Reference</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:rcu:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:rct:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/cli/latest/reference/rds/"><span>AWS CLI commands for Amazon RDS</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:rd1:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:rd0:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/tools/"><span>SDKs &amp; Tools</span><span class="awsui_icon-wrapper_4c84z_1n50m_460">&nbsp;<span class="awsui_icon_4c84z_1n50m_460" aria-label="Opens in a new tab" role="img"><span class="awsui_icon_h11ix_rh18t_13 awsui_icon-flex-height_h11ix_rh18t_21 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-external_h11ix_rh18t_219" style="height: 20px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:rd3:" type="submit" data-analytics-performance-mark="35-1789096904928-7471"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:rd5:" type="submit" data-analytics-performance-mark="36-1789096904928-276"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:rd8:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:rd7:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=RDS&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2FAmazonRDS%2Flatest%2FUserGuide%2Frds-proxy.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./rds-proxy-planning.html"><span>Planning where to use RDS Proxy</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./rds-on-outposts.restoring.html"><span>Considerations for restoring DB instances</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

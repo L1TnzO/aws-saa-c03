@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Understanding tables, databases, and data catalogs in Athena - Amazon Athena</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="understanding-tables-databases-and-the-data-catalog" /><meta name="default_state" content="understanding-tables-databases-and-the-data-catalog" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" /><meta name="description" content="Understand the meaning and use of tables, databases, and data catalogs in Athena" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Athena" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Use Athena to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" hreflang="x-default" /><meta name="feedback-item" content="Athena" /><meta name="this_doc_product" content="Amazon Athena" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'athena'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Understanding tables, databases, and data catalogs in Athena" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="understanding-tables-databases-and-the-data-catalog.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Understanding tables, databases, and data catalogs in Athena - Amazon Athena</title><meta name="pdf" content="/pdfs/athena/latest/ug/athena-ug.pdf#understanding-tables-databases-and-the-data-catalog" /><meta name="rss" content="amazon-athena-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TA78iVOM7gR62_QqDe2-CmiA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html" /><meta name="keywords" content="Amazon Athena,Athena,tables,databases,catalogs" /><link rel="alternate" type="text/markdown" href="understanding-tables-databases-and-the-data-catalog.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Athena",
+        "item" : "https://docs.aws.amazon.com/athena/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Use Athena SQL",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/using-athena-sql.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Understanding tables, databases, and data catalogs in Athena",
+        "item" : "https://docs.aws.amazon.com/athena/latest/ug/using-athena-sql.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/athena/latest/ug/athena-ug.pdf#understanding-tables-databases-and-the-data-catalog" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/athena/index.html">Amazon Athena</a><a href="what-is.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="understanding-tables-databases-and-the-data-catalog">Understanding tables, databases, and data catalogs in Athena</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In Athena, catalogs, databases, and tables are containers for the metadata definitions that
+        define a schema for underlying source data.</p><p>Athena uses the following terms to refer to hierarchies of data objects:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><span class="topcom">Data source</span> – a group of databases</p>
+        </li><li class="listitem">
+            <p><span class="topcom">Database</span> – a group of tables</p>
+        </li><li class="listitem">
+            <p><span class="topcom">Table</span> – data organized as a group of rows or
+                columns</p>
+        </li></ul></div><p>Sometimes these objects are also referred to with alternate but equivalent names such as
+        the following:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>A data source is sometimes referred to as a <em class="glossterm">catalog</em>.</p>
+        </li><li class="listitem">
+            <p>A database is sometimes referred to as a <em class="glossterm">schema</em>.</p>
+        </li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This terminology can vary in the federated data sources that you use with Athena. For
+            more information, see <a href="./tables-qualifiers.html">Understand federated table name qualifiers</a>. </p></div></div><p>For each dataset, a table needs to exist in Athena. The metadata in the table tells Athena
+        where the data is located in Amazon S3, and specifies the structure of the data, for example,
+        column names, data types, and the name of the table. Databases are a logical grouping of
+        tables, and also hold only metadata and schema information for a dataset.</p><p>For each dataset that you'd like to query, Athena must have an underlying table it will use
+        for obtaining and returning query results. Therefore, before querying data, a table must be
+        registered in Athena. The registration occurs when you either create tables automatically or
+        manually.</p><p>You can create a table automatically using an AWS Glue crawler. For more information about
+        AWS Glue and crawlers, see <a href="./data-sources-glue.html">Use AWS Glue Data Catalog to connect to your data</a>. When
+        AWS Glue creates a table, it registers it in its own AWS Glue Data Catalog. Athena uses the AWS Glue
+        Data Catalog to store and retrieve this metadata, using it when you run queries to analyze the
+        underlying dataset.</p><p>Regardless of how the tables are created, the table creation process registers the dataset
+        with Athena. This registration occurs in the AWS Glue Data Catalog and enables Athena to run queries on
+        the data. In the Athena query editor, this catalog (or data source) is referred to with the
+        label <code class="code">AwsDataCatalog</code>.</p><p>After you create a table, you can use <a href="./select.html">SQL
+            SELECT</a> statements to query it, including getting <a href="./select.html#select-path">specific file locations for your source data</a>. Your
+        query results are stored in Amazon S3 in <a href="./query-results-specify-location.html">the query result location that you
+            specify</a>.</p><p>The AWS Glue Data Catalog is accessible throughout your Amazon Web Services account. Other AWS services
+        can share the AWS Glue Data Catalog, so you can see databases and tables created throughout your
+        organization using Athena and vice versa.</p><div class="itemizedlist">
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>To create a table manually:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Use the Athena console to run the <b>Create Table
+                            Wizard</b>.</p>
+                </li><li class="listitem">
+                    <p>Use the Athena console to write Hive DDL statements in the Query
+                        Editor.</p>
+                </li><li class="listitem">
+                    <p>Use the Athena API or CLI to run a SQL query string with DDL
+                        statements.</p>
+                </li><li class="listitem">
+                    <p>Use the Athena JDBC or ODBC driver.</p>
+                </li></ul></div>
+        </li></ul></div><p>When you create tables and databases manually, Athena uses HiveQL data definition language
+        (DDL) statements such as <code class="code">CREATE TABLE</code>, <code class="code">CREATE DATABASE</code>, and
+            <code class="code">DROP TABLE</code> under the hood to create tables and databases in the
+        AWS Glue Data Catalog.</p><p>To get started, you can use a tutorial in the Athena console or work through a step-by-step
+        guide in the Athena documentation.</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>To use the tutorial in the Athena console, choose the information icon on the upper
+                right of the console, and then choose the <b>Tutorial</b> tab.</p>
+        </li><li class="listitem">
+            <p>For a step-by-step tutorial on creating a table and writing queries in the Athena
+                query editor, see <a href="./getting-started.html">Get started</a>.</p>
+        </li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-athena-sql.html">Use Athena SQL</div><div id="next" class="next-link" accesskey="n" href="./getting-started.html">Get started</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Athena&amp;topic_url=https://docs.aws.amazon.com/en_us/athena/latest/ug/understanding-tables-databases-and-the-data-catalog.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

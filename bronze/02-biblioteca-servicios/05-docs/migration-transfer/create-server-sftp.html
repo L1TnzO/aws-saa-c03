@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Create an SFTP-enabled server - AWS Transfer Family</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-server-sftp" /><meta name="default_state" content="create-server-sftp" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html" /><meta name="description" content="Use the AWS Transfer Family service to create an SFTP-enabled server." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Transfer Family" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Transfer Family is a secure transfer service that stores your data in Amazon Simple Storage Service or Amazon Elastic File System and simplifies the migration of Secure File Transfer Protocol (SFTP), File Transfer Protocol Secure (FTPS), File Transfer Protocol (FTP), and Applicability Statement 2 (AS2) workflows to AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/create-server-sftp.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/create-server-sftp.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/create-server-sftp.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/create-server-sftp.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/create-server-sftp.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/create-server-sftp.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/create-server-sftp.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/create-server-sftp.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/create-server-sftp.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/create-server-sftp.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/create-server-sftp.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/create-server-sftp.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/create-server-sftp.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/create-server-sftp.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/create-server-sftp.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/create-server-sftp.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/transfer/latest/userguide/create-server-sftp.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/transfer/latest/userguide/create-server-sftp.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html" hreflang="x-default" /><meta name="feedback-item" content="transfer" /><meta name="this_doc_product" content="AWS Transfer Family" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'transfer'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Create an SFTP-enabled server" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="create-server-sftp.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Create an SFTP-enabled server - AWS Transfer Family</title><meta name="pdf" content="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#create-server-sftp" /><meta name="forums" content="https://repost.aws/tags/TAtf43W5cjQ3CIFYTKipVfGg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/create-server-sftp.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/create-server-sftp.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/create-server-sftp.html" /><meta name="keywords" content="SFTP for Transfer Family,FTPS for Transfer Family,FTP for Transfer Family,create a Transfer Family server,SFTP, FTP, FTPS, Transfer Family file transfer servers,VPC, public endpoints, custom hostnames for Transfer Family servers,create SFTP server,create SFTP enabled server" /><link rel="alternate" type="text/markdown" href="create-server-sftp.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Transfer Family",
+        "item" : "https://docs.aws.amazon.com/transfer/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configuring an SFTP, FTPS, or FTP server endpoint",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configuring an SFTP, FTPS, or FTP server endpoint",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Create an SFTP-enabled server",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#create-server-sftp" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/transfer/index.html">AWS Transfer Family</a><a href="what-is-aws-transfer-family.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-server-sftp">Create an SFTP-enabled server</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Secure Shell (SSH) File Transfer Protocol (SFTP) is a network protocol used for
+                secure transfer of data over the internet. The protocol supports the full security
+                and authentication functionality of SSH. It's widely used to exchange data,
+                including sensitive information between business partners in a variety of industries
+                such as financial services, healthcare, retail, and advertising.</p>
+                <p><span class="topcom">Note the following</span></p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>SFTP servers for Transfer Family operate over port 22. For VPC-hosted endpoints, SFTP
+                        Transfer Family servers can also operate over port 2222, 2223 or 22000. For details,
+                        see <a href="./create-server-in-vpc.html">Create a server in a virtual private cloud</a>.</p>
+                </li><li class="listitem">
+                    <p>Public endpoints cannot restrict traffic via security groups. To use
+                        security groups with your Transfer Family server, you must host your server's endpoint
+                        inside a virtual private cloud (VPC) as described in <a href="./create-server-in-vpc.html">Create a server in a virtual private cloud</a>.</p>
+                </li></ul></div>
+                <p><span class="topcom">See also</span></p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>We provide an AWS CDK example for creating an SFTP Transfer Family server. The example uses TypeScript, and is available on GitHub <a href="https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/aws-transfer-sftp-server" rel="noopener noreferrer" target="_blank"><span>here</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li><li class="listitem">
+                    <p>For a walkthrough of how to deploy a Transfer Family server inside of a VPC, see
+                            <a href="https://aws.amazon.com/blogs/storage/use-ip-allow-list-to-secure-your-aws-transfer-for-sftp-servers/" rel="noopener noreferrer" target="_blank"><span>Use IP allow list to secure your AWS Transfer Family servers</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li></ul></div><div class="procedure"><h6>To create an SFTP-enabled server</h6><ol><li>
+                    <p>Open the AWS Transfer Family console at <a href="https://console.aws.amazon.com/transfer/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/transfer/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and select
+                            <b>Servers</b> from the navigation pane, then choose
+                            <b>Create server</b>.</p>
+                </li><li>
+                    <p>In <b>Choose protocols</b>, select
+                        <b>SFTP</b>, and then choose <b>Next</b>.</p>
+
+                </li><li>
+                    <p>In <b>Choose an identity provider</b>, choose the identity
+                        provider that you want to use to manage user access. You have the following
+                        options:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><b>Service managed</b> – You store user
+                                identities and keys in AWS Transfer Family. </p>
+                        </li><li class="listitem">
+                            <p><b>AWS Directory Service for Microsoft Active Directory</b> – You provide an
+                                Directory Service directory to access the endpoint. By doing so, you can use
+                                credentials stored in your Active Directory to authenticate your
+                                users. To learn more about working with AWS Managed Microsoft AD identity
+                                providers, see <a href="./directory-services-users.html">Using AWS Directory Service for Microsoft Active Directory</a>.</p>
+                            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+     
+         
+        <ul class="itemizedlist"><li class="listitem">
+        <p>
+           Cross-Account and Shared directories are not supported for AWS Managed Microsoft AD.
+        </p>
+        </li><li class="listitem">
+           <p>To set up a server with Directory Service as your identity provider, you need to add some Directory Service permissions.
+           For details, see <a href="./directory-services-users.html#managed-ad-prereq">Before you start using AWS Directory Service for Microsoft Active Directory</a>.</p>
+        </li></ul></div></div></div>
+                        </li><li class="listitem">
+                            <p><b>Custom identity provider</b> – Choose
+                                either of the following options:</p>
+                            <div class="itemizedlist">
+                            
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><b>Use AWS Lambda to connect your identity provider</b> – You can use an existing identity provider, backed by a Lambda function. You provide
+                                    the name of the Lambda function. For more information, see <a href="./custom-lambda-idp.html">Using AWS Lambda to integrate your identity provider</a>.</p>
+                            </li><li class="listitem">
+                                <p><b>Use Amazon API Gateway to connect your identity provider</b> – You can create an API Gateway method backed by a Lambda function for use as an identity provider.
+                                    You provide an Amazon API Gateway URL and an invocation role. For more information, see <a href="./authentication-api-gateway.html">Using Amazon API Gateway to integrate your identity provider</a>.</p>
+                                
+                            </li></ul></div>
+                            <div class="mediaobject">
+              
+               
+                 <img src="/images/transfer/latest/userguide/images/custom-lambda-console.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Choose an identity provider console section with Custom identity provider selected. Also has the default value selected, which is that users can authenticate using either their password or key." style="max-width:100%" />
+                  
+    </div>
+                        </li></ul></div>
+                </li><li>
+                    <p>Choose <b>Next</b>.</p>
+                </li><li>
+                    <p>In <b>Choose an endpoint</b>, do the following:</p>
+
+                    <ol><li>
+                            <p>For <b>Endpoint type</b>, choose the
+                                    <b>Publicly accessible</b> endpoint type. For a
+                                    <b>VPC hosted</b> endpoint, see <a href="./create-server-in-vpc.html">Create a server in a virtual private cloud</a>.</p>
+                        </li><li>
+                            <p> For <b>IP address type</b>, choose
+                                    <b>IPv4</b> (default) for backwards compatibility
+                                or <b>Dual-stack</b> to enable both IPv4 and IPv6
+                                connections to your endpoint.</p>
+                            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Dual-stack mode allows your Transfer Family endpoint to communicate with
+                                    both IPv4 and IPv6 enabled clients. This enables you to
+                                    gradually transition from IPv4 to IPv6 based systems without
+                                    needing to switch all at once.</p></div></div>
+                        </li><li>
+                            <p>(Optional) For <b>Custom hostname</b>, choose
+                                    <b>None</b>.</p>
+
+                            <p>You get a server hostname provided by AWS Transfer Family. The server
+                                hostname takes the form
+                                        <code class="code"><code class="replaceable">serverId</code>.server.transfer.<code class="replaceable">regionId</code>.amazonaws.com</code>.</p>
+
+                            <p>For a custom hostname, you specify a custom alias for your server
+                                endpoint. To learn more about working with custom hostnames, see
+                                    <a href="./requirements-dns.html">Working with custom hostnames</a>.</p>
+                        </li><li>
+                            <p>(Optional) For <b>FIPS Enabled</b>, select the
+                                    <b>FIPS Enabled endpoint</b> check box to ensure
+                                that the endpoint complies with Federal Information Processing
+                                Standards (FIPS).</p>
+                             <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>FIPS-enabled endpoints are only available in North American AWS
+                                Regions. For available Regions, see <a href="https://docs.aws.amazon.com/general/latest/gr/transfer-service.html">AWS Transfer Family endpoints
+                                    and quotas</a> in the <em>AWS General Reference</em>.
+                                For more information about FIPS, see <a href="https://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span> Federal Information Processing Standard
+                                    (FIPS) 140-2 </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+                        </li><li>
+                            <p>Choose <b>Next</b>.</p>
+                        </li></ol>
+
+
+                </li><li>
+                    <p>On the <b>Choose domain</b> page, choose the AWS storage
+                        service that you want to use to store and access your data over the selected
+                        protocol:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Choose <b>Amazon S3</b> to store and access your files as
+                                objects over the selected protocol.</p>
+                        </li><li class="listitem">
+                            <p>Choose <b>Amazon EFS</b> to store and access your files
+                                in your Amazon EFS file system over the selected protocol.</p>
+                        </li></ul></div>
+                    <p>Choose <b>Next</b>.</p>
+
+                </li><li>
+                    <p>In <b>Configure additional details</b>, do the
+                        following:</p>
+
+                    <ol><li>
+
+                            <p>For logging, specify an existing log group or create a new one
+                                (the default option). If you choose an existing log group, you must
+                                select one that is associated with your AWS account.</p>
+                            <div class="mediaobject">
+       
+         <img src="/images/transfer/latest/userguide/images/logging-server-choose-existing-group.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Logging pane for Configure additional details in the Create server wizard. Choose an existing log group is selected." style="max-width:100%" />
+          
+          
+    </div>
+        <p>If you choose <b>Create log group</b>, the CloudWatch console
+              (<a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>) opens to the <b>Create log
+               group</b> page. For details, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#Create-Log-Group">
+               Create a  log group in CloudWatch Logs</a>.
+        </p>
+                        </li><li>
+                        <p>
+                            (Optional) For <b>Managed workflows</b>, choose workflow IDs (and a corresponding role) that
+                            Transfer Family should assume when executing the workflow. You can choose one workflow to execute upon a complete upload, and another to execute upon a partial upload. To learn more about processing your files by using managed workflows, see
+                            <a href="./transfer-workflows.html">AWS Transfer Family managed workflows</a>.</p>
+                        <div class="mediaobject">
+                             
+                             
+                                <img src="/images/transfer/latest/userguide/images/workflows-addtoserver.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Managed workflows console section." style="max-width:100%" />
+                             
+                        </div>
+                    </li><li>
+                            <p>For <b>Cryptographic algorithm options</b>, choose a
+                                security policy that contains the cryptographic algorithms enabled
+                                for use by your server. Our latest security policy is the default: for details, see
+    <a href="./security-policies.html">Security policies for AWS Transfer Family servers</a>.</p>
+                        </li><li>
+                            <p>(Optional) For <b>Server Host Key</b>, enter an RSA,
+                                ED25519, or ECDSA private key that will be used to identify your
+                                server when clients connect to it over SFTP. You can also add a
+                                description to differentiate among multiple host keys. </p>
+                            <p>After you create your server, you can add additional host keys.
+                                Having multiple host keys is useful if you want to rotate keys or if
+                                you want to have different types of keys, such as an RSA key and
+                                also an ECDSA key.</p>
+                            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The <b>Server Host Key</b> section is used only
+                                    for migrating users from an existing SFTP-enabled server.</p></div></div>
+                        </li><li>
+                            <p>(Optional) For <b>Tags</b>, for
+                                    <b>Key</b> and <b>Value</b>, enter
+                                one or more tags as key-value pairs, and then choose <b>Add
+                                    tag</b>.</p>
+                        </li><li>
+                            <p>Choose <b>Next</b>.</p>
+                        </li><li>
+                        <p>You can optimize performance for your Amazon S3 directories. For example, suppose that you go into 
+                        your home directory, and you have 10,000 subdirectories. In other words, your Amazon S3 bucket has 10,000 folders. 
+                        In this scenario, if you run the <code class="code">ls</code> (list) command, the list operation takes between six and 
+                        eight minutes. However, if you optimize your directories, this operation takes only a few seconds.</p>
+                        <p>When you create your server using the console, optimized directories is enabled by default. If you create your server
+                        using the API, this behavior is not enabled by default.</p>
+                        <div class="mediaobject">
+                             
+                             
+                                <img src="/images/transfer/latest/userguide/images/optimized-directories.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="The Optimized directories console section." style="max-width:100%" />
+                             
+                        </div>
+                    </li><li>
+                            <p>(Optional) Configure AWS Transfer Family servers to display customized
+                                messages such as organizational policies or terms and conditions to
+                                your end users. For <b>Display banner</b>, in the
+                                    <b>Pre-authentication display banner</b> text box,
+                                enter the text message that you want to display to your users before
+                                they authenticate.</p>
+                        </li><li>
+                            <p>(Optional) You can configure the following additional
+                                options.</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p><b>SetStat option</b>: enable this option to
+                                        ignore the error that is generated when a client attempts to
+                                        use <code class="code">SETSTAT</code> on a file you are uploading to an
+                                        Amazon S3 bucket. For additional details, see the
+                                            <code class="code">SetStatOption</code> documentation in the <a href="https://docs.aws.amazon.com/transfer/latest/APIReference/API_ProtocolDetails.html">ProtocolDetails</a>.</p>
+                                </li><li class="listitem">
+                                    <p><b>TLS session resumption</b>: this option
+                                        is only available if you have enabled FTPS as one of the
+                                        protocols for this server.</p>
+                                </li><li class="listitem">
+                                    <p><b>Passive IP</b>: this option is only
+                                        available if you have enabled FTPS or FTP as one of the
+                                        protocols for this server.</p>
+                                </li></ul></div>
+                            <div class="mediaobject">
+                                 
+                                    <img src="/images/transfer/latest/userguide/images/create-server-configure-additional-items-sftp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Additional options screen for Server details page." style="max-width:100%" />
+                                 
+                                 
+                            </div>
+                        </li></ol>
+                </li><li>
+                    <p>In <b>Review and create</b>, review your choices.</p>
+
+                    <div class="itemizedlist">
+                         
+
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>If you want to edit any of them, choose <b>Edit</b>
+                                next to the step.</p>
+
+                            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You must review each step after the step that you chose to
+                                    edit.</p></div></div>
+                        </li><li class="listitem">
+                            <p>If you have no changes, choose <b>Create server</b>
+                                to create your server. You are taken to the
+                                    <b>Servers</b> page, shown following, where your
+                                new server is listed.</p>
+                        </li></ul></div>
+                </li></ol></div><p>It can take a couple of minutes before the status for your new server changes to
+                <b>Online</b>. At that point, your server can perform file operations,
+            but you'll need to create a user first. For details on creating users, see 
+            <a href="./create-user.html">Managing users for server endpoints</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tf-server-endpoint.html">Configure a Transfer Family server endpoint</div><div id="next" class="next-link" accesskey="n" href="./create-server-ftps.html">Create an FTPS-enabled server</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/create-server-sftp.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/create-server-sftp.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

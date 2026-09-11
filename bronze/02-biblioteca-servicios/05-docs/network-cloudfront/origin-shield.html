@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Use Amazon CloudFront Origin Shield - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="origin-shield" /><meta name="default_state" content="origin-shield" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" /><meta name="description" content="Use Amazon CloudFront Origin Shield to improve your cache hit ratio, reduce the load on your origin, and help improve network performance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Use Amazon CloudFront Origin Shield" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="origin-shield.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Use Amazon CloudFront Origin Shield - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#origin-shield" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,CloudFront caching,CloudFront availability,CloudFront origin" /><link rel="alternate" type="text/markdown" href="origin-shield.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Caching and availability",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ConfiguringCaching.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use Amazon CloudFront Origin Shield",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ConfiguringCaching.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#origin-shield" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#origin-shield-use-cases">Use cases for Origin Shield</a><a href="#choose-origin-shield-region">Choose the AWS Region for Origin Shield</a><a href="#enable-origin-shield">Enable Origin Shield</a><a href="#origin-shield-costs">Estimate Origin Shield costs</a><a href="#origin-shield-high-availability">Origin Shield high availability</a><a href="#origin-shield-and-other-features">How Origin Shield interacts with other CloudFront features</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="origin-shield">Use Amazon CloudFront Origin Shield</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>CloudFront Origin Shield is an additional layer in the CloudFront caching infrastructure that helps to
+        minimize your origin’s load, improve its availability, and reduce its operating costs. With
+        CloudFront Origin Shield, you get the following benefits:</p><div class="variablelist">
+         
+         
+         
+    <dl>
+            <dt><b><span class="term">Better cache hit ratio</span></b></dt>
+            <dd>
+                <p>Origin Shield can help improve the cache hit ratio of your CloudFront distribution
+                    because it provides an additional layer of caching in front of your origin. When
+                    you use Origin Shield, all requests from all of CloudFront’s caching layers to your
+                    origin go through Origin Shield, increasing the likelihood of a cache hit.
+                    Requests that are made in the same region as your origin will bypass Origin
+                    Shield. CloudFront
+                    can retrieve each object with a single origin request from Origin Shield to your
+                    origin, and all other layers of the CloudFront cache (edge locations and <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional edge caches</a>) can
+                    retrieve the object from Origin Shield.</p>
+            </dd>
+        
+            <dt><b><span class="term">Reduced origin load</span></b></dt>
+            <dd>
+                <p>Origin Shield can further reduce the number of <a href="./RequestAndResponseBehaviorCustomOrigin.html#request-custom-traffic-spikes">simultaneous requests</a> that
+                    are sent to your origin for the same object. Requests for content that is not in
+                    Origin Shield’s cache are consolidated with other requests for the same object,
+                    resulting in as few as one request going to your origin. Handling fewer requests
+                    at your origin can preserve your origin’s availability during peak loads or
+                    unexpected traffic spikes, and can reduce costs for things like just-in-time
+                    packaging, image transformations, and data transfer out (DTO).</p>
+            </dd>
+        
+            <dt><b><span class="term">Better network performance</span></b></dt>
+            <dd>
+                <p>When you enable Origin Shield in the AWS Region <a href="#choose-origin-shield-region">that has the lowest latency to your
+                        origin</a>, you can get better network performance. For origins in an
+                    AWS Region, CloudFront network traffic remains on the high throughput CloudFront network
+                    all the way to your origin. For origins outside of AWS, CloudFront network traffic
+                    remains on the CloudFront network all the way to Origin Shield, which has a low
+                    latency connection to your origin.</p>
+            </dd>
+        </dl></div><p>You incur additional charges for using Origin Shield. For more information, see <a href="https://aws.amazon.com/cloudfront/pricing/" rel="noopener noreferrer" target="_blank"><span>CloudFront pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Origin Shield isn't supported with gRPC requests. If a distribution that supports gRPC
+            has Origin Shield enabled, the gRPC requests will continue to work. However, the
+            requests will be proxied directly to the gRPC origin without going through Origin
+            Shield. For more information, see <a href="./distribution-using-grpc.html">Using gRPC with CloudFront distributions</a>.</p></div></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#origin-shield-use-cases">Use cases for Origin Shield</a></p></li><li><p><a href="#choose-origin-shield-region">Choose the AWS Region for Origin Shield</a></p></li><li><p><a href="#enable-origin-shield">Enable Origin Shield</a></p></li><li><p><a href="#origin-shield-costs">Estimate Origin Shield costs</a></p></li><li><p><a href="#origin-shield-high-availability">Origin Shield high availability</a></p></li><li><p><a href="#origin-shield-and-other-features">How Origin Shield interacts with other CloudFront features</a></p></li></ul></div>
+        <h2 id="origin-shield-use-cases">Use cases for Origin Shield</h2>
+        <p>CloudFront Origin Shield can be beneficial for many use cases, including the
+            following:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Viewers that are spread across different geographical regions</p>
+            </li><li class="listitem">
+                <p>Origins that provide just-in-time packaging for live streaming or on-the-fly
+                    image processing</p>
+            </li><li class="listitem">
+                <p>On-premises origins with capacity or bandwidth constraints</p>
+            </li><li class="listitem">
+                <p>Workloads that use multiple content delivery networks (CDNs)</p>
+            </li></ul></div>
+        <p>Origin Shield may not be a good fit in other cases, such as dynamic content that is
+            proxied to the origin, content with low cacheability, or content that is infrequently
+            requested.</p>
+        <p>The following sections explain the benefits of Origin Shield for the following use
+            cases.</p>
+        <div class="highlights" id="inline-topiclist"><h6>Use cases</h6><ul><li><p><a href="#os-use-cases-global-viewers">Viewers in different geographical regions</a></p></li><li><p><a href="#os-use-cases-multi-cdn">Multiple CDNs</a></p></li></ul></div>
+         
+            <h3 id="os-use-cases-global-viewers">Viewers in different geographical regions</h3>
+            <p>With Amazon CloudFront, you inherently get a reduced load on your origin because requests
+                that CloudFront can serve from the cache don’t go to your origin. In addition to CloudFront’s
+                    <a href="https://aws.amazon.com/cloudfront/features/#Amazon_CloudFront_Infrastructure" rel="noopener noreferrer" target="_blank"><span>global network of edge locations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional edge caches</a> serve as a
+                mid-tier caching layer to provide cache hits and consolidate origin requests for
+                viewers in nearby geographical regions. Viewer requests are routed first to a nearby
+                CloudFront edge location, and if the object isn’t cached in that location, the request is
+                sent on to a regional edge cache.</p>
+            <p>When viewers are in different geographical regions, requests can be routed through
+                different regional edge caches, each of which can send a request to your origin for
+                the same content. But with Origin Shield, you get an additional layer of caching
+                between the regional edge caches and your origin. All requests from all regional
+                edge caches go through Origin Shield, further reducing the load on your origin. The
+                following diagrams illustrate this. In the following diagrams, the origin is
+                AWS Elemental MediaPackage.</p>
+            <p><b>Without Origin Shield</b></p>
+            <p>Without Origin Shield, your origin might receive duplicate requests for the same
+                content, as shown in the following diagram.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/origin-shield-without.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Without CloudFront Origin Shield, the origin might receive duplicate requests." style="max-width:100%" />
+                 
+                 
+            </div>
+            <p><b>With Origin Shield</b></p>
+            <p>Using Origin Shield can help reduce the load on your origin, as shown in the
+                following diagram.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/origin-shield-with.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="With CloudFront Origin Shield, the origin can receive fewer duplicate requests." style="max-width:100%" />
+                 
+                 
+            </div>
+         
+         
+            <h3 id="os-use-cases-multi-cdn">Multiple CDNs</h3>
+            <p>To serve live video events or popular on-demand content, you might use multiple
+                content delivery networks (CDNs). Using multiple CDNs can offer certain advantages,
+                but it also means that your origin might receive many duplicate requests for the
+                same content, each coming from different CDNs or different locations within the same
+                CDN. These redundant requests might adversely affect the availability of your origin
+                or cause additional operating costs for processes like just-in-time packaging or
+                data transfer out (DTO) to the internet.</p>
+            <p>When you combine Origin Shield with using your CloudFront distribution as the origin for
+                other CDNs, you can get the following benefits:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Fewer redundant requests received at your origin, which helps to reduce
+                        the negative effects of using multiple CDNs.</p>
+                </li><li class="listitem">
+                    <p>A common <a href="./controlling-the-cache-key.html">cache key</a> across
+                        CDNs, and centralized management for origin-facing features.</p>
+                </li><li class="listitem">
+                    <p>Improved network performance. Network traffic from other CDNs is
+                        terminated at a nearby CloudFront edge location, which might provide a hit from
+                        the local cache. If the requested object is not in the edge location cache,
+                        the request to the origin remains on the CloudFront network all the way to Origin
+                        Shield, which provides high throughput and low latency to the origin. If the
+                        requested object is in Origin Shield’s cache, the request to your origin is
+                        avoided entirely.</p>
+                </li></ul></div>
+            <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you are interested in using Origin Shield in a multi-CDN architecture, and
+                    have discounted pricing, <a href="https://aws.amazon.com/contact-us/" rel="noopener noreferrer" target="_blank"><span>contact
+                        us</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or your AWS sales representative for more information.
+                    Additional charges may apply.</p></div></div>
+            <p>The following diagrams show how this configuration can help minimize the load on
+                your origin when you serve popular live video events with multiple CDNs. In the
+                following diagrams, the origin is AWS Elemental MediaPackage.</p>
+            <p><b>Without Origin Shield (multiple CDNs)</b></p>
+            <p>Without Origin Shield, your origin might receive many duplicate requests for the
+                same content, each coming from a different CDN, as shown in the following
+                diagram.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/origin-shield-without-multi-cdn.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Graphic that shows how an origin can receive duplicate requests, each coming from a different CDN." style="max-width:100%" />
+                 
+                 
+            </div>
+            <p><b>With Origin Shield (multiple CDNs)</b></p>
+            <p>Using Origin Shield, with CloudFront as the origin for your other CDNs, can help reduce
+                the load on your origin, as shown in the following diagram.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/AmazonCloudFront/latest/DeveloperGuide/images/origin-shield-with-multi-cdn.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Graphic that shows CloudFront Origin Shield receiving fewer duplicate requests." style="max-width:100%" />
+                 
+                 
+            </div>
+         
+     
+        <h2 id="choose-origin-shield-region">Choose the AWS Region for Origin Shield</h2>
+        <p>Amazon CloudFront offers Origin Shield in AWS Regions where CloudFront has a <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional edge cache</a>. When you enable
+            Origin Shield, you choose the AWS Region for Origin Shield. You should choose the
+            AWS Region that has the lowest latency to your origin. You can use Origin Shield with
+            origins that are in an AWS Region, and with origins that are not in AWS.</p>
+         
+            <h3 id="choose-origin-shield-region-inside-aws">For origins in an AWS Region</h3>
+            <p>If your origin is in an AWS Region, first determine whether your origin is in a
+                Region in which CloudFront offers Origin Shield. CloudFront offers Origin Shield in the
+                following AWS Regions.</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>US East (Ohio) – <code class="code">us-east-2</code></p>
+                </li><li class="listitem">
+                    <p>US East (N. Virginia) – <code class="code">us-east-1</code></p>
+                </li><li class="listitem">
+                    <p>US West (Oregon) – <code class="code">us-west-2</code></p>
+                </li><li class="listitem">
+                    <p>Asia Pacific (Mumbai) – <code class="code">ap-south-1</code></p>
+                </li><li class="listitem">
+                    <p>Asia Pacific (Seoul) – <code class="code">ap-northeast-2</code></p>
+                </li><li class="listitem">
+                    <p>Asia Pacific (Singapore) – <code class="code">ap-southeast-1</code></p>
+                </li><li class="listitem">
+                    <p>Asia Pacific (Sydney) – <code class="code">ap-southeast-2</code></p>
+                </li><li class="listitem">
+                    <p>Asia Pacific (Tokyo) – <code class="code">ap-northeast-1</code></p>
+                </li><li class="listitem">
+                    <p>Europe (Frankfurt) – <code class="code">eu-central-1</code></p>
+                </li><li class="listitem">
+                    <p>Europe (Ireland) – <code class="code">eu-west-1</code></p>
+                </li><li class="listitem">
+                    <p>Europe (London) – <code class="code">eu-west-2</code></p>
+                </li><li class="listitem">
+                    <p>South America (São Paulo) – <code class="code">sa-east-1</code></p>
+                </li><li class="listitem">
+                    <p>Middle East (UAE) – <code class="code">me-central-1</code></p>
+                </li></ul></div>
+            <p><b>If your origin is in an AWS Region in which CloudFront offers
+                    Origin Shield</b></p>
+            <p>If your origin is in an AWS Region in which CloudFront offers Origin Shield (see the
+                preceding list), enable Origin Shield in the same Region as your origin.</p>
+            <p><b>If your origin is not in an AWS Region in which CloudFront
+                    offers Origin Shield</b></p>
+            <p> If your origin is not in an AWS Region in which CloudFront offers Origin Shield, see
+                the following table to determine which Region to enable Origin Shield in.</p>
+            <div class="table-container"><div class="table-contents disable-scroll"><table id="w303aac19c17c18b5c15"><thead>
+                        <tr>
+                            <th>
+                                <p><b>If your origin is in
+                                    ...</b></p>
+                            </th>
+                            <th>
+                                <p><b>Enable Origin Shield in
+                                    ...</b></p>
+                            </th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>US West (N. California) – <code class="code">us-west-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>US West (Oregon) – <code class="code">us-west-2</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Africa (Cape Town) – <code class="code">af-south-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Europe (Ireland) – <code class="code">eu-west-1</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Asia Pacific (Hong Kong) – <code class="code">ap-east-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Asia Pacific (Singapore) – <code class="code">ap-southeast-1</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Canada (Central) – <code class="code">ca-central-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>US East (N. Virginia) – <code class="code">us-east-1</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Europe (Milan) – <code class="code">eu-south-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Europe (Frankfurt) – <code class="code">eu-central-1</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Europe (Paris) – <code class="code">eu-west-3</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Europe (London) – <code class="code">eu-west-2</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Europe (Stockholm) – <code class="code">eu-north-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Europe (London) – <code class="code">eu-west-2</code></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Middle East (Bahrain) – <code class="code">me-south-1</code></p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Asia Pacific (Mumbai) – <code class="code">ap-south-1</code></p>
+                            </td>
+                        </tr>
+                    </table></div></div>
+         
+         
+            <h3 id="choose-origin-shield-region-outside-aws">For origins outside of AWS</h3>
+            <p>You can use Origin Shield with an origin that is on-premises or is not in an AWS
+                Region. In this case, enable Origin Shield in the AWS Region that has the lowest
+                latency to your origin. If you’re not sure which AWS Region has the lowest latency
+                to your origin, you can use the following suggestions to help you make a
+                determination.</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>You can consult the preceding table for an approximation of which AWS
+                        Region might have the lowest latency to your origin, based on your origin’s
+                        geographic location.</p>
+                </li><li class="listitem">
+                    <p>You can launch Amazon EC2 instances in a few different AWS Regions that are
+                        geographically close to your origin, and run some tests using
+                            <code class="code">ping</code> to measure the typical network latencies between those
+                        Regions and your origin.</p>
+                </li></ul></div>
+         
+     
+        <h2 id="enable-origin-shield">Enable Origin Shield</h2>
+        <p>You can enable Origin Shield to improve your cache hit ratio, reduce the load on your
+            origin, and help improve performance. To enable Origin Shield, change the origin
+            settings in a CloudFront distribution. Origin Shield is a property of the origin. For each
+            origin in your CloudFront distributions, you can separately enable Origin Shield in whichever
+            AWS Region provides the best performance for that origin.</p>
+        <p>You can enable Origin Shield in the CloudFront console, with CloudFormation, or with the CloudFront
+            API.</p>
+        
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Console</dt><dd tab-id="console">
+                    <div class="procedure"><h6>To enable Origin Shield for an existing origin (console)</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudFront console at
+    <a href="https://console.aws.amazon.com/cloudfront/v4/home" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudfront/v4/home</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                            <p>Choose the distribution that has the origin that you want to
+                                update.</p>
+                        </li><li>
+                            <p>Choose the <b>Origins</b>
+                                tab.</p>
+                        </li><li>
+                            <p>Choose the origin to update, then choose
+                                <b>Edit</b>.</p>
+                        </li><li>
+                            <p>For <b>Enable Origin Shield</b>, choose
+                                    <b>Yes</b>.</p>
+                        </li><li>
+                            <p>For <b>Origin Shield Region</b>, choose the AWS
+                                Region where you want to enable Origin Shield. For help choosing a
+                                Region, see <a href="#choose-origin-shield-region">Choose the AWS Region for Origin Shield</a>.</p>
+                        </li><li>
+                            <p>Choose <b>Save changes</b>.</p>
+                        </li></ol></div>
+                    <p>When your distribution status is <b>Deployed</b>, Origin
+                        Shield is ready. This takes a few minutes.</p>
+                    <div class="procedure"><h6>To enable Origin Shield for a new origin (console)</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudFront console at
+    <a href="https://console.aws.amazon.com/cloudfront/v4/home" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudfront/v4/home</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                            <p>To create the new origin in an existing distribution, do the
+                                following:</p>
+                            <div class="orderedlist">
+                                 
+                                 
+                            <ol><li>
+                                    <p>Choose the distribution where you want to create the
+                                        origin.</p>
+                                </li><li>
+                                    <p>Choose <b>Create Origin</b>, and then
+                                        proceed to step 3.</p>
+                                </li></ol></div>
+                            <p>To create the new origin in a new standard distribution, do the
+                                following:</p>
+                            <div class="orderedlist">
+                                 
+                                 
+                            <ol><li><p>Follow the steps to create a standard distribution in the console. For more information, see <a href="./distribution-web-creating-console.html#create-console-distribution">Create a CloudFront distribution in the console</a>.</p></li><li>
+                                    <p>In the <b>Settings</b> section, choose
+                                        <b>Customize origin settings</b>. Proceed to step 3.</p>
+                                </li></ol></div>
+                        </li><li>
+                            <p>For <b>Enable Origin Shield</b>, choose
+                                    <b>Yes</b>.</p>
+                        </li><li>
+                            <p>For <b>Origin Shield Region</b>, choose the AWS
+                                Region where you want to enable Origin Shield. For help choosing a
+                                Region, see <a href="#choose-origin-shield-region">Choose the AWS Region for Origin Shield</a>.</p>
+                        </li><li>
+                            <p>Follow the steps in the console to finish creating your origin or distribution.</p>
+                        </li></ol></div>
+                    <p>When your distribution status is <b>Deployed</b>, Origin
+                        Shield is ready. This takes a few minutes.</p>
+                </dd>
+            <dt>CloudFormation</dt><dd tab-id="cfn">
+                    <p>To enable Origin Shield with CloudFormation, use the <code class="code">OriginShield</code>
+                        property in the <code class="code">Origin</code> property type in an
+                            <code class="code">AWS::CloudFront::Distribution</code> resource. You can add the
+                            <code class="code">OriginShield</code> property to an existing <code class="code">Origin</code>,
+                        or include it when you create a new <code class="code">Origin</code>.</p>
+                    <p>The following example shows the syntax, in YAML format, for enabling
+                            <code class="code">OriginShield</code> in the US West (Oregon) Region
+                            (<code class="code">us-west-2</code>). For help choosing a Region, see <a href="#choose-origin-shield-region">Choose the AWS Region for Origin Shield</a>. This example shows only the
+                            <code class="code">Origin</code> property type, not the entire
+                            <code class="code">AWS::CloudFront::Distribution</code> resource.</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">Origins:
+- DomainName: 3ae97e9482b0d011.mediapackage.us-west-2.amazonaws.com
+  Id: Example-EMP-3ae97e9482b0d011
+  OriginShield:
+    Enabled: true
+    OriginShieldRegion: us-west-2
+  CustomOriginConfig:
+    OriginProtocolPolicy: match-viewer
+    OriginSSLProtocols: TLSv1</code></pre>
+                    <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html">AWS::CloudFront::Distribution Origin</a> in the
+                        resource and property reference section of the <em>AWS CloudFormation User Guide</em>.</p>
+                </dd>
+            <dt>API</dt><dd tab-id="api">
+                    <p>To enable Origin Shield with the CloudFront API using the AWS SDKs or
+                        AWS Command Line Interface (AWS CLI), use the <code class="code">OriginShield</code> type. You specify
+                            <code class="code">OriginShield</code> in an <code class="code">Origin</code>, in a
+                            <code class="code">DistributionConfig</code>. For information about the
+                            <code class="code">OriginShield</code> type, see the following information in the
+                            <em>Amazon CloudFront API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_OriginShield.html">OriginShield</a> (type)</p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_Origin.html">Origin</a> (type)</p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DistributionConfig.html">DistributionConfig</a> (type)</p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html">UpdateDistribution</a>
+                                (operation)</p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">CreateDistribution</a>
+                                (operation)</p>
+                        </li></ul></div>
+                    <p>The specific syntax for using these types and operations varies based on
+                        the SDK, CLI, or API client. For more information, see the reference
+                        documentation for your SDK, CLI, or client.</p>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="origin-shield-costs">Estimate Origin Shield costs</h2>
+        <p>You accrue charges for Origin Shield based on the number of requests that go to Origin
+            Shield as an incremental layer.</p>
+        <p> For dynamic (non-cacheable) requests that are proxied to the origin, Origin Shield is
+            always an incremental layer. Dynamic requests use the HTTP methods <code class="code">PUT</code>,
+                <code class="code">POST</code>, <code class="code">PATCH</code>, and <code class="code">DELETE</code>.</p>
+        <p><code class="code">GET</code> and <code class="code">HEAD</code> requests that have a time to live (TTL) setting
+            of less than 3600 seconds are considered dynamic requests. In addition, <code class="code">GET</code>
+            and <code class="code">HEAD</code> requests that have disabled caching are also considered dynamic
+            requests.</p>
+        <p>To estimate your charges for Origin Shield for dynamic requests, use the following
+            formula:</p>
+        <p>Total number of dynamic requests <b>x</b> Origin Shield
+            charge per 10,000 requests <b>/</b> 10,000</p>
+        <p>For non-dynamic requests with the HTTP methods <code class="code">GET</code>, <code class="code">HEAD</code>,
+            and <code class="code">OPTIONS</code>, Origin Shield is sometimes an incremental layer. When you
+            enable Origin Shield, you choose the AWS Region for Origin Shield. For requests that
+            naturally go to the <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional edge
+                cache</a> in the same Region as Origin Shield, Origin Shield will be skipped. You don't accrue Origin Shield charges for these requests. For
+            requests that go to a regional edge cache in a different Region from Origin Shield, and
+            then go to Origin Shield, Origin Shield is an incremental layer. You do accrue Origin
+            Shield charges for these requests.</p>
+        <p>To estimate your charges for Origin Shield for cacheable requests, use the following
+            formula:</p>
+        <p>Total number of cacheable requests <b>x</b> (1 – cache hit
+            rate) <b>x</b> percentage of requests that go to Origin Shield
+            from a regional edge cache in a different region <b>x</b>
+            Origin Shield charge per 10,000 requests <b>/</b>
+            10,000</p>
+        <p>For more information about the charge per 10,000 requests for Origin Shield, see
+                <a href="https://aws.amazon.com/cloudfront/pricing/" rel="noopener noreferrer" target="_blank"><span>CloudFront Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+     
+        <h2 id="origin-shield-high-availability">Origin Shield high availability</h2>
+        <p>Origin Shield leverages the CloudFront <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional
+                edge caches</a> feature. Each of these edge caches is built in an AWS Region
+            using at least three <a href="https://aws.amazon.com/about-aws/global-infrastructure/regions_az/" rel="noopener noreferrer" target="_blank"><span>Availability
+                Zones</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> with fleets of auto-scaling Amazon EC2 instances. Connections from CloudFront
+            locations to Origin Shield also use active error tracking for each request to
+            automatically route the request to a secondary Origin Shield location if the primary
+            Origin Shield location is unavailable.</p>
+     
+        <h2 id="origin-shield-and-other-features">How Origin Shield interacts with other CloudFront features</h2>
+        <p>The following sections explain how Origin Shield interacts with other CloudFront
+            features.</p>
+         
+            <h3 id="origin-shield-logging">Origin Shield and CloudFront logging</h3>
+            <p>To see when Origin Shield handled a request, you must enable one of the
+                following:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><a href="./AccessLogs.html">CloudFront standard logs (access logs)</a>.
+                        Standard logs are provided free of charge.</p>
+                </li><li class="listitem">
+                    <p><a href="./real-time-logs.html">CloudFront real-time access logs</a>. You incur
+                        additional charges for using real-time access logs. See <a href="https://aws.amazon.com/cloudfront/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon CloudFront
+                        Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                </li></ul></div>
+            <p>Cache hits from Origin Shield appear as <code class="code">OriginShieldHit</code> in the
+                    <code class="code">x-edge-detailed-result-type</code> field in CloudFront logs. Origin Shield
+                leverages Amazon CloudFront’s <a href="./HowCloudFrontWorks.html#CloudFrontRegionaledgecaches">regional edge
+                    caches</a>. If a request is routed from a CloudFront edge location to the regional
+                edge cache that is acting as Origin Shield, it is reported as a <code class="code">Hit</code> in
+                the logs, not as an <code class="code">OriginShieldHit</code>.</p>
+         
+         
+            <h3 id="origin-shield-and-origin-group">Origin Shield and origin groups</h3>
+            <p>Origin Shield is compatible with <a href="./high_availability_origin_failover.html">CloudFront origin groups</a>. Because Origin Shield is a property of the origin,
+                requests always travel through Origin Shield for each origin even when the origin is
+                part of an origin group. For a given request, CloudFront routes the request to the primary
+                origin in the origin group through the primary origin’s Origin Shield. If that
+                request fails (according to the origin group failover criteria), CloudFront routes the
+                request to the secondary origin through the secondary origin’s Origin Shield.</p>
+         
+         
+            <h3 id="origin-shield-and-lambda-at-edge">Origin Shield and Lambda@Edge</h3>
+            <p>Origin Shield does not impact the functionality of <a href="./lambda-at-the-edge.html">Lambda@Edge</a> functions, but it can affect the
+                AWS Region where those functions run.</p>
+            <p>When you use Origin Shield with Lambda@Edge, <a href="./lambda-cloudfront-trigger-events.html">origin-facing triggers</a> (origin
+                request and origin response) run in the AWS Region where Origin Shield is enabled.
+                If the primary Origin Shield location is unavailable and CloudFront routes requests to a
+                secondary Origin Shield location, Lambda@Edge origin-facing triggers will also shift
+                to use the secondary Origin Shield location.</p>
+            <p>Viewer-facing triggers are not affected.</p>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cache-hit-ratio.html">Improve your cache hit ratio</div><div id="next" class="next-link" accesskey="n" href="./high_availability_origin_failover.html">Increase availability
+				with origin failover</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

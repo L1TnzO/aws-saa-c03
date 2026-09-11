@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Cost-effective resources - AWS Well-Architected Framework</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cost-cereso" /><meta name="default_state" content="cost-cereso" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-cereso.html" /><meta name="description" content="Using the appropriate instances and resources for your workload is key to cost savings. For example, a reporting process might take five hours to run on a smaller server but one hour to run on a larger server that is twice as expensive. Both servers give you the same outcome, but the smaller server incurs more cost over time." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Well-Architected Framework" /><meta name="guide" content="Framework" /><meta name="abstract" content="The AWS Well-Architected Framework helps you understand the pros and cons of decisions you make while building systems on AWS. By using the Framework you will learn architectural best practices for designing and operating reliable, secure, efficient, cost-effective, and sustainable systems in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-cereso.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wellarchitected/latest/framework/cost-cereso.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/wellarchitected/latest/framework/cost-cereso.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wellarchitected/latest/framework/cost-cereso.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/wellarchitected/latest/framework/cost-cereso.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-cereso.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-cereso.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/cost-cereso.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/cost-cereso.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wellarchitected/latest/framework/cost-cereso.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/wellarchitected/latest/framework/cost-cereso.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wellarchitected/latest/framework/cost-cereso.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/wellarchitected/latest/framework/cost-cereso.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/cost-cereso.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/cost-cereso.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wellarchitected/latest/framework/cost-cereso.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/wellarchitected/latest/framework/cost-cereso.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wellarchitected/latest/framework/cost-cereso.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/wellarchitected/latest/framework/cost-cereso.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/wellarchitected/latest/framework/cost-cereso.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/wellarchitected/latest/framework/cost-cereso.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-cereso.html" hreflang="x-default" /><meta name="feedback-folder" content="897c6ffe-3c12-4691-9c85-dc23b20eabd4" /><meta name="this_doc_product" content="AWS Well-Architected Framework" /><meta name="this_doc_guide" content="Framework" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'wellarchitected'}"></script><meta id="panorama-serviceSubSection" value="Framework" /><meta id="panorama-serviceConsolePage" value="Cost-effective resources" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cost-cereso.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Cost-effective resources - AWS Well-Architected Framework</title><meta name="pdf" content="/pdfs/wellarchitected/latest/framework/wellarchitected-framework.pdf#cost-cereso" /><meta name="rss" content="wellarchitected-framework.rss" /><meta name="forums" content="https://repost.aws/topics/TA5g9gZfzuQoWLsZ3wxihrgw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/cost-cereso.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/cost-cereso.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/cost-cereso.html" /><link rel="alternate" type="text/markdown" href="cost-cereso.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Well-Architected",
+        "item" : "https://aws.amazon.com/architecture/well-architected/"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Framework",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "The pillars of the framework",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Cost optimization",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-optimization.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Best practices",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-bp.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Cost-effective resources",
+        "item" : "https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-bp.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/wellarchitected/latest/framework/wellarchitected-framework.pdf#cost-cereso" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="https://aws.amazon.com/architecture/well-architected/">AWS Well-Architected</a><a href="welcome.html">Framework</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cost-cereso">Cost-effective resources</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>
+      Using the appropriate instances and resources for your workload is
+      key to cost savings. For example, a reporting process might take
+      five hours to run on a smaller server but one hour to run on a
+      larger server that is twice as expensive. Both servers give you
+      the same outcome, but the smaller server incurs more cost over
+      time.
+    </p><p>
+      A well-architected workload uses the most cost-effective
+      resources, which can have a significant and positive economic
+      impact. You also have the opportunity to use managed services to
+      reduce costs. For example, rather than maintaining servers to
+      deliver email, you can use a service that charges on a per-message
+      basis.
+    </p><p>
+      AWS offers a variety of flexible and cost-effective pricing
+      options to acquire instances from Amazon EC2 and other services in
+      a way that more effectively fits your needs. <em>On-Demand</em>
+      <em>Instances</em> permit you to pay for compute
+      capacity by the hour, with no minimum commitments required.
+      <em>Savings Plans and Reserved Instances</em> offer
+      savings of up to 75% oﬀ On-Demand pricing. With Spot Instances,
+      you can leverage unused Amazon EC2 capacity and offer savings of
+      up to 90% oﬀ On-Demand pricing. <em>Spot
+      Instances</em> are appropriate where the system can tolerate
+      using a fleet of servers where individual servers can come and go
+      dynamically, such as stateless web servers, batch processing, or
+      when using HPC and big data.
+    </p><p>
+      Appropriate service selection can also reduce usage and costs;
+      such as CloudFront to minimize data transfer, or decrease costs, such as utilizing Amazon Aurora on Amazon RDS to
+      remove expensive database licensing costs.
+    </p><p>
+      The following questions focus on these considerations for cost
+      optimization.
+    </p><div class="table-container"><div class="table-contents"><table id="w216aab7c15c13b9c13"><thead>
+              <tr>
+                <th>COST 5:  How do you evaluate cost when you select services?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Amazon EC2, Amazon EBS, and Amazon S3 are building-block AWS services. Managed services,
+                  such as Amazon RDS and Amazon DynamoDB, are higher level, or application level, AWS services.
+                  By selecting the appropriate building blocks and managed services, you can
+                  optimize this workload for cost. For example, using managed services, you can
+                  reduce or remove much of your administrative and operational overhead, freeing you
+                  to work on applications and business-related activities.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c15c13b9c15"><thead>
+              <tr>
+                <th>COST 6:  How do you meet cost targets when you select resource type, size and
+                  number?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Verify that you choose the appropriate resource size and number of resources
+                  for the task at hand. You minimize waste by selecting the most cost effective
+                  type, size, and number.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c15c13b9c17"><thead>
+              <tr>
+                <th>COST 7:  How do you use pricing models to reduce cost?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Use the pricing model that is most appropriate for your resources to minimize
+                  expense.</td>
+              </tr>
+            </table></div></div><div class="table-container"><div class="table-contents"><table id="w216aab7c15c13b9c19"><thead>
+              <tr>
+                <th>COST 8:  How do you plan for data transfer charges?</th>
+              </tr>
+            </thead>
+              <tr>
+                <td tabindex="-1">Verify that you plan and monitor data transfer charges so that you can make
+                  architectural decisions to minimize costs. A small yet effective architectural
+                  change can drastically reduce your operational costs over time. </td>
+              </tr>
+            </table></div></div><p>
+      By factoring in cost during service selection, and using tools
+      such as Cost Explorer and AWS Trusted Advisor to regularly review
+      your AWS usage, you can actively monitor your utilization and
+      adjust your deployments accordingly.
+    </p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cost-aware.html">Expenditure and usage awareness</div><div id="next" class="next-link" accesskey="n" href="./cost-mandem.html">Manage demand and supply resources</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/cost-cereso.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=897c6ffe-3c12-4691-9c85-dc23b20eabd4&amp;topic_url=https://docs.aws.amazon.com/en_us/wellarchitected/latest/framework/cost-cereso.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

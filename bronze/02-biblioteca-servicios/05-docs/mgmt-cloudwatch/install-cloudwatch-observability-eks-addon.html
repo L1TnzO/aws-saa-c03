@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Install the CloudWatch agent with the Amazon CloudWatch Observability EKS add-on or the Helm chart - Amazon CloudWatch</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="install-CloudWatch-Observability-EKS-addon" /><meta name="default_state" content="install-CloudWatch-Observability-EKS-addon" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" /><meta name="description" content="Explains how to install the CloudWatch agent by installing the CloudWatch Observability EKS add-on." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Monitor your AWS services, collect and track metrics from AWS services and your own applications, and set alarms based on data from those metrics." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" hreflang="x-default" /><meta name="feedback-item" content="CloudWatch" /><meta name="this_doc_product" content="Amazon CloudWatch" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Install the CloudWatch agent with the Amazon CloudWatch Observability EKS add-on or the Helm chart" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="install-CloudWatch-Observability-EKS-addon.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Install the CloudWatch agent with the Amazon CloudWatch Observability EKS add-on or the Helm chart - Amazon CloudWatch</title><meta name="pdf" content="/pdfs/AmazonCloudWatch/latest/monitoring/acw-ug.pdf#install-CloudWatch-Observability-EKS-addon" /><meta name="rss" content="amazon-cloudwatch-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TArz36ydKETWeIc1aO7QuRFw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html" /><meta name="keywords" content="Amazon CloudWatch,install,agent,observability,EKS,add-on,Helm,chart" /><link rel="alternate" type="text/markdown" href="install-CloudWatch-Observability-EKS-addon.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Infrastructure monitoring",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Sections.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Container Insights",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon EKS",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-EKS.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "OTel Container Insights (Recommended)",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/container-insights-eks-otel.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Install the CloudWatch agent with the Amazon CloudWatch Observability EKS add-on or the Helm chart",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/container-insights-eks-otel.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudWatch/latest/monitoring/acw-ug.pdf#install-CloudWatch-Observability-EKS-addon" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatch.html">User Guide</a></div><div id="page-toc-src"><a href="#install-CloudWatch-Observability-EKS-pod-identity">Option 1: Install using EKS Pod Identity</a><a href="#install-CloudWatch-Observability-EKS-addon-workernodes">Option 2: Install with IAM permissions on worker nodes</a><a href="#install-CloudWatch-Observability-EKS-addon-serviceaccountrole">Option 3: Install using IAM service account role (applies only to using the add-on)</a><a href="#install-CloudWatch-Observability-EKS-addon-configuration">(Optional) Additional configuration</a><a href="#install-CloudWatch-Observability-EKS-addon-JMX-metrics">Collect Java Management Extensions (JMX) metrics</a><a href="#enable-Kueue-metrics">Enable Kueue metrics</a><a href="#install-CloudWatch-Observability-EKS-addon-OpenTelemetry">Appending OpenTelemetry collector configuration files</a><a href="#Container-Insights-setup-EKS-appsignalsconfiguration">Application Signals configuration</a><a href="#install-CloudWatch-Observability-EKS-addon-large-clusters">Considerations for large Kubernetes clusters</a><a href="#install-CloudWatch-Observability-EKS-addon-hybrid">Considerations for Amazon EKS Hybrid Nodes</a><a href="#Container-Insights-setup-EKS-addon-troubleshoot">Troubleshooting</a><a href="#Opting-out-App-Signals">Opt out of Application Signals</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="install-CloudWatch-Observability-EKS-addon">Install the CloudWatch agent with the Amazon CloudWatch Observability EKS add-on or the Helm chart</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use either the Amazon CloudWatch Observability EKS add-on or the Amazon CloudWatch Observability
+    Helm chart to install the CloudWatch Agent and the Fluent-bit agent on an Amazon EKS cluster. You can
+    also use the Helm chart to install the CloudWatch Agent and the Fluent-bit agent on a Kubernetes
+    cluster that is not hosted on Amazon EKS.</p><p>Using either method on an Amazon EKS cluster enables both <a href="./deploy-container-insights-EKS.html">Container Insights</a> for Amazon EKS and <a href="./CloudWatch-Application-Monitoring-Sections.html">CloudWatch Application Signals</a> by
+    default. Both features help you to collect infrastructure metrics, application performance
+    telemetry, and container logs from the cluster.</p><p>From version <code class="code">v6.2.0-eksbuild.1</code> or later of the add-on, Container Insights
+    with OpenTelemetry metrics can be enabled, which collects metrics using the OpenTelemetry
+    Protocol (OTLP) and supports PromQL queries. For more information, see <a href="./container-insights-eks-otel.html">OTel Container Insights (Recommended)</a>.</p><p>With Container Insights with OpenTelemetry for Amazon EKS, Container Insights metrics are
+    charged per GB ingested or per observation if you are using Enhanced Container Insights
+    (Classic). For Application Signals, billing is based on inbound requests to your
+    applications, outbound requests from your applications, and each configured service level
+    objective (SLO). Each inbound request received generates one application signal, and each
+    outbound request made generates one application signal. Every SLO creates two application
+    signals per measurement period. For more information about CloudWatch pricing, see <a href="https://aws.amazon.com/cloudwatch/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon CloudWatch Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p>Both methods enable Container Insights on both Linux and Windows worker nodes in the
+    Amazon EKS cluster. To enable Container Insights on Windows, you must use version 1.5.0 or later
+    of the Amazon EKS add-on or the Helm chart. Application Signals is not supported on
+    Windows in Amazon EKS clusters.</p><p>The Amazon CloudWatch Observability EKS add-on is supported on Amazon EKS clusters running with
+    Kubernetes version 1.23 or later.</p><p>When you install the add-on or the Helm chart, you must also grant IAM permissions to
+    enable the CloudWatch agent to send metrics, logs, and traces to CloudWatch. There are two ways to do
+    this:</p><div class="itemizedlist">
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>Attach a policy to the IAM role of your worker nodes. This option grants
+        permissions to worker nodes to send telemetry to CloudWatch. </p>
+    </li><li class="listitem">
+      <p>Use an IAM role for service accounts for the agent pods, and attach the policy to
+        this role. This works only for Amazon EKS clusters. This option gives CloudWatch access only to the
+        appropriate agent pods. </p>
+    </li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#install-CloudWatch-Observability-EKS-pod-identity">Option 1: Install using EKS Pod Identity</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-workernodes">Option 2: Install with IAM permissions on worker nodes</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-serviceaccountrole">Option 3: Install using IAM service account role (applies only to using the add-on)</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-configuration">(Optional) Additional configuration</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-JMX-metrics">Collect Java Management Extensions (JMX) metrics</a></p></li><li><p><a href="#enable-Kueue-metrics">Enable Kueue metrics</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-OpenTelemetry">Appending OpenTelemetry collector configuration files</a></p></li><li><p><a href="#Container-Insights-setup-EKS-appsignalsconfiguration">Enabling APM through Application Signals for your Amazon EKS cluster</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-large-clusters">Considerations for large Kubernetes clusters</a></p></li><li><p><a href="#install-CloudWatch-Observability-EKS-addon-hybrid">Considerations for Amazon EKS Hybrid Nodes</a></p></li><li><p><a href="#Container-Insights-setup-EKS-addon-troubleshoot">Troubleshooting the Amazon CloudWatch Observability EKS add-on or the Helm chart</a></p></li><li><p><a href="#Opting-out-App-Signals">Opt out of Application Signals</a></p></li></ul></div>
+    <h2 id="install-CloudWatch-Observability-EKS-pod-identity">Option 1: Install using EKS Pod Identity</h2>
+
+    <p>If you use version 3.1.0 or later of the add-on, you can use EKS Pod Identity to grant
+      the required permissions to the add-on. EKS Pod Identity is the recommended option and
+      provides benefits such as least privilege, credential rotation, and auditability.
+      Additionally, using EKS Pod Identity allows you to install the EKS add-on as part of the
+      cluster creation itself.</p>
+
+    <p>To use this method, first follow the <a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-id-association.html#pod-id-association-create/">EKS Pod
+        Identity association</a> steps to create the IAM role and set up the EKS Pod
+      Identity agent.</p>
+
+    <p>Then install the Amazon CloudWatch Observability EKS add-on. To install the add-on, you can use
+      the AWS CLI, the Amazon EKS console, CloudFormation, or Terraform.</p>
+
+    <awsdocs-tabs><dl style="display: none">
+      <dt>AWS CLI</dt><dd tab-id="aws-cli">
+           
+            <h6>To use the AWS CLI to install the Amazon CloudWatch Observability EKS add-on</h6>
+            <p>Enter the following commands. Replace
+                  <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name of your
+              cluster and replace <code class="replaceable">111122223333</code> with your account ID.
+              Replace <code class="replaceable">my-role</code> with the IAM role that you created in
+              the EKS Pod Identity association step.</p>
+           
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws iam attach-role-policy \
+--role-name <code class="replaceable">my-role</code> \
+--policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+
+aws eks create-addon \
+--addon-name amazon-cloudwatch-observability \
+--cluster-name <code class="replaceable">my-cluster-name</code> \
+--pod-identity-associations serviceAccount=cloudwatch-agent,roleArn=arn:aws:iam::<code class="replaceable">111122223333</code>:role/<code class="replaceable">my-role</code></code></pre>
+
+        </dd>
+      <dt>Amazon EKS console</dt><dd tab-id="amazon-eks-console">
+          <div class="procedure"><h6>To use the Amazon EKS console to add the Amazon CloudWatch Observability EKS add-on</h6><ol><li><p>Open the Amazon EKS console at <a href="https://console.aws.amazon.com/eks/home#/clusters" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/eks/home#/clusters</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+              <p>In the left navigation pane, choose <b>Clusters</b>.</p>
+            </li><li>
+              <p>Choose the name of the cluster that you want to configure the Amazon CloudWatch
+                Observability EKS add-on for.</p>
+            </li><li>
+              <p>Choose the <b>Add-ons</b> tab.</p>
+            </li><li>
+              <p>Choose <b>Get more add-ons</b>.</p>
+            </li><li>
+              <p>On the <b>Select add-ons</b> page, do the following:</p>
+              <ol><li>
+                  <p>In the <b>Amazon EKS-addons</b> section, select the
+                      <b>Amazon CloudWatch Observability</b> check box.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Configure selected add-ons settings</b> page, do the
+                following:</p>
+              <ol><li>
+                  <p>Select the <b>Version</b> you'd like to use.</p>
+                </li><li>
+                  <p>For <b>Add-on access</b>, select <b>EKS Pod
+                      Identity</b></p>
+                </li><li>
+                  <p>If you don't have an IAM role configured, choose <b>Create
+                      recommended role</b>, then choose <b>Next</b> until
+                    you are at <b>Step 3 Name, review, and create</b>. You can
+                    change your role name if desired, otherwise, choose <b>Create
+                      Role</b>, and then return to the Add-on page and select the IAM
+                    role that you just created.</p>
+                </li><li>
+                  <p>(Optional) You can expand the <b>Optional configuration
+                      settings</b>. If you select <b>Override</b> for the
+                      <b>Conflict resolution method</b>, one or more of the
+                    settings for the existing add-on can be overwritten with the Amazon EKS add-on
+                    settings. If you don't enable this option and there's a conflict with your
+                    existing settings, the operation fails. You can use the resulting error
+                    message to troubleshoot the conflict. Before selecting this option, make
+                    sure that the Amazon EKS add-on doesn't manage settings that you need to
+                    self-manage.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Review and add</b> page, choose
+                  <b>Create</b>. After the add-on installation is complete, you
+                see your installed add-on.</p>
+            </li></ol></div>
+        </dd>
+      <dt>CloudFormation</dt><dd tab-id="cloudformation">
+          <div class="procedure"><h6>To use CloudFormation to install the Amazon CloudWatch Observability EKS add-on</h6><ol><li>
+              <p>First, run the following AWS CLI command to attach the necessary IAM policy
+                to your IAM role. Replace <code class="replaceable">my-role</code> with the role
+                that you created in the EKS Pod Identity association step.</p>
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws iam attach-role-policy \
+--role-name <code class="replaceable">my-role</code> \
+--policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy</code></pre>
+            </li><li>
+              <p>Then create the following resource. Replace
+                    <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name of
+                your cluster, replace <code class="replaceable">111122223333</code> with your account
+                ID, and replace <code class="replaceable">my-role</code> with the IAM role created
+                in EKS Pod Identity association step. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-addon.html">
+                  AWS::EKS::Addon</a>.</p>
+
+
+
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+"Resources": <span>{</span>
+    "EKSAddOn": <span>{</span>
+        "Type": "AWS::EKS::Addon",
+        "Properties": <span>{</span>
+            "AddonName": "amazon-cloudwatch-observability",
+            "ClusterName": "<code class="replaceable">my-cluster-name</code>",
+            "PodIdentityAssociations": [
+                <span>{</span>
+                    "ServiceAccount": "cloudwatch-agent",
+                    "RoleArn": "arn:aws:iam::<code class="replaceable">111122223333</code>:role/<code class="replaceable">my-role</code>"
+                }
+            ]
+        }
+    }
+}
+}</code></pre>
+            </li></ol></div>
+
+        </dd>
+
+      <dt>Terraform</dt><dd tab-id="terraform">
+          <div class="procedure"><h6>To use Terraform to install the Amazon CloudWatch Observability EKS add-on</h6><ol><li>
+              <p>Use the following. Replace
+                  <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name of your
+                cluster, replace <code class="replaceable">111122223333</code> with your account ID,
+                and replace <code class="replaceable">my-service-account-role</code> with the IAM
+                role created in EKS Pod Identity association step.</p>
+
+              <p>For more information, see <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon" rel="noopener noreferrer" target="_blank"><span> Resource: aws_eks_addon</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the Terraform documentation.</p>
+            </li><li>
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">resource "aws_iam_role_policy_attachment" "CloudWatchAgentServerPolicy" <span>{</span>
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  role       = "my-role"
+}
+
+resource "aws_eks_addon" "example" <span>{</span>
+  cluster_name = "my-cluster-name"
+  addon_name   = "amazon-cloudwatch-observability"
+  pod_identity_associations <span>{</span>
+  roleArn = "arn:aws:iam::111122223333:role/my-role"
+  serviceAccount = "cloudwatch-agent"
+  }
+}</code></pre>
+            </li></ol></div>
+
+
+
+
+        </dd>
+
+
+
+
+
+    </dl></awsdocs-tabs>
+
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-workernodes">Option 2: Install with IAM permissions on worker nodes</h2>
+
+    <p>To use this method, first attach the <b>CloudWatchAgentServerPolicy</b>
+      IAM policy to your worker nodes by entering the following command. In this command,
+      replace <code class="replaceable">my-worker-node-role</code> with the IAM role used by your
+      Kubernetes worker nodes.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws iam attach-role-policy \
+--role-name <code class="replaceable">my-worker-node-role</code> \
+--policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy</code></pre>
+
+
+
+    <p>Then install the Amazon CloudWatch Observability EKS add-on. To install the add-on, you can use
+      the AWS CLI, the console, CloudFormation, or Terraform.</p>
+
+    <awsdocs-tabs><dl style="display: none">
+      <dt>AWS CLI</dt><dd tab-id="aws-cli">
+           
+            <h6>To use the AWS CLI to install the Amazon CloudWatch Observability EKS add-on</h6>
+            <p>Enter the following command. Replace
+                  <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name of your
+              cluster.</p>
+           
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws eks create-addon --addon-name amazon-cloudwatch-observability --cluster-name <code class="replaceable">my-cluster-name</code></code></pre>
+
+        </dd>
+      <dt>Amazon EKS console</dt><dd tab-id="amazon-eks-console">
+          <div class="procedure"><h6>To use the Amazon EKS console to add the Amazon CloudWatch Observability EKS add-on</h6><ol><li><p>Open the Amazon EKS console at <a href="https://console.aws.amazon.com/eks/home#/clusters" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/eks/home#/clusters</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+              <p>In the left navigation pane, choose <b>Clusters</b>.</p>
+            </li><li>
+              <p>Choose the name of the cluster that you want to configure the Amazon CloudWatch
+                Observability EKS add-on for.</p>
+            </li><li>
+              <p>Choose the <b>Add-ons</b> tab.</p>
+            </li><li>
+              <p>Choose <b>Get more add-ons</b>.</p>
+            </li><li>
+              <p>On the <b>Select add-ons</b> page, do the following:</p>
+              <ol><li>
+                  <p>In the <b>Amazon EKS-addons</b> section, select the
+                      <b>Amazon CloudWatch Observability</b> check box.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Configure selected add-ons settings</b> page, do the
+                following:</p>
+              <ol><li>
+                  <p>Select the <b>Version</b> you'd like to use.</p>
+                </li><li>
+                  <p>(Optional) You can expand the <b>Optional configuration
+                      settings</b>. If you select <b>Override</b> for the
+                      <b>Conflict resolution method</b>, one or more of the
+                    settings for the existing add-on can be overwritten with the Amazon EKS add-on
+                    settings. If you don't enable this option and there's a conflict with your
+                    existing settings, the operation fails. You can use the resulting error
+                    message to troubleshoot the conflict. Before selecting this option, make
+                    sure that the Amazon EKS add-on doesn't manage settings that you need to
+                    self-manage.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Review and add</b> page, choose
+                  <b>Create</b>. After the add-on installation is complete, you
+                see your installed add-on.</p>
+            </li></ol></div>
+        </dd>
+      <dt>CloudFormation</dt><dd tab-id="cloudformation">
+           
+            <h6>To use CloudFormation to install the Amazon CloudWatch Observability EKS add-on</h6>
+            <p>Replace <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name
+              of your cluster. For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-addon.html">
+                AWS::EKS::Addon</a>.</p>
+
+
+           
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+"Resources": <span>{</span>
+    "EKSAddOn": <span>{</span>
+        "Type": "AWS::EKS::Addon",
+        "Properties": <span>{</span>
+            "AddonName": "amazon-cloudwatch-observability",
+            "ClusterName": "<code class="replaceable">my-cluster-name</code>"
+        }
+    }
+}
+}</code></pre>
+        </dd>
+      <dt>Helm chart</dt><dd tab-id="helm-chart">
+          <div class="procedure"><h6>To use the <code class="code">amazon-cloudwatch-observability</code> Helm chart</h6><ol><li>
+              <p>You must have Helm installed to use this chart. For more information about
+                installing Helm, see the <a href="https://helm.sh/docs/" rel="noopener noreferrer" target="_blank"><span>Helm
+                  documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+              <p>After you have installed Helm, enter the following commands. Replace
+                  <code class="replaceable">my-cluster-name</code> with the name of your cluster, and
+                replace <code class="replaceable">my-cluster-region</code> with the Region that the
+                cluster runs in.</p>
+
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">helm repo add aws-observability https://aws-observability.github.io/helm-charts
+helm repo update aws-observability
+helm install --wait --create-namespace --namespace amazon-cloudwatch amazon-cloudwatch-observability aws-observability/amazon-cloudwatch-observability --set clusterName=<code class="replaceable">my-cluster-name</code> --set region=<code class="replaceable">my-cluster-region</code></code></pre>
+            </li></ol></div>
+        </dd>
+      <dt>Terraform</dt><dd tab-id="terraform">
+           
+            <h6>To use Terraform to install the Amazon CloudWatch Observability EKS add-on</h6>
+            <p>Replace <code class="code"><code class="replaceable">my-cluster-name</code></code> with the name
+              of your cluster. For more information, see <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_ad" rel="noopener noreferrer" target="_blank"><span>Resource: aws_eks_addon</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+
+           
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">resource "aws_eks_addon" "example" <span>{</span>
+  addon_name   = "amazon-cloudwatch-observability"
+  cluster_name = "<code class="replaceable">my-cluster-name</code>"
+}</code></pre>
+        </dd>
+
+    </dl></awsdocs-tabs>
+
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-serviceaccountrole">Option 3: Install using IAM service account role (applies only to using the add-on)</h2>
+
+    <p>This method is valid only if you are using the Amazon CloudWatch Observability EKS add-on.
+      Before using this method, verify the following prerequisites:</p>
+
+    <div class="itemizedlist">
+       
+       
+
+       
+
+
+    <ul class="itemizedlist"><li class="listitem">
+        <p>You have a functional Amazon EKS cluster with nodes attached in one of the
+          AWS Regions that supports Container Insights. For the list of supported Regions, see
+            <a href="./ContainerInsights.html">Container Insights</a>.</p>
+      </li><li class="listitem">
+        <p>You have <code class="code">kubectl</code> installed and configured for the cluster. For more
+          information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html">Installing
+              <code class="code">kubectl</code></a> in the <em>Amazon EKS User Guide</em>.</p>
+      </li><li class="listitem">
+        <p>You have <code class="code">eksctl</code> installed. For more information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html">Installing or updating
+              <code class="code">eksctl</code></a> in the <em>Amazon EKS User Guide</em>.</p>
+      </li></ul></div>
+
+    <awsdocs-tabs><dl style="display: none">
+      <dt>AWS CLI</dt><dd tab-id="aws-cli">
+          <div class="procedure"><h6>To use the AWS CLI to install the Amazon CloudWatch Observability EKS add-on using the IAM service account role</h6><ol><li>
+              <p>Enter the following command to create an OpenID Connect (OIDC) provider, if
+                the cluster doesn't have one already. For more information, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html">Configuring a
+                  Kubernetes service account to assume an IAM role</a> in the
+                <em>Amazon EKS User Guide</em>.</p>
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">eksctl utils associate-iam-oidc-provider --cluster <code class="replaceable">my-cluster-name</code> --approve</code></pre>
+            </li><li>
+              <p>Enter the following command to create the IAM role with the
+                  <b>CloudWatchAgentServerPolicy</b> policy attached, and
+                configure the agent service account to assume that role using OIDC. Replace
+                  <code class="replaceable">my-cluster-name</code> with the name of your cluster, and
+                replace <code class="replaceable">my-service-account-role</code> with the name of the
+                role that you want to associate the service account with. If the role doesn't
+                already exist, <code class="code">eksctl</code> creates it for you. </p>
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">eksctl create iamserviceaccount \
+  --name cloudwatch-agent \
+  --namespace amazon-cloudwatch --cluster <code class="replaceable">my-cluster-name</code> \
+  --role-name <code class="replaceable">my-service-account-role</code> \
+  --attach-policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy \
+  --role-only \
+  --approve</code></pre>
+            </li><li>
+              <p>Install the add-on by entering the following command. Replace
+                  <code class="replaceable">my-cluster-name</code> with the name of your cluster,
+                replace <code class="replaceable">111122223333</code> with your account ID, and
+                replace <code class="replaceable">my-service-account-role</code> with the IAM role
+                created in the previous step.</p>
+              <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws eks create-addon --addon-name amazon-cloudwatch-observability --cluster-name <code class="replaceable">my-cluster-name</code> --service-account-role-arn arn:aws:iam::<code class="replaceable">111122223333</code>:role/<code class="replaceable">my-service-account-role</code></code></pre>
+            </li></ol></div>
+        </dd>
+      <dt>Amazon EKS console</dt><dd tab-id="amazon-eks-console">
+          <div class="procedure"><h6>To use the console to install the Amazon CloudWatch Observability EKS add-on using the IAM service account role</h6><ol><li><p>Open the Amazon EKS console at <a href="https://console.aws.amazon.com/eks/home#/clusters" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/eks/home#/clusters</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+              <p>In the left navigation pane, choose <b>Clusters</b>.</p>
+            </li><li>
+              <p>Choose the name of the cluster that you want to configure the Amazon CloudWatch
+                Observability EKS add-on for.</p>
+            </li><li>
+              <p>Choose the <b>Add-ons</b> tab.</p>
+            </li><li>
+              <p>Choose <b>Get more add-ons</b>.</p>
+            </li><li>
+              <p>On the <b>Select add-ons</b> page, do the following:</p>
+              <ol><li>
+                  <p>In the <b>Amazon EKS-addons</b> section, select the
+                      <b>Amazon CloudWatch Observability</b> check box.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Configure selected add-ons settings</b> page, do the
+                following:</p>
+              <ol><li>
+                  <p>Select the <b>Version</b> you'd like to use.</p>
+                </li><li>
+                  <p>For <b>Add-on access</b>, select <b>IAM roles for
+                      service accounts (IRSA)</b></p>
+                </li><li>
+                  <p>Select the IAM role in the <b>Add-on access</b>
+                    box.</p>
+                </li><li>
+                  <p>(Optional) You can expand the <b>Optional configuration
+                      settings</b>. If you select <b>Override</b> for the
+                      <b>Conflict resolution method</b>, one or more of the
+                    settings for the existing add-on can be overwritten with the Amazon EKS add-on
+                    settings. If you don't enable this option and there's a conflict with your
+                    existing settings, the operation fails. You can use the resulting error
+                    message to troubleshoot the conflict. Before selecting this option, make
+                    sure that the Amazon EKS add-on doesn't manage settings that you need to
+                    self-manage.</p>
+                </li><li>
+                  <p>Choose <b>Next</b>.</p>
+                </li></ol>
+            </li><li>
+              <p>On the <b>Review and add</b> page, choose
+                  <b>Create</b>. After the add-on installation is complete, you
+                see your installed add-on.</p>
+            </li></ol></div>
+
+
+
+        </dd>
+
+
+    </dl></awsdocs-tabs>
+
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-configuration">(Optional) Additional configuration</h2>
+
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#CloudWatch-Observability-EKS-addon-OptOutContainerLogs">Opt out of collecting container logs</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-CustomFluentBit">Use a custom Fluent Bit configuration</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-Tolerations">Manage Kubernetes tolerations for the installed pod workloads</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-OptOutAccelerated">Opt out of accelerated compute metrics collection</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-CustomAgentConfig">Use a custom CloudWatch agent configuration</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-Webhook">Manage admission webhook TLS certificates</a></p></li><li><p><a href="#CloudWatch-Observability-EKS-addon-VolumeIDs">Collect Amazon EBS volume IDs</a></p></li></ul></div>
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-OptOutContainerLogs">Opt out of collecting container logs</h3>
+
+
+      <p>By default, the add-on uses Fluent Bit to collect container logs from all pods and
+        then sends the logs to CloudWatch Logs. For information about which logs are collected, see <a href="./Container-Insights-EKS-logs.html">Send logs to CloudWatch Logs</a>.</p>
+
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Neither the add-on or the Helm chart manage existing Fluentd or Fluent Bit
+          resources in a cluster. You can delete the existing Fluentd or Fluent Bit resources
+          before installing the add-on or Helm chart. Alternatively, to keep your existing setup
+          and avoid having the add-on or the Helm chart from also installing Fluent Bit, you can
+          disable it by following the instructions in this section. </p></div></div>
+
+      <p>To opt out of the collection of container logs if you are using the Amazon CloudWatch
+        Observability EKS add-on, pass the following option when you create or update the
+        add-on:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--configuration-values '<span>{</span> "containerLogs": <span>{</span> "enabled": false } }'</code></pre>
+
+      <p>To opt out of the collection of container logs if you are using the Helm chart, pass
+        the following option when you create or update the add-on:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--set containerLogs.enabled=false</code></pre>
+
+     
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-CustomFluentBit">Use a custom Fluent Bit configuration</h3>
+
+      <p>Starting with version 1.7.0 of the Amazon CloudWatch Observability EKS add-on, you can modify
+        the Fluent Bit configuration when you create or update the add-on or Helm chart. You
+        supply the custom Fluent Bit configuration in the <code class="code">containerLogs</code> root level
+        section of the advanced configuration of the add-on or the value overrides in the Helm
+        chart. Within this section, you supply the custom Fluent Bit configuration in the
+          <code class="code">config</code> section (for Linux) or <code class="code">configWindows</code> section (for
+        Windows). The <code class="code">config</code> is further broken down into the following
+        sub-sections:</p>
+
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">service</code>– This section represents the <code class="code">SERVICE</code>
+            config to define the global behavior of the Fluent Bit engine.</p>
+        </li><li class="listitem">
+          <p><code class="code">customParsers</code>– This section represents any global
+              <code class="code">PARSER</code>s that you want to include that are capable of taking
+            unstructured log entries and giving them a structure to make it easier for
+            processing and further filtering.</p>
+        </li><li class="listitem">
+          <p><code class="code">extraFiles</code>– This section can be used to provide additional
+            Fluent Bit <code class="code">conf</code> files to be included. By default, the following 3
+              <code class="code">conf</code> files are included:.</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><code class="code">application-log.conf</code>– A <code class="code">conf</code> file for
+                sending application logs from your cluster to the log group
+                    <code class="code">/aws/containerinsights/<code class="replaceable">my-cluster-name</code>/application</code>
+                in CloudWatch Logs.</p>
+            </li><li class="listitem">
+              <p><code class="code">dataplane-log.conf</code>– A <code class="code">conf</code> file for sending
+                logs corresponding to your cluster's data plane components including the CRI
+                logs, kubelet logs, kube-proxy logs and Amazon VPC CNI logs to the log group
+                    <code class="code">/aws/containerinsights/<code class="replaceable">my-cluster-name</code>/dataplane</code>
+                in CloudWatch Logs.</p>
+            </li><li class="listitem">
+              <p><code class="code">host-log.conf</code>– A <code class="code">conf</code> for sending logs from
+                  <code class="code">/var/log/dmesg</code>, <code class="code">/var/log/messages</code>, and
+                  <code class="code">/var/log/secure</code> on Linux, and System <code class="code">winlogs</code> on
+                Windows, to the log group
+                    <code class="code">/aws/containerinsights/<code class="replaceable">my-cluster-name</code>/host</code>
+                in CloudWatch.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Provide the full configuration for each of these individual sections even if you
+          are modifying only one field within a sub-section. We recommend that you use the
+          default configuration provided below as a baseline and then modify it accordingly so
+          that you don't disable functionality that is enabled by default. You can use the
+          following YAML configuration when modifying the advanced config for the Amazon EKS add-on
+          or when you supply value overrides for the Helm chart. </p></div></div>
+
+
+      <p>To find the <code class="code">config</code> section for your cluster, see <a href="https://github.com/aws-observability/helm-charts/releases" rel="noopener noreferrer" target="_blank"><span>aws-observability /
+          helm-charts</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on GitHub and find the release corresponding to the version of the
+        add-on or Helm chart that you are installing. Then navigate to
+          <code class="code">/charts/amazon-cloudwatch-observability/values.yaml</code> to find the
+          <code class="code">config</code> section (for Linux) and <code class="code">configWindows</code> section (for
+        Windows) within the <code class="code">fluentBit</code> section under
+        <code class="code">containerLogs</code>.</p>
+      <p>As an example, the default Fluent Bit configuration for version 1.7.0 can be found
+          <a href="https://github.com/aws-observability/helm-charts/blob/v1.7.0/charts/amazon-cloudwatch-observability/values.yaml#L44)" rel="noopener noreferrer" target="_blank"><span>here</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      <p>We recommend that you provide the <code class="code">config</code> as YAML when you supply it
+        using the Amazon EKS add-on's advanced config or when you supply it as value overrides for
+        your Helm installation. Be sure that the YAML conforms to the following
+        structure.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">containerLogs:
+  fluentBit:
+config:
+  service: |
+    ...
+  customParsers: |
+    ...
+  extraFiles:
+    application-log.conf: |
+      ...
+    dataplane-log.conf: |
+      ...
+    host-log.conf: |
+      ...</code></pre>
+
+      <p>The following example <code class="code">config</code> changes the global setting for the flush
+        interval to be 45 seconds. Even though the only modification is to the
+          <code class="code">Flush</code> field, you must still provide the full <code class="code">SERVICE</code>
+        definition for the service sub-section. Because this example didn't specify overrides
+        for the other sub-sections, the defaults are used for them.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">containerLogs:
+  fluentBit:
+config:
+  service: |
+    [SERVICE]
+      Flush                     45
+      Grace                     30
+      Log_Level                 error
+      Daemon                    off
+      Parsers_File              parsers.conf
+      storage.path              /var/fluent-bit/state/flb-storage/
+      storage.sync              normal
+      storage.checksum          off
+      storage.backlog.mem_limit 5M</code></pre>
+
+
+
+      <p>The following example configuration includes an extra Fluent bit <code class="code">conf</code>
+        file. In this example, you are adding a custom <code class="code">my-service.conf</code> under
+          <code class="code">extraFiles</code> and it will be included in addition to the three default
+          <code class="code">extraFiles</code>.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">containerLogs:
+  fluentBit:
+config:
+  extraFiles:
+    my-service.conf: |
+      [INPUT]
+        Name              tail
+        Tag               myservice.*
+        Path              /var/log/containers/*myservice*.log
+        DB                /var/fluent-bit/state/flb_myservice.db
+        Mem_Buf_Limit     5MB
+        Skip_Long_Lines   On
+        Ignore_Older      1d
+        Refresh_Interval  10
+      
+      [OUTPUT]
+        Name                cloudwatch_logs
+        Match               myservice.*
+        region              $<span>{</span>AWS_REGION}
+        log_group_name      /aws/containerinsights/$<span>{</span>CLUSTER_NAME}/myservice
+        log_stream_prefix   $<span>{</span>HOST_NAME}-
+        auto_create_group   true</code></pre>
+
+      <p>The next example removes an existing <code class="code">conf</code> file entirely from
+          <code class="code">extraFiles</code>. This excludes the <code class="code">application-log.conf</code> entirely
+        by overriding it with an empty string. Simply omitting <code class="code">application-log.conf</code>
+        from <code class="code">extraFiles</code> would instead imply to use the default, which is not what
+        you are trying to achieve in this example. The same applies to removing any custom
+          <code class="code">conf</code> file that you might have previously added to
+        <code class="code">extraFiles</code>.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">containerLogs:
+  fluentBit:
+config:
+  extraFiles:
+    application-log.conf: ""</code></pre>
+
+     
+
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-Tolerations">Manage Kubernetes tolerations for the installed pod workloads</h3>
+
+
+      <p>Starting with version 1.7.0 of the Amazon CloudWatch Observability EKS add-on, the add-on and
+        the Helm chart by default set Kubernetes <em>tolerations</em> to tolerate
+        all taints on the pod workloads that are installed by the add-on or the Helm chart. This
+        ensures that daemonsets such as the CloudWatch agent and Fluent Bit can schedule pods on all
+        nodes in your cluster by default. For more information about tolerations and taints, see
+          <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/" rel="noopener noreferrer" target="_blank"><span>Taints and Tolerations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the Kubernetes documentation. </p>
+
+      <p>The default tolerations set by the add-on or the Helm chart are as follows:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">tolerations:
+- operator: Exists</code></pre>
+
+      <p>You can override the default tolerations by setting the <code class="code">tolerations</code>
+        field at the root level when using the add-on advanced config or when you install or
+        upgrade the Helm chart with value overrides. An example would look like the
+        following:</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">tolerations:
+- key: "key1"
+  operator: "Exists"
+  effect: "NoSchedule"</code></pre>
+
+      <p>To omit tolerations completely, you can use a config that looks like the
+        following:</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">tolerations: []</code></pre>
+
+      <p>Any changes to tolerations apply to all pod workloads that are installed by the
+        add-on or the Helm chart.</p>
+
+
+
+
+
+
+
+     
+
+
+
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-OptOutAccelerated">Opt out of accelerated compute metrics collection</h3>
+
+
+
+
+      <p>By default, Container Insights with enhanced observability collects metrics for
+        Accelerated Compute monitoring, including NVIDIA GPU metrics, AWS Neuron metrics for
+        AWS Trainium and AWS Inferentia, and AWS Elastic Fabric Adapter (EFA)
+        metrics.</p>
+      <p>NVIDIA GPU metrics from Amazon EKS workloads are collected by default beginning with
+        version <code class="code">v1.3.0-eksbuild.1</code> of the EKS add-on or the Helm chart and version
+          <code class="code">1.300034.0</code> of the CloudWatch agent. For a list of metrics collected and
+        prerequisites, see <a href="./Container-Insights-metrics-enhanced-EKS.html#Container-Insights-metrics-EKS-GPU">NVIDIA GPU metrics</a>.</p>
+      <p>AWS Neuron metrics for AWS Trainium and AWS Inferentia accelerators are
+        collected by default beginning with version <code class="code">v1.5.0-eksbuild.1</code> of the EKS
+        add-on or the Helm chart, and version <code class="code">1.300036.0</code> of the CloudWatch agent. For a
+        list of metrics collected and prerequisites, see <a href="./Container-Insights-metrics-enhanced-EKS.html#Container-Insights-metrics-EKS-Neuron">AWS Neuron metrics for AWS Trainium and AWS Inferentia</a>.</p>
+      <p>AWS Elastic Fabric Adapter (EFA) metrics from Linux nodes on Amazon EKS clusters are
+        collected by default beginning with version <code class="code">v1.5.2-eksbuild.1</code> of the EKS
+        add-on or the Helm chart and version <code class="code">1.300037.0</code> of the CloudWatch agent. For a
+        list of metrics collected and prerequisites, see <a href="./Container-Insights-metrics-enhanced-EKS.html#Container-Insights-metrics-EFA">AWS Elastic Fabric Adapter (EFA) metrics</a>.</p>
+
+      <p>You can opt out of collecting these metrics by setting the
+          <code class="code">accelerated_compute_metrics</code> field in the CloudWatch agent configuration file to
+          <code class="code">false</code>. This field is in the <code class="code">kubernetes</code> section of the
+          <code class="code">metrics_collected</code> section in the CloudWatch configuration file. The following
+        is an example of an opt-out configuration. For more information about how to use custom
+        CloudWatch agent configurations, see the following section, <a href="#CloudWatch-Observability-EKS-addon-CustomAgentConfig">Use a custom CloudWatch agent configuration</a>.</p>
+
+
+
+
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "logs": <span>{</span>
+"metrics_collected": <span>{</span>
+  "kubernetes": <span>{</span>
+    "enhanced_container_insights": true,
+    "accelerated_compute_metrics": false
+  }
+}
+  }
+}</code></pre>
+
+     
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-CustomAgentConfig">Use a custom CloudWatch agent configuration</h3>
+
+
+
+      <p>To collect other metrics, logs or traces using the CloudWatch agent, you can specify a
+        custom configuration while also keeping Container Insights and CloudWatch Application Signals
+        enabled. To do so, embed the CloudWatch agent configuration file within the config key under
+        the agent key of the advanced configuration that you can use when creating or updating
+        the EKS add-on or the Helm chart. The following represents the default agent
+        configuration when you do not provide any additional configuration.</p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Any custom configuration that you provide using additional configuration settings
+          overrides the default configuration used by the agent. Be cautious not to
+          unintentionally disable functionality that is enabled by default, such as Container
+          Insights with enhanced observability and CloudWatch Application Signals. In the scenario
+          that you are required to provide a custom agent configuration, we recommend using the
+          following default configuration as a baseline and then modifying it
+          accordingly.</p></div></div>
+
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>For using the Amazon CloudWatch observability EKS add-on</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">--configuration-values '<span>{</span>
+  "agent": <span>{</span>
+"config": <span>{</span>
+  "logs": <span>{</span>
+    "metrics_collected": <span>{</span>
+      "application_signals": <span>{</span>},
+      "kubernetes": <span>{</span>
+        "enhanced_container_insights": true
+      }
+    }
+  },
+  "traces": <span>{</span>
+    "traces_collected": <span>{</span>
+      "application_signals": <span>{</span>}
+    }
+  }
+}
+  }   
+}'</code></pre>
+        </li><li class="listitem">
+          <p>For using the Helm chart</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">--set agent.config='<span>{</span>
+  "logs": <span>{</span>
+"metrics_collected": <span>{</span>
+  "application_signals": <span>{</span>},
+  "kubernetes": <span>{</span>
+    "enhanced_container_insights": true
+  }
+}
+  },
+  "traces": <span>{</span>
+"traces_collected": <span>{</span>
+  "application_signals": <span>{</span>}
+}
+  }
+}'</code></pre>
+        </li></ul></div>
+
+
+
+      <p>The following example shows the default agent configuration for the CloudWatch agent on
+        Windows. The CloudWatch agent on Windows does not support custom configuration.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "logs": <span>{</span>
+"metrics_collected": <span>{</span>
+  "kubernetes": <span>{</span>
+    "enhanced_container_insights": true
+  },
+}
+  }
+}</code></pre>
+
+     
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-Webhook">Manage admission webhook TLS certificates</h3>
+
+
+
+      <p>The Amazon CloudWatch Observability EKS add-on and the Helm chart use Kubernetes <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/" rel="noopener noreferrer" target="_blank"><span> admission webhooks</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to validate and mutate <code class="code">AmazonCloudWatchAgent</code>
+        and <code class="code">Instrumentation</code> custom resource (CR) requests, and optionally
+        Kubernetes pod requests on the cluster if CloudWatch Application Signals is enabled. In
+        Kubernetes, webhooks require a TLS certificate that the API server is configured to
+        trust to make sure secure communication.</p>
+      <p>By default, the Amazon CloudWatch Observability EKS add-on and the Helm chart auto-generate a
+        self-signed CA and a TLS certificate signed by this CA for securing the communication
+        between the API server and the webhook server. This auto-generated certificate has a
+        default expiry of 10 years and is not auto-renewed upon expiry. In addition, the CA
+        bundle and the certificate are re-generated every time the add-on or Helm chart is
+        upgraded or re-installed, thus resetting the expiry. If you want to change the default
+        expiry of the auto-generated certificate, you can use the following additional
+        configurations when creating or updating the add-on. Replace
+          <code class="replaceable">expiry-in-days</code> with your desired expiry duration in days. </p>
+
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Use this for the Amazon CloudWatch Observability EKS add-on</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--configuration-values '<span>{</span> "admissionWebhooks": <span>{</span> "autoGenerateCert": <span>{</span> "expiryDays": <code class="replaceable">expiry-in-days</code> } } }' </code></pre>
+        </li><li class="listitem">
+          <p>Use this for the Helm chart</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--set admissionWebhooks.autoGenerateCert.expiryDays=expiry-in-days</code></pre>
+        </li></ul></div>
+
+      <p>For a more secure and feature-rich certificate authority solution, the add-on has
+        opt-in support for <a href="https://cert-manager.io/docs/" rel="noopener noreferrer" target="_blank"><span> cert-manager</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, a
+        widely-adopted solution for TLS certificate management in Kubernetes that simplifies the
+        process of obtaining, renewing, managing and using those certificates. It ensures that
+        certificates are valid and up to date, and attempts to renew certificates at a
+        configured time before expiry. cert-manager also simplifies issuing certificates from a
+        variety of supported sources, including <a href="https://aws.amazon.com/private-ca/" rel="noopener noreferrer" target="_blank"><span>AWS Certificate Manager Private Certificate Authority</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      <p>We recommend that you review best practices for management of TLS certificates on
+        your clusters and advise you to opt in to cert-manager for production environments. Note
+        that if you opt-in to enabling cert-manager for managing the admission webhook TLS
+        certificates, you are required to pre-install cert-manager on your Amazon EKS cluster before
+        you install the Amazon CloudWatch Observability EKS add-on or the Helm chart. For more
+        information about available installation options, see <a href="https://cert-manager.io/docs/installation/" rel="noopener noreferrer" target="_blank"><span> cert-manager documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+        After you install it, you can opt in to using cert-manager for managing the admission
+        webhook TLS certificates using the following additional configuration.</p>
+
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>If you are using the Amazon CloudWatch Observability EKS add-on</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--configuration-values '<span>{</span> "admissionWebhooks": <span>{</span> "certManager": <span>{</span> "enabled": true } } }' </code></pre>
+        </li><li class="listitem">
+          <p>If you are using the Helm chart</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--set admissionWebhooks.certManager.enabled=true</code></pre>
+        </li></ul></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--configuration-values '<span>{</span> "admissionWebhooks": <span>{</span> "certManager": <span>{</span> "enabled": true } } }' </code></pre>
+      <p>The advanced configuration discussed in this section will by default use a <a href="https://cert-manager.io/docs/configuration/selfsigned/" rel="noopener noreferrer" target="_blank"><span> SelfSigned</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+        issuer.</p>
+
+     
+
+     
+      <h3 id="CloudWatch-Observability-EKS-addon-VolumeIDs">Collect Amazon EBS volume IDs</h3>
+
+
+
+
+      <p>If you want to collect Amazon EBS volume IDs in the performance logs, you must add
+        another policy to the IAM role that is attached to the worker nodes or to the service
+        account. Add the following as an inline policy. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html"> Adding and
+          Removing IAM Identity Permissions</a>.</p>
+
+      <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="cd8ccd55095f9c1cab9925081624dde28be42270dbfe3edd829ecd352f156adc"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput">
+<span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Action": [
+                "ec2:DescribeVolumes"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+
+     
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-JMX-metrics">Collect Java Management Extensions (JMX) metrics</h2>
+    <p>The CloudWatch agent supports Java Management Extensions (JMX) metrics collection on Amazon EKS.
+      This allows you to collect additional metrics from Java applications running on Amazon EKS
+      clusters enabling insight into performance, memory usage, traffic, and other critical
+      metrics. For more information, see <a href="./CloudWatch-Agent-JMX-metrics.html">Collect Java Management Extensions (JMX) metrics</a>.</p>
+   
+    <h2 id="enable-Kueue-metrics">Enable Kueue metrics</h2>
+    <p>Beginning with version <code class="code">v2.4.0-eksbuild.1</code> of the the CloudWatch Observability
+      EKS add-on, Container Insights for Amazon EKS supports collecting Kueue metrics from Amazon EKS
+      clusters. For more information about these metrics, see <a href="./Container-Insights-metrics-EKS.html#Container-Insights-metrics-Kueue">Kueue metrics</a>.</p>
+
+    <p>If you are using the Amazon SageMaker AI Hyperpod Task Governance EKS add-on, you
+      can skip the steps in the <b>Prerequisites</b> section and just follow the
+      steps in <a href="#enable-Kueue-metrics-flag">Enable the configuration flag</a>.</p>
+
+     
+      <h3 id="enable-Kueue-metrics-prerequisites">Prerequisites</h3>
+
+      <p>Before you install Kueue in your Amazon EKS cluster, make the following updates in the
+        manifest file:</p>
+
+      <div class="orderedlist">
+         
+
+         
+
+         
+      <ol><li>
+          <p>Enable the optional cluster queue resource metrics for Kueue. To do this, modify
+            the in-line <code>controller_manager_config.yaml</code> in the
+              <code class="code">kueue-system</code> ConfigMap. In the <code class="code">metrics</code> section, add or
+            uncomment the line <code class="code">enableClusterQueueResources: true</code>.</p>
+
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: v1
+data:
+  controller_manager_config.yaml: |
+apiVersion: config.kueue.x-k8s.io/v1beta1
+kind: Configuration
+health:
+  healthProbeBindAddress: :8081
+metrics:
+  bindAddress: :8080
+  enableClusterQueueResources: true  <code class="replaceable">&lt;-- ADD/UNCOMMENT THIS LINE</code></code></pre>
+        </li><li>
+          <p>By default, all <code class="code">k8s</code> services are available cluster-wide. Kueue
+            creates a service <code class="code">kueue-controller-manager-metrics-service</code> for exposing
+            metrics. To prevent duplicate observations for metrics, modify this service to allow
+            access only to the metrics service from the same node. To do this, add the line
+              <code class="code">internalTrafficPolicy: Local</code> to the
+              <code class="code">kueue-controller-manager-metrics-service</code> definition.</p>
+
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: v1
+kind: Service
+metadata:
+  labels:
+...
+  name: kueue-controller-manager-metrics-service
+  namespace: kueue-system
+spec:
+  ports:
+  - name: https
+port: 8443
+protocol: TCP
+targetPort: https
+  internalTrafficPolicy: Local   <code class="replaceable">&lt;-- ADD THIS LINE</code>
+  selector:
+control-plane: controller-manager</code></pre>
+        </li><li>
+          <p>Lastly, the <code class="code">kueue-controller-manager</code> pod creates a
+              <code class="code">kube-rbac-proxy</code> container. This container currently has a high level
+            of logging verbosity, which causes the cluster's bearer token to be logged by that
+            container when the metrics scraper accesses the
+              <code class="code">kueue-controller-manager-metrics-service</code>. We recommend that you
+            decrease this logging verbosity. The default value in the manifest distributed by
+            Kueue is 10, we recommend to change it to 0.</p>
+
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+...
+  name: kueue-controller-manager
+  namespace: kueue-system
+spec:
+  ...
+  template:
+...
+spec:
+  containers:
+  ...
+  - args:
+    - --secure-listen-address=0.0.0.0:8443
+    - --upstream=http://127.0.0.1:8080/
+    - --logtostderr=true
+    - --v=0  <code class="replaceable">&lt;-- CHANGE v=10 TO v=0</code>
+    image: gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0
+    name: kube-rbac-proxy
+    ...</code></pre>
+        </li></ol></div>
+     
+
+
+     
+      <h3 id="enable-Kueue-metrics-flag">Enable the configuration flag</h3>
+
+      <p>To enable the Kueue metrics, you must enable <code class="code">kueue_container_insights</code>
+        in the add-on additional configuration. You can do this either by using the AWS CLI to set
+        up the EKS Observability add-on, or by using the Amazon EKS console.</p>
+
+
+      <p>After you have successfully installed the EKS Observability add-on with one of the
+        following methods, you can view your Amazon EKS cluster metrics under the HyperPod console
+          <b>Dashboard</b> tab.</p>
+
+      <awsdocs-tabs><dl style="display: none">
+        <dt>AWS CLI</dt><dd tab-id="aws-cli">
+            <div class="procedure"><h6>To enable Kueue metrics using the AWS CLI</h6><ul><li>
+                <p>Enter the following AWS CLI command to install the add-on.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">aws eks create-addon --cluster-name <code class="replaceable">cluster-name</code> --addon-name amazon-cloudwatch-observability --configuration-values "<code class="replaceable">configuration_json_file</code>"</code></pre>
+
+                <p>The following is an example of the JSON file with the configuration
+                  values.</p>
+
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+"agent": <span>{</span>
+    "config": <span>{</span>
+        "logs": <span>{</span>
+            "metrics_collected": <span>{</span>
+                "kubernetes": <span>{</span>
+                    "kueue_container_insights": true,
+                    "enhanced_container_insights": true
+                },
+                "application_signals": <span>{</span> }
+            }
+        },
+        "traces": <span>{</span>
+            "traces_collected": <span>{</span>
+                "application_signals": <span>{</span> }
+            }
+        }
+    },
+},
+}</code></pre>
+              </li></ul></div>
+          </dd>
+        <dt>Amazon EKS console</dt><dd tab-id="amazon-eks-console">
+            <div class="procedure"><h6>To enable Kueue metrics using the Amazon EKS console</h6><ol><li><p>Open the Amazon EKS console at <a href="https://console.aws.amazon.com/eks/home#/clusters" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/eks/home#/clusters</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose the name of your cluster.</p>
+              </li><li>
+                <p>Choose <b>Add-ons</b>.</p>
+              </li><li>
+                <p>Find the <b>Amazon CloudWatch Observability</b> add-on in
+                  the list, and install it. When you do so, choose <b>Optional
+                    configuration</b> and include the following JSON configuration
+                  values.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+"agent": <span>{</span>
+    "config": <span>{</span>
+        "logs": <span>{</span>
+            "metrics_collected": <span>{</span>
+                "kubernetes": <span>{</span>
+                    "kueue_container_insights": true,
+                    "enhanced_container_insights": true
+                },
+                "application_signals": <span>{</span> }
+            }
+        },
+        "traces": <span>{</span>
+            "traces_collected": <span>{</span>
+                "application_signals": <span>{</span> }
+            }
+        }
+    },
+},
+}</code></pre>
+              </li></ol></div>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-OpenTelemetry">Appending OpenTelemetry collector configuration files</h2>
+
+    <p>The CloudWatch agent supports supplemental OpenTelemetry collector configuration files
+      alongside its own configuration files. This feature allows you to use CloudWatch agent features
+      such as CloudWatch Application Signals or Container Insights through the CloudWatch agent configuration and
+      bring in your existing OpenTelemetry collector configuration with a single agent.</p>
+
+    <p>To prevent merge conflicts with pipelines automatically created by CloudWatch agent, add a custom suffix to each of the components and pipelines in your
+      OpenTelemetry collector configuration. This will prevent clashing and merge
+      conflicts.</p>
+
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>If you are using the Amazon CloudWatch Observability EKS add-on</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">--configuration-values file://values.yaml</code></pre>
+        <p>or</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--configuration-values '
+  agent:
+otelConfig:
+  receivers:
+    otlp/custom-suffix:
+      protocols:
+        http: <span>{</span>}
+  exporters:
+    awscloudwatchlogs/custom-suffix:
+      log_group_name: "test-group"
+      log_stream_name: "test-stream"
+  service:
+    pipelines:
+      logs/custom-suffix:
+        receivers: [otlp/custom-suffix]
+        exporters: [awscloudwatchlogs/custom-suffix]
+'</code></pre>
+      </li><li class="listitem">
+        <p>If you are using the Helm chart</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">--set agent.otelConfig='
+  receivers:
+otlp/custom-suffix:
+  protocols:
+    http: <span>{</span>}
+  exporters:
+awscloudwatchlogs/custom-suffix:
+  log_group_name: "test-group"
+  log_stream_name: "test-stream"
+  service:
+pipelines:
+  logs/custom-suffix:
+    receivers: [otlp/custom-suffix]
+    exporters: [awscloudwatchlogs/custom-suffix]
+'</code></pre>
+      </li></ul></div>
+   
+    <h2 id="Container-Insights-setup-EKS-appsignalsconfiguration">Enabling APM through Application Signals for your Amazon EKS cluster</h2>
+    <p>By default, OpenTelemetry (OTEL) based Application Performance Monitoring (APM) is enabled through Application Signals when installing either the 
+      CloudWatch Observability EKS add-on  (V5.0.0 or greater) or the Helm chart. You can further customize specific settings using the advanced configuration for the Amazon EKS add-on or by overriding values with the Helm chart.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use any OpenTelemetry (OTEL) based APM solution, enabling Application Signals affects your existing observability setup. Review your current implementation before proceeding. 
+        To maintain your existing APM setup after upgrading to V5.0.0 or later, see <a href="#Opting-out-App-Signals">Opt out of Application Signals</a>.</p></div></div>
+    
+    <p><b>Application Signals Auto monitor</b></p>
+    <p>Version 5.0.0 of the CloudWatch Observability Amazon EKS add-on and Helm chart introduces new
+      functionality. You can now automatically enable Application Signals for all or specific
+      service workloads in your EKS cluster through the Auto monitor configuration. The
+      following <code class="code">autoMonitor</code> settings can be specified within the
+        <code class="code">applicationSignals</code> section under the <code class="code">manager</code> section of the
+      advanced configuration.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+
+
+
+       
+
+    <ul class="itemizedlist"><li class="listitem">
+        <p><em>monitorAllServices</em> – A boolean flag to enable (true)
+          or disable (false) monitoring of all service workloads by Auto monitor. Defaults to
+          true. Enabling this flag will make sure that all Kubernetes workloads (Deployments,
+          DaemonSets, and StatefulSets) in the cluster that are mapped to a Kubernetes Service
+          will be in scope for automatic enablement of Application Signals when they are brought
+          up for the first time (or when restarted for existing workloads). The system excludes
+          workloads in the <code class="code">kube-system</code> and <code class="code">amazon-cloudwatch</code>
+          namespaces by default.</p>
+      </li><li class="listitem">
+        <p><em>languages </em> – A list of strings specifying the set of
+          languages that Application Signals will try to automatically instrument your services
+          with, when <code class="code">monitorAllServices</code> is enabled. Defaults to all the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Monitoring-Sections.html">supported languages</a>.</p>
+      </li><li class="listitem">
+        <p><em>restartPods</em> – A boolean flag controls whether
+          workloads restart after configuration changes. Defaults to false. Enabling this flag
+          to <code class="code">true</code> controls whether Kubernetes workloads within Auto monitor scope
+          restart automatically when saving configuration changes. Any settings on your
+          Kubernetes workloads that influence the restart of the pods such as
+            <code class="code">updateStrategy</code> will be considered. Consider that restarting may cause
+          service downtime.</p>
+
+      </li><li class="listitem">
+        <p><em>customSelector</em> – Settings to select specific
+          Kubernetes namespaces or workloads for Auto monitor.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>java</em> – Specify workloads to automatically
+              instrument with Java</p>
+          </li><li class="listitem">
+            <p><em>python</em> – Specify workloads to automatically
+              instrument with Python</p>
+          </li><li class="listitem">
+            <p><em>nodejs</em> – Specify workloads to automatically
+              instrument with Node.js</p>
+          </li><li class="listitem">
+            <p><em>dotnet</em> – Specify workloads to automatically
+              instrument with .NET</p>
+          </li></ul></div>
+        <p>For each of the languages above, the following fields can be configured.</p>
+        <div class="itemizedlist">
+           
+
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>namespaces</em> – A list of strings specifying the
+              namespaces to be selected. Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>deployments</em> – A list of strings specifying the
+              deployments to be selected. Specify in <code class="code">namespace/deployment</code>format.
+              Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>daemonsets</em> – A list of strings specifying the
+              daemonsets to be selected. Specify in <code class="code">namespace/daemonset</code> format.
+              Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>statefulsets</em> – A list of strings specifying the
+              statefulsets to be selected. Specify in <code class="code">namespace/statefulset</code> format.
+              Defaults to an empty list, that is []</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><em>exclude</em> – Settings to exclude specific Kubernetes
+          namespaces or workloads from Auto monitor. Excluding a workload takes precedence when
+          the same workload is also within scope of <code class="code">monitorAllServices</code> or
+            <code class="code">customSelector</code>.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>java</em> – Specify workloads to exclude from being
+              automatically instrumented with Java</p>
+          </li><li class="listitem">
+            <p><em>python</em> – Specify workloads to exclude from being
+              automatically instrumented with Python</p>
+          </li><li class="listitem">
+            <p><em>nodejs</em> – Specify workloads to exclude from being
+              automatically instrumented with Node.js</p>
+          </li><li class="listitem">
+            <p><em>dotnet</em> – Specify workloads to exclude from being
+              automatically instrumented with .NET</p>
+          </li></ul></div>
+        <p>For each of the languages above, the following fields can be configured.</p>
+        <div class="itemizedlist">
+           
+
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>namespaces</em> – A list of strings specifying the
+              namespaces to be excluded. Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>deployments</em> – A list of strings specifying the
+              deployments to be excluded. Specify in <code class="code">namespace/deployment</code>format.
+              Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>daemonsets</em> – A list of strings specifying the
+              daemonsets to be excluded. Specify in <code class="code">namespace/daemonset</code> format.
+              Defaults to an empty list, that is []</p>
+          </li><li class="listitem">
+            <p><em>statefulsets</em> – A list of strings specifying the
+              statefulsets to be excluded. Specify in <code class="code">namespace/statefulset</code> format.
+              Defaults to an empty list, that is []</p>
+          </li></ul></div>
+      </li></ul></div>
+    <p>The following is an example configuration that automatically enables Application
+      Signals for all existing and new service workloads on the cluster.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">manager:
+  applicationSignals:
+autoMonitor:
+  monitorAllServices: true
+  restartPods: true</code></pre>
+    <p>The following is an example configuration that automatically enables Application
+      Signals for any new service workload that is brought up and for any existing service
+      workload that is explicitly restarted on the cluster.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">manager:
+  applicationSignals:
+autoMonitor:
+  monitorAllServices: true</code></pre>
+    <p>The following is an example configuration that automatically enables Application
+      Signals with Java for all existing and new pods corresponding to a workload in the
+        <code class="code">pet-warehouse</code> namespace.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">manager:
+  applicationSignals:
+autoMonitor:
+  restartPods: true
+  customSelector:
+    java:
+      namespaces: ["pet-warehouse"]</code></pre>
+    <p>The following is an example configuration that automatically enables Application
+      Signals with Python for all existing and new service workloads in the cluster excluding
+      the <code class="code">pet-clinic</code> deployment.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">manager:
+  applicationSignals:
+autoMonitor:
+  monitorAllServices: true
+  languages: ["python"]
+  restartPods: true
+  exclude:
+    python:
+      deployments: ["pet-warehouse/pet-clinic"]</code></pre>
+    <p>The following is an example configuration that automatically enables Application
+      Signals with Java for all service workloads in the cluster except for the ones in the
+        <code class="code">python-apps</code> namespace and further enables Application Signals with Python
+      specifically for the <code class="code">sample-python-app</code> deployment in the
+        <code class="code">python-apps</code> namespace.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">manager:
+  applicationSignals:
+autoMonitor:
+  monitorAllServices: true
+  languages: ["java"]
+  restartPods: true
+  customSelector:
+    python:
+      deployments: ["python-apps/sample-python-app"]
+  exclude:
+    java:
+      namespaces: ["python-apps"]</code></pre>
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-large-clusters">Considerations for large Kubernetes clusters</h2>
+
+    <p>If you run large Kubernetes clusters, you might need additional configuration
+      to make sure the CloudWatch agent runs reliably. The following sections describe common issues
+      and recommended configurations for large clusters.</p>
+
+    <p><b>Separate agent installations for cluster-level and node-level metrics</b></p>
+
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This section applies only if you have <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/container-insights-detailed-metrics.html">Container Insights with enhanced
+          observability</a> enabled. If you use <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/container-insights-otel-metrics.html">Container Insights with OpenTelemetry metrics</a>
+          exclusively, the default installation already deploys separate agent
+          installations.</p></div></div>
+
+      <p>By default, the CloudWatch agent runs as a daemonset on each node in your cluster.
+        One agent Pod is elected as a leader to collect cluster-level metrics. These metrics include
+        control plane metrics and workload status metrics. On large clusters, this
+        leader Pod may be terminated with an out-of-memory (OOM) error because it performs additional work while sharing
+        the same resource limits as all other agent Pods.</p>
+
+      <p>To determine if you are experiencing this issue, check for agent Pods
+        in a failed state with exit code <code class="code">137</code> and reason <code class="code">OOMKilled</code>. A common symptom
+        is that one agent Pod (the leader) crashes, a new leader is elected, and that
+        Pod also crashes, creating a recurring cycle. To confirm this behavior,
+        inspect the leader election ConfigMap by running the following command.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">kubectl describe configmap cwagent-clusterleader -n amazon-cloudwatch</code></pre>
+
+      <p>If the ConfigMap shows frequent changes to the leader entry, this indicates
+        that a new leader is being elected repeatedly, which confirms the issue.</p>
+
+      <p>To avoid this issue, you can separate the agent into two installations:</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem"><p>A daemonset for node-level metrics and Application Signals</p></li><li class="listitem"><p>A deployment for cluster-level metrics</p></li></ul></div>
+      <p>This separation lets you manage and scale each installation independently.</p>
+
+      <p>To enable this configuration, use the advanced configuration to define two entries
+        in the <code class="code">agents</code> section:</p>
+      <div class="orderedlist">
+         
+         
+      <ol><li><p>Set the <code class="code">CWAGENT_ROLE</code> environment
+          variable to <code class="code">NODE</code> on the daemonset agent.</p></li><li><p>Set the <code class="code">CWAGENT_ROLE</code> environment
+          variable to <code class="code">LEADER</code> on the deployment agent.</p></li></ol></div>
+
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The deployment agent configuration must enable only Container Insights.
+        Don't enable Application Signals on the deployment agent. Both installations run with
+        <code class="code">hostNetwork</code> by default, and enabling Application Signals on both
+        causes port binding conflicts.</p></div></div>
+
+      <p>The following example shows an advanced configuration that separates the agent
+        into two installations.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">agents:
+  - name: cloudwatch-agent
+env:
+  - name: CWAGENT_ROLE
+    value: NODE
+  - name: cloudwatch-agent-ci-leader
+mode: deployment
+config:
+  <span>{</span>
+    "logs": <span>{</span>
+      "metrics_collected": <span>{</span>
+        "kubernetes": <span>{</span>
+          "enhanced_container_insights": true
+        }
+      }
+    }
+  }
+env:
+  - name: CWAGENT_ROLE
+    value: LEADER
+resources:
+  limits:
+    memory: 10Gi
+    cpu: 2000m</code></pre>
+
+      <p>In this example, besides setting the <code class="code">CWAGENT_ROLE</code> environment variable
+        on each agent installation, it overrides the default mode, configuration, and resource
+        limits for the deployment agent only. The base <code class="code">cloudwatch-agent</code> installation
+        uses the defaults.</p>
+
+      <p>You can further customize each agent installation by adding
+        <code class="code">nodeSelector</code>, <code class="code">tolerations</code>, or <code class="code">nodeAffinity</code>
+        fields to schedule the leader Pod on a specific node. The resource limits
+        shown in the preceding example are illustrative. Adjust these values based on your
+        cluster size and the number of metrics that the leader Pod collects.</p>
+
+   
+    <h2 id="install-CloudWatch-Observability-EKS-addon-hybrid">Considerations for Amazon EKS Hybrid Nodes</h2>
+
+    <p>Node-level metrics aren't available for hybrid nodes because <a href="./ContainerInsights.html">Container Insights</a> depends on the
+      availability of the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html">EC2 Instance Metadata Service</a> (IMDS) for node-level
+      metrics. Cluster, workload, Pod, and container-level metrics are available
+      for hybrid nodes.</p>
+
+    <p>After you install the add-on, patch the <code class="code">amazoncloudwatchagents</code> resource
+      to add the <code class="code">RUN_WITH_IRSA</code> environment variable so the agent runs successfully
+      on hybrid nodes:</p>
+
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">kubectl patch amazoncloudwatchagents cloudwatch-agent -n amazon-cloudwatch --type=json -p '[<span>{</span>"op":"add","path":"/spec/env/-","value":<span>{</span>"name":"RUN_WITH_IRSA","value":"True"}}]'</code></pre>
+   
+    <h2 id="Container-Insights-setup-EKS-addon-troubleshoot">Troubleshooting the Amazon CloudWatch Observability EKS add-on or the Helm chart</h2>
+
+    <p>Use the following information to help troubleshoot problems with the Amazon CloudWatch
+      Observability EKS add-on or the Helm chart</p>
+
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#EKS-addon-troubleshoot-update">Updating and deleting the Amazon CloudWatch Observability EKS add-on or the Helm chart</a></p></li><li><p><a href="#EKS-addon-troubleshoot-version">Verify the version of the CloudWatch agent used by the Amazon CloudWatch Observability EKS add-on or the Helm chart</a></p></li><li><p><a href="#EKS-addon-troubleshoot-conflict">Handling a ConfigurationConflict when managing the add-on or the Helm chart</a></p></li></ul></div>
+
+     
+      <h3 id="EKS-addon-troubleshoot-update">Updating and deleting the Amazon CloudWatch Observability EKS add-on or the Helm chart</h3>
+
+      <p>For instructions about updating or deleting the Amazon CloudWatch Observability EKS add-on,
+        see <a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html">Managing Amazon EKS add-ons</a>. Use <code class="code">amazon-cloudwatch-observability</code> as
+        the name of the add-on. </p>
+
+      <p>To delete the Helm chart in a cluster, enter the following command.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">helm delete amazon-cloudwatch-observability -n amazon-cloudwatch --wait</code></pre>
+
+     
+
+     
+      <h3 id="EKS-addon-troubleshoot-version">Verify the version of the CloudWatch agent used by the Amazon CloudWatch Observability EKS add-on or the Helm chart</h3>
+
+      <p>The Amazon CloudWatch Observability EKS add-on and the Helm chart installs a custom resource
+        of kind <code class="code">AmazonCloudWatchAgent</code> that controls the behavior of the CloudWatch agent
+        daemonset on the cluster, including the version of the CloudWatch agent being used. You can
+        get a list of all the <code class="code">AmazonCloudWatchAgent</code> custom resources installed on
+        your cluster u by entering the following command:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">kubectl get amazoncloudwatchagent -A</code></pre>
+
+      <p>In the output of this command, you should be able to check the version of the CloudWatch
+        agent. Alternatively, you can also describe the <code class="code">amazoncloudwatchagent</code>
+        resource or one of the <code class="code">cloudwatch-agent-*</code> pods running on your cluster to
+        inspect the image being used.</p>
+
+     
+
+     
+      <h3 id="EKS-addon-troubleshoot-conflict">Handling a ConfigurationConflict when managing the add-on or the Helm chart</h3>
+
+      <p>When you install or update the Amazon CloudWatch Observability EKS add-on or the Helm chart,
+        if you notice a failure caused by existing resources, it is likely because you already
+        have the CloudWatch agent and its associated components such as the ServiceAccount, the
+        ClusterRole and the ClusterRoleBinding installed on the cluster.</p>
+      <p>The error displayed by the add-on will include <code class="computeroutput">Conflicts found when
+          trying to apply. Will not continue due to resolve conflicts mode</code>, </p>
+      <p>The error displayed by the Helm chart will be similar to <code class="computeroutput">Error:
+          INSTALLATION FAILED: Unable to continue with install and invalid ownership
+          metadata.</code>.</p>
+
+
+      <p>When the add-on or the Helm chart tries to install the CloudWatch agent and its associated
+        components, if it detects any change in the contents, it by default fails the
+        installation or update to avoid overwriting the state of the resources on the
+        cluster.</p>
+      <p>If you are trying to onboard to the Amazon CloudWatch Observability EKS add-on and you see
+        this failure, we recommend deleting an existing CloudWatch agent setup that you had previously
+        installed on the cluster and then installing the EKS add-on or Helm chart. Be sure to
+        back up any customizations you might have made to the original CloudWatch agent setup such as
+        a custom agent configuration, and provide these to the add-on or Helm chart when you
+        next install or update it. If you had previously installed the CloudWatch agent for onboarding
+        to Container Insights, see <a href="./container-insights-eks-classic-setup.html">Setup guide (AWS CLI)</a> for more information.</p>
+
+      <p>Alternatively, the add-on supports a conflict resolution configuration option that
+        has the capability to specify <code class="code">OVERWRITE</code>. You can use this option to proceed
+        with installing or updating the add-on by overwriting the conflicts on the cluster. If
+        you are using the Amazon EKS console, you'll find the <b>Conflict resolution
+          method</b> when you choose the <b>Optional configuration
+          settings</b> when you create or update the add-on. If you are using the AWS CLI,
+        you can supply the <code class="code">--resolve-conflicts OVERWRITE</code> to your command to create
+        or update the add-on. </p>
+
+     
+
+   
+    <h2 id="Opting-out-App-Signals">Opt out of Application Signals</h2>
+    <p>Fine-tune your service monitoring preferences in the CloudWatch console or with the SDK.</p>
+    <p>To disable Application Signals auto-monitoring, follow the procedure below:</p>
+    <p><b>Using CLI or SDK</b></p>
+    <p>The following configuration can be applied either as an advanced configuration to the EKS add-on or as a values override when using the helm chart.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "manager": <span>{</span>
+"applicationSignals": <span>{</span>
+  "autoMonitor": <span>{</span>
+    "monitorAllServices": false
+  }
+}
+  }
+}</code></pre>
+    <p>Restart your services for the changes to take effect.</p>
+    <p><b>Using the console</b></p>
+    <div class="procedure"><p>Open the CloudWatch console at
+         <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><ol><li><p>In the navigation pane, under <b>Application Signals (APM)</b>, choose <b>Services</b>.</p></li><li><p> Choose <b>Enable Application Signals</b> to view the enablement page.</p></li><li><p>Clear the <b>Auto-Monitor</b> checkbox for each service you don't want to monitor.</p></li><li><p>Restart your services for the changes to take effect.</p></li></ol></div>
+    
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./container-insights-eks-otel-logs.html">Sending logs to Amazon CloudWatch</div><div id="next" class="next-link" accesskey="n" href="./container-insights-eks-otel-advanced.html">Advanced configuration for OTel Container Insights on Amazon EKS</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

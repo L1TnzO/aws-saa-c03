@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Grants in AWS KMS - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="grants" /><meta name="default_state" content="grants" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html" /><meta name="description" content="Use grants to allow access to AWS KMS keys in AWS Key Management Service (AWS KMS)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Learn how to use AWS Key Management Service (AWS KMS) to securely store and manage encryption keys and perform encryption and decryption of user data." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/grants.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/grants.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/grants.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/grants.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/grants.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/grants.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/grants.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/grants.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/grants.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/grants.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/grants.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/grants.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/grants.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/grants.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/grants.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/grants.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/grants.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/grants.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Grants in AWS KMS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="grants.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Grants in AWS KMS - AWS Key Management Service</title><meta name="pdf" content="/pdfs/kms/latest/developerguide/kms-dg.pdf#grants" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAMC3vcPOPTF-rPAHZVRj1PQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/grants.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/grants.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/grants.html" /><meta name="keywords" content="KMS,key management service,encryption key management,encryption key,,envelope encryption,KMS authentication and access control,KMS grants for key access" /><link rel="alternate" type="text/markdown" href="grants.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "KMS key access and permissions",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Grants in AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kms/latest/developerguide/kms-dg.pdf#grants" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">Developer Guide</a></div><div id="page-toc-src"><a href="#grant-concepts">Grant concepts</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="grants">Grants in AWS KMS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <em>grant</em> is a policy instrument that allows <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal">AWS principals</a>
+      or AWS <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services">service principals</a> to use KMS keys in cryptographic operations. It also can let them view a KMS key
+      (<code class="code">DescribeKey</code>) and create and manage grants. When authorizing access to a
+    KMS key, grants are considered along with <a href="./key-policies.html">key policies</a> and
+      <a href="./iam-policies.html">IAM policies</a>. Grants are often used for temporary
+    permissions because you can create one, use its permissions, and delete it without changing your
+    key policies or IAM policies.</p><p>Grants are commonly used by AWS services that integrate with AWS KMS to encrypt your data at
+    rest. The service creates a grant on behalf of a user in the account, uses its permissions, and
+    retires the grant as soon as its task is complete. For details about how AWS services, use
+    grants, see the <em>Encryption at rest</em> topic in the service's
+    user guide or developer guide.</p><p>Grants are a very flexible and useful access control mechanism. When you create a grant for
+    a KMS key, the grant allows the grantee principal to call the specified grant operations on
+    the KMS key provided that all conditions specified in the grant are met. </p><div class="itemizedlist">
+     
+     
+     
+     
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>Each grant allows access to exactly one KMS key. You can create a grant for a
+        KMS key in a different AWS account.</p>
+    </li><li class="listitem">
+      <p>A grant can allow access to a KMS key, but not deny access.</p>
+    </li><li class="listitem">
+      <p>Each grant has one grantee, which can be either a <a href="#terms-grantee-principal">grantee principal</a> (an AWS IAM identity) or a
+          <a href="#terms-grantee-service-principal">grantee service principal</a> (an AWS
+        service principal). You must specify either <code class="code">GranteePrincipal</code> or
+          <code class="code">GranteeServicePrincipal</code>, but not both.</p>
+    </li><li class="listitem">
+      <p>A grant can only allow <a href="#terms-grant-operations">grant operations</a>.
+        The grant operations must be supported by the KMS key in the grant. If you specify an
+        unsupported operation, the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request fails with a <code class="code">ValidationError</code> exception.</p>
+    </li><li class="listitem">
+      <p>The grantee principal can use the permissions that the grant gives them without
+        specifying the grant, just as they would if the permissions came from a key policy or IAM
+        policy. However, because the AWS KMS API follows an <a href="#terms-eventual-consistency">eventual consistency</a> model, when you create, retire, or revoke a grant, there
+        might be a brief delay, before the change is available throughout AWS KMS. To use the
+        permissions in a grant immediately, <a href="./using-grant-token.html">use a grant
+          token</a>.</p>
+    </li><li class="listitem">
+      <p>An authorized principal can delete the grant (<a href="#terms-retire-grant">retire</a> or <a href="#terms-revoke-grant">revoke</a> it). Deleting a grant
+        eliminates all permissions that the grant allowed. You do not have to figure out which
+        policies to add or remove to undo the grant. </p>
+    </li><li class="listitem">
+      
+      <p>AWS KMS limits the number of grants on each KMS key. For details, see <span><a href="./resource-limits.html#grants-per-key">Grants per KMS key: 50,000</a></span>.</p>
+    </li></ul></div><p>Be cautious when creating grants and when giving others permission to create grants.
+    Permission to create grants has security implications, much like allowing the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">kms:PutKeyPolicy</a> permission to set
+    policies.</p><div class="itemizedlist">
+     
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>Users with permission to create grants for a KMS key (<code class="code">kms:CreateGrant</code>)
+        can use a grant to allow users and roles, including AWS services, to use the KMS key.
+        The principals can be identities in your own AWS account or identities in a different
+        account or organization.</p>
+    </li><li class="listitem">
+      <p>Grants can allow only a subset of AWS KMS operations. You can use grants to allow
+        principals to view the KMS key, use it in cryptographic operations, and create and retire
+        grants. For details, see <a href="#terms-grant-operations">Grant operations</a>. You
+        can also use <a href="./create-grant-overview.html#grant-constraints">grant constraints</a> to limit the
+        permissions in a grant.</p>
+    </li><li class="listitem">
+      <p>Principals can get permission to create grants from a key policy or IAM policy.
+        Principals who get <code class="code">kms:CreateGrant</code> permission from a policy can create grants
+        for any <a href="#terms-grant-operations">grant operation</a> on the KMS key.
+        These principals are not required to have the permission that they are granting on the key.
+        When you allow <code class="code">kms:CreateGrant</code> permission in a policy, you can use <a href="./grant-authorization.html">policy conditions</a> to limit this permission.</p>
+    </li><li class="listitem">
+      <p>Principals can also get permission to create grants from a grant. These principals can
+        only delegate the permissions that they were granted, even if they have other permissions
+        from a policy. For details, see <a href="./create-grant-overview.html#grant-creategrant">Granting CreateGrant permission</a>.</p>
+    </li></ul></div>
+    <h2 id="grant-concepts">Grant concepts</h2>
+    <p>To use grants effectively, you'll need to understand the terms and concepts that AWS KMS
+      uses. </p>
+    <div class="variablelist">
+       
+       
+       
+       
+
+       
+       
+    <dl>
+        <dt id="terms-grant-constraint"><b><span class="term">Grant constraint</span></b></dt>
+        <dd>
+          <p>A condition that limits the permissions in a grant. AWS KMS supports two types of
+          grant constraints:</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><b>Encryption context constraint</b> — Restricts
+              permissions based on the <a href="./encrypt_context.html">encryption context</a>
+              included in the request for a cryptographic operation. This constraint works only with
+              symmetric encryption KMS keys.</p>
+            </li><li class="listitem">
+              <p><b>SourceArn constraint</b> — Restricts
+              grant permissions to requests made on behalf of a specific AWS resource. This is
+              effectively putting an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn">aws:SourceArn</a> global condition key into the grant. This constraint 
+                works with <em>all types</em> of KMS keys.</p>
+            </li></ul></div>
+          <p>For details, see <a href="./create-grant-overview.html#grant-constraints">Using grant constraints</a>.</p>
+        </dd>
+      
+        <dt id="terms-grant-id"><b><span class="term">Grant ID</span></b></dt>
+        <dd>
+          <p>The unique identifier of a grant for a KMS key. You can use a grant ID, along with
+            a <a href="./concepts.html#key-id">key identifier</a>, to identify a grant in a <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html">RetireGrant</a> or <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html">RevokeGrant</a> request.</p>
+        </dd>
+      
+        <dt id="terms-grant-operations"><b><span class="term">Grant operations</span></b></dt>
+        <dd>
+          <p>The AWS KMS operations that you can allow in a grant. If you specify other operations,
+            the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request fails
+            with a <code class="code">ValidationError</code> exception. These are also the operations that accept
+            a <a href="#grant_token">grant token</a>. For detailed information about these
+            permissions, see the <a href="./kms-api-permissions-reference.html">AWS KMS permissions</a>.</p>
+          <p>These grant operations actually represent permission to use the operation.
+            Therefore, for the <code class="code">ReEncrypt</code> operation, you can specify
+              <code class="code">ReEncryptFrom</code>, <code class="code">ReEncryptTo</code>, or both
+            <code class="code">ReEncrypt*</code>.</p>
+          <p>The grant operations are:</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Cryptographic operations</p>
+              <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html">Decrypt</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_DeriveSharedSecret.html">DeriveSharedSecret</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html">Encrypt</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html">GenerateDataKey</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html">GenerateDataKeyPair</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html">GenerateDataKeyPairWithoutPlaintext</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html">GenerateDataKeyWithoutPlaintext</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html">GenerateMac</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html">ReEncryptFrom</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html">ReEncryptTo</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html">Sign</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html">Verify</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html">VerifyMac</a></p>
+                </li></ul></div>
+            </li><li class="listitem">
+              <p>Other operations</p>
+              <div class="itemizedlist">
+                 
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html">DescribeKey</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html">GetPublicKey</a></p>
+                </li><li class="listitem">
+                  <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html">RetireGrant</a></p>
+                </li></ul></div>
+            </li></ul></div>
+          <p>The grant operations that you allow must be supported by the KMS key in the grant.
+            If you specify an unsupported operation, the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request fails with a
+              <code class="code">ValidationError</code> exception. For example, grants for symmetric encryption
+            KMS keys cannot allow the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html">Sign</a>, <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html">Verify</a>, <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html"><code class="code">GenerateMac</code></a> or <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html"><code class="code">VerifyMac</code></a> operations.
+            Grants for asymmetric KMS keys cannot allow any operations that generate data keys or
+            data key pairs.</p>
+        </dd>
+      
+        
+        <dt id="grant_token"><b><span class="term">Grant token</span></b></dt>
+        <dd>
+          <p>The AWS KMS API follows an <a href="#terms-eventual-consistency">eventual
+              consistency</a> model. When you create a grant, there might be a brief delay before
+            the change is available throughout AWS KMS. It typically takes less than a few seconds for
+            the change to propagate throughout the system, but in some cases it can take several
+            minutes. If you try to use a grant before it fully propagates through the system, you
+            might get an access denied error. A grant token lets you refer to the grant and use the
+            grant permissions immediately. </p>
+          <p>A <em>grant token</em> is a unique, nonsecret,
+            variable-length, base64-encoded string that represents a grant. You can use the grant
+            token to identify the grant in any <a href="#terms-grant-operations">grant
+              operation</a>. However, because the token value is a hash digest, it doesn't reveal
+            any details about the grant.</p>
+          <p>A grant token is designed to be used only until the grant has fully propagated
+            throughout AWS KMS. After that, the <a href="#terms-grantee-principal">grantee
+              principal</a> can use the permission in the grant without providing a grant token
+            or any other evidence of the grant. You can use a grant token at any time, but once the
+            grant is eventually consistent, AWS KMS uses the grant to determine permissions, not the
+            grant token.</p>
+          <p>For example, the following command calls the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html">GenerateDataKey</a> operation. It uses
+            a grant token to represent the grant that gives the caller (the grantee principal)
+            permission to call <code class="code">GenerateDataKey</code> on the specified KMS key.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash "><code class="prompt" copy="false">$ </code><code class="userinput">aws kms generate-data-key \
+        --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+        --key-spec AES_256 \
+        --grant-token <b>$token</b></code></code></pre>
+          <p>You can also use a grant token to identify a grant in operations that manage grants.
+            For example, the <a href="#terms-retiring-principal">retiring principal</a> can
+            use a grant token in a call to the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html">RetireGrant</a> operation. </p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">aws kms retire-grant \
+        --grant-token <b>$token</b></code></code></pre>
+          <p><code class="code">CreateGrant</code> is the only operation that returns a grant token. You
+            cannot get a grant token from any other AWS KMS operation or from the <a href="./ct-creategrant.html">CloudTrail log event</a> for the CreateGrant operation. The
+              <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html">ListGrants</a> and <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ListRetirableGrants.html">ListRetirableGrants</a> operations
+            return the <a href="#terms-grant-id">grant ID</a>, but not a grant token.</p>
+          <p>For details, see <a href="./using-grant-token.html">Using a grant token</a>.</p>
+        </dd>
+      
+        <dt id="terms-grantee-principal"><b><span class="term">Grantee principal</span></b></dt>
+        <dd>
+          <p>An AWS principal (IAM identity) that gets the permissions specified in the grant.</p>
+          <p>The grantee principal can be any AWS principal, including an AWS account (root),
+            an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM user</a>, an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a>, a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html">federated role or user</a>, or an
+            assumed role user. The grantee principal can be in the same account as the KMS key or
+            a different account. However, the grantee principal cannot be a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services">service principal</a>, an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html">IAM
+              group</a>, or an <a href="https://docs.aws.amazon.com/organizations/latest/userguide/">AWS organization</a>.</p>
+          <p>To specify the grantee principal, use the <code class="code">GranteePrincipal</code> parameter
+            in the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request.</p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>IAM best practices discourage the use of IAM users with long-term credentials. Whenever
+                      possible, use IAM roles, which provide temporary credentials. For details,
+                      see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">Security best practices in IAM</a> in the <em>IAM User Guide</em>.</p></div></div>
+        </dd>
+      
+        <dt id="terms-grantee-service-principal"><b><span class="term">Grantee service principal</span></b></dt>
+        <dd>
+          <p>An AWS <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services">service principal</a> that gets the permissions specified in the grant. To
+            specify the grantee service principal, use the <code class="code">GranteeServicePrincipal</code>
+            parameter in the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a>
+            request. </p>
+          <p>When you create a grant with a <code class="code">GranteeServicePrincipal</code>, you must also
+            include a <a href="./create-grant-overview.html#terms-source-arn-constraint">SourceArn grant
+            constraint</a>. The <code class="code">SourceArn</code> constraint ensures that the service
+            principal can use the KMS key only when the request is made on behalf of the specified
+            AWS resource.</p>
+          <p>When you specify a <code class="code">GranteeServicePrincipal</code>, you must also specify
+            either a <a href="#terms-retiring-principal">RetiringPrincipal</a> or
+            a <a href="#terms-retiring-service-principal">RetiringServicePrincipal</a>.</p>
+        </dd>
+      </dl></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You must specify either <a href="#terms-grantee-principal">GranteePrincipal</a> or <a href="#terms-grantee-service-principal">GranteeServicePrincipal</a>,
+        but not both.</p></div></div>
+    <div class="variablelist">
+       
+       
+       
+    <dl>
+        <dt id="terms-retire-grant"><b><span class="term">Retire (a grant)</span></b></dt>
+        <dd>
+          <p>Terminates a grant. You retire a grant when you finish using the permissions.</p>
+          <p>Revoking and retiring a grant both delete the grant. But retiring is done by a
+            principal specified in the grant. Revoking is typically done by a key administrator. For
+            details, see <a href="./grant-delete.html">Retiring and revoking grants</a>.</p>
+        </dd>
+      
+        <dt id="terms-retiring-principal"><b><span class="term">Retiring principal</span></b></dt>
+        <dd>
+          <p>A principal who can <a href="#terms-retire-grant">retire a grant</a>. You
+            can specify a retiring principal in a grant, but it is not required. The retiring
+            principal can be any AWS principal, including AWS accounts, IAM users, IAM
+            roles, federated users, and assumed role users. The retiring principal can be in the
+            same account as the KMS key or a different account.</p>
+          <p>To specify the retiring principal, use the <code class="code">RetiringPrincipal</code> parameter
+            in the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request.</p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>IAM best practices discourage the use of IAM users with long-term credentials. Whenever
+                      possible, use IAM roles, which provide temporary credentials. For details,
+                      see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">Security best practices in IAM</a> in the <em>IAM User Guide</em>.</p></div></div>
+        </dd>
+      
+        <dt id="terms-retiring-service-principal"><b><span class="term">Retiring service principal</span></b></dt>
+        <dd>
+          <p>An AWS <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services">service principal</a> that has permission to <a href="#terms-retire-grant">retire a grant</a>. To specify the retiring service
+            principal, use the <code class="code">RetiringServicePrincipal</code> parameter in the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> request. </p>
+        </dd>
+      </dl></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can specify either <a href="#terms-retiring-principal">RetiringPrincipal</a> or <a href="#terms-retiring-service-principal">RetiringServicePrincipal</a>,
+        but not both.</p></div></div>
+    <p>For more information about who can retire a grant, see <a href="./grant-delete.html">Retiring and revoking grants</a>.</p>
+    <div class="variablelist">
+       
+       
+    <dl>
+        <dt id="terms-revoke-grant"><b><span class="term">Revoke (a grant)</span></b></dt>
+        <dd>
+          <p>Terminates a grant. You revoke a grant to actively deny the permissions that the
+            grant allows. </p>
+          <p>Revoking and retiring a grant both delete the grant. But retiring is done by a
+            principal specified in the grant. Revoking is typically done by a key administrator. For
+            details, see <a href="./grant-delete.html">Retiring and revoking grants</a>.</p>
+        </dd>
+      
+        <dt id="terms-eventual-consistency"><b><span class="term">Eventual consistency (for grants)</span></b></dt>
+        <dd>
+          <p>The AWS KMS API follows an <a href="https://en.wikipedia.org/wiki/Eventual_consistency" rel="noopener noreferrer" target="_blank"><span>eventual consistency</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+            model. When you create, retire, or revoke a grant, there might be a brief delay before
+            the change is available throughout AWS KMS. It typically takes less than a few seconds for
+            the change to propagate throughout the system, but in some cases it can take several
+            minutes.</p>
+          <p>You might become aware of this brief delay if you get unexpected errors. For
+            example, If you try to manage a new grant or use the permissions in a new grant before
+            the grant is known throughout AWS KMS, you might get an access denied error. If you retire
+            or revoke a grant, the grantee principal might still be able to use its permissions for
+            a brief period until the grant is fully deleted. The typical strategy is to retry the
+            request, and some AWS SDKs include automatic backoff and retry logic.</p>
+          <p>AWS KMS has features to mitigate this brief delay. </p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>To use the permissions in a new grant immediately, use a <a href="./using-grant-token.html">grant token</a>. You can use a grant token to refer
+                to a grant in any <a href="#terms-grant-operations">grant operation</a>. For
+                instructions, see <a href="./using-grant-token.html">Using a grant token</a>. </p>
+            </li><li class="listitem">
+              <p>The <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> operation
+                has a <code class="code">Name</code> parameter that prevents retry operations from creating
+                duplicate grants.</p>
+            </li></ul></div>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Grant tokens supersede the validity of the grant until all endpoints in the service have been updated with the new grant state. In most cases, eventual consistency will be achieved within five minutes.</p></div></div>
+          <p>For more information, see <a href="./accessing-kms.html#programming-eventual-consistency">AWS KMS
+              eventual consistency</a>.</p>
+        </dd>
+
+      </dl></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./resource-control-policies.html">Resource control
+            policies</div><div id="next" class="next-link" accesskey="n" href="./grant-best-practices.html">Best practices</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/grants.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/grants.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

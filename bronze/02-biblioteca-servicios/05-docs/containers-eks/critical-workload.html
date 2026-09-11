@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Run critical add-ons on dedicated instances - Amazon EKS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="critical-workload" /><meta name="default_state" content="critical-workload" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/eks/latest/userguide/critical-workload.html" /><meta name="description" content="In this topic, you will learn how to deploy a workload with a CriticalAddonsOnly toleration so EKS Auto Mode will schedule it onto the system node pool." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EKS" /><meta name="guide" content="User Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Elastic Kubernetes Service (Amazon EKS). Amazon EKS is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters. Kubernetes is an open source system for automating the deployment, scaling, and management of containerized applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/eks/latest/userguide/critical-workload.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eks/latest/userguide/critical-workload.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/eks/latest/userguide/critical-workload.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eks/latest/userguide/critical-workload.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/eks/latest/userguide/critical-workload.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/critical-workload.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/critical-workload.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eks/latest/userguide/critical-workload.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/eks/latest/userguide/critical-workload.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eks/latest/userguide/critical-workload.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/eks/latest/userguide/critical-workload.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eks/latest/userguide/critical-workload.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/eks/latest/userguide/critical-workload.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/critical-workload.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/critical-workload.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/critical-workload.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/critical-workload.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eks/latest/userguide/critical-workload.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/eks/latest/userguide/critical-workload.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/critical-workload.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/eks/latest/userguide/critical-workload.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/eks/latest/userguide/critical-workload.html" hreflang="x-default" /><meta name="feedback-item" content="Amazon EKS" /><meta name="this_doc_product" content="Amazon EKS" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'eks'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Run critical add-ons on dedicated instances" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="critical-workload.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Run critical add-ons on dedicated instances - Amazon EKS</title><meta name="pdf" content="/pdfs/eks/latest/userguide/eks-ug.pdf#critical-workload" /><meta name="github" content="https://github.com/awsdocs/amazon-eks-user-guide/tree/mainline/latest/ug/automode/critical-workload.adoc" /><meta name="rss" content="doc-history.rss" /><meta name="forums" content="https://repost.aws/tags/TA4IvCeWI1TE66q4jEj4Z9zg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon%20EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/critical-workload.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/critical-workload.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/critical-workload.html" /><link rel="alternate" type="text/markdown" href="critical-workload.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EKS",
+        "item" : "https://docs.aws.amazon.com/eks/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Automate cluster infrastructure with EKS Auto Mode",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/automode.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configure EKS Auto Mode settings",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/settings-auto.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Run critical add-ons on dedicated instances",
+        "item" : "https://docs.aws.amazon.com/eks/latest/userguide/settings-auto.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/eks/latest/userguide/eks-ug.pdf#critical-workload" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-eks-user-guide/tree/mainline/latest/ug/automode/critical-workload.adoc" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/eks/index.html">Amazon EKS</a><a href="what-is-eks.html">User Guide</a></div><div id="page-toc-src"><a href="#_prerequisites">Prerequisites</a><a href="#_procedure">Procedure</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>
+         <strong>Help improve this page</strong>
+      </p><p>To contribute to this user guide, choose the <strong>Edit this page on GitHub</strong> link that is located in the right pane of every page.</p></awsui-alert><h1 class="topictitle" id="critical-workload">Run critical add-ons on dedicated instances</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In this topic, you will learn how to deploy a workload with a <code class="code">CriticalAddonsOnly</code> toleration so EKS Auto Mode will schedule it onto the <code class="code">system</code> node pool.</p><p>EKS Auto Mode’s built-in <code class="code">system</code> node pool is designed for running critical add-ons on dedicated instances. This segregation ensures essential components have dedicated resources and are isolated from general workloads, enhancing overall cluster stability and performance.</p><p>This guide demonstrates how to deploy add-ons to the <code class="code">system</code> node pool by utilizing the <code class="code">CriticalAddonsOnly</code> toleration and appropriate node selectors. By following these steps, you can ensure that your critical applications are scheduled onto the dedicated <code class="code">system</code> nodes, leveraging the isolation and resource allocation benefits provided by EKS Auto Mode’s specialized node pool structure.</p><p>EKS Auto Mode has two built-in node pools: <code class="code">general-purpose</code> and <code class="code">system</code>. For more information, see <a href="./set-builtin-node-pools.html">Enable or Disable Built-in NodePools</a>.</p><p>The purpose of the <code class="code">system</code> node pool is to segregate critical add-ons onto different nodes. Nodes provisioned by the <code class="code">system</code> node pool have a <code class="code">CriticalAddonsOnly</code> Kubernetes taint. Kubernetes will only schedule pods onto these nodes if they have a corresponding toleration. For more information, see <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/" rel="noopener noreferrer" target="_blank"><span>Taints and Tolerations</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the Kubernetes documentation.</p>
+      <h2 id="_prerequisites">Prerequisites</h2>
+      <div class="itemizedlist">
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>EKS Auto Mode Cluster with the built-in <code class="code">system</code> node pool enabled. For more information, see <a href="./set-builtin-node-pools.html">Enable or Disable Built-in NodePools</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <code class="code">kubectl</code> installed and configured. For more information, see <a href="./setting-up.html">Set up to use Amazon EKS</a>.</p>
+         </li></ul></div>
+    
+      <h2 id="_procedure">Procedure</h2>
+      <p>Review the example yaml below. Note the following configurations:</p>
+      <div class="itemizedlist">
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>
+               <code class="code">nodeSelector</code> — This associates the workload with the built-in <code class="code">system</code> node pool. This node pool must be enabled with the AWS API. For more information, see <a href="./set-builtin-node-pools.html">Enable or Disable Built-in NodePools</a>.</p>
+         </li><li class="listitem">
+            <p>
+               <code class="code">tolerations</code> — This toleration overcomes the <code class="code">CriticalAddonsOnly</code> taint on nodes in the <code class="code">system</code> node pool.</p>
+         </li></ul></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (yaml)--><code class="yaml ">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      nodeSelector:
+        karpenter.sh/nodepool: system
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      containers:
+      - name: app
+        image: nginx:latest
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"</code></pre>
+      <p>To update a workload to run on the <code class="code">system</code> node pool, you need to:</p>
+      <div class="orderedlist">
+          
+          
+      <ol style="list-style-type:arabic ! important;"><li>
+            <p>Update the existing workload to add the following configurations described above:</p>
+            <div class="itemizedlist">
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p>
+                     <code class="code">nodeSelector</code>
+                  </p>
+               </li><li class="listitem">
+                  <p>
+                     <code class="code">tolerations</code>
+                  </p>
+               </li></ul></div>
+         </li><li>
+            <p>Deploy the updated workload to your cluster with <code class="code">kubectl apply</code>
+            </p>
+         </li></ol></div>
+      <p>After updating the workload, it will run on dedicated nodes.</p>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./associate-workload.html">Control deployment</div><div id="next" class="next-link" accesskey="n" href="./auto-net-pol.html">Use network policies</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/critical-workload.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amazon EKS&amp;topic_url=https://docs.aws.amazon.com/en_us/eks/latest/userguide/critical-workload.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

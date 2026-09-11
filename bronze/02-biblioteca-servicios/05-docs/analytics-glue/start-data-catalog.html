@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Getting started with the AWS Glue Data Catalog - AWS Glue</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="start-data-catalog" /><meta name="default_state" content="start-data-catalog" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html" /><meta name="description" content="Create your first AWS Glue Data Catalog using this quick start tutorial." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Glue" /><meta name="guide" content="User Guide" /><meta name="abstract" content="How to use and program AWS Glue." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/start-data-catalog.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/glue/latest/dg/start-data-catalog.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/start-data-catalog.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/glue/latest/dg/start-data-catalog.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/start-data-catalog.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/glue/latest/dg/start-data-catalog.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/start-data-catalog.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/glue/latest/dg/start-data-catalog.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/start-data-catalog.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/glue/latest/dg/start-data-catalog.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/start-data-catalog.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/glue/latest/dg/start-data-catalog.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/start-data-catalog.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/glue/latest/dg/start-data-catalog.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/start-data-catalog.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/glue/latest/dg/start-data-catalog.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/glue/latest/dg/start-data-catalog.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/glue/latest/dg/start-data-catalog.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html" hreflang="x-default" /><meta name="feedback-item" content="Glue" /><meta name="this_doc_product" content="AWS Glue" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'glue'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Getting started with the AWS Glue Data Catalog" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="start-data-catalog.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Getting started with the AWS Glue Data Catalog - AWS Glue</title><meta name="pdf" content="/pdfs/glue/latest/dg/glue-dg.pdf#start-data-catalog" /><meta name="rss" content="aws-glue-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TABBptUaVOS1mAM7TXuTuxWQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/start-data-catalog.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/start-data-catalog.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/start-data-catalog.html" /><meta name="keywords" content="AWS Glue,AWS Glue Data Catalog,Data Catalog,AWS Glue jobs system,Jobs system,ETL" /><link rel="alternate" type="text/markdown" href="start-data-catalog.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started with AWS Glue",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/setting-up.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Getting started with the AWS Glue Data Catalog",
+        "item" : "https://docs.aws.amazon.com/glue/latest/dg/setting-up.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/glue/latest/dg/glue-dg.pdf#start-data-catalog" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/glue/index.html">AWS Glue</a><a href="what-is-glue.html">User Guide</a></div><div id="page-toc-src"><a href="#start-data-catalog-overview">Overview</a><a href="#start-data-catalog-database">Step 1: Create a database</a><a href="#start-data-catalog-table">Step 2. Create a table</a><a href="#start-data-catalog-next-steps">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="start-data-catalog">Getting started with the AWS Glue Data Catalog</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p> 
+        The AWS Glue Data Catalog is your persistent technical metadata store. It is a managed service that
+        you can use to store, annotate, and share metadata in the AWS Cloud. For more information,
+        see <a href="https://docs.aws.amazon.com/glue/latest/dg/components-overview.html#data-catalog-intro">AWS Glue Data Catalog</a>. 
+    </p><div class="table-container"><div class="table-contents"><table id="w723aab9c15b5">
+                    <tr>
+                        <td tabindex="-1">The AWS Glue console and some user interfaces were recently updated.</td>
+                    </tr>
+                </table></div></div>
+       <h2 id="start-data-catalog-overview">Overview</h2>
+	   <p> You can use this tutorial to create your first AWS Glue Data Catalog, which
+            uses an Amazon S3 bucket as your data source. 
+	   </p>
+      <p> 
+          In this tutorial, you'll do the following using the AWS Glue console:
+      </p>
+        <div class="orderedlist">
+             
+             
+             
+        <ol><li>
+                <p> Create a database </p>
+            </li><li>
+                <p> Create a table </p>
+            </li><li>
+                <p>
+                    Use an Amazon S3 bucket as a data source
+                </p>
+            </li></ol></div>
+    <p>
+        After completing these steps, you will have successfully used an Amazon S3 bucket as the data
+            source to populate the AWS Glue Data Catalog. 
+    </p>
+    
+        <h2 id="start-data-catalog-database">Step 1: Create a database</h2>       
+       <p> To get started, sign in to the AWS Management Console and open the 
+           <a href="https://console.aws.amazon.com/glue" rel="noopener noreferrer" target="_blank"><span>AWS Glue console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. 
+       </p>
+        <p>
+            <b>
+                To create a database using the AWS Glue console:
+            </b>
+        </p>
+        <div class="procedure"><ol><li>
+                <p>
+                    In the AWS Glue console, choose <b>Databases</b> under <b>
+                        Data catalog</b> from the left-hand menu.
+                </p>
+            </li><li>
+                <p>
+                    Choose <b>Add database</b>.
+                </p>
+                
+            </li><li>
+                <p> 
+                    In the Create a database page, enter a name for the database. 
+                    In the <b>Location - <em>optional</em></b> section, 
+                    set the URI location for use by clients of the Data Catalog. If you don't know this, you can
+                    continue with creating the database.
+                </p>
+                
+            </li><li>
+                <p>
+                    (Optional). Enter a description for the database.
+                </p>
+            </li><li>
+                <p>
+                    Choose <b>Create database</b>.
+                </p>
+            </li></ol></div>
+        <p> Congratulations, you've just set up your first database using the
+                AWS Glue console. Your new database will appear in the list of available
+            databases. You can edit the database by choosing the database's name from the <b> Databases</b> 
+            dashboard. 
+        </p>
+        <p>
+            <b>Next steps</b>
+        </p>
+        <p>
+            <b>
+                Other ways to create a database:
+            </b>
+        </p>
+        <p>
+            You just created a database using the AWS Glue console, but there are other ways
+            to create a database: </p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You can use crawlers to create a database and tables for you automatically. To
+                    set up a database using crawlers, see <a href="https://docs.aws.amazon.com/glue/latest/dg/console-crawlers.html">Working with Crawlers in the
+                            AWS Glue Console</a>. </p>
+            </li><li class="listitem">
+                <p> You can use CloudFormation templates. See <a href="https://docs.aws.amazon.com/glue/latest/dg/populate-with-cloudformation-templates.html">Creating
+                            AWS Glue Resources Using AWS Glue Data Catalog Templates</a>. </p>
+            </li><li class="listitem">
+                <p> You can also create a database using the AWS Glue Database API operations. </p>
+                <p> To create a database using the <code class="code">create</code> operation, structure the
+                    request by including the <code class="code">DatabaseInput</code> (required) parameters. </p>
+                <p>
+                    For example: 
+                </p>
+                <div class="variablelist">
+                     
+                <dl>
+                        <dt><b><span class="term"></span></b></dt>
+                        <dd>
+                            <p> The following are examples of how you can use the CLI, Boto3, or
+                                DDL to define a table based on the same flights_data.csv file from
+                                the S3 bucket that you used in the tutorial. </p>
+                            <awsdocs-tabs><dl style="display: none">
+                                <dt>CLI</dt><dd tab-id="cli">
+                                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">aws glue create-database --database-input "<span>{</span>\"Name\":\"clidb\"}"                                              
+                                        </code></pre>
+                                    </dd>
+                                <dt>Boto3</dt><dd tab-id="boto3">
+                                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">glueClient = boto3.client('glue')
+
+response = glueClient.create_database(
+    DatabaseInput=<span>{</span>
+        'Name': 'boto3db'
+    }
+)                                                    
+                                        </code></pre>
+                                    </dd>                               
+                            </dl></awsdocs-tabs>
+                        </dd>
+                    </dl></div>
+            </li></ul></div>
+        <p> For more information about the Database API data types, structure, and operations,
+            see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html">Database API</a>. 
+        </p>       
+        <p>
+            <b>Next Steps</b>
+        </p>
+        <p> In the next section, you'll create a table and add that table to your database. </p>
+        <p>You can also explore the settings and permissions for your Data Catalog. See <a href="https://docs.aws.amazon.com/glue/latest/dg/console-data-catalog-settings.html">Working with Data Catalog
+            Settings in the AWS Glue Console</a>. </p>
+     
+        <h2 id="start-data-catalog-table">Step 2. Create a table</h2>   
+        <p> In this step, you create a table using the AWS Glue console. </p>
+        <div class="procedure"><ol><li>
+                <p>
+                    In the AWS Glue console, choose <b>Tables</b> in the left-hand menu.
+                </p>
+            </li><li>
+                <p>
+                    Choose <b>Add table</b>. 
+                </p>
+            </li><li>
+                <p>
+                    Set your table's properties by entering a name for your table in <b>Table details</b>.
+                </p>
+            </li><li>
+                <p> 
+                    In the <b>Databases</b> section, choose the database that you
+                    created in Step 1 from the drop-down menu.
+                </p>
+               
+            </li><li>
+                <p> 
+                    In <b>Add a data store</b> section, <b>S3</b> will be selected
+                    by default as the type of source. </p> 
+            </li><li>
+                <p> 
+                    For <b>Data is located in </b>, choose
+                        <b>Specified path in another account</b>. 
+                </p>
+            </li><li>
+                <p>Copy and paste the path for the <b>Include path</b> input field:</p>
+                <p><code class="code">s3://crawler-public-us-west-2/flight/2016/csv/</code></p>
+            </li><li>
+                <p>
+                    In the section <b>Data format</b>, for <b>Classification</b>, 
+                    choose <b>CSV</b>. and for <b>Delimiter</b>, choose
+                    <b>comma (,)</b>. Choose <b>Next</b>. </p> 
+            </li><li>
+                <p>You are asked to define a schema. A schema defines the structure and format of
+                    a data record. Choose <b>Add column</b>. (For more information,
+                    see See <a href="https://docs.aws.amazon.com/glue/latest/dg/schema-registry.html#schema-registry-schemas.html">Schema
+                        registries</a>).</p> 
+            </li><li>
+                <p>
+                    Specify the column properties:
+                </p> 
+                <ol><li>
+                        <p>Enter a column name. </p>
+                    </li><li>
+                        <p>For <b>Column type</b>, 'string' is already selected by
+                            default.</p>
+                    </li><li>
+                        <p>For <b>Column number</b>, '1' is already selected by
+                            default.</p>
+                    </li><li>
+                        <p>Choose <b>Add</b>.</p>
+                    </li></ol>
+            </li><li>
+                <p> You are asked to add partition
+                    indexes.
+                    This is optional. To skip this step, choose <b>Next</b>. </p> 
+            </li><li>
+                <p> A summary of the table properties is displayed. If everything looks as
+                    expected, choose <b>Create</b>. Otherwise, choose
+                        <b>Back</b> and make edits as needed. </p> 
+            </li></ol></div>
+        
+        <p> Congratulations, you've successfully created a table manually and associated it to a
+            database. Your newly created table will appear in the Tables dashboard. From the
+            dashboard, you can modify and manage all your tables. </p>
+        <p> For more information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/console-tables.html">Working with
+                Tables in the AWS Glue Console</a>. </p> 
+     
+        <h2 id="start-data-catalog-next-steps">Next steps</h2>
+        <p>
+            <b>Next steps</b>
+        </p>
+        <p> 
+            Now that the Data Catalog is populated, you can begin authoring jobs in 
+            AWS Glue. See <a href="https://docs.aws.amazon.com/glue/latest/dg/author-job-glue.html">
+                Building visual ETL jobs with AWS Glue Studio</a>. 
+        </p>  
+        <p> In addition to using the console, there are other ways to define tables in the Data
+            Catalog
+            including:</p>  
+        
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html">Creating and running a crawler</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/glue/latest/dg/add-classifier.html">Adding classifiers to a crawler in AWS Glue</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-tables.html">Using the
+                        AWS Glue Table API</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/glue/latest/dg/populate-with-cloudformation-templates.html"> Using the
+                        AWS Glue Data Catalog template</a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://github.com/aws-samples/aws-glue-samples/tree/master/utilities/Hive_metastore_migration" rel="noopener noreferrer" target="_blank"><span> Migrating an Apache Hive metastore</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                </p>
+            </li><li class="listitem">
+                <p>
+                    <a href="https://docs.aws.amazon.com/cli/latest/reference/glue/create-table.html">Using the AWS CLI</a>, 
+                    Boto3, or data definition language (DDL) 
+                </p>
+                <div class="variablelist">
+                     
+                <dl>
+                        <dt><b><span class="term"></span></b></dt>
+                        <dd>
+                            <p> The following are examples of how you can use the CLI, Boto3, or
+                                DDL to define a table based on the same flights_data.csv file from
+                                the S3 bucket that you used in the tutorial. 
+                            </p>
+                            <p>
+                                See the documentation on how to structure an AWS CLI command. 
+                                The CLI example contains the JSON syntax for the 'aws glue create-table --table-input' value.
+                            </p>
+                            <awsdocs-tabs><dl style="display: none">
+                                <dt>CLI</dt><dd tab-id="cli">
+                                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+        "Name": "flights_data_cli",
+        "StorageDescriptor": <span>{</span>
+            "Columns": [
+                <span>{</span>
+                    "Name": "year",
+                    "Type": "bigint"
+                },
+                <span>{</span>
+                    "Name": "quarter",
+                    "Type": "bigint"
+                }
+            ],
+            "Location": "s3://crawler-public-us-west-2/flight/2016/csv",
+            "InputFormat": "org.apache.hadoop.mapred.TextInputFormat",
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat",
+            "Compressed": false,
+            "NumberOfBuckets": -1,
+            "SerdeInfo": <span>{</span>
+                "SerializationLibrary": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+                "Parameters": <span>{</span>
+                    "field.delim": ",",
+                    "serialization.format": ","
+                }
+            }
+        },
+        "PartitionKeys": [
+            <span>{</span>
+                "Name": "mon",
+                "Type": "string"
+            }
+        ],
+        "TableType": "EXTERNAL_TABLE",
+        "Parameters": <span>{</span>
+            "EXTERNAL": "TRUE",
+            "classification": "csv",
+            "columnsOrdered": "true",
+            "compressionType": "none",
+            "delimiter": ",",
+            "skip.header.line.count": "1",
+            "typeOfData": "file"
+        }
+    }   
+                                        </code></pre>
+                                    </dd>
+                                <dt>Boto3</dt><dd tab-id="boto3">
+                                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">import boto3
+
+glue_client = boto3.client("glue")
+
+response = glue_client.create_table(
+    DatabaseName='sampledb',
+    TableInput=<span>{</span>
+        'Name': 'flights_data_manual',
+    'StorageDescriptor': <span>{</span>
+      'Columns': [<span>{</span>
+        'Name': 'year',
+        'Type': 'bigint'
+      }, <span>{</span>
+        'Name': 'quarter',
+        'Type': 'bigint'
+      }],
+      'Location': 's3://crawler-public-us-west-2/flight/2016/csv',
+      'InputFormat': 'org.apache.hadoop.mapred.TextInputFormat',
+      'OutputFormat': 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat',
+      'Compressed': False,
+      'NumberOfBuckets': -1,
+      'SerdeInfo': <span>{</span>
+        'SerializationLibrary': 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe',
+        'Parameters': <span>{</span>
+          'field.delim': ',',
+          'serialization.format': ','
+        }
+      },
+    },
+    'PartitionKeys': [<span>{</span>
+      'Name': 'mon',
+      'Type': 'string'
+    }],
+    'TableType': 'EXTERNAL_TABLE',
+    'Parameters': <span>{</span>
+      'EXTERNAL': 'TRUE',
+      'classification': 'csv',
+      'columnsOrdered': 'true',
+      'compressionType': 'none',
+      'delimiter': ',',
+      'skip.header.line.count': '1',
+      'typeOfData': 'file'
+    }
+    }
+)                        
+                                        </code></pre>
+                                    </dd>
+                                <dt>DDL</dt><dd tab-id="ddl">
+                                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">CREATE EXTERNAL TABLE `sampledb`.`flights_data` (
+  `year` bigint, 
+  `quarter` bigint)
+PARTITIONED BY ( 
+  `mon` string)
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  's3://crawler-public-us-west-2/flight/2016/csv/'
+TBLPROPERTIES (
+  'classification'='csv', 
+  'columnsOrdered'='true', 
+  'compressionType'='none', 
+  'delimiter'=',', 
+  'skip.header.line.count'='1', 
+  'typeOfData'='file')            
+                                        </code></pre>
+                                    </dd>
+                            </dl></awsdocs-tabs>
+                        </dd>
+                    </dl></div>
+                
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./start-usage-profiles-jobs.html">Working with usage profiles</div><div id="next" class="next-link" accesskey="n" href="./start-connecting.html">Setting up network access to data stores</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/start-data-catalog.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Glue&amp;topic_url=https://docs.aws.amazon.com/en_us/glue/latest/dg/start-data-catalog.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

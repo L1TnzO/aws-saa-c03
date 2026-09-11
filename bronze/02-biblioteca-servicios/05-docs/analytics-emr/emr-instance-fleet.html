@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Planning and configuring instance fleets for your Amazon EMR cluster - Amazon EMR</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="emr-instance-fleet" /><meta name="default_state" content="emr-instance-fleet" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html" /><meta name="description" content="Use the Amazon EMR console or the AWS CLI to create a cluster with an instance fleet configuration." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EMR" /><meta name="guide" content="Management Guide" /><meta name="abstract" content="Learn to plan, configure, deploy, monitor, and secure big-data solutions in the cloud using Amazon EMR. Amazon EMR is the Amazon Web Services (AWS) managed framework for running Apache Hadoop, Spark, HBase, Presto, Flink and other big-data applications on dynamically scalable Amazon EC2 instances. Use this guide together with the Amazon EMR Release Guide, which covers application installation, configuration, and optimization." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html" hreflang="x-default" /><meta name="feedback-item" content="EMR" /><meta name="this_doc_product" content="Amazon EMR" /><meta name="this_doc_guide" content="Management Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'emr'}"></script><meta id="panorama-serviceSubSection" value="Management Guide" /><meta id="panorama-serviceConsolePage" value="Planning and configuring instance fleets for your Amazon EMR cluster" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="emr-instance-fleet.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Planning and configuring instance fleets for your Amazon EMR cluster - Amazon EMR</title><meta name="pdf" content="/pdfs/emr/latest/ManagementGuide/emr-mgmt.pdf#emr-instance-fleet" /><meta name="forums" content="https://repost.aws/tags/TAI_v6l7ipRcW1fFHjMG3ucw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EMR&amp;topic_url=https://docs.aws.amazon.com/en_us/emr/latest/ManagementGuide/emr-instance-fleet.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/emr/latest/ManagementGuide/emr-instance-fleet.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/emr/latest/ManagementGuide/emr-instance-fleet.html" /><link rel="alternate" type="text/markdown" href="emr-instance-fleet.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EMR Documentation",
+        "item" : "https://docs.aws.amazon.com/emr/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Management Guide",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Plan, configure and launch Amazon EMR clusters",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configure Amazon EMR cluster hardware and networking",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-instances.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Configure Amazon EC2 instance types for use with Amazon EMR",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-ec2-instances.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Create an Amazon EMR cluster with instance fleets or uniform instance groups",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-group-configuration.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Planning and configuring instance fleets for your Amazon EMR cluster",
+        "item" : "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-group-configuration.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/emr/latest/ManagementGuide/emr-mgmt.pdf#emr-instance-fleet" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/emr/index.html">Amazon EMR Documentation</a><a href="emr-what-is-emr.html">Management Guide</a></div><div id="page-toc-src"><a href="#emr-key-feature-summary">Considerations for working with instance fleets</a><a href="#emr-instance-fleet-options">Instance fleet options</a><a href="#emr-instance-fleet-allocation-strategy">Allocation strategy</a><a href="#emr-instance-fleet-console">Configure instance fleets</a><a href="#create-cluster-instance-fleet-cli">Examples</a><a href="#emr-fleet-modify-target-cli">Change target capacities</a><a href="#emr-task-instance-fleet">Add a task fleet</a><a href="#emr-instance-fleet-get-configuration">Get configuration details</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="emr-instance-fleet">Planning and configuring instance fleets for your Amazon EMR cluster</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The instance fleets configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.0 and 5.0.3.</p></div></div><p>The instance fleet configuration for Amazon EMR clusters lets you select a wide
+					variety of provisioning options for Amazon EC2 instances, and helps you develop a
+					flexible and elastic resourcing strategy for each node type in your cluster. </p><p>In an instance fleet configuration, you specify a <em>target
+						capacity</em> for <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html">On-Demand
+						Instances</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html">Spot
+						Instances</a> within each fleet. When the cluster launches, Amazon EMR
+					provisions instances until the targets are fulfilled. When Amazon EC2 reclaims a Spot
+					Instance in a running cluster because of a price increase or instance failure,
+					Amazon EMR tries to replace the instance with any of the instance types that you
+					specify. This makes it easier to regain capacity during a spike in Spot pricing. </p><p>You can specify a maximum of five Amazon EC2 instance types per fleet for Amazon EMR to
+					use when fulfilling the targets, or a maximum of 30 Amazon EC2 instance types per
+					fleet when you create a cluster using the AWS CLI or Amazon EMR API and an <a href="#emr-instance-fleet-allocation-strategy">allocation strategy</a>
+					for On-Demand and Spot Instances. </p><p>You can also select multiple subnets for different Availability Zones. When Amazon EMR
+					launches the cluster, it looks across those subnets to find the instances and
+					purchasing options you specify. If Amazon EMR detects an AWS large-scale event in
+					one or more of the Availability Zones, Amazon EMR automatically attempts to route traffic
+					away from the impacted Availability Zones and tries to launch new clusters that you
+					create in alternate Availability Zones according to your selections. Note that cluster
+					Availability Zone selection happens only at cluster creation. Existing cluster nodes are
+					not automatically re-launched in a new Availability Zone in the event of an Availability Zone
+					outage.</p>
+					<h2 id="emr-key-feature-summary"><b>Considerations for working with instance fleets</b></h2>
+					<p>Consider the following items when you use instance fleets with
+						Amazon EMR.</p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+						 
+						 
+						 
+			
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p>You can have one instance fleet, and only one, per node type
+								(primary, core, task). You can specify up to five Amazon EC2 instance
+								types for each fleet on the AWS Management Console (or a maximum of 30 types per
+								instance fleet when you create a cluster using the AWS CLI or Amazon EMR
+								API and an <a href="#emr-instance-fleet-allocation-strategy">Allocation strategy for instance fleets</a>).
+							</p>
+						</li><li class="listitem">
+							<p>Amazon EMR chooses any or all of the specified Amazon EC2 instance types to
+								provision with both Spot and On-Demand purchasing options.</p>
+						</li><li class="listitem">
+							<p>You can establish target capacities for Spot and On-Demand
+								Instances for the core fleet and task fleet. Use vCPU or a generic
+								unit assigned to each Amazon EC2 instance that counts toward the targets.
+								Amazon EMR provisions instances until each target capacity is totally
+								fulfilled. For the primary fleet, the target is always one.</p>
+						</li><li class="listitem">
+							<p>You can choose one subnet (Availability Zone) or a range. If you choose a
+								range, Amazon EMR provisions capacity in the Availability Zone that is the best
+								fit.</p>
+						</li><li class="listitem">
+							<p>When you specify a target capacity for Spot Instances:</p>
+							<div class="itemizedlist">
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p>For each instance type, specify a maximum Spot price.
+										Amazon EMR provisions Spot Instances if the Spot price is below
+										the maximum Spot price. You pay the Spot price, not
+										necessarily the maximum Spot price.</p>
+								</li><li class="listitem">
+									<p>For each fleet, define a timeout period for provisioning
+										Spot Instances. If Amazon EMR can't provision Spot capacity, you
+										can terminate the cluster or switch to provisioning
+										On-Demand capacity instead. This only applies for
+										provisioning clusters, not resizing them. If the timeout
+										period ends during the cluster resizing process,
+										unprovisioned Spot requests will be nullified without
+										transferring to On-Demand capacity. </p>
+								</li></ul></div>
+						</li><li class="listitem">
+							<p>For each fleet, you can specify one of the following allocation
+								strategies for your Spot Instances: price-capacity optimized,
+								capacity-optimized, capacity-optimized-prioritized, lowest-price, or diversified across all
+								pools.</p>
+						</li><li class="listitem">
+							<p>For each fleet, you can apply the following allocation strategies for
+								your On-Demand Instances: the lowest-price strategy or the prioritized strategy.</p>
+						</li><li class="listitem">
+							<p>For each fleet with On-Demand Instances, you can choose to apply capacity
+								reservation options.</p>
+						</li><li class="listitem">
+							<p>If you use allocation strategy for instance fleets, the following considerations apply when you choose subnets for your EMR cluster:</p>
+							<div class="itemizedlist">
+								 
+								
+								 
+								
+								 
+							<ul class="itemizedlist"><li class="listitem"><p>When Amazon EMR provisions a cluster with a task fleet, it filters out subnets that lack enough available IP addresses to 
+									provision all instances of the requested EMR cluster. This includes IP addresses required for the primary, core, and task instance fleets 
+									during cluster launch. Amazon EMR then leverages its allocation strategy to determine the instance pool, based on instance type and remaining 
+									subnets with sufficient IP addresses, to launch the cluster.</p></li><li class="listitem"><p>If Amazon EMR cannot launch the whole cluster due to insufficient available IP addresses, it will attempt to identify subnets with enough 
+									free IP addresses to launch the essential (core and primary) instance fleets. In such scenarios, your task instance fleet will go into a suspended 
+									state, rather than terminating the cluster with an error.</p></li><li class="listitem"><p>If none of the specified subnets contain enough IP addresses to provision the essential core and primary instance fleets, the cluster 
+									launch will fail with a <b>VALIDATION_ERROR</b>. This triggers a <b>CRITICAL</b> severity cluster termination 
+									event, notifying you that the cluster cannot be launched. To prevent this issue, we recommend increasing the number of IP addresses in your subnets.</p></li></ul></div>
+						</li><li class="listitem"><p>If you run Amazon EMR release <b>emr-7.7.0</b> and above, and you use allocation strategy for instance fleets, you can 
+							scale the cluster up to 4000 EC2 instances and 14000 EBS volumes per instance fleet. For release versions below <b>emr-7.7.0</b>, the cluster 
+							can be scaled up only to 2000 EC2 instances and 7000 EBS volumes per instance fleet.</p></li><li class="listitem">
+							<p>When you launch On-Demand Instances, you can use open or targeted capacity reservations for primary, core, and task nodes
+							in your accounts. You might see insufficient capacity with On-Demand Instances with allocation strategy for instance fleets. We 
+							recommend that you specify multiple instance types to diversify and reduce the chance of experiencing insufficient capacity.
+							For more information, see <a href="./on-demand-capacity-reservations.html">Use capacity reservations with instance fleets in Amazon EMR</a>.</p>
+						</li></ul></div>
+				 
+					<h2 id="emr-instance-fleet-options">Instance fleet options</h2>
+					<p>Use the following guidelines to understand instance fleet options.</p>
+					<div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#emr-fleet-capacity">Setting target capacities</a></p></li><li><p><a href="#emr-fleet-spot-options">Launch options</a></p></li><li><p><a href="#emr-multiple-subnet-options">Multiple subnet (Availability Zones) options</a></p></li><li><p><a href="#emr-master-node-configuration">Master node configuration</a></p></li></ul></div>
+					 
+						<h3 id="emr-fleet-capacity"><b>Setting target capacities</b></h3>
+						<p>Specify the target capacities you want for the core fleet and task
+							fleet. When you do, that determines the number of On-Demand Instances
+							and Spot Instances that Amazon EMR provisions. When you specify an instance,
+							you decide how much each instance counts toward the target. When an
+							On-Demand Instance is provisioned, it counts toward the On-Demand
+							target. The same is true for Spot Instances. Unlike core and task
+							fleets, the primary fleet is always one instance. Therefore, the target
+							capacity for this fleet is always one. </p>
+						<p>When you use the console, the vCPUs of the Amazon EC2 instance type are
+							used as the count for target capacities by default. You can change this
+							to <b>Generic units</b>, and then specify the count for
+							each EC2 instance type. When you use the AWS CLI, you manually assign
+							generic units for each instance type. </p>
+						<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you choose an instance type using the AWS Management Console, the number of <b>vCPU</b> shown for each <b>Instance type</b> is the number of YARN vcores for that instance type, not the number of EC2 vCPUs for that instance type. For more information on the number of vCPUs for each instance type, see <a href="https://aws.amazon.com/ec2/instance-types/" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 Instance Types</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+						<p>For each fleet, you specify up to five Amazon EC2 instance types. If you
+							use an <a href="#emr-instance-fleet-allocation-strategy">Allocation strategy for instance fleets</a> and create
+							a cluster using the AWS CLI or the Amazon EMR API, you can specify up to 30 EC2
+							instance types per instance fleet. Amazon EMR chooses any combination of
+							these EC2 instance types to fulfill your target capacities. Because
+							Amazon EMR wants to fill target capacity completely, an overage might happen.
+							For example, if there are two unfulfilled units, and Amazon EMR can only
+							provision an instance with a count of five units, the instance still
+							gets provisioned, meaning that the target capacity is exceeded by three
+							units. </p>
+						<p>If you reduce the target capacity to resize a running cluster, Amazon EMR
+							attempts to complete application tasks and terminates instances to meet
+							the new target. For more information, see <a href="./emr-scaledown-behavior.html#emr-scaledown-terminate-task">Terminate at task completion</a>.</p>
+					 
+					 
+						<h3 id="emr-fleet-spot-options"><b>Launch options</b></h3>
+						<p>For Spot Instances, you can specify a <b>Maximum Spot
+								price</b> for each instance type in a fleet. You can set this
+							price either as a percentage of the On-Demand price, or as a specific
+							dollar amount. Amazon EMR provisions Spot Instances if the current Spot price
+							in an Availability Zone is below your maximum Spot price. You pay the Spot
+							price, not necessarily the maximum Spot price.</p>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Spot Instances with a defined duration (also known as Spot blocks)
+								are no longer available to new customers from July 1, 2021. For
+								customers who have previously used the feature, we will continue to
+								support Spot Instances with a defined duration until December 31,
+								2022.</p></div></div>
+						<p>Available in Amazon EMR 5.12.1 and later, you have the option to launch
+							Spot and On-Demand Instance fleets with optimized capacity allocation.
+							This allocation strategy option can be set in the old AWS Management Console or using
+							the API <code class="code">RunJobFlow</code>. Note that you can't customize
+							allocation strategy in the new console. Using the allocation strategy
+							option requires additional service role permissions. If you use the
+							default Amazon EMR service role and managed policy (<a href="./emr-iam-role.html">EMR_DefaultRole</a> and
+								<code class="code">AmazonEMRServicePolicy_v2</code>) for the cluster, the
+							permissions for the allocation strategy option are already included. If
+							you're not using the default Amazon EMR service role and managed policy, you
+							must add them to use this option. See <a href="./emr-iam-role.html">Service role for Amazon EMR (EMR role)</a>.</p>
+						<p>For more information about Spot Instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html">Spot Instances</a>
+							in the Amazon EC2 User Guide. For more information about On-Demand Instances,
+							see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html">On-Demand
+								Instances</a> in the Amazon EC2 User Guide.</p>
+						<p>If you choose to launch On-Demand Instance fleets with the
+							lowest-price allocation strategy, you have the option to use capacity
+							reservations. Capacity reservation options can be set using the Amazon EMR
+							API <code class="code">RunJobFlow</code>. Capacity reservations require additional
+							service role permissions which you must add to use these options. See
+								<a href="#create-cluster-allocation-policy">Allocation strategy permissions</a>. Note that you
+							can't customize capacity reservations in the new console.</p>
+					 
+					 
+						<h3 id="emr-multiple-subnet-options"><b>Multiple subnet (Availability Zones) options</b></h3>
+						<p>When you use instance fleets, you can specify multiple Amazon EC2 subnets
+							within a VPC, each corresponding to a different Availability Zone. If you use
+							EC2-Classic, you specify Availability Zones explicitly. Amazon EMR identifies the
+							best Availability Zone to launch instances according to your fleet
+							specifications. Instances are always provisioned in only one Availability Zone.
+							You can select private subnets or public subnets, but you can't mix the
+							two, and the subnets you specify must be within the same VPC.</p>
+					 
+					 
+						<h3 id="emr-master-node-configuration"><b>Master node configuration</b></h3>
+						<p>Because the primary instance fleet is only a single instance, its
+							configuration is slightly different from core and task instance fleets.
+							You only select either On-Demand or Spot for the primary instance
+							fleet because it consists of only one instance. If you use the console
+							to create the instance fleet, the target capacity for the purchasing
+							option you select is set to 1. If you use the AWS CLI, always set either
+								<code class="code">TargetSpotCapacity</code> or
+								<code class="code">TargetOnDemandCapacity</code> to 1 as appropriate. You can
+							still choose up to five instance types for the primary instance
+							fleet (or a maximum of 30 when you use the allocation strategy option
+							for On-Demand or Spot Instances). However, unlike core and task instance
+							fleets, where Amazon EMR might provision multiple instances of different
+							types, Amazon EMR selects a single instance type to provision for the
+							primary instance fleet.</p>
+					 
+				 
+	<h2 id="emr-instance-fleet-allocation-strategy">Allocation strategy for instance fleets</h2>
+	<p>With Amazon EMR versions 5.12.1 and later, you can use the allocation strategy option with
+		On-Demand and Spot Instances for each cluster node. When you create a cluster using the
+		AWS CLI, Amazon EMR API, or Amazon EMR console with an allocation strategy, you can specify up to 30
+		Amazon EC2 instance types per fleet. With the default Amazon EMR cluster instance fleet configuration,
+		you can have up to 5 instance types per fleet. We recommend that you use the allocation
+		strategy option for faster cluster provisioning, more accurate Spot Instance allocation, and
+		fewer Spot Instance interruptions.</p>
+	<div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#emr-instance-fleet-allocation-strategy-od">Allocation strategy with On-Demand Instances</a></p></li><li><p><a href="#emr-instance-fleet-allocation-strategy-spot">Allocation strategy with Spot Instances</a></p></li><li><p><a href="#emr-instance-fleet-allocation-strategy-permissions">Allocation strategy permissions</a></p></li><li><p><a href="#create-cluster-allocation-policy">Required IAM permissions for an allocation strategy</a></p></li></ul></div>
+	 
+		<h3 id="emr-instance-fleet-allocation-strategy-od">Allocation strategy with On-Demand Instances</h3>
+		<p>The following allocation strategies are available for your On-Demand Instances:</p>
+		<div class="variablelist">
+			 
+			 
+		<dl>
+				<dt><span class="term"><code class="code">lowest-price</code><b> (default)</b></span></dt>
+				<dd><p>The lowest-price allocation strategy launches On-Demand instances from the lowest priced pool that 
+					has available capacity. If the lowest-priced pool doesn't have available capacity, the On-Demand Instances come from the 
+					next lowest-priced pool with available capacity.</p></dd>
+			 
+				<dt><span class="term"><code class="code">prioritized</code></span></dt>
+				<dd><p>The prioritized allocation strategy lets you specify a priority value for each instance type for your instance fleet. Amazon EMR launches your On-Demand Instances
+					that have the highest priority. If you use this strategy, you must configure the priority for at least one instance type. 
+					If you don't configure the priority value for an instance type, Amazon EMR assigns the lowest priority to that instance type. Each instance fleet (primary, core, or task) in a cluster
+					can have a different priority value for a given instance type.</p></dd>
+			</dl></div>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use the <b>capacity-optimized-prioritized</b> Spot allocation strategy, Amazon EMR applies the same priorities
+			to both your On-Demand Instances and Spot instances when you set priorities.</p></div></div>
+
+	 
+	 
+		<h3 id="emr-instance-fleet-allocation-strategy-spot">Allocation strategy with Spot Instances</h3>
+		<p>For <em>Spot Instances</em> you can choose from one of the following
+			allocation strategies:</p>
+		<div class="variablelist">
+
+			 
+			 
+			 
+			 
+			 
+			
+		<dl>
+				<dt><b><span class="term"><code class="code">price-capacity-optimized</code> (recommended) </span></b></dt>
+				<dd>
+					<p>The price-capacity optimized allocation strategy launches Spot instances
+						from the Spot instance pools that have the highest capacity available and
+						the lowest price for the number of instances that are launching. As a
+						result, the price-capacity optimized strategy typically has a higher chance
+						of getting Spot capacity, and delivers lower interruption rates.This is the default strategy
+						for Amazon EMR releases 6.10.0 and higher.</p>
+				</dd>
+			
+				<dt><b><span class="term"><code class="code">capacity-optimized</code></span></b></dt>
+				<dd>
+					<p>The capacity-optimized allocation strategy launches Spot Instances into
+						the most available pools with the lowest chance of interruption in the near
+						term. This is a good option for workloads that might have a higher cost of
+						interruption associated with work that gets restarted. This is the default
+						strategy for Amazon EMR releases 6.9.0 and lower.</p>
+				</dd>
+			
+				<dt><b><span class="term"><code class="code">capacity-optimized-prioritized</code></span></b></dt>
+				<dd>
+					<p>The capacity-optimized-prioritized allocation strategy lets you specify a priority value for each instance type in your
+					instance fleet. Amazon EMR optimizes for capacity first, but it respects instance type priorities on a best-effort basis, such as if the priority
+					doesn't significantly affect the fleet's ability to provision optimal capacity. We recommend this option if you have workloads that must
+					have a minimal amount of disruption that still have a need for certain instance types. If you use this strategy, you must configure the priority
+					for at least one instance type. If you don't configure a priority for any instance type, Amazon EMR assigns the lowest priority value to that instance type.
+					Each instance fleet (primary, core, or task) in a cluster can have a different priority value for a given instance type.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you use the <b>prioritized</b> On-Demand allocation strategy, Amazon EMR applies the same priority value
+							to both your On-Demand and Spot Instances when you set priorities.</p></div></div>
+				</dd>
+			
+				<dt><b><span class="term"><code class="code">diversified</code></span></b></dt>
+				<dd>
+					<p>With the diversified allocation strategy, Amazon EC2 distributes Spot Instances
+						across all Spot capacity pools.</p>
+				</dd>
+			
+				<dt><b><span class="term"><code class="code">lowest-price</code></span></b></dt>
+				<dd>
+					<p>The lowest-price allocation strategy launches Spot Instances from the
+						lowest priced pool that has available capacity. If the lowest-priced pool
+						doesn't have available capacity, the Spot Instances come from the next
+						lowest priced pool that has available capacity. If a pool runs out of
+						capacity before it fulfills your requested capacity, the Amazon EC2 fleet draws
+						from the next lowest priced pool to continue to fulfill your request. To
+						ensure that your desired capacity is met, you might receive Spot Instances
+						from several pools. Because this strategy only considers instance price, and
+						does not consider capacity availability, it might lead to high interruption
+						rates.</p>
+				</dd>
+			</dl></div>
+
+	 
+	 
+		<h3 id="emr-instance-fleet-allocation-strategy-permissions">Allocation strategy permissions</h3>
+		<p>The allocation strategy option requires several IAM permissions that are
+			automatically included in the default Amazon EMR service role and Amazon EMR managed policy
+				(<code class="code">EMR_DefaultRole</code> and <code class="code">AmazonEMRServicePolicy_v2</code>). If you
+			use a custom service role or managed policy for your cluster, you must add these
+			permissions before you create the cluster. For more information, see <a href="#create-cluster-allocation-policy">Allocation strategy permissions</a>.</p>
+		<p>Optional On-Demand Capacity Reservations (ODCRs) are available when you use the
+			On-Demand allocation strategy option. Capacity reservation options let you specify a
+			preference for using reserved capacity first for Amazon EMR clusters. You can use this to
+			ensure that your critical workloads use the capacity you have already reserved using
+			open or targeted ODCRs. For non-critical workloads, the capacity reservation preferences
+			let you specify whether reserved capacity should be consumed.</p>
+		<p>Capacity reservations can only be used by instances that match their attributes
+			(instance type, platform, and Availability Zone). By default, open capacity reservations are
+			automatically used by Amazon EMR when provisioning On-Demand Instances that match the
+			instance attributes. If you don't have any running instances that match the attributes
+			of the capacity reservations, they remain unused until you launch an instance matching
+			their attributes. If you don't want to use any capacity reservations when launching your
+			cluster, you must set capacity reservation preference to <b>none</b> in
+			launch options.</p>
+		<p>However, you can also target a capacity reservation for specific workflows. This
+			enables you to explicitly control which instances are allowed to run in that reserved
+			capacity. For more information about On-Demand capacity reservations, see <a href="./on-demand-capacity-reservations.html">Use capacity reservations with instance fleets in Amazon EMR</a>.</p>
+	 
+
+	 
+		<h3 id="create-cluster-allocation-policy">Required IAM permissions for an allocation strategy</h3>
+		<p>Your <a href="./emr-iam-role.html">Service role for Amazon EMR (EMR role)</a> requires additional
+			permissions to create a cluster that uses the allocation strategy option for On-Demand
+			or Spot Instance fleets.</p>
+		<p>We automatically include these permissions in the default Amazon EMR service role <a href="./emr-iam-role.html">EMR_DefaultRole</a> and the Amazon EMR managed
+			policy <a href="./emr-managed-iam-policies.html">AmazonEMRServicePolicy_v2</a>.</p>
+		<p>If you use a custom service role or managed policy for your cluster, you must add the
+			following permissions:</p>
+		<awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="809822ee52af487ef57dbfd47dac95c1e860226cb084926cb71f3e3f33fb500d"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DeleteLaunchTemplate",
+        "ec2:CreateLaunchTemplate",
+        "ec2:DescribeLaunchTemplates",
+        "ec2:CreateLaunchTemplateVersion",
+        "ec2:CreateFleet"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Sid": "AllowEC2Deletelaunchtemplate"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+		<p>The following service role permissions are required to create a cluster that uses open
+			or targeted capacity reservations. You must include these permissions in addition to the
+			permissions required for using the allocation strategy option.</p>
+		<div class="example"><h6>Example Policy document for service role capacity reservations</h6><div class="example-contents"><p>To use open capacity reservations, you must include the following additional
+				permissions.</p><awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="da90668fea078180f50168b780e771d68a9406fa37ecae959b01061fda891344"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeCapacityReservations",
+        "ec2:DescribeLaunchTemplateVersions",
+        "ec2:DeleteLaunchTemplateVersions"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Sid": "AllowEC2Describecapacityreservations"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs></div></div>
+		<div class="example"><h6>Example</h6><div class="example-contents"><p>To use targeted capacity reservations, you must include the following additional
+				permissions.</p><awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="59df82f8923a78f66b93e5d6cacb2b7f7b7b2448a7a05ac9683e7c9505951c6f"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeCapacityReservations",
+        "ec2:DescribeLaunchTemplateVersions",
+        "ec2:DeleteLaunchTemplateVersions",
+        "resource-groups:ListGroupResources"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Sid": "AllowEC2Describecapacityreservations"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs></div></div>
+	 
+ 
+	<h2 id="emr-instance-fleet-console">Configure instance fleets for your cluster</h2>
+	<awsdocs-tabs><dl style="display: none">
+		<dt>Console</dt><dd tab-id="console_tab">
+				<div class="procedure"><h6>To create a cluster with instance fleets with the console</h6><ol><li>
+						<p>Sign in to the AWS Management Console, and open the Amazon EMR console at
+							<a href="https://console.aws.amazon.com/emr" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/emr</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+					</li><li>
+						<p>Under <b>EMR on EC2</b> in the left navigation pane,
+							choose <b>Clusters</b>, and choose <b>Create
+								cluster</b>.</p>
+					</li><li>
+						<p>Under <b>Cluster configuration</b>, choose
+								<b>Instance fleets</b>.</p>
+					</li><li>
+						<p>For each <b>Node group</b>, select <b>Add
+								instance type</b> and choose up to 5 instance types for
+							primary and core instance fleets and up to fifteen instance types for
+							task instance fleets. Amazon EMR might provision any mix of these instance
+							types when it launches the cluster.</p>
+					</li><li>
+						<p>Under each node group type, choose the <b>Actions</b>
+							dropdown menu next to each instance to change these settings:</p>
+						<div class="variablelist">
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Add EBS volumes</span></b></dt>
+								<dd>
+									<p>Specify EBS volumes to attach to the instance type after
+										Amazon EMR provisions it.</p>
+								</dd>
+							
+								<dt><b><span class="term">Edit weighted capacity</span></b></dt>
+								<dd>
+									<p>For the core node group, change this value to any number
+										of units that fits your applications. The number of YARN
+										vCores for each fleet instance type is used as the default
+										weighted capacity units. You can't edit weighted capacity
+										for the primary node.</p>
+								</dd>
+							
+								<dt><b><span class="term">Edit maximum Spot price</span></b></dt>
+								<dd>
+									<p>Specify a maximum Spot price for each instance type in a
+										fleet. You can set this price either as a percentage of the
+										On-Demand price, or as a specific dollar amount. If the
+										current Spot price in an Availability Zone is below your maximum
+										Spot price, Amazon EMR provisions Spot Instances. You pay the
+										Spot price, not necessarily the maximum Spot price.</p>
+								</dd>
+							</dl></div>
+					</li><li>
+						<p>Optionally, to add security groups for your nodes, expand
+								<b>EC2 security groups (firewall)</b> in the
+								<b>Networking</b> section and select your security
+							group for each node type.</p>
+					</li><li>
+						<p>Optionally, select the check box next to <b>Apply allocation
+								strategy</b> if you want to use the allocation strategy
+							option, and select the allocation strategy that you want to specify for
+							the Spot Instances. You shouldn't select this option if your Amazon EMR
+							service role doesn't have the required permissions. For more
+							information, see <a href="#emr-instance-fleet-allocation-strategy">Allocation strategy for instance fleets</a>.</p>
+					</li><li>
+						<p>Choose any other options that apply to your cluster. </p>
+					</li><li>
+						<p>To launch your cluster, choose <b>Create
+							cluster</b>.</p>
+					</li></ol></div>
+			</dd>
+		
+		<dt>AWS CLI</dt><dd tab-id="CLI_tab">
+				<p>To create and launch a cluster with instance fleets with the AWS CLI, follow
+					these guidelines:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>To create and launch a cluster with instance fleets, use the
+								<code class="code">create-cluster</code> command along with
+								<code class="code">--instance-fleet</code> parameters.</p>
+					</li><li class="listitem">
+						<p>To get configuration details about the instance fleets in a cluster,
+							use the <code class="code">list-instance-fleets</code> command.</p>
+					</li><li class="listitem">
+						<p>To add multiple custom Amazon Linux AMIs to a cluster you’re creating, use the
+								<code class="code">CustomAmiId</code> option with each <code class="code">InstanceType</code>
+							specification. You can configure instance fleet nodes with multiple
+							instance types and multiple custom AMIs to fit your requirements. See
+								<a href="#create-cluster-instance-fleet-cli">Examples: Creating a cluster with the instance fleets configuration</a>. </p>
+					</li><li class="listitem">
+						<p>To make changes to the target capacity for an instance fleet, use the
+								<code class="code">modify-instance-fleet</code> command.</p>
+					</li><li class="listitem">
+						<p>To add a task instance fleet to a cluster that doesn't already have
+							one, use the <code class="code">add-instance-fleet</code> command.</p>
+					</li><li class="listitem">
+						<p>Multiple custom AMIs can be added to the task instance fleet using the
+							CustomAmiId argument with the add-instance-fleet command. See <a href="#create-cluster-instance-fleet-cli">Examples: Creating a cluster with the instance fleets configuration</a>.</p>
+					</li><li class="listitem">
+						<p>To use the allocation strategy option when creating an instance fleet,
+							update the service role to include the example policy document in the
+							following section.</p>
+					</li><li class="listitem">
+						<p>To use the capacity reservations options when creating an instance
+							fleet with On-Demand allocation strategy, update the service role to
+							include the example policy document in the following section.</p>
+					</li><li class="listitem">
+						<p>The instance fleets are automatically included in the default EMR
+							service role and Amazon EMR managed policy (<code class="code">EMR_DefaultRole</code> and
+								<code class="code">AmazonEMRServicePolicy_v2</code>). If you are using a custom
+							service role or custom managed policy for your cluster, you must add the
+							new permissions for allocation strategy in the following section.</p>
+					</li></ul></div>
+			</dd>
+	</dl></awsdocs-tabs>
+ 
+					<h2 id="create-cluster-instance-fleet-cli">Examples: Creating a cluster with the instance fleets configuration</h2>
+					<p>The following examples demonstrate <code class="code">create-cluster</code> commands
+						with a variety of options that you can combine.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have not previously created the default Amazon EMR service role and
+							EC2 instance profile, use <code class="code">aws emr create-default-roles</code> to
+							create them before using the <code class="code">create-cluster</code> command.</p></div></div>
+					<div class="example"><h6>Example: On-Demand primary, On-Demand core with single instance type, Default VPC</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label <code class="replaceable">emr-5.3.1</code> --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetOnDemandCapacity=1,InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge}'] \
+    InstanceFleetType=CORE,TargetOnDemandCapacity=1,InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge}']</code></pre></div></div>
+					<div class="example"><h6>Example: Spot primary, Spot core with single instance type, default VPC</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label emr-5.3.1 --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetSpotCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5}'] \
+    InstanceFleetType=CORE,TargetSpotCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5}']</code></pre></div></div>
+					<div class="example"><h6>Example: On-Demand primary, mixed core with single instance type, single EC2 subnet</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label emr-5.3.1 --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole,SubnetIds=['subnet-ab12345c'] \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetOnDemandCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge}'] \
+    InstanceFleetType=CORE,TargetOnDemandCapacity=2,TargetSpotCapacity=6,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5,WeightedCapacity=2}']</code></pre></div></div>
+					<div class="example"><h6>Example: On-Demand primary, spot core with multiple weighted instance Types, Timeout for Spot, Range of EC2 Subnets</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label emr-5.3.1 --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole,SubnetIds=['subnet-ab12345c','subnet-de67890f'] \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetOnDemandCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge}'] \
+    InstanceFleetType=CORE,TargetSpotCapacity=11,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5,WeightedCapacity=3}',\
+'<span>{</span>InstanceType=m4.2xlarge,BidPrice=0.9,WeightedCapacity=5}'],\
+LaunchSpecifications=<span>{</span>SpotSpecification='<span>{</span>TimeoutDurationMinutes=120,TimeoutAction=SWITCH_TO_ON_DEMAND}'}</code></pre></div></div>
+					<div class="example"><h6>Example: On-Demand primary, mixed core and task with multiple weighted instance types, timeout for core Spot Instances, range of EC2 subnets</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label emr-5.3.1 --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole,SubnetIds=['subnet-ab12345c','subnet-de67890f'] \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetOnDemandCapacity=1,InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge}'] \
+    InstanceFleetType=CORE,TargetOnDemandCapacity=8,TargetSpotCapacity=6,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5,WeightedCapacity=3}',\
+'<span>{</span>InstanceType=m4.2xlarge,BidPrice=0.9,WeightedCapacity=5}'],\
+LaunchSpecifications=<span>{</span>SpotSpecification='<span>{</span>TimeoutDurationMinutes=120,TimeoutAction=SWITCH_TO_ON_DEMAND}'} \
+    InstanceFleetType=TASK,TargetOnDemandCapacity=3,TargetSpotCapacity=3,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5,WeightedCapacity=3}']</code></pre></div></div>
+					<div class="example"><h6>Example: Spot primary, no core or task, Amazon EBS configuration, default VPC</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label Amazon EMR 5.3.1 --service-role EMR_DefaultRole \ 
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetSpotCapacity=1,\
+LaunchSpecifications=<span>{</span>SpotSpecification='<span>{</span>TimeoutDurationMinutes=60,TimeoutAction=TERMINATE_CLUSTER}'},\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5,\
+EbsConfiguration=<span>{</span>EbsOptimized=true,EbsBlockDeviceConfigs=[<span>{</span>VolumeSpecification=<span>{</span>VolumeType=gp2,\
+SizeIn GB=100}},<span>{</span>VolumeSpecification=<span>{</span>VolumeType=io1,SizeInGB=100,Iop s=100},VolumesPerInstance=4}]}}']		</code></pre></div></div>
+					<div class="example"><h6>Example: Multiple custom AMIs, multiple instance types, on-demand primary, on-demand core</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label Amazon EMR 5.3.1 --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+  --instance-fleets \
+    InstanceFleetType=MASTER,TargetOnDemandCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,CustomAmiId=ami-123456},<span>{</span>InstanceType=m6g.xlarge, CustomAmiId=ami-234567}'] \ 
+    InstanceFleetType=CORE,TargetOnDemandCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,CustomAmiId=ami-123456},<span>{</span>InstanceType=m6g.xlarge, CustomAmiId=ami-234567}']</code></pre></div></div>
+					<div class="example"><h6>Example: Add a task node to a running cluster with multiple instance types and multiple custom AMIs</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr add-instance-fleet --cluster-id j-123456 --release-label Amazon EMR 5.3.1 \
+  --service-role EMR_DefaultRole \
+  --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+  --instance-fleet \
+    InstanceFleetType=Task,TargetSpotCapacity=1,\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,CustomAmiId=ami-123456}',\
+'<span>{</span>InstanceType=m6g.xlarge,CustomAmiId=ami-234567}']</code></pre></div></div>
+					<div class="example"><h6>Example: Use a JSON configuration file</h6><div class="example-contents"><p>You can configure instance fleet parameters in a JSON file, and then
+							reference the JSON file as the sole parameter for instance fleets. For
+							example, the following command references a JSON configuration file,
+									<code><code class="replaceable">my-fleet-config.json</code></code>:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr create-cluster --release-label emr-5.30.0 --service-role EMR_DefaultRole \
+--ec2-attributes InstanceProfile=EMR_EC2_DefaultRole \
+--instance-fleets file://<code class="replaceable">my-fleet-config.json</code></code></pre><p>The <code class="replaceable">my-fleet-config.json</code> file specifies
+							primary, core, and task instance fleets as shown in the following
+							example. The core instance fleet uses a maximum Spot price
+								(<code class="code">BidPrice</code>) as a percentage of On-Demand, while the task
+							and primary instance fleets use a maximum Spot price
+							(BidPriceAsPercentageofOnDemandPrice) as a string in USD.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">[
+    <span>{</span>
+        "Name": "Masterfleet",
+        "InstanceFleetType": "MASTER",
+        "TargetSpotCapacity": 1,
+        "LaunchSpecifications": <span>{</span>
+            "SpotSpecification": <span>{</span>
+                "TimeoutDurationMinutes": 120,
+                "TimeoutAction": "SWITCH_TO_ON_DEMAND"
+            }
+        },
+        "InstanceTypeConfigs": [
+            <span>{</span>
+                "InstanceType": "m5.xlarge",
+                "BidPrice": "0.89"
+            }
+        ]
+    },
+    <span>{</span>
+        "Name": "Corefleet",
+        "InstanceFleetType": "CORE",
+        "TargetSpotCapacity": 1,
+        "TargetOnDemandCapacity": 1,
+        "LaunchSpecifications": <span>{</span>
+          "OnDemandSpecification": <span>{</span>
+            "AllocationStrategy": "lowest-price",
+            "CapacityReservationOptions": 
+            <span>{</span>
+                "UsageStrategy": "use-capacity-reservations-first",
+                "CapacityReservationResourceGroupArn": "String"
+            }
+        },
+            "SpotSpecification": <span>{</span>
+                "AllocationStrategy": "capacity-optimized",
+                "TimeoutDurationMinutes": 120,
+                "TimeoutAction": "TERMINATE_CLUSTER"
+            }
+        },
+        "InstanceTypeConfigs": [
+            <span>{</span>
+                "InstanceType": "m5.xlarge",
+                "BidPriceAsPercentageOfOnDemandPrice": 100
+            }
+        ]
+    },
+    <span>{</span>
+        "Name": "Taskfleet",
+        "InstanceFleetType": "TASK",
+        "TargetSpotCapacity": 1,
+        "LaunchSpecifications": <span>{</span>
+          "OnDemandSpecification": <span>{</span>
+            "AllocationStrategy": "lowest-price",
+            "CapacityReservationOptions": 
+            <span>{</span>
+                "CapacityReservationPreference": "none"
+            }
+        },
+            "SpotSpecification": <span>{</span>
+                "TimeoutDurationMinutes": 120,
+                "TimeoutAction": "TERMINATE_CLUSTER"
+            }
+        },
+        "InstanceTypeConfigs": [
+            <span>{</span>
+                "InstanceType": "m5.xlarge",
+                "BidPrice": "0.89"
+            }
+        ]
+    }
+]</code></pre></div></div>
+				 
+					<h2 id="emr-fleet-modify-target-cli">Modify target capacities for an instance fleet</h2>
+					<p>Use the <code class="code">modify-instance-fleet</code> command to specify new target
+						capacities for an instance fleet. You must specify the cluster ID and the
+						instance fleet ID. Use the <code class="code">list-instance-fleets</code> command to
+						retrieve instance fleet IDs.</p>
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr modify-instance-fleet --cluster-id <code class="replaceable">&lt;cluster-id&gt;</code> \
+  --instance-fleet \
+    InstanceFleetId='<code class="replaceable">&lt;instance-fleet-id&gt;</code>',TargetOnDemandCapacity=1,TargetSpotCapacity=1			</code></pre>
+				 
+					<h2 id="emr-task-instance-fleet">Add a task instance fleet to a cluster</h2>
+					<p>If a cluster has only primary and core instance fleets, you can use the
+							<code class="code">add-instance-fleet</code> command to add a task instance fleet.
+						You can only use this to add task instance fleets.</p>
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws emr add-instance-fleet --cluster-id <code class="replaceable">&lt;cluster-id&gt;</code> 
+  --instance-fleet \
+    InstanceFleetType=TASK,TargetSpotCapacity=1,\
+LaunchSpecifications=<span>{</span>SpotSpecification='<span>{</span>TimeoutDurationMinutes=20,TimeoutAction=TERMINATE_CLUSTER}'},\
+InstanceTypeConfigs=['<span>{</span>InstanceType=m5.xlarge,BidPrice=0.5}']				</code></pre>
+				 
+					<h2 id="emr-instance-fleet-get-configuration">Get configuration details of instance fleets in a cluster</h2>
+					<p>Use the <code class="code">list-instance-fleets</code> command to get configuration
+						details of the instance fleets in a cluster. The command takes a cluster ID
+						as input. The following example demonstrates the command and its output for
+						a cluster that contains a primary task instance group and a core task
+						instance group. For full response syntax, see <a href="https://docs.aws.amazon.com/ElasticMapReduce/latest/API/API_ListInstanceFleets.html">ListInstanceFleets</a> in the
+						<em>Amazon EMR API Reference.</em></p>
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">list-instance-fleets --cluster-id <code class="replaceable">&lt;cluster-id&gt;</code>			</code></pre>
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+    "InstanceFleets": [
+        <span>{</span>
+            "Status": <span>{</span>
+                "Timeline": <span>{</span>
+                    "ReadyDateTime": 1488759094.637,
+                    "CreationDateTime": 1488758719.817
+                },
+                "State": "RUNNING",
+                "StateChangeReason": <span>{</span>
+                    "Message": ""
+                }
+            },
+            "ProvisionedSpotCapacity": 6,
+            "Name": "CORE",
+            "InstanceFleetType": "CORE",
+            "LaunchSpecifications": <span>{</span>
+                "SpotSpecification": <span>{</span>
+                    "TimeoutDurationMinutes": 60,
+                    "TimeoutAction": "TERMINATE_CLUSTER"
+                }
+            },
+            "ProvisionedOnDemandCapacity": 2,
+            "InstanceTypeSpecifications": [
+                <span>{</span>
+                    "BidPrice": "0.5",
+                    "InstanceType": "m5.xlarge",
+                    "WeightedCapacity": 2
+                }
+            ],
+            "Id": "if-1ABC2DEFGHIJ3"
+        },
+        <span>{</span>
+            "Status": <span>{</span>
+                "Timeline": <span>{</span>
+                    "ReadyDateTime": 1488759058.598,
+                    "CreationDateTime": 1488758719.811
+                },
+                "State": "RUNNING",
+                "StateChangeReason": <span>{</span>
+                    "Message": ""
+                }
+            },
+            "ProvisionedSpotCapacity": 0,
+            "Name": "MASTER",
+            "InstanceFleetType": "MASTER",
+            "ProvisionedOnDemandCapacity": 1,
+            "InstanceTypeSpecifications": [
+                <span>{</span>
+                    "BidPriceAsPercentageOfOnDemandPrice": 100.0,
+                    "InstanceType": "m5.xlarge",
+                    "WeightedCapacity": 1
+                }
+            ],
+           "Id": "if-2ABC4DEFGHIJ4"
+        }
+    ]
+}
+						
+						</code></pre>
+				<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./emr-instance-group-configuration.html">Configure instance fleets or instance groups</div><div id="next" class="next-link" accesskey="n" href="./instance-fleet-reconfiguration.html">Reconfiguring instance fleets for your Amazon EMR cluster</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EMR&amp;topic_url=https://docs.aws.amazon.com/en_us/emr/latest/ManagementGuide/emr-instance-fleet.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EMR&amp;topic_url=https://docs.aws.amazon.com/en_us/emr/latest/ManagementGuide/emr-instance-fleet.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

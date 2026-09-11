@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RDS: Multi-AZ y réplicas — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>RDS <span class="en">Amazon Relational Database Service</span></h1>
+<p class="subtitle">La distinción entre Multi-AZ y read replicas es una de las preguntas más repetidas del examen: alta disponibilidad con réplica síncrona y pasiva frente a escala de lectura con réplica asíncrona y promocionable.</p>
+<div class="chips">
+  <span class="chip">Fase 5 · Bases de datos</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p><strong>Amazon RDS</strong> es el servicio gestionado de bases de datos relacionales: eliges un motor estándar — MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server o Db2 — y AWS se encarga del <span class="tag-en">undifferentiated heavy lifting</span>: aprovisionar la infraestructura, parchear el sistema operativo y el motor, gestionar backups y alta disponibilidad. Sigues siendo responsable de lo que la documentación llama <em>query tuning</em>: el diseño del esquema, la distribución de datos y la optimización de consultas siguen siendo tuyos, con Performance Insights como herramienta para encontrar las consultas problemáticas. El acceso de red se controla con security groups, y la instancia queda dentro de una VPC con subnets por AZ.</p>
+
+<p>Para el examen, RDS no se pregunta como producto sino como <strong>arquitectura de despliegue</strong>. Hay dos palancas de diseño que el enunciado a menudo mezcla a propósito: <strong>Multi-AZ</strong>, que replica la instancia en otra Availability Zone para sobrevivir a fallos de infraestructura, y <strong>read replicas</strong>, que descargan las lecturas de la primaria para escalar horizontalmente. Se parecen en el nombre y se diferencian en todo lo demás: propósito, tipo de replicación, si sirven tráfico y si se pueden promover. Confundirlas es el error más caro de esta área del temario, así que esta página se construye alrededor de esa distinción.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph MAZ["Multi-AZ: alta disponibilidad"]
+        W1["Primaria<br>sirve escrituras"] -->|"réplica síncrona"| S1["Standby pasiva<br>no sirve lecturas"]
+    end
+    subgraph RR["Read replicas: escala de lectura"]
+        W2["Primaria<br>sirve escrituras"] -->|"réplica asíncrona"| R2["Réplica legible<br>sirve lecturas"]
+        W2 -->|"asíncrona"| R3["Réplica en<br>otra región"]
+    end
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class W1,W2 navy
+    class S1 amber
+    class R2,R3 green
+</div>
+<figcaption>Figura 1 — La distinción clave: la standby de Multi-AZ es pasiva y síncrona; la read replica sirve lecturas y es asíncrona.</figcaption>
+</figure>
+
+<h2>Multi-AZ: alta disponibilidad con standby síncrona</h2>
+
+<p>Un despliegue <span class="tag-en">Multi-AZ DB instance</span> mantiene una <strong>standby</strong> en otra Availability Zone de la misma región, replicada de forma <strong>síncrona</strong>. La standby es deliberadamente pasiva: no atiende consultas de clientes, solo recibe cambios, y su única razón de existir es tomar el relevo cuando la primaria falla. En un failover, RDS conmuta el nombre DNS de la instancia hacia la standby — las conexiones se reestablecen apuntando al mismo endpoint — en un proceso que típicamente se resuelve en el orden de un minuto. El enunciado que lo delata usa palabras como "resilient to database failures", "survive the loss of an Availability Zone" o "high availability", y la respuesta no añade réplicas legibles: solo la standby.</p>
+
+<p>La variante moderna, <span class="tag-en">Multi-AZ DB cluster</span>, cambia la topología: <strong>dos standby</strong> en dos AZs adicionales (una writable y dos reader instances en tres zonas), que además de failover sí pueden servir tráfico de lectura a través de su propio endpoint. La documentación lo describe como "tres zonas" en la consola, frente al "Multi-AZ: Yes" de la instancia clásica de una sola standby. También importa el porqué del costo: Multi-AZ duplica (o triplica) el hardware sin añadir capacidad de lectura en el modo clásico — pagas disponibilidad, no rendimiento, y esa trade-off aparece en preguntas de optimización de costos. Finalmente, Multi-AZ es el prerrequisito natural para patching y mantenimiento sin downtime: los cambios se aplican primero a la standby, se conmuta, y luego a la antigua primaria.</p>
+
+<h2>Read replicas: escala de lectura asíncrona y promocionable</h2>
+
+<p>Una <span class="tag-en">read replica</span> es una copia de solo lectura que RDS construye con las <strong>capacidades de replicación nativas del motor</strong>. La replicación es <strong>asíncrona</strong>: la primaria confirma las escrituras sin esperar a la réplica, lo que evita el costo de latencia de Multi-AZ a cambio de una posible <span class="tag-en">replication lag</span> — lecturas eventualmente consistentes. La aplicación enruta las consultas de lectura al endpoint de la réplica, descargando a la primaria para que asuma más escrituras: el patrón de examen es "read-heavy workload" o "reporting queries are slowing down production". Puedes crear réplicas en otra AZ, en <strong>otra región</strong> (cross-region, con costo de transferencia de datos) o encadenar réplicas de réplicas, y una réplica existente puede <strong>promocionarse a instancia independiente</strong> — la herramienta de examen para "promote a replica to become a standalone database" o para migraciones con downtime mínimo.</p>
+
+<p>El detalle que cierra la distinción: una read replica <em>también</em> puede ser origen de failover de DR, pero no es su función primaria, y sobre todo <strong>no conmuta sola</strong>: la promoción es una decisión tuya, explícita. Si el requisito es "automatic failover", la respuesta es Multi-AZ; si es "scale reads" o "serve reads closer to users", es read replica; y si el escenario pide ambas cosas, la arquitectura correcta es <strong>Multi-AZ + réplicas</strong>: standby para disponibilidad y réplicas para rendimiento, simultáneamente.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Dimensión</th><th>Multi-AZ (DB instance)</th><th>Read replica</th></tr></thead>
+<tbody>
+<tr><td><strong>Propósito</strong></td><td>Alta disponibilidad y DR</td><td>Escalar lecturas, descargar la primaria</td></tr>
+<tr><td><strong>Replicación</strong></td><td>Síncrona</td><td>Asíncrona — con lag</td></tr>
+<tr><td><strong>¿Sirve tráfico?</strong></td><td>No, la standby es pasiva</td><td>Sí, solo lecturas</td></tr>
+<tr><td><strong>Failover</strong></td><td>Automático, vía DNS</td><td>No automático: se promueve manualmente</td></tr>
+<tr><td><strong>Puede ser independiente</strong></td><td>No — es una standby</td><td>Sí — promoción a standalone</td></tr>
+<tr><td><strong>Ubicación</strong></td><td>Otra AZ de la misma región</td><td>Otra AZ, otra región, encadenadas</td></tr>
+<tr><td><strong>Señal típica</strong></td><td>"resilient to failure of an AZ"</td><td>"read-heavy workload", "reporting queries"</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>RDS Proxy: agrupar conexiones y sobrevivir al failover</h2>
+
+<p>Cada conexión de base de datos consume memoria y CPU en la instancia, y las arquitecturas serverless — Lambda por encima de todo — abren conexiones en ráfagas capaces de agotarlas. <strong>Amazon RDS Proxy</strong> interpone un <span class="tag-en">connection pool</span> totalmente gestionado entre la aplicación y la base de datos: las aplicaciones abren muchas conexiones al proxy, y el proxy las multiplexa sobre un conjunto pequeño de conexiones reales a RDS. El beneficio inmediato es la escala de conexiones; el segundo, y el más citado, es la <strong>resiliencia</strong>: en un failover Multi-AZ, el proxy detecta el cambio y reconecta a la nueva primaria <em>conservando las conexiones de las aplicaciones</em>, que no se enteran. En seguridad, RDS Proxy permite exigir <span class="tag-en">IAM authentication</span> a los clientes del proxy, y almacenar las credenciales de la base de datos en <strong>AWS Secrets Manager</strong> — eliminando contraseñas embebidas en el código.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant Lam as Lambda en ráfaga
+    participant P as RDS Proxy
+    participant DB as RDS Multi-AZ
+    Lam->>P: abre muchas conexiones
+    P->>DB: pool pequeño compartido
+    Note over P,DB: multiplexa queries sobre pocas conexiones
+    DB->>P: failover a la standby
+    P->>DB: reconecta sin romper
+    Lam-->>P: conexiones intactas
+    Note over P: credenciales en Secrets Manager, IAM auth
+</div>
+<figcaption>Figura 2 — RDS Proxy absorbe el failover: multiplexa conexiones y las preserva cuando Multi-AZ conmuta.</figcaption>
+</figure>
+
+<h2>Backups: automatizados, snapshots y point-in-time restore</h2>
+
+<p>RDS trae backup nativo en dos formas complementarias. Los <strong>automated backups</strong> ejecutan copias diarias durante una ventana configurable y además exportan los <span class="tag-en">transaction logs</span> cada pocos minutos, lo que habilita el <span class="tag-en">point-in-time restore</span>: recuperar la instancia al estado de cualquier segundo dentro del periodo de retención, configurable hasta 35 días. Los <strong>manual snapshots</strong> se toman cuando tú decides y persisten más allá de la vida de la instancia y de su retención — son la pieza para archivar estados, compartirlos entre cuentas o copiarlos a otra región. Para el diseño de DR recuerda la jerarquía: Multi-AZ protege contra fallos de infraestructura en minutos, backups automatizados contra corrupción de datos con grano fino, y los snapshots son tu copia duradera. La gestión de todos estos planes a escala de organización es trabajo de AWS Backup, que ya viste en la página de backup de esta fase.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Mecanismo</th><th>Qué hace</th><th>Horizonte</th><th>Señal del enunciado</th></tr></thead>
+<tbody>
+<tr><td><strong>Automated backups</strong></td><td>Copia diaria programada + transaction logs</td><td>Retención hasta 35 días</td><td>"restore to any point in time"</td></tr>
+<tr><td><strong>Point-in-time restore</strong></td><td>Reconstruye la instancia a un segundo concreto</td><td>Dentro de la retención</td><td>"recover from accidental DELETE"</td></tr>
+<tr><td><strong>Manual snapshots</strong></td><td>Copia que tú disparas; sobrevive a la instancia</td><td>Indefinido</td><td>"keep a copy before decommissioning"</td></tr>
+<tr><td><strong>Cross-region snapshot copy</strong></td><td>Copia de snapshots a otras regiones</td><td>Según tus reglas</td><td>"backups far from the primary Region"</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+"database must remain available if an AZ fails" → <strong>Multi-AZ</strong>. "application is read-heavy / reporting offloads reads" → <strong>read replicas</strong> (y RDS Performance Insights si preguntan por diagnóstico de queries lentas). "Lambda exhausts database connections" → <strong>RDS Proxy</strong>. "restore to any second in the last month" → backups automatizados + <strong>PITR</strong>. "promote a replica to its own standalone database" → promoción de read replica, que además es el patrón de migración con downtime mínimo.
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+Dos distractores recurrentes. Primero, usar una read replica como mecanismo de failover automático: la réplica no conmuta sola, y el enunciado que pide HA automática exige standby Multi-AZ. Segundo, "Multi-AZ improves performance": falso en el modo clásico — la standby no sirve lecturas y la replicación síncrona no acelera nada; quien promete más rendimiento de lecturas es el set de réplicas o el Multi-AZ DB cluster con reader instances.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Multi-AZ</strong> = standby pasiva, replicación <strong>síncrona</strong>, failover automático vía DNS, misma región.</li>
+<li><strong>Multi-AZ DB cluster</strong> = dos standbys en tres zonas, con reader instances que sí sirven lecturas.</li>
+<li><strong>Read replica</strong> = asíncrona, sirve lecturas, escalable en AZ/región, <strong>promocionable</strong> a standalone.</li>
+<li>Si piden failover automático → Multi-AZ; si piden escala de lectura → réplicas; si piden ambas → los dos juntos.</li>
+<li><strong>RDS Proxy</strong>: pool gestionado, preserva conexiones en failover, IAM auth y Secrets Manager.</li>
+<li><strong>PITR</strong> con backups automatizados y transaction logs; retención hasta 35 días; snapshots manuales persisten indefinidamente.</li>
+<li>El <em>query tuning</em> sigue siendo responsabilidad tuya — RDS gestiona infraestructura, no tus consultas.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">DB-01</span> Amazon RDS — User Guide (Welcome) · <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html</a></li>
+<li><span class="id">DB-02</span> RDS — Multi-AZ deployments (standby, DB instance vs DB cluster) · <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html</a></li>
+<li><span class="id">DB-03</span> RDS — Read replicas (scaling reads, promotion) · <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html</a></li>
+<li><span class="id">DB-04</span> RDS — Backup and restore (automated, snapshots, PITR) · <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/backup-restore.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonRDS/latest/UserGuide/backup-restore.html</a></li>
+<li><span class="id">DB-08</span> RDS — RDS Proxy (connection pooling, failover, Secrets Manager) · <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/backup.html"><span class="dir">← Anterior</span>AWS Backup</a><a class="next" href="../temas/aurora.html"><span class="dir">Siguiente →</span>Aurora</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Linking federated users to an existing user profile - Amazon Cognito</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cognito-user-pools-identity-federation-consolidate-users" /><meta name="default_state" content="cognito-user-pools-identity-federation-consolidate-users" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" /><meta name="description" content="Learn how to connect user identities from third-party IdPs to local user profiles in your user pool." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Cognito" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Cognito is a service that you can use to sign in users, federate with identity providers, control permissions to access your backend resources, and save mobile user data in the AWS Cloud. This guide provides an overview of Amazon Cognito and includes development instructions for its features." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" hreflang="x-default" /><meta name="feedback-item" content="Cognito" /><meta name="this_doc_product" content="Amazon Cognito" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cognito'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Linking federated users to an existing user profile" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cognito-user-pools-identity-federation-consolidate-users.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Linking federated users to an existing user profile - Amazon Cognito</title><meta name="pdf" content="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-user-pools-identity-federation-consolidate-users" /><meta name="forums" content="https://repost.aws/tags/TAkhAE7QaGSoKZwd6utGhGDA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html" /><meta name="keywords" content="Cognito,Amazon Cognito,Amazon Cognito user pools,user pools,user pool features,user pool security features,user pool user experience,authentication,user pool authentication,Amazon Cognito authentication,challenges,flows,Secure remote password,SRP,third-party IdP,external IdP,federated sign-in,AdminLinkProviderForUser,AdminDisableProviderForUser,link Google user,link Apple user,link Amazon user,link Facebook user,link OIDC user,link SAML user,link IdP user,unlink user,link user" /><link rel="alternate" type="text/markdown" href="cognito-user-pools-identity-federation-consolidate-users.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Cognito",
+        "item" : "https://docs.aws.amazon.com/cognito/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Cognito user pools",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Authentication with Amazon Cognito user pools",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/authentication.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "User pool sign-in with third party identity providers",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Linking federated users to an existing user profile",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-user-pools-identity-federation-consolidate-users" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cognito/index.html">Amazon Cognito</a><a href="what-is-amazon-cognito.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cognito-user-pools-identity-federation-consolidate-users">Linking federated users to an existing user profile</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Often, the same user has a profile with multiple identity providers (IdPs) that you
+            have connected to your user pool. Amazon Cognito can link each occurrence of a user to the same
+            user profile in your directory. This way, one person who has multiple IdP users can have
+            a consistent experience in your app. <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html">AdminLinkProviderForUser</a> tells Amazon Cognito to recognize a user's unique ID in
+            your federated directory as a user in the user pool. A user in your user pool counts as
+            one monthly active user (MAU) for the purposes of <a href="https://aws.amazon.com/cognito/pricing/" rel="noopener noreferrer" target="_blank"><span>billing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> when you have zero or more federated
+            identities associated with the user profile.</p><p>When a federated user signs in to your user pool for the first time, Amazon Cognito looks for a
+            local profile that you have linked to their identity. If no linked profile exists, your
+            user pool creates a new profile. You can create a local profile and link it to your
+            federated user at any time before their first sign-in, in an
+                <code class="code">AdminLinkProviderForUser</code> API request, either in a planned prestaging
+            task or in a <a href="./user-pool-lambda-pre-sign-up.html">Pre sign-up Lambda trigger</a>. After your user signs in and Amazon Cognito detects
+            a linked local profile, your user pool reads your user's claims and compares them to
+            mapping rules for the IdP. Your user pool then updates the linked local profile with the
+            claims mapped from their sign-in. In this way, you can configure the local profile with
+            access claims and keep their identity claims up-to-date with your provider. After Amazon Cognito
+            matches your federated user to a linked profile, they always sign in to that profile.
+            You can then link more of your user's provider identities to the same profile, giving
+            one customer a consistent experience in your app. To link a federated user who has
+            previously signed in, you must first delete their existing profile. You can identify
+            existing profiles by their format: <code class="code"><code class="replaceable">[Provider
+                name]</code>_identifier</code>. For example,
+                <code class="code">LoginWithAmazon_amzn1.account.AFAEXAMPLE</code>. A user that you created and
+            then linked to a third-party user identity has the username that they were created with,
+            and an <code class="code">identities</code> attribute that contains the details of their linked
+            identities.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Because <code class="code">AdminLinkProviderForUser</code> allows a user with an external
+                federated identity to sign in as an existing user in the user pool, it is critical
+                that it only be used with external IdPs and provider attributes that have been
+                trusted by the application owner.</p></div></div><p>For example, if you're a managed service provider (MSP) with an app that you share
+            with multiple customers. Each of the customers signs in to your app through Active
+            Directory Federation Services (ADFS). Your IT administrator, Carlos, has an account in
+            each of your customers' domains. You want Carlos to be recognized as an app
+            administrator every time he signs in, regardless of the IdP.</p><p>Your ADFS IdPs present Carlos' email address <code class="code">msp_carlos@example.com</code> in
+            the <code class="code">email</code> claim of the Carlos' SAML assertions to Amazon Cognito. You create a user
+            in your user pool with the user name <code class="code">Carlos</code>. The following AWS Command Line Interface
+            (AWS CLI) commands link Carlos' identities from IdPs ADFS1, ADFS2, and ADFS3.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can link a user based on specific attribute claims. This ability is unique to
+                OIDC and SAML IdPs. For other provider types, you must link based on a fixed source
+                attribute. For more information, see <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html">AdminLinkProviderForUser</a>. You must set
+                    <code class="code">ProviderAttributeName</code> to <code class="code">Cognito_Subject</code> when you link
+                a social IdP to a user profile. <code class="code">ProviderAttributeValue</code> must be the
+                user's unique identifier with your IdP.</p></div></div><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">aws cognito-idp admin-link-provider-for-user \
+--user-pool-id us-east-1_EXAMPLE \
+--destination-user ProviderAttributeValue=Carlos,ProviderName=Cognito \
+--source-user ProviderName=<b>ADFS1</b>,ProviderAttributeName=email,ProviderAttributeValue=msp_carlos@example.com
+
+aws cognito-idp admin-link-provider-for-user \
+--user-pool-id us-east-1_EXAMPLE \
+--destination-user ProviderAttributeValue=Carlos,ProviderName=Cognito \
+--source-user ProviderName=<b>ADFS2</b>,ProviderAttributeName=email,ProviderAttributeValue=msp_carlos@example.com
+
+aws cognito-idp admin-link-provider-for-user \
+--user-pool-id us-east-1_EXAMPLE \
+--destination-user ProviderAttributeValue=Carlos,ProviderName=Cognito \
+--source-user ProviderName=<b>ADFS3</b>,ProviderAttributeName=email,ProviderAttributeValue=msp_carlos@example.com</code></pre><p>The user profile <code class="code">Carlos</code> in your user pool now has the following
+                <code class="code">identities</code> attribute.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">[<span>{</span>
+    "userId": "msp_carlos@example.com",
+    "providerName": "ADFS1",
+    "providerType": "SAML",
+    "issuer": "http://auth.example.com",
+    "primary": false,
+    "dateCreated": 111111111111111
+}, <span>{</span>
+    "userId": "msp_carlos@example.com",
+    "providerName": "ADFS2",
+    "providerType": "SAML",
+    "issuer": "http://auth2.example.com",
+    "primary": false,
+    "dateCreated": 111111111111111
+}, <span>{</span>
+    "userId": "msp_carlos@example.com",
+    "providerName": "ADFS3",
+    "providerType": "SAML",
+    "issuer": "http://auth3.example.com",
+    "primary": false,
+    "dateCreated": 111111111111111
+}]</code></pre><div class="itemizedlist">
+            <h6>Things to know about linking federated users</h6>
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You can link up to five federated users to each user profile.</p>
+            </li><li class="listitem">
+                <p>You can link users to each IdP from up to five IdP attribute claims, as
+                    defined by the <code class="code">ProviderAttributeName</code> parameter of
+                        <code class="code">SourceUser</code> in an <code class="code">AdminLinkProviderForUser</code> API
+                    request. For example, if you have linked at least one user to the source
+                    attributes <code class="code">email</code>, <code class="code">phone</code>, <code class="code">department</code>,
+                        <code class="code">given_name</code>, and <code class="code">location</code>, you can only link
+                    additional users on one of those five attributes.</p>
+            </li><li class="listitem">
+                <p>You can link federated users to either an existing federated user profile, or
+                    to a local user.</p>
+            </li><li class="listitem">
+                <p>You can't link providers to user profiles in the AWS Management Console.</p>
+            </li><li class="listitem">
+                <p>Your user's ID token contains all of their associated providers in the
+                        <code class="code">identities</code> claim.</p>
+            </li><li class="listitem">
+                <p>You can set a password for the automatically-created federated user profile in
+                    an <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html">AdminSetUserPassword</a> API request. That user's status then changes
+                    from <code class="code">EXTERNAL_PROVIDER</code> to <code class="code">CONFIRMED</code>. A user in this
+                    state can sign in as a federated user, and initiate authentication flows in the
+                    API like a linked local user. They can also modify their password and attributes
+                    in token-authenticated API requests like <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ChangePassword.html">ChangePassword</a> and <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserAttributes.html">UpdateUserAttributes</a>. As a best security practice and to keep users
+                    in sync with your external IdP, don't set passwords on federated user profiles.
+                    Instead, link users to local profiles with
+                    <code class="code">AdminLinkProviderForUser</code>.</p>
+            </li><li class="listitem">
+                <p>Amazon Cognito populates user attributes to a linked local user profile when the user
+                    signs in through their IdP. Amazon Cognito processes identity claims in the ID token from
+                    an OIDC IdP, and also checks the <code class="code">userInfo</code> endpoint of both OAuth
+                    2.0 and OIDC providers. Amazon Cognito prioritizes information in an ID token over
+                    information from <code class="code">userInfo</code>.</p>
+            </li></ul></div><p>When you learn that your user is no longer using an external user account that you've
+            linked to their profile, you can disassociate that user account with your user pool
+            user. When you linked your user, you supplied the user's attribute name, attribute value
+            and provider name in the request. To remove a profile that your user no longer needs,
+            make an <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDisableProviderForUser.html">AdminDisableProviderForUser</a> API request with equivalent parameters.</p><p>See <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html">AdminLinkProviderForUser</a> for additional command syntax and examples in the
+            AWS SDKs.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cognito-user-pools-specifying-attribute-mapping.html">Mapping IdP attributes</div><div id="next" class="next-link" accesskey="n" href="./cognito-user-pools-managed-login.html">Managed login</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Log alarms - Amazon CloudWatch</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="alarm-log" /><meta name="default_state" content="alarm-log" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-log.html" /><meta name="description" content="Learn how Log Alarms use scheduled queries, aggregation expressions, and M-out-of-N evaluation." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Monitor your AWS services, collect and track metrics from AWS services and your own applications, and set alarms based on data from those metrics." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-log.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-log.html" hreflang="x-default" /><meta name="feedback-item" content="CloudWatch" /><meta name="this_doc_product" content="Amazon CloudWatch" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Log alarms" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="alarm-log.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Log alarms - Amazon CloudWatch</title><meta name="pdf" content="/pdfs/AmazonCloudWatch/latest/monitoring/acw-ug.pdf#alarm-log" /><meta name="rss" content="amazon-cloudwatch-document-history.rss" /><meta name="forums" content="https://repost.aws/tags/TArz36ydKETWeIc1aO7QuRFw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/alarm-log.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/alarm-log.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/alarm-log.html" /><link rel="alternate" type="text/markdown" href="alarm-log.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Using Amazon CloudWatch alarms",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Concepts",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-concepts.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Log alarms",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-concepts.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudWatch/latest/monitoring/acw-ug.pdf#alarm-log" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatch.html">User Guide</a></div><div id="page-toc-src"><a href="#log-alarm-how-it-works">How Log Alarms work</a><a href="#log-alarm-managed-query">Managed Scheduled Query lifecycle</a><a href="#log-alarm-configuration">Log Alarm configuration</a><a href="#log-alarm-query">Logs query</a><a href="#log-alarm-aggregation">Aggregation expressions</a><a href="#log-alarm-multi-contributor">Multi-contributor alarms</a><a href="#log-alarm-missing-data">Missing data treatment</a><a href="#log-alarm-evaluation-states">Evaluation states</a><a href="#log-alarm-update">Alarm update</a><a href="#log-alarm-notifications">Actions and notifications</a><a href="#log-alarm-best-practices">Best practices and troubleshooting</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="alarm-log">Log alarms</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A Log Alarm monitors the results of a CloudWatch Logs Insights query that runs on a schedule using
+    a <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/ScheduledQueries.html">Scheduled Query</a>. The alarm
+    applies an aggregation expression to the query results to produce a numeric value, and when
+    that aggregated value breaches a configured threshold, the alarm transitions to
+    <code class="code">ALARM</code> state and runs configured actions.</p><p>Unlike metric alarms that require metric filters as an intermediate step, Log Alarms
+    evaluate directly on log data using the same Logs Insights query language you use for ad-hoc
+    analysis.</p>
+    <h2 id="log-alarm-how-it-works">How Log Alarms work</h2>
+
+    <p>The following steps describe how a Log Alarm works:</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p>You create a Log Alarm with a query, aggregation expression, schedule, and
+          threshold.</p>
+      </li><li>
+        <p>CloudWatch automatically creates an AWS managed Scheduled Query that runs your query on the
+          specified schedule.</p>
+      </li><li>
+        <p>Each query execution produces aggregated results (a single value or multiple
+          contributor values).</p>
+      </li><li>
+        <p>CloudWatch evaluates the aggregated results against your threshold using M-out-of-N
+          evaluation on recent query executions.</p>
+      </li><li>
+        <p>If the threshold is breached, the alarm transitions to <code class="code">ALARM</code> state
+          and runs your configured actions (such as Amazon SNS notifications).</p>
+      </li></ol></div>
+
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Log Alarms evaluate the last N query executions. The alarm transitions to
+        <code class="code">ALARM</code> when M of those N executions breach the threshold.</p></div></div>
+
+    <p>To create a Log Alarm, see <a href="./Alarm-On-Logs.html#Create_Log_Alarm">Create a Log Alarm</a>.</p>
+   
+    <h2 id="log-alarm-managed-query">Managed Scheduled Query lifecycle</h2>
+
+    <p>When you create a Log Alarm, CloudWatch automatically creates an AWS managed Scheduled Query
+      that runs your query on the specified schedule. You do not need to create the Scheduled
+      Query separately.</p>
+
+    <p>The AWS managed Scheduled Query has the following characteristics:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>It is visible in the CloudWatch Logs console under Scheduled Queries.</p>
+      </li><li class="listitem">
+        <p>You cannot modify it directly. To change the query or its configuration, update the Log Alarm.</p>
+      </li><li class="listitem">
+        <p>CloudWatch deletes the AWS managed Scheduled Query when you delete the alarm.</p>
+      </li></ul></div>
+   
+    <h2 id="log-alarm-configuration">Log Alarm configuration</h2>
+
+    <p>A Log Alarm is configured with the following parameters:</p>
+
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>QueryString</b> is the CloudWatch Logs Insights query to run.</p>
+      </li><li class="listitem">
+        <p><b>LogGroupIdentifiers</b> are the log groups to query. Specify
+          either log group names or log group ARNs.</p>
+      </li><li class="listitem">
+        <p><b>ScheduledQueryRoleARN</b> is the ARN of the IAM role that allows
+          CloudWatch Logs to run the scheduled query on your behalf.</p>
+      </li><li class="listitem">
+        <p><b>AggregationExpression</b> defines how query results are
+          aggregated into a numeric value for threshold evaluation.</p>
+      </li><li class="listitem">
+        <p><b>ScheduleExpression</b> defines how frequently the query runs (for
+          example, <code class="code">rate(5 minutes)</code>).</p>
+      </li><li class="listitem">
+        <p><b>StartTimeOffset</b> defines the lookback window in seconds for
+          each query execution.</p>
+      </li><li class="listitem">
+        <p><b>EndTimeOffset</b> defines the end of the query time range as an
+          offset in seconds from the current time.</p>
+      </li><li class="listitem">
+        <p><b>ComparisonOperator</b> is how aggregated results are compared to
+          the threshold. Valid values: <code class="code">GreaterThanThreshold</code>,
+          <code class="code">GreaterThanOrEqualToThreshold</code>, <code class="code">LessThanThreshold</code>,
+          <code class="code">LessThanOrEqualToThreshold</code>.</p>
+      </li><li class="listitem">
+        <p><b>Threshold</b> is the numeric value to compare against.</p>
+      </li><li class="listitem">
+        <p><b>QueryResultsToEvaluate</b> is the number of recent query
+          executions to evaluate (N in M-out-of-N).</p>
+      </li><li class="listitem">
+        <p><b>QueryResultsToAlarm</b> is the number of breaching results
+          required to trigger <code class="code">ALARM</code> (M in M-out-of-N).</p>
+      </li><li class="listitem">
+        <p><b>TreatMissingData</b> defines how missing query results are
+          treated during evaluation.</p>
+      </li></ul></div>
+
+    <p>For the full list of parameters and creation instructions, see <a href="./Alarm-On-Logs.html#Create_Log_Alarm">Create a Log Alarm</a>.</p>
+   
+    <h2 id="log-alarm-query">Logs query</h2>
+
+    <p>The Log Alarm query is a CloudWatch Logs Insights query that selects and filters the log data to
+      evaluate. The query runs on the log groups specified in <code class="code">LogGroupIdentifiers</code>
+      over the time range defined by <code class="code">StartTimeOffset</code> and
+      <code class="code">EndTimeOffset</code>.</p>
+
+    <p>The query uses <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch Logs Insights query
+        syntax</a>. For guidelines on writing efficient queries for Log Alarms, see <a href="#log-alarm-best-practices">Best practices and troubleshooting</a>.</p>
+   
+    <h2 id="log-alarm-aggregation">Aggregation expressions</h2>
+
+    <p>The aggregation expression defines how CloudWatch summarizes query results into a numeric
+      value for threshold evaluation. The expression uses the same syntax as the
+      <code class="code">stats</code> command in CloudWatch Logs Insights.</p>
+
+    <p>The syntax for an aggregation expression is as follows:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">statistic_func_expression [by field1, field2, ...] [| sort asc|desc]</code></pre>
+
+    <p>You can specify only a single aggregation expression. The following table lists the
+      supported aggregation functions.</p>
+    <div class="table-container"><div class="table-contents"><table id="w617aac16c23c13c15c11"><thead>
+          <tr>
+            <th>Function</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1"><code class="code">count(*)</code></td>
+            <td tabindex="-1">Count of all matched log lines.</td>
+            <td tabindex="-1"><code class="code">count(*)</code></td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">avg(field)</code></td>
+            <td tabindex="-1">Average value of the specified field.</td>
+            <td tabindex="-1"><code class="code">avg(duration)</code></td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">sum(field)</code></td>
+            <td tabindex="-1">Sum of the specified field.</td>
+            <td tabindex="-1"><code class="code">sum(bytesSent)</code></td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">min(field)</code></td>
+            <td tabindex="-1">Minimum value of the specified field.</td>
+            <td tabindex="-1"><code class="code">min(latency)</code></td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">max(field)</code></td>
+            <td tabindex="-1">Maximum value of the specified field.</td>
+            <td tabindex="-1"><code class="code">max(latency)</code></td>
+          </tr>
+        </table></div></div>
+
+    <p>The <code class="code">bin()</code> function is not supported in the aggregation expression
+      <code class="code">by</code> clause. However, you can use <code class="code">bin()</code> in the query string
+      itself.</p>
+   
+    <h2 id="log-alarm-multi-contributor">Multi-contributor alarms</h2>
+
+    <p>When you include a <code class="code">by</code> clause in your aggregation expression, the alarm
+      evaluates each unique combination of field values (called a <em>contributor</em>)
+      independently. The alarm transitions to <code class="code">ALARM</code> state if any contributor
+      breaches the threshold.</p>
+
+    <p>For example, the following expression groups error counts by service name:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">count(*) by serviceName</code></pre>
+
+    <p>Each unique value of <code class="code">serviceName</code> is evaluated independently against the
+      threshold. If any service exceeds the threshold in M out of N query executions, the alarm
+      enters <code class="code">ALARM</code> state.</p>
+
+    <p>The following limits apply to multi-contributor alarms:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Maximum 5 fields in the <code class="code">by</code> clause.</p>
+      </li><li class="listitem">
+        <p>Maximum 500 contributor results returned per query execution.</p>
+      </li><li class="listitem">
+        <p>Maximum 100 contributors tracked in <code class="code">ALARM</code> state
+          simultaneously.</p>
+      </li></ul></div>
+
+    <p>By default, contributors are sorted alphabetically and only the first 500 are returned
+      per query execution. To sort contributors by their aggregated value instead, specify
+      <code class="code">| sort asc</code> or <code class="code">| sort desc</code> in your aggregation expression (for
+      example, <code class="code">avg(latency) by serviceName | sort desc</code>). Value-based sorting ensures
+      that the most significant contributors are evaluated first when the total number exceeds
+      500.</p>
+
+    <p>For multi-contributor alarms, Amazon SNS and Lambda actions run at the contributor level
+      (once per breaching contributor). Systems Manager OpsItem actions run at the alarm level.</p>
+
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Systems Manager Incident Manager and  investigation actions are not
+        supported for Log Alarms.</p></div></div>
+
+    <p>If a contributor disappears from query results (for example, an ephemeral resource is
+      terminated), that contributor transitions to <code class="code">OK</code> state regardless of the
+      missing data treatment setting.</p>
+   
+    <h2 id="log-alarm-missing-data">Missing data treatment</h2>
+
+    <p>Missing data occurs when a scheduled query execution does not produce a value that can
+      be evaluated against the threshold. This happens in the following cases:</p>
+
+    <p><b>No logs present</b> — The log group contains no log events
+      in the query time range.</p>
+
+    <p><b>Query returns no applicable results</b> — Logs are present
+      but the aggregation expression cannot produce a value. This happens when:</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Matching query results were not present as per the query filter.</p>
+      </li><li class="listitem">
+        <p>The field referenced in the aggregation expression was not present in the query
+          results. For example, <code class="code">count(error-codes)</code> where
+          <code class="code">error-codes</code> does not exist in the returned log events.</p>
+      </li></ul></div>
+
+    <p>Note that <code class="code">count(*)</code> on an empty result set returns 0, which is a valid
+      datapoint and is not treated as missing.</p>
+
+    <p>You can configure how the alarm treats missing data using the
+      <code class="code">TreatMissingData</code> parameter. The following table describes the available
+      options.</p>
+    <div class="table-container"><div class="table-contents"><table id="w617aac16c23c13c19c15"><thead>
+          <tr>
+            <th>Value</th>
+            <th>Behavior</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1"><code class="code">missing</code></td>
+            <td tabindex="-1">Treat the datapoint as missing. This is the default.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">notBreaching</code></td>
+            <td tabindex="-1">Treat the missing datapoint as not breaching the threshold.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">breaching</code></td>
+            <td tabindex="-1">Treat the missing datapoint as breaching the threshold.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">ignore</code></td>
+            <td tabindex="-1">Ignore the missing datapoint and evaluate only available data.</td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="log-alarm-evaluation-states">Evaluation states</h2>
+
+    <p>In addition to the standard <code class="code">OK</code>, <code class="code">ALARM</code>, and
+      <code class="code">INSUFFICIENT_DATA</code> states, Log Alarms can report the following evaluation
+      states in the <code class="code">EvaluationState</code> field. These states provide additional context
+      about why the alarm is in its current state.</p>
+    <div class="table-container"><div class="table-contents"><table id="w617aac16c23c13c21b5"><thead>
+          <tr>
+            <th>State</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+          <tr>
+            <td tabindex="-1"><code class="code">EVALUATION_FAILURE</code></td>
+            <td tabindex="-1">A transient CloudWatch service issue prevented evaluation. This can occur when the
+              service experiences issues in evaluating query results due to service errors, or
+              when some (but not all) query results failed. The alarm transitions to
+              <code class="code">INSUFFICIENT_DATA</code>. We recommend manual monitoring until the issue is
+              resolved.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">EVALUATION_ERROR</code></td>
+            <td tabindex="-1">A client configuration error prevented evaluation. This can occur due to
+              insufficient permissions, an invalid query, or when all query results have failed.
+              The alarm transitions to <code class="code">INSUFFICIENT_DATA</code> immediately. Refer to the
+              <code class="code">StateReason</code> field for details.</td>
+          </tr>
+          <tr>
+            <td tabindex="-1"><code class="code">PARTIAL_DATA</code></td>
+            <td tabindex="-1">The query returned the maximum 500 contributor groups but more matched. The
+              alarm evaluates the available contributors, but results might be
+              incomplete.</td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="log-alarm-update">Alarm update</h2>
+
+    <p>When you update the query, aggregation expression, schedule, or log groups of a Log
+      Alarm, the alarm transitions to <code class="code">INSUFFICIENT_DATA</code> until sufficient new
+      datapoints are collected. Changes to the threshold or M-out-of-N values do not trigger
+      this reset.</p>
+   
+    <h2 id="log-alarm-notifications">Actions and notifications</h2>
+
+    <p>Log Alarms support the following actions:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Amazon SNS notifications</p>
+      </li><li class="listitem">
+        <p>Lambda function invocations</p>
+      </li><li class="listitem">
+        <p>Systems Manager OpsItem creation</p>
+      </li></ul></div>
+
+    <p>For the full actions support matrix, see <a href="./alarm-actions.html">Alarm actions</a>.</p>
+
+    <p>When a Log Alarm transitions state, the action notification includes the following
+      information:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Standard alarm configuration change information (alarm name, description,
+          configuration details).</p>
+      </li><li class="listitem">
+        <p>State change information (new state, state reason, timestamp).</p>
+      </li><li class="listitem">
+        <p>Amazon SNS email notifications also include a deep link to the CloudWatch Logs Insights console
+          showing the full query results.</p>
+      </li></ul></div>
+
+    <p>The following example shows an Amazon SNS email notification for a single-value Log Alarm
+      (without a <code class="code">BY</code> clause):</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+    "AlarmName": "HighErrorCount",
+    "NewStateValue": "ALARM",
+    "NewStateReason": "Threshold Crossed: 3 out of the last 5 query results [142.0 (10/06/26 12:15:00), 135.0 (10/06/26 12:10:00), 120.0 (10/06/26 12:05:00)] were greater than the threshold (100.0) (minimum 3 datapoints for OK -&gt; ALARM transition).",
+    "NewStateReasonData": <span>{</span>
+        "version": "1.0",
+        "queryDate": "2026-06-10T12:15:30.000+0000",
+        "threshold": 100.0,
+        "queryResultsToEvaluate": 5,
+        "queryResultsToAlarm": 3,
+        "results": [
+            <span>{</span>
+                "queryResultId": "scheduled-query-execution-id-3",
+                "status": "COMPLETE",
+                "timestamp": "2026-06-10T12:15:00.000+0000",
+                "value": 142.0
+            }
+            // Additional results...
+        ]
+    },
+    "StateChangeTime": "2026-06-10T12:15:30.000+0000",
+    "OldStateValue": "OK"
+    // Additional fields...
+}</code></pre>
+
+    <p>The following example shows an Amazon SNS email notification for a multi-contributor Log Alarm
+      (with a <code class="code">BY</code> clause). Each breaching contributor generates a separate
+      notification:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+    "AlarmName": "EndpointLatency",
+    "NewStateValue": "ALARM",
+    "NewStateReason": "5 out of 10 contributors evaluated to ALARM",
+    "StateChangeTime": "2026-06-10T12:20:15.000+0000",
+    "OldStateValue": "OK",
+    "AlarmContributorId": "a1b2c3d4e5f6g7h8",
+    "AlarmContributorAttributes": <span>{</span>
+        "endpoint": "/api/orders"
+    }
+    // Additional fields...
+}</code></pre>
+
+     
+      <h3 id="log-alarm-log-lines">Including log lines in notifications</h3>
+
+      <p>You can optionally include raw query result log lines in alarm notifications by setting
+        the <code class="code">ActionLogLineCount</code> parameter to a value between 1 and 50. These are the
+        underlying log events on which the aggregation expression is evaluated, not the aggregated
+        values. The default value is 0, which means no log lines are included.</p>
+
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Log lines are included only in Amazon SNS email notifications. Lambda actions do not
+          include log lines in their payloads.</p></div></div>
+
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Including log lines in notifications might expose sensitive data from your logs in
+          Amazon SNS messages. Review your log content before you enable this
+          feature.</p></div></div>
+
+      <p>To include log lines, the log lines role must have the
+        <code class="code">logs:GetQueryResults</code> permission. The number of log lines included in a
+        notification is limited by the requested count, the total results available, and the
+        Amazon SNS payload size limit.</p>
+     
+   
+    <h2 id="log-alarm-best-practices">Best practices and troubleshooting</h2>
+
+     
+      <h3 id="log-alarm-bp">Best practices</h3>
+
+      <p><b>Query optimization</b></p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Test queries manually in CloudWatch Logs Insights before using them in a Log Alarm to verify
+            performance and expected results.</p>
+        </li><li class="listitem">
+          <p>Use filter commands early in your query to reduce the volume of data
+            processed.</p>
+        </li><li class="listitem">
+          <p>Limit query time ranges (StartTimeOffset) to avoid timeouts with high-volume log
+            groups.</p>
+        </li><li class="listitem">
+          <p>Use field indexes to optimize query performance.</p>
+        </li></ul></div>
+
+      <p><b>Schedule planning</b></p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Choose a schedule frequency that allows queries to complete before the next
+            execution. For high-volume log groups, use longer intervals (for example, 10 minutes
+            instead of 5).</p>
+        </li><li class="listitem">
+          <p>Account for log ingestion delays when setting StartTimeOffset. A small gap between
+            EndTimeOffset and the current time helps avoid evaluating incomplete data.</p>
+        </li><li class="listitem">
+          <p>Spread out Log Alarm schedules across your account to avoid hitting Scheduled Query
+            concurrency limits. Concurrent query executions across your account cannot exceed 100.
+            Factor in this quota when creating multiple Log Alarms with overlapping
+            schedules.</p>
+        </li></ul></div>
+
+      <p><b>Threshold tuning</b></p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Start with higher QueryResultsToEvaluate (N) values to reduce alarm noise from
+            transient spikes.</p>
+        </li><li class="listitem">
+          <p>For sparse events (such as errors that rarely occur), set TreatMissingData to
+            <code class="code">notBreaching</code> to keep the alarm in OK state when no logs match.</p>
+        </li><li class="listitem">
+          <p>For continuous signals (such as traffic logs), consider setting TreatMissingData to
+            <code class="code">breaching</code> to detect when expected log data stops arriving.</p>
+        </li></ul></div>
+
+      <p><b>Multi-contributor design</b></p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Choose meaningful fields for the BY clause that represent distinct resources or
+            dimensions you want to monitor independently.</p>
+        </li><li class="listitem">
+          <p>Be aware that only the first 500 contributors are returned per query execution. If
+            you expect more, narrow your query or use fewer BY clause fields.</p>
+        </li><li class="listitem">
+          <p>Use the <code class="code">| sort desc</code> or <code class="code">| sort asc</code> suffix in your
+            aggregation expression to prioritize the highest or lowest values based on your
+            comparison operator when the 500 contributor limit is reached.</p>
+        </li></ul></div>
+     
+
+     
+      <h3 id="log-alarm-troubleshooting">Troubleshooting</h3>
+
+      <p><b>Alarm stays in INSUFFICIENT_DATA</b></p>
+      <div class="table-container"><div class="table-contents"><table id="w617aac16c23c13c27b5b5"><thead>
+            <tr>
+              <th>Possible cause</th>
+              <th>Resolution</th>
+            </tr>
+          </thead>
+            <tr>
+              <td tabindex="-1">Scheduled query execution role lacks permissions</td>
+              <td tabindex="-1">Verify the role has <code class="code">logs:StartQuery</code>,
+                <code class="code">logs:StopQuery</code>, <code class="code">logs:GetQueryResults</code>, and
+                <code class="code">logs:DescribeLogGroups</code> permissions scoped to the correct log
+                groups.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">Log group does not exist or was deleted</td>
+              <td tabindex="-1">Verify the log group ARNs in the alarm configuration are correct and
+                accessible.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">Recently created or updated alarm</td>
+              <td tabindex="-1">After creation or configuration update, the alarm remains in
+                INSUFFICIENT_DATA until enough query executions complete to satisfy the M-out-of-N
+                evaluation window.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">Scheduled query is not running</td>
+              <td tabindex="-1">Check the AWS managed Scheduled Query in the CloudWatch Logs console to verify it is
+                executing on schedule.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">Aggregation field not present in query results</td>
+              <td tabindex="-1">The field referenced in the aggregation expression must be present in the
+                query results. For example, if your aggregation is <code class="code">avg(latency)</code>,
+                make sure the query produces a <code class="code">latency</code> field. If the field is not
+                present, the result is treated as missing data.</td>
+            </tr>
+            <tr>
+              <td tabindex="-1">Log ingestion delay</td>
+              <td tabindex="-1"><p>A scheduled query can only evaluate log events that have been ingested
+                by the time it runs. <code class="code">StartTimeOffset</code> and <code class="code">EndTimeOffset</code>
+                define the query window relative to execution time T —
+                [T − StartTimeOffset, T − EndTimeOffset] — but they do not account for
+                ingestion delay. If events are still being ingested for the window you query, the
+                query runs before they are available and skips them.</p>
+                <p>Use <code class="code">EndTimeOffset</code> to shift the window back far enough that
+                ingestion is complete for the entire range.</p>
+                <p>Example: Suppose logs take up to 2 minutes to become queryable after the
+                events occur.</p>
+                <div class="itemizedlist">
+                   
+                   
+                <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">StartTimeOffset=60, EndTimeOffset=0</code> — window [T−60s, T].
+                      The window ends at execution time, so recent events are not yet ingested
+                      and are missed.</p>
+                  </li><li class="listitem">
+                    <p><code class="code">StartTimeOffset=180, EndTimeOffset=120</code> — window
+                      [T−180s, T−120s]. The window ends 2 minutes in the past, by which point
+                      all events are ingested and evaluable.</p>
+                  </li></ul></div></td>
+            </tr>
+          </table></div></div>
+
+      <p><b>Alarm shows EVALUATION_ERROR</b></p>
+      <p>This indicates a client configuration issue. Check the StateReason field for details.
+        Common causes:</p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Invalid or malformed query syntax.</p>
+        </li><li class="listitem">
+          <p>Insufficient permissions on the scheduled query execution role.</p>
+        </li><li class="listitem">
+          <p>All query executions failed (for example, log group permissions revoked).</p>
+        </li></ul></div>
+
+      <p><b>Alarm shows EVALUATION_FAILURE</b></p>
+      <p>This indicates a transient CloudWatch service issue. The alarm automatically recovers when
+        the issue resolves. If it persists beyond a few minutes, check the CloudWatch service health
+        dashboard.</p>
+
+      <p><b>Alarm shows PARTIAL_DATA</b></p>
+      <p>The query returned the maximum 500 contributor groups but more matched. The alarm
+        evaluates available contributors, but results might be incomplete. Consider narrowing your
+        query or reducing the number of BY clause fields.</p>
+
+      <p><b>Log lines not appearing in notifications</b></p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Verify <code class="code">ActionLogLineCount</code> is set to a value between 1 and 50.</p>
+        </li><li class="listitem">
+          <p>Verify the log lines role has <code class="code">logs:GetQueryResults</code> permission scoped
+            to the correct log groups.</p>
+        </li><li class="listitem">
+          <p>Log lines are included only in Amazon SNS email notifications. Other action types do
+            not include log lines.</p>
+        </li><li class="listitem">
+          <p>Queries using <code class="code">unmask()</code> cannot include log lines in notifications
+            (rejected at creation time).</p>
+        </li></ul></div>
+     
+
+    <p>For additional best practices on query optimization, monitoring, and authorization, see
+      <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/scheduled-queries-best-practices.html">Scheduled Queries
+        best practices</a> in the <em>Amazon CloudWatch Logs User Guide</em>.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./alarm-promql.html">PromQL alarms</div><div id="next" class="next-link" accesskey="n" href="./alarm-combining.html">Composite alarms</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/alarm-log.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudWatch&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudWatch/latest/monitoring/alarm-log.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

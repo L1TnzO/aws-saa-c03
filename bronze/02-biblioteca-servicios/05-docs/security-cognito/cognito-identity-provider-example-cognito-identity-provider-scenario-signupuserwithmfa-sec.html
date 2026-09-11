@@ -1,0 +1,3233 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK - Amazon Cognito</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section" /><meta name="default_state" content="cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" /><meta name="description" content="Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Cognito" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Cognito is a service that you can use to sign in users, federate with identity providers, control permissions to access your backend resources, and save mobile user data in the AWS Cloud. This guide provides an overview of Amazon Cognito and includes development instructions for its features." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" hreflang="x-default" /><meta name="feedback-item" content="Cognito" /><meta name="this_doc_product" content="Amazon Cognito" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cognito'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK - Amazon Cognito</title><meta name="pdf" content="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section" /><meta name="forums" content="https://repost.aws/tags/TAkhAE7QaGSoKZwd6utGhGDA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html" /><meta name="keywords" content="Cognito,Amazon Cognito,code example,AWS SDK" /><link rel="alternate" type="text/markdown" href="cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Cognito",
+        "item" : "https://docs.aws.amazon.com/cognito/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Code examples for Amazon Cognito using AWS SDKs",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Code examples for Amazon Cognito Identity Provider using AWS SDKs",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples_cognito-identity-provider.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Scenarios for Amazon Cognito Identity Provider using AWS SDKs",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples_cognito-identity-provider_scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples_cognito-identity-provider_scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cognito/index.html">Amazon Cognito</a><a href="what-is-amazon-cognito.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section">Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The following code examples show how to:</p><div class="itemizedlist">
+     
+     
+     
+<ul class="itemizedlist"><li class="listitem"><p>Sign up and confirm a user with a username, password, and email address.</p></li><li class="listitem"><p>Set up multi-factor authentication by associating an MFA application with the user.</p></li><li class="listitem"><p>Sign in by using a password and an MFA code.</p></li></ul></div><awsdocs-tabs><dl style="display: none">
+    <dt>.NET</dt><dd tab-id=".net">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for .NET</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/Cognito#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="d087792dbd8e258cdafa0f223b0d70d474d1094667dacb3777d59f77851a6cdd"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">namespace CognitoBasics;
+
+public class CognitoBasics
+<span>{</span>
+    private static ILogger logger = null!;
+
+    static async Task Main(string[] args)
+    <span>{</span>
+        // Set up dependency injection for Amazon Cognito.
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging =&gt;
+                logging.AddFilter("System", LogLevel.Debug)
+                    .AddFilter&lt;DebugLoggerProvider&gt;("Microsoft", LogLevel.Information)
+                    .AddFilter&lt;ConsoleLoggerProvider&gt;("Microsoft", LogLevel.Trace))
+            .ConfigureServices((_, services) =&gt;
+            services.AddAWSService&lt;IAmazonCognitoIdentityProvider&gt;()
+            .AddTransient&lt;CognitoWrapper&gt;()
+            )
+            .Build();
+
+        logger = LoggerFactory.Create(builder =&gt; <span>{</span> builder.AddConsole(); })
+            .CreateLogger&lt;CognitoBasics&gt;();
+
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("settings.json") // Load settings from .json file.
+            .AddJsonFile("settings.local.json",
+                true) // Optionally load local settings.
+            .Build();
+
+        var cognitoWrapper = host.Services.GetRequiredService&lt;CognitoWrapper&gt;();
+
+        Console.WriteLine(new string('-', 80));
+        UiMethods.DisplayOverview();
+        Console.WriteLine(new string('-', 80));
+
+        // clientId - The app client Id value that you get from the AWS CDK script.
+        var clientId = configuration["ClientId"]; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
+
+        // poolId - The pool Id that you get from the AWS CDK script.
+        var poolId = configuration["PoolId"]!; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
+        var userName = configuration["UserName"];
+        var password = configuration["Password"];
+        var email = configuration["Email"];
+
+        // If the username wasn't set in the configuration file,
+        // get it from the user now.
+        if (userName is null)
+        <span>{</span>
+            do
+            <span>{</span>
+                Console.Write("Username: ");
+                userName = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(userName));
+        }
+        Console.WriteLine($"\nUsername: <span>{</span>userName}");
+
+        // If the password wasn't set in the configuration file,
+        // get it from the user now.
+        if (password is null)
+        <span>{</span>
+            do
+            <span>{</span>
+                Console.Write("Password: ");
+                password = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(password));
+        }
+
+        // If the email address wasn't set in the configuration file,
+        // get it from the user now.
+        if (email is null)
+        <span>{</span>
+            do
+            <span>{</span>
+                Console.Write("Email: ");
+                email = Console.ReadLine();
+            } while (string.IsNullOrEmpty(email));
+        }
+
+        // Now sign up the user.
+        Console.WriteLine($"\nSigning up <span>{</span>userName} with email address: <span>{</span>email}");
+        await cognitoWrapper.SignUpAsync(clientId, userName, password, email);
+
+        // Add the user to the user pool.
+        Console.WriteLine($"Adding <span>{</span>userName} to the user pool");
+        await cognitoWrapper.GetAdminUserAsync(userName, poolId);
+
+        UiMethods.DisplayTitle("Get confirmation code");
+        Console.WriteLine($"Conformation code sent to <span>{</span>userName}.");
+        Console.Write("Would you like to send a new code? (Y/N) ");
+        var answer = Console.ReadLine();
+
+        if (answer!.ToLower() == "y")
+        <span>{</span>
+            await cognitoWrapper.ResendConfirmationCodeAsync(clientId, userName);
+            Console.WriteLine("Sending a new confirmation code");
+        }
+
+        Console.Write("Enter confirmation code (from Email): ");
+        var code = Console.ReadLine();
+
+        await cognitoWrapper.ConfirmSignupAsync(clientId, code, userName);
+
+        UiMethods.DisplayTitle("Checking status");
+        Console.WriteLine($"Rechecking the status of <span>{</span>userName} in the user pool");
+        await cognitoWrapper.GetAdminUserAsync(userName, poolId);
+
+        Console.WriteLine($"Setting up authenticator for <span>{</span>userName} in the user pool");
+        var setupResponse = await cognitoWrapper.InitiateAuthAsync(clientId, userName, password);
+
+        var setupSession = await cognitoWrapper.AssociateSoftwareTokenAsync(setupResponse.Session);
+        Console.Write("Enter the 6-digit code displayed in Google Authenticator: ");
+        var setupCode = Console.ReadLine();
+
+        var setupResult = await cognitoWrapper.VerifySoftwareTokenAsync(setupSession, setupCode);
+        Console.WriteLine($"Setup status: <span>{</span>setupResult}");
+
+        Console.WriteLine($"Now logging in <span>{</span>userName} in the user pool");
+        var authSession = await cognitoWrapper.AdminInitiateAuthAsync(clientId, poolId, userName, password);
+
+        Console.Write("Enter a new 6-digit code displayed in Google Authenticator: ");
+        var authCode = Console.ReadLine();
+
+        var authResult = await cognitoWrapper.AdminRespondToAuthChallengeAsync(userName, clientId, authCode, authSession, poolId);
+        Console.WriteLine($"Authenticated and received access token: <span>{</span>authResult.AccessToken}");
+
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("Cognito scenario is complete.");
+        Console.WriteLine(new string('-', 80));
+    }
+}
+
+
+using System.Net;
+
+namespace CognitoActions;
+
+/// &lt;summary&gt;
+/// Methods to perform Amazon Cognito Identity Provider actions.
+/// &lt;/summary&gt;
+public class CognitoWrapper
+<span>{</span>
+    private readonly IAmazonCognitoIdentityProvider _cognitoService;
+
+    /// &lt;summary&gt;
+    /// Constructor for the wrapper class containing Amazon Cognito actions.
+    /// &lt;/summary&gt;
+    /// &lt;param name="cognitoService"&gt;The Amazon Cognito client object.&lt;/param&gt;
+    public CognitoWrapper(IAmazonCognitoIdentityProvider cognitoService)
+    <span>{</span>
+        _cognitoService = cognitoService;
+    }
+
+    /// &lt;summary&gt;
+    /// List the Amazon Cognito user pools for an account.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;A list of UserPoolDescriptionType objects.&lt;/returns&gt;
+    public async Task&lt;List&lt;UserPoolDescriptionType&gt;&gt; ListUserPoolsAsync()
+    <span>{</span>
+        var userPools = new List&lt;UserPoolDescriptionType&gt;();
+
+        var userPoolsPaginator = _cognitoService.Paginators.ListUserPools(new ListUserPoolsRequest());
+
+        await foreach (var response in userPoolsPaginator.Responses)
+        <span>{</span>
+            userPools.AddRange(response.UserPools);
+        }
+
+        return userPools;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Get a list of users for the Amazon Cognito user pool.
+    /// &lt;/summary&gt;
+    /// &lt;param name="userPoolId"&gt;The user pool ID.&lt;/param&gt;
+    /// &lt;returns&gt;A list of users.&lt;/returns&gt;
+    public async Task&lt;List&lt;UserType&gt;&gt; ListUsersAsync(string userPoolId)
+    <span>{</span>
+        var request = new ListUsersRequest
+        <span>{</span>
+            UserPoolId = userPoolId
+        };
+
+        var users = new List&lt;UserType&gt;();
+
+        var usersPaginator = _cognitoService.Paginators.ListUsers(request);
+        await foreach (var response in usersPaginator.Responses)
+        <span>{</span>
+            users.AddRange(response.Users);
+        }
+
+        return users;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Respond to an admin authentication challenge.
+    /// &lt;/summary&gt;
+    /// &lt;param name="userName"&gt;The name of the user.&lt;/param&gt;
+    /// &lt;param name="clientId"&gt;The client ID.&lt;/param&gt;
+    /// &lt;param name="mfaCode"&gt;The multi-factor authentication code.&lt;/param&gt;
+    /// &lt;param name="session"&gt;The current application session.&lt;/param&gt;
+    /// &lt;param name="clientId"&gt;The user pool ID.&lt;/param&gt;
+    /// &lt;returns&gt;The result of the authentication response.&lt;/returns&gt;
+    public async Task&lt;AuthenticationResultType&gt; AdminRespondToAuthChallengeAsync(
+        string userName,
+        string clientId,
+        string mfaCode,
+        string session,
+        string userPoolId)
+    <span>{</span>
+        Console.WriteLine("SOFTWARE_TOKEN_MFA challenge is generated");
+
+        var challengeResponses = new Dictionary&lt;string, string&gt;();
+        challengeResponses.Add("USERNAME", userName);
+        challengeResponses.Add("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+
+        var respondToAuthChallengeRequest = new AdminRespondToAuthChallengeRequest
+        <span>{</span>
+            ChallengeName = ChallengeNameType.SOFTWARE_TOKEN_MFA,
+            ClientId = clientId,
+            ChallengeResponses = challengeResponses,
+            Session = session,
+            UserPoolId = userPoolId,
+        };
+
+        var response = await _cognitoService.AdminRespondToAuthChallengeAsync(respondToAuthChallengeRequest);
+        Console.WriteLine($"Response to Authentication <span>{</span>response.AuthenticationResult.TokenType}");
+        return response.AuthenticationResult;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Verify the TOTP and register for MFA.
+    /// &lt;/summary&gt;
+    /// &lt;param name="session"&gt;The name of the session.&lt;/param&gt;
+    /// &lt;param name="code"&gt;The MFA code.&lt;/param&gt;
+    /// &lt;returns&gt;The status of the software token.&lt;/returns&gt;
+    public async Task&lt;VerifySoftwareTokenResponseType&gt; VerifySoftwareTokenAsync(string session, string code)
+    <span>{</span>
+        var tokenRequest = new VerifySoftwareTokenRequest
+        <span>{</span>
+            UserCode = code,
+            Session = session,
+        };
+
+        var verifyResponse = await _cognitoService.VerifySoftwareTokenAsync(tokenRequest);
+
+        return verifyResponse.Status;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Get an MFA token to authenticate the user with the authenticator.
+    /// &lt;/summary&gt;
+    /// &lt;param name="session"&gt;The session name.&lt;/param&gt;
+    /// &lt;returns&gt;The session name.&lt;/returns&gt;
+    public async Task&lt;string&gt; AssociateSoftwareTokenAsync(string session)
+    <span>{</span>
+        var softwareTokenRequest = new AssociateSoftwareTokenRequest
+        <span>{</span>
+            Session = session,
+        };
+
+        var tokenResponse = await _cognitoService.AssociateSoftwareTokenAsync(softwareTokenRequest);
+        var secretCode = tokenResponse.SecretCode;
+
+        Console.WriteLine($"Use the following secret code to set up the authenticator: <span>{</span>secretCode}");
+
+        return tokenResponse.Session;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Initiate an admin auth request.
+    /// &lt;/summary&gt;
+    /// &lt;param name="clientId"&gt;The client ID to use.&lt;/param&gt;
+    /// &lt;param name="userPoolId"&gt;The ID of the user pool.&lt;/param&gt;
+    /// &lt;param name="userName"&gt;The username to authenticate.&lt;/param&gt;
+    /// &lt;param name="password"&gt;The user's password.&lt;/param&gt;
+    /// &lt;returns&gt;The session to use in challenge-response.&lt;/returns&gt;
+    public async Task&lt;string&gt; AdminInitiateAuthAsync(string clientId, string userPoolId, string userName, string password)
+    <span>{</span>
+        var authParameters = new Dictionary&lt;string, string&gt;();
+        authParameters.Add("USERNAME", userName);
+        authParameters.Add("PASSWORD", password);
+
+        var request = new AdminInitiateAuthRequest
+        <span>{</span>
+            ClientId = clientId,
+            UserPoolId = userPoolId,
+            AuthParameters = authParameters,
+            AuthFlow = AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
+        };
+
+        var response = await _cognitoService.AdminInitiateAuthAsync(request);
+        return response.Session;
+    }
+
+    /// &lt;summary&gt;
+    /// Initiate authorization.
+    /// &lt;/summary&gt;
+    /// &lt;param name="clientId"&gt;The client Id of the application.&lt;/param&gt;
+    /// &lt;param name="userName"&gt;The name of the user who is authenticating.&lt;/param&gt;
+    /// &lt;param name="password"&gt;The password for the user who is authenticating.&lt;/param&gt;
+    /// &lt;returns&gt;The response from the initiate auth request.&lt;/returns&gt;
+    public async Task&lt;InitiateAuthResponse&gt; InitiateAuthAsync(string clientId, string userName, string password)
+    <span>{</span>
+        var authParameters = new Dictionary&lt;string, string&gt;();
+        authParameters.Add("USERNAME", userName);
+        authParameters.Add("PASSWORD", password);
+
+        var authRequest = new InitiateAuthRequest
+
+        <span>{</span>
+            ClientId = clientId,
+            AuthParameters = authParameters,
+            AuthFlow = AuthFlowType.USER_PASSWORD_AUTH,
+        };
+
+        var response = await _cognitoService.InitiateAuthAsync(authRequest);
+        Console.WriteLine($"Result Challenge is : <span>{</span>response.ChallengeName}");
+
+        return response;
+    }
+
+    /// &lt;summary&gt;
+    /// Confirm that the user has signed up.
+    /// &lt;/summary&gt;
+    /// &lt;param name="clientId"&gt;The Id of this application.&lt;/param&gt;
+    /// &lt;param name="code"&gt;The confirmation code sent to the user.&lt;/param&gt;
+    /// &lt;param name="userName"&gt;The username.&lt;/param&gt;
+    /// &lt;returns&gt;True if successful.&lt;/returns&gt;
+    public async Task&lt;bool&gt; ConfirmSignupAsync(string clientId, string code, string userName)
+    <span>{</span>
+        var signUpRequest = new ConfirmSignUpRequest
+        <span>{</span>
+            ClientId = clientId,
+            ConfirmationCode = code,
+            Username = userName,
+        };
+
+        var response = await _cognitoService.ConfirmSignUpAsync(signUpRequest);
+        if (response.HttpStatusCode == HttpStatusCode.OK)
+        <span>{</span>
+            Console.WriteLine($"<span>{</span>userName} was confirmed");
+            return true;
+        }
+        return false;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Initiates and confirms tracking of the device.
+    /// &lt;/summary&gt;
+    /// &lt;param name="accessToken"&gt;The user's access token.&lt;/param&gt;
+    /// &lt;param name="deviceKey"&gt;The key of the device from Amazon Cognito.&lt;/param&gt;
+    /// &lt;param name="deviceName"&gt;The device name.&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public async Task&lt;bool&gt; ConfirmDeviceAsync(string accessToken, string deviceKey, string deviceName)
+    <span>{</span>
+        var request = new ConfirmDeviceRequest
+        <span>{</span>
+            AccessToken = accessToken,
+            DeviceKey = deviceKey,
+            DeviceName = deviceName
+        };
+
+        var response = await _cognitoService.ConfirmDeviceAsync(request);
+        return response.UserConfirmationNecessary;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Send a new confirmation code to a user.
+    /// &lt;/summary&gt;
+    /// &lt;param name="clientId"&gt;The Id of the client application.&lt;/param&gt;
+    /// &lt;param name="userName"&gt;The username of user who will receive the code.&lt;/param&gt;
+    /// &lt;returns&gt;The delivery details.&lt;/returns&gt;
+    public async Task&lt;CodeDeliveryDetailsType&gt; ResendConfirmationCodeAsync(string clientId, string userName)
+    <span>{</span>
+        var codeRequest = new ResendConfirmationCodeRequest
+        <span>{</span>
+            ClientId = clientId,
+            Username = userName,
+        };
+
+        var response = await _cognitoService.ResendConfirmationCodeAsync(codeRequest);
+
+        Console.WriteLine($"Method of delivery is <span>{</span>response.CodeDeliveryDetails.DeliveryMedium}");
+
+        return response.CodeDeliveryDetails;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Get the specified user from an Amazon Cognito user pool with administrator access.
+    /// &lt;/summary&gt;
+    /// &lt;param name="userName"&gt;The name of the user.&lt;/param&gt;
+    /// &lt;param name="poolId"&gt;The Id of the Amazon Cognito user pool.&lt;/param&gt;
+    /// &lt;returns&gt;Async task.&lt;/returns&gt;
+    public async Task&lt;UserStatusType&gt; GetAdminUserAsync(string userName, string poolId)
+    <span>{</span>
+        AdminGetUserRequest userRequest = new AdminGetUserRequest
+        <span>{</span>
+            Username = userName,
+            UserPoolId = poolId,
+        };
+
+        var response = await _cognitoService.AdminGetUserAsync(userRequest);
+
+        Console.WriteLine($"User status <span>{</span>response.UserStatus}");
+        return response.UserStatus;
+    }
+
+
+    /// &lt;summary&gt;
+    /// Sign up a new user.
+    /// &lt;/summary&gt;
+    /// &lt;param name="clientId"&gt;The client Id of the application.&lt;/param&gt;
+    /// &lt;param name="userName"&gt;The username to use.&lt;/param&gt;
+    /// &lt;param name="password"&gt;The user's password.&lt;/param&gt;
+    /// &lt;param name="email"&gt;The email address of the user.&lt;/param&gt;
+    /// &lt;returns&gt;A Boolean value indicating whether the user was confirmed.&lt;/returns&gt;
+    public async Task&lt;bool&gt; SignUpAsync(string clientId, string userName, string password, string email)
+    <span>{</span>
+        var userAttrs = new AttributeType
+        <span>{</span>
+            Name = "email",
+            Value = email,
+        };
+
+        var userAttrsList = new List&lt;AttributeType&gt;();
+
+        userAttrsList.Add(userAttrs);
+
+        var signUpRequest = new SignUpRequest
+        <span>{</span>
+            UserAttributes = userAttrsList,
+            Username = userName,
+            ClientId = clientId,
+            Password = password
+        };
+
+        var response = await _cognitoService.SignUpAsync(signUpRequest);
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+}
+
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for .NET API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/AdminGetUser">AdminGetUser</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/AdminInitiateAuth">AdminInitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/AdminRespondToAuthChallenge">AdminRespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/AssociateSoftwareToken">AssociateSoftwareToken</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/ConfirmDevice">ConfirmDevice</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/ConfirmSignUp">ConfirmSignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/InitiateAuth">InitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/ListUsers">ListUsers</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/ResendConfirmationCode">ResendConfirmationCode</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/RespondToAuthChallenge">RespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/SignUp">SignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/cognito-idp-2016-04-18/VerifySoftwareToken">VerifySoftwareToken</a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>C++</dt><dd tab-id="c++">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for C++</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/cognito#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="480be59ec933fc034c036a53de4b58662790e4a4a0083e76f4fcd2907862e1af"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cpp)--><code class="cpp ">        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+//! Scenario that adds a user to an Amazon Cognito user pool.
+/*!
+  \sa gettingStartedWithUserPools()
+  \param clientID: Client ID associated with an Amazon Cognito user pool.
+  \param userPoolID: An Amazon Cognito user pool ID.
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
+ */
+bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &amp;clientID,
+                                                  const Aws::String &amp;userPoolID,
+                                                  const Aws::Client::ClientConfiguration &amp;clientConfig) <span>{</span>
+    printAsterisksLine();
+    std::cout
+            &lt;&lt; "Welcome to the Amazon Cognito example scenario."
+            &lt;&lt; std::endl;
+    printAsterisksLine();
+
+    std::cout
+            &lt;&lt; "This scenario will add a user to an Amazon Cognito user pool."
+            &lt;&lt; std::endl;
+    const Aws::String userName = askQuestion("Enter a new username: ");
+    const Aws::String password = askQuestion("Enter a new password: ");
+    const Aws::String email = askQuestion("Enter a valid email for the user: ");
+
+    std::cout &lt;&lt; "Signing up " &lt;&lt; userName &lt;&lt; std::endl;
+
+    Aws::CognitoIdentityProvider::CognitoIdentityProviderClient client(clientConfig);
+    bool userExists = false;
+    do <span>{</span>
+        // 1. Add a user with a username, password, and email address.
+        Aws::CognitoIdentityProvider::Model::SignUpRequest request;
+        request.AddUserAttributes(
+                Aws::CognitoIdentityProvider::Model::AttributeType().WithName(
+                        "email").WithValue(email));
+        request.SetUsername(userName);
+        request.SetPassword(password);
+        request.SetClientId(clientID);
+        Aws::CognitoIdentityProvider::Model::SignUpOutcome outcome =
+                client.SignUp(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "The signup request for " &lt;&lt; userName &lt;&lt; " was successful."
+                      &lt;&lt; std::endl;
+        }
+        else if (outcome.GetError().GetErrorType() ==
+                 Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::USERNAME_EXISTS) <span>{</span>
+            std::cout
+                    &lt;&lt; "The username already exists. Please enter a different username."
+                    &lt;&lt; std::endl;
+            userExists = true;
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::SignUpRequest. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+    } while (userExists);
+
+    printAsterisksLine();
+    std::cout &lt;&lt; "Retrieving status of " &lt;&lt; userName &lt;&lt; " in the user pool."
+              &lt;&lt; std::endl;
+    // 2. Confirm that the user was added to the user pool.
+    if (!checkAdminUserStatus(userName, userPoolID, client)) <span>{</span>
+        return false;
+    }
+
+    std::cout &lt;&lt; "A confirmation code was sent to " &lt;&lt; email &lt;&lt; "." &lt;&lt; std::endl;
+
+    bool resend = askYesNoQuestion("Would you like to send a new code? (y/n) ");
+    if (resend) <span>{</span>
+        // Request a resend of the confirmation code to the email address. (ResendConfirmationCode)
+        Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeRequest request;
+        request.SetUsername(userName);
+        request.SetClientId(clientID);
+
+        Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeOutcome outcome =
+                client.ResendConfirmationCode(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout
+                    &lt;&lt; "CognitoIdentityProvider::ResendConfirmationCode was successful."
+                    &lt;&lt; std::endl;
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::ResendConfirmationCode. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+    }
+
+    printAsterisksLine();
+
+    <span>{</span>
+        // 4. Send the confirmation code that's received in the email. (ConfirmSignUp)
+        const Aws::String confirmationCode = askQuestion(
+                "Enter the confirmation code that was emailed: ");
+        Aws::CognitoIdentityProvider::Model::ConfirmSignUpRequest request;
+        request.SetClientId(clientID);
+        request.SetConfirmationCode(confirmationCode);
+        request.SetUsername(userName);
+
+        Aws::CognitoIdentityProvider::Model::ConfirmSignUpOutcome outcome =
+                client.ConfirmSignUp(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "ConfirmSignup was Successful."
+                      &lt;&lt; std::endl;
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::ConfirmSignUp. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+    }
+
+    std::cout &lt;&lt; "Rechecking the status of " &lt;&lt; userName &lt;&lt; " in the user pool."
+              &lt;&lt; std::endl;
+    if (!checkAdminUserStatus(userName, userPoolID, client)) <span>{</span>
+        return false;
+    }
+
+    printAsterisksLine();
+
+    std::cout &lt;&lt; "Initiating authorization using the username and password."
+              &lt;&lt; std::endl;
+
+    Aws::String session;
+    // 5. Initiate authorization with username and password. (AdminInitiateAuth)
+    if (!adminInitiateAuthorization(clientID, userPoolID,  userName, password, session, client)) <span>{</span>
+        return false;
+    }
+
+    printAsterisksLine();
+
+    std::cout
+            &lt;&lt; "Starting setup of time-based one-time password (TOTP) multi-factor authentication (MFA)."
+            &lt;&lt; std::endl;
+
+    <span>{</span>
+        // 6. Request a setup key for one-time password (TOTP)
+        //    multi-factor authentication (MFA). (AssociateSoftwareToken)
+        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenRequest request;
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenOutcome outcome =
+                client.AssociateSoftwareToken(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout
+                    &lt;&lt; "Enter this setup key into an authenticator app, for example Google Authenticator."
+                    &lt;&lt; std::endl;
+            std::cout &lt;&lt; "Setup key: " &lt;&lt; outcome.GetResult().GetSecretCode()
+                      &lt;&lt; std::endl;
+#ifdef USING_QR
+            printAsterisksLine();
+            std::cout &lt;&lt; "\nOr scan the QR code in the file '" &lt;&lt; QR_CODE_PATH &lt;&lt; "."
+                      &lt;&lt; std::endl;
+
+            saveQRCode(std::string("otpauth://totp/") + userName + "?secret=" +
+                       outcome.GetResult().GetSecretCode());
+#endif // USING_QR
+            session = outcome.GetResult().GetSession();
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::AssociateSoftwareToken. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+    }
+    askQuestion("Type enter to continue...", alwaysTrueTest);
+
+    printAsterisksLine();
+
+    <span>{</span>
+        Aws::String userCode = askQuestion(
+                "Enter the 6 digit code displayed in the authenticator app: ");
+
+        //  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
+        Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenRequest request;
+        request.SetUserCode(userCode);
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenOutcome outcome =
+                client.VerifySoftwareToken(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "Verification of the code was successful."
+                      &lt;&lt; std::endl;
+            session = outcome.GetResult().GetSession();
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::VerifySoftwareToken. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+    }
+
+    printAsterisksLine();
+    std::cout &lt;&lt; "You have completed the MFA authentication setup." &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Now, sign in." &lt;&lt; std::endl;
+
+    // 8. Initiate authorization again with username and password. (AdminInitiateAuth)
+    if (!adminInitiateAuthorization(clientID, userPoolID, userName, password, session, client)) <span>{</span>
+        return false;
+    }
+
+    Aws::String accessToken;
+    <span>{</span>
+        Aws::String mfaCode = askQuestion(
+                "Re-enter the 6 digit code displayed in the authenticator app: ");
+
+        // 9. Send a new MFA code copied from an authenticator app. (AdminRespondToAuthChallenge)
+        Aws::CognitoIdentityProvider::Model::AdminRespondToAuthChallengeRequest request;
+        request.AddChallengeResponses("USERNAME", userName);
+        request.AddChallengeResponses("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+        request.SetChallengeName(
+                Aws::CognitoIdentityProvider::Model::ChallengeNameType::SOFTWARE_TOKEN_MFA);
+        request.SetClientId(clientID);
+        request.SetUserPoolId(userPoolID);
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::AdminRespondToAuthChallengeOutcome outcome =
+                client.AdminRespondToAuthChallenge(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "Here is the response to the challenge.\n" &lt;&lt;
+                      outcome.GetResult().GetAuthenticationResult().Jsonize().View().WriteReadable()
+                      &lt;&lt; std::endl;
+
+            accessToken = outcome.GetResult().GetAuthenticationResult().GetAccessToken();
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::AdminRespondToAuthChallenge. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+            return false;
+        }
+
+        std::cout &lt;&lt; "You have successfully added a user to Amazon Cognito."
+                  &lt;&lt; std::endl;
+    }
+
+    if (askYesNoQuestion("Would you like to delete the user that you just added? (y/n) ")) <span>{</span>
+        // 10. Delete the user that you just added. (DeleteUser)
+        Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
+        request.SetAccessToken(accessToken);
+
+        Aws::CognitoIdentityProvider::Model::DeleteUserOutcome outcome =
+                client.DeleteUser(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "The user " &lt;&lt; userName &lt;&lt; " was deleted."
+                      &lt;&lt; std::endl;
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with CognitoIdentityProvider::DeleteUser. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+        }
+    }
+
+    return true;
+}
+
+//! Routine which checks the user status in an Amazon Cognito user pool.
+/*!
+ \sa checkAdminUserStatus()
+ \param userName: A username.
+ \param userPoolID: An Amazon Cognito user pool ID.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &amp;userName,
+                                           const Aws::String &amp;userPoolID,
+                                           const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &amp;client) <span>{</span>
+    Aws::CognitoIdentityProvider::Model::AdminGetUserRequest request;
+    request.SetUsername(userName);
+    request.SetUserPoolId(userPoolID);
+
+    Aws::CognitoIdentityProvider::Model::AdminGetUserOutcome outcome =
+            client.AdminGetUser(request);
+
+    if (outcome.IsSuccess()) <span>{</span>
+        std::cout &lt;&lt; "The status for " &lt;&lt; userName &lt;&lt; " is " &lt;&lt;
+                  Aws::CognitoIdentityProvider::Model::UserStatusTypeMapper::GetNameForUserStatusType(
+                          outcome.GetResult().GetUserStatus()) &lt;&lt; std::endl;
+        std::cout &lt;&lt; "Enabled is " &lt;&lt; outcome.GetResult().GetEnabled() &lt;&lt; std::endl;
+    }
+    else <span>{</span>
+        std::cerr &lt;&lt; "Error with CognitoIdentityProvider::AdminGetUser. "
+                  &lt;&lt; outcome.GetError().GetMessage()
+                  &lt;&lt; std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+//! Routine which starts authorization of an Amazon Cognito user.
+//! This routine requires administrator credentials.
+/*!
+ \sa adminInitiateAuthorization()
+ \param clientID: Client ID of tracked device.
+ \param userPoolID: An Amazon Cognito user pool ID.
+ \param userName: A username.
+ \param password: A password.
+ \param sessionResult: String to receive a session token.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::Cognito::adminInitiateAuthorization(const Aws::String &amp;clientID,
+                                                 const Aws::String &amp;userPoolID,
+                                                 const Aws::String &amp;userName,
+                                                 const Aws::String &amp;password,
+                                                 Aws::String &amp;sessionResult,
+                                                 const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &amp;client) <span>{</span>
+    Aws::CognitoIdentityProvider::Model::AdminInitiateAuthRequest request;
+    request.SetClientId(clientID);
+    request.SetUserPoolId(userPoolID);
+    request.AddAuthParameters("USERNAME", userName);
+    request.AddAuthParameters("PASSWORD", password);
+    request.SetAuthFlow(
+            Aws::CognitoIdentityProvider::Model::AuthFlowType::ADMIN_USER_PASSWORD_AUTH);
+
+
+    Aws::CognitoIdentityProvider::Model::AdminInitiateAuthOutcome outcome =
+            client.AdminInitiateAuth(request);
+
+    if (outcome.IsSuccess()) <span>{</span>
+        std::cout &lt;&lt; "Call to AdminInitiateAuth was successful." &lt;&lt; std::endl;
+        sessionResult = outcome.GetResult().GetSession();
+    }
+    else <span>{</span>
+        std::cerr &lt;&lt; "Error with CognitoIdentityProvider::AdminInitiateAuth. "
+                  &lt;&lt; outcome.GetError().GetMessage()
+                  &lt;&lt; std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for C++ API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/AdminGetUser">AdminGetUser</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/AdminInitiateAuth">AdminInitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/AdminRespondToAuthChallenge">AdminRespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/AssociateSoftwareToken">AssociateSoftwareToken</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/ConfirmDevice">ConfirmDevice</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/ConfirmSignUp">ConfirmSignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/InitiateAuth">InitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/ListUsers">ListUsers</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/ResendConfirmationCode">ResendConfirmationCode</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/RespondToAuthChallenge">RespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/SignUp">SignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForCpp/cognito-idp-2016-04-18/VerifySoftwareToken">VerifySoftwareToken</a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Java</dt><dd tab-id="java">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Java 2.x</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/cognito#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="53fb9072f7229d028fe46cae2720f4fd494645b51216c5faf52c730990ff3e76"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthFlowType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ChallengeNameType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ConfirmSignUpRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.VerifySoftwareTokenRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.VerifySoftwareTokenResponse;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * TIP: To set up the required user pool, run the AWS Cloud Development Kit (AWS
+ * CDK) script provided in this GitHub repo at
+ * resources/cdk/cognito_scenario_user_pool_with_mfa.
+ *
+ * This code example performs the following operations:
+ *
+ * 1. Invokes the signUp method to sign up a user.
+ * 2. Invokes the adminGetUser method to get the user's confirmation status.
+ * 3. Invokes the ResendConfirmationCode method if the user requested another
+ * code.
+ * 4. Invokes the confirmSignUp method.
+ * 5. Invokes the AdminInitiateAuth to sign in. This results in being prompted
+ * to set up TOTP (time-based one-time password). (The response is
+ * “ChallengeName”: “MFA_SETUP”).
+ * 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private
+ * key. This can be used with Google Authenticator.
+ * 7. Invokes the VerifySoftwareToken method to verify the TOTP and register for
+ * MFA.
+ * 8. Invokes the AdminInitiateAuth to sign in again. This results in being
+ * prompted to submit a TOTP (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”).
+ * 9. Invokes the AdminRespondToAuthChallenge to get back a token.
+ */
+
+public class CognitoMVP <span>{</span>
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException <span>{</span>
+        final String usage = """
+
+                Usage:
+                    &lt;clientId&gt; &lt;poolId&gt;
+
+                Where:
+                    clientId - The app client Id value that you can get from the AWS CDK script.
+                    poolId - The pool Id that you can get from the AWS CDK script.\s
+                """;
+
+        if (args.length != 2) <span>{</span>
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String clientId = args[0];
+        String poolId = args[1];
+        CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon Cognito example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("*** Enter your user name");
+        Scanner in = new Scanner(System.in);
+        String userName = in.nextLine();
+
+        System.out.println("*** Enter your password");
+        String password = in.nextLine();
+
+        System.out.println("*** Enter your email");
+        String email = in.nextLine();
+
+        System.out.println("1. Signing up " + userName);
+        signUp(identityProviderClient, clientId, userName, password, email);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("2. Getting " + userName + " in the user pool");
+        getAdminUser(identityProviderClient, userName, poolId);
+
+        System.out
+                .println("*** Conformation code sent to " + userName + ". Would you like to send a new code? (Yes/No)");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        String ans = in.nextLine();
+
+        if (ans.compareTo("Yes") == 0) <span>{</span>
+            resendConfirmationCode(identityProviderClient, clientId, userName);
+            System.out.println("3. Sending a new confirmation code");
+        }
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("4. Enter confirmation code that was emailed");
+        String code = in.nextLine();
+        confirmSignUp(identityProviderClient, clientId, code, userName);
+        System.out.println("Rechecking the status of " + userName + " in the user pool");
+        getAdminUser(identityProviderClient, userName, poolId);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("5. Invokes the initiateAuth to sign in");
+        AdminInitiateAuthResponse authResponse = initiateAuth(identityProviderClient, clientId, userName, password,
+                poolId);
+        String mySession = authResponse.session();
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("6. Invokes the AssociateSoftwareToken method to generate a TOTP key");
+        String newSession = getSecretForAppMFA(identityProviderClient, mySession);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("*** Enter the 6-digit code displayed in Google Authenticator");
+        String myCode = in.nextLine();
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("7. Verify the TOTP and register for MFA");
+        verifyTOTP(identityProviderClient, newSession, myCode);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("8. Re-enter a 6-digit code displayed in Google Authenticator");
+        String mfaCode = in.nextLine();
+        AdminInitiateAuthResponse authResponse1 = initiateAuth(identityProviderClient, clientId, userName, password,
+                poolId);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("9.  Invokes the AdminRespondToAuthChallenge");
+        String session2 = authResponse1.session();
+        adminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("All Amazon Cognito operations were successfully performed");
+        System.out.println(DASHES);
+    }
+
+    // Respond to an authentication challenge.
+    public static void adminRespondToAuthChallenge(CognitoIdentityProviderClient identityProviderClient,
+            String userName, String clientId, String mfaCode, String session) <span>{</span>
+        System.out.println("SOFTWARE_TOKEN_MFA challenge is generated");
+        Map&lt;String, String&gt; challengeResponses = new HashMap&lt;&gt;();
+
+        challengeResponses.put("USERNAME", userName);
+        challengeResponses.put("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+
+        AdminRespondToAuthChallengeRequest respondToAuthChallengeRequest = AdminRespondToAuthChallengeRequest.builder()
+                .challengeName(ChallengeNameType.SOFTWARE_TOKEN_MFA)
+                .clientId(clientId)
+                .challengeResponses(challengeResponses)
+                .session(session)
+                .build();
+
+        AdminRespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient
+                .adminRespondToAuthChallenge(respondToAuthChallengeRequest);
+        System.out.println("respondToAuthChallengeResult.getAuthenticationResult()"
+                + respondToAuthChallengeResult.authenticationResult());
+    }
+
+    // Verify the TOTP and register for MFA.
+    public static void verifyTOTP(CognitoIdentityProviderClient identityProviderClient, String session, String code) <span>{</span>
+        try <span>{</span>
+            VerifySoftwareTokenRequest tokenRequest = VerifySoftwareTokenRequest.builder()
+                    .userCode(code)
+                    .session(session)
+                    .build();
+
+            VerifySoftwareTokenResponse verifyResponse = identityProviderClient.verifySoftwareToken(tokenRequest);
+            System.out.println("The status of the token is " + verifyResponse.statusAsString());
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    public static AdminInitiateAuthResponse initiateAuth(CognitoIdentityProviderClient identityProviderClient,
+            String clientId, String userName, String password, String userPoolId) <span>{</span>
+        try <span>{</span>
+            Map&lt;String, String&gt; authParameters = new HashMap&lt;&gt;();
+            authParameters.put("USERNAME", userName);
+            authParameters.put("PASSWORD", password);
+
+            AdminInitiateAuthRequest authRequest = AdminInitiateAuthRequest.builder()
+                    .clientId(clientId)
+                    .userPoolId(userPoolId)
+                    .authParameters(authParameters)
+                    .authFlow(AuthFlowType.ADMIN_USER_PASSWORD_AUTH)
+                    .build();
+
+            AdminInitiateAuthResponse response = identityProviderClient.adminInitiateAuth(authRequest);
+            System.out.println("Result Challenge is : " + response.challengeName());
+            return response;
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
+        return null;
+    }
+
+    public static String getSecretForAppMFA(CognitoIdentityProviderClient identityProviderClient, String session) <span>{</span>
+        AssociateSoftwareTokenRequest softwareTokenRequest = AssociateSoftwareTokenRequest.builder()
+                .session(session)
+                .build();
+
+        AssociateSoftwareTokenResponse tokenResponse = identityProviderClient
+                .associateSoftwareToken(softwareTokenRequest);
+        String secretCode = tokenResponse.secretCode();
+        System.out.println("Enter this token into Google Authenticator");
+        System.out.println(secretCode);
+        return tokenResponse.session();
+    }
+
+    public static void confirmSignUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String code,
+            String userName) <span>{</span>
+        try <span>{</span>
+            ConfirmSignUpRequest signUpRequest = ConfirmSignUpRequest.builder()
+                    .clientId(clientId)
+                    .confirmationCode(code)
+                    .username(userName)
+                    .build();
+
+            identityProviderClient.confirmSignUp(signUpRequest);
+            System.out.println(userName + " was confirmed");
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    public static void resendConfirmationCode(CognitoIdentityProviderClient identityProviderClient, String clientId,
+            String userName) <span>{</span>
+        try <span>{</span>
+            ResendConfirmationCodeRequest codeRequest = ResendConfirmationCodeRequest.builder()
+                    .clientId(clientId)
+                    .username(userName)
+                    .build();
+
+            ResendConfirmationCodeResponse response = identityProviderClient.resendConfirmationCode(codeRequest);
+            System.out.println("Method of delivery is " + response.codeDeliveryDetails().deliveryMediumAsString());
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    public static void signUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName,
+            String password, String email) <span>{</span>
+        AttributeType userAttrs = AttributeType.builder()
+                .name("email")
+                .value(email)
+                .build();
+
+        List&lt;AttributeType&gt; userAttrsList = new ArrayList&lt;&gt;();
+        userAttrsList.add(userAttrs);
+        try <span>{</span>
+            SignUpRequest signUpRequest = SignUpRequest.builder()
+                    .userAttributes(userAttrsList)
+                    .username(userName)
+                    .clientId(clientId)
+                    .password(password)
+                    .build();
+
+            identityProviderClient.signUp(signUpRequest);
+            System.out.println("User has been signed up ");
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    public static void getAdminUser(CognitoIdentityProviderClient identityProviderClient, String userName,
+            String poolId) <span>{</span>
+        try <span>{</span>
+            AdminGetUserRequest userRequest = AdminGetUserRequest.builder()
+                    .username(userName)
+                    .userPoolId(poolId)
+                    .build();
+
+            AdminGetUserResponse response = identityProviderClient.adminGetUser(userRequest);
+            System.out.println("User status " + response.userStatusAsString());
+
+        } catch (CognitoIdentityProviderException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for Java 2.x API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/AdminGetUser">AdminGetUser</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/AdminInitiateAuth">AdminInitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/AdminRespondToAuthChallenge">AdminRespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/AssociateSoftwareToken">AssociateSoftwareToken</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/ConfirmDevice">ConfirmDevice</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/ConfirmSignUp">ConfirmSignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/InitiateAuth">InitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/ListUsers">ListUsers</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/ResendConfirmationCode">ResendConfirmationCode</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/RespondToAuthChallenge">RespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/SignUp">SignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cognito-idp-2016-04-18/VerifySoftwareToken">VerifySoftwareToken</a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>JavaScript</dt><dd tab-id="javascript">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for JavaScript (v3)</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cognito-identity-provider/scenarios/basic#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>For the best experience, clone the GitHub repository and run this example. The following code represents a sample of the full example application.</p>
+                
+                <pre class="programlisting" data-example-id="7507eb686c0aeac07808bf6e9db061c0868df6beefcf48968d1d7ed8812a19a8"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import <span>{</span> logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import <span>{</span> signUp } from "../../../actions/sign-up.js";
+import <span>{</span> FILE_USER_POOLS } from "./constants.js";
+import <span>{</span> getSecondValuesFromEntries } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
+
+const validateClient = (clientId) =&gt; <span>{</span>
+  if (!clientId) <span>{</span>
+    throw new Error(
+      `App client id is missing. Did you run 'create-user-pool'?`,
+    );
+  }
+};
+
+const validateUser = (username, password, email) =&gt; <span>{</span>
+  if (!(username &amp;&amp; password &amp;&amp; email)) <span>{</span>
+    throw new Error(
+      `Username, password, and email must be provided as arguments to the 'sign-up' command.`,
+    );
+  }
+};
+
+const signUpHandler = async (commands) =&gt; <span>{</span>
+  const [_, username, password, email] = commands;
+
+  try <span>{</span>
+    validateUser(username, password, email);
+    /**
+     * @type <span>{</span>string[]}
+     */
+    const values = getSecondValuesFromEntries(FILE_USER_POOLS);
+    const clientId = values[0];
+    validateClient(clientId);
+    logger.log("Signing up.");
+    await signUp(<span>{</span> clientId, username, password, email });
+    logger.log(`Signed up. A confirmation email has been sent to: $<span>{</span>email}.`);
+    logger.log(
+      `Run 'confirm-sign-up $<span>{</span>username} &lt;code&gt;' to confirm your account.`,
+    );
+  } catch (err) <span>{</span>
+    logger.error(err);
+  }
+};
+
+export <span>{</span> signUpHandler };
+
+const signUp = (<span>{</span> clientId, username, password, email }) =&gt; <span>{</span>
+  const client = new CognitoIdentityProviderClient(<span>{</span>});
+
+  const command = new SignUpCommand(<span>{</span>
+    ClientId: clientId,
+    Username: username,
+    Password: password,
+    UserAttributes: [<span>{</span> Name: "email", Value: email }],
+  });
+
+  return client.send(command);
+};
+
+import <span>{</span> logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import <span>{</span> confirmSignUp } from "../../../actions/confirm-sign-up.js";
+import <span>{</span> FILE_USER_POOLS } from "./constants.js";
+import <span>{</span> getSecondValuesFromEntries } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
+
+const validateClient = (clientId) =&gt; <span>{</span>
+  if (!clientId) <span>{</span>
+    throw new Error(
+      `App client id is missing. Did you run 'create-user-pool'?`,
+    );
+  }
+};
+
+const validateUser = (username) =&gt; <span>{</span>
+  if (!username) <span>{</span>
+    throw new Error(
+      `Username name is missing. It must be provided as an argument to the 'confirm-sign-up' command.`,
+    );
+  }
+};
+
+const validateCode = (code) =&gt; <span>{</span>
+  if (!code) <span>{</span>
+    throw new Error(
+      `Verification code is missing. It must be provided as an argument to the 'confirm-sign-up' command.`,
+    );
+  }
+};
+
+const confirmSignUpHandler = async (commands) =&gt; <span>{</span>
+  const [_, username, code] = commands;
+
+  try <span>{</span>
+    validateUser(username);
+    validateCode(code);
+    /**
+     * @type <span>{</span>string[]}
+     */
+    const values = getSecondValuesFromEntries(FILE_USER_POOLS);
+    const clientId = values[0];
+    validateClient(clientId);
+    logger.log("Confirming user.");
+    await confirmSignUp(<span>{</span> clientId, username, code });
+    logger.log(
+      `User confirmed. Run 'admin-initiate-auth $<span>{</span>username} &lt;password&gt;' to sign in.`,
+    );
+  } catch (err) <span>{</span>
+    logger.error(err);
+  }
+};
+
+export <span>{</span> confirmSignUpHandler };
+
+const confirmSignUp = (<span>{</span> clientId, username, code }) =&gt; <span>{</span>
+  const client = new CognitoIdentityProviderClient(<span>{</span>});
+
+  const command = new ConfirmSignUpCommand(<span>{</span>
+    ClientId: clientId,
+    Username: username,
+    ConfirmationCode: code,
+  });
+
+  return client.send(command);
+};
+
+import qrcode from "qrcode-terminal";
+import <span>{</span> logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import <span>{</span> adminInitiateAuth } from "../../../actions/admin-initiate-auth.js";
+import <span>{</span> associateSoftwareToken } from "../../../actions/associate-software-token.js";
+import <span>{</span> FILE_USER_POOLS } from "./constants.js";
+import <span>{</span> getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
+
+const handleMfaSetup = async (session, username) =&gt; <span>{</span>
+  const <span>{</span> SecretCode, Session } = await associateSoftwareToken(session);
+
+  // Store the Session for use with 'VerifySoftwareToken'.
+  process.env.SESSION = Session;
+
+  console.log(
+    "Scan this code in your preferred authenticator app, then run 'verify-software-token' to finish the setup.",
+  );
+  qrcode.generate(
+    `otpauth://totp/$<span>{</span>username}?secret=$<span>{</span>SecretCode}`,
+    <span>{</span> small: true },
+    console.log,
+  );
+};
+
+const handleSoftwareTokenMfa = (session) =&gt; <span>{</span>
+  // Store the Session for use with 'AdminRespondToAuthChallenge'.
+  process.env.SESSION = session;
+};
+
+const validateClient = (id) =&gt; <span>{</span>
+  if (!id) <span>{</span>
+    throw new Error(
+      `User pool client id is missing. Did you run 'create-user-pool'?`,
+    );
+  }
+};
+
+const validateId = (id) =&gt; <span>{</span>
+  if (!id) <span>{</span>
+    throw new Error(`User pool id is missing. Did you run 'create-user-pool'?`);
+  }
+};
+
+const validateUser = (username, password) =&gt; <span>{</span>
+  if (!(username &amp;&amp; password)) <span>{</span>
+    throw new Error(
+      `Username and password must be provided as arguments to the 'admin-initiate-auth' command.`,
+    );
+  }
+};
+
+const adminInitiateAuthHandler = async (commands) =&gt; <span>{</span>
+  const [_, username, password] = commands;
+
+  try <span>{</span>
+    validateUser(username, password);
+
+    const [userPoolId, clientId] = getFirstEntry(FILE_USER_POOLS);
+    validateId(userPoolId);
+    validateClient(clientId);
+
+    logger.log("Signing in.");
+    const <span>{</span> ChallengeName, Session } = await adminInitiateAuth(<span>{</span>
+      clientId,
+      userPoolId,
+      username,
+      password,
+    });
+
+    if (ChallengeName === "MFA_SETUP") <span>{</span>
+      logger.log("MFA setup is required.");
+      return handleMfaSetup(Session, username);
+    }
+
+    if (ChallengeName === "SOFTWARE_TOKEN_MFA") <span>{</span>
+      handleSoftwareTokenMfa(Session);
+      logger.log(`Run 'admin-respond-to-auth-challenge $<span>{</span>username} &lt;totp&gt;'`);
+    }
+  } catch (err) <span>{</span>
+    logger.error(err);
+  }
+};
+
+export <span>{</span> adminInitiateAuthHandler };
+
+const adminInitiateAuth = (<span>{</span> clientId, userPoolId, username, password }) =&gt; <span>{</span>
+  const client = new CognitoIdentityProviderClient(<span>{</span>});
+
+  const command = new AdminInitiateAuthCommand(<span>{</span>
+    ClientId: clientId,
+    UserPoolId: userPoolId,
+    AuthFlow: AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
+    AuthParameters: <span>{</span> USERNAME: username, PASSWORD: password },
+  });
+
+  return client.send(command);
+};
+
+import <span>{</span> logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import <span>{</span> adminRespondToAuthChallenge } from "../../../actions/admin-respond-to-auth-challenge.js";
+import <span>{</span> getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
+import <span>{</span> FILE_USER_POOLS } from "./constants.js";
+
+const verifyUsername = (username) =&gt; <span>{</span>
+  if (!username) <span>{</span>
+    throw new Error(
+      `Username is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`,
+    );
+  }
+};
+
+const verifyTotp = (totp) =&gt; <span>{</span>
+  if (!totp) <span>{</span>
+    throw new Error(
+      `Time-based one-time password (TOTP) is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`,
+    );
+  }
+};
+
+const storeAccessToken = (token) =&gt; <span>{</span>
+  process.env.AccessToken = token;
+};
+
+const adminRespondToAuthChallengeHandler = async (commands) =&gt; <span>{</span>
+  const [_, username, totp] = commands;
+
+  try <span>{</span>
+    verifyUsername(username);
+    verifyTotp(totp);
+
+    const [userPoolId, clientId] = getFirstEntry(FILE_USER_POOLS);
+    const session = process.env.SESSION;
+
+    const <span>{</span> AuthenticationResult } = await adminRespondToAuthChallenge(<span>{</span>
+      clientId,
+      userPoolId,
+      username,
+      totp,
+      session,
+    });
+
+    storeAccessToken(AuthenticationResult.AccessToken);
+
+    logger.log("Successfully authenticated.");
+  } catch (err) <span>{</span>
+    logger.error(err);
+  }
+};
+
+export <span>{</span> adminRespondToAuthChallengeHandler };
+
+const respondToAuthChallenge = (<span>{</span>
+  clientId,
+  username,
+  session,
+  userPoolId,
+  code,
+}) =&gt; <span>{</span>
+  const client = new CognitoIdentityProviderClient(<span>{</span>});
+
+  const command = new RespondToAuthChallengeCommand(<span>{</span>
+    ChallengeName: ChallengeNameType.SOFTWARE_TOKEN_MFA,
+    ChallengeResponses: <span>{</span>
+      SOFTWARE_TOKEN_MFA_CODE: code,
+      USERNAME: username,
+    },
+    ClientId: clientId,
+    UserPoolId: userPoolId,
+    Session: session,
+  });
+
+  return client.send(command);
+};
+
+import <span>{</span> logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import <span>{</span> verifySoftwareToken } from "../../../actions/verify-software-token.js";
+
+const validateTotp = (totp) =&gt; <span>{</span>
+  if (!totp) <span>{</span>
+    throw new Error(
+      `Time-based one-time password (TOTP) must be provided to the 'validate-software-token' command.`,
+    );
+  }
+};
+const verifySoftwareTokenHandler = async (commands) =&gt; <span>{</span>
+  const [_, totp] = commands;
+
+  try <span>{</span>
+    validateTotp(totp);
+
+    logger.log("Verifying TOTP.");
+    await verifySoftwareToken(totp);
+    logger.log("TOTP Verified. Run 'admin-initiate-auth' again to sign-in.");
+  } catch (err) <span>{</span>
+    logger.error(err);
+  }
+};
+
+export <span>{</span> verifySoftwareTokenHandler };
+
+const verifySoftwareToken = (totp) =&gt; <span>{</span>
+  const client = new CognitoIdentityProviderClient(<span>{</span>});
+
+  // The 'Session' is provided in the response to 'AssociateSoftwareToken'.
+  const session = process.env.SESSION;
+
+  if (!session) <span>{</span>
+    throw new Error(
+      "Missing a valid Session. Did you run 'admin-initiate-auth'?",
+    );
+  }
+
+  const command = new VerifySoftwareTokenCommand(<span>{</span>
+    Session: session,
+    UserCode: totp,
+  });
+
+  return client.send(command);
+};
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for JavaScript API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/AdminGetUserCommand">AdminGetUser</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/AdminInitiateAuthCommand">AdminInitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/AdminRespondToAuthChallengeCommand">AdminRespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/AssociateSoftwareTokenCommand">AssociateSoftwareToken</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/ConfirmDeviceCommand">ConfirmDevice</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/ConfirmSignUpCommand">ConfirmSignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/InitiateAuthCommand">InitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/ListUsersCommand">ListUsers</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/ResendConfirmationCodeCommand">ResendConfirmationCode</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/RespondToAuthChallengeCommand">RespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/SignUpCommand">SignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cognito-identity-provider/command/VerifySoftwareTokenCommand">VerifySoftwareToken</a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Kotlin</dt><dd tab-id="kotlin">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Kotlin</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/cognito#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="53dd441746401edc0f060033adae33e03160bdc9ed9a5a2d2b83752b8e3f393f"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (kotlin)--><code class="kotlin ">
+/**
+ Before running this Kotlin code example, set up your development environment, including your credentials.
+
+ For more information, see the following documentation:
+ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+
+ TIP: To set up the required user pool, run the AWS Cloud Development Kit (AWS CDK) script provided in this GitHub repo at resources/cdk/cognito_scenario_user_pool_with_mfa.
+
+ This code example performs the following operations:
+
+ 1. Invokes the signUp method to sign up a user.
+ 2. Invokes the adminGetUser method to get the user's confirmation status.
+ 3. Invokes the ResendConfirmationCode method if the user requested another code.
+ 4. Invokes the confirmSignUp method.
+ 5. Invokes the initiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
+ 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private key. This can be used with Google Authenticator.
+ 7. Invokes the VerifySoftwareToken method to verify the TOTP and register for MFA.
+ 8. Invokes the AdminInitiateAuth to sign in again. This results in being prompted to submit a TOTP (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”).
+ 9. Invokes the AdminRespondToAuthChallenge to get back a token.
+ */
+
+suspend fun main(args: Array&lt;String&gt;) <span>{</span>
+    val usage = """
+        Usage:
+            &lt;clientId&gt; &lt;poolId&gt;
+        Where:
+            clientId - The app client Id value that you can get from the AWS CDK script.
+            poolId - The pool Id that you can get from the AWS CDK script. 
+    """
+
+    if (args.size != 2) <span>{</span>
+        println(usage)
+        exitProcess(1)
+    }
+
+    val clientId = args[0]
+    val poolId = args[1]
+
+    // Use the console to get data from the user.
+    println("*** Enter your use name")
+    val inOb = Scanner(System.`in`)
+    val userName = inOb.nextLine()
+    println(userName)
+
+    println("*** Enter your password")
+    val password: String = inOb.nextLine()
+
+    println("*** Enter your email")
+    val email = inOb.nextLine()
+
+    println("*** Signing up $userName")
+    signUp(clientId, userName, password, email)
+
+    println("*** Getting $userName in the user pool")
+    getAdminUser(userName, poolId)
+
+    println("*** Conformation code sent to $userName. Would you like to send a new code? (Yes/No)")
+    val ans = inOb.nextLine()
+
+    if (ans.compareTo("Yes") == 0) <span>{</span>
+        println("*** Sending a new confirmation code")
+        resendConfirmationCode(clientId, userName)
+    }
+    println("*** Enter the confirmation code that was emailed")
+    val code = inOb.nextLine()
+    confirmSignUp(clientId, code, userName)
+
+    println("*** Rechecking the status of $userName in the user pool")
+    getAdminUser(userName, poolId)
+
+    val authResponse = checkAuthMethod(clientId, userName, password, poolId)
+    val mySession = authResponse.session
+    val newSession = getSecretForAppMFA(mySession)
+    println("*** Enter the 6-digit code displayed in Google Authenticator")
+    val myCode = inOb.nextLine()
+
+    // Verify the TOTP and register for MFA.
+    verifyTOTP(newSession, myCode)
+    println("*** Re-enter a 6-digit code displayed in Google Authenticator")
+    val mfaCode: String = inOb.nextLine()
+    val authResponse1 = checkAuthMethod(clientId, userName, password, poolId)
+    val session2 = authResponse1.session
+    adminRespondToAuthChallenge(userName, clientId, mfaCode, session2)
+}
+
+suspend fun checkAuthMethod(
+    clientIdVal: String,
+    userNameVal: String,
+    passwordVal: String,
+    userPoolIdVal: String,
+): AdminInitiateAuthResponse <span>{</span>
+    val authParas = mutableMapOf&lt;String, String&gt;()
+    authParas["USERNAME"] = userNameVal
+    authParas["PASSWORD"] = passwordVal
+
+    val authRequest =
+        AdminInitiateAuthRequest <span>{</span>
+            clientId = clientIdVal
+            userPoolId = userPoolIdVal
+            authParameters = authParas
+            authFlow = AuthFlowType.AdminUserPasswordAuth
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val response = identityProviderClient.adminInitiateAuth(authRequest)
+        println("Result Challenge is $<span>{</span>response.challengeName}")
+        return response
+    }
+}
+
+suspend fun resendConfirmationCode(
+    clientIdVal: String?,
+    userNameVal: String?,
+) <span>{</span>
+    val codeRequest =
+        ResendConfirmationCodeRequest <span>{</span>
+            clientId = clientIdVal
+            username = userNameVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val response = identityProviderClient.resendConfirmationCode(codeRequest)
+        println("Method of delivery is " + (response.codeDeliveryDetails?.deliveryMedium))
+    }
+}
+
+// Respond to an authentication challenge.
+suspend fun adminRespondToAuthChallenge(
+    userName: String,
+    clientIdVal: String?,
+    mfaCode: String,
+    sessionVal: String?,
+) <span>{</span>
+    println("SOFTWARE_TOKEN_MFA challenge is generated")
+    val challengeResponsesOb = mutableMapOf&lt;String, String&gt;()
+    challengeResponsesOb["USERNAME"] = userName
+    challengeResponsesOb["SOFTWARE_TOKEN_MFA_CODE"] = mfaCode
+
+    val adminRespondToAuthChallengeRequest =
+        AdminRespondToAuthChallengeRequest <span>{</span>
+            challengeName = ChallengeNameType.SoftwareTokenMfa
+            clientId = clientIdVal
+            challengeResponses = challengeResponsesOb
+            session = sessionVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(adminRespondToAuthChallengeRequest)
+        println("respondToAuthChallengeResult.getAuthenticationResult() $<span>{</span>respondToAuthChallengeResult.authenticationResult}")
+    }
+}
+
+// Verify the TOTP and register for MFA.
+suspend fun verifyTOTP(
+    sessionVal: String?,
+    codeVal: String?,
+) <span>{</span>
+    val tokenRequest =
+        VerifySoftwareTokenRequest <span>{</span>
+            userCode = codeVal
+            session = sessionVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val verifyResponse = identityProviderClient.verifySoftwareToken(tokenRequest)
+        println("The status of the token is $<span>{</span>verifyResponse.status}")
+    }
+}
+
+suspend fun getSecretForAppMFA(sessionVal: String?): String? <span>{</span>
+    val softwareTokenRequest =
+        AssociateSoftwareTokenRequest <span>{</span>
+            session = sessionVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val tokenResponse = identityProviderClient.associateSoftwareToken(softwareTokenRequest)
+        val secretCode = tokenResponse.secretCode
+        println("Enter this token into Google Authenticator")
+        println(secretCode)
+        return tokenResponse.session
+    }
+}
+
+suspend fun confirmSignUp(
+    clientIdVal: String?,
+    codeVal: String?,
+    userNameVal: String?,
+) <span>{</span>
+    val signUpRequest =
+        ConfirmSignUpRequest <span>{</span>
+            clientId = clientIdVal
+            confirmationCode = codeVal
+            username = userNameVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        identityProviderClient.confirmSignUp(signUpRequest)
+        println("$userNameVal  was confirmed")
+    }
+}
+
+suspend fun getAdminUser(
+    userNameVal: String?,
+    poolIdVal: String?,
+) <span>{</span>
+    val userRequest =
+        AdminGetUserRequest <span>{</span>
+            username = userNameVal
+            userPoolId = poolIdVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        val response = identityProviderClient.adminGetUser(userRequest)
+        println("User status $<span>{</span>response.userStatus}")
+    }
+}
+
+suspend fun signUp(
+    clientIdVal: String?,
+    userNameVal: String?,
+    passwordVal: String?,
+    emailVal: String?,
+) <span>{</span>
+    val userAttrs =
+        AttributeType <span>{</span>
+            name = "email"
+            value = emailVal
+        }
+
+    val userAttrsList = mutableListOf&lt;AttributeType&gt;()
+    userAttrsList.add(userAttrs)
+    val signUpRequest =
+        SignUpRequest <span>{</span>
+            userAttributes = userAttrsList
+            username = userNameVal
+            clientId = clientIdVal
+            password = passwordVal
+        }
+
+    CognitoIdentityProviderClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> identityProviderClient -&gt;
+        identityProviderClient.signUp(signUpRequest)
+        println("User has been signed up")
+    }
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for Kotlin API reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>AdminGetUser</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>AdminInitiateAuth</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>AdminRespondToAuthChallenge</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>AssociateSoftwareToken</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>ConfirmDevice</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>ConfirmSignUp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>InitiateAuth</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>ListUsers</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>ResendConfirmationCode</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>RespondToAuthChallenge</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>SignUp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>VerifySoftwareToken</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Python</dt><dd tab-id="python">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Python (Boto3)</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/cognito#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>Create a class that wraps Amazon Cognito functions used in the scenario.</p>
+                
+                <pre class="programlisting" data-example-id="c357d5d89ad8f8a0aeaa63b49ec04df0f62dff3591221a0148f95f00408cb0e5"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">class CognitoIdentityProviderWrapper:
+    """Encapsulates Amazon Cognito actions"""
+
+    def __init__(self, cognito_idp_client, user_pool_id, client_id, client_secret=None):
+        """
+        :param cognito_idp_client: A Boto3 Amazon Cognito Identity Provider client.
+        :param user_pool_id: The ID of an existing Amazon Cognito user pool.
+        :param client_id: The ID of a client application registered with the user pool.
+        :param client_secret: The client secret, if the client has a secret.
+        """
+        self.cognito_idp_client = cognito_idp_client
+        self.user_pool_id = user_pool_id
+        self.client_id = client_id
+        self.client_secret = client_secret
+
+
+    def _secret_hash(self, user_name):
+        """
+        Calculates a secret hash from a user name and a client secret.
+
+        :param user_name: The user name to use when calculating the hash.
+        :return: The secret hash.
+        """
+        key = self.client_secret.encode()
+        msg = bytes(user_name + self.client_id, "utf-8")
+        secret_hash = base64.b64encode(
+            hmac.new(key, msg, digestmod=hashlib.sha256).digest()
+        ).decode()
+        logger.info("Made secret hash for %s: %s.", user_name, secret_hash)
+        return secret_hash
+
+    def sign_up_user(self, user_name, password, user_email):
+        """
+        Signs up a new user with Amazon Cognito. This action prompts Amazon Cognito
+        to send an email to the specified email address. The email contains a code that
+        can be used to confirm the user.
+
+        When the user already exists, the user status is checked to determine whether
+        the user has been confirmed.
+
+        :param user_name: The user name that identifies the new user.
+        :param password: The password for the new user.
+        :param user_email: The email address for the new user.
+        :return: True when the user is already confirmed with Amazon Cognito.
+                 Otherwise, false.
+        """
+        try:
+            kwargs = <span>{</span>
+                "ClientId": self.client_id,
+                "Username": user_name,
+                "Password": password,
+                "UserAttributes": [<span>{</span>"Name": "email", "Value": user_email}],
+            }
+            if self.client_secret is not None:
+                kwargs["SecretHash"] = self._secret_hash(user_name)
+            response = self.cognito_idp_client.sign_up(**kwargs)
+            confirmed = response["UserConfirmed"]
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "UsernameExistsException":
+                response = self.cognito_idp_client.admin_get_user(
+                    UserPoolId=self.user_pool_id, Username=user_name
+                )
+                logger.warning(
+                    "User %s exists and is %s.", user_name, response["UserStatus"]
+                )
+                confirmed = response["UserStatus"] == "CONFIRMED"
+            else:
+                logger.error(
+                    "Couldn't sign up %s. Here's why: %s: %s",
+                    user_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+                raise
+        return confirmed
+
+
+    def resend_confirmation(self, user_name):
+        """
+        Prompts Amazon Cognito to resend an email with a new confirmation code.
+
+        :param user_name: The name of the user who will receive the email.
+        :return: Delivery information about where the email is sent.
+        """
+        try:
+            kwargs = <span>{</span>"ClientId": self.client_id, "Username": user_name}
+            if self.client_secret is not None:
+                kwargs["SecretHash"] = self._secret_hash(user_name)
+            response = self.cognito_idp_client.resend_confirmation_code(**kwargs)
+            delivery = response["CodeDeliveryDetails"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't resend confirmation to %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return delivery
+
+
+    def confirm_user_sign_up(self, user_name, confirmation_code):
+        """
+        Confirms a previously created user. A user must be confirmed before they
+        can sign in to Amazon Cognito.
+
+        :param user_name: The name of the user to confirm.
+        :param confirmation_code: The confirmation code sent to the user's registered
+                                  email address.
+        :return: True when the confirmation succeeds.
+        """
+        try:
+            kwargs = <span>{</span>
+                "ClientId": self.client_id,
+                "Username": user_name,
+                "ConfirmationCode": confirmation_code,
+            }
+            if self.client_secret is not None:
+                kwargs["SecretHash"] = self._secret_hash(user_name)
+            self.cognito_idp_client.confirm_sign_up(**kwargs)
+        except ClientError as err:
+            logger.error(
+                "Couldn't confirm sign up for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return True
+
+
+    def list_users(self):
+        """
+        Returns a list of the users in the current user pool.
+
+        :return: The list of users.
+        """
+        try:
+            response = self.cognito_idp_client.list_users(UserPoolId=self.user_pool_id)
+            users = response["Users"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't list users for %s. Here's why: %s: %s",
+                self.user_pool_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return users
+
+
+    def start_sign_in(self, user_name, password):
+        """
+        Starts the sign-in process for a user by using administrator credentials.
+        This method of signing in is appropriate for code running on a secure server.
+
+        If the user pool is configured to require MFA and this is the first sign-in
+        for the user, Amazon Cognito returns a challenge response to set up an
+        MFA application. When this occurs, this function gets an MFA secret from
+        Amazon Cognito and returns it to the caller.
+
+        :param user_name: The name of the user to sign in.
+        :param password: The user's password.
+        :return: The result of the sign-in attempt. When sign-in is successful, this
+                 returns an access token that can be used to get AWS credentials. Otherwise,
+                 Amazon Cognito returns a challenge to set up an MFA application,
+                 or a challenge to enter an MFA code from a registered MFA application.
+        """
+        try:
+            kwargs = <span>{</span>
+                "UserPoolId": self.user_pool_id,
+                "ClientId": self.client_id,
+                "AuthFlow": "ADMIN_USER_PASSWORD_AUTH",
+                "AuthParameters": <span>{</span>"USERNAME": user_name, "PASSWORD": password},
+            }
+            if self.client_secret is not None:
+                kwargs["AuthParameters"]["SECRET_HASH"] = self._secret_hash(user_name)
+            response = self.cognito_idp_client.admin_initiate_auth(**kwargs)
+            challenge_name = response.get("ChallengeName", None)
+            if challenge_name == "MFA_SETUP":
+                if (
+                    "SOFTWARE_TOKEN_MFA"
+                    in response["ChallengeParameters"]["MFAS_CAN_SETUP"]
+                ):
+                    response.update(self.get_mfa_secret(response["Session"]))
+                else:
+                    raise RuntimeError(
+                        "The user pool requires MFA setup, but the user pool is not "
+                        "configured for TOTP MFA. This example requires TOTP MFA."
+                    )
+        except ClientError as err:
+            logger.error(
+                "Couldn't start sign in for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            response.pop("ResponseMetadata", None)
+            return response
+
+
+    def get_mfa_secret(self, session):
+        """
+        Gets a token that can be used to associate an MFA application with the user.
+
+        :param session: Session information returned from a previous call to initiate
+                        authentication.
+        :return: An MFA token that can be used to set up an MFA application.
+        """
+        try:
+            response = self.cognito_idp_client.associate_software_token(Session=session)
+        except ClientError as err:
+            logger.error(
+                "Couldn't get MFA secret. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            response.pop("ResponseMetadata", None)
+            return response
+
+
+    def verify_mfa(self, session, user_code):
+        """
+        Verify a new MFA application that is associated with a user.
+
+        :param session: Session information returned from a previous call to initiate
+                        authentication.
+        :param user_code: A code generated by the associated MFA application.
+        :return: Status that indicates whether the MFA application is verified.
+        """
+        try:
+            response = self.cognito_idp_client.verify_software_token(
+                Session=session, UserCode=user_code
+            )
+        except ClientError as err:
+            logger.error(
+                "Couldn't verify MFA. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            response.pop("ResponseMetadata", None)
+            return response
+
+
+    def respond_to_mfa_challenge(self, user_name, session, mfa_code):
+        """
+        Responds to a challenge for an MFA code. This completes the second step of
+        a two-factor sign-in. When sign-in is successful, it returns an access token
+        that can be used to get AWS credentials from Amazon Cognito.
+
+        :param user_name: The name of the user who is signing in.
+        :param session: Session information returned from a previous call to initiate
+                        authentication.
+        :param mfa_code: A code generated by the associated MFA application.
+        :return: The result of the authentication. When successful, this contains an
+                 access token for the user.
+        """
+        try:
+            kwargs = <span>{</span>
+                "UserPoolId": self.user_pool_id,
+                "ClientId": self.client_id,
+                "ChallengeName": "SOFTWARE_TOKEN_MFA",
+                "Session": session,
+                "ChallengeResponses": <span>{</span>
+                    "USERNAME": user_name,
+                    "SOFTWARE_TOKEN_MFA_CODE": mfa_code,
+                },
+            }
+            if self.client_secret is not None:
+                kwargs["ChallengeResponses"]["SECRET_HASH"] = self._secret_hash(
+                    user_name
+                )
+            response = self.cognito_idp_client.admin_respond_to_auth_challenge(**kwargs)
+            auth_result = response["AuthenticationResult"]
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ExpiredCodeException":
+                logger.warning(
+                    "Your MFA code has expired or has been used already. You might have "
+                    "to wait a few seconds until your app shows you a new code."
+                )
+            else:
+                logger.error(
+                    "Couldn't respond to mfa challenge for %s. Here's why: %s: %s",
+                    user_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+                raise
+        else:
+            return auth_result
+
+
+    def confirm_mfa_device(
+        self,
+        user_name,
+        device_key,
+        device_group_key,
+        device_password,
+        access_token,
+        aws_srp,
+    ):
+        """
+        Confirms an MFA device to be tracked by Amazon Cognito. When a device is
+        tracked, its key and password can be used to sign in without requiring a new
+        MFA code from the MFA application.
+
+        :param user_name: The user that is associated with the device.
+        :param device_key: The key of the device, returned by Amazon Cognito.
+        :param device_group_key: The group key of the device, returned by Amazon Cognito.
+        :param device_password: The password that is associated with the device.
+        :param access_token: The user's access token.
+        :param aws_srp: A class that helps with Secure Remote Password (SRP)
+                        calculations. The scenario associated with this example uses
+                        the warrant package.
+        :return: True when the user must confirm the device. Otherwise, False. When
+                 False, the device is automatically confirmed and tracked.
+        """
+        srp_helper = aws_srp.AWSSRP(
+            username=user_name,
+            password=device_password,
+            pool_id="_",
+            client_id=self.client_id,
+            client_secret=None,
+            client=self.cognito_idp_client,
+        )
+        device_and_pw = f"<span>{</span>device_group_key}<span>{</span>device_key}:<span>{</span>device_password}"
+        device_and_pw_hash = aws_srp.hash_sha256(device_and_pw.encode("utf-8"))
+        salt = aws_srp.pad_hex(aws_srp.get_random(16))
+        x_value = aws_srp.hex_to_long(aws_srp.hex_hash(salt + device_and_pw_hash))
+        verifier = aws_srp.pad_hex(pow(srp_helper.val_g, x_value, srp_helper.big_n))
+        device_secret_verifier_config = <span>{</span>
+            "PasswordVerifier": base64.standard_b64encode(
+                bytearray.fromhex(verifier)
+            ).decode("utf-8"),
+            "Salt": base64.standard_b64encode(bytearray.fromhex(salt)).decode("utf-8"),
+        }
+        try:
+            response = self.cognito_idp_client.confirm_device(
+                AccessToken=access_token,
+                DeviceKey=device_key,
+                DeviceSecretVerifierConfig=device_secret_verifier_config,
+            )
+            user_confirm = response["UserConfirmationNecessary"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't confirm mfa device %s. Here's why: %s: %s",
+                device_key,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return user_confirm
+
+
+    def sign_in_with_tracked_device(
+        self,
+        user_name,
+        password,
+        device_key,
+        device_group_key,
+        device_password,
+        aws_srp,
+    ):
+        """
+        Signs in to Amazon Cognito as a user who has a tracked device. Signing in
+        with a tracked device lets a user sign in without entering a new MFA code.
+
+        Signing in with a tracked device requires that the client respond to the SRP
+        protocol. The scenario associated with this example uses the warrant package
+        to help with SRP calculations.
+
+        For more information on SRP, see https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol.
+
+        :param user_name: The user that is associated with the device.
+        :param password: The user's password.
+        :param device_key: The key of a tracked device.
+        :param device_group_key: The group key of a tracked device.
+        :param device_password: The password that is associated with the device.
+        :param aws_srp: A class that helps with SRP calculations. The scenario
+                        associated with this example uses the warrant package.
+        :return: The result of the authentication. When successful, this contains an
+                 access token for the user.
+        """
+        try:
+            srp_helper = aws_srp.AWSSRP(
+                username=user_name,
+                password=device_password,
+                pool_id="_",
+                client_id=self.client_id,
+                client_secret=None,
+                client=self.cognito_idp_client,
+            )
+
+            response_init = self.cognito_idp_client.initiate_auth(
+                ClientId=self.client_id,
+                AuthFlow="USER_PASSWORD_AUTH",
+                AuthParameters=<span>{</span>
+                    "USERNAME": user_name,
+                    "PASSWORD": password,
+                    "DEVICE_KEY": device_key,
+                },
+            )
+            if response_init["ChallengeName"] != "DEVICE_SRP_AUTH":
+                raise RuntimeError(
+                    f"Expected DEVICE_SRP_AUTH challenge but got <span>{</span>response_init['ChallengeName']}."
+                )
+
+            auth_params = srp_helper.get_auth_params()
+            auth_params["DEVICE_KEY"] = device_key
+            response_auth = self.cognito_idp_client.respond_to_auth_challenge(
+                ClientId=self.client_id,
+                ChallengeName="DEVICE_SRP_AUTH",
+                ChallengeResponses=auth_params,
+            )
+            if response_auth["ChallengeName"] != "DEVICE_PASSWORD_VERIFIER":
+                raise RuntimeError(
+                    f"Expected DEVICE_PASSWORD_VERIFIER challenge but got "
+                    f"<span>{</span>response_init['ChallengeName']}."
+                )
+
+            challenge_params = response_auth["ChallengeParameters"]
+            challenge_params["USER_ID_FOR_SRP"] = device_group_key + device_key
+            cr = srp_helper.process_challenge(challenge_params, <span>{</span>"USERNAME": user_name})
+            cr["USERNAME"] = user_name
+            cr["DEVICE_KEY"] = device_key
+            response_verifier = self.cognito_idp_client.respond_to_auth_challenge(
+                ClientId=self.client_id,
+                ChallengeName="DEVICE_PASSWORD_VERIFIER",
+                ChallengeResponses=cr,
+            )
+            auth_tokens = response_verifier["AuthenticationResult"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't start client sign in for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return auth_tokens
+
+
+
+
+</code></pre>
+            
+            
+                    <p>Create a class that runs the scenario. This example also registers an MFA device to be tracked by Amazon Cognito and shows you how to sign in by using a password and information from the tracked device. This avoids the need to enter a new MFA code.</p>
+                
+                <pre class="programlisting" data-example-id="c357d5d89ad8f8a0aeaa63b49ec04df0f62dff3591221a0148f95f00408cb0e5"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">def run_scenario(cognito_idp_client, user_pool_id, client_id):
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    print("-" * 88)
+    print("Welcome to the Amazon Cognito user signup with MFA demo.")
+    print("-" * 88)
+
+    cog_wrapper = CognitoIdentityProviderWrapper(
+        cognito_idp_client, user_pool_id, client_id
+    )
+
+    user_name = q.ask("Let's sign up a new user. Enter a user name: ", q.non_empty)
+    password = q.ask("Enter a password for the user: ", q.non_empty)
+    email = q.ask("Enter a valid email address that you own: ", q.non_empty)
+    confirmed = cog_wrapper.sign_up_user(user_name, password, email)
+    while not confirmed:
+        print(
+            f"User <span>{</span>user_name} requires confirmation. Check <span>{</span>email} for "
+            f"a verification code."
+        )
+        confirmation_code = q.ask("Enter the confirmation code from the email: ")
+        if not confirmation_code:
+            if q.ask("Do you need another confirmation code (y/n)? ", q.is_yesno):
+                delivery = cog_wrapper.resend_confirmation(user_name)
+                print(
+                    f"Confirmation code sent by <span>{</span>delivery['DeliveryMedium']} "
+                    f"to <span>{</span>delivery['Destination']}."
+                )
+        else:
+            confirmed = cog_wrapper.confirm_user_sign_up(user_name, confirmation_code)
+    print(f"User <span>{</span>user_name} is confirmed and ready to use.")
+    print("-" * 88)
+
+    print("Let's get a list of users in the user pool.")
+    q.ask("Press Enter when you're ready.")
+    users = cog_wrapper.list_users()
+    if users:
+        print(f"Found <span>{</span>len(users)} users:")
+        pp(users)
+    else:
+        print("No users found.")
+    print("-" * 88)
+
+    print("Let's sign in and get an access token.")
+    auth_tokens = None
+    challenge = "ADMIN_USER_PASSWORD_AUTH"
+    response = <span>{</span>}
+    while challenge is not None:
+        if challenge == "ADMIN_USER_PASSWORD_AUTH":
+            response = cog_wrapper.start_sign_in(user_name, password)
+            challenge = response["ChallengeName"]
+        elif response["ChallengeName"] == "MFA_SETUP":
+            print("First, we need to set up an MFA application.")
+            qr_img = qrcode.make(
+                f"otpauth://totp/<span>{</span>user_name}?secret=<span>{</span>response['SecretCode']}"
+            )
+            qr_img.save("qr.png")
+            q.ask(
+                "Press Enter to see a QR code on your screen. Scan it into an MFA "
+                "application, such as Google Authenticator."
+            )
+            webbrowser.open("qr.png")
+            mfa_code = q.ask(
+                "Enter the verification code from your MFA application: ", q.non_empty
+            )
+            response = cog_wrapper.verify_mfa(response["Session"], mfa_code)
+            print(f"MFA device setup <span>{</span>response['Status']}")
+            print("Now that an MFA application is set up, let's sign in again.")
+            print(
+                "You might have to wait a few seconds for a new MFA code to appear in "
+                "your MFA application."
+            )
+            challenge = "ADMIN_USER_PASSWORD_AUTH"
+        elif response["ChallengeName"] == "SOFTWARE_TOKEN_MFA":
+            auth_tokens = None
+            while auth_tokens is None:
+                mfa_code = q.ask(
+                    "Enter a verification code from your MFA application: ", q.non_empty
+                )
+                auth_tokens = cog_wrapper.respond_to_mfa_challenge(
+                    user_name, response["Session"], mfa_code
+                )
+            print(f"You're signed in as <span>{</span>user_name}.")
+            print("Here's your access token:")
+            pp(auth_tokens["AccessToken"])
+            print("And your device information:")
+            pp(auth_tokens["NewDeviceMetadata"])
+            challenge = None
+        else:
+            raise Exception(f"Got unexpected challenge <span>{</span>response['ChallengeName']}")
+    print("-" * 88)
+
+    device_group_key = auth_tokens["NewDeviceMetadata"]["DeviceGroupKey"]
+    device_key = auth_tokens["NewDeviceMetadata"]["DeviceKey"]
+    device_password = base64.standard_b64encode(os.urandom(40)).decode("utf-8")
+
+    print("Let's confirm your MFA device so you don't have re-enter MFA tokens for it.")
+    q.ask("Press Enter when you're ready.")
+    cog_wrapper.confirm_mfa_device(
+        user_name,
+        device_key,
+        device_group_key,
+        device_password,
+        auth_tokens["AccessToken"],
+        aws_srp,
+    )
+    print(f"Your device <span>{</span>device_key} is confirmed.")
+    print("-" * 88)
+
+    print(
+        f"Now let's sign in as <span>{</span>user_name} from your confirmed device <span>{</span>device_key}.\n"
+        f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
+    )
+    q.ask("Press Enter when ready.")
+    auth_tokens = cog_wrapper.sign_in_with_tracked_device(
+        user_name, password, device_key, device_group_key, device_password, aws_srp
+    )
+    print("You're signed in. Your access token is:")
+    pp(auth_tokens["AccessToken"])
+    print("-" * 88)
+
+    print("Don't forget to delete your user pool when you're done with this example.")
+    print("\nThanks for watching!")
+    print("-" * 88)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Shows how to sign up a new user with Amazon Cognito and associate "
+        "the user with an MFA application for multi-factor authentication."
+    )
+    parser.add_argument(
+        "user_pool_id", help="The ID of the user pool to use for the example."
+    )
+    parser.add_argument(
+        "client_id", help="The ID of the client application to use for the example."
+    )
+    args = parser.parse_args()
+    try:
+        run_scenario(boto3.client("cognito-idp"), args.user_pool_id, args.client_id)
+    except Exception:
+        logging.exception("Something went wrong with the demo.")
+
+
+if __name__ == "__main__":
+    main()
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for Python (Boto3) API Reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/AdminGetUser">AdminGetUser</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/AdminInitiateAuth">AdminInitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/AdminRespondToAuthChallenge">AdminRespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/AssociateSoftwareToken">AssociateSoftwareToken</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/ConfirmDevice">ConfirmDevice</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/ConfirmSignUp">ConfirmSignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/InitiateAuth">InitiateAuth</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/ListUsers">ListUsers</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/ResendConfirmationCode">ResendConfirmationCode</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/RespondToAuthChallenge">RespondToAuthChallenge</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/SignUp">SignUp</a></p></li><li class="listitem"><p><a href="https://docs.aws.amazon.com/goto/boto3/cognito-idp-2016-04-18/VerifySoftwareToken">VerifySoftwareToken</a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Swift</dt><dd tab-id="swift">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Swift</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift/example_code/cognito-identity-provider#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>The <code class="code">Package.swift</code> file.</p>
+                
+                <pre class="programlisting" data-example-id="d2207d7a07d52c3222b58ad735710e1068c963fa3c44a1d4e7663105f4d173a6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (swift)--><code class="swift ">// swift-tools-version: 5.9
+//
+// The swift-tools-version declares the minimum version of Swift required to
+// build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "cognito-scenario",
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v13),
+        .iOS(.v15)
+    ],
+    dependencies: [
+        // Dependencies declare other packages that this package depends on.
+        .package(
+            url: "https://github.com/awslabs/aws-sdk-swift",
+            from: "1.0.0"),
+        .package(
+            url: "https://github.com/apple/swift-argument-parser.git",
+            branch: "main"
+        )
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products
+        // from dependencies.
+        .executableTarget(
+            name: "cognito-scenario",
+            dependencies: [
+                .product(name: "AWSCognitoIdentityProvider", package: "aws-sdk-swift"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ],
+            path: "Sources")
+
+    ]
+)
+
+</code></pre>
+            
+            
+                    <p>The Swift code file.</p>
+                
+                <pre class="programlisting" data-example-id="d2207d7a07d52c3222b58ad735710e1068c963fa3c44a1d4e7663105f4d173a6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (swift)--><code class="swift ">// An example demonstrating various features of Amazon Cognito. Before running
+// this Swift code example, set up your development environment, including
+// your credentials.
+//
+// For more information, see the following documentation:
+// https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+//
+// TIP: To set up the required user pool, run the AWS Cloud Development Kit
+// (AWS CDK) script provided in this GitHub repo at
+// resources/cdk/cognito_scenario_user_pool_with_mfa.
+//
+// This example performs the following functions:
+//
+// 1. Invokes the signUp method to sign up a user.
+// 2. Invokes the adminGetUser method to get the user's confirmation status.
+// 3. Invokes the ResendConfirmationCode method if the user requested another
+//    code.
+// 4. Invokes the confirmSignUp method.
+// 5. Invokes the initiateAuth to sign in. This results in being prompted to
+//    set up TOTP (time-based one-time password). (The response is
+//    “ChallengeName”: “MFA_SETUP”).
+// 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private
+//    key. This can be used with Google Authenticator.
+// 7. Invokes the VerifySoftwareToken method to verify the TOTP and register
+//    for MFA.
+// 8. Invokes the AdminInitiateAuth to sign in again. This results in being
+//    prompted to submit a TOTP (Response: “ChallengeName”:
+//    “SOFTWARE_TOKEN_MFA”).
+// 9. Invokes the AdminRespondToAuthChallenge to get back a token.
+
+import ArgumentParser
+import Foundation
+
+import AWSClientRuntime
+import AWSCognitoIdentityProvider
+
+struct ExampleCommand: ParsableCommand <span>{</span>
+    @Argument(help: "The application clientId.")
+    var clientId: String
+    @Argument(help: "The user pool ID to use.")
+    var poolId: String
+    @Option(help: "Name of the Amazon Region to use")
+    var region = "us-east-1"
+
+    static var configuration = CommandConfiguration(
+        commandName: "cognito-scenario",
+        abstract: """
+        Demonstrates various features of Amazon Cognito.
+        """,
+        discussion: """
+        """
+    )
+
+    /// Prompt for an input string of at least a minimum length.  
+    /// 
+    /// - Parameters:
+    ///   - prompt: The prompt string to display.
+    ///   - minLength: The minimum number of characters to allow in the
+    ///     response. Default value is 0.
+    ///
+    /// - Returns: The entered string.
+    func stringRequest(_ prompt: String, minLength: Int = 1) -&gt; String <span>{</span>
+        while true <span>{</span>
+            print(prompt, terminator: "")
+            let str = readLine()
+
+            guard let str else <span>{</span>
+                continue
+            }
+            if str.count &gt;= minLength <span>{</span>
+                return str
+            } else <span>{</span>
+                print("*** Response must be at least \(minLength) character(s) long.")
+            }
+        }
+    }
+
+    /// Ask a yes/no question.
+    /// 
+    /// - Parameter prompt: A prompt string to print.
+    ///
+    /// - Returns: `true` if the user answered "Y", otherwise `false`.
+    func yesNoRequest(_ prompt: String) -&gt; Bool <span>{</span>
+        while true <span>{</span>
+            let answer = stringRequest(prompt).lowercased()
+            if answer == "y" || answer == "n" <span>{</span>
+                return answer == "y"
+            }
+        }
+    }
+
+    /// Get information about a specific user in a user pool.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The Amazon Cognito Identity Provider client to use.
+    ///   - userName: The user to retrieve information about.
+    ///   - userPoolId: The user pool to search for the specified user.
+    ///
+    /// - Returns: `true` if the user's information was successfully
+    ///   retrieved. Otherwise returns `false`.
+    func adminGetUser(cipClient: CognitoIdentityProviderClient, userName: String,
+                      userPoolId: String) async -&gt; Bool <span>{</span>
+        do <span>{</span>
+            let output = try await cipClient.adminGetUser(
+                input: AdminGetUserInput(
+                    userPoolId: userPoolId,
+                    username: userName
+                )
+            )
+
+            guard let userStatus = output.userStatus else <span>{</span>
+                print("*** Unable to get the user's status.")
+                return false
+            }
+
+            print("User status: \(userStatus)")
+            return true
+        } catch <span>{</span>
+            return false
+        }
+    }
+
+    /// Create a new user in a user pool.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - clientId: The ID of the app client to create a user for.
+    ///   - userName: The username for the new user.
+    ///   - password: The new user's password.
+    ///   - email: The new user's email address.
+    ///
+    /// - Returns: `true` if successful; otherwise `false`.
+    func signUp(cipClient: CognitoIdentityProviderClient, clientId: String, userName: String, password: String, email: String) async -&gt; Bool <span>{</span>
+        let emailAttr = CognitoIdentityProviderClientTypes.AttributeType(
+            name: "email",
+            value: email
+        )
+
+        let userAttrsList = [emailAttr]
+
+        do <span>{</span>
+            _ = try await cipClient.signUp(
+                input: SignUpInput(
+                    clientId: clientId,
+                    password: password,
+                    userAttributes: userAttrsList,
+                    username: userName
+                )
+
+            )
+
+            print("=====&gt; User \(userName) signed up.")
+        } catch _ as AWSCognitoIdentityProvider.UsernameExistsException <span>{</span>
+            print("*** The username \(userName) already exists. Please use a different one.")
+            return false
+        } catch let error as AWSCognitoIdentityProvider.InvalidPasswordException <span>{</span>
+            print("*** Error: The specified password is invalid. Reason: \(error.properties.message ?? "&lt;none available&gt;").")
+            return false
+        } catch _ as AWSCognitoIdentityProvider.ResourceNotFoundException <span>{</span>
+            print("*** Error: The specified client ID (\(clientId)) doesn't exist.")
+            return false
+        } catch <span>{</span>
+            print("*** Unexpected error: \(error)")
+            return false
+        }
+
+        return true
+    }
+
+    /// Requests a new confirmation code be sent to the given user's contact
+    /// method.
+    ///
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - clientId: The application client ID.
+    ///   - userName: The user to resend a code for.
+    ///
+    /// - Returns: `true` if a new code was sent successfully, otherwise
+    ///   `false`.
+    func resendConfirmationCode(cipClient: CognitoIdentityProviderClient, clientId: String,
+                                userName: String) async -&gt; Bool <span>{</span>
+        do <span>{</span>
+            let output = try await cipClient.resendConfirmationCode(
+                input: ResendConfirmationCodeInput(
+                    clientId: clientId,
+                    username: userName
+                )
+            )
+
+            guard let deliveryMedium = output.codeDeliveryDetails?.deliveryMedium else <span>{</span>
+                print("*** Unable to get the delivery method for the resent code.")
+                return false
+            }
+
+            print("=====&gt; A new code has been sent by \(deliveryMedium)")
+            return true
+        } catch <span>{</span>
+            print("*** Unable to resend the confirmation code to user \(userName).")
+            return false
+        }
+    }
+
+    /// Submit a confirmation code for the specified user. This is the code as
+    /// entered by the user after they've received it by email or text
+    /// message.
+    ///
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - clientId: The app client ID the user is signing up for.
+    ///   - userName: The username of the user whose code is being sent.
+    ///   - code: The user's confirmation code.
+    /// 
+    /// - Returns: `true` if the code was successfully confirmed; otherwise `false`.
+    func confirmSignUp(cipClient: CognitoIdentityProviderClient, clientId: String,
+                       userName: String, code: String) async -&gt; Bool <span>{</span>
+        do <span>{</span>
+            _ = try await cipClient.confirmSignUp(
+                input: ConfirmSignUpInput(
+                    clientId: clientId,
+                    confirmationCode: code,
+                    username: userName
+                )
+            )
+
+            print("=====&gt; \(userName) has been confirmed.")
+            return true
+        } catch <span>{</span>
+            print("=====&gt; \(userName)'s code was entered incorrectly.")
+            return false
+        }
+    }
+
+    /// Begin an authentication session.
+    ///
+    /// - Parameters:
+    ///   - cipClient: The `CongitoIdentityProviderClient` to use.
+    ///   - clientId: The app client ID to use.
+    ///   - userName: The username to check.
+    ///   - password: The user's password.
+    ///   - userPoolId: The user pool to use.
+    ///
+    /// - Returns: The session token associated with this authentication
+    ///   session.
+    func initiateAuth(cipClient: CognitoIdentityProviderClient, clientId: String,
+                         userName: String, password: String,
+                         userPoolId: String) async -&gt; String? <span>{</span>
+        var authParams: [String: String] = [:]
+
+        authParams["USERNAME"] = userName
+        authParams["PASSWORD"] = password
+
+        do <span>{</span>
+            let output = try await cipClient.adminInitiateAuth(
+                input: AdminInitiateAuthInput(
+                    authFlow: CognitoIdentityProviderClientTypes.AuthFlowType.adminUserPasswordAuth,
+                    authParameters: authParams,
+                    clientId: clientId,
+                    userPoolId: userPoolId
+                )
+            )
+
+            guard let challengeName = output.challengeName else <span>{</span>
+                print("*** Invalid response from the auth service.")
+                return nil
+            }
+
+            print("=====&gt; Response challenge is \(challengeName)")
+
+            return output.session
+        } catch _ as UserNotFoundException <span>{</span>
+            print("*** The specified username, \(userName), doesn't exist.")
+            return nil
+        } catch _ as UserNotConfirmedException <span>{</span>
+            print("*** The user \(userName) has not been confirmed.")
+            return nil
+        } catch <span>{</span>
+            print("*** An unexpected error occurred.")
+            return nil
+        }
+    }
+
+    /// Request and display an MFA secret token that the user should enter
+    /// into their authenticator to set it up for the user account.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - authSession: The authentication session to request an MFA secret
+    ///     for.
+    ///
+    /// - Returns: A string containing the MFA secret token that should be
+    ///   entered into the authenticator software.
+    func getSecretForAppMFA(cipClient: CognitoIdentityProviderClient, authSession: String?) async -&gt; String? <span>{</span>
+        do <span>{</span>
+            let output = try await cipClient.associateSoftwareToken(
+                input: AssociateSoftwareTokenInput(
+                    session: authSession
+                )
+            )
+
+            guard let secretCode = output.secretCode else <span>{</span>
+                print("*** Unable to get the secret code")
+                return nil
+            }
+
+            print("=====&gt; Enter this token into Google Authenticator: \(secretCode)")
+            return output.session
+        } catch _ as SoftwareTokenMFANotFoundException <span>{</span>
+            print("*** The specified user pool isn't configured for MFA.")
+            return nil
+        } catch <span>{</span>
+            print("*** An unexpected error occurred getting the secret for the app's MFA.")
+            return nil
+        }
+    }
+
+    /// Confirm that the user's TOTP authenticator is configured correctly by
+    /// sending a code to it to check that it matches successfully.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The `CongnitoIdentityProviderClient` to use.
+    ///   - session: An authentication session previously returned by an
+    ///     `associateSoftwareToken()` call.
+    ///   - mfaCode: The 6-digit code currently displayed by the user's
+    ///     authenticator, as provided by the user.
+    func verifyTOTP(cipClient: CognitoIdentityProviderClient, session: String?, mfaCode: String?) async <span>{</span>
+        do <span>{</span>
+            let output = try await cipClient.verifySoftwareToken(
+                input: VerifySoftwareTokenInput(
+                    session: session,
+                    userCode: mfaCode
+                )
+            )
+
+            guard let tokenStatus = output.status else <span>{</span>
+                print("*** Unable to get the token's status.")
+                return
+            }
+            print("=====&gt; The token's status is: \(tokenStatus)")
+        } catch _ as SoftwareTokenMFANotFoundException <span>{</span>
+            print("*** The specified user pool isn't configured for MFA.")
+            return
+        } catch _ as CodeMismatchException <span>{</span>
+            print("*** The specified MFA code doesn't match the expected value.")
+            return
+        } catch _ as UserNotFoundException <span>{</span>
+            print("*** The specified username doesn't exist.")
+            return
+        } catch _ as UserNotConfirmedException <span>{</span>
+            print("*** The user has not been confirmed.")
+            return
+        } catch <span>{</span>
+            print("*** Error verifying the MFA token!")
+            return
+        }
+    }
+
+    /// Respond to the authentication challenge received from Cognito after
+    /// initiating an authentication session. This involves sending a current
+    /// MFA code to the service.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - userName: The user's username.
+    ///   - clientId: The app client ID.
+    ///   - userPoolId: The user pool to sign into.
+    ///   - mfaCode: The 6-digit MFA code currently displayed by the user's
+    ///     authenticator.
+    ///   - session: The authentication session to continue processing.
+    func adminRespondToAuthChallenge(cipClient: CognitoIdentityProviderClient, userName: String,
+                                     clientId: String, userPoolId: String, mfaCode: String,
+                                     session: String) async <span>{</span>
+        print("=====&gt; SOFTWARE_TOKEN_MFA challenge is generated...")
+
+        var challengeResponsesOb: [String: String] = [:]
+        challengeResponsesOb["USERNAME"] = userName
+        challengeResponsesOb["SOFTWARE_TOKEN_MFA_CODE"] = mfaCode
+
+        do <span>{</span>
+            let output = try await cipClient.adminRespondToAuthChallenge(
+                input: AdminRespondToAuthChallengeInput(
+                    challengeName: CognitoIdentityProviderClientTypes.ChallengeNameType.softwareTokenMfa,
+                    challengeResponses: challengeResponsesOb,
+                    clientId: clientId,
+                    session: session,
+                    userPoolId: userPoolId
+                )
+            )
+
+            guard let authenticationResult = output.authenticationResult else <span>{</span>
+                print("*** Unable to get authentication result.")
+                return
+            }
+
+            print("=====&gt; Authentication result (JWTs are redacted):")
+            print(authenticationResult)
+        } catch _ as SoftwareTokenMFANotFoundException <span>{</span>
+            print("*** The specified user pool isn't configured for MFA.")
+            return
+        } catch _ as CodeMismatchException <span>{</span>
+            print("*** The specified MFA code doesn't match the expected value.")
+            return
+        } catch _ as UserNotFoundException <span>{</span>
+            print("*** The specified username, \(userName), doesn't exist.")
+            return
+        } catch _ as UserNotConfirmedException <span>{</span>
+            print("*** The user \(userName) has not been confirmed.")
+            return
+        } catch let error as NotAuthorizedException <span>{</span>
+            print("*** Unauthorized access. Reason: \(error.properties.message ?? "&lt;unknown&gt;")")
+        } catch <span>{</span>
+            print("*** Error responding to the MFA challenge.")
+            return
+        }
+    }
+
+    /// Called by ``main()`` to run the bulk of the example.
+    func runAsync() async throws <span>{</span>
+        let config = try await CognitoIdentityProviderClient.CognitoIdentityProviderClientConfiguration(region: region)
+        let cipClient = CognitoIdentityProviderClient(config: config)
+
+        print("""
+              This example collects information about a user, then creates that user in the
+              specified user pool. Then, it enables Multi-Factor Authentication (MFA) for that
+              user by associating an authenticator application (such as Google Authenticator
+              or a password manager that supports TOTP). Then, the user uses a code from their
+              authenticator application to sign in.
+
+              """)
+
+        let userName = stringRequest("Please enter a new username: ")
+        let password = stringRequest("Enter a password: ")
+        let email = stringRequest("Enter your email address: ", minLength: 5)
+
+        // Submit the sign-up request to AWS.
+
+        print("==&gt; Signing up user \(userName)...")
+        if await signUp(cipClient: cipClient, clientId: clientId,
+                        userName: userName, password: password,
+                        email: email) == false <span>{</span>
+            return
+        }
+
+        // Check the user's status. This time, it should come back "unconfirmed".
+
+        print("==&gt; Getting the status of user \(userName) from the user pool (should be 'unconfirmed')...")
+        if await adminGetUser(cipClient: cipClient, userName: userName, userPoolId: poolId) == false <span>{</span>
+            return
+        }
+
+        // Ask the user if they want a replacement code sent, such as if the
+        // code hasn't arrived yet. If the user responds with a "yes," send a
+        // new code.
+
+        if yesNoRequest("==&gt; A confirmation code was sent to \(userName). Would you like to send a new code (Y/N)? ") <span>{</span>
+            print("==&gt; Sending a new confirmation code...")
+            if await resendConfirmationCode(cipClient: cipClient, clientId: clientId, userName: userName) == false <span>{</span>
+                return
+            }
+        }
+
+        // Ask the user to enter the confirmation code, then send it to Amazon
+        // Cognito to verify it.
+
+        let code = stringRequest("==&gt; Enter the confirmation code sent to \(userName): ")
+        if await confirmSignUp(cipClient: cipClient, clientId: clientId, userName: userName, code: code) == false <span>{</span>
+            // The code didn't match. Your application may wish to offer to
+            // re-send the confirmation code here and try again.
+            return
+        }
+
+        // Check the user's status again. This time it should come back
+        // "confirmed".
+
+        print("==&gt; Rechecking status of user \(userName) in the user pool (should be 'confirmed')...")
+        if await adminGetUser(cipClient: cipClient, userName: userName, userPoolId: poolId) == false <span>{</span>
+            return
+        }
+        // Check the challenge mode. Here, it should be "mfaSetup", indicating
+        // that the user needs to add MFA before using it. This returns a
+        // session that can be used to register MFA, or nil if an error occurs.
+
+        let authSession = await initiateAuth(cipClient: cipClient, clientId: clientId,
+                                                userName: userName, password: password,
+                                                userPoolId: poolId)
+        if authSession == nil <span>{</span>
+            return
+        }
+
+        // Ask Cognito for an MFA secret token that the user should enter into
+        // their authenticator software (such as Google Authenticator) or
+        // password manager to configure it for this user account. This
+        // returns a new session that should be used for the new stage of the
+        // authentication process.
+
+        let newSession = await getSecretForAppMFA(cipClient: cipClient, authSession: authSession)
+        if newSession == nil <span>{</span>
+            return
+        }
+
+        // Ask the user to enter the current 6-digit code displayed by their
+        // authenticator. Then verify that it matches the value expected for
+        // the session.
+
+        let mfaCode1 = stringRequest("==&gt; Enter the 6-digit code displayed in your authenticator: ",
+                                    minLength: 6)
+        await verifyTOTP(cipClient: cipClient, session: newSession, mfaCode: mfaCode1)
+
+        // Ask the user to authenticate now that the authenticator has been
+        // configured. This creates a new session using the user's username
+        // and password as already entered.
+
+        print("\nNow starting the sign-in process for user \(userName)...\n")
+        
+        let session2 = await initiateAuth(cipClient: cipClient, clientId: clientId,
+                                    userName: userName, password: password, userPoolId: poolId)
+        guard let session2 else <span>{</span>
+            return
+        }
+
+        // Now that we have a new auth session, `session2`, ask the user for a
+        // new 6-digit code from their authenticator, and send it to the auth
+        // session.
+
+        let mfaCode2 = stringRequest("==&gt; Wait for your authenticator to show a new 6-digit code, then enter it: ",
+                                    minLength: 6)
+        await adminRespondToAuthChallenge(cipClient: cipClient, userName: userName,
+                                          clientId: clientId, userPoolId: poolId,
+                                          mfaCode: mfaCode2, session: session2)
+    }
+}
+
+/// The program's asynchronous entry point.
+@main
+struct Main <span>{</span>
+    static func main() async <span>{</span>
+        let args = Array(CommandLine.arguments.dropFirst())
+
+        do <span>{</span>
+            let command = try ExampleCommand.parse(args)
+            try await command.runAsync()
+        } catch <span>{</span>
+            ExampleCommand.exit(withError: error)
+        }
+    }    
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>For API details, see the following topics in <em>AWS SDK for Swift API reference</em>.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/admingetuser(input:)" rel="noopener noreferrer" target="_blank"><span>AdminGetUser</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/admininitiateauth(input:)" rel="noopener noreferrer" target="_blank"><span>AdminInitiateAuth</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/adminrespondtoauthchallenge(input:)" rel="noopener noreferrer" target="_blank"><span>AdminRespondToAuthChallenge</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/associatesoftwaretoken(input:)" rel="noopener noreferrer" target="_blank"><span>AssociateSoftwareToken</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/confirmdevice(input:)" rel="noopener noreferrer" target="_blank"><span>ConfirmDevice</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/confirmsignup(input:)" rel="noopener noreferrer" target="_blank"><span>ConfirmSignUp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/initiateauth(input:)" rel="noopener noreferrer" target="_blank"><span>InitiateAuth</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/listusers(input:)" rel="noopener noreferrer" target="_blank"><span>ListUsers</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/resendconfirmationcode(input:)" rel="noopener noreferrer" target="_blank"><span>ResendConfirmationCode</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/respondtoauthchallenge(input:)" rel="noopener noreferrer" target="_blank"><span>RespondToAuthChallenge</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/signup(input:)" rel="noopener noreferrer" target="_blank"><span>SignUp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li><li class="listitem"><p><a href="https://sdk.amazonaws.com/swift/api/awscognitoidentityprovider/latest/documentation/awscognitoidentityprovider/cognitoidentityproviderclient/verifysoftwaretoken(input:)" rel="noopener noreferrer" target="_blank"><span>VerifySoftwareToken</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p></li></ul></div>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs><p>For a complete list of AWS SDK developer guides and code examples, see
+    <a href="./sdk-general-information-section.html">Using this service with an AWS SDK</a>.
+    This topic also includes information about getting started and details about previous SDK versions.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cognito-identity-provider_example_cognito_identity_provider_GettingStarted_066_section.html">Getting started with user pools</div><div id="next" class="next-link" accesskey="n" href="./cognito-identity-provider_example_cross_CognitoFlows_section.html">Use Amazon Cognito identity pools</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

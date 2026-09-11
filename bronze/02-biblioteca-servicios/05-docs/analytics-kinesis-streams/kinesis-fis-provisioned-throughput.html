@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Provisioned throughput exception errors - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="kinesis-fis-provisioned-throughput" /><meta name="default_state" content="kinesis-fis-provisioned-throughput" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis-provisioned-throughput.html" /><meta name="description" content="Provisioned throughput exceeded exception errors (HTTP 400) occur when the request rate for a Kinesis stream surpasses the throughput limits of one or more shards. Each shard has specific read, and write capacity limits, and exceeding those limits triggers this exception. Scenarios leading to this exception include: sudden spikes in data ingestion or consumption, insufficient shard capacity for the data volume being processed, or uneven distribution of partition keys." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis-provisioned-throughput.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis-provisioned-throughput.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Provisioned throughput exception errors" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="kinesis-fis-provisioned-throughput.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Provisioned throughput exception errors - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#kinesis-fis-provisioned-throughput" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAlPnoAT22TyelcmE8M35_-A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-fis-provisioned-throughput.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-fis-provisioned-throughput.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-fis-provisioned-throughput.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><link rel="alternate" type="text/markdown" href="kinesis-fis-provisioned-throughput.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Create and manage Kinesis data streams",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/working-with-streams.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Perform resilience testing with AWS Fault Injection Service",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Provisioned throughput exception errors",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/kinesis-fis.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#kinesis-fis-provisioned-throughput" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="kinesis-fis-provisioned-throughput">Provisioned throughput exception errors</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Provisioned throughput exceeded exception errors (HTTP 400) occur when the request
+            rate for a Kinesis stream surpasses the throughput limits of one or more shards. Each shard
+            has specific read, and write capacity limits, and exceeding those limits triggers this
+            exception. Scenarios leading to this exception include: sudden spikes in data ingestion
+            or consumption, insufficient shard capacity for the data volume being processed, or
+            uneven distribution of partition keys.</p><div class="itemizedlist">   
+            <h6>Recommendations for handling exceptions</h6>
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Implement exponential back-off and re-try mechanisms.</p>
+            </li><li class="listitem">
+                <p>Increase the number of shards to accommodate higher throughput.</p>
+            </li><li class="listitem">
+                <p>Ensure that there is proper distribution of partition keys.</p>
+            </li><li class="listitem">
+                <p>Monitor stream metrics.</p>
+            </li></ul></div><p>Additionally, using the Kinesis on-demand capacity mode helps to automatically adjust
+            workloads, and minimize the occurrence of this exception. For more information, see
+                <a href="https://docs.aws.amazon.com/fis/latest/userguide/what-is.html">What is
+                AWS Fault Injection Service?</a></p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Improper distribution issues are outside of on-demand mode capability of automatic scaling.</p></div></div><div class="orderedlist"> 
+            <h6>To perform a basic experiment</h6>
+             
+             
+             
+             
+             
+             
+        <ol><li><p>Use baseline metrics: record normal throughput patterns before testing.</p></li><li><p>Create an experiment: use the <code class="code">aws:kinesis:inject-api-provisioned-throughput-exception</code> action.</p></li><li><p>Configure the intensity: start with 25% request throttling.</p></li><li><p>Monitor the responses: verify re-try logic with exponential back-off.</p></li><li><p>Validate the scaling: confirm that auto-scaling triggers the activation.</p></li><li><p>Check the alarms: ensure that the <code class="code">CloudWatch</code> alarms are running as expected.</p></li></ol></div><p>Applications should implement proper back-off strategies, monitor <code class="code">WriteProvisionedThroughputExceeded</code>, and <code class="code">ReadProvisionedThroughputExceeded</code> metrics, and trigger shard scaling when appropriate.</p><div class="itemizedlist">   
+            <h6>Action details</h6>
+             
+             
+             
+             
+       <ul class="itemizedlist"><li class="listitem">
+                <p><b>Resource Type</b>: IAM Role ARN</p>
+            </li><li class="listitem">
+                <p><b>Target Operations</b>: <code class="code">PutRecord</code>,
+                        <code class="code">PutRecords</code>, <code class="code">GetRecords</code></p>
+            </li><li class="listitem">
+                <p><b><b>Error Code</b></b>:
+                    <code class="code">ProvisionedThroughputExceededException</code>(HTTP 400)</p>
+            </li><li class="listitem">
+                <p><b><b>Description</b></b>:
+                    simulates scenarios where request rate exceeds shard capacity limits, testing
+                    application throttling, and scaling responses.</p>
+            </li></ul></div><div class="itemizedlist">   
+            <h6>Parameters</h6>
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>IAM Role ARN</b>: the role that your application uses for Kinesis Data Streams operations.</p>
+            </li><li class="listitem">
+                <p><b>Operations</b>: target operations: <code class="code">PutRecord</code>, <code class="code">PutRecords</code>, <code class="code">GetRecords</code>.</p>
+            </li><li class="listitem">
+                <p><b>Resource List</b>: the specific stream names or
+                    shard identifiers.</p>
+            </li><li class="listitem">
+                <p><b>Duration</b>: the experiment duration, which is the duration from one minute to 12 hours. In the AWS FIS API, the value is a string in ISO 8601 format. For example, PT1M represents one minute. In the AWS FIS console, you enter the number of seconds, minutes, or hours.</p>
+            </li><li class="listitem">
+                <p><b>Intensity</b>: the percentage of requests to throttle.</p>
+            </li></ul></div><div class="itemizedlist">   
+            <h6>Required permissions</h6>
+             
+            
+       <ul class="itemizedlist"><li class="listitem">
+                <p><code class="code">kinesis:InjectApiError</code></p>
+            </li></ul></div><p>Example experiment template</p><p> The following example shows a provisioned throughput exception for all requests up to
+            5 Kinesis Data streams with the specified tag. AWS FIS selects the streams to affect at
+            random. After 5 minutes the fault is removed.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "description": "Kinesis stream experiment",
+    "targets": <span>{</span>
+        "KinesisStreams-Target-1": <span>{</span>
+            "resourceType": "aws:kinesis:stream",
+            "resourceTags": <span>{</span>
+                   "tag-key": "tag-value"
+            },
+            "selectionMode": "COUNT(5)"
+        }
+    },
+    "actions": <span>{</span>
+         "kinesis": <span>{</span>
+              "actionId": "aws:kinesis:stream-provisioned-throughput-exception",
+              "description": "my-stream",
+              "parameters": <span>{</span>
+                   "duration": "PT5M",
+                   "percentage": "100",
+                   "service": "kinesis"
+              },
+              "targets": <span>{</span>
+                    "KinesisStreams": "KinesisStreams-Target-1"
+              }
+         }
+   },
+   "stopConditions": [
+         <span>{</span>
+              "source": "none"
+         }
+   ],
+   "roleArn": "arn:aws:iam::111122223333:role/role-name",
+   "tags": <span>{</span>},
+   "experimentOptions": <span>{</span>
+       "accountTargeting": "single-account",
+       "emptyTargetResolutionMode": "fail"
+   }    
+}</code></pre><p>Experiment role permissions example</p><p>The following permission allows you to run the <code class="code">aws:kinesis:stream-provisioned-throughput-exception</code> and <code class="code">aws:kinesis:stream-expired-iterator-exception</code> actions on a specific stream that impact 50% of requests.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./kinesis-fis.html">Perform resilience testing with AWS Fault Injection Service</div><div id="next" class="next-link" accesskey="n" href="./kinesis-fis-expired-iterator.html">Expired iterator exception errors</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-fis-provisioned-throughput.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/kinesis-fis-provisioned-throughput.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

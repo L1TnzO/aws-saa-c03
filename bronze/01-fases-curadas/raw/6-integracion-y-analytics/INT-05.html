@@ -1,0 +1,409 @@
+<!--
+BRONZE RAW — INT-05
+URL: https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
+Dominios: D2
+Título doc: What is Step Functions? - AWS Step Functions
+Fase: 6
+Servicio: AWS Step Functions
+Descargado: 2026-09-11T03:23:25
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Managing state and transforming data</h6></div><div class="awsdocs-note-text"><p>Learn about <a href="./workflow-variables.html">Passing data between states with variables</a> and <a href="./transforming-data.html">Transforming data with JSONata</a>.</p></div></div><p>With AWS Step Functions, you can create workflows, also called <a href="./concepts-statemachines.html">State machines</a>, to build distributed applications, automate processes, orchestrate
+        microservices, and create data and machine learning pipelines.</p><p>Step Functions is based on <em>state machines</em> and <em>tasks</em>. In Step Functions, state machines are called <em>workflows</em>, which are a series of event-driven steps. Each step in a workflow is called a <em>state</em>. For example, a <a href="./state-task.html">Task state</a> represents a unit of work that another AWS service performs, such as calling another AWS service or API. Instances of running workflows performing tasks are called <em>executions</em> in Step Functions.</p><p>The work in your state machine tasks can also be done using <a href="./concepts-activities.html">Activities</a> which are workers that exist outside of Step Functions.</p><div class="mediaobject">
+         
+            <img src="/images/step-functions/latest/dg/images/step-functions-example.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Illustrative example of a Step Functions workflow diagram." style="max-width:75%">
+         
+         
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4e:" type="submit" data-analytics-performance-mark="28-1789097004067-6159"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><p>In the Step Functions' console, you can <b>visualize</b>, edit, and
+        debug your application’s workflow. You can examine the state of each step in your workflow
+        to make sure that your application runs in order and as expected. </p><p>Depending on your use case, you can have Step Functions call AWS services, such as Lambda, to
+        perform tasks. You can have Step Functions control AWS services, such as AWS Glue, to create extract,
+        transform, and load workflows. You also can create long-running, automated workflows for
+        applications that require human interaction. </p><p>For a complete list of AWS Regions where Step Functions is available, see the <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/" rel="noopener noreferrer" target="_blank"><span>AWS
+        Region Table</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-link_h11ix_rh18t_202"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 12V7M8 6V4"></path></svg></span></awsui-icon><h6>Learn how to use Step Functions</h6></div><div class="awsdocs-note-text"><p>Start with the <a href="./getting-started.html">Getting started tutorial</a> in this guide. For advanced topics and use cases, see the modules in <a href="https://catalog.workshops.aws/stepfunctions" rel="noopener noreferrer" target="_blank"><span>The Step Functions Workshop</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a>.</p></div></div>
+        <h2 id="welcome-workflows">Standard and Express workflows types<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r45:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="welcome-workflows" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r46:" type="submit" data-analytics-performance-mark="25-1789097004063-7146"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+        <p>Step Functions has two workflow types: </p>
+
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+        <p><b>Standard</b> workflows are ideal for long-running,
+            auditable workflows, as they show execution history and visual debugging. </p>
+        <p>Standard workflows have <b>exactly-once</b> workflow
+                    execution and can run for up to <b>one year</b>. This
+                    means that each step in a Standard workflow will execute exactly once. </p>
+                </li><li class="listitem">
+                <p><b>Express</b> workflows are ideal for high-event-rate
+                            workloads, such as streaming data processing and IoT data ingestion.</p>
+                <p>Express workflows have <b>at-least-once</b> workflow
+                    execution and can run for up to <b>five minutes</b>.
+                    This means that one or more steps in an Express Workflow can potentially run
+                    more than once, while each step in the workflow executes at least once.</p>
+              
+                </li></ul></div>
+            <div class="table-container"><div class="table-contents disable-scroll"><table id="w225aab5c21b7"><thead>
+                        <tr>
+                            <th>Standard workflows</th>
+                            <th>Express workflows</th>
+                        </tr>
+                    </thead>
+                        <tbody><tr>
+                            <td tabindex="-1">2,000 per second execution rate</td>
+                            <td tabindex="-1">100,000 per second execution rate</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">4,000 per second state transition rate</td>
+                            <td tabindex="-1">Nearly unlimited state transition rate</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">Priced by state transition</td>
+                            <td tabindex="-1">Priced by number and duration of executions</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">Show execution history and visual debugging</td>
+                            <td tabindex="-1">Show execution history and visual debugging based on
+                                <b>log level</b></td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">See execution history in Step Functions</td>
+                            <td tabindex="-1">
+                                <p>Send execution history to <a href="https://aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>CloudWatch</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">Support integrations with all services.<p>Support
+                                optimized integrations with some services.</p></td>
+                            <td tabindex="-1">Support integrations with all services. </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">Support <em>Request Response</em>
+                                pattern for all services
+                                <p>Support <em>Run a Job</em> and/or <em>Wait for
+                                Callback</em> patterns in specific services (see following
+                                section for details)</p>
+                            </td>
+                            <td tabindex="-1">Support <em>Request Response
+                                </em>pattern for all services</td>
+                        </tr>
+                    </tbody></table></div></div>
+        
+            <p>For more information on Step Functions pricing and choosing workflow type, see the
+                following:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><a href="https://aws.amazon.com/step-functions/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS Step Functions
+                        pricing</span><awsui-icon class="awsdocs-link-icon" name="external"><span aria-label="Opens in a new tab"><span class="awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_name-external_h11ix_rh18t_219"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p><a href="./choosing-workflow-type.html">Choosing workflow type in Step Functions</a></p>
+                </li></ul></div>
+        
+     
+        <h2 id="welcome-service-integrations">Integrating with other services<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="welcome-service-integrations" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="26-1789097004064-7111"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+        <p>Step Functions integrates with multiple AWS services. To call other AWS services, you can
+            use two integration types:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="./supported-services-awssdk.html">AWS SDK integrations</a>
+                    provide a way to call any AWS service directly from your state machine, giving
+                    you access to thousands of API actions.</p>
+            </li><li class="listitem">
+                <p><a href="./integrate-optimized.html">Optimized integrations</a> provide custom options
+                    for using those services in your state machines.</p>
+            </li></ul></div>
+
+        <p>To combine Step Functions with other services, there are three <b>service integration patterns</b>:</p>
+        <div class="itemizedlist">
+             
+
+             
+
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>
+                    <a href="./connect-to-resource.html#connect-default">Request Response (default)</a>
+                </p> 
+                <p>Call a service, and let Step Functions progress to the next state after it gets an HTTP
+                    response.</p>
+            </li><li class="listitem">
+            <p><a href="./connect-to-resource.html#connect-sync">Run a job (.sync)</a></p>
+                <p>Call a service, and have Step Functions wait for a job to complete.</p>
+            </li><li class="listitem">
+            <p><a href="./connect-to-resource.html#connect-wait-token">Wait for a callback with a task token
+            (.waitForTaskToken)</a></p>
+                <p>Call a service with a task token, and have Step Functions wait until the task token
+                    returns with a callback.</p>
+            </li></ul></div>
+
+        
+        <p>Standard Workflows and Express Workflows support the same <b>integrations</b> but not the same <b>integration
+        patterns</b>. 
+        </p>
+       
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        <b>Standard Workflows</b> support <em>Request Response</em> integrations. Certain services support <em>Run a Job
+                            (.sync)</em>, or <em>Wait for Callback
+                            (.waitForTaskToken)</em> , and both in some cases. See the following optimized integrations table for details.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                        <b>Express Workflows</b> only support <em>Request Response</em> integrations.
+                    </p>
+                </li></ul></div>
+
+        <p>
+        To help decide between the two types, see <a href="./choosing-workflow-type.html">Choosing workflow type in Step Functions</a>.
+            </p>
+    <p></p>   
+    <p><b>AWS SDK integrations in Step Functions</b></p>
+    <div class="table-container"><div class="table-contents disable-scroll"><table id="w225aab5c23c21"><thead>
+                <tr>
+                    <th>Integrated service</th>
+                    <th>Request Response</th>
+                    <th>Run a Job - <em>.sync</em></th>
+                    <th>Wait for Callback - <em>.waitForTaskToken</em></th>
+                </tr>
+            </thead>
+                <tbody><tr>
+                    <td tabindex="-1"><a href="./supported-services-awssdk.html#supported-services-awssdk-list">Over two hundred services</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+            </tbody></table></div></div>
+
+    <p><b>Optimized integrations in Step Functions</b></p>
+    
+    <div class="table-container"><div class="table-contents disable-scroll"><table id="w225aab5c23c25"><thead>
+                <tr>
+                    <th>Integrated service</th>
+                    <th>Request Response</th>
+                    <th>Run a Job - <em>.sync</em></th>
+                    <th>Wait for Callback - <em>.waitForTaskToken</em></th>
+                </tr>
+            </thead>
+                <tbody><tr>
+                    <td tabindex="-1"><a href="./connect-api-gateway.html">Amazon API Gateway</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-athena.html">Amazon Athena</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-batch.html">AWS Batch</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-bedrock.html">Amazon Bedrock</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-bedrockagentcore.html">Amazon Bedrock AgentCore</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-codebuild.html">AWS CodeBuild</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-ddb.html">Amazon DynamoDB</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-ecs.html">Amazon ECS/Fargate</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-eks.html">Amazon EKS</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+
+                <tr>
+                    <td tabindex="-1"><a href="./connect-emr.html">Amazon EMR</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-emr-eks.html">Amazon EMR on EKS</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-emr-serverless.html">Amazon EMR Serverless</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-eventbridge.html">Amazon EventBridge</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-glue.html">AWS Glue</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-databrew.html">AWS Glue DataBrew</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-lambda.html">AWS Lambda</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-mediaconvert.html">AWS Elemental MediaConvert</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-sagemaker.html">Amazon SageMaker AI</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-sns.html">Amazon SNS</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-sqs.html">Amazon SQS</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1"><em>Not supported</em></td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+                <tr>
+                    <td tabindex="-1"><a href="./connect-stepfunctions.html">AWS Step Functions</a></td>
+                    <td tabindex="-1">Standard &amp; Express</td>
+                    <td tabindex="-1">Standard</td>
+                    <td tabindex="-1">Standard</td>
+                </tr>
+            </tbody></table></div></div>
+           
+
+
+     
+        <h2 id="application">Example use cases for workflows<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="application" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="27-1789097004064-9524"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+        <p>Step Functions manages your application's components and logic, so you can write less code and
+            focus on building and updating your application quickly. The following image shows six
+            use cases for Step Functions workflows.</p>
+        
+            <div class="mediaobject">
+                 
+                    <img src="/images/step-functions/latest/dg/images/use-case-examples.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Visual examples of six common workflow use cases, described in the following text." style="max-width:80%">
+                 
+                 
+            <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="29-1789097004068-8914"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+            <p></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p><b>Orchestrate tasks</b> – You can create
+                        workflows that orchestrate a series of tasks, or <em>steps</em>, in a specific order. For example, <em>Task A</em> might be a Lambda function which provides inputs for
+                        another Lambda function in <em>Task B</em>. The last step in your workflow provides the final
+                        result.</p>
+                </li><li>
+                    <p><b>Choose tasks based on data</b> – Using a <code class="code"><a href="./state-choice.html">Choice</a></code> state, you can
+                        have Step Functions make decisions based on the state’s input. For example, imagine that a customer requests a credit limit increase. If the request is more than your customer’s pre-approved credit limit, you can have Step Functions
+                        send your customer's request to a manager for sign-off. If the request is less than
+                        your customer’s pre-approved credit limit, you can have Step Functions approve the request
+                        automatically.</p>
+                </li><li>
+                    <p><b>Error handling </b>(<code class="code">Retry</code> /
+                        <code class="code">Catch</code>) – You can retry failed tasks, or catch failed
+                        tasks and automatically run alternative steps.</p>
+                    <p>For example, after a customer requests a username, perhaps the first call
+                        to your validation service fails, so your workflow may retry the request.
+                        When the second request is successful, the workflow can proceed.</p><p>Or, perhaps the customer requested a username that is invalid or unavailable, a
+                        <code class="code">Catch</code> statement could lead to a Step Functions workflow step that
+                        suggests an alternative username.</p>
+                    <p>For examples of <code class="code">Retry</code> and <code class="code">Catch</code>, see <a href="./concepts-error-handling.html">Handling errors in Step Functions workflows</a>.</p>
+                </li><li>
+                    <p><b>Human in the loop</b> – Step Functions can
+                        include human approval steps in the workflow. For example, imagine a banking
+                        customer attempts to send funds to a friend. With <a href="./connect-to-resource.html#connect-wait-token">a callback and a task token</a>, you can
+                        have Step Functions wait until the customers friend confirms the transfer, and then
+                        Step Functions will continue the workflow to notify the banking customer that the
+                        transfer has completed.</p>
+                    <p>For an example, see <a href="./callback-task-sample-sqs.html">Create a callback pattern example with Amazon SQS, Amazon SNS, and Lambda</a>. </p>
+                    
+                </li><li>
+                    <p><b>Process data in parallel steps</b> – Using a
+                        <code class="code"><a href="./state-parallel.html">Parallel</a></code> state, Step Functions can process input data in parallel steps. For
+                        example, a customer might need to convert a video file into several display
+                        resolutions, so viewers can watch the video on multiple devices. Your
+                        workflow could send the original video file to several Lambda functions or
+                        use the optimized AWS Elemental MediaConvert integration to process a video
+                        into multiple display resolutions at the same time.</p>
+                </li><li>
+                    <p><b>Dynamically process data elements</b> – Using a
+                        <code class="code"><a href="./state-map.html">Map</a></code> state, Step Functions can run a set
+                        of workflow steps on each item in a dataset. The iterations run in parallel,
+                        which makes it possible to process a dataset quickly. For example, when your
+                        customer orders thirty items, your system needs to apply the same workflow
+                        to prepare each item for delivery. After all items have been gathered and
+                        packaged for delivery, the next step might be to quickly send your customer
+                        a confirmation email with tracking information.</p>
+                    <p>For an example <b>starter template</b>, see
+                        <a href="./sample-map-state.html">Process data with a Map</a>.</p>
+                </li></ol></div>
+             
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="next" class="next-link" accesskey="n" href="./sfn-agent-setup-guide.html">Agent setup guide</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/welcome.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Step Functions&amp;topic_url=https://docs.aws.amazon.com/en_us/step-functions/latest/dg/welcome.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789097003884-7182"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#welcome-workflows"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Standard and Express workflows types</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#welcome-service-integrations"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Integrating with other services</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#application"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Example use cases for workflows</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r5u:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r5t:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/step-functions/latest/apireference"><span>Step Functions API Reference</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r61:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r60:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/cli/latest/reference/stepfunctions/"><span>AWS CLI commands for Step Functions</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r64:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r63:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://states-language.net/spec.html"><span>Amazon States Language Specification</span><span class="awsui_icon-wrapper_4c84z_1n50m_460">&nbsp;<span class="awsui_icon_4c84z_1n50m_460" aria-label="Opens in a new tab" role="img"><span class="awsui_icon_h11ix_rh18t_13 awsui_icon-flex-height_h11ix_rh18t_21 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-external_h11ix_rh18t_219" style="height: 20px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M13 9.012v-6H7M13.02 3 7 9.01" class="stroke-linejoin-round awsui-icon-arrow"></path><path d="M3 5.012v8h8.01" class="stroke-linejoin-round"></path></svg></span></span></span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r66:" type="submit" data-analytics-performance-mark="36-1789097004139-121"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r68:" type="submit" data-analytics-performance-mark="37-1789097004139-1939"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r6b:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6a:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=Step+Functions&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fstep-functions%2Flatest%2Fdg%2Fwelcome.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./sfn-agent-setup-guide.html"><span>Agent setup guide</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

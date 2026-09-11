@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS X-Ray segment documents - AWS X-Ray</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="xray-api-segmentdocuments" /><meta name="default_state" content="xray-api-segmentdocuments" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html" /><meta name="description" content="Generate segment documents to send tracing information directly to X-Ray without using an SDK." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS X-Ray" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use AWS X-Ray to monitor the components and services that make up your cloud applications. AWS X-Ray provides a detailed trace map and latency information for each connection that your application makes to AWS services and external web APIs." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html" hreflang="x-default" /><meta name="feedback-item" content="X-Ray" /><meta name="this_doc_product" content="AWS X-Ray" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'xray'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="AWS X-Ray segment documents" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="xray-api-segmentdocuments.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS X-Ray segment documents - AWS X-Ray</title><meta name="pdf" content="/pdfs/xray/latest/devguide/xray-guide.pdf#xray-api-segmentdocuments" /><meta name="rss" content="feed.rss" /><meta name="forums" content="https://repost.aws/tags/TAaNeQQJlSSrSNkt1gr_Ti3g" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-api-segmentdocuments.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-api-segmentdocuments.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-api-segmentdocuments.html" /><meta name="keywords" content="AWS X-Ray,X-Ray,debugging,telemetry,instrumentation,sdk" /><link rel="alternate" type="text/markdown" href="xray-api-segmentdocuments.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS X-Ray",
+        "item" : "https://docs.aws.amazon.com/xray/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Choosing an interface",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray-interface.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use the X-Ray API",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/xray-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "AWS X-Ray segment documents",
+        "item" : "https://docs.aws.amazon.com/xray/latest/devguide/xray-api.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/xray/latest/devguide/xray-guide.pdf#xray-api-segmentdocuments" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/xray/index.html">AWS X-Ray</a><a href="aws-xray.html">Developer Guide</a></div><div id="page-toc-src"><a href="#api-segmentdocuments-fields">Segment fields</a><a href="#api-segmentdocuments-subsegments">Subsegments</a><a href="#api-segmentdocuments-http">HTTP request data</a><a href="#api-segmentdocuments-annotations">Annotations</a><a href="#api-segmentdocuments-metadata">Metadata</a><a href="#api-segmentdocuments-aws">AWS resource data</a><a href="#api-segmentdocuments-errors">Errors and exceptions</a><a href="#api-segmentdocuments-sql">SQL queries</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="xray-api-segmentdocuments">AWS X-Ray segment documents</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <b>trace segment</b> is a JSON representation of a request that your application
+    serves. A trace segment records information about the original request, information about the work that your
+    application does locally, and <b>subsegments</b> with information about downstream calls
+    that your application makes to AWS resources, HTTP APIs, and SQL databases.</p><p>A <b>segment document</b> conveys information about a segment to X-Ray. A segment
+    document can be up to 64 kB and contain a whole segment with subsegments, a fragment of a segment that
+    indicates that a request is in progress, or a single subsegment that is sent separately. You can send segment
+    documents directly to X-Ray by using the <a href="https://docs.aws.amazon.com/xray/latest/api/API_PutTraceSegments.html"><code class="code">PutTraceSegments</code></a> API.</p><p>X-Ray compiles and processes segment documents to generate queryable <b>trace
+      summaries</b> and <b>full traces</b> that you can access by using the
+    <a href="https://docs.aws.amazon.com/xray/latest/api/API_GetTraceSummaries.html"><code class="code">GetTraceSummaries</code></a> and <a href="https://docs.aws.amazon.com/xray/latest/api/API_BatchGetTraces.html"><code class="code">BatchGetTraces</code></a> APIs, respectively. In addition to the segments and subsegments
+    that you send to X-Ray, the service uses information in subsegments to generate <b>inferred
+      segments</b> and adds them to the full trace. Inferred segments represent downstream services and resources
+    in the trace map.</p><p>X-Ray provides a <b>JSON schema</b> for segment documents. You can download the
+    schema here: <a href="samples/xray-segmentdocument-schema-v1.0.0.zip" rel="noopener noreferrer" target="_blank">xray-segmentdocument-schema-v1.0.0</a>.
+    The fields and objects listed in the schema are described in more detail in the following sections.</p><p>A subset of segment fields are indexed by X-Ray for use with filter expressions. For example, if you set the
+      <code class="code">user</code> field on a segment to a unique identifier, you can search for segments associated with specific
+    users in the X-Ray console or by using the <code class="code">GetTraceSummaries</code> API. For more information, see <a href="./xray-console-filters.html">Using filter expressions</a>.</p><p>When you instrument your application with the X-Ray SDK, the SDK generates segment documents for you. Instead
+    of sending segment documents directly to X-Ray, the SDK transmits them over a local UDP port to the <a href="./xray-daemon.html">X-Ray daemon</a>. For more information, see <a href="./xray-api-sendingdata.html#xray-api-daemon">Sending segment documents to the X-Ray daemon</a>.</p><div class="highlights" id="inline-topiclist"><h6>Sections</h6><ul><li><p><a href="#api-segmentdocuments-fields">Segment fields</a></p></li><li><p><a href="#api-segmentdocuments-subsegments">Subsegments</a></p></li><li><p><a href="#api-segmentdocuments-http">HTTP request data</a></p></li><li><p><a href="#api-segmentdocuments-annotations">Annotations</a></p></li><li><p><a href="#api-segmentdocuments-metadata">Metadata</a></p></li><li><p><a href="#api-segmentdocuments-aws">AWS resource data</a></p></li><li><p><a href="#api-segmentdocuments-errors">Errors and exceptions</a></p></li><li><p><a href="#api-segmentdocuments-sql">SQL queries</a></p></li></ul></div>
+    <h2 id="api-segmentdocuments-fields">Segment fields</h2>
+    <p>A segment records tracing information about a request that your application serves. At a minimum, a segment
+      records the name, ID, start time, trace ID, and end time of the request.</p>
+    
+    <div class="example"><h6>Example Minimal complete segment</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "name" : "example.com",
+  "id" : "70de5b6f19ff9a0a",
+  "start_time" : 1.478293361271E9,
+  "trace_id" : "1-581cf771-a006649127e371903a2de979",
+  "end_time" : 1.478293361449E9
+}</code></pre></div></div>
+    <p>The following fields are required, or conditionally required, for segments.</p>
+    
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Values must be strings (up to 250 characters) unless noted otherwise.</p></div></div>
+    <div class="itemizedlist">
+  <h6>Required Segment Fields</h6>
+   
+   
+   
+   
+   
+   
+<ul class="itemizedlist"><li class="listitem">
+    <p><code class="code">name</code> – The logical name of the service that handled the request, up to
+        <b>200 characters</b>. For example, your application's name or
+      domain name. Names can contain Unicode letters, numbers, and whitespace, and the following
+      symbols: <code class="code">_</code>, <code class="code">.</code>, <code class="code">:</code>, <code class="code">/</code>, <code class="code">%</code>,
+        <code class="code">&amp;</code>, <code class="code">#</code>, <code class="code">=</code>, <code class="code">+</code>, <code class="code">\</code>,
+        <code class="code">-</code>, <code class="code">@</code></p>
+  </li><li class="listitem">
+    <p><code class="code">id</code> – A 64-bit identifier for the segment, unique among segments in the
+      same trace, in <b>16 hexadecimal digits</b>.</p>
+  </li><li class="listitem">
+    <p><code class="code">trace_id</code> – A unique identifier that connects all segments and
+      subsegments originating from a single client request.</p>
+    <div class="itemizedlist">
+    <h6>X-Ray trace ID format</h6>
+    <p>An X-Ray <code class="code">trace_id</code> consists of three numbers separated by hyphens. For example,
+      <code class="code">1-58406520-a006649127e371903a2de979</code>. This includes:</p>
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>The version number, which is <code class="code">1</code>.</p>
+    </li><li class="listitem">
+      <p>The time of the original request in Unix epoch time using <b>8 hexadecimal
+        digits</b>.</p>
+      <p>For example, 10:00AM December 1st, 2016 PST in epoch time is <code class="code">1480615200</code> seconds or
+        <code class="code">58406520</code> in hexadecimal digits.</p>
+    </li><li class="listitem">
+      <p>A globally unique 96-bit identifier for the trace in <b>24 hexadecimal
+      digits</b>.</p>
+    </li></ul></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>X-Ray now supports trace IDs that are created using OpenTelemetry and any other framework that conforms with the
+      <a href="https://www.w3.org/TR/trace-context/" rel="noopener noreferrer" target="_blank"><span>W3C Trace Context specification</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. A W3C trace ID must be
+    formatted in X-Ray trace ID format when sending to X-Ray. For example, W3C trace ID
+      <code class="code">4efaaf4d1e8720b39541901950019ee5</code> should be formatted as
+      <code class="code">1-4efaaf4d-1e8720b39541901950019ee5</code> when sending to X-Ray. X-Ray trace IDs include the original
+    request time stamp in Unix epoch time, but this isn't required when sending W3C trace IDs in X-Ray format. </p></div></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Trace ID Security</h6></div><div class="awsdocs-note-text"><p>Trace IDs are visible in <a href="./xray-concepts.html#xray-concepts-tracingheader">response
+          headers</a>. Generate trace IDs with a secure random algorithm to ensure that attackers
+        cannot calculate future trace IDs and send requests with those IDs to your
+        application.</p></div></div>
+  </li><li class="listitem">
+    <p><code class="code">start_time</code> – <b>number</b> that is the time
+      the segment was created, in floating point seconds in epoch time. For example,
+        <code class="code">1480615200.010</code> or <code class="code">1.480615200010E9</code>. Use as many decimal places as
+      you need. Microsecond resolution is recommended when available.</p>
+  </li><li class="listitem">
+    <p><code class="code">end_time</code> – <b>number</b> that is the time
+      the segment was closed. For example, <code class="code">1480615200.090</code> or
+        <code class="code">1.480615200090E9</code>. Specify either an <code class="code">end_time</code> or
+        <code class="code">in_progress</code>.</p>
+  </li><li class="listitem">
+    <p><code class="code">in_progress</code> – <b>boolean</b>, set to
+        <code class="code">true</code> instead of specifying an <code class="code">end_time</code> to record that a segment is
+      started, but is not complete. Send an in-progress segment when your application receives a
+      request that will take a long time to serve, to trace the request receipt. When the response
+      is sent, send the complete segment to overwrite the in-progress segment. Only send one
+      complete segment, and one or zero in-progress segments, per request.</p>
+  </li></ul></div>
+     <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Service Names</h6></div><div class="awsdocs-note-text"><p>A segment's <code class="code">name</code> should match the domain name or logical name of the service
+    that generates the segment. However, this is not enforced. Any application that has permission to
+      <a href="https://docs.aws.amazon.com/xray/latest/api/API_PutTraceSegments.html"><code class="code">PutTraceSegments</code></a> can send segments with any name.</p></div></div>
+    
+    <p>The following fields are optional for segments.</p>
+    <div class="itemizedlist">
+      <h6>Optional Segment Fields</h6>
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">service</code> – An object with information about your application.</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">version</code> – A string that identifies the version of your application that served the
+              request.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">user</code> – A string that identifies the user who sent the request.</p>
+      </li><li class="listitem">
+        <p><code class="code">origin</code> – The type of AWS resource running your application.</p>
+        <div class="itemizedlist">
+          <h6>Supported Values</h6>
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">AWS::EC2::Instance</code> – An Amazon EC2 instance.</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::ECS::Container</code> – An Amazon ECS container.</p>
+          </li><li class="listitem">
+            <p><code class="code">AWS::ElasticBeanstalk::Environment</code> – An Elastic Beanstalk environment.</p>
+          </li></ul></div>
+        <p>When multiple values are applicable to your application, use the one that is most specific. For example, a
+          Multicontainer Docker Elastic Beanstalk environment runs your application on an Amazon ECS container, which in turn runs on an
+          Amazon EC2 instance. In this case you would set the origin to <code class="code">AWS::ElasticBeanstalk::Environment</code> as
+          the environment is the parent of the other two resources.</p>
+      </li><li class="listitem">
+        <p><code class="code">parent_id</code> – A subsegment ID you specify if the request originated from an instrumented
+          application. The X-Ray SDK adds the parent subsegment ID to the <a href="./xray-concepts.html#xray-concepts-tracingheader">tracing header</a> for downstream HTTP calls. In the case of nested subsegments, a subsegment can have a segment or a subsegment as its parent. </p>
+      </li><li class="listitem">
+        <p><code class="code">http</code> – <a href="#api-segmentdocuments-http">http</a> objects with
+          information about the original HTTP request.</p>
+      </li><li class="listitem">
+        <p><code class="code">aws</code> – <a href="#api-segmentdocuments-aws">aws</a> object with
+          information about the AWS resource on which your application served the request.</p>
+      </li><li class="listitem">
+        <p><code class="code">error</code>, <code class="code">throttle</code>, <code class="code">fault</code>, and <code class="code">cause</code> – <a href="#api-segmentdocuments-errors">error</a> fields that indicate an error occurred and that include
+          information about the exception that caused the error.</p>
+      </li><li class="listitem">
+        <p><code class="code">annotations</code> – <a href="#api-segmentdocuments-annotations">annotations</a> object with key-value pairs that you want X-Ray to index for
+          search.</p>
+      </li><li class="listitem">
+        <p><code class="code">metadata</code> – <a href="#api-segmentdocuments-metadata">metadata</a>
+          object with any additional data that you want to store in the segment.</p>
+      </li><li class="listitem">
+        <p><code class="code">subsegments</code> – <b>array</b> of <a href="#api-segmentdocuments-subsegments">subsegment</a> objects.</p>
+      </li></ul></div>
+   
+    <h2 id="api-segmentdocuments-subsegments">Subsegments</h2>
+    
+    <p>You can create subsegments to record calls to AWS services and resources that you make with the AWS SDK, calls
+      to internal or external HTTP web APIs, or SQL database queries. You can also create subsegments to debug or
+      annotate blocks of code in your application. Subsegments can contain other subsegments, so a custom subsegment
+      that records metadata about an internal function call can contain other custom subsegments and subsegments for
+      downstream calls.</p>
+    
+    <p>A subsegment records a downstream call from the point of view of the service that calls it. X-Ray uses
+      subsegments to identify downstream services that don't send segments and create entries for them on the service
+      graph.</p>
+    
+    <p>A subsegment can be embedded in a full segment document or sent independently. Send subsegments separately to
+      asynchronously trace downstream calls for long-running requests, or to avoid exceeding the maximum segment
+      document size.</p>
+    
+    <div class="example"><h6>Example Segment with embedded subsegment</h6><div class="example-contents"><p>An independent subsegment has a <code class="code">type</code> of <code class="code">subsegment</code> and a
+    <code class="code">parent_id</code> that identifies the parent segment.</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "trace_id"   : "1-5759e988-bd862e3fe1be46a994272793",
+  "id"         : "defdfd9912dc5a56",
+  "start_time" : 1461096053.37518,
+  "end_time"   : 1461096053.4042,
+  "name"       : "www.example.com",
+  "http"       : <span>{</span>
+    "request"  : <span>{</span>
+      "url"        : "https://www.example.com/health",
+      "method"     : "GET",
+      "user_agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7",
+      "client_ip"  : "11.0.3.111"
+    },
+    "response" : <span>{</span>
+      "status"         : 200,
+      "content_length" : 86
+    }
+  },
+  "subsegments" : [
+    <span>{</span>
+      "id"         : "53995c3f42cd8ad8",
+      "name"       : "api.example.com",
+      "start_time" : 1461096053.37769,
+      "end_time"   : 1461096053.40379,
+      "namespace"  : "remote",
+      "http"       : <span>{</span>
+        "request"  : <span>{</span>
+          "url"    : "https://api.example.com/health",
+          "method" : "POST",
+          "traced" : true
+        },
+        "response" : <span>{</span>
+          "status"         : 200,
+          "content_length" : 861
+        }
+      }
+    }
+  ]
+}</code></pre></div></div>
+    
+    <p>For long-running requests, you can send an in-progress segment to notify X-Ray that the request was received,
+      and then send subsegments separately to trace them before completing the original request.</p>
+    <div class="example"><h6>Example In-progress segment</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "name" : "example.com",
+  "id" : "70de5b6f19ff9a0b",
+  "start_time" : 1.478293361271E9,
+  "trace_id" : "1-581cf771-a006649127e371903a2de979",
+  "in_progress": true
+}</code></pre></div></div>
+    
+    <div class="example"><h6>Example Independent subsegment</h6><div class="example-contents"><p>An independent subsegment has a <code class="code">type</code> of <code class="code">subsegment</code>, a
+    <code class="code">trace_id</code>, and a <code class="code">parent_id</code> that identifies the parent
+    segment.</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+  "name" : "api.example.com",
+  "id" : "53995c3f42cd8ad8",
+  "start_time" : 1.478293361271E9,
+  "end_time" : 1.478293361449E9,
+  <code class="userinput">"type" : "subsegment",
+  "trace_id" : "1-581cf771-a006649127e371903a2de979"
+  "parent_id" : "defdfd9912dc5a56"</code>,
+  "namespace"  : "remote",
+  "http"       : <span>{</span>
+      "request"  : <span>{</span>
+          "url"    : "https://api.example.com/health",
+          "method" : "POST",
+          "traced" : true
+      },
+      "response" : <span>{</span>
+          "status"         : 200,
+          "content_length" : 861
+      }
+  }
+}</code></pre></div></div>
+    
+    <p>When the request is complete, close the segment by resending it with an <code class="code">end_time</code>. The complete
+      segment overwrites the in-progress segment.</p>
+    
+    <p>You can also send subsegments separately for completed requests that triggered asynchronous workflows. For
+      example, a web API may return a <code class="code">OK 200</code> response immediately prior to starting the work that the user
+      requested. You can send a full segment to X-Ray as soon as the response is sent, followed by subsegments for work
+      completed later. As with segments, you can also send a subsegment fragment to record that the subsegment has
+      started, and then overwrite it with a full subsegment once the downstream call is complete.</p>
+    
+    <p>The following fields are required, or are conditionally required, for subsegments.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Values are strings up to 250 characters unless noted otherwise.</p></div></div>
+    <div class="itemizedlist">
+      <h6>Required Subsegment Fields</h6>
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">id</code> – A 64-bit identifier for the subsegment, unique among segments in the same trace,
+          in <b>16 hexadecimal digits</b>.</p>
+      </li><li class="listitem">
+        <p><code class="code">name</code> – The logical name of the subsegment. For downstream calls, name the subsegment
+          after the resource or service called. For custom subsegments, name the subsegment after the code that it
+          instruments (e.g., a function name).</p>
+      </li><li class="listitem">
+        <p><code class="code">start_time</code> – <b>number</b> that is the time the subsegment
+          was created, in floating point seconds in epoch time, accurate to milliseconds. For example,
+            <code class="code">1480615200.010</code> or <code class="code">1.480615200010E9</code>.</p>
+      </li><li class="listitem">
+        <p><code class="code">end_time</code> – <b>number</b> that is the time the subsegment was
+          closed. For example, <code class="code">1480615200.090</code> or <code class="code">1.480615200090E9</code>. Specify an
+            <code class="code">end_time</code> or <code class="code">in_progress</code>.</p>
+      </li><li class="listitem">
+        <p><code class="code">in_progress</code> – <b>boolean</b> that is set to
+            <code class="code">true</code> instead of specifying an <code class="code">end_time</code> to record that a subsegment is started, but
+          is not complete. Only send one complete subsegment, and one or zero in-progress subsegments, per downstream
+          request.</p>
+      </li><li class="listitem">
+        <p><code class="code">trace_id</code> – Trace ID of the subsegment's parent segment. Required only if sending a
+          subsegment separately.</p>
+        <div class="itemizedlist">
+    <h6>X-Ray trace ID format</h6>
+    <p>An X-Ray <code class="code">trace_id</code> consists of three numbers separated by hyphens. For example,
+      <code class="code">1-58406520-a006649127e371903a2de979</code>. This includes:</p>
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>The version number, which is <code class="code">1</code>.</p>
+    </li><li class="listitem">
+      <p>The time of the original request in Unix epoch time using <b>8 hexadecimal
+        digits</b>.</p>
+      <p>For example, 10:00AM December 1st, 2016 PST in epoch time is <code class="code">1480615200</code> seconds or
+        <code class="code">58406520</code> in hexadecimal digits.</p>
+    </li><li class="listitem">
+      <p>A globally unique 96-bit identifier for the trace in <b>24 hexadecimal
+      digits</b>.</p>
+    </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>X-Ray now supports trace IDs that are created using OpenTelemetry and any other framework that conforms with the
+      <a href="https://www.w3.org/TR/trace-context/" rel="noopener noreferrer" target="_blank"><span>W3C Trace Context specification</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. A W3C trace ID must be
+    formatted in X-Ray trace ID format when sending to X-Ray. For example, W3C trace ID
+      <code class="code">4efaaf4d1e8720b39541901950019ee5</code> should be formatted as
+      <code class="code">1-4efaaf4d-1e8720b39541901950019ee5</code> when sending to X-Ray. X-Ray trace IDs include the original
+    request time stamp in Unix epoch time, but this isn't required when sending W3C trace IDs in X-Ray format. </p></div></div>
+      </li><li class="listitem">
+        <p><code class="code">parent_id</code> – Segment ID of the subsegment's parent segment. Required only if sending a
+          subsegment separately. In the case of nested subsegments, a subsegment can have a segment or a subsegment as its parent.</p>
+      </li><li class="listitem">
+        <p><code class="code">type</code> – <code class="code">subsegment</code>. Required only if sending a subsegment
+          separately.</p>
+      </li></ul></div>
+    <p>The following fields are optional for subsegments.</p>
+    <div class="itemizedlist">
+      <h6>Optional Subsegment Fields</h6>
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">namespace</code> – <code class="code">aws</code> for AWS SDK calls; <code class="code">remote</code> for other
+          downstream calls.</p>
+      </li><li class="listitem">
+        <p><code class="code">http</code> – <a href="#api-segmentdocuments-http">http</a> object with
+          information about an outgoing HTTP call.</p>
+      </li><li class="listitem">
+        <p><code class="code">aws</code> – <a href="#api-segmentdocuments-aws">aws</a> object with
+          information about the downstream AWS resource that your application called.</p>
+      </li><li class="listitem">
+        <p><code class="code">error</code>, <code class="code">throttle</code>, <code class="code">fault</code>, and <code class="code">cause</code> – <a href="#api-segmentdocuments-errors">error</a> fields that indicate an error occurred and that include
+          information about the exception that caused the error.</p>
+      </li><li class="listitem">
+        <p><code class="code">annotations</code> – <a href="#api-segmentdocuments-annotations">annotations</a> object with key-value pairs that you want X-Ray to index for
+          search.</p>
+      </li><li class="listitem">
+        <p><code class="code">metadata</code> – <a href="#api-segmentdocuments-metadata">metadata</a>
+          object with any additional data that you want to store in the segment.</p>
+      </li><li class="listitem">
+        <p><code class="code">subsegments</code> – <b>array</b> of subsegment objects.</p>
+      </li><li class="listitem">
+        <p><code class="code">precursor_ids</code> – <b>array</b> of subsegment IDs that
+          identifies subsegments with the same parent that completed prior to this subsegment.</p>
+      </li></ul></div>
+   
+    <h2 id="api-segmentdocuments-http">HTTP request data</h2>
+    <p>Use an HTTP block to record details about an HTTP request that your application served (in a segment) or that
+      your application made to a downstream HTTP API (in a subsegment). Most of the fields in this object map to
+      information found in an HTTP request and response.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">http</code></h6>
+      <p>All fields are optional.</p>
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">request</code> – Information about a request.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">method</code> – The request method. For example, <code class="code">GET</code>.</p>
+          </li><li class="listitem">
+            <p><code class="code">url</code> – The full URL of the request, compiled from the protocol, hostname, and path
+              of the request.</p>
+          </li><li class="listitem">
+            <p><code class="code">user_agent</code> – The user agent string from the requester's client.</p>
+          </li><li class="listitem">
+            <p><code class="code">client_ip</code> – The IP address of the requester. Can be retrieved from the IP packet's
+                <code class="code">Source Address</code> or, for forwarded requests, from an <code class="code">X-Forwarded-For</code>
+              header.</p>
+          </li><li class="listitem">
+            <p><code class="code">x_forwarded_for</code> – (segments only) <b>boolean</b>
+              indicating that the <code class="code">client_ip</code> was read from an <code class="code">X-Forwarded-For</code> header and is not
+              reliable as it could have been forged.</p>
+          </li><li class="listitem">
+            <p><code class="code">traced</code> – (subsegments only) <b>boolean</b> indicating
+              that the downstream call is to another traced service. If this field is set to <code class="code">true</code>, X-Ray
+              considers the trace to be broken until the downstream service uploads a segment with a
+                <code class="code">parent_id</code> that matches the <code class="code">id</code> of the subsegment that contains this
+              block.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">response</code> – Information about a response.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">status</code> – <b>integer</b> indicating the HTTP status of
+              the response.</p>
+          </li><li class="listitem">
+            <p><code class="code">content_length</code> – <b>integer</b> indicating the length of
+              the response body in bytes.</p>
+          </li></ul></div>
+      </li></ul></div>
+    
+    <p>When you instrument a call to a downstream web api, record a subsegment with information about the HTTP
+      request and response. X-Ray uses the subsegment to generate an inferred segment for the remote API.</p>
+    
+    <div class="example"><h6>Example Segment for HTTP call served by an application running on Amazon EC2</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "id": "6b55dcc497934f1a",
+  "start_time": 1484789387.126,
+  "end_time": 1484789387.535,
+  "trace_id": "1-5880168b-fd5158284b67678a3bb5a78c",
+  "name": "www.example.com",
+  "origin": "AWS::EC2::Instance",
+  "aws": <span>{</span>
+    "ec2": <span>{</span>
+      "availability_zone": "us-west-2c",
+      "instance_id": "i-0b5a4678fc325bg98"
+    },
+    "xray": <span>{</span>
+        "sdk_version": "2.11.0 for Java"
+    },
+  },
+  "http": <span>{</span>
+    "request": <span>{</span>
+      "method": "POST",
+      "client_ip": "78.255.233.48",
+      "url": "http://www.example.com/api/user",
+      "user_agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0",
+      "x_forwarded_for": true
+    },
+    "response": <span>{</span>
+      "status": 200
+    }
+  }</code></pre></div></div>
+    
+    <div class="example"><h6>Example Subsegment for a downstream HTTP call</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "id": "004f72be19cddc2a",
+  "start_time": 1484786387.131,
+  "end_time": 1484786387.501,
+  "name": "names.example.com",
+  "namespace": "remote",
+  "http": <span>{</span>
+    "request": <span>{</span>
+      "method": "GET",
+      "url": "https://names.example.com/"
+    },
+    "response": <span>{</span>
+      "content_length": -1,
+      "status": 200
+    }
+  }
+}</code></pre></div></div>
+    
+    <div class="example"><h6>Example Inferred segment for a downstream HTTP call</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "id": "168416dc2ea97781",
+  "name": "names.example.com",
+  "trace_id": "1-62be1272-1b71c4274f39f122afa64eab",
+  "start_time": 1484786387.131,
+  "end_time": 1484786387.501,
+  "parent_id": "004f72be19cddc2a",
+  "http": <span>{</span>
+    "request": <span>{</span>
+      "method": "GET",
+      "url": "https://names.example.com/"
+    },
+    "response": <span>{</span>
+      "content_length": -1,
+      "status": 200
+    }
+  },
+  "inferred": true
+}</code></pre></div></div>
+   
+    <h2 id="api-segmentdocuments-annotations">Annotations</h2>
+    <p>Segments and subsegments can include an <code class="code">annotations</code> object containing one or more fields that
+      X-Ray indexes for use with filter expressions. Fields can have string, number, or Boolean values (no objects or
+      arrays). X-Ray indexes up to 50 annotations per trace.</p>
+    <div class="example"><h6>Example Segment for HTTP call with annotations</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+  "id": "6b55dcc497932f1a",
+  "start_time": 1484789187.126,
+  "end_time": 1484789187.535,
+  "trace_id": "1-5880168b-fd515828bs07678a3bb5a78c",
+  "name": "www.example.com",
+  "origin": "AWS::EC2::Instance",
+  "aws": <span>{</span>
+    "ec2": <span>{</span>
+      "availability_zone": "us-west-2c",
+      "instance_id": "i-0b5a4678fc325bg98"
+    },
+    "xray": <span>{</span>
+        "sdk_version": "2.11.0 for Java"
+    },
+  },
+  <code class="userinput">"annotations": <span>{</span>
+    "customer_category" : 124,
+    "zip_code" : 98101,
+    "country" : "United States",
+    "internal" : false
+  },</code>
+  "http": <span>{</span>
+    "request": <span>{</span>
+      "method": "POST",
+      "client_ip": "78.255.233.48",
+      "url": "http://www.example.com/api/user",
+      "user_agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0",
+      "x_forwarded_for": true
+    },
+    "response": <span>{</span>
+      "status": 200
+    }
+  }</code></pre></div></div>
+    <p>Keys must be alphanumeric in order to work with filters. Underscore is allowed. Other symbols and whitespace
+      are not allowed.</p>
+   
+    <h2 id="api-segmentdocuments-metadata">Metadata</h2>
+    <p>Segments and subsegments can include a <code class="code">metadata</code> object containing one or more fields with values
+      of any type, including objects and arrays. X-Ray does not index metadata, and values can be any size, as long as
+      the segment document doesn't exceed the maximum size (64 kB). You can view metadata in the full
+      segment document returned by the <a href="https://docs.aws.amazon.com/xray/latest/api/API_BatchGetTraces.html"><code class="code">BatchGetTraces</code></a> API. Field keys (<code class="code">debug</code> in the following
+      example) starting with <code class="code">AWS.</code> are reserved for use by AWS-provided SDKs and clients.</p>
+    <div class="example"><h6>Example Custom subsegment with metadata</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="nohighlight"><span>{</span>
+  "id": "0e58d2918e9038e8",
+  "start_time": 1484789387.502,
+  "end_time": 1484789387.534,
+  "name": "## UserModel.saveUser",
+  <code class="userinput">"metadata": <span>{</span>
+    "debug": <span>{</span>
+      "test": "Metadata string from UserModel.saveUser"
+    }
+  },</code>
+  "subsegments": [
+    <span>{</span>
+      "id": "0f910026178b71eb",
+      "start_time": 1484789387.502,
+      "end_time": 1484789387.534,
+      "name": "DynamoDB",
+      "namespace": "aws",
+      "http": <span>{</span>
+        "response": <span>{</span>
+          "content_length": 58,
+          "status": 200
+        }
+      },
+      "aws": <span>{</span>
+        "table_name": "scorekeep-user",
+        "operation": "UpdateItem",
+        "request_id": "3AIENM5J4ELQ3SPODHKBIRVIC3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "resource_names": [
+          "scorekeep-user"
+        ]
+      }
+    }
+  ]
+}</code></pre></div></div>
+   
+    <h2 id="api-segmentdocuments-aws">AWS resource data</h2>
+    
+    <p>For segments, the <code class="code">aws</code> object contains information about the resource on which your application is
+      running. Multiple fields can apply to a single resource. For example, an application running in a multicontainer
+      Docker environment on Elastic Beanstalk could have information about the Amazon EC2 instance, the Amazon ECS container running on the
+      instance, and the Elastic Beanstalk environment itself.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">aws</code> (Segments)</h6>
+      <p>All fields are optional.</p>
+       
+       
+       
+       
+       
+       
+             
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">account_id</code> – If your application sends segments to a different AWS account, record the
+          ID of the account running your application.</p>
+      </li><li class="listitem">
+        <p><code class="code">cloudwatch_logs</code> – Array of objects that describe a single CloudWatch log group.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">log_group</code> – The CloudWatch Log Group name.</p>
+          </li><li class="listitem">
+            <p><code class="code">arn</code> – The CloudWatch Log Group ARN.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">ec2</code> – Information about an Amazon EC2 instance.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">instance_id</code> – The instance ID of the EC2 instance.</p>
+          </li><li class="listitem">
+            <p><code class="code">instance_size</code> – The type of EC2 instance.</p>
+          </li><li class="listitem">
+            <p><code class="code">ami_id</code> – The Amazon Machine Image ID.</p>
+          </li><li class="listitem">
+            <p><code class="code">availability_zone</code> – The Availability Zone in which the instance is running.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">ecs</code> – Information about an Amazon ECS container.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">container</code> – The hostname of your container.</p>
+          </li><li class="listitem">
+            <p><code class="code">container_id</code> – The full container ID of your container.</p>
+          </li><li class="listitem">
+            <p><code class="code">container_arn</code> – The ARN of your container instance.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">eks</code> – Information about an Amazon EKS cluster.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">pod</code> – The hostname of your EKS pod.</p>
+          </li><li class="listitem">
+            <p><code class="code">cluster_name</code> – The EKS cluster name.</p>
+          </li><li class="listitem">
+            <p><code class="code">container_id</code> – The full container ID of your container.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">elastic_beanstalk</code> – Information about an Elastic Beanstalk environment. You can find this
+          information in a file named <code>/var/elasticbeanstalk/xray/environment.conf</code> on the latest
+          Elastic Beanstalk platforms.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">environment_name</code> – The name of the environment.</p>
+          </li><li class="listitem">
+            <p><code class="code">version_label</code> – The name of the application version that is currently deployed to
+              the instance that served the request.</p>
+          </li><li class="listitem">
+            <p><code class="code">deployment_id</code> – <b>number</b> indicating the ID of the
+              last successful deployment to the instance that served the request.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p><code class="code">xray</code> – Metadata about the type and version of instrumentation used.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">auto_instrumentation</code> – Boolean indicating whether auto-instrumentation was used (for example, the Java Agent).</p>
+          </li><li class="listitem">
+            <p><code class="code">sdk_version</code> – The version of SDK or agent being used.</p>
+          </li><li class="listitem">
+            <p><code class="code">sdk</code> – The type of SDK.</p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="example"><h6>Example AWS block with plugins</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">"aws":<span>{</span>
+   "elastic_beanstalk":<span>{</span>
+      "version_label":"app-5a56-170119_190650-stage-170119_190650",
+      "deployment_id":32,
+      "environment_name":"scorekeep"
+   },
+   "ec2":<span>{</span>
+      "availability_zone":"us-west-2c",
+      "instance_id":"i-075ad396f12bc325a",
+      "ami_id":
+   },
+   "cloudwatch_logs":[
+      <span>{</span>
+         "log_group":"my-cw-log-group",
+         "arn":"arn:aws:logs:us-west-2:012345678912:log-group:my-cw-log-group"
+      }
+   ],
+   "xray":<span>{</span>
+      "auto_instrumentation":false,
+      "sdk":"X-Ray for Java",
+      "sdk_version":"2.8.0"
+   }
+}
+</code></pre></div></div>
+    
+    <p>For subsegments, record information about the AWS services and resources that your application accesses.
+      X-Ray uses this information to create inferred segments that represent the downstream services in your service
+      map.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">aws</code> (Subsegments)</h6>
+      <p>All fields are optional.</p>
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">operation</code> – The name of the API action invoked against an AWS service or
+          resource.</p>
+      </li><li class="listitem">
+        <p><code class="code">account_id</code> – If your application accesses resources in a different account, or sends
+          segments to a different account, record the ID of the account that owns the AWS resource that your application
+          accessed.</p>
+      </li><li class="listitem">
+        <p><code class="code">region</code> – If the resource is in a region different from your application, record the
+          region. For example, <code class="code">us-west-2</code>.</p>
+      </li><li class="listitem">
+        <p><code class="code">request_id</code> – Unique identifier for the request.</p>
+      </li><li class="listitem">
+        <p><code class="code">queue_url</code> – For operations on an Amazon SQS queue, the queue's URL.</p>
+      </li><li class="listitem">
+        <p><code class="code">table_name</code> – For operations on a DynamoDB table, the name of the table.</p>
+      </li></ul></div>
+    
+    <div class="example"><h6>Example Subsegment for a call to DynamoDB to save an item</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "id": "24756640c0d0978a",
+  "start_time": 1.480305974194E9,
+  "end_time": 1.4803059742E9,
+  "name": "DynamoDB",
+  "namespace": "aws",
+  "http": <span>{</span>
+    "response": <span>{</span>
+      "content_length": 60,
+      "status": 200
+    }
+  },
+  "aws": <span>{</span>
+    "table_name": "scorekeep-user",
+    "operation": "UpdateItem",
+    "request_id": "UBQNSO5AEM8T4FDA4RQDEB94OVTDRVV4K4HIRGVJF66Q9ASUAAJG",
+  }
+}</code></pre></div></div>
+   
+    <h2 id="api-segmentdocuments-errors">Errors and exceptions</h2>
+    <p>When an error occurs, you can record details about the error and exceptions that it generated. Record errors
+      in segments when your application returns an error to the user, and in subsegments when a downstream call returns
+      an error.</p>
+    <div class="itemizedlist">
+      <h6>error types</h6>
+      <p>Set one or more of the following fields to <code class="code">true</code> to indicate that an error occurred. Multiple
+        types can apply if errors compound. For example, a <code class="code">429 Too Many Requests</code> error from a downstream
+        call may cause your application to return <code class="code">500 Internal Server Error</code>, in which case all three types
+        would apply.</p>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">error</code> – <b>boolean</b> indicating that a client error
+          occurred (response status code was 4XX Client Error).</p>
+      </li><li class="listitem">
+        <p><code class="code">throttle</code> – <b>boolean</b> indicating that a request was
+          throttled (response status code was <em>429 Too Many Requests</em>).</p>
+      </li><li class="listitem">
+        <p><code class="code">fault</code> – <b>boolean</b> indicating that a server error
+          occurred (response status code was 5XX Server Error).</p>
+      </li></ul></div>
+    <p>Indicate the cause of the error by including a <b>cause</b> object in the segment or
+      subsegment.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">cause</code></h6>
+      <p>A cause can be either a <b>16 character</b> exception ID or an object with the
+        following fields:</p>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">working_directory</code> – The full path of the working directory when the exception
+          occurred.</p>
+      </li><li class="listitem">
+        <p><code class="code">paths</code> – The <b>array</b> of paths to libraries or modules in
+          use when the exception occurred.</p>
+      </li><li class="listitem">
+        <p><code class="code">exceptions</code> – The <b>array</b> of <b>exception</b> objects.</p>
+      </li></ul></div>
+    <p>Include detailed information about the error in one or more <b>exception</b>
+      objects.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">exception</code></h6>
+      <p>All fields are optional.</p>
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">id</code> – A 64-bit identifier for the exception, unique among segments in the same trace,
+          in <b>16 hexadecimal digits</b>.</p>
+      </li><li class="listitem">
+        <p><code class="code">message</code> – The exception message.</p>
+      </li><li class="listitem">
+        <p><code class="code">type</code> – The exception type.</p>
+      </li><li class="listitem">
+        <p><code class="code">remote</code> – <b>boolean</b> indicating that the exception was
+          caused by an error returned by a downstream service.</p>
+      </li><li class="listitem">
+        <p><code class="code">truncated</code> – <b>integer</b> indicating the number of stack
+          frames that are omitted from the <code class="code">stack</code>.</p>
+      </li><li class="listitem">
+        <p><code class="code">skipped</code> – <b>integer</b> indicating the number of exceptions
+          that were skipped between this exception and its child, that is, the exception that it caused.</p>
+      </li><li class="listitem">
+        <p><code class="code">cause</code> – Exception ID of the exception's parent, that is, the exception that caused
+          this exception.</p>
+      </li><li class="listitem">
+        <p><code class="code">stack</code> – <b>array</b> of <b>stackFrame</b> objects.</p>
+      </li></ul></div>
+    <p>If available, record information about the call stack in <b>stackFrame</b>
+      objects.</p>
+    <div class="itemizedlist">
+      <h6><code class="code">stackFrame</code></h6>
+      <p>All fields are optional.</p>
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">path</code> – The relative path to the file.</p>
+      </li><li class="listitem">
+        <p><code class="code">line</code> – The line in the file.</p>
+      </li><li class="listitem">
+        <p><code class="code">label</code> – The function or method name.</p>
+      </li></ul></div>
+    
+   
+    <h2 id="api-segmentdocuments-sql">SQL queries</h2>
+    <p>You can create subsegments for queries that your application makes to an SQL database.</p>
+    
+    <div class="itemizedlist">
+      <h6><code class="code">sql</code></h6>
+      <p>All fields are optional.</p>
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">connection_string</code> – For SQL Server or other database connections that don't use URL
+          connection strings, record the connection string, excluding passwords.</p>
+      </li><li class="listitem">
+        <p><code class="code">url</code> – For a database connection that uses a URL connection string, record the URL,
+          excluding passwords.</p>
+      </li><li class="listitem">
+        <p><code class="code">sanitized_query</code> – The database query, with any user provided values removed or
+          replaced by a placeholder.</p>
+      </li><li class="listitem">
+        <p><code class="code">database_type</code> – The name of the database engine.</p>
+      </li><li class="listitem">
+        <p><code class="code">database_version</code> – The version number of the database engine.</p>
+      </li><li class="listitem">
+        <p><code class="code">driver_version</code> – The name and version number of the database engine driver that your
+          application uses.</p>
+      </li><li class="listitem">
+        <p><code class="code">user</code> – The database username.</p>
+      </li><li class="listitem">
+        <p><code class="code">preparation</code> – <code class="code">call</code> if the query used a <code class="code">PreparedCall</code>;
+            <code class="code">statement</code> if the query used a <code class="code">PreparedStatement</code>.</p>
+      </li></ul></div>
+    <div class="example"><h6>Example Subsegment with an SQL Query</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "id": "3fd8634e78ca9560",
+  "start_time": 1484872218.696,
+  "end_time": 1484872218.697,
+  "name": "ebdb@aawijb5u25wdoy.cpamxznpdoq8.us-west-2.rds.amazonaws.com",
+  "namespace": "remote",
+  "sql" : <span>{</span>
+    "url": "jdbc:postgresql://aawijb5u25wdoy.cpamxznpdoq8.us-west-2.rds.amazonaws.com:5432/ebdb",
+    "preparation": "statement",
+    "database_type": "PostgreSQL",
+    "database_version": "9.5.4",
+    "driver_version": "PostgreSQL 9.4.1211.jre7",
+    "user" : "dbuser",
+    "sanitized_query" : "SELECT  *  FROM  customers  WHERE  customer_id=?;"
+  }
+}</code></pre></div></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./xray-api-sampling.html">Sampling</div><div id="next" class="next-link" accesskey="n" href="./xray-concepts.html">Concepts</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-api-segmentdocuments.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=X-Ray&amp;topic_url=https://docs.aws.amazon.com/en_us/xray/latest/devguide/xray-api-segmentdocuments.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

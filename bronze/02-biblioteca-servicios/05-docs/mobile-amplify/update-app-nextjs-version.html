@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Migrating a Next.js 11 SSR app to Amplify Hosting compute - AWS Amplify Hosting</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="update-app-nextjs-version" /><meta name="default_state" content="update-app-nextjs-version" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amplify/latest/userguide/update-app-nextjs-version.html" /><meta name="description" content="Migrate an existing Next.js 11 application to Next.js 13 or later and deploy it to the Amplify Hosting compute SSR provider." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Amplify Hosting" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Amplify provides a continuous delivery and hosting service for cloud-powered mobile and web applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amplify/latest/userguide/update-app-nextjs-version.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/amplify/latest/userguide/update-app-nextjs-version.html" hreflang="x-default" /><meta name="feedback-item" content="Amplify" /><meta name="this_doc_product" content="AWS Amplify Hosting" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'amplify'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Migrating a Next.js 11 SSR app to Amplify Hosting compute" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="update-app-nextjs-version.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Migrating a Next.js 11 SSR app to Amplify Hosting compute - AWS Amplify Hosting</title><meta name="pdf" content="/pdfs/amplify/latest/userguide/amplify-console-ug.pdf#update-app-nextjs-version" /><meta name="rss" content="amplify-console-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAxd9wmFJAQp-XtLjE63hasw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amplify&amp;topic_url=https://docs.aws.amazon.com/en_us/amplify/latest/userguide/update-app-nextjs-version.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/amplify/latest/userguide/update-app-nextjs-version.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/amplify/latest/userguide/update-app-nextjs-version.html" /><meta name="keywords" content="amplify,hosting,mobile web,reactjs,vuejs,jekyll,angular,aws,ios,android,next.js,ssr,Deploy SSR app,use server-side rendering,Deploy Next.js,use community adapter,use open source adapter,Deploy Nuxt app,Deploy Astro app,Deploy SvelteKit app,deploy Next.js app,host Next.js app,deploy SSR app,Server-side rendering,Next.js supported features,migrate Next.js 11 app,Amplify Hosting compute" /><link rel="alternate" type="text/markdown" href="update-app-nextjs-version.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Amplify",
+        "item" : "https://docs.aws.amazon.com/amplify/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/amplify/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Deploying server-side rendered applications with Amplify Hosting",
+        "item" : "https://docs.aws.amazon.com/amplify/latest/userguide/server-side-rendering-amplify.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amplify support for Next.js",
+        "item" : "https://docs.aws.amazon.com/amplify/latest/userguide/ssr-amplify-support.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Migrating a Next.js 11 SSR app to Amplify Hosting compute",
+        "item" : "https://docs.aws.amazon.com/amplify/latest/userguide/ssr-amplify-support.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amplify/latest/userguide/amplify-console-ug.pdf#update-app-nextjs-version" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/amplify/index.html">AWS Amplify</a><a href="welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#revert-ssr-migration">Reverting an SSR migration</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="update-app-nextjs-version">Migrating a Next.js 11 SSR app to Amplify Hosting compute</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>When you deploy a new Next.js app, by default Amplify uses the most recent supported
+        version of Next.js. Currently, the Amplify Hosting compute SSR provider supports Next.js
+        version 15.</p><p>The Amplify console detects apps in your account that were deployed prior to the November 2022
+        release of the Amplify Hosting compute service with full support for Next.js versions 12 through 15.
+        The console displays an information banner identifying apps with branches that are deployed
+        using Amplify's previous SSR provider, Classic (Next.js 11 only). We strongly recommend that
+        you migrate your apps to the Amplify Hosting compute SSR provider.</p><p>If you are updating your hosted Next.js 11 application to Next.js 12 or later, you might
+        get a <code class="code">"target" property is no longer supported</code> error when a deployment is
+        triggered. In this case, You must migrate to Amplify Hosting compute.</p><p>You must manually migrate the app and all of its production branches at the same time.
+        An app can't contain both Classic (Next.js 11 only) and Next.js 12 or later branches.</p><p>Use the following instructions to migrate an app to the Amplify Hosting compute SSR
+        provider.</p><div class="procedure"><h6>To migrate an app to the Amplify Hosting compute SSR provider</h6><ol><li>
+          <p>Sign in to the AWS Management Console and open the <a href="https://console.aws.amazon.com/amplify/" rel="noopener noreferrer" target="_blank"><span>Amplify
+              console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li>
+          <p>Choose the Next.js app that you want to migrate.</p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Before you migrate an app in the Amplify console, you must first update the
+              app's package.json file to use Next.js version 12 or later.</p></div></div>
+        </li><li>
+          <p>In the navigation pane, choose <b>App settings</b>,
+              <b>General</b>.</p>
+        </li><li>
+          <p>On the app homepage, the console displays a banner if the app has branches deployed
+            using the <em>Classic (Next.js 11 only)</em>
+            <b>SSR provider</b>. On the banner, choose
+            <b>Migrate</b>.</p>
+        </li><li>
+          <p>In the migration confirmation window, select the three statements and choose
+              <b>Migrate</b>.</p>
+        </li><li>
+          <p>Amplify will build and redeploy your app to complete the migration.</p>
+        </li></ol></div>
+        <h2 id="revert-ssr-migration">Reverting an SSR migration</h2>
+ 
+        <p>When you deploy a Next.js app, Amplify Hosting detects the settings in your app and
+          sets the internal platform value for the app. There are three valid platform values. An
+          SSG app is set to the platform value <code class="code">WEB</code>. An SSR app using Next.js version 11
+          is set to the platform value <code class="code">WEB_DYNAMIC</code>. A Next.js 12 or later SSR app is
+          set to the platform value <code class="code">WEB_COMPUTE</code>.</p>
+        <p>When you migrate an app using the instructions in the previous section, Amplify
+          changes the platform value of your app from <code class="code">WEB_DYNAMIC</code> to
+            <code class="code">WEB_COMPUTE</code>. After the migration to Amplify Hosting compute is complete,
+          you can't revert the migration in the console. To revert the migration, you must use the
+          AWS Command Line Interface to change the app's platform back to <code class="code">WEB_DYNAMIC</code>. Open a terminal
+          window and enter the following command, updating the app ID and Region with your unique
+          information.</p>
+ 
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="userinput">aws amplify update-app --app-id <code class="replaceable">abcd1234</code> --platform WEB_DYNAMIC --region <code class="replaceable">us-west-2</code></code></code></pre>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./deploy-nextjs-app.html">Deploying a Next.js SSR application to Amplify</div><div id="next" class="next-link" accesskey="n" href="./redeploy-ssg-to-ssr.html">Adding SSR functionality to a static Next.js app</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amplify&amp;topic_url=https://docs.aws.amazon.com/en_us/amplify/latest/userguide/update-app-nextjs-version.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Amplify&amp;topic_url=https://docs.aws.amazon.com/en_us/amplify/latest/userguide/update-app-nextjs-version.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

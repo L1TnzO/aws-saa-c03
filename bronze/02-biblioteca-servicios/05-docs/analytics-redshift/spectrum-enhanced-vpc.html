@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Accessing Amazon S3 buckets with Redshift Spectrum - Amazon Redshift</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="spectrum-enhanced-vpc" /><meta name="default_state" content="spectrum-enhanced-vpc" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/redshift/latest/mgmt/spectrum-enhanced-vpc.html" /><meta name="description" content="You can't use enhanced VPC routing with Redshift Spectrum." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Redshift" /><meta name="guide" content="Management Guide" /><meta name="abstract" content="Launch an Amazon Redshift cluster or workgroup and manage the petabyte-scale data warehouse service in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/redshift/latest/mgmt/spectrum-enhanced-vpc.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/spectrum-enhanced-vpc.html" hreflang="x-default" /><meta name="feedback-item" content="Redshift" /><meta name="this_doc_product" content="Amazon Redshift" /><meta name="this_doc_guide" content="Management Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'redshift'}"></script><meta id="panorama-serviceSubSection" value="Management Guide" /><meta id="panorama-serviceConsolePage" value="Accessing Amazon S3 buckets with Redshift Spectrum" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="spectrum-enhanced-vpc.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Accessing Amazon S3 buckets with Redshift Spectrum - Amazon Redshift</title><meta name="pdf" content="/pdfs/redshift/latest/mgmt/redshift-mgmt.pdf#spectrum-enhanced-vpc" /><meta name="rss" content="CMDochistory.rss" /><meta name="forums" content="https://repost.aws/tags/TAByF7MpfSQUCX_lAeDTvODw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/spectrum-enhanced-vpc.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/spectrum-enhanced-vpc.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/spectrum-enhanced-vpc.html" /><meta name="keywords" content="Amazon Redshift,AWS Redshift,Redshift,connecting,cluster,launch cluster,data warehouse,management,cluster management,JDBC,ODBC,connection,security" /><link rel="alternate" type="text/markdown" href="spectrum-enhanced-vpc.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Redshift",
+        "item" : "https://docs.aws.amazon.com/redshift/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Management Guide",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Networking tasks",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt/networking-tasks.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Controlling network traffic with Redshift enhanced VPC routing",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Accessing Amazon S3 buckets with Redshift Spectrum",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/redshift/latest/mgmt/redshift-mgmt.pdf#spectrum-enhanced-vpc" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/redshift/index.html">Amazon Redshift</a><a href="welcome.html">Management Guide</a></div><div id="page-toc-src"><a href="#spectrum-enhanced-vpc-considerations">Permissions policy configuration when using Amazon Redshift Spectrum</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>
+         Amazon Redshift will no longer support the use of Python UDFs after June 30, 2026.
+  We will start enforcing it in phases. For more information on the details of Python end of life
+  and migration options, see the
+  <a href="https://aws.amazon.com/blogs/big-data/amazon-redshift-python-user-defined-functions-will-reach-end-of-support-after-june-30-2026/" rel="noopener noreferrer" target="_blank"><span>
+          blog post
+        </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> that was published on June 30, 2025.
+      </p></awsui-alert><h1 class="topictitle" id="spectrum-enhanced-vpc">Accessing Amazon S3 buckets with Redshift Spectrum</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In general, Amazon Redshift Spectrum doesn't support enhanced VPC routing with provisioned clusters,
+            even though a provisioned cluster can query external tables from Amazon S3 when enhanced VPC
+            routing is enabled.</p><p>Amazon Redshift enhanced VPC routing sends specific traffic through your VPC, which means that
+            all traffic between your cluster and your Amazon S3 buckets is forced to pass through your
+            Amazon VPC. Because Redshift Spectrum runs on AWS managed resources that are owned by Amazon Redshift but are
+            outside your VPC, Redshift Spectrum doesn't use enhanced VPC routing. </p><p>Traffic between Redshift Spectrum and Amazon S3 is securely routed through the AWS private network,
+            outside of your VPC. In-flight traffic is signed using Amazon Signature Version 4
+            protocol (SIGv4) and encrypted using HTTPS. This traffic is authorized based on the
+            IAM role that is attached to your Amazon Redshift cluster. To further manage Redshift Spectrum traffic, you
+            can modify your cluster's IAM role and your policy attached to the Amazon S3 bucket.
+            You might also need to configure your VPC to allow your cluster to access AWS Glue or
+            Athena, as detailed following. </p><p>
+            Note that because enhanced VPC routing affects the way that Amazon Redshift accesses other resources, queries might fail unless you configure your VPC correctly. For more
+            information, see <a href="./enhanced-vpc-routing.html">Controlling network traffic with Redshift enhanced VPC routing</a>, which discusses in more detail creating a VPC endpoint, a NAT gateway, and other networking
+            resources to direct traffic to your Amazon S3 buckets.
+        </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon Redshift Serverless supports enhanced VPC routing for queries to external tables on Amazon S3. For more information about configuration, 
+                see <a href="https://docs.aws.amazon.com/redshift/latest/gsg/new-user-serverless.html#serverless-load-data-from-s3">Loading in data from Amazon S3</a> in the Amazon Redshift Serverless Getting Started Guide.</p></div></div>
+            <h2 id="spectrum-enhanced-vpc-considerations">Permissions policy configuration when using Amazon Redshift Spectrum</h2>
+            <p>Consider the following when using Redshift Spectrum: </p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><a href="#spectrum-enhanced-vpc-considerations-policies">Amazon S3 bucket access policies and IAM roles</a></p>
+                </li><li class="listitem">
+                    <p><a href="#spectrum-enhanced-vpc-considerations-cluster-role">Permissions for assuming the IAM role</a></p>
+                </li><li class="listitem">
+                    <p><a href="#spectrum-enhanced-vpc-considerations-logging-s3">Logging and auditing Amazon S3 access</a></p>
+                </li><li class="listitem">
+                    <p><a href="#spectrum-enhanced-vpc-considerations-glue-access">Access to AWS Glue or Amazon Athena</a></p>
+                </li></ul></div>
+ 
+             
+                <h3 id="spectrum-enhanced-vpc-considerations-policies">Amazon S3 bucket access policies and IAM roles</h3>
+                <p>You can control access to data in your Amazon S3 buckets by using a bucket policy
+                    attached to the bucket and by using an IAM role attached to a provisioned cluster. </p>
+                <p>Redshift Spectrum on provisioned clusters can't access data stored in Amazon S3 buckets that use a bucket
+                    policy that restricts access to only specified VPC endpoints. Instead, use a
+                    bucket policy that restricts access to only specific principals, such as a
+                    specific AWS account or specific users. </p>
+                <p>For the IAM role that is granted access to the bucket, use a trust
+                    relationship that allows the role to be assumed only by the Amazon Redshift service
+                    principal. When attached to your cluster, the role can be used only in the
+                    context of Amazon Redshift and can't be shared outside of the cluster. For more
+                    information, see <a href="./authorizing-redshift-service-database-users.html">Restricting access to IAM roles</a>.
+                    A service control policy (SCP) can also be used to further restrict the role, see 
+                    <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_examples_general.html#example-scp-restricts-with-exception">Prevent IAM users and roles from making specified changes, with an exception for a specified admin role</a> 
+                    in the <em>AWS Organizations User Guide</em>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To use Redshift Spectrum, no IAM policies blocking the use of Amazon S3 presigned URLs can be in place.
+                The presigned URLs generated by Amazon Redshift Spectrum are valid for 1 hour so that Amazon Redshift has enough time to load all the files from the Amazon S3 bucket. 
+                A unique presigned URL is generated for each file scanned by Redshift Spectrum. 
+                For bucket policies that include an <code class="code">s3:signatureAge</code> action, make sure to set the value to at least 3,600,000 milliseconds.</p></div></div>
+                
+                <p>The following example bucket policy permits access to the specified bucket
+                     owned by AWS account
+                        <code class="code">123456789012</code>. </p>
+                <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="4e6b929406ae71e31d2c578cebd703ed5084e807223dbc35ea74b0f76174c876"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "BucketPolicyForSpectrum",
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": ["arn:aws:iam::123456789012:role/redshift"]
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucketVersions",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::amzn-s3-demo-bucket",
+                "arn:aws:s3:::amzn-s3-demo-bucket/*"
+            ]
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+             
+             
+                <h3 id="spectrum-enhanced-vpc-considerations-cluster-role">Permissions for assuming the IAM role</h3>
+                <p>The role attached to your cluster should have a trust relationship that
+                    permits it to be assumed only by the Amazon Redshift service, as shown following.</p>
+                <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="48535004108eb932b0db193e47b165704596a9d927cafdd4f9e8134b9961f88e"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "Service": "redshift.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+                <p>For more information, see <a href="https://docs.aws.amazon.com/redshift/latest/dg/c-spectrum-iam-policies.html">IAM Policies for Redshift Spectrum</a> in the <em>Amazon Redshift Database Developer Guide</em>.</p>
+             
+             
+                <h3 id="spectrum-enhanced-vpc-considerations-logging-s3">Logging and auditing Amazon S3 access</h3>
+                <p>One benefit of using Amazon Redshift enhanced VPC routing is that all COPY and UNLOAD
+                    traffic is logged in the VPC flow logs. Traffic originating from Redshift Spectrum
+                    to Amazon S3 doesn't pass through your VPC, so it isn't logged in
+                    the VPC flow logs. When Redshift Spectrum accesses data in Amazon S3, it performs
+                    these operations in the context of the AWS account and respective role
+                    privileges. You can log and audit Amazon S3 access using server access logging in
+                    AWS CloudTrail and Amazon S3. </p>
+                <p>Ensure that the S3 IP ranges are added to your allow list. To learn more about
+                    the required S3 IP ranges, see
+                    <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/security-network-isolation.html#network-isolation">Network isolation</a>.</p>
+                <p><b>AWS CloudTrail Logs</b>
+                </p>
+                <p>To trace all access to objects in Amazon S3, including Redshift Spectrum access,
+                    enable CloudTrail logging for Amazon S3 objects. </p>
+                <p>You can use CloudTrail to view, search, download, archive, analyze, and respond to
+                    account activity across your AWS infrastructure. For more information, see
+                        <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-getting-started.html">Getting Started
+                        with CloudTrail</a>. </p>
+                <p>By default, CloudTrail tracks only bucket-level actions. To track object-level
+                    actions (such as <code class="code">GetObject</code>), enable data and management events for
+                    each logged bucket. </p>
+                <p><b>Amazon S3 Server Access Logging</b>
+                </p>
+                <p>Server access logging provides detailed records for the requests that are made
+                    to a bucket. Access log information can be useful in security and access audits.
+                    For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html#server-access-logging-overview">How to
+                        Enable Server Access Logging</a> in the <em>Amazon Simple Storage Service User Guide.</em></p>
+                <p>For more information, see the AWS Security blog post <a href="https://aws.amazon.com/blogs/security/how-to-use-bucket-policies-and-apply-defense-in-depth-to-help-secure-your-amazon-s3-data/" rel="noopener noreferrer" target="_blank"><span>How to Use Bucket Policies and Apply Defense-in-Depth to Help Secure Your
+                        Amazon S3 Data</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+             
+             
+                <h3 id="spectrum-enhanced-vpc-considerations-glue-access">Access to AWS Glue or Amazon Athena</h3>
+                <p>Redshift Spectrum accesses your data catalog in AWS Glue or Athena. Another option is to use a
+                    dedicated Hive metastore for your data catalog. </p>
+                <p>To enable access to AWS Glue or Athena, configure your VPC with an internet
+                    gateway or NAT gateway. Configure your VPC security groups to allow outbound
+                    traffic to the public endpoints for AWS Glue and Athena.
+                    Alternatively, you can configure an interface VPC endpoint for AWS Glue to access your AWS Glue Data Catalog.
+                    When you use a VPC interface endpoint, communication between your VPC and AWS Glue is conducted within the AWS network.
+                    For more information, see
+                    <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint">Creating an Interface Endpoint</a>.</p>
+                <p>You can configure the following pathways in your VPC: </p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Internet gateway</b> –To connect
+                            to AWS services outside your VPC, you can attach an <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">internet
+                                gateway</a> to your VPC subnet, as described in the <em>Amazon VPC User Guide.</em> To use an internet
+                            gateway, a provisioned cluster must have a public IP address to allow other
+                            services to communicate with it. </p>
+                    </li><li class="listitem">
+                        <p><b>NAT gateway </b>–To connect to an
+                            Amazon S3 bucket in another AWS Region or to another service within the AWS
+                            network, configure a <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">network address translation (NAT) gateway</a>, as described in
+                            the <em>Amazon VPC User Guide.</em> Use this
+                            configuration also to access a host instance outside the AWS
+                            network.</p>
+                    </li></ul></div>
+                <p>For more information, see <a href="./enhanced-vpc-routing.html">Controlling network traffic with Redshift enhanced VPC routing</a>.</p>
+ 
+             
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./enhanced-vpc-enabling-cluster.html">Turning on enhanced VPC routing</div><div id="next" class="next-link" accesskey="n" href="./working-with-events.html">Events</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/spectrum-enhanced-vpc.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/spectrum-enhanced-vpc.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Implement the producer - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tutorial-stock-data-kplkcl2-producer" /><meta name="default_state" content="tutorial-stock-data-kplkcl2-producer" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" /><meta name="description" content="This tutorial uses the real-world scenario of stock market trade monitoring. The following principles briefly explain how this scenario maps to the producer and its supporting code structure." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Implement the producer" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tutorial-stock-data-kplkcl2-producer.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Implement the producer - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#tutorial-stock-data-kplkcl2-producer" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAlPnoAT22TyelcmE8M35_-A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><link rel="alternate" type="text/markdown" href="tutorial-stock-data-kplkcl2-producer.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started tutorials for Amazon Kinesis Data Streams",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/examples.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Tutorial: Process real-time stock data using KPL and KCL 2.x",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Implement the producer",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#tutorial-stock-data-kplkcl2-producer" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#tutorial-stock-data-kplkcl2-producer-next">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tutorial-stock-data-kplkcl2-producer">Implement the producer</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This tutorial uses the real-world scenario of stock market trade monitoring. The
+            following principles briefly explain how this scenario maps to the producer and its
+            supporting code structure.</p><p>Refer to the <a href="https://github.com/aws-samples/amazon-kinesis-learning " rel="noopener noreferrer" target="_blank"><span>source code</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and review the following information.</p><div class="variablelist">
+             
+             
+             
+             
+        <dl>
+                <dt><b><span class="term">StockTrade class</span></b></dt>
+                <dd>
+                    <p>An individual stock trade is represented by an instance of the StockTrade
+                        class. This instance contains attributes such as the ticker symbol, price,
+                        number of shares, the type of the trade (buy or sell), and an ID uniquely
+                        identifying the trade. This class is implemented for you. </p>
+                </dd>
+            
+                <dt><b><span class="term">Stream record</span></b></dt>
+                <dd>
+                    <p>A stream is a sequence of records. A record is a serialization of a
+                            <code class="code">StockTrade</code> instance in JSON format. For example: </p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json ">
+<span>{</span>
+  "tickerSymbol": "AMZN", 
+  "tradeType": "BUY", 
+  "price": 395.87,
+  "quantity": 16, 
+  "id": 3567129045
+}
+                    </code></pre>
+                </dd>
+            
+                <dt><b><span class="term">StockTradeGenerator class</span></b></dt>
+                <dd>
+                    <p>StockTradeGenerator has a method called <code class="code">getRandomTrade()</code> that
+                        returns a new randomly generated stock trade every time it is invoked. This
+                        class is implemented for you.</p>
+                </dd>
+            
+                <dt><b><span class="term">StockTradesWriter class</span></b></dt>
+                <dd>
+                    <p>The <code class="code">main</code> method of the producer, StockTradesWriter
+                        continuously retrieves a random trade and then sends it to Kinesis Data Streams by
+                        performing the following tasks:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                         
+
+
+                    <ol><li>
+                            <p>Reads the data stream name and Region name as input.</p>
+                        </li><li>
+                            <p>Uses the <code class="code">KinesisAsyncClientBuilder</code> to set the Region,
+                                credentials, and client configuration. </p>
+                        </li><li>
+                            <p>Checks that the stream exists and is active (if not, it exits with
+                                an error). </p>
+                        </li><li>
+                            <p>In a continuous loop, calls the
+                                    <code class="code">StockTradeGenerator.getRandomTrade()</code> method and
+                                then the <code class="code">sendStockTrade</code> method to send the trade to the
+                                stream every 100 milliseconds. </p>
+                        </li></ol></div>
+                    <p>The <code class="code">sendStockTrade</code> method of the
+                            <code class="code">StockTradesWriter</code> class has the following code: </p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+private static void sendStockTrade(StockTrade trade, KinesisAsyncClient kinesisClient,
+            String streamName) <span>{</span>
+        byte[] bytes = trade.toJsonAsBytes();
+        // The bytes could be null if there is an issue with the JSON serialization by the Jackson JSON library.
+        if (bytes == null) <span>{</span>
+            LOG.warn("Could not get JSON bytes for stock trade");
+            return;
+        }
+
+        LOG.info("Putting trade: " + trade.toString());
+        PutRecordRequest request = PutRecordRequest.builder()
+                .partitionKey(trade.getTickerSymbol()) // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
+                .streamName(streamName)
+                .data(SdkBytes.fromByteArray(bytes))
+                .build();
+        try <span>{</span>
+            kinesisClient.putRecord(request).get();
+        } catch (InterruptedException e) <span>{</span>
+            LOG.info("Interrupted, assuming shutdown.");
+        } catch (ExecutionException e) <span>{</span>
+            LOG.error("Exception while sending data to Kinesis. Will try again next cycle.", e);
+        }
+    }
+                    </code></pre>
+                    <div class="itemizedlist">
+                        <p>Refer to the following code breakdown:</p>
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>The <code class="code">PutRecord</code> API expects a byte array, and you must
+                                convert trade to JSON format. This single line of code performs that
+                                operation: </p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+byte[] bytes = trade.toJsonAsBytes();
+                            </code></pre>
+                        </li><li class="listitem">
+                            <p>Before you can send the trade, you create a new
+                                    <code class="code">PutRecordRequest</code> instance (called request in this
+                                case). Each <code class="code">request</code> requires the stream name, partition
+                                key, and a data blob. </p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+PutPutRecordRequest request = PutRecordRequest.builder()
+    .partitionKey(trade.getTickerSymbol()) // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
+    .streamName(streamName)
+    .data(SdkBytes.fromByteArray(bytes))
+    .build();
+                            </code></pre>
+                            <p>The example uses a stock ticker as a partition key, which maps the
+                                record to a specific shard. In practice, you should have hundreds or
+                                thousands of partition keys per shard such that records are evenly
+                                dispersed across your stream. For more information about how to add
+                                data to a stream, see <a href="./building-producers.html">Write data to Amazon Kinesis Data Streams</a>.</p>
+                            <p>Now <code class="code">request</code> is ready to send to the client (the put
+                                operation): </p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+   kinesisClient.putRecord(request).get();
+                            </code></pre>
+                        </li><li class="listitem">
+                            <p>Error checking and logging are always useful additions. This code
+                                logs error conditions: </p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+if (bytes == null) <span>{</span>
+    LOG.warn("Could not get JSON bytes for stock trade");
+    return;
+}
+</code></pre>
+                            <p>Add the try/catch block around the <code class="code">put</code> operation: </p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+try <span>{</span>
+ 	kinesisClient.putRecord(request).get();
+} catch (InterruptedException e) <span>{</span>
+            LOG.info("Interrupted, assuming shutdown.");
+} catch (ExecutionException e) <span>{</span>
+            LOG.error("Exception while sending data to Kinesis. Will try again next cycle.", e);
+}
+                            </code></pre>
+                            <p>This is because a Kinesis Data Streams put operation can fail
+                                because of a network error, or due to the data stream reaching its
+                                throughput limits and getting throttled. It is recommended that you
+                                carefully consider your retry policy for <code class="code">put</code> operations
+                                to avoid data loss, such as using a retry. </p>
+                        </li><li class="listitem">
+                            <p>Status logging is helpful but optional:</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+LOG.info("Putting trade: " + trade.toString());
+                            </code></pre>
+                        </li></ul></div>
+                    <p>The producer shown here uses the Kinesis Data Streams API single record functionality,
+                            <code class="code">PutRecord</code>. In practice, if an individual producer generates
+                        many records, it is often more efficient to use the multiple records
+                        functionality of <code class="code">PutRecords</code> and send batches of records at a
+                        time. For more information, see <a href="./building-producers.html">Write data to Amazon Kinesis Data Streams</a>.</p>
+                </dd>
+            </dl></div><div class="procedure"><h6>To run the producer</h6><ol><li>
+                <p>Verify that the access key and secret key pair retrieved in <a href="./tutorial-stock-data-kplkcl2-iam.html">Create an IAM policy and user</a> are saved in the file
+                        <code class="code">~/.aws/credentials</code>. </p>
+            </li><li>
+                <p>Run the <code class="code">StockTradeWriter</code> class with the following
+                    arguments:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+StockTradeStream us-west-2
+                </code></pre>
+                <p>If you created your stream in a region other than <code class="code">us-west-2</code>, you
+                    have to specify that region here instead.</p>
+            </li></ol></div><p>You should see output similar to the following:</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">
+Feb 16, 2015 3:53:00 PM  
+com.amazonaws.services.kinesis.samples.stocktrades.writer.StockTradesWriter sendStockTrade
+INFO: Putting trade: ID 8: SELL 996 shares of BUD for $124.18
+Feb 16, 2015 3:53:00 PM 
+com.amazonaws.services.kinesis.samples.stocktrades.writer.StockTradesWriter sendStockTrade
+INFO: Putting trade: ID 9: BUY 159 shares of GE for $20.85
+Feb 16, 2015 3:53:01 PM 
+com.amazonaws.services.kinesis.samples.stocktrades.writer.StockTradesWriter sendStockTrade
+INFO: Putting trade: ID 10: BUY 322 shares of WMT for $90.08
+</code></pre><p>Your stock trades are now being ingested by Kinesis Data Streams.</p>
+            <h2 id="tutorial-stock-data-kplkcl2-producer-next">Next steps</h2>
+            <p><a href="./tutorial-stock-data-kplkcl2-consumer.html">Implement the consumer</a></p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorial-stock-data-kplkcl2-download.html">Download and build the code</div><div id="next" class="next-link" accesskey="n" href="./tutorial-stock-data-kplkcl2-consumer.html">Implement the consumer</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-producer.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

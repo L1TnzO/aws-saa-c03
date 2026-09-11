@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudWatch y X-Ray — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>CloudWatch y X-Ray <span class="en">Amazon CloudWatch and AWS X-Ray</span></h1>
+<p class="subtitle">La caja de instrumentos del Dominio 2: métricas y alarmas para saber que algo va mal, logs y tracing para saber qué y por qué, y el Health Dashboard para saber si el problema es tuyo o de AWS.</p>
+<div class="chips">
+  <span class="chip">Fase 8 · Gobernanza y costos</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+</div>
+
+<p>Si tu arquitectura fuera un hospital, <strong>Amazon CloudWatch</strong> sería su sistema de monitorización: sensores en cada paciente que emiten <span class="tag-en">metrics</span>, monitores que suenan cuando un umbral se cruza (<span class="tag-en">alarms</span>), las notas clínicas acumuladas (<span class="tag-en">logs</span>) y el panel central de la sala (<span class="tag-en">dashboards</span>). <strong>AWS X-Ray</strong> es distinto: es la radiografía con contraste que sigue <em>una sola petición</em> a través del cuerpo de los microservicios, mostrando exactamente dónde se detiene. Y el <strong>AWS Health Dashboard</strong> es el boletín del propio hospital: qué servicios de AWS están mal y qué eventos te afectan a ti en concreto. Los tres responden preguntas diferentes, y el examen evalúa si sabes cuál aplicar a cada síntoma.</p>
+
+<p>La forma más rápida de organizar el tema es por la pregunta que cada pieza responde: "¿algo va mal?" se responde con métricas y alarmas; "¿qué pasó exactamente?" con logs; "¿dónde se pierde el tiempo en una petición?" con tracing; "¿el problema es mío o de AWS?" con el Health Dashboard. Añade dos avisos de examen que se repiten: la memoria y el disco de una instancia EC2 <strong>no</strong> son métricas por defecto (necesitan el CloudWatch agent), y los eventos de CloudWatch hoy viven en <strong>EventBridge</strong>, el servicio que convierte la observabilidad en automatización de respuesta.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph SRC["Fuentes de telemetria"]
+        SV["Servicios AWS<br>metricas automaticas"]
+        AG["EC2 y on-prem<br>con CloudWatch agent"]
+        AP["Aplicaciones<br>logs y traces"]
+    end
+    CW["Amazon CloudWatch"]
+    AL["Alarmas<br>OK ALARM INSUFFICIENT"]
+    EB["EventBridge<br>reglas y schedules"]
+    SN["SNS<br>notificaciones"]
+    AS["Auto Scaling<br>respuesta automatica"]
+    SV --> CW
+    AG --> CW
+    AP --> CW
+    CW --> AL
+    AL --> SN
+    AL --> AS
+    CW --> EB
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class SV,AG,AP green
+    class CW navy
+    class AL,EB amber
+    class SN,AS navy
+</div>
+<figcaption>Figura 1 — Mapa de observabilidad: telemetría hacia CloudWatch, y de las alarmas y eventos hacia la respuesta automática.</figcaption>
+</figure>
+
+<h2>Métricas, alarmas y dashboards: el pulso de la arquitectura</h2>
+
+<p>Una métrica es una serie temporal de un número con nombre y dimensiones (por ejemplo, <code>CPUUtilization</code> de la instancia i-abc). Muchos servicios de AWS publican métricas básicas en CloudWatch automáticamente y sin costo; EC2 publica la utilization de CPU cada cinco minutos en monitoreo básico y cada minuto con detailed monitoring. Cuando el dato no existe por defecto lo creas tú: métricas custom con la API <code>PutMetricData</code>, o el <strong>CloudWatch agent</strong> instalado en EC2 y servidores on-premises, que reporta procesos, CPU, <strong>memoria</strong>, <strong>disco</strong> y red. Esa pareja memoria/disco es la trampa favorita del examen: la pregunta "monitor memory usage of EC2 instances" se responde con el agent, no con la consola de métricas por defecto.</p>
+
+<p>Sobre las métricas se montan las <strong>alarmas</strong>, que vigilan un umbral durante N períodos y están siempre en uno de tres estados: <code>OK</code>, <code>ALARM</code> o <code>INSUFFICIENT_DATA</code> — ese tercero significa que la métrica no tiene datos suficientes, típicamente en alarmas recién creadas o sobre métricas inexistentes. Una alarma puede solo notificar (SNS, correo) o actuar: añadir instancias en un Auto Scaling group, o stop/terminate/recover de una instancia EC2 — <span class="tag-en">EC2 recover</span> es la respuesta clásica cuando el enunciado pide reaccionar automáticamente a un fallo de host. Los <strong>dashboards</strong> agrupan métricas y logs de muchas Regiones y cuentas en una vista única, con paneles automáticos preconfigurados por servicio; CloudWatch además permite <span class="tag-en">cross-account observability</span> desde una cuenta central, enlazando las cuentas fuente individualmente o a través de AWS Organizations.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+stateDiagram-v2
+    OK --> ALARM: umbral superado N periodos
+    ALARM --> OK: metrica se recupera
+    OK --> INSUF: sin datos suficientes
+    INSUF --> ALARM: llegan datos y superan umbral
+    INSUF --> OK: llegan datos bajo umbral
+</div>
+<figcaption>Figura 2 — Los tres estados de una alarma de CloudWatch; INSUFFICIENT_DATA indica que falta telemetría, no que todo esté bien.</figcaption>
+</figure>
+
+<h2>CloudWatch Logs, Insights y los filtros</h2>
+
+<p>CloudWatch Logs centraliza los registros de servicios y aplicaciones en <span class="tag-en">log groups</span> y <span class="tag-en">log streams</span>: ahí llegan los logs que emites desde tu código, y también los de servicios que el enunciado decida (CloudTrail, VPC flow logs, Route 53 resolver logs). Para interrogarlos sin descargar nada está <strong>CloudWatch Logs Insights</strong>, que ejecuta consultas interactivas y rápidas sobre los eventos — la documentación oficial menciona hasta tres lenguajes de consulta, incluyendo SQL y PPL. Sobre el mismo río de logs se montan dos piezas de examen: los <span class="tag-en">metric filters</span> extraen valores numéricos de patrones (por ejemplo, contar "ERROR" por minuto) y generan métricas sobre las que puedes alarmarte, y los <span class="tag-en">subscription filters</span> enrutan los eventos en tiempo real hacia Firehose, S3 u otros destinos. Completa el cuadro la detección de anomalías, que aprende el patrón normal del grupo de logs y señala los eventos inusuales.</p>
+
+<p>El flujo de valor típico encadena las tres piezas: los logs caen en un grupo, un metric filter los convierte en la métrica "errores por minuto", y una alarma sobre esa métrica avisa por SNS cuando el sistema degrada. Es la receta que responde a "alert when the application logs a specific error message": la respuesta es logs + metric filter + alarm, no una alarma sobre una métrica inexistente. Si en lugar de alertar lo que quieres es explorar —"¿qué pasó entre las 2:00 y las 2:15?"— la pieza correcta es Insights, porque consulta sin ingeniería previa.</p>
+
+<h2>Eventos: de CloudWatch Events a EventBridge</h2>
+
+<p>CloudWatch nació también como bus de eventos: casi en tiempo real emite un evento cada vez que algo cambia (una instancia pasa a <code>stopped</code>, un job termina, una alarma cambia de estado). Ese bus hoy se llama <strong>Amazon EventBridge</strong> — la evolución de CloudWatch Events — y sus <em>rules</em> filtran por patrón de evento o por horario, y entregan a destinos como Lambda, SNS, SQS o Systems Manager. En observabilidad es el eslabón que falta: la alarma detecta, EventBridge decide y Lambda remedia, sin humanos de guardia. La fase de integración de este curso dedicó una página completa a EventBridge; para esta basta quedarte con la pareja de ideas "evento de servicio → rule → target" y "programar acciones con schedules".</p>
+
+<h2>X-Ray: tracing distribuido para microservicios</h2>
+
+<p>Cuando una petición cruza API Gateway, tres funciones Lambda y dos bases de datos, el promedio de latencia de cada métrica no encuentra al culpable: necesitas seguir <em>esa</em> petición. <strong>AWS X-Ray</strong> recolecta datos sobre las peticiones que sirve tu aplicación y te deja ver, filtrar y ganar insights no solo del request y del response, sino de las llamadas que tu aplicación hace a recursos de AWS, microservicios, bases de datos y web APIs aguas abajo. La unidad es el <span class="tag-en">trace</span>: el recorrido completo de una petición, compuesto de <span class="tag-en">segments</span> por servicio y <span class="tag-en">subsegments</span> por llamada interna. Con esos segmentos X-Ray dibuja el <strong>service map</strong> con la latencia, los errores y los cuellos de botella por nodo — el "¿dónde se pierde el tiempo?" resuelto visualmente. Requiere instrumentar la aplicación (SDK de X-Ray y el daemon que envía los datos), que es el costo que el enunciado suele regalar: "ya existe una app con microservicios y quiero el detalle por llamada".</p>
+
+<figure class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant C as Cliente
+    participant API as API Gateway
+    participant L as Lambda
+    participant D as DynamoDB
+    participant X as X-Ray
+    C->>API: request con trace id
+    API->>L: invoke
+    L->>D: query
+    D-->>L: datos
+    L-->>API: respuesta
+    API-->>C: 200 OK
+    Note over X: cada servicio emite su segmento<br>X-Ray arma el trace y el service map
+</div>
+<figcaption>Figura 3 — Un trace de X-Ray: cada salto aporta segmentos y el service map revela latencia y errores por servicio.</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Herramienta</th><th>Qué responde</th><th>Señal del enunciado</th></tr></thead>
+<tbody>
+<tr><td><strong>CloudWatch metrics</strong></td><td>"¿Va mal algo?" — series temporales de recursos y apps</td><td>"monitor", "utilization", "threshold"</td></tr>
+<tr><td><strong>CloudWatch alarms</strong></td><td>"¿Aviso o actuó cuando se cruza el umbral?"</td><td>"notify", "automatically react", "recover the instance"</td></tr>
+<tr><td><strong>CloudWatch Logs + Insights</strong></td><td>"¿Qué dicen los registros?" — consulta interactiva, filtros, anomalías</td><td>"log queries", "search log data", "unusual patterns"</td></tr>
+<tr><td><strong>X-Ray</strong></td><td>"¿Dónde se pierde el tiempo una petición?"</td><td>"tracing", "identify the bottleneck", "per-request"</td></tr>
+<tr><td><strong>Health Dashboard</strong></td><td>"¿Es un problema mío o de AWS?"</td><td>"AWS events affecting my resources"</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>AWS Health Dashboard: el estado de AWS y de tu cuenta</h2>
+
+<p>AWS Health da visibilidad continua del rendimiento de tus recursos y la disponibilidad de los servicios de AWS en tus cuentas, mediante <em>eventos</em> que anticipan cambios planeados y notifican incidencias en curso. Hay que distinguir dos vistas. El <strong>Service Health Dashboard</strong> muestra el estado global de cada servicio de AWS en cada Región, abierto a cualquiera. El <strong>AWS Health Dashboard</strong> personal — disponible para todos los clientes autenticados, sin configuración ni código — lista los eventos que afectan a <em>tus</em> recursos y cuenta: una actualización programada de un host de tu instancia, o una degradación que toca tu AZ, con alertas y orientación para acelerar el troubleshooting. La señal de examen es directa: "be proactively notified of AWS issues that impact my own resources" se responde con la vista personal de Health, no con el tablero público ni con una alarma de CloudWatch, que solo conoce tus métricas.</p>
+
+<h2>Cómo cae en el examen: señales y trampas</h2>
+
+<p>Las preguntas de observabilidad se resuelven emparejando el síntoma del enunciado con la pieza correcta de la caja. La tabla reúne los emparejamientos que más se repiten. La trampa estructural es de magnitud: las métricas agregan y promedian (CloudWatch), el tracing individualiza (X-Ray); y dentro de CloudWatch, el agente es la única fuente de lo que vive dentro del sistema operativo. Si el enunciado menciona "memory", "disk", "processes" o "on-premises servers", la respuesta incluye el CloudWatch agent; si menciona "cross-account" u "organization-wide", piensa en cross-account observability o en dashboards compartidos.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Si el enunciado dice…</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"receive an email when CPU exceeds 80% for 5 minutes"</td><td>CloudWatch alarm + SNS</td></tr>
+<tr><td>"monitor memory and disk of EC2 instances"</td><td>CloudWatch agent (no son métricas por defecto)</td></tr>
+<tr><td>"query application logs interactively"</td><td>CloudWatch Logs Insights</td></tr>
+<tr><td>"create a metric from log occurrences and alert on it"</td><td>Metric filter + alarm</td></tr>
+<tr><td>"route logs in near real-time to S3 / Firehose"</td><td>Subscription filter</td></tr>
+<tr><td>"identify which microservice adds latency"</td><td>AWS X-Ray (tracing)</td></tr>
+<tr><td>"know if an AWS outage affects my resources"</td><td>AWS Health Dashboard (vista personal)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+<strong>INSUFFICIENT_DATA no es "todo bien".</strong> Una alarma en ese estado significa que no hay telemetría suficiente para decidir — y en producción eso es un problema de monitorización, no una garantía de salud. La otra trampa frecuente: responder "X-Ray" a preguntas de agregados ("average error rate of the fleet") o "CloudWatch metrics" a preguntas de una petición concreta ("which call is slow"). Promedio ≠ individuo: elige la herramienta por la granularidad que pregunta el enunciado.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>CloudWatch = metrics + alarms + logs + dashboards + events; X-Ray = tracing de una petición; Health = eventos de AWS.</li>
+<li>Alarmas en tres estados: <strong>OK, ALARM, INSUFFICIENT_DATA</strong>.</li>
+<li>Las alarmas pueden actuar: SNS, Auto Scaling y <strong>EC2 recover</strong>.</li>
+<li><strong>Memoria y disco de EC2 no son métricas por defecto</strong>: requieren el CloudWatch agent.</li>
+<li>Logs: Insights para consultar, <strong>metric filters</strong> para alarmar desde logs, <strong>subscription filters</strong> para enrutar.</li>
+<li>CloudWatch Events hoy es <strong>EventBridge</strong>: evento + rule + target.</li>
+<li>X-Ray: trace = segments por servicio; <strong>service map</strong> con latencia y errores.</li>
+<li>El Health Dashboard personal muestra los eventos que afectan <strong>a tus recursos</strong>, sin setup.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">GOV-01</span> Amazon CloudWatch — What is (metrics, alarms, logs, dashboards) · <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html" target="_blank" rel="noopener">docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html</a></li>
+<li><span class="id">GOV-11</span> AWS X-Ray — What is (tracing, distributed debugging) · <a href="https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html" target="_blank" rel="noopener">docs.aws.amazon.com/xray/latest/devguide/aws-xray.html</a></li>
+<li><span class="id">GOV-13</span> AWS Health — What is (Personal Health Dashboard) · <a href="https://docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html" target="_blank" rel="noopener">docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/migracion.html"><span class="dir">← Anterior</span>Migración: DMS, MGN, Snow</a><a class="next" href="../temas/cloudformation.html"><span class="dir">Siguiente →</span>CloudFormation y Systems Manager</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

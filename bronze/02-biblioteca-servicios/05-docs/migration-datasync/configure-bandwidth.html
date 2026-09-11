@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Setting bandwidth limits for your AWS DataSync task - AWS DataSync</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="configure-bandwidth" /><meta name="default_state" content="configure-bandwidth" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-bandwidth.html" /><meta name="description" content="Learn how to configure network bandwidth limits for your AWS DataSync task. You can also throttle the bandwidth limit for a running or queued task execution." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS DataSync" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS DataSync is a data transfer service that simplifies, automates, and accelerates moving and replicating data between self-managed storage systems and AWS storage services over the internet or AWS Direct Connect. As a fully managed service, DataSync removes the need to modify applications, develop scripts, or manage infrastructure." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-bandwidth.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/datasync/latest/userguide/configure-bandwidth.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/datasync/latest/userguide/configure-bandwidth.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/datasync/latest/userguide/configure-bandwidth.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/datasync/latest/userguide/configure-bandwidth.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-bandwidth.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-bandwidth.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/datasync/latest/userguide/configure-bandwidth.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/datasync/latest/userguide/configure-bandwidth.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/datasync/latest/userguide/configure-bandwidth.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/datasync/latest/userguide/configure-bandwidth.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/datasync/latest/userguide/configure-bandwidth.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/datasync/latest/userguide/configure-bandwidth.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/datasync/latest/userguide/configure-bandwidth.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/datasync/latest/userguide/configure-bandwidth.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/datasync/latest/userguide/configure-bandwidth.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/datasync/latest/userguide/configure-bandwidth.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/datasync/latest/userguide/configure-bandwidth.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/datasync/latest/userguide/configure-bandwidth.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/configure-bandwidth.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/datasync/latest/userguide/configure-bandwidth.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/configure-bandwidth.html" hreflang="x-default" /><meta name="feedback-item" content="DataSync" /><meta name="this_doc_product" content="AWS DataSync" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'datasync'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Setting bandwidth limits for your AWS DataSync task" /><meta name="uiVersion" content="2024.10" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="configure-bandwidth.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Setting bandwidth limits for your AWS DataSync task - AWS DataSync</title><meta name="pdf" content="/pdfs/datasync/latest/userguide/datasync-userguide.pdf#configure-bandwidth" /><meta name="rss" content="datasync-userguide.rss" /><meta name="forums" content="https://repost.aws/tags/TAwgolRKhDTKGPCIHXy1zrHA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/configure-bandwidth.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/configure-bandwidth.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/configure-bandwidth.html" /><meta name="keywords" content="Data transfer options,File metadata handling,how to create AWS DataSync task,AWS DataSync task setup,Bandwidth limits,Network bandwidth,Bandwidth throttling" /><link rel="alternate" type="text/markdown" href="configure-bandwidth.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS DataSync",
+        "item" : "https://docs.aws.amazon.com/datasync/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Transferring your data with AWS DataSync",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide/transferring-data-datasync.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating a task for transferring your data",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Setting bandwidth limits for your AWS DataSync task",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/datasync/latest/userguide/datasync-userguide.pdf#configure-bandwidth" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/datasync/index.html">AWS DataSync</a><a href="what-is-datasync.html">User Guide</a></div><div id="page-toc-src"><a href="#configure-bandwidth-create">Limiting bandwidth for a task</a><a href="#adjust-bandwidth-throttling">Throttling bandwidth for a task execution</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="configure-bandwidth">Setting bandwidth limits for your AWS DataSync task</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can configure network bandwidth limits for your AWS DataSync task and each of its
+            executions.</p>
+            <h2 id="configure-bandwidth-create">Limiting bandwidth for a task</h2>
+
+            <p>Set a bandwidth limit when creating, editing, or starting a task.</p>
+
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the DataSync console" id="configure-bandwidth-create-console" expanded="false"><p>The following instructions describe how to configure a bandwidth limit for
+                        your task when you're creating it.</p><div class="procedure"><ol><li><p>Open the AWS DataSync console at <a href="https://console.aws.amazon.com/datasync/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/datasync/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the left navigation pane, expand <b>Data transfer</b>, then choose <b>Tasks</b>, and
+                                    then choose <b>Create task</b>.</p></li><li>
+    <p>Configure your task's source and destination locations.</p>
+    <p>For more information, see <a href="./working-with-locations.html">Where can I transfer my data with AWS DataSync?</a></p>
+</li><li>
+                            <p>For <b>Bandwidth limit</b>, choose one of the
+                                following:</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>Select <b>Use available</b> to use all of
+                                        the available network bandwidth for each task
+                                        execution.</p>
+                                </li><li class="listitem">
+                                    <p>Select <b>Set bandwidth limit (MiB/s)</b>
+                                        and enter the maximum bandwidth that you want DataSync to use
+                                        for each task execution.</p>
+                                </li></ul></div>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the DataSync API" id="configure-bandwidth-create-api" expanded="false"><p>You can configure a task's bandwidth limit by using the
+                            <code class="code">BytesPerSecond</code> parameter with any of the following
+                        operations:</p><div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_CreateTask.html">CreateTask</a></p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_UpdateTask.html">UpdateTask</a></p>
+                        </li><li class="listitem">
+                            <p><a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_StartTaskExecution.html">StartTaskExecution</a></p>
+                        </li></ul></div></awsui-expandable-section></div>
+
+         
+            <h2 id="adjust-bandwidth-throttling">Throttling bandwidth for a task execution</h2>
+
+            <p>You can modify the bandwidth limit for a running or queued task execution.</p>
+
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the DataSync console" id="adjust-bandwidth-throttling-console" expanded="false"><div class="procedure"><ol><li><p>Open the AWS DataSync console at <a href="https://console.aws.amazon.com/datasync/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/datasync/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                            <p>In the navigation pane, expand <b>Data transfer</b>.
+                                then choose <b>Tasks</b>.</p>
+                        </li><li>
+                            <p>Choose the task and then select <b>History</b> to
+                                view the task's executions.</p>
+                        </li><li>
+                            <p>Choose the task execution that you want to modify and then choose
+                                    <b>Edit</b>.</p>
+                        </li><li>
+                            <p>In the dialog box, choose one of the following:</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>Select <b>Use available</b> to use all of
+                                        the available network bandwidth for the task
+                                        execution.</p>
+                                </li><li class="listitem">
+                                    <p>Select <b>Set bandwidth limit (MiB/s)</b>
+                                        and enter the maximum bandwidth that you want DataSync to use
+                                        for the task execution.</p>
+                                </li></ul></div>
+                        </li><li>
+                            <p>Choose <b>Save changes</b>.</p>
+                            <p>The new bandwidth limit takes effect within 60 seconds.</p>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the DataSync API" id="adjust-bandwidth-throttling-api" expanded="false"><p>You can modify the bandwidth limit for a running or queued task execution
+                        by using the <code class="code">BytesPerSecond</code> parameter with the <a href="https://docs.aws.amazon.com/datasync/latest/userguide/API_UpdateTaskExecution.html">UpdateTaskExecution</a> operation.</p></awsui-expandable-section></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./configure-data-verification-options.html">Verifying data integrity</div><div id="next" class="next-link" accesskey="n" href="./task-scheduling.html">Scheduling your task</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/configure-bandwidth.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/configure-bandwidth.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Snapshots and recovery points - Amazon Redshift</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="serverless-snapshots-recovery-points" /><meta name="default_state" content="serverless-snapshots-recovery-points" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" /><meta name="description" content="Describes various scenarios when working with snapshots and recovery points with Amazon Redshift Serverless." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Redshift" /><meta name="guide" content="Management Guide" /><meta name="abstract" content="Launch an Amazon Redshift cluster or workgroup and manage the petabyte-scale data warehouse service in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" hreflang="x-default" /><meta name="feedback-item" content="Redshift" /><meta name="this_doc_product" content="Amazon Redshift" /><meta name="this_doc_guide" content="Management Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'redshift'}"></script><meta id="panorama-serviceSubSection" value="Management Guide" /><meta id="panorama-serviceConsolePage" value="Snapshots and recovery points" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="serverless-snapshots-recovery-points.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Snapshots and recovery points - Amazon Redshift</title><meta name="pdf" content="/pdfs/redshift/latest/mgmt/redshift-mgmt.pdf#serverless-snapshots-recovery-points" /><meta name="rss" content="CMDochistory.rss" /><meta name="forums" content="https://repost.aws/tags/TAByF7MpfSQUCX_lAeDTvODw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/serverless-snapshots-recovery-points.html" /><meta name="keywords" content="Amazon Redshift,AWS Redshift,Redshift,connecting,cluster,launch cluster,data warehouse,management,cluster management,JDBC,ODBC,connection,security" /><link rel="alternate" type="text/markdown" href="serverless-snapshots-recovery-points.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Redshift",
+        "item" : "https://docs.aws.amazon.com/redshift/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Management Guide",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Redshift Serverless",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-serverless.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Snapshots and recovery points",
+        "item" : "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-serverless.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/redshift/latest/mgmt/redshift-mgmt.pdf#serverless-snapshots-recovery-points" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/redshift/index.html">Amazon Redshift</a><a href="welcome.html">Management Guide</a></div><div id="page-toc-src"><a href="#serverless-backup">AWS Backup integration</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>
+         Amazon Redshift will no longer support the use of Python UDFs after June 30, 2026.
+  We will start enforcing it in phases. For more information on the details of Python end of life
+  and migration options, see the
+  <a href="https://aws.amazon.com/blogs/big-data/amazon-redshift-python-user-defined-functions-will-reach-end-of-support-after-june-30-2026/" rel="noopener noreferrer" target="_blank"><span>
+          blog post
+        </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> that was published on June 30, 2025.
+      </p></awsui-alert><h1 class="topictitle" id="serverless-snapshots-recovery-points">Snapshots and recovery points</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A backup in Amazon Redshift Serverless is a point-in-time representation of the objects and data in your
+        namespace. There are two types of backups: snapshots that are manually created and recovery
+        points that Amazon Redshift Serverless automatically creates for you. </p><p>Amazon Redshift Serverless automatically creates recovery points every 30 minutes or after every 5 GB of
+        data changes per node, whichever happens first. For larger datasets (more than 5 GB × number
+        of nodes), the minimal interval between recovery points is 15 minutes. All recovery points
+        are kept for 24 hours. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You cannot create your own snapshot schedule to control when recovery points are
+            created.</p></div></div><p>Amazon Redshift Serverless creates snapshots in Redshift Managed Storage (RMS). For more information, see
+    <a href="./serverless-capacity.html">Compute capacity for Amazon Redshift Serverless</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>No-backup tables aren't supported for RG or RA3 provisioned clusters and Amazon Redshift Serverless workgroups. 
+A table marked as no-backup in an RG or RA3 cluster or serverless workgroup is treated as a permanent table that will 
+always be backed up while taking a snapshot, and always restored when restoring from a snapshot. To avoid snapshot costs for no-backup tables,
+            truncate them before taking a snapshot.</p></div></div><p>If you find that you want to retrieve the data in a snapshot or a recovery point, you can
+        restore a snapshot to a serverless namespace or to a provisioned cluster. There are three
+        scenarios in which you can restore snapshots:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Restore a serverless snapshot to a serverless namespace.</p>
+        </li><li class="listitem">
+            <p>Restore a serverless snapshot to a provisioned cluster.</p>
+        </li><li class="listitem">
+            <p>Restore a provisioned cluster snapshot to a serverless namespace.</p>
+        </li></ul></div><p>When you restore a serverless snapshot to a provisioned cluster, you must choose the node
+        type to use, such as RG or RA3, and the number of nodes, letting you control settings at the
+        cluster or node level.</p><p>To restore a provisioned cluster snapshot to a serverless namespace, start from the
+        Redshift provisioned console, choose the snapshot to restore, then choose <b>Restore
+            from snapshot</b>, <b>Restore to serverless namespace</b>. Amazon Redshift
+        converts tables with interleaved keys into compound sort keys when you restore a provisioned
+        cluster snapshot to a serverless namespace. For more information about sort keys, see <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html">Working with sort
+            keys</a>. </p><p>If you want to add additional context, you can tag snapshots and recovery points with
+        key-value pairs that provide metadata and information to snapshots and recovery points. For
+        more information about tagging resources, see <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-tagging-resources.html">Tagging resources
+            overview</a>.</p><p>Finally, you can also share snapshots with other AWS accounts, which lets them access
+        data within the snapshot and run queries.</p>
+        <h2 id="serverless-backup">AWS Backup integration</h2>
+        <p>You can also create and restore snapshots using AWS Backup, a fully managed service that 
+        helps you centralize and automate data protection across AWS services, in the cloud, 
+        and on premises. For more information, see <a href="./managing-aws-backup.html">AWS Backup integration with Amazon Redshift</a>. 
+        For information on AWS Backup, see 
+        <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html">What is AWS Backup?</a> in the <em>AWS Backup Developer Guide</em>. </p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./serverless-audit-logging.html">Audit logging</div><div id="next" class="next-link" accesskey="n" href="./serverless-snapshots.html">Creating a snapshot</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/serverless-snapshots-recovery-points.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Redshift&amp;topic_url=https://docs.aws.amazon.com/en_us/redshift/latest/mgmt/serverless-snapshots-recovery-points.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

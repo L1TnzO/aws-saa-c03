@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using Amazon S3 Object Lambda Access Points - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="olap-use" /><meta name="default_state" content="olap-use" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-use.html" /><meta name="description" content="Use Amazon S3 Object Lambda Access Points to extend the functionality of standard Amazon S3 access points and perform data transformations on objects that are accessed through access points." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-use.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/olap-use.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/olap-use.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/olap-use.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/olap-use.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-use.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-use.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/olap-use.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/olap-use.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/olap-use.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/olap-use.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/olap-use.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/olap-use.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/olap-use.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/olap-use.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/olap-use.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/olap-use.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/olap-use.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/olap-use.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/olap-use.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/olap-use.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-use.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using Amazon S3 Object Lambda Access Points" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="olap-use.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using Amazon S3 Object Lambda Access Points - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#olap-use" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-use.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-use.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-use.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,Amazon S3 objects,What is an object,How to use objects,Modify Amazon S3 data,Run custom Lambda on data,Automatically process the output of Amazon S3,Find Object Lambda Access Points alias,Modify Amazon S3 data with Lambda functions" /><link rel="alternate" type="text/markdown" href="olap-use.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Transforming objects with S3 Object Lambda",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Using Amazon S3 Object Lambda Access Points",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#olap-use" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#olap-find-arn">How to find the ARN for your Object Lambda Access Point</a><a href="#ol-access-points-alias">How to use a bucket-style alias for your Object Lambda Access Point</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="olap-use">Using Amazon S3 Object Lambda Access Points</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>As of November 7th, 2025, S3 Object Lambda is available only to existing customers that are currently using the service as well as to select AWS Partner Network (APN) partners. For capabilities similar to S3 Object Lambda, learn more here - <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazons3-ol-change.html">Amazon S3 Object Lambda availability change</a>.</p></div></div><p>Making requests through Amazon S3 Object Lambda Access Points works the same as making requests through other
+        access points. For more information about how to make requests through an access point, see
+            <a href="./using-access-points.html">Using Amazon S3 access points for general purpose buckets</a>. You can make
+        requests through Object Lambda Access Points by using the Amazon S3 console, AWS Command Line Interface (AWS CLI), AWS SDKs, or Amazon S3
+        REST API.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The Amazon Resource Names (ARNs) for Object Lambda Access Points use a service name of
+                <code class="code">s3-object-lambda</code>. Thus, Object Lambda Access Point ARNs begin with
+                <code class="code">arn:aws::s3-object-lambda</code>, instead of <code class="code">arn:aws::s3</code>,
+            which is used with other access points.</p></div></div>
+        <h2 id="olap-find-arn">How to find the ARN for your Object Lambda Access Point</h2>
+        <p>To use an Object Lambda Access Point with the AWS CLI or AWS SDKs, you need to know the Amazon Resource
+            Name (ARN) of the Object Lambda Access Point. The following examples show how to find the ARN for an Object Lambda Access Point
+            by using the Amazon S3 console or AWS CLI. </p> 
+        
+        <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the S3 console" id="olap-use-arn-console" expanded="false"><div class="procedure"><h6>To find the ARN for your Object Lambda Access Point by using the console</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>In the left navigation pane, choose
+                            <b>Object Lambda Access Points</b>.</p>
+                    </li><li>
+                        <p>Choose the option button next to the Object Lambda Access Point whose ARN you want to
+                            copy.</p>
+                    </li><li>
+                        <p>Choose <b>Copy ARN</b>.</p>
+                    </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="olap-use-arn-cli" expanded="false"><div class="procedure"><h6>To find the ARN for your Object Lambda Access Point by using the AWS CLI</h6><ol><li>
+                            <p>To retrieve a list of the Object Lambda Access Points that are associated with your
+                                AWS account, run the following command. Before running the
+                                command, replace the account ID
+                                <code class="replaceable"><code class="code">111122223333</code></code>
+                                with your AWS account ID.</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3control list-access-points-for-object-lambda --account-id <code class="replaceable">111122223333</code></code></pre>
+                        </li><li>
+                            <p>Review the command output to find the Object Lambda Access Point ARN that you want to
+                                use. The output of the previous command should look similar to the
+                                following example.</p>
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "ObjectLambdaAccessPointList": [
+        <span>{</span>
+            "Name": "my-object-lambda-ap",
+            "ObjectLambdaAccessPointArn": "arn:aws:s3-object-lambda:us-east-1:111122223333:accesspoint/my-object-lambda-ap"
+        },
+        ...
+    ]
+}</code></pre>
+                        </li></ol></div></awsui-expandable-section></div>
+
+     
+        <h2 id="ol-access-points-alias">How to use a bucket-style alias for your S3 bucket Object Lambda Access Point</h2>
+        <p>When you create an Object Lambda Access Point, Amazon S3 automatically generates a unique alias for your
+            Object Lambda Access Point. You can use this alias instead of an Amazon S3 bucket name or the Object Lambda Access Point Amazon
+            Resource Name (ARN) in a request for access point data plane operations. For a list of these
+            operations, see <a href="./access-points-service-api-support.html">Access point compatibility</a>.</p>
+        <p>An Object Lambda Access Point alias name is created within the same namespace as an Amazon S3 bucket. This alias
+            name is automatically generated and cannot be changed. For an existing Object Lambda Access Point, an alias
+            is automatically assigned for use. An Object Lambda Access Point alias name meets all the requirements of a valid
+            Amazon S3 bucket name and consists of the following parts:</p>
+        <p><code class="code"><code class="replaceable">Object Lambda Access Point
+                name prefix</code>-<code class="replaceable">metadata</code>--ol-s3</code></p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The <code class="code">--ol-s3</code> suffix is reserved for Object Lambda Access Point alias names and can't be used
+                for bucket or Object Lambda Access Point names. For more information about Amazon S3 bucket-naming rules, see
+                <a href="./bucketnamingrules.html">General purpose bucket naming rules</a>.</p></div></div>
+        <p>The following examples show the ARN and the Object Lambda Access Point alias for an Object Lambda Access Point named
+                    <code class="code"><code class="replaceable">my-object-lambda-access-point</code></code>:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>ARN</b> –
+                    <code class="code">arn:aws:s3-object-lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:accesspoint/<code class="replaceable">my-object-lambda-access-point</code></code></p>
+            </li><li class="listitem">
+                <p><b>Object Lambda Access Point alias</b> –
+                    <code class="code"><code class="replaceable">my-object-lambda-acc</code>-<code class="replaceable">1a4n8yjrb3kda96f67zwrwiiuse1a</code>--ol-s3</code></p>
+            </li></ul></div>
+        
+
+            <p>When you use an Object Lambda Access Point, you can use the Object Lambda Access Point alias name without requiring extensive
+            code changes.</p>
+        <p>When you delete an Object Lambda Access Point, the Object Lambda Access Point alias name becomes inactive and unprovisioned.</p>
+             
+                <h3 id="olap-find-alias">How to find the alias for your Object Lambda Access Point</h3>
+                <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the S3 console" id="olap-use-alias-console" expanded="false"><div class="procedure"><h6>To find the alias for your Object Lambda Access Point by using the console</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                                <p>In the left navigation pane, choose
+                                        <b>Object Lambda Access Points</b>.</p>
+                            </li><li>
+                                <p>For the Object Lambda Access Point that you want to use, copy the
+                                        <b>Object Lambda Access Point alias</b> value.</p>
+                            </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="olap-use-alias-cli" expanded="false"><p>When you create an Object Lambda Access Point, Amazon S3 automatically generates an Object Lambda Access Point alias
+                            name, as shown in the following example command. To run this command,
+                            replace the <code class="code"><code class="replaceable">user input
+                                placeholders</code></code> with your own information. For
+                            information about how to create an Object Lambda Access Point by using the AWS CLI, see <a href="./olap-create.html#olap-create-cli-specific">To create an Object Lambda Access Point by using the AWS CLI</a>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3control create-access-point-for-object-lambda --account-id <code class="replaceable">111122223333</code> --name <code class="replaceable">my-object-lambda-access-point</code> --configuration file://<code class="replaceable">my-olap-configuration.json</code>
+<span>{</span>
+    "ObjectLambdaAccessPointArn": "arn:aws:s3:<code class="replaceable">region</code>:<code class="replaceable">111122223333</code>:accesspoint/<code class="replaceable">my-access-point</code>",
+    "Alias": <span>{</span>
+        "Value": "<code class="replaceable">my-object-lambda-acc</code>-<code class="replaceable">1a4n8yjrb3kda96f67zwrwiiuse1a</code>--ol-s3",
+        "Status": "READY"
+    }
+}</code></pre><p>The generated Object Lambda Access Point alias name has two fields: </p><div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>The <code class="code">Value</code> field is the alias value of the Object Lambda Access Point.
+                                </p>
+                            </li><li class="listitem">
+                                <p>The <code class="code">Status</code> field is the status of the Object Lambda Access Point alias. If
+                                    the status is <code class="code">PROVISIONING</code>, Amazon S3 is provisioning
+                                    the Object Lambda Access Point alias, and the alias is not yet ready for use. If the
+                                    status is <code class="code">READY</code>, the Object Lambda Access Point alias has been
+                                    successfully provisioned and is ready for use.</p>
+                            </li></ul></div><p>For more information about the
+                                <code class="code">ObjectLambdaAccessPointAlias</code> data type in the REST API,
+                            see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateAccessPointForObjectLambda.html">CreateAccessPointForObjectLambda</a> and
+                                <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_ObjectLambdaAccessPointAlias.html">ObjectLambdaAccessPointAlias</a> in the
+                                <em>Amazon Simple Storage Service API Reference</em>.</p></awsui-expandable-section></div>
+            
+             
+             
+                <h3 id="use-olap-alias">How to use the Object Lambda Access Point alias</h3>
+                <p>You can use an Object Lambda Access Point alias instead of an Amazon S3 bucket name for the operations
+                listed in <a href="./access-points-service-api-support.html">Access point compatibility</a>.</p>
+                <p>The following AWS CLI example for the <code class="code">get-bucket-location</code> command
+                uses the bucket's access point alias to return the AWS Region that the bucket is in. To run
+                this command, replace the <code class="code"><code class="replaceable">user input
+                    placeholders</code></code> with your own information.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (xml)--><code class="xml "><code class="userinput">aws s3api get-bucket-location --bucket <code class="replaceable">my-object-lambda-acc</code>-<code class="replaceable">w7i37nq6xuzgax3jw3oqtifiusw2a</code>--ol-s3</code>
+            
+<code class="computeroutput" copy="false"><span>{</span>
+    "LocationConstraint": "us-west-2"
+}</code></code></pre>
+                <p>If the Object Lambda Access Point alias in a request isn't valid, the error code
+                    <code class="code">InvalidAccessPointAliasError</code> is returned. For more information
+                about <code class="code">InvalidAccessPointAliasError</code>, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList">List of Error
+                    Codes</a> in the <em>Amazon Simple Storage Service API Reference</em>.</p>
+             
+        
+        
+        <p>The limitations of an Object Lambda Access Point alias are the same as those of an access point alias. For more information
+            about the limitations of an access point alias, see <a href="./access-points-naming.html#use-ap-alias-limitations">Access point alias limitations</a>.</p>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./olap-using-cfn-template.html">Automate S3 Object Lambda setup with AWS CloudFormation</div><div id="next" class="next-link" accesskey="n" href="./olap-security.html">Security considerations</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-use.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/olap-use.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

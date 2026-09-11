@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudFormation y Systems Manager — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>CloudFormation y Systems Manager <span class="en">AWS CloudFormation and AWS Systems Manager</span></h1>
+<p class="subtitle">Infraestructura como texto y operaciones sin SSH: el dúo que convierte "entornos reproducibles, cambios auditables y parcheo a escala" en la respuesta por defecto del Dominio 2.</p>
+<div class="chips">
+  <span class="chip">Fase 8 · Gobernanza y costos</span>
+  <span class="chip d2">Dominio 2 · 26%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>Provisionar a mano en la consola es cocinar sin receta: sale, pero nadie puede repetir el plato, nadie sabe qué tocaste la última vez y apagar la cocina entera implica recordar cada utensilio. <strong>AWS CloudFormation</strong> es la receta: un <span class="tag-en">template</span> (YAML o JSON) que declara todos los recursos que quieres, y un motor que los crea, los configura y resuelve sus dependencias en el orden correcto. La receta se versiona en Git, se diferencia con un diff y se reutiliza para servir el mismo plato en otra Región u otra cuenta. <strong>AWS Systems Manager</strong> (SSM) es el equipo de mantenimiento de la cadena entera: opera cientos de instancias a la vez —comandos, parches, sesiones— sin abrir una sola puerta exterior, es decir, sin SSH, sin bastion hosts y sin claves que rotar.</p>
+
+<p>El examen premia esta pareja con dos palabras mágicas que aparecen una y otra vez en las opciones correctas: <span class="tag-en">repeatable</span> y <span class="tag-en">least operational overhead</span>. CloudFormation responde a la primera (el mismo template despliega el mismo resultado, siempre) y SSM a la segunda (una flota gestionada desde un punto central, con sesiones auditadas). Entre ambos cubren el ciclo completo de vida de la infraestructura: nacer de un template, cambiar con change sets, vigilarse contra el drift y operarse a escala. Esta página recorre ese ciclo en orden.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart LR
+    G["Template YAML o JSON<br>versionado en Git"]
+    CS["Change set<br>vista previa de cambios"]
+    ST["Stack<br>creacion o actualizacion"]
+    R["Recursos AWS<br>EC2 RDS ELB S3"]
+    DD["Drift detection<br>auditoria continua"]
+    G -->|"pipeline"| CS
+    CS -->|"aprobacion"| ST
+    ST --> R
+    R -.->|"cambios manuales"| DD
+    DD -.->|"corregir template"| G
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class G,ST navy
+    class CS amber
+    class R green
+    class DD amber
+</div>
+<figcaption>Figura 1 — El ciclo IaC: template → change set → stack → recursos, con drift detection devolviendo la verdad al template.</figcaption>
+</figure>
+
+<h2>Templates y stacks: gestionar cien recursos como uno</h2>
+
+<p>Un template describe todos los recursos que quieres —instancias EC2, un RDS DB instance, un Auto Scaling group, un load balancer— y sus propiedades, de forma <em>declarativa</em>: tú dices el estado final y CloudFormation decide el orden y la configuración, incluyendo las dependencias entre recursos. Al desplegarlo creas un <span class="tag-en">stack</span>, que es la unidad de gestión: todos los recursos del template se provisionan como un grupo, se actualizan como un grupo y — esto es oro de examen — se eliminan como un grupo, porque borrar el stack borra todos sus recursos. El escenario oficial del User Guide lo resume en una app web escalable: en lugar de crear y cablear a mano el Auto Scaling group, el balanceador y la base de datos, describes los tres una vez y el stack los levanta conectados.</p>
+
+<p>La segunda mitad del argumento es la replicación. Si la aplicación necesita estar en tres Regiones, no re-provisionas a mano tres veces: reutilizas el mismo template y CloudFormation produce los mismos recursos, consistentes y repetibles, en cada Región. Y como el template es texto, el control de cambios se resuelve con un sistema de versiones: los diffs del template son los diffs de tu infraestructura, sabes quién cambió qué y cuándo, y para revertir usas la versión anterior del template en lugar de memoria y valentía. Esa tríada — gestión como unidad, replicación, control de cambios — es exactamente lo que el enunciado describe cuando la respuesta correcta es "define the infrastructure in a CloudFormation template".</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    T["Template<br>recursos y propiedades"]
+    ST["Stack<br>unidad de despliegue"]
+    T --> ST
+    subgraph S["Recursos gestionados como grupo"]
+        ASG["Auto Scaling group"]
+        ELB["Balanceador"]
+        RDS["Base de datos RDS"]
+    end
+    ST --> ASG
+    ST --> ELB
+    ST --> RDS
+    OUT["Outputs<br>valores reutilizables"]
+    RDS --> OUT
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class T,ST navy
+    class ASG,ELB,RDS green
+    class OUT amber
+</div>
+<figcaption>Figura 2 — Anatomía de un stack: el template declara, el stack gestiona los recursos como un grupo y exporta outputs reutilizables.</figcaption>
+</figure>
+
+<h2>Change sets, drift detection y el fin de las modificaciones a mano</h2>
+
+<p>Actualizar infraestructura con IaC tiene su red de seguridad. Un <span class="tag-en">change set</span> muestra la lista de cambios que CloudFormation <em>va a ejecutar</em> —qué recursos crea, modifica o elimina— antes de ejecutarlos: es la diferencia entre abrir el capó y cambiar la pieza a ciegas. Después entra <span class="tag-en">drift detection</span>, la función que compara la configuración <em>real</em> de cada recurso con la que declara el template y reporta las diferencias. Drift es la palabra clave: su causa casi siempre es humana — alguien abrió la consola y cambió un security group, un tipo de instancia o una política al margen del template — y su remedio es doble: volver a alinear el recurso o absorber el cambio en el template. Sin drift detection, ese cambio manual queda invisible hasta el próximo update, cuando CloudFormation lo pisa sin avisar; con ella, la infraestructura "artesanal" se detecta a tiempo.</p>
+
+<p>Completa el cuadro dos piezas de escala. <strong>StackSets</strong> extienden un stack a múltiples cuentas y Regiones de una organización desde una sola operación — la respuesta natural a "deploy the same infrastructure across all accounts in AWS Organizations". Y el comportamiento de <span class="tag-en">rollback on failure</span>: si un despliegue falla a mitad, CloudFormation por defecto revierte los recursos al estado previo, así que un update fallido no deja una arquitectura a medias. La ventaja sobre la consola manual, dicho en lenguaje de examen: cambios previsualizables (change sets), auditables (versiones en Git), reversibles (rollback y template anterior) y verificables contra la realidad (drift detection) — cuatro propiedades que ningún clic manual tiene.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Concepto</th><th>Qué hace</th><th>Señal del enunciado</th></tr></thead>
+<tbody>
+<tr><td><strong>Template</strong></td><td>Declara recursos y propiedades en YAML/JSON</td><td>"define the infrastructure as code", "reusable across Regions"</td></tr>
+<tr><td><strong>Stack</strong></td><td>Despliega y gestiona los recursos como una unidad</td><td>"manage as a single unit", "delete everything cleanly"</td></tr>
+<tr><td><strong>Change set</strong></td><td>Previsualiza qué cambios hará un update antes de ejecutarlo</td><td>"preview the changes", "before applying"</td></tr>
+<tr><td><strong>Drift detection</strong></td><td>Compara el estado real con el template; detecta cambios manuales</td><td>"resources modified outside of CloudFormation"</td></tr>
+<tr><td><strong>StackSet</strong></td><td>Replica un stack en múltiples cuentas y Regiones</td><td>"across the organization", "multiple accounts at scale"</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Systems Manager: operar la flota sin abrir un solo puerto</h2>
+
+<p><strong>AWS Systems Manager</strong> centraliza la vista, gestión y operación de <span class="tag-en">nodes</span> a escala: instancias EC2, servidores on-premises y hasta multicloud. El requisito es que el nodo esté <em>managed</em>: el <strong>SSM Agent</strong> instalado y con comunicación con el servicio — el agente viene preinstalado en la mayoría de AMIs de Windows y Linux recientes. La consola unificada ofrece un dashboard con el inventario de nodos y drill-downs por OS, Región y cuenta para ver, por ejemplo, qué nodos corren software desactualizado. El beneficio operativo que el examen cita textualmente: gestión remota <em>segura</em> a escala <strong>sin abrir sesiones SSH ni RDP</strong>, sin bastion hosts y sin claves distribuidas — el agente abre la conexión hacia fuera, así que no hay puertos de entrada que proteger.</p>
+
+<p>Sobre esa base se montan las tres herramientas que aparecen en las opciones. <span class="tag-en">Run Command</span> ejecuta un comando o script documentado sobre un conjunto objetivo de nodos, con rate control y salida capturada por nodo — la respuesta a "run a command on hundreds of instances without logging into them". <span class="tag-en">Session Manager</span> abre una shell interactiva en el navegador o CLI, registrada y auditada en S3/CloudWatch Logs, sin puertos de entrada — la respuesta a "interactive access without SSH or bastion hosts". <span class="tag-en">Patch Manager</span> aplica parches de OS a flotas enteras según <em>patch baselines</em> y ventanas de mantenimiento programadas — la respuesta a "patch hundreds of servers on a schedule". La automatización general corre con <em>runbooks</em> de Systems Manager Automation, que también orquestan diagnóstico y remediación de nodes que dejan de reportar.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph N["Nodos managed con SSM Agent"]
+        E1["EC2 Linux"]
+        E2["EC2 Windows"]
+        E3["Servidores on-premises"]
+    end
+    SSM["AWS Systems Manager"]
+    RC["Run Command<br>comandos remotos auditados"]
+    PM["Patch Manager<br>parches a escala"]
+    SM["Session Manager<br>sesiones sin SSH"]
+    PS["Parameter Store<br>configuracion segura"]
+    E1 --> SSM
+    E2 --> SSM
+    E3 --> SSM
+    SSM --> RC
+    SSM --> PM
+    SSM --> SM
+    SSM --> PS
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class E1,E2,E3 green
+    class SSM navy
+    class RC,PM,SM,PS amber
+</div>
+<figcaption>Figura 3 — Systems Manager: el SSM Agent conecta los nodos hacia fuera; las herramientas operan la flota sin puertos de entrada.</figcaption>
+</figure>
+
+<h2>Parameter Store: la configuración fuera del template</h2>
+
+<p>Los <span class="tag-en">runbooks</span> y plantillas necesitan configuración que no debe vivir en el código: endpoints, IDs de AMI, flags por entorno. <strong>SSM Parameter Store</strong> la guarda como parámetros jerárquicos (por ejemplo <code>/app/prod/db-endpoint</code>) que Run Command, Lambda y los propios templates de CloudFormation pueden referenciar en tiempo de ejecución. Los valores tipo <span class="tag-en">SecureString</span> se cifran con KMS, de modo que la configuración sensible queda fuera del repositorio y con auditoría de acceso. Es la pieza de configuración del ecosistema SSM; cuando el enunciado pide <em>secrets</em> con rotación automática y tiempos de vida, la respuesta sube de nivel a <strong>Secrets Manager</strong>, que este curso cubre en su propia página junto a Parameter Store.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Síntoma del enunciado</th><th>La respuesta apunta a…</th></tr></thead>
+<tbody>
+<tr><td>"create identical environments in multiple Regions or accounts"</td><td>Reutilizar el template de CloudFormation (o StackSets)</td></tr>
+<tr><td>"preview infrastructure changes before applying them"</td><td>Change sets</td></tr>
+<tr><td>"detect resources modified outside of CloudFormation"</td><td>Drift detection</td></tr>
+<tr><td>"run a command on hundreds of instances without SSH"</td><td>SSM Run Command</td></tr>
+<tr><td>"interactive shell access with no inbound ports or bastion"</td><td>SSM Session Manager</td></tr>
+<tr><td>"apply OS patches to the fleet on a schedule"</td><td>SSM Patch Manager</td></tr>
+<tr><td>"store configuration values, some encrypted with KMS"</td><td>Parameter Store (SecureString)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<div class="co-title">Trampa clásica</div>
+El distractor más frecuente de este bloque es <strong>SSH + bastion host</strong> ofrecido como "acceso seguro a la flota": es el patrón legacy, y frente a Session Manager pierde en seguridad, auditoría y costo operativo. La segunda trampa es responder "CloudFormation" cuando el enunciado pide <em>operar</em> lo ya desplegado (comandos, parches, sesiones): CloudFormation provisiona, SSM opera. Y la tercera, a la inversa: para "provision reproducible environments", la respuesta es IaC, no Run Command.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li>CloudFormation es <span class="tag-en">declarative</span>: describes el estado final y él resuelve dependencias y orden.</li>
+<li>El <strong>stack</strong> gestiona todos los recursos como una unidad; borrarlo borra todo lo que contiene.</li>
+<li>El mismo template replica la misma infraestructura en otras Regiones y cuentas (StackSets).</li>
+<li><strong>Change set</strong> = vista previa; <strong>drift detection</strong> = cambios manuales detectados; rollback automático si el update falla.</li>
+<li>SSM necesita nodos <strong>managed</strong>: SSM Agent instalado y comunicando.</li>
+<li><strong>Run Command</strong> (remoto), <strong>Session Manager</strong> (shell sin SSH ni bastion), <strong>Patch Manager</strong> (parches programados).</li>
+<li><strong>Parameter Store</strong> guarda configuración jerárquica; SecureString cifra con KMS; rotación de secrets → Secrets Manager.</li>
+<li>Palabras clave de la opción correcta: repeatable, auditable, least operational overhead, no inbound ports.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">GOV-04</span> AWS CloudFormation — User Guide (IaC, templates, stacks, replicación) · <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html</a></li>
+<li><span class="id">GOV-05</span> AWS Systems Manager — What is (Run Command, Session Manager, Patch Manager, Parameter Store) · <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html" target="_blank" rel="noopener">docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/cloudwatch.html"><span class="dir">← Anterior</span>CloudWatch y X-Ray</a><a class="next" href="../temas/costos.html"><span class="dir">Siguiente →</span>Costos: CE, Budgets, CUR</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

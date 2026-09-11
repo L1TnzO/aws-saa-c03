@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating a task for transferring your data - AWS DataSync</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-task-how-to" /><meta name="default_state" content="create-task-how-to" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html" /><meta name="description" content="Learn how to create a AWS DataSync task with your source location, destination location, and preferences for how you want your data transferred." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS DataSync" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS DataSync is a data transfer service that simplifies, automates, and accelerates moving and replicating data between self-managed storage systems and AWS storage services over the internet or AWS Direct Connect. As a fully managed service, DataSync removes the need to modify applications, develop scripts, or manage infrastructure." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/datasync/latest/userguide/create-task-how-to.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/datasync/latest/userguide/create-task-how-to.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/datasync/latest/userguide/create-task-how-to.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/datasync/latest/userguide/create-task-how-to.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/datasync/latest/userguide/create-task-how-to.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/datasync/latest/userguide/create-task-how-to.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/datasync/latest/userguide/create-task-how-to.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/datasync/latest/userguide/create-task-how-to.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/datasync/latest/userguide/create-task-how-to.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/datasync/latest/userguide/create-task-how-to.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/datasync/latest/userguide/create-task-how-to.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/datasync/latest/userguide/create-task-how-to.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/datasync/latest/userguide/create-task-how-to.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/datasync/latest/userguide/create-task-how-to.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/datasync/latest/userguide/create-task-how-to.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/datasync/latest/userguide/create-task-how-to.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-task-how-to.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/datasync/latest/userguide/create-task-how-to.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/datasync/latest/userguide/create-task-how-to.html" hreflang="x-default" /><meta name="feedback-item" content="DataSync" /><meta name="this_doc_product" content="AWS DataSync" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'datasync'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Creating a task for transferring your data" /><meta name="uiVersion" content="2024.10" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="create-task-how-to.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating a task for transferring your data - AWS DataSync</title><meta name="pdf" content="/pdfs/datasync/latest/userguide/datasync-userguide.pdf#create-task-how-to" /><meta name="rss" content="datasync-userguide.rss" /><meta name="forums" content="https://repost.aws/tags/TAwgolRKhDTKGPCIHXy1zrHA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/create-task-how-to.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/create-task-how-to.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/create-task-how-to.html" /><meta name="keywords" content="Data transfer options,File metadata handling,how to create AWS DataSync task,AWS DataSync task setup" /><link rel="alternate" type="text/markdown" href="create-task-how-to.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS DataSync",
+        "item" : "https://docs.aws.amazon.com/datasync/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Transferring your data with AWS DataSync",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide/transferring-data-datasync.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Creating a task for transferring your data",
+        "item" : "https://docs.aws.amazon.com/datasync/latest/userguide/transferring-data-datasync.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/datasync/latest/userguide/datasync-userguide.pdf#create-task-how-to" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/datasync/index.html">AWS DataSync</a><a href="what-is-datasync.html">User Guide</a></div><div id="page-toc-src"><a href="#create-task-steps">Creating your task</a><a href="#understand-task-creation-statuses">Task statuses</a><a href="#multiple-tasks-large-dataset">Partitioning large datasets with multiple tasks</a><a href="#multiple-tasks-organize-transfer">Segmenting transferred data with multiple tasks</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-task-how-to">Creating a task for transferring your data</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <em>task</em> describes where and how AWS DataSync transfers
+        data. A task consists of the following:</p><div class="itemizedlist">
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><a href="./working-with-locations.html">Source
+                        location</a> – The storage system or service where
+                DataSync transfers data from.</p>
+        </li><li class="listitem">
+            <p><a href="./working-with-locations.html">Destination
+                        location</a> – The storage system or service where
+                DataSync transfers data to.</p>
+        </li><li class="listitem">
+            <p><a href="./task-options.html">Task options</a>
+                – Settings such as what files to transfer, how data gets verified, when the
+                task runs, and more.</p>
+        </li><li class="listitem">
+            <p><a href="./run-task.html">Task executions</a>
+                – When you run a task, it's called a <em>task
+                execution</em>.</p>
+        </li></ul></div>
+        <h2 id="create-task-steps">Creating your task</h2>
+        <p>When you create a DataSync task, you specify your source and destination locations. You
+            also can customize your task by choosing which files to transfer, how metadata gets
+            handled, setting up a schedule, and more.</p>
+        <p>Before you create your task, make sure that you understand <a href="./how-datasync-transfer-works.html#transferring-files">how DataSync transfers work</a> and review the <a href="./datasync-limits.html#task-hard-limits">task quotas</a>.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you're planning to transfer data to or from an Amazon S3 location, review <a href="./create-s3-location.html#create-s3-location-s3-requests">how DataSync can affect your S3 request charges</a> and the <a href="https://aws.amazon.com/datasync/pricing/" rel="noopener noreferrer" target="_blank"><span>DataSync pricing page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> before you
+                begin.</p></div></div>
+        <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the DataSync console" id="create-task-console" expanded="false"><div class="procedure"><ol><li><p>Open the AWS DataSync console at <a href="https://console.aws.amazon.com/datasync/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/datasync/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>Make sure you're in one of the AWS Regions where you plan to
+                            transfer data.</p>
+                    </li><li><p>In the left navigation pane, expand <b>Data transfer</b>, then choose <b>Tasks</b>, and
+                                    then choose <b>Create task</b>.</p></li><li>
+                        <p>On the <b>Configure source location</b> page, <a href="./transferring-data-datasync.html">create</a> or choose a
+                            source location, then choose <b>Next</b>.</p>
+                    </li><li>
+                        <p>On the <b>Configure destination location</b> page, <a href="./transferring-data-datasync.html">create</a> or choose a
+                            destination location, then choose <b>Next</b>.</p>
+                    </li><li>
+                        <p>(Recommended) On the <b>Configure settings</b> page,
+                            give your task a name that you can remember.</p>
+                    </li><li>
+                        <p>While still on the <b>Configure settings</b> page,
+                            choose your task options or use the default settings.</p>
+                        <p>You might be interested in some of the following options:</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>Specify the <a href="./choosing-task-mode.html">task
+                                        mode</a> that you want to use.</p>
+                            </li><li class="listitem">
+                                <p>Specify what data to transfer by using a <a href="./transferring-with-manifest.html">manifest</a> or
+                                        <a href="./filtering.html">filters</a>.</p>
+                            </li><li class="listitem">
+                                <p>Configure how to <a href="./configure-metadata.html">handle
+                                        file metadata</a> and <a href="./configure-data-verification-options.html">verify data
+                                        integrity</a>.</p>
+                            </li><li class="listitem">
+                                <p>Monitor your transfer with <a href="./task-reports.html">task
+                                        reports</a> or <a href="./monitor-datasync.html">Amazon CloudWatch</a>. We recommend setting up some kind of
+                                    monitoring for your task.</p>
+                            </li></ul></div>
+                        <p>When you're done, choose <b>Next</b>.</p>
+                    </li><li>
+                        <p>Review your task configuration, then choose <b>Create
+                                task</b>.</p>
+                    </li></ol></div><p>You're ready to <a href="./run-task.html">start your task</a>.</p></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="create-task-cli" expanded="false"><p>Once you <a href="./transferring-data-datasync.html">create your DataSync source
+                        and destination locations</a>, you can create your task.</p><div class="procedure"><ol><li>
+                        <p>In your AWS CLI settings, make sure that you're using one of the
+                            AWS Regions where you plan to transfer data.</p>
+                    </li><li>
+                        <p>Copy the following <code class="code">create-task</code> command:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cli)--><code class="nohighlight " data-source="content">aws datasync create-task \
+  --source-location-arn "arn:aws:datasync:<code class="replaceable">us-east-1</code>:<code class="replaceable">account-id</code>:location/<code class="replaceable">location-id</code>" \
+  --destination-location-arn "arn:aws:datasync:<code class="replaceable">us-east-1</code>:<code class="replaceable">account-id</code>:location/<code class="replaceable">location-id</code>" \
+  --name "<code class="replaceable">task-name</code>"</code></pre>
+                    </li><li>
+                        <p>For <code class="code">--source-location-arn</code>, specify the Amazon Resource
+                            Name (ARN) of your source location.</p>
+                    </li><li>
+                        <p>For <code class="code">--destination-location-arn</code>, specify the ARN of your
+                            destination location.</p>
+                        <p>If you're transferring across AWS Regions or accounts, make sure
+                            that the ARN includes the other Region or account ID.</p>
+                    </li><li>
+                        <p>(Recommended) For <code class="code">--name</code>, specify a name for your task
+                            that you can remember.</p>
+                    </li><li>
+                        <p>Specify other task options as needed. You might be interested in some
+                            of the following options:</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>Specify what data to transfer by using a <a href="./transferring-with-manifest.html">manifest</a> or
+                                        <a href="./filtering.html">filters</a>.</p>
+                            </li><li class="listitem">
+                                <p>Configure how to <a href="./configure-metadata.html">handle
+                                        file metadata</a> and <a href="./configure-data-verification-options.html">verify data
+                                        integrity</a>.</p>
+                            </li><li class="listitem">
+                                <p>Monitor your transfer with <a href="./task-reports.html">task
+                                        reports</a> or <a href="./monitor-datasync.html">Amazon CloudWatch</a>. We recommend setting up some kind of
+                                    monitoring for your task.</p>
+                            </li></ul></div>
+                        <p>For more options, see <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/datasync/create-task.html" rel="noopener noreferrer" target="_blank"><span>create-task</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. Here's an example <code class="code">create-task</code>
+                            command that specifies several options:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cli)--><code class="nohighlight " data-source="content">aws datasync create-task \
+  --source-location-arn "arn:aws:datasync:<code class="replaceable">us-east-1</code>:<code class="replaceable">account-id</code>:location/<code class="replaceable">location-id</code>" \
+  --destination-location-arn "arn:aws:datasync:<code class="replaceable">us-east-1</code>:<code class="replaceable">account-id</code>:location/<code class="replaceable">location-id</code>" \
+  --cloud-watch-log-group-arn "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>" \
+  --name "<code class="replaceable">task-name</code>" \
+  --options VerifyMode=NONE,OverwriteMode=NEVER,Atime=BEST_EFFORT,Mtime=PRESERVE,Uid=INT_VALUE,Gid=INT_VALUE,PreserveDevices=PRESERVE,PosixPermissions=PRESERVE,PreserveDeletedFiles=PRESERVE,TaskQueueing=ENABLED,LogLevel=TRANSFER</code></pre>
+                    </li><li>
+                        <p>Run the <code class="code">create-task</code> command.</p>
+                        <p>If the command is successful, you get a response that shows you the
+                            ARN of the task that you created. For example:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span> 
+    "TaskArn": "arn:aws:datasync:us-east-1:111222333444:task/task-08de6e6697796f026" 
+}</code></pre>
+                    </li></ol></div><p>You're ready to <a href="./run-task.html">start your task</a>.</p></awsui-expandable-section></div>
+     
+        <h2 id="understand-task-creation-statuses">Task statuses</h2>
+        <p>When you create a DataSync task, you can check its status to see if it's ready to
+            run.</p>
+        <div class="table-container"><div class="table-contents disable-scroll"><table id="w175aac13c19b9b5"><thead>
+                    <tr>
+                        <th>Console status</th>
+                        <th>API status</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Available</td>
+                        <td tabindex="-1">
+                            <p><code class="code">AVAILABLE</code></p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>The task is ready to start transferring data.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Running</td>
+                        <td tabindex="-1">
+                            <p><code class="code">RUNNING</code></p>
+                        </td>
+                        <td tabindex="-1">A task execution is in progress. For more information, see <a href="./run-task.html#understand-task-execution-statuses">Task execution statuses</a>.</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Unavailable</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p><code class="code">UNAVAILABLE</code></p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>A DataSync agent used by the task is offline. For more information,
+                                see <a href="./troubleshooting-datasync-agents.html#troubleshoot-agent-offline">What do I do if my agent is offline?</a></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">
+                            <p>Queued</p>
+                        </td>
+                        <td tabindex="-1">
+                            <p><code class="code">QUEUED</code></p>
+                        </td>
+                        <td tabindex="-1">
+                            <p>Another task execution that uses the same DataSync agent is in
+                                progress. For more information, see <a href="./run-task.html#queue-task-execution">Knowing when your task is queued</a>.</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="multiple-tasks-large-dataset">Partitioning large datasets with multiple tasks</h2>
+        <p>If you're transferring a large dataset, such as <a href="./datasync-large-migration.html">migrating</a> millions of files or objects, we recommend 
+            using DataSync Enhanced mode for your transfer, which can transfer datasets with virtually 
+            unlimited numbers of files. For very large datasets, with billions of files, 
+            you should consider partitioning your dataset with multiple DataSync tasks. Partitioning your
+            data across multiple tasks (and possibly <a href="./do-i-need-datasync-agent.html#multiple-agents">agents</a>,
+            depending on your locations) helps reduce the time it takes DataSync to prepare and
+            transfer your data.</p>
+        <p>Consider some of the ways that you can partition a large dataset across several DataSync
+            tasks:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Create tasks that transfer separate folders. For example, you might create two
+                    tasks that target <code class="code">/FolderA</code> and <code class="code">/FolderB</code>, respectively,
+                    in your source storage.</p>
+            </li><li class="listitem">
+                <p>Create tasks that transfer subsets of files, objects, and folders by using a
+                        <a href="./transferring-with-manifest.html">manifest</a> or <a href="./filtering.html">filters</a>.</p>
+            </li></ul></div>
+        <p>Be mindful that this approach can increase the I/O operations on your storage and
+            affect your network bandwidth. For more information, see the blog on <a href="https://aws.amazon.com/blogs/storage/how-to-accelerate-your-data-transfers-with-aws-datasync-scale-out-architectures/" rel="noopener noreferrer" target="_blank"><span>How to accelerate your data transfers with DataSync scale out
+            architectures</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+     
+        <h2 id="multiple-tasks-organize-transfer">Segmenting transferred data with multiple tasks</h2>
+        <p>If you're transferring different sets of data to the same destination, you can create
+            multiple tasks to help segment the data that you transfer.</p>
+        <p>For example, if you're transferring to the same S3 bucket named <code class="code">MyBucket</code>,
+            you can create different prefixes in the bucket that correspond to each task. This
+            approach prevents file name conflicts the datasets and allows you to set different
+            permissions for each prefix. Here's how you might set this up:</p>
+        <div class="procedure"><ol><li>
+                <p>Create three prefixes in the destination <code class="code">MyBucket</code> named
+                        <code class="code">task1</code>, <code class="code">task2</code>, and <code class="code">task3</code>:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">s3://MyBucket/task1</code></p>
+                    </li><li class="listitem">
+                        <p><code class="code">s3://MyBucket/task2</code></p>
+                    </li><li class="listitem">
+                        <p><code class="code">s3://MyBucket/task3</code></p>
+                    </li></ul></div>
+            </li><li>
+                <p>Create three DataSync tasks named <code class="code">task1</code>, <code class="code">task2</code>, and
+                        <code class="code">task3</code> that transfer to the corresponding prefix in
+                        <code class="code">MyBucket</code>.</p>
+            </li></ol></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./creating-other-cloud-object-location.html">Configuring transfers with other cloud object storage</div><div id="next" class="next-link" accesskey="n" href="./choosing-task-mode.html">Choosing a task mode for your transfer</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/create-task-how-to.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DataSync&amp;topic_url=https://docs.aws.amazon.com/en_us/datasync/latest/userguide/create-task-how-to.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Origin settings - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="DownloadDistValuesOrigin" /><meta name="default_state" content="DownloadDistValuesOrigin" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" /><meta name="description" content="Configure origin settings for your CloudFront distribution to specify where CloudFront retrieves your web content from and how it connects to your origin servers." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Origin settings" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="DownloadDistValuesOrigin.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Origin settings - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#DownloadDistValuesOrigin" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="https://repost.aws/tags/TA8pHF0m5aQdawzT2gwPcVYQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming,configure CloudFront distribution,CloudFront configuration,set up CloudFront distribution,CloudFront origin settings,CloudFront cache behavior settings,CloudFront distribution settings,CloudFront custom error pages,CloudFront error caching,CloudFront geographic restrictions" /><link rel="alternate" type="text/markdown" href="DownloadDistValuesOrigin.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configure distributions",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "All distribution settings reference",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Origin settings",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#DownloadDistValuesOrigin" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#DownloadDistValuesDomainName">Origin domain</a><a href="#DownloadDistValuesOriginProtocolPolicy">Protocol (custom origins only)</a><a href="#DownloadDistValuesOriginPath">Origin path</a><a href="#DownloadDistValuesId">Name</a><a href="#DownloadDistValuesOAIRestrictBucketAccess">Origin access (Amazon S3 origins only)</a><a href="#DownloadDistValuesOriginCustomHeaders">Add custom header</a><a href="#create-update-fields-origin-shield">Enable Origin Shield</a><a href="#origin-connection-attempts">Connection attempts</a><a href="#origin-connection-timeout">Connection timeout</a><a href="#DownloadDistValuesOriginResponseTimeout">Response timeout</a><a href="#response-completion-timeout">Response completion timeout</a><a href="#DownloadDistValuesOriginKeepaliveTimeout">Keep-alive timeout (custom and VPC origins only)</a><a href="#response-keep-alive-timeout-quota">Response and keep-alive timeout quotas</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="DownloadDistValuesOrigin">Origin settings</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>When you use the CloudFront console to create or update a distribution, you provide information
+		about one or more locations, known as <em>origins</em>, where you
+		store the original versions of your web content. CloudFront gets your web content from your
+		origins and serves it to viewers via a worldwide network of edge servers.</p><p>For the current maximum number of origins that you can create for a distribution, or to
+		request a higher quota, see <a href="./cloudfront-limits.html#limits-web-distributions">General quotas on distributions</a>.</p><p>If you want to delete an origin, you must first edit or delete the cache behaviors that
+		are associated with that origin.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you delete an origin, confirm that files that were previously served by that origin
+			are available in another origin and that your cache behaviors are now routing requests
+			for those files to the new origin.</p></div></div><p>When you create or update a distribution, you specify the following values for each
+		origin.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#DownloadDistValuesDomainName">Origin domain</a></p></li><li><p><a href="#DownloadDistValuesOriginProtocolPolicy">Protocol (custom origins only)</a></p></li><li><p><a href="#DownloadDistValuesOriginPath">Origin path</a></p></li><li><p><a href="#DownloadDistValuesId">Name</a></p></li><li><p><a href="#DownloadDistValuesOAIRestrictBucketAccess">Origin access (Amazon S3 origins only)</a></p></li><li><p><a href="#DownloadDistValuesOriginCustomHeaders">Add custom header</a></p></li><li><p><a href="#create-update-fields-origin-shield">Enable Origin Shield</a></p></li><li><p><a href="#origin-connection-attempts">Connection attempts</a></p></li><li><p><a href="#origin-connection-timeout">Connection timeout</a></p></li><li><p><a href="#DownloadDistValuesOriginResponseTimeout">Response timeout</a></p></li><li><p><a href="#response-completion-timeout">Response completion timeout</a></p></li><li><p><a href="#DownloadDistValuesOriginKeepaliveTimeout">Keep-alive timeout (custom and VPC origins only)</a></p></li><li><p><a href="#response-keep-alive-timeout-quota">Response and keep-alive timeout quotas</a></p></li></ul></div>
+		<h2 id="DownloadDistValuesDomainName">Origin domain</h2>
+		<p>The origin domain is the DNS domain name of the resource where CloudFront will get objects
+			for your origin, such as an Amazon S3 bucket or HTTP server. For example:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>Amazon S3 bucket</b> –
+							<code class="code"><code class="replaceable">amzn-s3-demo-bucket</code>.s3.<code class="replaceable">us-west-2</code>.amazonaws.com</code></p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you recently created the S3 bucket, the CloudFront distribution might return
+							<code class="code">HTTP 307 Temporary Redirect</code> responses for up to 24 hours.
+						It can take up to 24 hours for the S3 bucket name to propagate to all AWS
+						Regions. When the propagation is complete, the distribution automatically
+						stops sending these redirect responses; you don't need to take any action.
+						For more information, see <a href="https://repost.aws/knowledge-center/s3-http-307-response" rel="noopener noreferrer" target="_blank"><span>Why am I
+							getting an HTTP 307 Temporary Redirect response from Amazon S3?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and
+							<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Redirects.html#TemporaryRedirection">Temporary
+							Request Redirection</a>.</p></div></div>
+			</li><li class="listitem">
+				<p><b>Amazon S3 bucket configured as a website</b> –
+							<code class="code"><code class="replaceable">amzn-s3-demo-bucket</code>.s3-website.<code class="replaceable">us-west-2</code>.amazonaws.com</code></p>
+			</li><li class="listitem">
+				<p><b>MediaStore container</b> –
+							<code class="code"><code class="replaceable">examplemediastore</code>.data.mediastore.<code class="replaceable">us-west-1</code>.amazonaws.com</code></p>
+			</li><li class="listitem">
+				<p><b>MediaPackage endpoint</b> –
+							<code class="code"><code class="replaceable">examplemediapackage</code>.mediapackage.<code class="replaceable">us-west-1</code>.amazonaws.com</code></p>
+			</li><li class="listitem">
+				<p><b>Amazon EC2 instance</b> –
+							<code class="code"><code class="replaceable">ec2-203-0-113-25</code>.compute-1.amazonaws.com</code></p>
+			</li><li class="listitem">
+				<p><b>Elastic Load Balancing load balancer</b> –
+							<code class="code"><code class="replaceable">example-load-balancer-1234567890</code>.<code class="replaceable">us-west-2</code>.elb.amazonaws.com</code></p>
+			</li><li class="listitem">
+				<p><b>Your own web server</b> –
+						<code class="code">www.example.com</code></p>
+			</li></ul></div>
+		<p>Choose the domain name in the <b>Origin domain</b> field, or type the
+			name. Resources from opt-in Regions must be entered manually. The domain name is not
+			case-sensitive. Your origin domain must have a publicly resolvable DNS name that routes
+			requests from clients to targets over the internet.</p>
+		<p>If you configure CloudFront to connect to your origin over HTTPS, one of the domain names in
+			the certificate must match the domain name that you specify for <b>Origin Domain
+				Name</b>. If no domain name matches, CloudFront returns HTTP status code 502 (Bad
+			Gateway) to the viewer. For more information, see <a href="./cnames-and-https-requirements.html#https-requirements-domain-names-in-cert">Domain names in the CloudFront distribution and in the certificate</a> and <a href="./http-502-bad-gateway.html#ssl-negotitation-failure">SSL/TLS negotiation failure between CloudFront and a custom origin server</a>.</p>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you are using an origin request policy that forwards the viewer host header to
+				the origin, the origin must respond with a certificate that matches the viewer host
+				header. For more information, see <a href="./adding-cloudfront-headers.html">Add CloudFront request headers</a>.</p></div></div>
+		<p>If your origin is an Amazon S3 bucket, note the following:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>If the bucket is configured as a website, enter the Amazon S3 static website
+					hosting endpoint for your bucket; don’t select the bucket name from the list in
+					the <b>Origin domain</b> field. The static website hosting
+					endpoint appears in the Amazon S3 console, on the <b>Properties</b>
+					page under <b>Static website hosting</b>. For more information,
+					see <a href="./DownloadDistS3AndCustomOrigins.html#concept_S3Origin_website">Use an Amazon S3 bucket that's configured as a website endpoint</a>.</p>
+			</li><li class="listitem">
+				<p>If you configured Amazon S3 Transfer Acceleration for your bucket, do not specify
+					the <code class="code">s3-accelerate</code> endpoint for <b>Origin
+					domain</b>.</p>
+			</li><li class="listitem">
+				<p>If you're using a bucket from a different AWS account and if the bucket is
+					not configured as a website, enter the name, using the following format:</p>
+				<p><code class="code"><code class="replaceable">bucket-name</code>.s3.<code class="replaceable">region</code>.amazonaws.com</code>
+				</p>
+				<p>If your bucket reside in a US Region, and you want Amazon S3 to route requests to a
+					facility in northern Virginia, use the following format:</p>
+				<p><code class="code"><code class="replaceable">bucket-name</code>.s3.us-east-1.amazonaws.com</code>
+				</p>
+			</li><li class="listitem">
+				<p>The files must be publicly readable unless you secure your content in Amazon S3 by
+					using a CloudFront origin access control. For more information about access control,
+					see <a href="./private-content-restricting-access-to-s3.html">Restrict access to an Amazon S3 origin</a>.</p>
+			</li></ul></div>
+		<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If the origin is an Amazon S3 bucket, the bucket name must conform to DNS naming
+				requirements. For more information, go to <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/BucketRestrictions.html">Bucket restrictions and limitations</a> in the
+					<em>Amazon Simple Storage Service User Guide</em>.</p></div></div>
+		<p>When you change the value of <b>Origin domain</b> for an origin, CloudFront
+			immediately begins replicating the change to CloudFront edge locations. Until the distribution
+			configuration is updated in a given edge location, CloudFront continues to forward requests to
+			the previous origin. As soon as the distribution configuration is updated in that edge
+			location, CloudFront begins to forward requests to the new origin.</p>
+		<p>Changing the origin does not require CloudFront to repopulate edge caches with objects from
+			the new origin. As long as the viewer requests in your application have not changed,
+			CloudFront continues to serve objects that are already in an edge cache until the TTL on each
+			object expires or until seldom-requested objects are evicted. </p>
+	 
+		<h2 id="DownloadDistValuesOriginProtocolPolicy">Protocol (custom origins only)</h2>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This applies only to custom origins.</p></div></div>
+		<p>The protocol policy that you want CloudFront to use when fetching objects from your origin. </p>
+		<p>Choose one of the following values:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>HTTP only:</b> CloudFront uses only HTTP to access the
+					origin.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p><b>HTTP only</b> is the default setting when the origin is
+						an Amazon S3 static website hosting endpoint, because Amazon S3 doesn’t support HTTPS
+						connections for static website hosting endpoints. The CloudFront console does not
+						support changing this setting for Amazon S3 static website hosting
+						endpoints.</p></div></div>
+			</li><li class="listitem">
+				<p><b>HTTPS only:</b> CloudFront uses only HTTPS to access the
+					origin.</p>
+			</li><li class="listitem">
+				<p><b>Match viewer:</b> CloudFront communicates with your origin using
+					HTTP or HTTPS, depending on the protocol of the viewer request. CloudFront caches the
+					object only once even if viewers make requests using both HTTP and HTTPS
+					protocols.</p>
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>For HTTPS viewer requests that CloudFront forwards to this origin, one of the
+						domain names in the SSL/TLS certificate on your origin server must match the
+						domain name that you specify for <b>Origin domain</b>.
+						Otherwise, CloudFront responds to the viewer requests with an HTTP status code 502
+						(Bad Gateway) instead of returning the requested object. For more
+						information, see <a href="./cnames-and-https-requirements.html">Requirements for using SSL/TLS certificates with CloudFront</a>.</p></div></div>
+			</li></ul></div>
+		<div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#DownloadDistValuesHTTPPort">HTTP port</a></p></li><li><p><a href="#DownloadDistValuesHTTPSPort">HTTPS port</a></p></li><li><p><a href="#DownloadDistValuesOriginSSLProtocols">Minimum origin SSL protocol</a></p></li></ul></div>
+		 
+			<h3 id="DownloadDistValuesHTTPPort">HTTP port</h3>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This applies only to custom origins.</p></div></div>
+			<p>(Optional) You can specify the HTTP port on which the custom origin listens. Valid
+				values include ports 80, 443, and 1024 to 65535. The default value is port
+				80.</p>
+			<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Port 80 is the default setting when the origin is an Amazon S3 static website
+					hosting endpoint, because Amazon S3 only supports port 80 for static website hosting
+					endpoints. The CloudFront console does not support changing this setting for Amazon S3
+					static website hosting endpoints.</p></div></div>
+		 
+		 
+			<h3 id="DownloadDistValuesHTTPSPort">HTTPS port</h3>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This applies only to custom origins.</p></div></div>
+			<p>(Optional) You can specify the HTTPS port on which the custom origin listens.
+				Valid values include ports 80, 443, and 1024 to 65535. The default value is port
+				443. When <b>Protocol</b> is set to <b>HTTP only</b>,
+				you cannot specify a value for <b>HTTPS port</b>.</p>
+		 
+		 
+			<h3 id="DownloadDistValuesOriginSSLProtocols">Minimum origin SSL protocol</h3>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This applies only to custom origins.</p></div></div>
+			<p>Choose the minimum TLS/SSL protocol that CloudFront can use when it establishes an HTTPS
+				connection to your origin. Lower TLS protocols are less secure, so we recommend that
+				you choose the latest TLS protocol that your origin supports. When
+					<b>Protocol</b> is set to <b>HTTP only</b>, you
+				cannot specify a value for <b>Minimum origin SSL protocol</b>.</p>
+			<p>If you use the CloudFront API to set the TLS/SSL protocol for CloudFront to use, you cannot
+				set a minimum protocol. Instead, you specify all of the TLS/SSL protocols that CloudFront
+				can use with your origin. For more information, see <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_OriginSslProtocols.html">OriginSslProtocols</a> in the
+					<em>Amazon CloudFront API Reference</em>.</p>
+		 
+	 
+		<h2 id="DownloadDistValuesOriginPath">Origin path</h2>
+		<p>If you want CloudFront to request your content from a directory in your origin, enter the
+			directory path, beginning with a slash (/). CloudFront appends the directory path to the value
+			of <b>Origin domain</b>, for example,
+				<code class="userinput">cf-origin.example.com/production/images</code>. Do not add a slash
+			(/) at the end of the path.</p>
+		<p>For example, suppose you’ve specified the following values for your
+			distribution:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>Origin domain</b> – An Amazon S3 bucket named
+						<code class="userinput">amzn-s3-demo-bucket</code></p>
+			</li><li class="listitem">
+				<p><b>Origin path</b> –
+					<code class="userinput">/production</code></p>
+			</li><li class="listitem">
+				<p><b>Alternate domain names (CNAME)</b> –
+						<code class="userinput">example.com</code></p>
+			</li></ul></div>
+		<p>When a user enters <code class="code">example.com/index.html</code> in a browser, CloudFront sends a
+			request to Amazon S3 for <code class="code">amzn-s3-demo-bucket/production/index.html</code>.</p>
+		<p>When a user enters <code class="code">example.com/acme/index.html</code> in a browser, CloudFront sends a
+			request to Amazon S3 for <code class="code">amzn-s3-demo-bucket/production/acme/index.html</code>.</p>
+	 
+		<h2 id="DownloadDistValuesId">Name</h2>
+		<p>A name is a string that uniquely identifies this origin in this distribution. If you
+			create cache behaviors in addition to the default cache behavior, you use the name that
+			you specify here to identify the origin that you want CloudFront to route a request to when
+			the request matches the path pattern for that cache behavior.</p>
+	 
+		<h2 id="DownloadDistValuesOAIRestrictBucketAccess">Origin access (Amazon S3 origins only)</h2>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This applies only to Amazon S3 bucket origins (those that are
+        <em>not</em> using the S3 static website endpoint).</p></div></div>
+		<p>Choose <b>Origin access control settings (recommended)</b> if you want
+			to make it possible to restrict access to an Amazon S3 bucket origin to only specific CloudFront
+			distributions.</p>
+		<p>Choose <b>Public</b> if the Amazon S3 bucket origin is publicly
+			accessible.</p>
+		<p>For more information, see <a href="./private-content-restricting-access-to-s3.html">Restrict access to an Amazon S3 origin</a>.</p>
+		<p>For information about how to require users to access objects on a custom origin by
+			using only CloudFront URLs, see <a href="./private-content-overview.html#forward-custom-headers-restrict-access">Restrict access to files on custom origins</a>.</p>
+	 
+		<h2 id="DownloadDistValuesOriginCustomHeaders">Add custom header</h2>
+		<p>If you want CloudFront to add custom headers whenever it sends a request to your origin,
+			specify the header name and its value. For more information, see <a href="./add-origin-custom-headers.html">Add custom headers to origin requests</a>.</p>
+		<p>For the current maximum number of custom headers that you can add, the maximum length
+			of a custom header name and value, and the maximum total length of all header names and
+			values, see <a href="./cloudfront-limits.html">Quotas</a>.</p>
+	 
+		<h2 id="create-update-fields-origin-shield">Enable Origin Shield</h2>
+		<p>Choose <b>Yes</b> to enable CloudFront Origin Shield. For more information
+			about Origin Shield, see <a href="./origin-shield.html">Use Amazon CloudFront Origin Shield</a>.</p>
+	 
+		<h2 id="origin-connection-attempts">Connection attempts</h2>
+		<p>You can set the number of times that CloudFront attempts to connect to the origin. You can
+			specify 1, 2, or 3 as the number of attempts. The default number (if you don’t specify
+			otherwise) is 3.</p>
+		<p>Use this setting together with <b>Connection timeout</b> to specify how
+			long CloudFront waits before attempting to connect to the secondary origin or returning an
+			error response to the viewer. By default, CloudFront waits as long as 30 seconds (3 attempts
+			of 10 seconds each) before attempting to connect to the secondary origin or returning an
+			error response. You can reduce this time by specifying fewer attempts, a shorter
+			connection timeout, or both.</p>
+		<p>If the specified number of connection attempts fail, CloudFront does one of the
+			following:</p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>If the origin is part of an origin group, CloudFront attempts to connect to the
+					secondary origin. If the specified number of connection attempts to the
+					secondary origin fail, then CloudFront returns an error response to the viewer.</p>
+			</li><li class="listitem">
+				<p>If the origin is not part of an origin group, CloudFront returns an error response
+					to the viewer.</p>
+			</li></ul></div>
+		<p>For a custom origin (including an Amazon S3 bucket that’s configured with static website
+			hosting), this setting also specifies the number of times that CloudFront attempts to get a
+			response from the origin. For more information, see <a href="#DownloadDistValuesOriginResponseTimeout">Response timeout</a>.</p>
+	 
+		<h2 id="origin-connection-timeout">Connection timeout</h2>
+		<p>The connection timeout is the number of seconds that CloudFront waits when trying to
+			establish a connection to the origin. You can specify a number of seconds between 1 and
+			10 (inclusive). The default timeout (if you don’t specify otherwise) is 10
+			seconds.</p>
+		<p>Use this setting together with <b>Connection attempts</b> to specify how
+			long CloudFront waits before attempting to connect to the secondary origin or before returning
+			an error response to the viewer. By default, CloudFront waits as long as 30 seconds (3
+			attempts of 10 seconds each) before attempting to connect to the secondary origin or
+			returning an error response. You can reduce this time by specifying fewer attempts, a
+			shorter connection timeout, or both.</p>
+		<p>If CloudFront doesn’t establish a connection to the origin within the specified number of
+			seconds, CloudFront does one of the following:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>If the specified number of <b>Connection attempts</b> is more
+					than 1, CloudFront tries again to establish a connection. CloudFront tries up to 3 times, as
+					determined by the value of <b>Connection attempts</b>.</p>
+			</li><li class="listitem">
+				<p>If all the connection attempts fail and the origin is part of an origin group,
+					CloudFront attempts to connect to the secondary origin. If the specified number of
+					connection attempts to the secondary origin fail, then CloudFront returns an error
+					response to the viewer.</p>
+			</li><li class="listitem">
+				<p>If all the connection attempts fail and the origin is not part of an origin
+					group, CloudFront returns an error response to the viewer.</p>
+			</li></ul></div>
+	 
+		<h2 id="DownloadDistValuesOriginResponseTimeout">Response timeout</h2>
+		<p>The origin response timeout, also known as the <em>origin read
+				timeout</em> or <em>origin request timeout</em>, applies to both
+			of the following values:</p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>How long (in seconds) CloudFront waits for a response after forwarding a request to
+					the origin.</p>
+			</li><li class="listitem">
+				<p>How long (in seconds) CloudFront waits after receiving a packet of a response from
+					the origin and before receiving the next packet.</p>
+			</li></ul></div>
+		<div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>If you want to increase the timeout value because viewers are experiencing HTTP
+				504 status code errors, consider exploring other ways to eliminate those errors
+				before changing the timeout value. See the troubleshooting suggestions in <a href="./http-504-gateway-timeout.html">HTTP 504 status code (Gateway Timeout)</a>.</p></div></div>
+		<p>CloudFront behavior depends on the HTTP method in the viewer request:</p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><code class="code">GET</code> and <code class="code">HEAD</code> requests – If the origin doesn’t
+					respond or stops responding within the duration of the response timeout, CloudFront
+					drops the connection. CloudFront tries again to connect according to the value of
+						<a href="#origin-connection-attempts">Connection attempts</a>.</p>
+			</li><li class="listitem">
+				<p><code class="code">DELETE</code>, <code class="code">OPTIONS</code>, <code class="code">PATCH</code>,
+						<code class="code">PUT</code>, and <code class="code">POST</code> requests – If the origin
+					doesn’t respond for the duration of the read timeout, CloudFront drops the connection
+					and doesn’t try again to contact the origin. The client can resubmit the request
+					if necessary.</p>
+			</li></ul></div>
+	 
+		<h2 id="response-completion-timeout">Response completion timeout</h2>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Response completion timeout doesn't support the <a href="./continuous-deployment.html">continuous deployment</a> feature.</p></div></div>
+		<p>The time (in seconds) that a request from CloudFront to the origin can stay open and wait
+			for a response. If the complete response isn't received from the origin by this time,
+			CloudFront ends the connection.</p>
+		<p>Unlike <b>Response timeout</b>, which is the wait time for
+				<em>individual</em> response packets, <b>Response completion
+				timeout</b> is the <em>maximum</em> allowed amount of time that
+			CloudFront waits for the response to complete. You can use this setting to ensure that CloudFront
+			doesn't wait indefinitely for a slow or unresponsive origin, even if other timeout
+			settings allow for a longer wait.</p>
+		<p>This maximum timeout includes what you specified for other timeout settings and the
+			number of <b>Connection attempts</b> for each retry. You can use these
+			settings together to specify how long CloudFront waits for the full request and when to end
+			the request, regardless if it's complete or not.</p>
+		<p>For example, if you set the following settings:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b>Connection attempts</b> is 3</p>
+			</li><li class="listitem">
+				<p><b>Connection timeout </b> is 10 seconds</p>
+			</li><li class="listitem">
+				<p><b>Response timeout</b> is 30 seconds</p>
+			</li><li class="listitem">
+				<p><b>Response completion timeout</b> is 60 seconds</p>
+			</li></ul></div>
+		<p>This means CloudFront will try to connect to the origin (up to 3 total attempts), with each
+			connection attempt timing out at 10 seconds. Once connected, CloudFront will wait up to 30
+			seconds for the origin to respond to the request until it receives the last packet of
+			the response.</p>
+		<p>Regardless of the number of connection attempts or the response timeout, CloudFront will end
+			the connection if the complete response from the origin takes longer than 60 seconds to
+			complete. CloudFront will then return to the viewer a <a href="./http-504-gateway-timeout.html">HTTP 504 status code (Gateway Timeout)</a> error response or a custom error response if you specified one.</p>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Notes</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>If you set a value for response completion timeout, the value must be
+						equal to or greater than the value for the <a href="#DownloadDistValuesOriginResponseTimeout">response timeout
+							(origin read timeout)</a>.</p>
+				</li><li class="listitem">
+					<p>If you don't set a value for the response completion timeout, CloudFront doesn't
+						enforce a maximum value.</p>
+				</li></ul></div></div></div>
+	 
+		<h2 id="DownloadDistValuesOriginKeepaliveTimeout">Keep-alive timeout (custom and VPC origins only)</h2>
+		<p>The keep-alive timeout is how long (in seconds) CloudFront tries to maintain a connection to
+			your custom origin after it gets the last packet of a response. Maintaining a persistent
+			connection saves the time that is required to re-establish the TCP connection and
+			perform another TLS handshake for subsequent requests. Increasing the keep-alive timeout
+			helps improve the request-per-connection metric for distributions.</p>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For the <b>Keep-alive timeout</b> value to have an effect, your
+				origin must be configured to allow persistent connections.</p></div></div>
+	 
+		<h2 id="response-keep-alive-timeout-quota">Response and keep-alive timeout quotas</h2>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>For <a href="#DownloadDistValuesOriginResponseTimeout">response
+						timeout,</a> the default is 30 seconds. </p>
+			</li><li class="listitem">
+				<p>For <a href="#DownloadDistValuesOriginKeepaliveTimeout">keep-alive
+						timeout</a>, the default is 5 seconds.</p>
+			</li></ul></div>
+		<p>If you request a timeout increase for your AWS account, update your distribution
+			origins so that they have the response timeout and keep-alive timeout values that you
+			want. A quota increase for your account doesn't automatically update your origins. For
+			example, if you're using a Lambda@Edge function to set a keep-alive timeout of 90
+			seconds, your origin must already have a keep-alive timeout of 90 seconds or more.
+			Otherwise, your Lambda@Edge function might fail to execute.</p>
+		<p>For more information about distribution quotas, including how to request an increase,
+			see <a href="./cloudfront-limits.html#limits-web-distributions">General quotas on distributions</a>.</p>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./distribution-web-values-specify.html">All distribution settings</div><div id="next" class="next-link" accesskey="n" href="./DownloadDistValuesCacheBehavior.html">Cache behavior settings</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

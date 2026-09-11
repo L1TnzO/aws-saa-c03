@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Exporting SBOMs with Amazon Inspector - Amazon Inspector</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sbom-export" /><meta name="default_state" content="sbom-export" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html" /><meta name="description" content="Learn how to use Amazon Inspector to export SBOMs for your resources." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Inspector" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Amazon Inspector is a vulnerability management service that automatically discovers workloads and continually scans them for software vulnerabilities and unintended network exposure." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/inspector/latest/user/sbom-export.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/inspector/latest/user/sbom-export.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/inspector/latest/user/sbom-export.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/inspector/latest/user/sbom-export.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/inspector/latest/user/sbom-export.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/inspector/latest/user/sbom-export.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/inspector/latest/user/sbom-export.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/inspector/latest/user/sbom-export.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/inspector/latest/user/sbom-export.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/inspector/latest/user/sbom-export.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/inspector/latest/user/sbom-export.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/inspector/latest/user/sbom-export.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/inspector/latest/user/sbom-export.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/inspector/latest/user/sbom-export.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/inspector/latest/user/sbom-export.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/inspector/latest/user/sbom-export.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/inspector/latest/user/sbom-export.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/inspector/latest/user/sbom-export.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html" hreflang="x-default" /><meta name="feedback-item" content="Inspector" /><meta name="this_doc_product" content="Amazon Inspector" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'inspector'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Exporting SBOMs with Amazon Inspector" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sbom-export.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Exporting SBOMs with Amazon Inspector - Amazon Inspector</title><meta name="pdf" content="/pdfs/inspector/latest/user/inspector-guide.pdf#sbom-export" /><meta name="rss" content="inspector-guide.rss" /><meta name="forums" content="https://repost.aws/tags/TAh3ZC0bgYTTu2DwuFqLpicw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Inspector&amp;topic_url=https://docs.aws.amazon.com/en_us/inspector/latest/user/sbom-export.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/inspector/latest/user/sbom-export.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/inspector/latest/user/sbom-export.html" /><meta name="keywords" content="Amazon Inspector,inspector,software,bill,of,materials,SBOM,export" /><link rel="alternate" type="text/markdown" href="sbom-export.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Inspector",
+        "item" : "https://docs.aws.amazon.com/inspector/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/inspector/latest/user"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Exporting SBOMs with Amazon Inspector",
+        "item" : "https://docs.aws.amazon.com/inspector/latest/user/sbom-export.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/inspector/latest/user/inspector-guide.pdf#sbom-export" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/inspector/index.html">Inspector</a><a href="what-is-inspector.html">User Guide</a></div><div id="page-toc-src"><a href="#sbom-formats">Amazon Inspector formats</a><a href="#sbom-filters">Filters for SBOMs</a><a href="#sbom-create">Configure and export SBOMs</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sbom-export">Exporting SBOMs with Amazon Inspector</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>
+     A software bill of materials (SBOM) is a nested inventory of all the open-source and third-party software components in your codebase.
+     Amazon Inspector provides SBOMs for individual resources in your environment.
+     You can use the Amazon Inspector console or Amazon Inspector API to generate SBOMs for your resources.
+     You can export SBOMs for all resources that Amazon Inspector supports and monitors.
+     Exported SBOMs provide information about your software supply.
+     You can review the status of your resources by <a href="https://docs.aws.amazon.com/inspector/latest/user/assessing-coverage.html">assessing the coverage of your AWS environment</a>.
+     This section describes how to configure and export SBOMs.
+   </p><p>
+    Some software components and package managers use version ranges or dynamic references instead of fixed versions for dependencies.
+    This practice creates unresolved hashes, where Amazon Inspector identifies a hash or jar file but cannot map it to a specific name and version for vulnerability detection.
+    Amazon Inspector now includes these unresolved hashes in Software Bill of Materials (SBOM) exports.
+    While these packages cannot be scanned for vulnerabilities, their hash values are available within the exported components list.
+  </p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>
+       As of February 28, 2026, Amazon Inspector now supports exporting SBOMs for agentless Amazon EC2 Windows instances. Exporting SBOMs for agent-based Amazon EC2 Windows instances is currently not supported.
+     </p></div></div>
+        <h2 id="sbom-formats">Amazon Inspector formats</h2>
+        <p>Amazon Inspector supports exporting SBOMs in <b>CycloneDX 1.4</b> and <b>SPDX 2.3</b> compatible formats. Amazon Inspector exports SBOMs as <code class="code">JSON</code> files to the Amazon S3 bucket you choose.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>SPDX format exports from Amazon Inspector are compatible with systems using <b>SPDX
+            2.3</b>, however they don't contain the Creative Commons Zero (CC0)
+          field.  This is because including this field would allow users to redistribute or edit the material.</p></div></div>
+        <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Example of CycloneDX 1.4 SBOM format from Amazon Inspector" id="cyclone-schema" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON ">
+                    <span>{</span>
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "metadata": <span>{</span>
+    "timestamp": "2023-06-02T01:17:46Z",
+    "component": null,
+    "properties": [
+      <span>{</span>
+        "name": "imageId",
+        "value": "sha256:c8ee97f7052776ef223080741f61fcdf6a3a9107810ea9649f904aa4269fdac6"
+      },
+      <span>{</span>
+        "name": "architecture",
+        "value": "arm64"
+      },
+      <span>{</span>
+        "name": "accountId",
+        "value": "111122223333"
+      },
+      <span>{</span>
+        "name": "resourceType",
+        "value": "AWS_ECR_CONTAINER_IMAGE"
+      }
+    ]
+  },
+  "components": [
+    <span>{</span>
+      "type": "library",
+      "name": "pip",
+      "purl": "pkg:pypi/pip@22.0.4?path=usr/local/lib/python3.8/site-packages/pip-22.0.4.dist-info/METADATA",
+      "bom-ref": "98dc550d1e9a0b24161daaa0d535c699"
+    },
+    <span>{</span>
+      "type": "application",
+      "name": "libss2",
+      "purl": "pkg:dpkg/libss2@1.44.5-1+deb10u3?arch=ARM64&amp;epoch=0&amp;upstream=libss2-1.44.5-1+deb10u3.src.dpkg",
+      "bom-ref": "2f4d199d4ef9e2ae639b4f8d04a813a2"
+    },
+    <span>{</span>
+      "type": "application",
+      "name": "liblz4-1",
+      "purl": "pkg:dpkg/liblz4-1@1.8.3-1+deb10u1?arch=ARM64&amp;epoch=0&amp;upstream=liblz4-1-1.8.3-1+deb10u1.src.dpkg",
+      "bom-ref": "9a6be8907ead891b070e60f5a7b7aa9a"
+    },
+    <span>{</span>
+      "type": "application",
+      "name": "mawk",
+      "purl": "pkg:dpkg/mawk@1.3.3-17+b3?arch=ARM64&amp;epoch=0&amp;upstream=mawk-1.3.3-17+b3.src.dpkg",
+      "bom-ref": "c2015852a729f97fde924e62a16f78a5"
+    },
+    <span>{</span>
+      "type": "application",
+      "name": "libgmp10",
+      "purl": "pkg:dpkg/libgmp10@6.1.2+dfsg-4+deb10u1?arch=ARM64&amp;epoch=2&amp;upstream=libgmp10-6.1.2+dfsg-4+deb10u1.src.dpkg",
+      "bom-ref": "52907290f5beef00dff8da77901b1085"
+    },
+    <span>{</span>
+      "type": "application",
+      "name": "ncurses-bin",
+      "purl": "pkg:dpkg/ncurses-bin@6.1+20181013-2+deb10u3?arch=ARM64&amp;epoch=0&amp;upstream=ncurses-bin-6.1+20181013-2+deb10u3.src.dpkg",
+      "bom-ref": "cd20cfb9ebeeadba3809764376f43bce"
+    }
+  ],
+  "vulnerabilities": [
+    <span>{</span>
+      "id": "CVE-2022-40897",
+      "affects": [
+        <span>{</span>
+          "ref": "a74a4862cc654a2520ec56da0c81cdb3"
+        },
+        <span>{</span>
+          "ref": "0119eb286405d780dc437e7dbf2f9d9d"
+        }
+      ]
+    }
+  ]
+}
+                </code></pre></awsui-expandable-section><awsui-expandable-section variant="container" header="Example of SPDX 2.3 SBOM format from Amazon Inspector" id="cyclone-schema" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON ">
+<span>{</span>
+	"name": "409870544328/EC2/i-022fba820db137c64/ami-074ea14c08effb2d8",
+	"spdxVersion": "SPDX-2.3",
+	"creationInfo": <span>{</span>
+		"created": "2023-06-02T21:19:22Z",
+		"creators": [
+			"Organization: 409870544328",
+			"Tool: Amazon Inspector SBOM Generator"
+		]
+	},
+	"documentNamespace": "EC2://i-022fba820db137c64/AMAZON_LINUX_2/null/x86_64",
+	"comment": "",
+	"packages": [<span>{</span>
+			"name": "elfutils-libelf",
+			"versionInfo": "0.176-2.amzn2",
+			"downloadLocation": "NOASSERTION",
+			"sourceInfo": "/var/lib/rpm/Packages",
+			"filesAnalyzed": false,
+			"externalRefs": [<span>{</span>
+				"referenceCategory": "PACKAGE-MANAGER",
+				"referenceType": "purl",
+				"referenceLocator": "pkg:rpm/elfutils-libelf@0.176-2.amzn2?arch=X86_64&amp;epoch=0&amp;upstream=elfutils-libelf-0.176-2.amzn2.src.rpm"
+			}],
+			"SPDXID": "SPDXRef-Package-rpm-elfutils-libelf-ddf56a513c0e76ab2ae3246d9a91c463"
+		},
+		<span>{</span>
+			"name": "libcurl",
+			"versionInfo": "7.79.1-1.amzn2.0.1",
+			"downloadLocation": "NOASSERTION",
+			"sourceInfo": "/var/lib/rpm/Packages",
+			"filesAnalyzed": false,
+			"externalRefs": [<span>{</span>
+					"referenceCategory": "PACKAGE-MANAGER",
+					"referenceType": "purl",
+					"referenceLocator": "pkg:rpm/libcurl@7.79.1-1.amzn2.0.1?arch=X86_64&amp;epoch=0&amp;upstream=libcurl-7.79.1-1.amzn2.0.1.src.rpm"
+				},
+				<span>{</span>
+					"referenceCategory": "SECURITY",
+					"referenceType": "vulnerability",
+					"referenceLocator": "CVE-2022-32205"
+				}
+			],
+			"SPDXID": "SPDXRef-Package-rpm-libcurl-710fb33829bc5106559bcd380cddb7d5"
+		},
+		<span>{</span>
+			"name": "hunspell-en-US",
+			"versionInfo": "0.20121024-6.amzn2.0.1",
+			"downloadLocation": "NOASSERTION",
+			"sourceInfo": "/var/lib/rpm/Packages",
+			"filesAnalyzed": false,
+			"externalRefs": [<span>{</span>
+				"referenceCategory": "PACKAGE-MANAGER",
+				"referenceType": "purl",
+				"referenceLocator": "pkg:rpm/hunspell-en-US@0.20121024-6.amzn2.0.1?arch=NOARCH&amp;epoch=0&amp;upstream=hunspell-en-US-0.20121024-6.amzn2.0.1.src.rpm"
+			}],
+			"SPDXID": "SPDXRef-Package-rpm-hunspell-en-US-de19ae0883973d6cea5e7e079d544fe5"
+		},
+		<span>{</span>
+			"name": "grub2-tools-minimal",
+			"versionInfo": "2.06-2.amzn2.0.6",
+			"downloadLocation": "NOASSERTION",
+			"sourceInfo": "/var/lib/rpm/Packages",
+			"filesAnalyzed": false,
+			"externalRefs": [<span>{</span>
+					"referenceCategory": "PACKAGE-MANAGER",
+					"referenceType": "purl",
+					"referenceLocator": "pkg:rpm/grub2-tools-minimal@2.06-2.amzn2.0.6?arch=X86_64&amp;epoch=1&amp;upstream=grub2-tools-minimal-2.06-2.amzn2.0.6.src.rpm"
+				},
+				<span>{</span>
+					"referenceCategory": "SECURITY",
+					"referenceType": "vulnerability",
+					"referenceLocator": "CVE-2021-3981"
+				}
+			],
+			"SPDXID": "SPDXRef-Package-rpm-grub2-tools-minimal-c56b7ea76e5a28ab8f232ef6d7564636"
+		},
+		<span>{</span>
+			"name": "unixODBC-devel",
+			"versionInfo": "2.3.1-14.amzn2",
+			"downloadLocation": "NOASSERTION",
+			"sourceInfo": "/var/lib/rpm/Packages",
+			"filesAnalyzed": false,
+			"externalRefs": [<span>{</span>
+				"referenceCategory": "PACKAGE-MANAGER",
+				"referenceType": "purl",
+				"referenceLocator": "pkg:rpm/unixODBC-devel@2.3.1-14.amzn2?arch=X86_64&amp;epoch=0&amp;upstream=unixODBC-devel-2.3.1-14.amzn2.src.rpm"
+			}],
+			"SPDXID": "SPDXRef-Package-rpm-unixODBC-devel-1bb35add92978df021a13fc9f81237d2"
+		}
+	],
+	"relationships": [<span>{</span>
+			"spdxElementId": "SPDXRef-DOCUMENT",
+			"relatedSpdxElement": "SPDXRef-Package-rpm-elfutils-libelf-ddf56a513c0e76ab2ae3246d9a91c463",
+			"relationshipType": "DESCRIBES"
+		},
+		<span>{</span>
+			"spdxElementId": "SPDXRef-DOCUMENT",
+			"relatedSpdxElement": "SPDXRef-Package-rpm-yajl-8476ce2db98b28cfab2b4484f84f1903",
+			"relationshipType": "DESCRIBES"
+		},
+		<span>{</span>
+			"spdxElementId": "SPDXRef-DOCUMENT",
+			"relatedSpdxElement": "SPDXRef-Package-rpm-unixODBC-devel-1bb35add92978df021a13fc9f81237d2",
+			"relationshipType": "DESCRIBES"
+		}
+	],
+	"SPDXID": "SPDXRef-DOCUMENT"
+}
+                </code></pre></awsui-expandable-section></div>
+     
+    <h2 id="sbom-filters">Filters for SBOMs</h2>
+    <p>When you export SBOMs you can include filters to create reports for specific subsets of resources. If you don’t supply a filter the SBOMs for all active, supported resources are exported. And if you are a delegated administrator this includes resources for all members too. The following filters are available:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>
+          <b>AccountID</b> —
+          This filter can be used to export SBOMs for any resources associated with specific
+            Account ID.
+        </p>
+      </li><li class="listitem">
+        <p>
+          <b>EC2 instance tag</b> —
+          This filter can be used to export SBOMs for EC2 instances with specific tags.
+        </p>
+      </li><li class="listitem">
+
+        <p><b>Function name</b> —
+         This filter can be used to export SBOMs for specific Lambda functions.
+          </p>
+      </li><li class="listitem">
+        <p>
+          <b>Image tag</b> —
+          This filter can be used to export SBOMs for container images with specific
+            tags.
+        </p>
+      </li><li class="listitem">
+        <p>
+          <b>Lambda function tag</b> — This filter can be used to export SBOMs for Lambda functions with specific
+            tags.
+        </p>
+      </li><li class="listitem">
+        <p>
+          <b>Resource type</b> —
+          This filter can be used to filter resource type: EC2/ECR/Lambda.
+        </p>
+      </li><li class="listitem">
+        <p>
+          <b>Resource ID</b> — This filter can be used to export an SBOM for a specific resource.
+        </p>
+      </li><li class="listitem">
+        <p>
+          <b>Repository name</b> —This filter can be used to generate SBOMs for container images in specific
+            repositories.
+        </p>
+      </li></ul></div>
+
+
+   
+    <h2 id="sbom-create">Configure and export SBOMs</h2>
+    <p>To export SBOMs, you must first configure an Amazon S3 bucket and a AWS KMS key that Amazon Inspector is allowed to use. You can use filters to export SBOMs for specific subsets of your resources. To export SBOMs for multiple accounts in an AWS Organization, follow these steps while signed in as the Amazon Inspector delegated administrator.
+    </p>
+<div class="itemizedlist">
+
+    <h6>Prerequisites</h6>
+
+   
+   
+   
+
+<ul class="itemizedlist"><li class="listitem"><p>Supported resources that are being actively monitored by Amazon Inspector.</p></li><li class="listitem"><p>An Amazon S3 bucket configured with a policy that allows Amazon Inspector to add object to. For information on configuring the policy see <a href="./findings-managing-exporting-reports.html#findings-managing-exporting-permissions">Configure export permissions</a>.</p></li><li class="listitem"><p>An AWS KMS key configured with a policy that allows Amazon Inspector to use to encrypt your reports. For information on configuring the policy see <a href="./findings-managing-exporting-reports.html#findings-managing-exporting-KMS">Configure an AWS KMS key for export</a>.</p></li></ul></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have previously configured an Amazon S3 bucket and an AWS KMS key for <a href="./findings-managing-exporting-reports.html">findings export</a> you can use the same bucket and key for SBOM export.</p></div></div>
+
+    <p>Choose your preferred access method to export an SBOM.</p>
+    <awsdocs-tabs><dl style="display: none">
+      <dt>Console</dt><dd tab-id="console"><div class="procedure"><ol><li>
+            <p>
+              Sign in using your credentials, and then open the Amazon Inspector console at <a href="https://console.aws.amazon.com/inspector/v2/home" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/inspector/v2/home</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+            </p>
+          </li><li>
+            <p>Using the AWS Region selector in the upper-right corner of the page,
+              select the Region with the resources you want to export SBOM for.</p>
+          </li><li>
+            <p>
+              In the navigation pane, choose <b>Export SBOMs</b>.
+            </p>
+          </li><li>
+            <p>
+              (Optional) In the <b>Export SBOMs</b> page, use the <b>Add filter</b> menu to select a subset of resources to create reports for.  If no filter is provided Amazon Inspector will export reports for all active resources. If you are a delegated administrator this will include all active resources in your organization.
+            </p>
+          </li><li>
+            <p>Under <b>Export setting</b> select the format you want for the SBOM.</p>
+          </li><li>
+            <p>
+              Enter an <b>Amazon S3 URI</b> or choose <b>Browse Amazon S3</b> to select an Amazon S3 location to store the SBOM.
+            </p>
+          </li><li>
+            <p>
+              Enter a <b>AWS KMS key</b> configured for Amazon Inspector to use to encrypt your reports.
+            </p>
+          </li></ol></div></dd>
+      <dt>API</dt><dd tab-id="api"><div class="procedure"><ul><li>    <p>To export SBOMs for your resources programmatically, use the <a href="https://docs.aws.amazon.com/inspector/v2/APIReference/API_CreateSbomExport.html">CreateSbomExport</a> operation of the Amazon Inspector API.</p>
+            <p>In your request, use the <code class="code">reportFormat</code> parameter to specify the SBOM output format, choose <code class="code">CYCLONEDX_1_4</code> or <code class="code">SPDX_2_3</code>. The <code class="code">s3Destination</code> parameter is required and you must specify an S3 bucket configured with a policy that allows Amazon Inspector to write to it. Optionally use <code class="code">resourceFilterCriteria</code> parameters to limit the scope of the report to specific resources.</p></li></ul></div>
+
+  </dd>
+      <dt>AWS CLI</dt><dd tab-id="aws-cli"><div class="procedure"><ul><li>    <p>To export SBOMs for your resources using the AWS Command Line Interface run the following command:</p>
+            <p><code class="code">aws inspector2 create-sbom-export --report-format <code class="replaceable">FORMAT</code>  --s3-destination bucketName=<code class="replaceable">amzn-s3-demo-bucket1</code>,keyPrefix=<code class="replaceable">PREFIX</code>,kmsKeyArn=<code class="replaceable">arn:aws:kms:Region:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code></code></p>
+            <p>In your request, replace <code class="replaceable">FORMAT</code> with the format of your choice, <code class="code">CYCLONEDX_1_4</code> or <code class="code">SPDX_2_3</code>. Then replace the <code class="replaceable"><code class="code">user input placeholders</code></code> for the s3 destination with the name of the S3 bucket to export to, the prefix to use for the output in S3, and the ARN for the KMS key you are using to encrypt the reports.</p></li></ul></div>
+
+        </dd>
+    </dl></awsdocs-tabs>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./vulnerability-search.html">Searching the vulnerability database</div><div id="next" class="next-link" accesskey="n" href="./eventbridge-integration.html">EventBridge schema</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Inspector&amp;topic_url=https://docs.aws.amazon.com/en_us/inspector/latest/user/sbom-export.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Inspector&amp;topic_url=https://docs.aws.amazon.com/en_us/inspector/latest/user/sbom-export.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

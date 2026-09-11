@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Defining enhanced subscriptions filters in AWS AppSync - AWS AppSync GraphQL</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="aws-appsync-real-time-enhanced-filtering" /><meta name="default_state" content="aws-appsync-real-time-enhanced-filtering" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" /><meta name="description" content="Learn about enhanced subscription filtering in AWS AppSync." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS AppSync GraphQL" /><meta name="guide" content="Developer Guide" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" hreflang="x-default" /><meta name="feedback-item" content="AppSync" /><meta name="this_doc_product" content="AWS AppSync GraphQL" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'appsync'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Defining enhanced subscriptions filters in AWS AppSync" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="aws-appsync-real-time-enhanced-filtering.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Defining enhanced subscriptions filters in AWS AppSync - AWS AppSync GraphQL</title><meta name="pdf" content="/pdfs/appsync/latest/devguide/appsync-dg.pdf#aws-appsync-real-time-enhanced-filtering" /><meta name="forums" content="https://repost.aws/tags/TA-rppqfLWSMyo15gvoFCr5A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html" /><meta name="keywords" content="real-time data,WebSockets,pure WebSockets,MQTT,GraphQL,GraphQL schema subscriptions,subscriptions,subscription filtering,enhanced filtering,data filter" /><link rel="alternate" type="text/markdown" href="aws-appsync-real-time-enhanced-filtering.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS AppSync",
+        "item" : "https://docs.aws.amazon.com/appsync/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Designing GraphQL APIs with AWS AppSync",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/designing-a-graphql-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using subscriptions for real-time data applications in AWS AppSync",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-data.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Defining enhanced subscriptions filters in AWS AppSync",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-data.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/appsync/latest/devguide/appsync-dg.pdf#aws-appsync-real-time-enhanced-filtering" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/appsync/index.html">AWS AppSync</a><a href="what-is-appsync.html">Developer Guide</a></div><div id="page-toc-src"><a href="#aws-appsync-real-time-enhanced-filtering-using-subscription-filters">Defining subscriptions</a><a href="#aws-appsync-real-time-enhanced-filtering-defining-filters">Creating enhanced subscription filters</a><a href="#aws-appsync-real-time-enhanced-filters-nested-schema-fields.title">Defining enhanced filters for nested schema fields</a><a href="#aws-appsync-real-time-enhanced-filtering-defining-from-client">Defining enhanced filters from the client</a><a href="#aws-appsync-real-time-enhanced-filtering-additional-restrictions">Additional enhanced filtering restrictions</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="aws-appsync-real-time-enhanced-filtering">Defining enhanced subscriptions filters in AWS AppSync</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>As of Mar 13, 2025, you can build a real-time PubSub API powered by WebSockets using 
+        AWS AppSync Events. For more information, see <a href="https://docs.aws.amazon.com/appsync/latest/eventapi/publish-websocket.html">Publish events via WebSocket</a> in the <em>AWS AppSync Events 
+                Developer Guide</em>.</p></div></div><p>In AWS AppSync, you can define and enable business logic for data filtering on the
+            backend directly in the GraphQL API subscription resolvers by using filters that support
+            additional logical operators. You can configure these filters, unlike the subscription
+            arguments that are defined on the subscription query in the client. For more information
+            about using subscription arguments, see <a href="./aws-appsync-real-time-data.html#using-subscription-arguments">Using subscription arguments</a>. For a list of operators, see <a href="./resolver-util-reference.html">AWS AppSync resolver mapping template utility reference</a>.</p><p>For the purpose of this document, we divide real-time data filtering into the
+            following categories:</p><div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>Basic filtering</b> - Filtering based on
+                    client-defined arguments in the subscription query.</p>
+            </li><li class="listitem">
+                <p><b>Enhanced filtering</b> - Filtering based on logic
+                    defined centrally in the AWS AppSync service backend.</p>
+            </li></ul></div><p>The following sections explain how to configure enhanced subscription filters and show
+            their practical use.</p>
+            <h2 id="aws-appsync-real-time-enhanced-filtering-using-subscription-filters">Defining subscriptions in your GraphQL schema</h2>
+            <p>To use enhanced subscription filters, you define the subscription in the GraphQL
+                schema then define the enhanced filter using a filtering extension. To illustrate
+                how enhanced subscription filtering works in AWS AppSync, use the following GraphQL
+                schema, which defines a ticket management system API, as an example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">type Ticket <span>{</span>
+	id: ID
+	createdAt: AWSDateTime
+	content: String
+	severity: Int
+	priority: Priority
+	category: String
+	group: String
+	status: String
+	
+}
+
+type Mutation <span>{</span>
+	createTicket(input: TicketInput): Ticket
+}
+
+type Query <span>{</span>
+	getTicket(id: ID!): Ticket
+}
+
+type Subscription <span>{</span>
+	onSpecialTicketCreated: Ticket @aws_subscribe(mutations: ["createTicket"])
+	onGroupTicketCreated(group: String!): Ticket @aws_subscribe(mutations: ["createTicket"])
+}
+
+
+
+enum Priority <span>{</span>
+	none
+	lowest
+	low
+	medium
+	high
+	highest
+}
+
+input TicketInput <span>{</span>
+	content: String
+	severity: Int
+	priority: Priority
+	category: String
+	group: String
+	</code></pre>
+            <p>Suppose you create a <code class="code">NONE</code> data source for your API, then attach a
+                resolver to the <code class="code">createTicket</code> mutation using this data source. Your
+                handlers may look like this:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">import <span>{</span> util } from '@aws-appsync/utils';
+
+export function request(ctx) <span>{</span>
+	return <span>{</span>
+		payload: <span>{</span>
+			id: util.autoId(),
+			createdAt: util.time.nowISO8601(),
+			status: 'pending',
+			...ctx.args.input,
+		},
+	};
+}
+
+export function response(ctx) <span>{</span>
+	return ctx.result;
+}
+</code></pre>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Enhanced filters are enabled in the GraphQL resolver's handler in a given
+                    subscription. For more information, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-reference-js-version.html">Resolver
+                        reference</a>.</p></div></div>
+            <p>To implement the behavior of the enhanced filter, you must use the
+                    <code class="code">extensions.setSubscriptionFilter()</code> function to define a filter
+                expression evaluated against published data from a GraphQL mutation that the
+                subscribed clients might be interested in. For more information about the filtering
+                extensions, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/extensions-js.html">Extensions</a>.</p>
+            <p>The following section explains how to use filtering extensions to implement
+                enhanced filters.</p>
+         
+            <h2 id="aws-appsync-real-time-enhanced-filtering-defining-filters">Creating enhanced subscription filters using filtering extensions</h2>
+            <p>Enhanced filters are written in JSON in the response handler of the subscription's
+                resolvers. Filters can be grouped together in a list called a
+                    <code class="code">filterGroup</code>. Filters are defined using at least one rule, each with
+                fields, operators, and values. Let’s define a new resolver for
+                    <code class="code">onSpecialTicketCreated</code> that sets up an enhanced filter. You can
+                configure multiple rules in a filter that are evaluated using AND logic, while
+                multiple filters in a filter group are evaluated using OR logic:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">import <span>{</span> util, extensions } from '@aws-appsync/utils';
+
+export function request(ctx) <span>{</span>
+	// simplfy return null for the payload
+	return <span>{</span> payload: null };
+}
+
+export function response(ctx) <span>{</span>
+	const filter = <span>{</span>
+		or: [
+			<span>{</span> severity: <span>{</span> ge: 7 }, priority: <span>{</span> in: ['high', 'medium'] } },
+			<span>{</span> category: <span>{</span> eq: 'security' }, group: <span>{</span> in: ['admin', 'operators'] } },
+		],
+	};
+	extensions.setSubscriptionFilter(util.transform.toSubscriptionFilter(filter));
+
+  // important: return null in the response
+	return null;
+}</code></pre>
+            <p>Based
+                on the filters defined in the preceding example, important tickets are automatically
+                pushed to subscribed API clients if a ticket is created with:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">priority</code> level <code class="code">high</code> or
+                        <code class="code">medium</code></p>
+                    <p>AND </p>
+                </li><li class="listitem">
+                    <p><code class="code">severity</code> level greater than or equal to <code class="code">7</code>
+                            (<code class="code">ge</code>)</p>
+                </li></ul></div>
+            <p>OR </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">classification</code> ticket set to <code class="code">Security</code>
+                    </p>
+                    <p>AND </p>
+                </li><li class="listitem">
+                    <p><code class="code">group</code> assignment set to <code class="code">admin</code> or
+                            <code class="code">operators</code></p>
+                </li></ul></div>
+            <div class="mediaobject">
+                 
+                    <img src="/images/appsync/latest/devguide/images/aws-priority-example.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Example showing a ticket filtering query" style="max-width:80%" />
+                 
+                 
+            </div>
+            <p>Filters defined in the subscription resolver (enhanced filtering) take precedence
+                over filtering based only on subscription arguments (basic filtering). For more
+                information about using subscription arguments, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-data.html#using-subscription-arguments">Using subscription arguments</a>).</p>
+            <p>If an argument is defined and required in the GraphQL schema of the subscription,
+                filtering based on the given argument takes place only if the argument is defined as
+                a rule in the resolver's <code class="code">extensions.setSubscriptionFilter()</code> method.
+                However, if there are no <code class="code">extensions</code> filtering methods in the
+                subscription resolver, arguments defined in the client are used only for basic
+                filtering. You can't use basic filtering and enhanced filtering concurrently.</p>
+            <p>You can use the <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference-js.html"><code class="code">context</code> variable</a> in the subscription's filter
+                extension logic to access contextual information about the request. For example,
+                when using Amazon Cognito User Pools, OIDC, or Lambda custom authorizers for authorization,
+                you can retrieve information about your users in <code class="code">context.identity</code> when
+                the subscription is established. You can use that information to establish filters
+                based on your users’ identity.</p>
+            <p>Now assume that you want to implement the enhanced filter behavior for
+                    <code class="code">onGroupTicketCreated</code>. The <code class="code">onGroupTicketCreated</code>
+                subscription requires a mandatory <code class="code">group</code> name as an argument. When
+                created, tickets are automatically assigned a <code class="code">pending</code> status. You can
+                set up a subscription filter to only receive newly created tickets that belong to
+                the provided group:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">import <span>{</span> util, extensions } from '@aws-appsync/utils';
+
+export function request(ctx) <span>{</span>
+	// simplfy return null for the payload
+	return <span>{</span> payload: null };
+}
+
+export function response(ctx) <span>{</span>
+	const filter = <span>{</span> group: <span>{</span> eq: ctx.args.group }, status: <span>{</span> eq: 'pending' } };
+	extensions.setSubscriptionFilter(util.transform.toSubscriptionFilter(filter));
+
+	return null;
+}</code></pre>
+            <p>When data is published using a mutation like in the following example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">mutation CreateTicket <span>{</span>
+  createTicket(input: <span>{</span>priority: medium, severity: 2, group: "aws"}) <span>{</span>
+    id
+    priority
+    severity
+    status
+    group
+    createdAt
+  }
+}</code></pre>
+            <p>Subscribed clients listen for the data to be automatically pushed via WebSockets
+                as soon as a ticket is created with the <code class="code">createTicket</code> mutation:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">subscription OnGroup <span>{</span>
+  onGroupTicketCreated(group: "aws") <span>{</span>
+    category
+    status
+    severity
+    priority
+    id
+    group
+    createdAt
+    content
+  }
+}</code></pre>
+            <p>Clients can be subscribed without arguments because the filtering logic is
+                implemented in the AWS AppSync service with enhanced filtering, which simplifies the
+                client code. Clients receive data only if the defined filter criteria is met.</p>
+         
+            <h2 id="aws-appsync-real-time-enhanced-filters-nested-schema-fields.title">Defining enhanced filters for nested schema fields</h2>
+            <p>You can use enhanced subscription filtering to filter nested schema fields.
+                Suppose we modified the schema from the previous section to include location and
+                address types:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">type Ticket <span>{</span>
+	id: ID
+	createdAt: AWSDateTime
+	content: String
+	severity: Int
+	priority: Priority
+	category: String
+	group: String
+	status: String
+	location: ProblemLocation
+}
+
+type Mutation <span>{</span>
+	createTicket(input: TicketInput): Ticket
+}
+
+type Query <span>{</span>
+	getTicket(id: ID!): Ticket
+}
+
+type Subscription <span>{</span>
+	onSpecialTicketCreated: Ticket @aws_subscribe(mutations: ["createTicket"])
+	onGroupTicketCreated(group: String!): Ticket @aws_subscribe(mutations: ["createTicket"])
+}
+
+type ProblemLocation <span>{</span>
+	address: Address
+}
+
+type Address <span>{</span>
+	country: String
+}
+
+enum Priority <span>{</span>
+	none
+	lowest
+	low
+	medium
+	high
+	highest
+}
+
+input TicketInput <span>{</span>
+	content: String
+	severity: Int
+	priority: Priority
+	category: String
+	group: String
+	location: AWSJSON</code></pre>
+            <p>With this schema, you can use a <code class="code">.</code> separator to represent nesting. The
+                following example adds a filter rule for a nested schema field under
+                    <code class="code">location.address.country</code>. The subscription will be triggered if the
+                ticket's address is set to <code class="code">USA</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">import <span>{</span> util, extensions } from '@aws-appsync/utils';
+
+export const request = (ctx) =&gt; (<span>{</span> payload: null });
+
+export function response(ctx) <span>{</span>
+	const filter = <span>{</span>
+		or: [
+			<span>{</span> severity: <span>{</span> ge: 7 }, priority: <span>{</span> in: ['high', 'medium'] } },
+			<span>{</span> category: <span>{</span> eq: 'security' }, group: <span>{</span> in: ['admin', 'operators'] } },
+			<span>{</span> 'location.address.country': <span>{</span> eq: 'USA' } },
+		],
+	};
+	extensions.setSubscriptionFilter(util.transform.toSubscriptionFilter(filter));
+	return null;
+}</code></pre>
+            <p>In the example above, <code class="code">location</code> represents nesting level one,
+                    <code class="code">address</code> represents nesting level two, and <code class="code">country</code>
+                represents nesting level three, all of which are separated by the <code class="code">.</code>
+                separator.</p>
+            <p>You can test this subscription by using the <code class="code">createTicket</code>
+                mutation:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">mutation CreateTicketInUSA <span>{</span>
+  createTicket(input: <span>{</span>location: "<span>{</span>\"address\":<span>{</span>\"country\":\"USA\"}}"}) <span>{</span>
+    category
+    content
+    createdAt
+    group
+    id
+    location <span>{</span>
+      address <span>{</span>
+        country
+      }
+    }
+    priority
+    severity
+    status
+  }
+}</code></pre>
+         
+            <h2 id="aws-appsync-real-time-enhanced-filtering-defining-from-client">Defining enhanced filters from the client</h2>
+            <p>You can use basic filtering in GraphQL with <a href="https://docs.aws.amazon.com/appsync/latest/devguide/aws-appsync-real-time-data.html#using-subscription-arguments">subscriptions arguments</a>. The client that makes the call in the
+                subscription query defines the arguments' values. When enhanced filters are enabled
+                in an AWS AppSync subscription resolver with the <code class="code">extensions</code> filtering,
+                backend filters defined in the resolver take precedence and priority.</p>
+            <p>Configure dynamic, client-defined enhanced filters using a <code class="code">filter</code>
+                argument in the subscription. When you configure these filters, you must update the
+                GraphQL schema to reflect the new argument:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">...
+type Subscription <span>{</span>
+    onSpecialTicketCreated(filter: String): Ticket
+        @aws_subscribe(mutations: ["createTicket"])
+}
+...</code></pre>
+            <p>The client can then send a subscription query like in the following
+                example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">subscription onSpecialTicketCreated($filter: String) <span>{</span>
+     onSpecialTicketCreated(filter: $filter) <span>{</span>
+        id
+        group
+        description
+        priority
+        severity
+     }
+ }</code></pre>
+            <p>You can configure the query variable like the following example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript "><span>{</span>"filter" : "<span>{</span>\"severity\":<span>{</span>\"le\":2}}"}</code></pre>
+            <p>The <code class="code">util.transform.toSubscriptionFilter()</code> resolver utility can be
+                implemented in the subscription response mapping template to apply the filter
+                defined in the subscription argument for each client:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">import <span>{</span> util, extensions } from '@aws-appsync/utils';
+
+export function request(ctx) <span>{</span>
+	// simplfy return null for the payload
+	return <span>{</span> payload: null };
+}
+
+export function response(ctx) <span>{</span>
+	const filter = ctx.args.filter;
+	extensions.setSubscriptionFilter(util.transform.toSubscriptionFilter(filter));
+	return null;
+}</code></pre>
+            <p>With this strategy, clients can define their own filters that use enhanced
+                filtering logic and additional operators. Filters are assigned when a given client
+                invokes the subscription query in a secure WebSocket connection. For more
+                information about the transform utility for enhanced filtering, including the format
+                of the <code class="code">filter</code> query variable payload, see <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-reference-overview-js.html">JavaScript
+                    resolvers overview</a>.</p>
+         
+            <h2 id="aws-appsync-real-time-enhanced-filtering-additional-restrictions">Additional enhanced filtering restrictions</h2>
+            <p>Below are
+                several use cases where additional restrictions are placed on enhanced
+                filters:</p>
+            
+            <div class="itemizedlist">
+                 
+                
+                 
+                
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Enhanced filters don't support filtering for top-level object lists. In
+                        this use case, published data from the mutation will be ignored for enhanced
+                        subscriptions.</p>
+                </li><li class="listitem">
+                    <p>AWS AppSync supports up to five levels of nesting. Filters on schema fields
+                        past nesting level five will be ignored. Take the GraphQL response below.
+                        The <code class="code">continent</code> field in
+                            <code class="code">venue.address.country.metadata.continent</code> is allowed because
+                        it's a level five nest. However, <code class="code">financial</code> in
+                            <code class="code">venue.address.country.metadata.capital.financial</code> is a level
+                        six nest, so the filter won't work:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript "><span>{</span>
+    "data": <span>{</span>
+        "onCreateFilterEvent": <span>{</span>
+            "venue": <span>{</span>
+                "address": <span>{</span>
+                    "country": <span>{</span>
+                        "metadata": <span>{</span>
+                            "capital": <span>{</span>
+                                <b>"financial": "New York"</b>
+                            },
+                            <b>"continent" : "North America"</b>
+                        }
+                    },
+                    "state": "WA"
+                },
+                "builtYear": 2023
+            },
+            "private": false,
+        }
+    }
+}</code></pre>
+                </li></ul></div>
+            
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./aws-appsync-real-time-create-generic-api-serverless-websocket.html">Creating generic pub/sub APIs powered by serverless
+                WebSockets</div><div id="next" class="next-link" accesskey="n" href="./aws-appsync-real-time-invalidation.html">Unsubscribing WebSocket connections using filters</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/aws-appsync-real-time-enhanced-filtering.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

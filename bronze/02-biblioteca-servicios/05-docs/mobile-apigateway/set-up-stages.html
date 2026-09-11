@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Set up a stage for a REST API in API Gateway - Amazon API Gateway</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="set-up-stages" /><meta name="default_state" content="set-up-stages" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html" /><meta name="description" content="Learn how to set up and manage stages in Amazon API Gateway." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon API Gateway" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Build, deploy, maintain and call cloud-based APIs using Amazon API Gateway with this Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/set-up-stages.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/apigateway/latest/developerguide/set-up-stages.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/set-up-stages.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/apigateway/latest/developerguide/set-up-stages.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/set-up-stages.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/set-up-stages.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/set-up-stages.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/set-up-stages.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/set-up-stages.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/set-up-stages.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/set-up-stages.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/set-up-stages.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/set-up-stages.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/set-up-stages.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/set-up-stages.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/set-up-stages.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/set-up-stages.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/apigateway/latest/developerguide/set-up-stages.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-stages.html" hreflang="x-default" /><meta name="feedback-item" content="API Gateway" /><meta name="this_doc_product" content="Amazon API Gateway" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'apigateway'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Set up a stage for a REST API in API Gateway" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="set-up-stages.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Set up a stage for a REST API in API Gateway - Amazon API Gateway</title><meta name="pdf" content="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#set-up-stages" /><meta name="rss" content="amazon-apigateway-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAx94GNHn2R3Ot5Ab_HCvlng" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API%20Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/set-up-stages.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/set-up-stages.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/set-up-stages.html" /><meta name="keywords" content="API Gateway,Amazon API Gateway,serverless,cloud computing,REST API,HTTP API,WebSocket API,REST APIs,create an API,publish API,deploy,deploy API,invoke API,Stage,Logging and caching,override stage-level settings,method-level settings" /><link rel="alternate" type="text/markdown" href="set-up-stages.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "API Gateway REST APIs",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Publish REST APIs for customers to invoke",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/rest-api-publish.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Deploy REST APIs in API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Set up a stage for a REST API in API Gateway",
+        "item" : "https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/apigateway/latest/developerguide/apigateway-dg.pdf#set-up-stages" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/apigateway/index.html">Amazon API Gateway</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#how-to-create-stage-console">Create a new stage</a><a href="#how-to-stage-settings">Update stage settings</a><a href="#how-to-method-override">Override stage-level settings</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="set-up-stages">Set up a stage for a REST API in API Gateway</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A stage is a named reference to a deployment, which is a snapshot of the API. You use a <a href="https://docs.aws.amazon.com/apigateway/latest/api/API_Stage.html">Stage</a> to manage and optimize a particular deployment. For example, you
+    can configure stage settings to enable caching, customize request throttling, configure logging, define stage
+    variables, or attach a canary release for testing. The following section shows how to create and configure your stage.</p>
+      <h2 id="how-to-create-stage-console">Create a new stage</h2>
+      
+      <p> After the initial deployment, you can add more stages and associate them with
+        existing deployments. You can use the API Gateway console to create a new stage, or you can
+        choose an existing stage while deploying an API. In general, you can add a new stage to
+        an API deployment before redeploying the API. To create a new stage using the API Gateway
+        console, follow these steps: </p>
+      
+      <div class="procedure"><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Choose a REST API.</p></li><li>
+          <p>In the main navigation pane, choose
+            <b>Stages</b> under an API.</p>
+        </li><li>
+          <p>From the <b>Stages</b> navigation pane, choose
+            <b>Create stage</b>.</p>
+        </li><li>
+          <p> For <b>Stage name</b>, enter a name, for example,
+            <code class="userinput">prod</code>. </p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.</p></div></div>
+        </li><li>
+          <p> (Optional). For <b>Description</b>, enter a stage description.</p>
+        </li><li>
+          <p>For <b>Deployment</b>, select the date and
+            time of the existing API deployment you want to associate with this
+            stage.</p>
+        </li><li>
+          <p>Under <b>Additional settings</b>, you can specify additional settings for your stage.</p></li><li>
+          <p>Choose <b>Create stage</b>.</p>
+        </li></ol></div>
+      
+     
+    <h2 id="how-to-stage-settings">Modify stage settings</h2>
+
+
+  <p>After a successful deployment of an API, the stage is populated with default settings. You can use the console
+    or the API Gateway REST API to change the stage settings, including API caching and logging. If you've modified the
+    default endpoint of your REST API, when you update a stage, the modification is propagated to all stages of your
+    API. The following steps show you
+    how to do so using the <b>Stage editor</b> of the API Gateway console.</p>
+      <div class="procedure"><ol><li><p>Sign in to the API Gateway console at <a href="https://console.aws.amazon.com/apigateway" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/apigateway</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Choose a REST API.</p></li><li>
+              <p>In the main navigation pane, choose
+                <b>Stages</b> under an API.</p>
+            </li><li>
+              <p>In the <b>Stages</b> pane, choose the name of the stage.</p>
+            </li><li>
+              <p>In the <b>Stage details</b> section, choose <b>Edit</b>.</p>
+            </li><li><p>(Optional) For <b>Stage description</b>, edit the description.</p></li><li><p>For <b>Additional settings</b>, you modify the following settings:</p>
+              <p></p>
+              <div class="variablelist">
+                 
+                   
+                 
+              <dl>
+                  <dt><b><span class="term">Cache settings</span></b></dt>
+                  <dd>
+                    <p>To enable API caching for the stage, turn on <b>Provision API
+                      cache</b>. Then configure the <b>Default method-level caching</b>,
+                      <b>Cache capacity</b>, <b>Encrypt cache
+                        data</b>, <b>Cache time-to-live (TTL)</b>, as well as any
+                      requirements for per-key cache invalidation.</p> 
+              <p>Caching is not active until you turn on the default method-level caching or turn on the method-level
+                cache for a specific method.</p>
+              <p>For more information about cache settings, see <a href="./api-gateway-caching.html">Cache settings for REST APIs in API Gateway</a>.</p>
+              <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you enable API caching for an API stage, your AWS account might be
+                  charged for API caching. Caching isn't eligible for the AWS Free
+                  Tier.</p></div></div>
+                  </dd>
+                
+                    <dt><b><span class="term">Throttling settings</span></b></dt>
+                    <dd>
+                      <p>To set stage-level throttling targets for all of the methods associated with
+                        this API, turn on <b>Throttling</b>.</p>
+                      
+              <p>For <b>Rate</b>, enter a target rate. This is the rate, in requests per second, that
+                tokens are added to the token bucket. The stage-level rate must not be more than the <a href="./api-gateway-request-throttling.html#apig-request-throttling-account-level-limits">account-level</a> rate as specified in <a href="./api-gateway-execution-service-limits-table.html">Quotas for configuring and running a REST API in API Gateway</a>. </p>
+              <p>For <b>Burst</b>, enter a target burst rate. The burst rate, is the capacity of the
+                token bucket. This allows more requests through for a period of time than the target rate. This
+                stage-level burst rate must not be more than the <a href="./api-gateway-request-throttling.html#apig-request-throttling-account-level-limits">account-level</a> burst rate as specified in
+                  <a href="./api-gateway-execution-service-limits-table.html">Quotas for configuring and running a REST API in API Gateway</a>. </p>
+                      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Throttling rates are not hard limits, and are applied on a best-effort basis. In some cases,
+                        clients can exceed the targets that you set. Don’t rely on throttling to control costs or
+                        block access to an API. Consider using <a href="https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html">AWS Budgets</a> to monitor costs and
+                        <a href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF</a> to manage API
+                        requests.</p></div></div>
+                    </dd>
+                  
+                  <dt><b><span class="term">Firewall and certificate settings</span></b></dt>
+                  <dd><p>To associate an AWS WAF web ACL with the stage, select a web ACL from the
+                    <b>Web ACL</b> dropdown list. If desired, choose <b>Block API Request if WebACL cannot be evaluated
+                      (Fail- Close)</b>.</p>
+                    
+        <p>To select a client certificate for your stage, select a certificate from the <b>Client certificate</b> dropdown menu.</p></dd>
+                </dl></div>
+            </li><li><p>Choose <b>Continue</b>.</p></li><li><p>Review your changes and choose <b>Save changes</b>.</p></li><li>
+              <p>To enable Amazon CloudWatch Logs for all of the methods associated with this stage of this
+                API Gateway API, in the <b>Logs and tracing</b> section, choose <b>Edit</b>.</p>
+              <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To enable CloudWatch Logs, you must also specify the ARN of an IAM role
+                that enables API Gateway to write information to CloudWatch Logs on behalf of your user. To do so, choose
+                <b>Settings</b> from the <b>APIs</b> main navigation pane. Then, for
+                <b>CloudWatch log role</b>, enter the ARN of an IAM role. </p><p>For common application scenarios, the IAM role could attach the managed policy of <a href="https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonAPIGatewayPushToCloudWatchLogs.html">AmazonAPIGatewayPushToCloudWatchLogs</a>.</p><p>The IAM role must also contain the following trust relationship
+                statement:</p><awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="bec0a23876ebc8d08d108edc2ef434d25ef2a92068c6af9a8c0549b1ae83c687"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs><p></p><p>For more information about CloudWatch, see the <em><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html">Amazon CloudWatch User Guide</a></em>.</p></div></div>
+            </li><li>
+                  <p>Select a logging level from the <b>CloudWatch Logs</b> dropdown menu. The logging levels are the following:</p>
+              <div class="itemizedlist">
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p><span class="topcom">Off</span> – Logging is not turned on for this stage. </p></li><li class="listitem">
+                  <p><span class="topcom">Errors only</span> – Logging is enabled for errors only. </p></li><li class="listitem">
+                  <p><span class="topcom">Errors and info logs</span> – Logging is enabled for all events.</p>
+                </li></ul></div>
+                </li><li><p>Select <b>Data tracing</b> to have API Gateway report to CloudWatch the data trace logging for your stage. This can be useful to troubleshoot APIs, but can result in logging sensitive data.</p>
+          <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>We recommend that
+            you don't use <b>Data tracing</b> for production APIs.</p></div></div></li><li>
+                  <p>Select <b>Detailed metrics</b> to have API Gateway report to CloudWatch the API metrics of <code class="code">API
+                    calls</code>, <code class="code">Latency</code>, <code class="code">Integration latency</code>,
+                    <code class="code">400 errors</code>, and <code class="code">500 errors</code>. For
+                    more information about CloudWatch, see the <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-basic-detailed.html">Basic monitoring and detailed monitoring</a> in the 
+          Amazon CloudWatch User Guide.</p>
+                  <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Your account is charged for accessing method-level CloudWatch metrics,
+                      but not the API-level or stage-level metrics.</p></div></div>
+                </li><li><p>To enable access logging to a destination, turn on <b>Custom access logging</b>.</p></li><li>
+        <p>For <b>Access log destination ARN</b>, enter the ARN of a log group or a Firehose stream. </p>
+        <p>The ARN format for Firehose is
+              <code class="code">arn:aws:firehose:<code class="replaceable"><span>{</span>region}</code>:<code class="replaceable"><span>{</span>account-id}</code>:deliverystream/amazon-apigateway-<code class="replaceable"><span>{</span>your-stream-name}</code></code>.
+          The name of your Firehose stream must be
+          <code class="code">amazon-apigateway-<code class="replaceable"><span>{</span>your-stream-name}</code></code>.</p>
+      </li><li>
+                  <p>In <b>Log format</b>, enter a log format. To learn more about example log formats, see <a href="./set-up-access-logging.html#apigateway-cloudwatch-log-formats">Access log formats</a>.</p>
+                </li><li>
+              <p>To enable <a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-services-apigateway.html">AWS X-Ray</a> tracing for the API stage, select <b> X-Ray
+                  tracing</b>. For more information, see <a href="./apigateway-xray.html">Trace user requests to REST APIs using X-Ray in API Gateway</a>.</p>
+                </li><li>
+              <p>Choose <b>Save changes</b>. Redeploy your API for the new settings to take effect.</p>
+            </li></ol></div>
+
+  
+
+ 
+  <h2 id="how-to-method-override">Override stage-level settings</h2>
+  <p>After you customize the stage-level settings, you can override them for each API method. Some of these options might result in additional charges to your AWS account.</p>
+  
+  <div class="procedure"><ol><li><p>To configure method overrides, expand the stage under the secondary navigation pane, and then choose a method.</p>
+      <div class="mediaobject">
+         
+          <img src="/images/apigateway/latest/developerguide/images/method-override-view-new-console.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Expand the stage under the secondary navigation pane, and choose a method." />
+         
+         
+      </div>
+    </li><li><p>For <b>Method overrides</b>, choose <b>Edit</b>.</p></li><li><p>To turn on method-level CloudWatch settings, for <b>CloudWatch Logs</b>, select a logging level.</p></li><li><p>To turn on data trace logging for your method, select <b>Data tracing</b>.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>We recommend that
+        you don't use <b>Data tracing</b> for production APIs.</p></div></div></li><li><p>To turn on method-level detailed metrics, select <b>Detailed metrics</b>. Your account is charged for accessing method-level CloudWatch metrics,
+      but not the API-level or stage-level metrics.</p></li><li><p>To turn on method-level throttling, select <b>Throttling</b>. Enter the appropriate method-level options. To learn more about throttling, see 
+      <a href="./api-gateway-request-throttling.html">Throttle requests to your REST APIs for better throughput in API Gateway</a>.</p></li><li><p>To configure the method-level cache, select <b>Enable method cache</b>. If you change the default method-level caching setting in the <b>Stage details</b>, it doesn't affect this setting.</p></li><li><p>Choose <b>Save</b>.</p></li></ol></div>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./set-up-deployments.html">Create a deployment</div><div id="next" class="next-link" accesskey="n" href="./mcp-server.html">Add a stage to an Amazon Bedrock AgentCore Gateway</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/set-up-stages.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=API Gateway&amp;topic_url=https://docs.aws.amazon.com/en_us/apigateway/latest/developerguide/set-up-stages.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Implement the consumer - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tutorial-stock-data-kplkcl2-consumer" /><meta name="default_state" content="tutorial-stock-data-kplkcl2-consumer" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" /><meta name="description" content="The consumer application in this tutorial continuously processes the stock trades in your data stream. It then outputs the most popular stocks being bought and sold every minute. The application is built on top of the Kinesis Client Library (KCL), which does much of the heavy lifting common to consumer apps. For more information, see" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Implement the consumer" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tutorial-stock-data-kplkcl2-consumer.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Implement the consumer - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#tutorial-stock-data-kplkcl2-consumer" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAlPnoAT22TyelcmE8M35_-A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><link rel="alternate" type="text/markdown" href="tutorial-stock-data-kplkcl2-consumer.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started tutorials for Amazon Kinesis Data Streams",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/examples.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Tutorial: Process real-time stock data using KPL and KCL 2.x",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Implement the consumer",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/tutorial-stock-data-kplkcl2.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#tutorial-stock-data-kplkcl2-consumer" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#tutorial-stock-data-kplkcl2-consumer-next">Next steps</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tutorial-stock-data-kplkcl2-consumer">Implement the consumer</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The consumer application in this tutorial continuously processes the stock trades in
+            your data stream. It then outputs the most popular stocks being bought and sold every
+            minute. The application is built on top of the Kinesis Client Library (KCL), which
+            does much of the heavy lifting common to consumer apps. For more information, see <a href="./shared-throughput-kcl-consumers.html">KCL 1.x and 2.x information</a>. </p><p>Refer to the source code and review the following information.</p><div class="variablelist">
+             
+             
+             
+        <dl>
+                <dt><b><span class="term">StockTradesProcessor class</span></b></dt>
+                <dd>
+                    <p>The main class of the consumer, provided for you, which performs the
+                        following tasks:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Reads the application, data stream, and Region names, passed in as
+                                arguments.</p>
+                        </li><li class="listitem">
+                            <p>Creates a <code class="code">KinesisAsyncClient</code> instance with the Region
+                                name.</p>
+                        </li><li class="listitem">
+                            <p>Creates a <code class="code">StockTradeRecordProcessorFactory</code> instance
+                                that serves instances of <code class="code">ShardRecordProcessor</code>,
+                                implemented by a <code class="code">StockTradeRecordProcessor</code> instance.
+                            </p>
+                        </li><li class="listitem">
+                            <p>Creates a <code class="code">ConfigsBuilder</code> instance with the
+                                    <code class="code">KinesisAsyncClient</code>, <code class="code">StreamName</code>,
+                                    <code class="code">ApplicationName</code>, and
+                                    <code class="code">StockTradeRecordProcessorFactory</code> instance. This is
+                                useful for creating all configurations with default values.</p>
+                        </li><li class="listitem">
+                            <p>Creates a KCL scheduler (previously, in KCL versions 1.x it was
+                                known as the KCL worker) with the <code class="code">ConfigsBuilder</code>
+                                instance. </p>
+                        </li><li class="listitem">
+                            <p>The scheduler creates a new thread for each shard (assigned to
+                                this consumer instance), which continuously loops to read records
+                                from the data stream. It then invokes the
+                                    <code class="code">StockTradeRecordProcessor</code> instance to process each
+                                batch of records received. </p>
+                        </li></ul></div>
+                </dd>
+            
+                <dt><b><span class="term">StockTradeRecordProcessor class</span></b></dt>
+                <dd>
+                    <p>Implementation of the <code class="code">StockTradeRecordProcessor</code> instance,
+                        which in turn implements five required methods: <code class="code">initialize</code>,
+                            <code class="code">processRecords</code>, <code class="code">leaseLost</code>,
+                            <code class="code">shardEnded</code>, and <code class="code">shutdownRequested</code>. </p>
+                    <p>The <code class="code">initialize</code> and <code class="code">shutdownRequested</code> methods are
+                        used by the KCL to let the record processor know when it should be ready to
+                        start receiving records and when it should expect to stop receiving records,
+                        respectively, so it can perform any application-specific setup and
+                        termination tasks. <code class="code">leaseLost</code> and <code class="code">shardEnded</code> are
+                        used to implement any logic for what to do when a lease is lost or a
+                        processing has reached the end of a shard. In this example, we simply log
+                        messages indicating these events. </p>
+                    <p>The code for these methods is provided for you. The main processing
+                        happens in the <code class="code">processRecords</code> method, which in turn uses
+                            <code class="code">processRecord</code> for each record. This latter method is
+                        provided as the mostly empty skeleton code for you to implement in the next
+                        step, where it is explained in greater detail. </p>
+                    <p>Also of note is the implementation of the support methods for
+                            <code class="code">processRecord</code>: <code class="code">reportStats</code>, and
+                            <code class="code">resetStats</code>, which are empty in the original source code. </p>
+                    <p>The <code class="code">processRecords</code> method is implemented for you, and
+                        performs the following steps:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>For each record passed in, it calls <code class="code">processRecord</code> on
+                                it. </p>
+                        </li><li class="listitem">
+                            <p>If at least 1 minute has elapsed since the last report, calls
+                                    <code class="code">reportStats()</code>, which prints out the latest stats,
+                                and then <code class="code">resetStats()</code> which clears the stats so that
+                                the next interval includes only new records.</p>
+                        </li><li class="listitem">
+                            <p>Sets the next reporting time.</p>
+                        </li><li class="listitem">
+                            <p>If at least 1 minute has elapsed since the last checkpoint, calls
+                                    <code class="code">checkpoint()</code>. </p>
+                        </li><li class="listitem">
+                            <p>Sets the next checkpointing time.</p>
+                        </li></ul></div>
+                    <p>This method uses 60-second intervals for the reporting and checkpointing
+                        rate. For more information about checkpointing, see <a href="https://docs.aws.amazon.com/streams/latest/dev/shared-throughput-kcl-consumers.html">Using the Kinesis Client Library</a>.
+                        </p>
+
+                </dd>
+            
+                <dt><b><span class="term">StockStats class</span></b></dt>
+                <dd>
+                    <p>This class provides data retention and statistics tracking for the most
+                        popular stocks over time. This code is provided for you and contains the
+                        following methods:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">addStockTrade(StockTrade)</code>: injects the given
+                                    <code class="code">StockTrade</code> into the running statistics.</p>
+                        </li><li class="listitem">
+                            <p><code class="code">toString()</code>: returns the statistics in a formatted
+                                string.</p>
+                        </li></ul></div>
+                    <p>This class tracks the most popular stock by keeping a running count of the
+                        total number of trades for each stock and the maximum count. It updates
+                        these counts whenever a stock trade arrives.</p>
+                </dd>
+            </dl></div><p>Add code to the methods of the <code class="code">StockTradeRecordProcessor</code> class, as shown
+            in the following steps. </p><div class="procedure"><h6>To implement the consumer</h6><ol><li>
+                <p>Implement the <code class="code">processRecord</code> method by instantiating a correctly
+                    sized <code class="code">StockTrade</code> object and adding the record data to it, logging a
+                    warning if there's a problem. </p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+byte[] arr = new byte[record.data().remaining()];
+record.data().get(arr);
+StockTrade trade = StockTrade.fromJsonAsBytes(arr);
+    if (trade == null) <span>{</span>
+        log.warn("Skipping record. Unable to parse record into StockTrade. Partition Key: " + record.partitionKey());
+        return;
+        }
+stockStats.addStockTrade(trade);
+                </code></pre>
+            </li><li>
+                <p>Implement a <code class="code">reportStats</code> method. Modify the output format to suit
+                    your preferences. </p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+System.out.println("****** Shard " + kinesisShardId + " stats for last 1 minute ******\n" +
+stockStats + "\n" +
+"****************************************************************\n");
+                </code></pre>
+            </li><li>
+                <p>Implement the <code class="code">resetStats</code> method, which creates a new
+                        <code class="code">stockStats</code> instance. </p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+stockStats = new StockStats();
+                </code></pre>
+            </li><li>
+                <p>Implement the following methods required by <code class="code">ShardRecordProcessor</code>
+                    interface:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">
+@Override
+public void leaseLost(LeaseLostInput leaseLostInput) <span>{</span>
+    log.info("Lost lease, so terminating.");
+}
+
+@Override
+public void shardEnded(ShardEndedInput shardEndedInput) <span>{</span>
+    try <span>{</span>
+        log.info("Reached shard end checkpointing.");
+        shardEndedInput.checkpointer().checkpoint();
+    } catch (ShutdownException | InvalidStateException e) <span>{</span>
+        log.error("Exception while checkpointing at shard end. Giving up.", e);
+    }
+}
+
+@Override
+public void shutdownRequested(ShutdownRequestedInput shutdownRequestedInput) <span>{</span>
+    log.info("Scheduler is shutting down, checkpointing.");
+    checkpoint(shutdownRequestedInput.checkpointer());
+}
+
+private void checkpoint(RecordProcessorCheckpointer checkpointer) <span>{</span>
+    log.info("Checkpointing shard " + kinesisShardId);
+    try <span>{</span>
+        checkpointer.checkpoint();
+    } catch (ShutdownException se) <span>{</span>
+        // Ignore checkpoint if the processor instance has been shutdown (fail over).
+        log.info("Caught shutdown exception, skipping checkpoint.", se);
+    } catch (ThrottlingException e) <span>{</span>
+        // Skip checkpoint when throttled. In practice, consider a backoff and retry policy.
+        log.error("Caught throttling exception, skipping checkpoint.", e);
+    } catch (InvalidStateException e) <span>{</span>
+        // This indicates an issue with the DynamoDB table (check for table, provisioned IOPS).
+        log.error("Cannot save checkpoint to the DynamoDB table used by the Amazon Kinesis Client Library.", e);
+    }
+}
+                </code></pre>
+            </li></ol></div><div class="procedure"><h6>To run the consumer</h6><ol><li>
+                <p>Run the producer that you wrote in <a href="./tutorial-stock-data-kplkcl2-producer.html">Implement the producer</a> to inject simulated
+                    stock trade records into your stream.</p>
+            </li><li>
+                <p>Verify that the access key and secret key pair retrieved earlier (when
+                    creating the IAM user) are saved in the file <code class="code">~/.aws/credentials</code>.
+                </p>
+            </li><li>
+                <p>Run the <code class="code">StockTradesProcessor</code> class with the following
+                    arguments:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">StockTradesProcessor StockTradeStream us-west-2</code></pre>
+                <p>Note that if you created your stream in a Region other than
+                        <code class="code">us-west-2</code>, you have to specify that Region here instead.</p>
+            </li></ol></div><p>After a minute, you should see output like the following, refreshed every minute
+            thereafter:</p><pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">  
+  ****** Shard shardId-000000000001 stats for last 1 minute ******
+  Most popular stock being bought: WMT, 27 buys.
+  Most popular stock being sold: PTR, 14 sells.
+  ****************************************************************
+        </code></pre>
+            <h2 id="tutorial-stock-data-kplkcl2-consumer-next">Next steps</h2>
+            <p><a href="./tutorial-stock-data-kplkcl2-consumer-extension.html">(Optional) Extend the consumer</a></p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorial-stock-data-kplkcl2-producer.html">Implement the producer</div><div id="next" class="next-link" accesskey="n" href="./tutorial-stock-data-kplkcl2-consumer-extension.html">(Optional) Extend the consumer</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/tutorial-stock-data-kplkcl2-consumer.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

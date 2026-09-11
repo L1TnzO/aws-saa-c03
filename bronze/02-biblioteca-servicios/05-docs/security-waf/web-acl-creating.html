@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creating a protection pack (web ACL) in AWS WAF - AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="web-acl-creating" /><meta name="default_state" content="web-acl-creating" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-creating.html" /><meta name="description" content="This section provides procedures for creating protection packs (web ACLs) through the new AWS console. Before you deploy changes in your protection pack (web ACL) for production traffic, test and tune them in a staging or testing environment until you are comfortable with the potential impact to your traffic. Then test and tune your updated rules in count mode with your production traffic before enabling them. For guidance, see" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Describes how to get started with AWS WAF and AWS Firewall Manager, the AWS web application firewall services, Shield Advanced, which provides expanded DDoS attack protection, and AWS Shield network security director, which runs network analysiss and evaluates the security of AWS resources." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-creating.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/waf/latest/developerguide/web-acl-creating.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/waf/latest/developerguide/web-acl-creating.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/waf/latest/developerguide/web-acl-creating.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/waf/latest/developerguide/web-acl-creating.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-creating.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-creating.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/waf/latest/developerguide/web-acl-creating.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/waf/latest/developerguide/web-acl-creating.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/waf/latest/developerguide/web-acl-creating.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/waf/latest/developerguide/web-acl-creating.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/waf/latest/developerguide/web-acl-creating.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/waf/latest/developerguide/web-acl-creating.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/web-acl-creating.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/web-acl-creating.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/waf/latest/developerguide/web-acl-creating.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/waf/latest/developerguide/web-acl-creating.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/waf/latest/developerguide/web-acl-creating.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/waf/latest/developerguide/web-acl-creating.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/waf/latest/developerguide/web-acl-creating.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/waf/latest/developerguide/web-acl-creating.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-creating.html" hreflang="x-default" /><meta name="feedback-item" content="AWS WAF" /><meta name="this_doc_product" content="AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'waf'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Creating a protection pack (web ACL) in AWS WAF" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="web-acl-creating.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creating a protection pack (web ACL) in AWS WAF - AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director</title><meta name="pdf" content="/pdfs/waf/latest/developerguide/waf-dg.pdf#web-acl-creating" /><meta name="rss" content="aws-waf-doc-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAKdJ093DSSdGOQ1VVKX4EvQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/web-acl-creating.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/web-acl-creating.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/web-acl-creating.html" /><meta name="keywords" content="AWS Firewall Manager,Firewall Manager,AWS WAF,web application firewall,firewall,ACL,access control list" /><link rel="alternate" type="text/markdown" href="web-acl-creating.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS WAF",
+        "item" : "https://docs.aws.amazon.com/waf/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS WAF",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configuring protection in AWS WAF",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/web-acl.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Creating a protection pack (web ACL) in AWS WAF",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/web-acl.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/waf/latest/developerguide/waf-dg.pdf#web-acl-creating" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/waf/index.html">AWS WAF</a><a href="what-is-aws-waf.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p><b>Introducing a new console experience for AWS WAF</b></p><p>You can now use the updated experience to access AWS WAF functionality anywhere in the console.
+				For more details, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/working-with-console.html">Working with the console</a>.
+			</p></awsui-alert><h1 class="topictitle" id="web-acl-creating">Creating a protection pack (web ACL) in AWS WAF</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><awsdocs-tabs><dl style="display: none">
+			<dt>Using the new console</dt><dd tab-id="using-the-new-console">
+					<p>This section provides procedures for creating protection packs (web ACLs) through
+						the new AWS console. </p>
+					<p>To create a new protection pack (web ACL), use the protection pack (web ACL) creation wizard following the procedure
+						on this page. </p>
+					<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Production traffic risk</h6></div><div class="awsdocs-note-text"><p>Before you deploy changes in your protection pack (web ACL) for production traffic, test and
+							tune them in a staging or testing environment until you are comfortable with the
+							potential impact to your traffic. Then test and tune your updated rules in count
+							mode with your production traffic before enabling them. For guidance, see <a href="./web-acl-testing.html">Testing and tuning your AWS WAF protections</a>.</p></div></div>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Using more than 1,500 WCUs in a protection pack (web ACL) incurs costs beyond the basic protection pack (web ACL) price. For more information, see <a href="./aws-waf-capacity-units.html">Web ACL capacity units (WCUs) in AWS WAF</a> and <a href="https://aws.amazon.com/waf/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS WAF Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+					<div class="procedure"><ol><li><p>Sign in to the new AWS Management Console and open the AWS WAF console at 
+<a href="https://console.aws.amazon.com/wafv2-pro" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/wafv2-pro</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+</p></li><li>
+							<p>In the navigation pane, choose <b>Resources &amp; protection packs (web ACLs)</b>.</p>
+						</li><li>
+							<p>On the <b>Resources &amp; protection packs (web ACLs)</b> page, choose <b>Add
+									protection pack (web ACL)</b>.</p>
+						</li><li>
+							<p>Under <b>Tell us about your app</b>, for <b>App category</b>, select one or more app categories.</p>
+						</li><li>
+							<p>For <b>Traffic source</b>, choose the type of traffic the application engages with; <b>API</b>, <b>Web</b>, or <b>Both API and Web</b>.</p>
+						</li><li>
+							<p>Under <b>Resources to protect,</b> choose <b>Add
+									resources</b>.</p>
+						</li><li>
+							<p>Choose the category of AWS
+								resource that you want to associate with this protection pack (web ACL), either Amazon CloudFront
+								distributions or Regional resources. For more information, see <a href="./web-acl-associating-aws-resource.html">Associating or disassociating protection with an AWS resource</a>. </p>
+						</li><li>
+							<p>Under <b>Choose initial protections,</b> select your preferred protection level:
+									<b>Recommended</b>,
+									<b>Essentials</b>, or <b>You build
+									it</b>. </p></li><li><p>(Optional) If you choose <b>You build it</b>, build your rules.</p>
+							<ol><li><p>(Optional) If you want to add your own rule, on the <b>Add rules </b> page,
+										choose <b>Custom rule</b> and then choose
+											<b>Next</b>.</p>
+									<ol><li>
+											<p>Choose the rule type.</p>
+										</li><li>
+											<p>For <b>Action</b>, select the action
+												you want the rule to take when it matches a web
+												request. For information on your choices, see <a href="./waf-rule-action.html">Using rule actions in AWS WAF</a> and <a href="./web-acl-processing.html">Using protection packs (web ACLs) with rules and rule groups in AWS WAF</a>.</p>
+											<p>If you are using the
+												<b>CAPTCHA</b> or
+												<b>Challenge</b> action,
+												adjust the <b>Immunity time</b>
+												configuration as needed for the rule. If you don't
+												specify the setting, the rule inherits it from the
+												protection pack (web ACL). To modify the protection pack (web ACL)
+												immunity time settings, edit the protection pack (web ACL)
+												after you create it. For more information about
+												immunity times, see <a href="./waf-tokens-immunity-times.html">Setting timestamp expiration and token immunity times in AWS WAF</a>.</p>
+											<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You are charged additional fees when you use the CAPTCHA or Challenge rule action in one of your rules or as a rule action override in a rule group. For more information, see <a href="https://aws.amazon.com/waf/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS WAF Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div> 
+											<p>If you want to customize the request or response,
+												choose the options for that and fill in the details
+												of your customization. For more information, see
+												<a href="./waf-custom-request-response.html">Customized web requests and responses in AWS WAF</a>.</p>
+											<p>If you want to have your rule add labels to
+												matching web requests, choose the options for that
+												and fill in your label details. For more
+												information, see <a href="./waf-labels.html">Web request labeling in AWS WAF</a>.</p>
+										</li><li>
+											<p>For <b>Name</b>, enter the name that
+												you want to use to identify this rule. Don't use
+												names that start with <code class="code">AWS</code>,
+												<code class="code">Shield</code>, <code class="code">PreFM</code>, or
+												<code class="code">PostFM</code>. These strings are either
+												reserved or could cause confusion with rule groups
+												that are managed for you by other services.</p>
+										</li><li>
+											<p>Enter your rule definition, according to your
+												needs. You can combine rules inside logical
+												<code class="code">AND</code> and <code class="code">OR</code> rule
+												statements. The wizard guides you through the
+												options for each rule, according to context. For
+												information about your rules options, see <a href="./waf-rules.html">AWS WAF rules</a>.
+											</p>
+										</li><li>
+											<p>Choose <b>Create rule</b>.</p>
+											<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you add more than one rule to a
+												protection pack (web ACL), AWS WAF evaluates the rules in
+												the order that they're listed for the
+												protection pack (web ACL). For more information, see <a href="./web-acl-processing.html">Using protection packs (web ACLs) with rules and rule groups in AWS WAF</a>.</p></div></div>
+										</li></ol></li><li>
+									<p>(Optional) If you want to add managed rule groups, on the <b>Add
+											rules</b> page, choose <b>AWS-managed
+											rule group</b> or <b>AWS Marketplace
+											rule group</b> and then choose
+											<b>Next</b>. Do the following for each
+										managed rule group that you want to add:</p>
+									<ol><li>
+											<p>On the <b>Add rules</b> page, expand the listing for AWS
+												managed rule groups or for the AWS Marketplace seller.</p>
+										</li><li><p>Choose the version of the rule group.</p></li><li>
+											<p>To customize how your protection pack (web ACL) uses the rule group, choose
+												<b>Edit</b>. The following are
+												common customization settings: </p>
+											<div class="itemizedlist">
+												 
+												 
+												 
+											<ul class="itemizedlist"><li class="listitem">
+												<p>Reduce the scope of the web requests that
+												the rule group inspects by adding a scope-down
+												statement in the <b>Inspection</b>
+												section. For information about this option, see
+												<a href="./waf-rule-scope-down-statements.html">Using scope-down statements in AWS WAF</a>.</p>
+												</li><li class="listitem">
+													<p>Override the rule actions for some or all rules in <b>Rule
+												overrides</b>. If you don't define an
+												override action for a rule, the evaluation uses
+												the rule action that's defined inside the rule
+												group. For information about this option, see
+												<a href="./web-acl-rule-group-override-options.html">Overriding rule group actions in AWS WAF</a>. </p>
+												</li><li class="listitem">
+													<p>Some managed rule groups require you to provide additional
+														configuration. See the documentation from your managed rule
+														group provider. For information specific to the AWS Managed Rules rule groups,
+														see <a href="./aws-managed-rule-groups.html">AWS Managed Rules for AWS WAF</a>. </p>
+												</li></ul></div>
+										</li><li>
+											<p>Choose <b>Next</b>.</p>
+										</li></ol>
+								</li><li>
+									<p>(Optional) If you want to add your own rule group, on the <b>Add
+											rules</b> page, choose <b>Custom rule
+											group</b> and then choose
+											<b>Next</b>. Do the following for each
+										rule group that you want to add:</p>
+									<ol><li>
+											<p>For <b>Name</b>, enter the name that you want to use for the rule
+												group rule in this protection pack (web ACL). Don't use
+												names that start with <code class="code">AWS</code>,
+												<code class="code">Shield</code>, <code class="code">PreFM</code>, or
+												<code class="code">PostFM</code>. These strings are either
+												reserved or could cause confusion with rule groups
+												that are managed for you by other services. See
+												<a href="./waf-service-owned-rule-groups.html">Recognizing rule groups provided by other services</a>. </p>
+										</li><li>
+											<p>Choose your rule group from the list. </p>
+										</li><li>
+											<p>(Optional) Under <b>Rule
+												configuration</b>, choose a <b>Rule
+												override</b>. You can override the rule
+												actions to any valid action setting, the same as you
+												can do for managed rule groups.</p>
+										</li><li>
+											<p>(Optional) Under <b>Add labels</b>, choose <b>Add
+												label</b> and then enter any labels you
+												want to add to requests that match the rule. Rules
+												that are evaluated later in the same
+												protection pack (web ACL) can reference the labels this rule
+												adds.</p>
+										</li><li>
+											<p>Choose <b>Create rule</b>.</p>
+										</li></ol>
+								</li></ol>
+						</li><li>
+							<p>Under <b>Name and description</b>, enter a name for your
+								protection pack (web ACL). Optionally, enter a description.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can't change the name after you create the protection pack (web ACL).</p></div></div>
+						</li><li>
+							<p>(Optional) Under <b>Customize protection pack (web ACL)</b>, configure default
+								rule actions, configurations, and logging destination:</p>
+						<ol><li><p>(Optional) Under <b>Default rule actions</b>, choose the default action for the
+										protection pack (web ACL). This is the action that AWS WAF takes on a
+										request when the rules in the protection pack (web ACL) don't
+										explicitly take an action. For more information, see <a href="./waf-custom-request-response.html">Customized web requests and responses in AWS WAF</a>.</p></li><li>
+									<p>(Optional) Under Rule configuration, customize settings for rules in the
+										protection pack (web ACL):</p>
+									<div class="itemizedlist">
+										 
+										 
+										 
+									<ul class="itemizedlist"><li class="listitem">
+											<p><b>Default rate limits</b> - Set rate limits to block Denial of
+												Service (DoS) attacts that can affect availability,
+												compromise security, or consume excessive resources.
+												This rule rate blocks requests per IP address that
+												exceed the allowed rate for your application. For
+												more information, see <a href="./waf-rule-statement-type-rate-based.html">Using rate-based rule statements in AWS WAF</a></p>
+										</li><li class="listitem">
+											<p><b>IP Addresses</b> - Enter IP
+												addresses to block or allow. This setting overrides
+												other rules.</p>
+										</li><li class="listitem">
+											<p><b>Country specific origins</b> -
+												Block requests from specified countries or Count all
+												traffic.</p>
+										</li></ul></div>
+								</li><li>
+									<p>For <b>Logging destination</b>, configure the logging destination type
+										and the place to store logs. For more information, see <a href="./logging-destinations.html">AWS WAF logging destinations</a>.</p>
+								</li></ol>
+						</li><li>
+							<p>(Optional) If you want to monetize AI bot traffic, expand <b>Monetization configuration</b> and configure your payment networks, wallet addresses, and base price. You can skip this step and add a MonetizationConfig later.</p>
+						</li><li>
+							<p>Review your settings and choose <b>Add protection pack (web ACL)</b>.</p>
+						</li></ol></div>
+				</dd>
+			<dt>Using the standard console</dt><dd tab-id="using-the-standard-console">
+					<p>This section provides procedures for creating web ACLs through
+						the AWS console. </p>
+					<p>To create a new web ACL, use the web ACL creation wizard following the procedure
+						on this page. </p>
+					<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Production traffic risk</h6></div><div class="awsdocs-note-text"><p>Before you deploy changes in your web ACL for production traffic, test and
+							tune them in a staging or testing environment until you are comfortable with the
+							potential impact to your traffic. Then test and tune your updated rules in count
+							mode with your production traffic before enabling them. For guidance, see <a href="./web-acl-testing.html">Testing and tuning your AWS WAF protections</a>.</p></div></div>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Using more than 1,500 WCUs in a protection pack (web ACL) incurs costs beyond the basic protection pack (web ACL) price. For more information, see <a href="./aws-waf-capacity-units.html">Web ACL capacity units (WCUs) in AWS WAF</a> and <a href="https://aws.amazon.com/waf/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS WAF Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+			<div class="procedure"><h6>To create a web ACL</h6><ol><li><p>Sign in to the AWS Management Console and open the AWS WAF console at 
+<a href="https://console.aws.amazon.com/wafv2/homev2" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/wafv2/homev2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+</p></li><li>
+					<p>Choose <b>web ACLs</b> in the navigation pane, and then
+						choose <b>Create web ACL</b>.</p>
+				</li><li>
+					<p>For <b>Name</b>, enter the name that you want to use to
+						identify this web ACL.
+						</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can't change the name after you create the web ACL.</p></div></div>
+				</li><li>
+					<p>(Optional) For <b>Description - optional</b>, enter a longer
+						description for the web ACL if you want to. </p>
+				</li><li>
+					<p>For <b>CloudWatch metric name</b>, change the default name if
+						applicable. Follow the guidance on the console for valid characters. The
+						name can't contain special characters, white space, or metric names reserved
+						for AWS WAF, including "All" and "Default_Action."</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can't change the CloudWatch metric name after you create the web
+							ACL.</p></div></div>
+				</li><li>
+					<p>Under <b>Resource type</b>, choose the category of AWS
+						resource that you want to associate with this web ACL, either Amazon CloudFront
+						distributions or Regional resources. For more information, see <a href="./web-acl-associating-aws-resource.html">Associating or disassociating protection with an AWS resource</a>.</p>
+				</li><li>
+                        <p>For <b>Region</b>, if you've chosen a
+						Regional resource type, choose the Region where you want AWS WAF to store the
+						web ACL. </p>
+                                <p>You only need to choose this option for Regional resource
+						types. For CloudFront distributions, the Region is hard-coded to the
+						US East (N. Virginia) Region, <code class="code">us-east-1</code>, for Global (CloudFront)
+						applications.</p>
+				</li><li>
+					<p>(CloudFront, API Gateway, Amazon Cognito, App Runner, Verified Access, and Amazon Bedrock AgentCore Gateway) For <b>Web request inspection size
+							limit - optional</b>, if you want to specify a different body
+						inspection size limit, select the limit. Inspecting body sizes over the
+						default of 16 KB can incur additional costs. For information about this
+						option, see <a href="./web-acl-setting-body-inspection-limit.html">Considerations for managing body inspection in AWS WAF</a>. </p>
+				</li><li>
+					<p>(Optional) For <b>Associated AWS resources - optional</b>,
+						if you want to specify your resources now, choose <b>Add AWS
+							resources</b>. In the dialog box, choose the resources that you
+						want to associate, and then choose <b>Add</b>. AWS WAF returns 
+						you to the <b>Describe web ACL and associated AWS
+							resources</b> page.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you choose to associate an Application Load Balancer with your web ACL, <b>Resource-level DDoS protection</b> is enabled. 
+							For more information, see <a href="./waf-anti-ddos.html">AWS WAF Distributed Denial of Service (DDoS) prevention</a>.</p></div></div>
+				</li><li>
+					<p>(Optional) If you want to monetize AI bot traffic, expand <b>Monetization configuration</b> and configure your payment networks, wallet addresses, and base price. You can skip this step and add a MonetizationConfig later.</p>
+				</li><li>
+					<p>Choose <b>Next</b>.</p>
+				</li><li>
+					<p>(Optional) If you want to add managed rule groups, on the <b>Add
+							rules and rule groups</b> page, choose <b>Add
+							rules</b>, and then choose <b>Add managed rule
+							groups</b>. Do the following for each managed rule group that you
+						want to add:</p>
+					<ol><li>
+							<p>On the <b>Add managed rule groups</b> page, expand the listing for AWS
+								managed rule groups or for the AWS Marketplace seller of your choice.</p>
+						</li><li>
+							<p>For the rule group that you want to add, in the <b>Action</b>
+								column, turn on the <b>Add
+									to web ACL</b> toggle. </p>
+							<p>To customize how your web ACL uses the rule group, choose <b>Edit</b>.
+								The following are common customization settings: </p>
+							<div class="itemizedlist">
+								 
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p>Override the rule actions for some or all rules. If you
+										don't define an override action for a rule, the evaluation
+										uses the rule action that's defined inside the rule group.
+										For information about this option, see <a href="./web-acl-rule-group-override-options.html">Overriding rule group actions in AWS WAF</a>.
+									</p>
+								</li><li class="listitem">
+									<p>Reduce the scope of the web requests that the rule group
+										inspects by adding a scope-down statement. For information
+										about this option, see <a href="./waf-rule-scope-down-statements.html">Using scope-down statements in AWS WAF</a>.</p>
+								</li><li class="listitem">
+									<p>Some managed rule groups require you to provide additional
+										configuration. See the documentation from your managed rule
+										group provider. For information specific to the AWS Managed Rules rule groups,
+										see <a href="./aws-managed-rule-groups.html">AWS Managed Rules for AWS WAF</a>. </p>
+								</li></ul></div>
+							<p>When you're finished with your settings, choose <b>Save
+									rule</b>.</p>
+						</li></ol>
+					<p>Choose <b>Add rules</b> to finish adding managed rules and
+						return to the <b>Add rules and rule groups</b> page.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you add more than one rule to a web ACL, AWS WAF evaluates the rules in the order that
+						they're listed for the web ACL. For more information, see <a href="./web-acl-processing.html">Using protection packs (web ACLs) with rules and rule groups in AWS WAF</a>.</p></div></div>
+				</li><li>
+					<p>(Optional) If you want to add your own rule group, on the <b>Add
+							rules and rule groups</b> page, choose <b>Add
+							rules</b>, and then choose <b>Add my own rules and rule
+							groups</b>. Do the following for each rule group that you want to
+						add:</p>
+					<ol><li>
+							<p>On the <b>Add my own rules and rule groups</b> page,
+								choose <b>Rule group</b>.</p>
+						</li><li>
+							<p>For <b>Name</b>, enter the name that you want to use for the rule group
+								rule in this web ACL. Don't use names that start with
+									<code class="code">AWS</code>, <code class="code">Shield</code>, <code class="code">PreFM</code>, or
+									<code class="code">PostFM</code>. These strings are either reserved or could
+								cause confusion with rule groups that are managed for you by other
+								services. See <a href="./waf-service-owned-rule-groups.html">Recognizing rule groups provided by other services</a>. </p>
+						</li><li>
+							<p>Choose your rule group from the list. </p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you want to override the rule actions for a rule group of
+									your own, first save it to the web ACL, and then edit the web
+									ACL and the rule group reference statement in the web ACL's rule
+									listing. You can override the rule actions to any valid action
+									setting, the same as you can do for managed rule groups.</p></div></div>
+						</li><li>
+							<p>Choose <b>Add rule</b>.</p>
+						</li></ol>
+				</li><li>
+					<p>(Optional) If you want to add your own rule, on the <b>Add rules
+							and rule groups</b> page, choose <b>Add rules</b>,
+							<b>Add my own rules and rule groups</b>, <b>Rule
+							builder</b>, then <b>Rule visual editor</b>. </p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The console <b>Rule visual editor</b> supports one level of nesting. For
+							example, you can use a single logical <code class="code">AND</code> or <code class="code">OR</code> statement and nest one
+							level of other statements inside it, but you can't nest logical
+							statements within logical statements. To manage more complex rule
+							statements, use the <b>Rule JSON editor</b>. For
+							information about all options for rules, see <a href="./waf-rules.html">AWS WAF rules</a>. </p><p>This procedure covers the <b>Rule visual editor</b>. </p></div></div>
+					<ol><li>
+							<p>For <b>Name</b>, enter the name that you want to use to identify this
+								rule. Don't use names that start with <code class="code">AWS</code>,
+									<code class="code">Shield</code>, <code class="code">PreFM</code>, or <code class="code">PostFM</code>.
+								These strings are either reserved or could cause confusion with rule
+								groups that are managed for you by other services.</p>
+						</li><li>
+							<p>Enter your rule definition, according to your needs. You can combine rules inside
+								logical <code class="code">AND</code> and <code class="code">OR</code> rule statements. The wizard guides you through
+								the options for each rule, according to context. For information
+								about your rules options, see <a href="./waf-rules.html">AWS WAF rules</a>. </p>
+						</li><li>
+							<p>For <b>Action</b>, select the action you want the rule to take when it
+								matches a web request. For information on your choices, see <a href="./waf-rule-action.html">Using rule actions in AWS WAF</a> and
+									<a href="./web-acl-processing.html">Using protection packs (web ACLs) with rules and rule groups in AWS WAF</a>.</p>
+							<p>If you are using the <b>CAPTCHA</b> or
+									<b>Challenge</b> action, adjust the
+									<b>Immunity time</b> configuration as needed for
+								the rule. If you don't specify the setting, the rule inherits it
+								from the web ACL. To modify the web ACL immunity time settings, 
+								edit the web ACL after you create it. For more information about immunity times, see <a href="./waf-tokens-immunity-times.html">Setting timestamp expiration and token immunity times in AWS WAF</a>.</p>
+							<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You are charged additional fees when you use the CAPTCHA or Challenge rule action in one of your rules or as a rule action override in a rule group. For more information, see <a href="https://aws.amazon.com/waf/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS WAF Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div> 
+							<p>If you want to customize the request or response, choose the
+								options for that and fill in the details of your customization. For
+								more information, see <a href="./waf-custom-request-response.html">Customized web requests and responses in AWS WAF</a>.</p>
+							<p>If you want to have your rule add labels to matching web requests,
+								choose the options for that and fill in your label details. For more
+								information, see <a href="./waf-labels.html">Web request labeling in AWS WAF</a>.</p>
+						</li><li>
+							<p>Choose <b>Add rule</b>.</p>
+						</li></ol>
+				</li><li>
+					<p>Choose the default action for the web ACL, either Block or Allow. This is
+						the action that AWS WAF takes on a request when the rules in the web ACL don't
+						explicitly allow or block it. For more information, see <a href="./web-acl-default-action.html">Setting the protection pack (web ACL) default action in AWS WAF</a>.</p>
+					<p>If you want to customize the default action, choose the options for that
+						and fill in the details of your customization. For more information, see
+							<a href="./waf-custom-request-response.html">Customized web requests and responses in AWS WAF</a>.</p>
+				</li><li>
+					<p>You can define a <b>Token domain list</b> to enable token sharing between
+						protected applications. Tokens are used by the CAPTCHA and
+						Challenge actions and by the application integration SDKs that you
+						implement when you use the AWS Managed Rules rule groups for AWS WAF Fraud Control account creation fraud prevention (ACFP), AWS WAF Fraud Control account takeover prevention (ATP), and AWS WAF Bot Control. </p>
+                        <p>Public suffixes aren't allowed. For example, you can't use <code class="code">gov.au</code> or <code class="code">co.uk</code> as a token domain.</p>
+					<p>By default, AWS WAF accepts tokens only for the domain of the protected resource. If you
+						add token domains in this list, AWS WAF accepts tokens for all domains in the
+						list and for the domain of the associated resource. For more information,
+						see <a href="./waf-tokens-domains.html#waf-tokens-domain-lists">AWS WAF protection pack (web ACL) token domain list configuration</a>.</p>
+				</li><li>
+					<p>Choose <b>Next</b>.</p>
+				</li><li>
+					<p>In the <b>Set rule priority</b> page, select and move your
+                                        rules and rule groups to the order that you want AWS WAF to process them. 
+                                        AWS WAF processes rules starting from the top of the list. When you save the web ACL
+                                        AWS WAF assigns numeric priority settings to the rules, in the order that you have them listed. 
+                                        For more information, see <a href="./web-acl-processing-order.html">Setting rule priority</a>. 
+                                    </p>
+				</li><li>
+					<p>Choose <b>Next</b>.</p>
+				</li><li>
+					<p>In the <b>Configure metrics</b> page, review the options and apply any
+						updates that you need. You can combine metrics from multiple sources by
+						providing the same <b>CloudWatch metric name</b> for them. </p>
+				</li><li>
+					<p>Choose <b>Next</b>.</p>
+				</li><li>
+					<p>In the <b>Review and create web ACL</b> page, check over
+						your definitions. If you want to change any area, choose
+							<b>Edit</b> for the area. This returns you to the page in
+						the web ACL wizard. Make any changes, then choose <b>Next</b>
+						through the pages until you come back to the <b>Review and create web
+							ACL</b> page.</p>
+				</li><li>
+					<p>Choose <b>Create web ACL</b>. Your new web ACL is listed in the
+							<b>web ACLs</b> page.</p>
+				</li></ol></div>
+				</dd>
+		</dl></awsdocs-tabs><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./web-acl.html">Configuring protection</div><div id="next" class="next-link" accesskey="n" href="./web-acl-editing.html">Editing a protection pack (web ACL)</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/web-acl-creating.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/web-acl-creating.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

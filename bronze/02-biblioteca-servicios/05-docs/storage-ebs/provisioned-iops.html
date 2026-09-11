@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon EBS Provisioned IOPS SSD volumes - Amazon EBS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="provisioned-iops" /><meta name="default_state" content="provisioned-iops" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html" /><meta name="description" content="Learn about the performance characteristics of Amazon EBS Provisioned IOPS SSD (io1 and io2) volumes." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon EBS" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Insert abstract text" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/ebs/latest/userguide/provisioned-iops.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/ebs/latest/userguide/provisioned-iops.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/ebs/latest/userguide/provisioned-iops.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/ebs/latest/userguide/provisioned-iops.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/ebs/latest/userguide/provisioned-iops.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/ebs/latest/userguide/provisioned-iops.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/ebs/latest/userguide/provisioned-iops.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/ebs/latest/userguide/provisioned-iops.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/ebs/latest/userguide/provisioned-iops.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/ebs/latest/userguide/provisioned-iops.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/ebs/latest/userguide/provisioned-iops.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/ebs/latest/userguide/provisioned-iops.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/ebs/latest/userguide/provisioned-iops.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/ebs/latest/userguide/provisioned-iops.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/ebs/latest/userguide/provisioned-iops.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/ebs/latest/userguide/provisioned-iops.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/ebs/latest/userguide/provisioned-iops.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/ebs/latest/userguide/provisioned-iops.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html" hreflang="x-default" /><meta name="feedback-item" content="EBS" /><meta name="this_doc_product" content="Amazon EBS" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ebs'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Amazon EBS Provisioned IOPS SSD volumes" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="provisioned-iops.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon EBS Provisioned IOPS SSD volumes - Amazon EBS</title><meta name="pdf" content="/pdfs/ebs/latest/userguide/ebs-ug.pdf#provisioned-iops" /><meta name="rss" content="amazon-ebs-user-guide-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAQngny0JOSqmKzdPtGiZZ2w" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/provisioned-iops.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/provisioned-iops.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/provisioned-iops.html" /><meta name="keywords" content="Amazon EBS,ebs,EBS volume,EBS storage,Block storage for EC2 instance,Block-level storage for EC2,hard drive for EC2 instance,EBS volume types,gp3,gp2,io2,Block Express,io1,st1,sc1,SSD EBS storage,HDD EBS storage,EBS Provisioned IOPS,EBS Provisioned IOPS SSD volumes,Provisioned IOPS SSD volumes,io1 volumes,io2 volumes,io2 BlockExpress volumes" /><link rel="alternate" type="text/markdown" href="provisioned-iops.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EBS",
+        "item" : "https://docs.aws.amazon.com/ebs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon EBS volumes",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon EBS volume types",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon EBS Provisioned IOPS SSD volumes",
+        "item" : "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/ebs/latest/userguide/ebs-ug.pdf#provisioned-iops" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/ebs/index.html">Amazon EBS</a><a href="what-is-ebs.html">User Guide</a></div><div id="page-toc-src"><a href="#io2-block-express">Provisioned IOPS SSD (io2) Block Express volumes</a><a href="#EBSVolumeTypes_piops">Provisioned IOPS SSD (io1) volumes</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="provisioned-iops">Amazon EBS Provisioned IOPS SSD volumes</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Provisioned IOPS SSD volumes are backed by solid-state drives (SSDs). They are the highest performance 
+        Amazon EBS storage volumes designed for critical, IOPS-intensive, and throughput-intensive workloads 
+        that require low latency. Provisioned IOPS SSD volumes deliver their provisioned IOPS performance 99.9 
+        percent of the time.</p><div class="highlights" id="inline-topiclist"><h6>Amazon EBS offers two types of Provisioned IOPS SSD volumes:</h6><ul><li><p><a href="#io2-block-express">Provisioned IOPS SSD (io2) Block Express volumes</a></p></li><li><p><a href="#EBSVolumeTypes_piops">Provisioned IOPS SSD (io1) volumes</a></p></li></ul></div>
+        <h2 id="io2-block-express">Provisioned IOPS SSD (<code class="code">io2</code>) Block Express volumes</h2>
+        <p><code class="code">io2</code> Block Express volumes are built on the next generation of Amazon EBS storage server architecture. 
+          It has been built for the purpose of meeting the performance requirements of the most demanding 
+          I/O intensive applications that run on <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+            instances built on the Nitro System</a>. With the highest durability and lowest latency, Block Express is ideal 
+          for running performance-intensive, mission-critical workloads, such as Oracle, SAP HANA, 
+          Microsoft SQL Server, and SAS Analytics.</p>
+        
+        <p>Block Express architecture increases performance and scale of <code class="code">io2</code> volumes. Block Express 
+          servers communicate with <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+            Nitro-based instances</a> using the Scalable Reliable Datagram (SRD) networking protocol. 
+          This interface is implemented in the Nitro Card dedicated for Amazon EBS I/O function on the host 
+          hardware of the instance. It minimizes I/O delay and latency variation (network jitter), which 
+          provides faster and more consistent performance for your applications.</p> 
+        
+        <p><code class="code">io2</code> Block Express volumes are designed to provide 99.999 percent volume durability with an annual 
+          failure rate (AFR) no higher than 0.001 percent, which translates to a single volume failure per 
+          100,000 running volumes over a one-year period. <code class="code">io2</code> Block Express volumes are suited for workloads that 
+          benefit from a single volume that provides consistent sub-millisecond latency, and supports higher 
+          IOPS and throughput than gp3 volumes.</p>
+        
+        <p>When attached to <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+          Nitro-based instances</a>, <code class="code">io2</code> Block Express volumes are designed to deliver an average 
+latency of under 500 microseconds for 16KiB I/O operations. <code class="code">io2</code> Block Express volumes also deliver 
+better outlier latency compared to General Purpose volumes, reducing the frequency of I/Os 
+exceeding 800 microseconds by over 10 times.</p>
+               
+        <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#io2-bx-considerations">Considerations</a></p></li><li><p><a href="#io2-bx-perf">Performance</a></p></li></ul></div>
+        
+        
+         
+          <h3 id="io2-bx-considerations">Considerations</h3>
+          <div class="itemizedlist">
+             
+             
+             
+
+          <ul class="itemizedlist"><li class="listitem">
+              <p><code class="code">io2</code> Block Express volumes are available in all AWS Regions, including the AWS GovCloud (US) Regions and China Regions.</p>
+            </li><li class="listitem">
+              <p>As of <b>April 30, 2025</b>, all new and previously created <code class="code">io2</code> 
+                volumes are <code class="code">io2</code> Block Express volumes.</p>
+            </li><li class="listitem">
+              <p><a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+                  Nitro-based instances</a> support volumes provisioned with up to 256,000 IOPS. Other instance 
+                  types can be attached to volumes provisioned with up to 64,000 IOPS, but can achieve up to 32,000 
+                  IOPS.</p>
+            </li></ul></div>
+         
+        
+        
+         
+          <h3 id="io2-bx-perf">Performance</h3>
+          <p><code class="code">io2</code> Block Express volumes have the following characteristics:</p>
+          <div class="itemizedlist">
+             
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Average latency under 500 microseconds for 16KiB I/O size. Better outlier latency compared 
+                to General Purpose volumes, reducing the frequency of I/Os exceeding 800 microseconds by over 10 times.</p>
+            </li><li class="listitem">
+              <p>Storage capacity up to 64 TiB (65,536 GiB).</p>
+            </li><li class="listitem">
+              <p>Provisioned IOPS up to 256,000, with an IOPS:GiB ratio of 1,000:1. Maximum IOPS can be 
+                provisioned with volumes 256 GiB and larger (1,000 IOPS × 256 GiB = 256,000 IOPS).</p>
+              <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can achieve up to 256,000 IOPS with <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+                  Nitro-based instances</a>. On other instances, you can achieve up to 32,000 IOPS.</p></div></div>
+            </li><li class="listitem">
+              <p>Volume throughput up to 4,000 MiB/s. Throughput scales proportionally at a rate of 0.256 
+                MiB/s per provisioned IOPS. Maximum throughput can be achieved at 16,000 IOPS or higher.</p>
+            </li></ul></div>
+          
+          <div class="mediaobject">
+             
+              <img src="/images/ebs/latest/userguide/images/io2_bx.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Throughput limits for io2 Block Express volumes" style="max-width:100%" />
+             
+             
+          </div>
+         
+        
+       
+        <h2 id="EBSVolumeTypes_piops">Provisioned IOPS SSD (<code class="code">io1</code>) volumes</h2>
+        <p>Provisioned IOPS SSD (<code class="code">io1</code>) volumes are designed to meet the needs of I/O-intensive workloads,
+          particularly database workloads, that are sensitive to storage performance and
+          consistency. Provisioned IOPS SSD volumes use a consistent IOPS rate, which you specify when you create
+          the volume, and Amazon EBS delivers the provisioned performance 99.9 percent of the
+          time.</p>
+        
+        <p><code class="code">io1</code> volumes are designed to provide 99.8 percent to 99.9 percent volume durability
+          with an annual failure rate (AFR) no higher than 0.2 percent, which translates to a
+          maximum of two volume failures per 1,000 running volumes over a one-year period.</p>
+        
+        <p><code class="code">io1</code> volumes are available for all Amazon EC2 instance types.</p>
+        
+        
+         
+          <h6>Performance</h6>
+          <p><code class="code">io1</code> volumes can range in size from 4 GiB to 16 TiB and you can provision 
+            from 100 IOPS up to 64,000 IOPS per volume. The maximum ratio of 
+            provisioned IOPS to requested volume size (in GiB) is 50:1. For example, a 
+            100 GiB <code class="code">io1</code> volume can be provisioned with up to 5,000 IOPS.</p> 
+         
+        <p>The maximum IOPS can be provisioned for volumes that are 1,280 GiB or larger (50 × 
+          1,280 GiB = 64,000 IOPS).</p>
+        
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">io1</code> volumes provisioned with up to 32,000 IOPS support a maximum I/O size of 256 
+              KiB and yield as much as 500 MiB/s of throughput. With the I/O size at the maximum, peak 
+              throughput is reached at 2,000 IOPS.</p>
+          </li><li class="listitem">
+            <p><code class="code">io1</code> volumes provisioned with more than 32,000 IOPS (up to the maximum of 64,000 
+              IOPS) yield a linear increase in throughput at a rate of 16 KiB per provisioned IOPS. 
+              For example, a volume provisioned with 48,000 IOPS can support up to 750 MiB/s of 
+              throughput (16 KiB per provisioned IOPS × 48,000 provisioned IOPS = 750 MiB/s).</p>
+          </li><li class="listitem">
+            <p>To achieve the maximum throughput of 1,000 MiB/s, a volume must be provisioned 
+              with 64,000 IOPS (16 KiB per provisioned IOPS × 64,000 provisioned IOPS = 1,000 MiB/s).</p>
+          </li><li class="listitem">
+            <p>You can achieve up to 64,000 IOPS only on <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">
+              Nitro-based instances</a>. On other instances, you can achieve up to 32,000 IOPS.</p>
+          </li></ul></div>
+        
+        <p>.  
+          The following graph illustrates these performance characteristics:</p>
+        <div class="mediaobject">
+           
+            <img src="/images/ebs/latest/userguide/images/io1_throughput.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Throughput limits for io1 volumes" style="max-width:100%" />
+           
+           
+        </div>
+        <p>Your per-I/O latency experience depends on the provisioned IOPS and on your workload
+          profile. For the best I/O latency experience, make sure that you provision IOPS to meet the 
+          I/O profile of your workload.</p>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./general-purpose.html">General Purpose SSD volumes</div><div id="next" class="next-link" accesskey="n" href="./hdd-vols.html">Throughput Optimized HDD and Cold HDD volumes</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/provisioned-iops.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EBS&amp;topic_url=https://docs.aws.amazon.com/en_us/ebs/latest/userguide/provisioned-iops.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

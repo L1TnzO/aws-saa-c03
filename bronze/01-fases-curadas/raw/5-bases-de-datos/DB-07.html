@@ -1,0 +1,201 @@
+<!--
+BRONZE RAW — DB-07
+URL: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html
+Dominios: D2
+Título doc: Using Amazon Aurora Global Database
+Fase: 5
+Servicio: Amazon Aurora
+Descargado: 2026-09-11T03:12:10
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div id="gdb" xreflabel="Aurora Global Database"></div><div id="globaldb" xreflabel="Aurora Global Database"></div><div id="global_db" xreflabel="Aurora Global Database"></div><div id="global_database" xreflabel="Aurora Global Database"></div><p>
+    With the Amazon Aurora Global Database feature, you set up multiple Aurora DB clusters that span multiple AWS Regions.
+    Aurora automatically synchronizes all changes made in the primary DB cluster to one or more secondary clusters.
+    An Aurora global database has a primary DB cluster in one Region,
+    and up to 10 secondary DB clusters in different Regions.
+    This multi-Region configuration provides fast recovery from the rare outage that might affect an entire AWS Region.
+    Having a full copy of all your data in multiple geographic locations also enables low-latency read operations
+    for applications that connect from widely separated locations around the world.
+  </p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#aurora-global-database-overview">Overview of Amazon Aurora Global Database</a></p></li><li><p><a href="#aurora-global-database.advantages">Advantages of Amazon Aurora Global Database</a></p></li><li><p><a href="#aurora-global-database.Availability">Region and version availability</a></p></li><li><p><a href="#aurora-global-database.limitations">Limitations of Amazon Aurora Global Database</a></p></li><li><p><a href="./aurora-global-database-getting-started.html">Getting started with Amazon Aurora Global Database</a></p></li><li><p><a href="./aurora-global-database-managing.html">Managing an Amazon Aurora global database</a></p></li><li><p><a href="./aurora-global-database-connecting.html">Connecting to Amazon Aurora Global Database</a></p></li><li><p><a href="./aurora-global-database-write-forwarding.html">Using write forwarding in an Amazon Aurora global database</a></p></li><li><p><a href="./aurora-global-database-disaster-recovery.html">Using switchover or failover in Amazon Aurora Global Database</a></p></li><li><p><a href="./aurora-global-database-monitoring.html">Monitoring an Amazon Aurora global database</a></p></li><li><p><a href="./aurora-global-database-bluegreen.html">Using Blue/Green Deployments for Amazon Aurora Global Database</a></p></li><li><p><a href="./aurora-global-database-interop.html">Using Amazon Aurora global databases with other AWS services</a></p></li><li><p><a href="./aurora-global-database-upgrade.html">Upgrading an Amazon Aurora global database</a></p></li></ul></div>
+    <h2 id="aurora-global-database-overview">Overview of Amazon Aurora Global Database<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="aurora-global-database-overview" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789096327869-4933"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+  <p>By using the Amazon Aurora Global Database feature, you can run your globally distributed applications using a single Aurora database that spans multiple AWS Regions.</p>
+    <p>An Aurora global database consists of one <em>primary</em> AWS Region where your data is
+      written, and up to 10 read-only <em>secondary</em> AWS Regions. You issue write operations
+      to the primary DB cluster in the primary AWS Region. The most convenient way to do so is to connect to
+      the Aurora Global Database writer endpoint, which always points to the primary DB cluster, even after a
+      switchover or failover to a different AWS Region. After any write operation, Aurora replicates data to the
+      secondary AWS Regions using dedicated infrastructure, with latency typically under a second.
+  </p>
+     <p>In the following diagram, you can find an example Aurora global database that spans two AWS Regions.</p>
+    <div class="mediaobject">
+       
+        <img src="/images/AmazonRDS/latest/AuroraUserGuide/images/aurora-global-databases-conceptual-illo.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="An Aurora global database has a single primary and at least one secondary Aurora DB clusters." style="max-width:100%">
+       
+       
+    <div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4k:" type="submit" data-analytics-performance-mark="29-1789096327872-1584"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+      <p>You can scale up each secondary cluster independently, by adding one or more Aurora reader instances
+        to serve read-only workloads. You can use Aurora serverless for the reader instances for even more granular and flexible scaling.</p>
+    <p>Only the primary cluster performs write operations. Clients that perform write operations
+      connect to the Aurora Global Database writer endpoint, which always points to the writer DB instance of the
+      primary cluster. As shown in the diagram, Aurora uses the
+      cluster storage volume and not the database engine for fast, low-overhead replication. To learn more, see
+      <a href="./Aurora.Overview.StorageReliability.html#Aurora.Overview.Storage">Overview of Amazon Aurora storage</a>.
+    </p>
+
+  <p>Aurora Global Database is designed for applications with a worldwide footprint. The
+      read-only secondary DB clusters in multiple AWS Regions help to optimize read operations closer to
+      application users. By using the write forwarding feature, you can also
+      configure your global database so that secondary clusters send write requests to
+      the primary. For more information, see <a href="./aurora-global-database-write-forwarding.html">Using write forwarding in an Amazon Aurora global database</a>. </p>
+  <p>Aurora Global Database supports two different operations for changing the
+      Region of your primary DB cluster, depending on the scenario: <em>Aurora Global
+        Database switchover</em> and <em>Aurora Global Database failover</em>.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>For planned operational procedures such as Regional rotation, use the
+          switchover mechanism (previously called "managed planned failover"). With this feature,
+          you can relocate the primary cluster of a healthy Aurora Global Database to one of its
+          secondary Regions with no data loss. To learn more, see <a href="./aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover">Performing switchovers for Amazon Aurora global databases</a>.</p>
+      </li><li class="listitem">
+        <p>To recover your Aurora Global Database after an outage in the primary
+          Region, use the failover mechanism. With this
+          feature, you perform a failover from your primary DB cluster to another Region
+          (cross-Region failover).
+          To learn more, see <a href="./aurora-global-database-disaster-recovery.html#aurora-global-database-failover.managed-unplanned">Performing managed failovers for Aurora global databases</a>.</p>
+      </li></ul></div>
+ 
+      <h2 id="aurora-global-database.advantages">Advantages of Amazon Aurora Global Database<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="aurora-global-database.advantages" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789096327869-7905"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+      <p>By using Aurora Global Database, you can get the following advantages: </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem"><p><b>Global reads with local latency</b> – If you have offices
+          around the world, you can use Aurora Global Database to keep your main sources of
+          information updated in the primary AWS Region. Offices in your other Regions can access
+          the information in their own Region, with local latency. </p>
+        </li><li class="listitem"><p><b>Scalable secondary Aurora DB clusters</b> – You can scale
+          your secondary clusters by adding more read-only instances to a secondary
+          AWS Region. The secondary cluster is read-only, so it can support up to 16 read-only
+          DB instances rather than the usual limit of 15 for a single Aurora
+          cluster.</p></li><li class="listitem"><p><b>Fast replication from primary to secondary Aurora DB clusters</b> – The replication
+            performed by Aurora Global Database has little performance impact on the primary DB cluster. The resources of the DB instances are fully devoted to serve
+            application read and write workloads.</p>
+        </li><li class="listitem"><p><b>Recovery from Region-wide outages</b> – The secondary clusters
+             allow you to make an Aurora Global Database available in a new primary AWS Region
+             more quickly (lower RTO) and with less data loss (lower RPO) than traditional replication solutions.
+        </p></li></ul></div>
+ 
+    <h2 id="aurora-global-database.Availability">Region and version availability<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4e:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="aurora-global-database.Availability" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4f:" type="submit" data-analytics-performance-mark="27-1789096327870-1587"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+      <p>Feature availability and support vary across specific versions of each Aurora database
+      engine, and across AWS Regions. For more information on version and Region availability with
+      Aurora Global Database, see <a href="./Concepts.Aurora_Fea_Regions_DB-eng.Feature.GlobalDatabase.html">Supported Regions and DB engines for Aurora global databases</a>. </p>
+   
+  <h2 id="aurora-global-database.limitations">Limitations of Amazon Aurora Global Database<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4h:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="aurora-global-database.limitations" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789096327870-3940"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+      <p>The following limitations currently apply to Aurora Global Database:</p>
+      <div class="itemizedlist">
+       
+         
+         
+             
+        
+         
+         
+
+         
+         
+       
+         
+         
+         
+       
+         
+        <ul class="itemizedlist"><li class="listitem"><p>Aurora Global Database is available in certain AWS Regions and for specific Aurora MySQL and
+          Aurora PostgreSQL versions. For more information, see <a href="./Concepts.Aurora_Fea_Regions_DB-eng.Feature.GlobalDatabase.html">Supported Regions and DB engines for Aurora global databases</a>.</p></li><li class="listitem"><p>Aurora Global Database has specific configuration requirements for supported Aurora DB instance classes, maximum number of
+                    AWS Regions, and so on. For more information, see <a href="./aurora-global-database.configuration.requirements.html">Configuration requirements of an Amazon Aurora global database</a>.</p>
+        </li><li class="listitem"><p>For Aurora MySQL with MySQL 5.7 compatibility, Aurora Global Database switchovers require version 2.09.1 or a higher minor version.</p>
+        </li><li class="listitem">
+              <p>You can perform managed cross-Region switchovers or failovers with
+          Aurora Global Database only if the primary and secondary DB clusters have the same
+          major and minor engine versions. Depending on the engine and engine versions, the patch levels might
+          need to be identical or the patch levels can be different.
+              For a list of engines and engine versions that allow these operations between primary and secondary
+              clusters with different patch levels, see <a href="./aurora-global-database-upgrade.html#aurora-global-database-upgrade.minor.incompatibility">Patch level compatibility for managed cross-Region switchovers and failovers</a>.
+           If your engine versions require identical patch levels, you can perform the failover manually by following the steps in
+           <a href="./aurora-global-database-disaster-recovery.html#aurora-global-database-failover.manual-unplanned">Performing manual failovers for Aurora global databases</a>.
+                </p>
+            </li><li class="listitem"><p>Aurora Global Database currently doesn't support the following Aurora features:
+        </p>
+          <div class="itemizedlist">
+            
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>Backtracking in Aurora</p>
+            </li></ul></div></li><li class="listitem"><p>For limitations with using the RDS Proxy feature with Aurora Global Database, see <a href="./rds-proxy-gdb.html#rds-proxy-gdb.limitations">Limitations for RDS Proxy with global databases</a>.</p></li><li class="listitem"><p>Automatic minor version upgrade doesn't apply to Aurora MySQL and Aurora PostgreSQL clusters
+          that are part of a global database. Note that you can specify this setting for a DB
+          instance that is part of a global database cluster, but the setting has no effect.</p></li><li class="listitem"><p>Aurora Global Database currently doesn't support Aurora Auto Scaling for secondary DB clusters.</p></li><li class="listitem"><p>To use Database Activity Streams (DAS) on Aurora Global Database running Aurora MySQL 5.7, the engine
+          version must be version 2.08 or higher. For information about DAS, see <a href="./DBActivityStreams.html">Monitoring Amazon Aurora with Database Activity Streams</a>.</p>
+      </li><li class="listitem">
+        <p>The following limitations currently apply to upgrading Aurora Global Database:</p>
+        <div class="itemizedlist">
+           
+                     
+           
+           
+        <ul class="itemizedlist"><li class="listitem"><p>You can't apply a custom parameter group to the global database cluster while you're performing a
+            major version upgrade of that Aurora global database. You create your custom parameter groups in each Region of
+            the global cluster and you apply them manually to the Regional clusters after the upgrade.</p></li><li class="listitem">
+                        <p>With an Aurora global database based on Aurora MySQL, you can't perform an in-place upgrade from Aurora MySQL
+                            version 2 to version 3 if the <code class="code">lower_case_table_names</code> parameter is turned on. For more information
+                            on the methods that you can use, see <a href="./aurora-global-database-upgrade.html#aurora-global-database-upgrade.major">Major version upgrades</a>.</p>
+                    </li><li class="listitem"><p>With Aurora Global Database, you can't perform a major version
+            upgrade of the Aurora PostgreSQL DB engine if the recovery point objective (RPO) feature is turned on.
+            For information about the RPO feature, see <a href="./aurora-global-database-disaster-recovery.html#aurora-global-database-manage-recovery">Managing RPOs for Aurora PostgreSQL–based global databases</a>.</p></li><li class="listitem"><p>With an Aurora Global Database, you can't perform a minor version upgrade from
+            Aurora MySQL version 3.01 or 3.02 to 3.03 or higher by using the standard process. For details about the process to use, see
+            <a href="./AuroraMySQL.Updates.Patching.ModifyEngineVersion.html">Upgrading Aurora MySQL by modifying the engine version</a>.</p></li></ul></div>
+        <p>For information about upgrading Aurora Global Database, see <a href="./aurora-global-database-upgrade.html">Upgrading an Amazon Aurora global database</a>.</p>
+        </li><li class="listitem"><p>You can't stop or start the Aurora DB clusters in your global database individually. To learn more,
+          see <a href="./aurora-cluster-stop-start.html">Stopping and starting an Amazon Aurora DB cluster</a>.
+        </p></li><li class="listitem"><p>Aurora reader DB instances attached to the secondary Aurora DB cluster can restart under certain circumstances. If the primary AWS Region's
+                    writer DB instance undergoes a restart or failover, reader DB instances in secondary Regions also restart. The secondary cluster is
+                    then unavailable until all reader DB instances are back in sync with the primary DB cluster's writer instance. The behavior of
+                    the primary cluster when rebooting or during a failover is the same as for a singular, nonglobal DB cluster. For more
+                    information, see <a href="./Aurora.Replication.html">Replication with Amazon Aurora</a>.</p>
+                <p>Be sure that you understand the impacts to your global database before
+          making changes to your primary DB cluster. To learn more, see <a href="./aurora-global-database-disaster-recovery.html#aurora-global-database-failover">Recovering an Amazon Aurora global database from an unplanned outage</a>.</p></li><li class="listitem"><p>Aurora Global Database currently doesn't support the <code class="code">inaccessible-encryption-credentials-recoverable</code> status when
+          Amazon Aurora loses access to the AWS KMS key for the DB cluster. In these cases, the encrypted DB cluster goes directly into the terminal
+          <code class="code">inaccessible-encryption-credentials</code> state. For more information about these states, see <a href="./accessing-monitoring.html#Aurora.Status">Viewing DB cluster status</a>.</p></li><li class="listitem">
+        <p>Secrets Manager doesn't support Aurora Global Database. When you add a Region to
+          a global database, you must first turn off Secrets Manager integration for the DB instance.</p>
+      </li><li class="listitem"><p>You can't rename a Regional Aurora DB cluster while it is a member of an Aurora global database. However, you can change the global cluster identifier and the identifiers of individual DB instances within a member cluster.</p></li><li class="listitem">
+          <p>Aurora PostgreSQL–based DB clusters that use Aurora Global Database have the
+          following limitations:</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem"><p>Cluster cache management isn't supported for Aurora PostgreSQL secondary DB clusters that are part of Aurora global databases.</p></li><li class="listitem">
+            <p>If the primary DB cluster of your global database is based on a replica of
+              an Amazon RDS PostgreSQL instance, you can't create a secondary cluster. Don't
+              attempt to create a secondary from that cluster using the AWS Management Console, the AWS CLI, or the
+                <code class="code">CreateDBCluster</code> API operation. Attempts to do so time out, and the
+              secondary cluster isn't created.</p>
+          </li></ul></div>
+        </li></ul></div>
+<p>We recommend that you create secondary DB clusters for your global databases by using
+      the same version of the Aurora DB engine as the primary. For more information, see <a href="./aurora-global-database-creating.html">Creating an Amazon Aurora global database</a>.</p>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./limitless-reference.DBCparams.html">DB cluster parameters</div><div id="next" class="next-link" accesskey="n" href="./aurora-global-database-getting-started.html">Getting started with Aurora Global Database</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789096327755-6623"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65 awsui_anchor-item--active_swimc_1bw6y_85 awsui_anchor-item--active_17oho_5eh15_13"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17 awsui_anchor-link--active_swimc_1bw6y_145" href="#aurora-global-database-overview" aria-current="true"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Overview of Aurora Global Database</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#aurora-global-database.advantages"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Advantages of Amazon Aurora Global Database</span></a></li><li data-itemid="anchor-item-3" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#aurora-global-database.Availability"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Region and version availability</span></a></li><li data-itemid="anchor-item-4" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#aurora-global-database.limitations"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Limitations of Aurora Global Database</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4o:" type="submit" data-analytics-performance-mark="30-1789096327874-8052"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4q:" type="submit" data-analytics-performance-mark="31-1789096327875-2084"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r4t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r4s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=RDS&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2FAmazonRDS%2Flatest%2FAuroraUserGuide%2Faurora-global-database.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./aurora-global-database-getting-started.html"><span>Getting started with Aurora Global Database</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./limitless-reference.DBCparams.html"><span>DB cluster parameters</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

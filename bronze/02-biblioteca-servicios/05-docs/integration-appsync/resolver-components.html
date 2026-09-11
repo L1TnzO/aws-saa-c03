@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Resolvers - AWS AppSync GraphQL</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="resolver-components" /><meta name="default_state" content="resolver-components" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-components.html" /><meta name="description" content="From the previous sections, you learned about the components of the schema and data source. Now, we need to address how the schema and data sources interact. It all begins with the resolver." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS AppSync GraphQL" /><meta name="guide" content="Developer Guide" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-components.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/appsync/latest/devguide/resolver-components.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/appsync/latest/devguide/resolver-components.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/appsync/latest/devguide/resolver-components.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/appsync/latest/devguide/resolver-components.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-components.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-components.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/appsync/latest/devguide/resolver-components.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/appsync/latest/devguide/resolver-components.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/appsync/latest/devguide/resolver-components.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/appsync/latest/devguide/resolver-components.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/appsync/latest/devguide/resolver-components.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/appsync/latest/devguide/resolver-components.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/resolver-components.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/resolver-components.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/appsync/latest/devguide/resolver-components.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/appsync/latest/devguide/resolver-components.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/appsync/latest/devguide/resolver-components.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/appsync/latest/devguide/resolver-components.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/appsync/latest/devguide/resolver-components.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/appsync/latest/devguide/resolver-components.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-components.html" hreflang="x-default" /><meta name="feedback-item" content="AppSync" /><meta name="this_doc_product" content="AWS AppSync GraphQL" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'appsync'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Resolvers" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="resolver-components.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Resolvers - AWS AppSync GraphQL</title><meta name="pdf" content="/pdfs/appsync/latest/devguide/appsync-dg.pdf#resolver-components" /><meta name="forums" content="https://repost.aws/tags/TA-rppqfLWSMyo15gvoFCr5A" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/resolver-components.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/resolver-components.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/resolver-components.html" /><link rel="alternate" type="text/markdown" href="resolver-components.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS AppSync",
+        "item" : "https://docs.aws.amazon.com/appsync/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "GraphQL and AWS AppSync architecture",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/graphql-overview.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Components of a GraphQL API",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/api-components.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Resolvers",
+        "item" : "https://docs.aws.amazon.com/appsync/latest/devguide/api-components.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/appsync/latest/devguide/appsync-dg.pdf#resolver-components" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/appsync/index.html">AWS AppSync</a><a href="what-is-appsync.html">Developer Guide</a></div><div id="page-toc-src"><a href="#resolver-components-runtime">Resolver runtime</a><a href="#resolver-components-structure">Resolver structure</a><a href="#resolver-components-handlers">Resolver handler structure</a><a href="#resolver-components-context">Resolver context</a><a href="#resolver-ast">Requests and Parsing</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="resolver-components"><div id="aws-appsync-resolver-components" xreflabel="Resolvers"></div>Resolvers</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>From the previous sections, you learned about the components of the schema and data source. Now, we need
+            to address how the schema and data sources interact. It all begins with the resolver.</p><p>A resolver is a unit of code that handles how that field's data will be resolved when a request is made
+            to the service. Resolvers are attached to specific fields within your types in your schema. They are most
+            commonly used to implement the state-changing operations for your query, mutation, and subscription field
+            operations. The resolver will process a client's request, then return the result, which can be a group of
+            output types like objects or scalars:</p><div class="mediaobject">
+                
+                  <img src="/images/appsync/latest/devguide/images/aws-flow-infographic.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:80%" />
+                
+            </div>
+            <h2 id="resolver-components-runtime">Resolver runtime</h2>
+            <p>In AWS AppSync, you must first specify a runtime for your resolver. A resolver runtime indicates the
+               environment in which a resolver is executed. It also dictates the language your resolvers will be written
+               in. AWS AppSync currently supports APPSYNC_JS for JavaScript and Velocity Template Language (VTL). See <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-util-reference-js.html">JavaScript runtime
+                  features for resolvers and functions</a> for JavaScript or <a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-util-reference.html">Resolver mapping template utility
+                  reference</a> for VTL.</p>
+          
+            <h2 id="resolver-components-structure">Resolver structure</h2>
+            <p>Code-wise, resolvers can be structured in a couple of ways. There are <b>unit</b> and <b>pipeline</b> resolvers.</p>
+             
+               <h3 id="resolver-components-unit">Unit resolvers</h3>
+               <p>A unit resolver is composed of code that defines a single request and response handler that are
+                  executed against a data source. The request handler takes a context object as an argument and returns
+                  the request payload used to call your data source. The response handler receives a payload back from
+                  the data source with the result of the executed request. The response handler transforms the payload
+                  into a GraphQL response to resolve the GraphQL field.</p>
+                  <div class="mediaobject">
+                      
+                        <img src="/images/appsync/latest/devguide/images/unit-resolver-js.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="GraphQL request flows through request and response handlers that interact with data source." data-alt-text-source="generated" style="max-width:50%" />
+                      
+                      
+                  </div>
+               
+             
+             
+               <h3 id="resolver-components-pipeline">Pipeline resolvers</h3>
+               <p>When implementing pipeline resolvers, there is a general structure they follow:</p>
+               <div class="itemizedlist">
+                   
+                   
+                   
+               <ul class="itemizedlist"><li class="listitem">
+                     <p><b>Before step</b>: When a request is made by the client, the
+                        resolvers for the schema fields being used (typically your queries, mutations, subscriptions)
+                        are passed the request data. The resolver will begin processing the request data with a before
+                        step handler, which allows some preprocessing operations to be performed before the data moves
+                        through the resolver.</p>
+                  </li><li class="listitem">
+                     <p><b>Function(s)</b>: After the before step runs, the request is
+                        passed to the functions list. The first function in the list will execute against the data
+                        source. A function is a subset of your resolver's code containing its own request and response
+                        handler. A request hander will take the request data and perform operations against the data
+                        source. The response handler will process the data source's response before passing it back to
+                        the list. If there is more than one function, the request data will be sent to the next function
+                        in the list to be executed. Functions in the list will be executed serially in the order defined
+                        by the developer. Once all functions have been executed, the final result is passed to the after
+                        step.</p>
+                  </li><li class="listitem">
+                     <p><b>After step</b>: The after step is a handler function that allows
+                        you to perform some final operations on the final function's response before passing it to the
+                        GraphQL response.</p>
+                  </li></ul></div>
+                  <div class="mediaobject">
+                      
+                        <img src="/images/appsync/latest/devguide/images/appsync-js-resolver-logic.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="GraphQL request flow showing sequential processing through request and response functions with data source interactions." data-alt-text-source="generated" style="max-width:40%" />
+                      
+                      
+                  </div>
+               
+             
+          
+            <h2 id="resolver-components-handlers">Resolver handler structure</h2>
+            <p>Handlers are typically functions called <code class="code">Request</code> and <code class="code">Response</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">export function request(ctx) <span>{</span>
+    // Code goes here
+}
+
+export function response(ctx) <span>{</span>
+    // Code goes here
+}</code></pre>
+            <p>In a unit resolver, there will only be one set of these functions. In a pipeline resolver, there will
+               be a set of these for the before and after step and an additional set per function. To visualize how this
+               could look, let's review a simple <code class="code">Query</code> type:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (SDL)--><code class="SDL ">type Query <span>{</span>
+	helloWorld: String!
+}</code></pre>
+            <p>This is a simple query with one field called <code class="code">helloWorld</code> of type <code class="code">String</code>.
+               Let's assume we always want this field to return the string "Hello World". To implement this behavior, we
+               need to add the resolver to this field. In a unit resolver, we could add something like this:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">export function request(ctx) <span>{</span>
+    return <span>{</span>}
+}
+
+export function response(ctx) <span>{</span>
+    return "Hello World"
+}</code></pre>
+            <p>The <code class="code">request</code> can just be left blank because we're not requesting or processing data. We
+               can also assume our data source is <code class="code">None</code>, indicating this code doesn't need to perform any
+               invocations. The response simply returns "Hello World". To test this resolver, we need to make a request
+               using the query type:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (SDL)--><code class="SDL ">query helloWorldTest <span>{</span>
+  helloWorld
+}</code></pre>
+            <p>This is a query called <code class="code">helloWorldTest</code> that returns the <code class="code">helloWorld</code> field.
+               When executed, the <code class="code">helloWorld</code> field resolver also executes and returns the response:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (SDL)--><code class="SDL "><span>{</span>
+  "data": <span>{</span>
+    "helloWorld": "Hello World"
+  }
+}</code></pre>
+            <p>Returning constants like this is the simplest thing you could do. In reality, you'll be returning
+               inputs, lists, and more. Here's a more complicated example:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">type Book <span>{</span>
+  id: ID!
+  title: String
+}
+
+type Query <span>{</span>
+  getBooks: [Book]
+}</code></pre>
+            <p>Here we're returning a list of <code class="code">Books</code>. Let's assume we're using a DynamoDB table to store
+               book data. Our handlers may look like this:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (TypeScript)--><code class="TypeScript ">/**
+ * Performs a scan on the dynamodb data source
+ */
+export function request(ctx) <span>{</span>
+  return <span>{</span> operation: 'Scan' };
+}
+
+/**
+ * return a list of scanned post items
+ */
+export function response(ctx) <span>{</span>
+  return ctx.result.items;
+}</code></pre>
+            <p>Our request used a built-in scan operation to search for all entries in the table, stored the findings
+               in the context, then passed it to the response. The response took the result items and returned them in
+               the response:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+  "data": <span>{</span>
+    "getBooks": <span>{</span>
+      "items": [
+        <span>{</span>
+          "id": "abcdefgh-1234-1234-1234-abcdefghijkl",
+          "title": "book1"
+        },
+        <span>{</span>
+          "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+          "title": "book2"
+        },
+
+        ...
+
+      ]
+    }
+  }
+}</code></pre>
+             
+            <h2 id="resolver-components-context">Resolver context</h2>
+            <p>In a resolver, each step in the chain of handlers must be aware of the state of the data from the
+               previous steps. The result from one handler can be stored and passed to another as an argument. GraphQL
+               defines four basic resolver arguments:</p>
+            <div class="table-container"><div class="table-contents"><table id="w91aab7c29c13c15b5"><thead>
+                     <tr>
+                        <th>Resolver base arguments</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td tabindex="-1"><code class="code">obj</code>, <code class="code">root</code>, <code class="code">parent</code>, etc.</td>
+                        <td tabindex="-1">The result of the parent.</td>
+                     </tr>
+                     <tr>
+                        <td tabindex="-1"><code class="code">args</code></td>
+                        <td tabindex="-1">The arguments provided to the field in the GraphQL query.</td>
+                     </tr>
+                     <tr>
+                        <td tabindex="-1"><code class="code">context</code></td>
+                        <td tabindex="-1">A value which is provided to every resolver and holds important contextual information
+                           like the currently logged in user, or access to a database.</td>
+                     </tr>
+                     <tr>
+                        <td tabindex="-1"><code class="code">info</code></td>
+                        <td tabindex="-1">A value which holds field-specific information relevant to the current query as well as
+                           the schema details.</td>
+                     </tr>
+                  </table></div></div>
+            <p>In AWS AppSync, the <code class="code"><a href="https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference-js.html">context</a></code> (ctx)
+               argument can hold all of the data mentioned above. It's an object that's created per request and contains
+               data like authorization credentials, result data, errors, request metadata, etc. The context is an easy
+               way for programmers to manipulate data coming from other parts of the request. Take this snippet
+               again:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">/**
+ * Performs a scan on the dynamodb data source
+ */
+export function request(ctx) <span>{</span>
+  return <span>{</span> operation: 'Scan' };
+}
+
+/**
+ * return a list of scanned post items
+ */
+export function response(ctx) <span>{</span>
+  return ctx.result.items;
+}</code></pre>
+            <p>The request is given the context (ctx) as the argument; this is the state of the request. It performs
+               a scan for all items in a table, then stores the result back in the context in <code class="code">result</code>. The
+               context is then passed to the response argument, which accesses the <code class="code">result</code> and returns its
+               contents.</p>
+          
+            <h2 id="resolver-ast">Requests and Parsing</h2>
+            <p>When you make a query to your GraphQL service, it must run through a parsing and validation process
+               before being executed. Your request will be parsed and translated into an abstract syntax tree. The
+               content of the tree is validated by running through several validation algorithms against your schema.
+               After the validation step, the nodes of the tree are traversed and processed. Resolvers are invoked, the
+               results are stored in the context, and the response is returned. For example, take this query:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">query <span>{</span>
+  Person <span>{</span>  //object type
+    name  //scalar
+    age   //scalar
+  } 
+}</code></pre>
+            <p>We're returning <code class="code">Person</code> with a <code class="code">name</code> and <code class="code">age</code> fields. When running
+               this query, the tree will look something like this:</p>
+               <div class="mediaobject">
+                   
+                     <img src="/images/appsync/latest/devguide/images/ast-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="Query tree diagram showing Person object with name and age fields as child nodes." data-alt-text-source="generated" />
+                   
+                   
+               </div>
+            
+            <p>From the tree, it appears that this request will search the root for the <code class="code">Query</code> in the
+               schema. Inside of the query, the <code class="code">Person</code> field will be resolved. From previous examples, we
+               know that this could be an input from the user, a list of values, etc. <code class="code">Person</code> is most likely
+               tied to an object type holding the fields we need (<code class="code">name</code> and <code class="code">age</code>). Once these
+               two child fields are found, they are resolved in the order given (<code class="code">name</code> followed by
+                  <code class="code">age</code>). Once the tree is completely resolved, the request is completed and will be sent
+               back to the client.</p>
+            <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./data-source-components.html">Data sources</div><div id="next" class="next-link" accesskey="n" href="./graphql-properties.html">Additional properties of GraphQL</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/resolver-components.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AppSync&amp;topic_url=https://docs.aws.amazon.com/en_us/appsync/latest/devguide/resolver-components.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

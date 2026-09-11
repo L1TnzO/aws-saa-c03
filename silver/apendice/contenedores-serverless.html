@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contenedores y serverless: ECS, EKS, ECR y Fargate · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="computo.html">Cómputo</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="redes.html">Redes y conectividad</a>
+        <a href="bases-datos.html">Bases de datos</a>
+        <a href="seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="analitica-datos.html">Analítica y big data</a>
+        <a href="migracion-hibrido.html">Migración e híbrido</a>
+        <a href="gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="../extras/cheat-sheets.html">Cheat sheets</a>
+        <a href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="../extras/banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="../extras/comparativas.html">Tablas comparativas</a>
+        <a href="../extras/laboratorios.html">Ruta de laboratorios</a>
+        <a href="../extras/glosario.html">Glosario (conceptos)</a>
+        <a href="../extras/glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <!-- ================= ENCABEZADO ================= -->
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Apéndice / Contenedores y serverless</div>
+        <h1>Contenedores y serverless<span class="dom-weight">Apéndice</span></h1>
+        <p class="page-lead">Contenedores y funciones son las dos formas modernas de empaquetar cómputo en AWS. Esta
+        página cubre el ecosistema completo — Amazon ECS, Amazon EKS, Amazon ECR y AWS Fargate — junto con los
+        <span class="term-en">serverless patterns</span> (SQS, EventBridge, Step Functions) que el SAA-C03 usa para
+        armar arquitecturas <span class="term-en">event-driven</span> con el mínimo
+        <span class="term-en">operational overhead</span>.</p>
+      </header>
+
+      <!-- ================= 1. POR QUÉ CONTENEDORES ================= -->
+      <h2 id="por-que-contenedores"><span class="h2-num">1</span>Por qué contenedores (y contra qué compiten)</h2>
+      <p>Un contenedor empaqueta una aplicación con sus dependencias en una unidad ligera y portable: se construye una
+      vez como <span class="term-en">image</span> y corre idéntica en tu laptop, en ECS, en EKS o en Fargate. Esa
+      <span class="term-en">portability</span> elimina el clásico "en mi máquina sí funciona", porque el entorno viaja
+      con el código. Además dan <span class="term-en">density</span>: un mismo host ejecuta decenas de contenedores
+      aislados, aprovechando mejor la CPU y la memoria que una máquina virtual por aplicación. Y al ser
+      <span class="term-en">immutable</span>, cada despliegue es una nueva imagen de la aplicación — auditable y con rollback trivial.</p>
+      <p>El stack AWS para contenedores tiene tres capas que conviene separar mentalmente: el
+      <strong>registro</strong> donde viven las imágenes (Amazon ECR), los <strong>orquestadores</strong> que deciden
+      dónde y cuántos contenedores corren (Amazon ECS propio, Amazon EKS basado en Kubernetes), y la
+      <strong>capacidad</strong> sobre la que corren (instancias EC2 que tú gestionas, o el motor serverless
+      AWS Fargate que las gestiona AWS). La pregunta de diseño del examen es casi siempre esa: ¿quién orquesta y
+      quién opera los servidores?</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  A["¿Carga en contenedores?"] -->|"no, app tradicional"| E["Amazon EC2"]
+  A -->|"sí"| B["¿Equipo experto en Kubernetes?"]
+  B -->|"sí"| K["Amazon EKS"]
+  B -->|"no"| C["Amazon ECS"]
+  C --> D["¿Quieres gestionar servidores?"]
+  D -->|"no"| F["Fargate (serverless)"]
+  D -->|"sí"| G["ECS sobre instancias EC2"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — El árbol de decisión de contenedores: dos preguntas (Kubernetes, gestión de servidores) te llevan a la respuesta.</figcaption>
+      </figure>
+
+      <p>Cuando el examen compara, casi siempre yuxtapone tres formas de empaquetar cómputo: la máquina virtual (EC2),
+      el contenedor y la función. La tabla siguiente resume el espectro de gestión; memorízala porque en las preguntas
+      de migración modernización aparece tal cual: <span class="term-en">rehost</span> te deja en EC2,
+      <span class="term-en">replatform</span> te lleva a contenedores y <span class="term-en">refactor</span> te
+      acerca a funciones.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>VM (Amazon EC2)</th><th>Contenedor (ECS/EKS)</th><th>Función (Lambda)</th></tr></thead>
+          <tbody>
+            <tr><td>Unidad de despliegue</td><td>Imagen AMI completa con SO</td><td>Imagen Docker con la app</td><td>Código o paquete del handler</td></tr>
+            <tr><td>Arranque</td><td>Minutos</td><td>Segundos</td><td>Milisegundos (con cold start)</td></tr>
+            <tr><td>Duración</td><td>Ilimitada</td><td>Ilimitada</td><td>Máximo 15 minutos</td></tr>
+            <tr><td>Qué gestionas tú</td><td>SO, parches, escalado</td><td>Imagenes y tareas (o nada con Fargate)</td><td>Solo el código</td></tr>
+            <tr><td>Densidad</td><td>Una app por VM típica</td><td>Muchas por host</td><td>Miles por cuenta</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis didáctica a partir de la documentación bronze de EC2, ECS y Lambda.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Las tres frases que delatan la respuesta correcta: <span class="term-en">run containers without managing
+        servers</span> → Fargate; <span class="term-en">existing Kubernetes manifests / team uses Kubernetes</span> →
+        EKS; <span class="term-en">simplest way to run containers on AWS</span> → ECS (y si además dice
+        <span class="term-en">least overhead</span>, ECS con launch type Fargate).</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/containers-ecs/welcome.md</code> ·
+      <code>../../bronze/05-docs/compute-ec2/concepts.md</code></p>
+
+      <!-- ================= 2. AMAZON ECS ================= -->
+      <h2 id="ecs"><span class="h2-num">2</span>Amazon ECS: el orquestador nativo de AWS</h2>
+      <p>Amazon <span class="term-en">Elastic Container Service</span> es el orquestador de contenedores propio de AWS,
+      totalmente gestionado (sin control plane que operar ni pagar aparte). Su vocabulario es materia de examen: la
+      <span class="term-en">task definition</span> es el plano en JSON que describe cada contenedor — imagen de ECR,
+      CPU y memoria requeridas, puertos, variables de entorno y el <span class="term-en">task IAM role</span> con el
+      que la tarea llama a otros servicios. Un <span class="term-en">task</span> es una ejecución concreta de ese plano
+      (uno o varios contenedores juntos). Un <span class="term-en">service</span> mantiene vivo un número de tareas
+      (<span class="term-en">desired count</span>) reemplazando las que fallan, y el <span class="term-en">cluster</span>
+      es la agrupación lógica donde todo corre sobre una capacidad elegida.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  D["Task definition<br>imagen, cpu, ram, rol IAM"] --> S["Service<br>desired count = N"]
+  S --> T1["Tarea 1"]
+  S --> T2["Tarea 2"]
+  S --> T3["Tarea 3"]
+  CL["Cluster"] -->|"aporta capacidad"| S
+  CP["Capacity providers<br>Fargate · EC2 · Spot"] --> CL
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — Piezas de ECS: la task definition define, el service mantiene y el cluster aporta la capacidad.</figcaption>
+      </figure>
+
+      <p>La capacidad se elige por <span class="term-en">launch type</span> o, mejor aún, con
+      <span class="term-en">capacity providers</span>: AWS recomienda definir en la task definition las compatibilidades
+      de launch type y lanzar los servicios con una <span class="term-en">capacity provider strategy</span>. Los
+      providers pueden ser Fargate y <span class="term-en">FARGATE_SPOT</span> (creados por AWS en todo cluster),
+      grupos de Auto Scaling con instancias EC2 tuyas, o los nuevos ECS Managed Instances. Para escalar hay dos
+      palancas distintas: el <span class="term-en">service auto scaling</span> ajusta el número de tareas (por métrica
+      de CPU, memoria o peticiones por target del ALB, con <span class="term-en">target tracking</span>), mientras el
+      cluster auto scaling escala las instancias EC2 de fondo cuando faltan recursos para colocar tareas.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Launch type</th><th>Dónde corren las tareas</th><th>Tú gestionas</th><th>Caso típico</th></tr></thead>
+          <tbody>
+            <tr><td><strong>EC2</strong></td><td>Instancias EC2 registradas al cluster</td><td>El SO, el parcheo, el tamaño y el escalado del cluster</td><td>GPU, <span class="term-en">daemon sets</span>, precios agresivos con Spot dedicado</td></tr>
+            <tr><td><strong>Fargate</strong></td><td>Capacidad serverless gestionada por AWS</td><td>Nada: solo vCPU y memoria por tarea</td><td>Webs y APIs estándar con <span class="term-en">least overhead</span></td></tr>
+            <tr><td><strong>External (Anywhere)</strong></td><td>Servidores on-premises o VMs registrados al cluster</td><td>El hardware propio</td><td>Migrar cargas sin salir del datacenter (ECS Anywhere)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/containers-ecs/capacity-launch-type-comparison.md y welcome.md.</p>
+
+      <div class="callout tip">
+        <div class="co-title">Tip de estudio</div>
+        <p>Memoriza la pareja de roles de ECS: el <span class="term-en">task role</span> es lo que <em>usa el
+        contenedor</em> para llamar a AWS (por ejemplo, escribir en S3), mientras el <span class="term-en">instance
+        role</span> (en launch type EC2) es lo que usa la instancia para llamadas de plataforma. El examen mezcla ambos
+        a propósito.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/containers-ecs/welcome.md</code> ·
+      <code>../../bronze/05-docs/containers-ecs/capacity-launch-type-comparison.md</code> ·
+      <code>../../bronze/05-docs/containers-ecs/using-outposts.md</code></p>
+
+      <!-- ================= 3. AMAZON EKS ================= -->
+      <h2 id="eks"><span class="h2-num">3</span>Amazon EKS: Kubernetes gestionado</h2>
+      <p>Amazon <span class="term-en">Elastic Kubernetes Service</span> corre Kubernetes real: AWS opera el
+      <span class="term-en">control plane</span> (API server, etcd, scheduler) por una tarifa horaria, y tú eliges quién
+      gestiona los <span class="term-en">nodes</span> del data plane. La gran ventaja es la compatibilidad con el
+      ecosistema: si tu equipo ya escribe manifiestos YAML, usa <span class="term-en">Helm</span> u operadores
+      (<span class="term-en">operators</span>), EKS es el camino natural — <span class="term-en">portability</span>
+      total de Kubernetes entre nubes e incluso on-premises con <span class="term-en">EKS Anywhere</span> e
+      <span class="term-en">Hybrid Nodes</span>. La desventaja es el precio y la curva: es el orquestador con más
+      superficie de decisión del examen.</p>
+      <p>Para el data plane hay tres caminos. Los <span class="term-en">managed node groups</span> crean y parchean por
+      ti los grupos de Auto Scaling de instancias (tú eliges tipo de instancia y Amazon Linux/EKS-optimized AMI); los
+      nodos <span class="term-en">self-managed</span> son instancias EC2 que tú registras y mantienes (útil para
+      configuraciones especiales de OS o GPUs con drivers propios); y los <span class="term-en">Fargate profiles</span>
+      hacen que los pods de namespaces/labels concretos corran en capacidad Fargate sin ver un nodo. La opción más
+      reciente, <span class="term-en">EKS Auto Mode</span>, extiende la gestión a los nodos completos — aprovisiona,
+      escala y parchea por ti. Los <span class="term-en">add-ons</span> gestionados (VPC CNI, CoreDNS, kube-proxy)
+      mantienen los componentes esenciales actualizados.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción de nodos EKS</th><th>Quién opera las instancias</th><th>Cuándo elegirla</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Managed node groups</strong></td><td>AWS crea/escala el ASG; tú parchea con AMIs gestionadas</td><td>Default equilibrado: control del tipo de instancia con mínima operación</td></tr>
+            <tr><td><strong>Self-managed nodes</strong></td><td>Tú: registras y mantienes cada EC2</td><td>OS personalizado, requisitos de drivers/licencias extremos</td></tr>
+            <tr><td><strong>Fargate profiles</strong></td><td>Nadie: pods serverless, pago por pod</td><td>Cargas intermitentes o equipos que no quieren tocar nodos</td></tr>
+            <tr><td><strong>EKS Auto Mode</strong></td><td>AWS también gestiona nodos, red y storage</td><td>Querer EKS con el menor overhead posible (aparece como <span class="term-en">automated</span>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/containers-eks/what-is-eks.md y managed-node-groups.md.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>EKS se elige por dos motivos y casi ninguno más: <strong>ya existe Kubernetes</strong> (equipo experto,
+        manifiestos que migrar, operadores que usar) o se necesita <span class="term-en">vendor neutrality</span> /
+        portabilidad a otras nubes. Si la pregunta solo pide "correr contenedores en AWS de la forma más simple", EKS
+        es la distractora cara y compleja: la respuesta es ECS o Fargate.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/containers-eks/what-is-eks.md</code> ·
+      <code>../../bronze/05-docs/containers-eks/managed-node-groups.md</code></p>
+
+      <!-- ================= 4. AMAZON ECR ================= -->
+      <h2 id="ecr"><span class="h2-num">4</span>Amazon ECR: el registro privado de imágenes</h2>
+      <p>Amazon <span class="term-en">Elastic Container Registry</span> es el registro gestionado donde viven tus
+      imágenes Docker y artefactos OCI, con permisos por repositorio basados en IAM (<span class="term-en">resource-based
+      policies</span> que deciden qué usuarios o cuentas pueden hacer push/pull). Se integra directamente con ECS y
+      EKS — de hecho su setup es una extensión de ambos — y cobra por almacenamiento, transferencia y acciones
+      opcionales. Tres features aparecen en el examen: las <span class="term-en">lifecycle policies</span> que limpian
+      automáticamente imágenes viejas o sin tag (para no pagar storage infinito), el <span class="term-en">image
+      scanning</span> con <span class="term-en">scan on push</span> que detecta vulnerabilidades al subir cada imagen,
+      y la <span class="term-en">replication</span> cross-Region/cross-account para tener las imágenes cerca de cada
+      cluster. Complétalo con <span class="term-en">tag immutability</span> (nadie sobrescribe un tag ya publicado) y
+      el <span class="term-en">pull-through cache</span> que sincroniza imágenes de registros upstream externos.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature ECR</th><th>Qué resuelve</th><th>Frase del examen que lo delata</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lifecycle policies</strong></td><td>Expurga imágenes no usadas según reglas (edad, conteo de tags)</td><td>"Reducir el costo de storage del registro"</td></tr>
+            <tr><td><strong>Image scanning</strong></td><td>Escaneo de vulnerabilidades (basic o enhanced, con findings en Secrets Manager/Inspector)</td><td>"Detectar vulnerabilidades antes de desplegar" + <span class="term-en">scan on push</span></td></tr>
+            <tr><td><strong>Replication</strong></td><td>Copia imágenes a otras Regiones o cuentas</td><td>"Acelerar pulls en varias Regiones" / DR multi-Region</td></tr>
+            <tr><td><strong>Tag immutability</strong></td><td>Impide sobrescribir un tag existente</td><td>"Garantizar que la imagen desplegada no cambie"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/05-docs/containers-ecr/what-is-ecr.md (lpp-creation.md, pull-through-cache.md).</p>
+
+      <h3>ECS vs EKS: la comparativa que el examen espera</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Amazon ECS</th><th>Amazon EKS</th></tr></thead>
+          <tbody>
+            <tr><td>Orquestador</td><td>Propietario de AWS, más simple</td><td>Kubernetes estándar upstream</td></tr>
+            <tr><td>Complejidad operativa</td><td>Baja: task definitions y services</td><td>Alta: objetos K8s, addons, versiones</td></tr>
+            <tr><td>Control y extensibilidad</td><td>La que AWS expone</td><td>Máxima: CRDs, operators, Helm, ecosistema completo</td></tr>
+            <tr><td>Portabilidad</td><td>Ligada a AWS</td><td>Multi-nube y on-prem (casi cualquier plataforma K8s)</td></tr>
+            <tr><td>Caso de uso claro</td><td>Equipo sin K8s que quiere simplicidad</td><td>Equipo con K8s o apps ya escritas para K8s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis a partir de la documentación bronze de ambos servicios.</p>
+
+      <div class="callout warn">
+        <div class="co-title">Error común</div>
+        <p>Confundir "Fargate" con un orquestador. Fargate <strong>no compite</strong> con ECS ni EKS: es la capa de
+        capacidad <em>para</em> ECS y EKS. Primero eliges el orquestador (ECS vs EKS), luego la capacidad (EC2 vs
+        Fargate). Una opción tipo "usar Fargate en vez de ECS" en el examen es casi siempre incorrecta.</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/containers-ecr/what-is-ecr.md</code> ·
+      <code>../../bronze/05-docs/containers-ecr/repository-create.md</code> ·
+      <code>../../bronze/05-docs/containers-eks/what-is-eks.md</code></p>
+
+      <!-- ================= 5. AWS FARGATE ================= -->
+      <h2 id="fargate"><span class="h2-num">5</span>AWS Fargate: serverless para contenedores</h2>
+      <p>AWS Fargate es el motor de cómputo <span class="term-en">serverless</span> para contenedores: le dices a cada
+      <span class="term-en">task</span> cuántas vCPU y cuánta memoria necesita (configuraciones de 0,25 vCPU/0,5 GB
+      hasta 16 vCPU/120 GB en ECS) y AWS provisiona, aísla y parchea la infraestructura por ti. No hay instancias que
+      elegir, clusters que llenar ni hosts que actualizar — cada tarea corre en su propio entorno aislado de kernel
+      (microVM), lo que también mejora el aislamiento de seguridad entre cargas. Se paga por lo que consumen las
+      tareas: <span class="term-en">vCPU-hours</span> y <span class="term-en">GB-hours</span> de los recursos
+      solicitados, por segundo y sin compromiso. Con <span class="term-en">Fargate Spot</span>, las tareas
+      interrumpibles (batch, workers de colas, CI/CD) consiguen hasta un 70% de descuento, y hoy también existen
+      Fargate Savings Plans para compromiso sostenido.</p>
+      <p>La contrapartida es la flexibilidad que cedes: sin acceso al host no hay <span class="term-en">daemon
+      sets</span> en ECS, ni GPUs, ni optimizaciones a nivel de instancia, ni shared kernels entre tareas. La regla del
+      examen: Fargate para cargas estándar (webs, APIs, workers) con el mínimo overhead; EC2 como launch type cuando
+      aparecen GPU, daemons, requisitos de licencia por host o control del kernel. La arquitectura canónica que une
+      todo lo aprendido — ALB repartiendo entre tareas Fargate en dos AZ — es un patrón que verás una y otra vez.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  U["Usuarios"] --> A["Application Load Balancer<br>subredes públicas"]
+  A -->|"target group 1"| T1["Tareas Fargate<br>subred privada AZ-a"]
+  A -->|"target group 2"| T2["Tareas Fargate<br>subred privada AZ-b"]
+  R["ECR<br>imágenes del servicio"] --> S["Servicio ECS<br>desired count"]
+  S --> T1
+  S --> T2
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — Arquitectura multi-AZ canónica: el servicio ECS mantiene tareas Fargate tras un ALB; ECR alimenta las imágenes.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Criterio</th><th>Fargate</th><th>EC2 launch type</th></tr></thead>
+          <tbody>
+            <tr><td>Unidad de pago</td><td>Por tarea: vCPU y GB por segundo</td><td>Por instancia, mientras esté activa</td></tr>
+            <tr><td>Gestión de servidores</td><td>Ninguna (serverless)</td><td>Tuya: SO, parches, cluster scaling</td></tr>
+            <tr><td>Overhead operativo</td><td>Mínimo — el del examen</td><td>Medio/alto</td></tr>
+            <tr><td>GPU / daemon / host access</td><td>No (usa EC2)</td><td>Sí</td></tr>
+            <tr><td>Descuento tipo Spot</td><td>Fargate Spot: hasta 70%</td><td>Spot Instances: hasta 90%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Fuente: bronze/04-faqs/aws-fargate.md (Spot y Savings Plans) y docs de ECS.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>"Run containers on AWS with the <span class="term-en">LEAST operational overhead</span>" → Fargate (con ECS o
+        EKS según el contexto). "Cost-effective para tareas tolerantes a interrupciones en contenedores" → Fargate
+        Spot. "La empresa ya opera Kubernetes" → EKS (con Fargate profiles si además piden cero gestión de nodos).</p>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/04-faqs/aws-fargate.md</code> ·
+      <code>../../bronze/05-docs/containers-ecs/getting-started-fargate.md</code> ·
+      <code>../../bronze/05-docs/compute-batch/getting-started-fargate.md</code></p>
+
+      <!-- ================= 6. SERVERLESS PATTERNS ================= -->
+      <h2 id="serverless-patterns"><span class="h2-num">6</span>Patrones serverless: eventos y orquestación</h2>
+      <p>Una arquitectura <span class="term-en">event-driven</span> desacopla productores y consumidores: algo ocurre
+      (un evento) y un componente lo comunica sin que nadie sondee. El patrón mínimo usa Lambda como consumidor y
+      una cola o bus como canal: con <strong>Amazon SQS</strong> los productores escriben mensajes y Lambda los sondea
+      y procesa por lotes (modelo pull, ideal para absorber picos y reintentar fallos); con
+      <strong>Amazon EventBridge</strong> los productores publican eventos en un bus enrutado por reglas hacia
+      destinos diversos (modelo push, ideal para reaccionar a cambios de estado en tiempo casi real). El patrón se
+      blindan con <span class="term-en">dead-letter queues</span> para lo que fracasa tras reintentos y con idempotencia
+      en el consumidor, porque "al menos una entrega" es la norma.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart LR
+  P["Productores<br>app, S3, SDK"] --> Q["SQS o EventBridge"]
+  Q -->|"evento o mensaje"| L["AWS Lambda<br>procesa en lotes"]
+  L --> R["Destinos AWS<br>DynamoDB, SNS, S3"]
+  L -->|"errores"| D["DLQ<br>SQS"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — Patrón event-driven básico: el mensaje entra por una cola o bus, Lambda procesa y la DLQ atrapa lo que falla.</figcaption>
+      </figure>
+
+      <p>Cuando el flujo tiene varios pasos, decisiones o reintentos con lógica, el orquestador correcto es
+      <strong>AWS Step Functions</strong>: defines una <span class="term-en">state machine</span> en JSON/ASL con
+      estados <span class="term-en">Task</span>, <span class="term-en">Choice</span>, <span class="term-en">Parallel</span>,
+      <span class="term-en">Map</span> o <span class="term-en">Wait</span>, y él gestiona el orden, los errores
+      (<span class="term-en">retry/catch</span> por excepción), la auditoría de cada ejecución y el versionado. Mover
+      la lógica de orquestación <em>fuera</em> del código (el clásico "una Lambda llama a la siguiente") hacia Step
+      Functions es una de las respuestas favoritas del examen cuando aparecen <span class="term-en">coordinate,
+      orchestrate, retry logic</span> o flujos de aprobación. Su primo moderno <strong>Amazon EventBridge
+      Pipes</strong> conecta una fuente con un destino con filtrado y enriquecimiento ligeros.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+sequenceDiagram
+  participant C["Cliente"]
+  participant S["Step Functions<br>state machine"]
+  participant A["Lambda A"]
+  participant B["Lambda B"]
+  C->>S: StartExecution (input JSON)
+  S->>A: Task 1: validar pedido
+  A-->>S: ok
+  S->>B: Task 2: cobrar
+  B-->>S: ok
+  S-->>C: ejecución completada
+          </pre>
+        </div>
+        <figcaption>Fig. 5 — Step Functions orquesta: llama funciones paso a paso, aplica retry/catch y registra cada transición.</figcaption>
+      </figure>
+
+      <p>El ecosistema serverless se completa con dos nombres que conviene reconocer. <strong>AWS AppSync</strong>
+      ofrece APIs <span class="term-en">GraphQL</span> gestionadas que resuelven datos desde DynamoDB, Lambda u otros
+      backends, con suscripciones en tiempo real. El <strong>AWS Serverless Application Repository</strong> es el
+      catálogo donde publicar y reutilizar aplicaciones serverless empaquetadas con SAM/CloudFormation. La regla de
+      diseño detrás de todos: <span class="term-en">managed services glued by events</span> — servicios gestionados
+      pegados por eventos, sin servidores propios en ninguna capa.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Componente</th><th>Rol en el patrón</th><th>Palabra que lo delata</th></tr></thead>
+          <tbody>
+            <tr><td><strong>SQS</strong></td><td>Cola (pull): amortigua picos, garantiza entrega</td><td><span class="term-en">buffer, decouple, queue</span></td></tr>
+            <tr><td><strong>EventBridge</strong></td><td>Bus de eventos (push) con reglas de enrutamiento</td><td><span class="term-en">event, route, schedule</span></td></tr>
+            <tr><td><strong>Step Functions</strong></td><td>Orquestador visual con retry y estados</td><td><span class="term-en">workflow, orchestrate, long-running</span></td></tr>
+            <tr><td><strong>Lambda</strong></td><td>Consumidor/ejecutor sin servidores</td><td><span class="term-en">event-driven, no servers</span></td></tr>
+            <tr><td><strong>AppSync</strong></td><td>API GraphQL gestionada</td><td><span class="term-en">GraphQL, realtime subscriptions</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Síntesis de los patrones descritos en la documentación bronze de Lambda y SQS/EventBridge.</p>
+
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Tres reflejos finales de esta página: (1) <span class="term-en">containers without managing servers</span> →
+        Fargate; (2) <span class="term-en">least overhead para contenedores</span> → Fargate; (3) <span class="term-en">ya
+        usas Kubernetes</span> → EKS. Y para flujos: SQS desacopla, EventBridge rutea eventos, Step Functions
+        orquesta pasos. Casi toda pregunta serverless del SAA-C03 es una permutación de esos bloques.</p>
+      </div>
+
+      <div class="callout deep">
+        <div class="co-title">Para profundizar (bronze)</div>
+        <p>Ruta sugerida: <code>../../bronze/05-docs/containers-ecs/welcome.md</code> →
+        <code>../../bronze/05-docs/containers-eks/what-is-eks.md</code> →
+        <code>../../bronze/05-docs/containers-ecr/what-is-ecr.md</code> →
+        <code>../../bronze/04-faqs/aws-fargate.md</code>. Para invocación y límites de Lambda, ver
+        <a href="computo.html">Cómputo: EC2 y la familia de servidores</a>.</p>
+      </div>
+
+      <!-- ================= PAGER ================= -->
+      <nav class="pager">
+        <a href="bases-datos.html"><span class="p-dir">← Anterior</span><br>Bases de datos</a>
+        <a class="p-next" href="integracion-mensajeria.html"><span class="p-dir">Siguiente →</span><br>Integración y mensajería</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

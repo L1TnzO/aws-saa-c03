@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat sheets: repaso exprés · SAA-C03 Guía de estudio</title>
+  <link rel="stylesheet" href="../assets/css/style-ext.css">
+</head>
+<body>
+  <button class="sidebar-toggle" aria-label="Abrir menú">☰</button>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">AWS <em>SAA-C03</em></div>
+      <div class="brand-sub">Guía de estudio autocontenida · v1.0</div>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-label">Curso · 9 fases</div>
+        <a href="../index.html">Portada del curso</a>
+        <a href="../ruta.html">Ruta de estudio (9 fases)</a>
+        <a href="../examen.html">El examen en cifras</a>
+        <a href="../estrategia.html">Estrategia del examen (EN)</a>
+        <a href="../skill-builder.html">Recursos Skill Builder</a>
+        <a href="../fuentes.html">Trazabilidad de fuentes</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Temas por fase</div>
+        <a href="../temas/well-architected.html">F1 · Fundamentos</a>
+        <a href="../temas/vpc.html">F2 · Redes</a>
+        <a href="../temas/ec2.html">F3 · Cómputo</a>
+        <a href="../temas/s3.html">F4 · Almacenamiento</a>
+        <a href="../temas/rds.html">F5 · Bases de datos</a>
+        <a href="../temas/sqs-sns.html">F6 · Integración</a>
+        <a href="../temas/kms.html">F7 · Seguridad y DR</a>
+        <a href="../temas/cloudwatch.html">F8 · Gobierno y costos</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Repaso por dominio</div>
+        <a href="../dominios/dominio-1.html">D1 · Secure 30%</a>
+        <a href="../dominios/dominio-2.html">D2 · Resilient 26%</a>
+        <a href="../dominios/dominio-3.html">D3 · Performant 24%</a>
+        <a href="../dominios/dominio-4.html">D4 · Cost-optimized 20%</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deep dive · esta guía</div>
+        <a href="../dominios/dominio-1-deep-dive.html">D1 deep dive</a>
+        <a href="../dominios/dominio-2-deep-dive.html">D2 deep dive</a>
+        <a href="../dominios/dominio-3-deep-dive.html">D3 deep dive</a>
+        <a href="../dominios/dominio-4-deep-dive.html">D4 deep dive</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Apéndice técnico</div>
+        <a href="../apendice/computo.html">Cómputo</a>
+        <a href="../apendice/almacenamiento.html">Almacenamiento</a>
+        <a href="../apendice/redes.html">Redes y conectividad</a>
+        <a href="../apendice/bases-datos.html">Bases de datos</a>
+        <a href="../apendice/seguridad-identidad.html">Seguridad e identidad</a>
+        <a href="../apendice/contenedores-serverless.html">Contenedores y serverless</a>
+        <a href="../apendice/integracion-mensajeria.html">Integración y mensajería</a>
+        <a href="../apendice/analitica-datos.html">Analítica y big data</a>
+        <a href="../apendice/migracion-hibrido.html">Migración e híbrido</a>
+        <a href="../apendice/gestion-gobernanza.html">Gestión y gobernanza</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Extras</div>
+        <a href="cheat-sheets.html">Cheat sheets</a>
+        <a href="banco-preguntas.html">Banco de preguntas (60)</a>
+        <a href="banco-preguntas-2.html">Banco II (24 escenarios)</a>
+        <a href="comparativas.html">Tablas comparativas</a>
+        <a href="laboratorios.html">Ruta de laboratorios</a>
+        <a href="glosario.html">Glosario (conceptos)</a>
+        <a href="glosario-terminos.html">Glosario (176 términos)</a>
+        <a href="ruta-8-semanas.html">Ruta 8 semanas</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <main class="content">
+      <header class="page-header">
+        <div class="crumbs"><a href="../index.html">Inicio</a> / Extras / Cheat sheets</div>
+        <h1>Cheat sheets: repaso exprés<span class="dom-weight">imprimible</span></h1>
+        <p class="page-lead">Toda la capa silver destilada en tablas de datos exactos: límites, tiempos de recuperación,
+        descuentos y comparativas servicio-a-servicio. Es la página que llevarás impresa la última semana — aquí los
+        <strong>números son el valor</strong>, porque en el examen un distractor se distingue de la respuesta correcta
+        por un solo dato (90 días vs 180, 60 s vs 5 min, Standard-IA vs One Zone-IA).</p>
+      </header>
+
+      <h2 id="como-usar"><span class="h2-num">1</span>Cómo usar esta página</h2>
+      <p>Estas tablas no son para leer una vez: son para <strong>repaso espaciado</strong>. El método recomendado:
+      (1) revísala completa una vez por semana durante toda la preparación, marcando las celdas que falles;
+      (2) en la <strong>última semana dedícale 20 minutos diarios</strong> solo a las tablas marcadas;
+      (3) imprímela (<span class="term-en">Ctrl+P</span> — el sitio es autocontenido y sin CDN, imprime perfecto offline)
+      y léela en papel el día previo. Cada tabla indica la fuente bronze exacta por si necesitas el detalle completo.
+      Si una fila no te dice nada, no la memorices aquí: vuelve a la página del dominio correspondiente, entiende el
+      <em>porqué</em> y luego vuelve a esta fila.</p>
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>No hay hoja de fórmulas en el examen: estas tablas se interiorizan por repetición. Los números exactos
+        (días mínimos de storage, TPS de FIFO, tiempo de failover) son exactamente el tipo de detalle que separa
+        dos opciones técnicamente plausibles. Palabras como <span class="term-en">cost-effective</span>,
+        <span class="term-en">minimum latency</span> o <span class="term-en">durability</span> apuntan directo a una
+        fila de estas tablas.</p>
+      </div>
+
+      <h2 id="almacenamiento"><span class="h2-num">2</span>Almacenamiento</h2>
+
+      <h3>2.1 · S3 storage classes (tabla completa)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Clase</th><th>Disponibilidad</th><th>AZs</th><th>Duración mín.</th><th>Objeto mín. facturable</th><th>Recuperación</th><th>Caso de uso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Standard</strong></td><td>99.99%</td><td>≥ 3</td><td>ninguna</td><td>ninguno</td><td>milisegundos</td><td>Acceso &gt;1×/mes; sitio web, contenido frecuente</td></tr>
+            <tr><td><strong>Intelligent-Tiering</strong></td><td>99.9%</td><td>≥ 3</td><td>ninguna</td><td>ninguno</td><td>milisegundos</td><td>Patrones <em>desconocidos o cambiantes</em>; sin retrieval fees, sí fee de monitoreo</td></tr>
+            <tr><td><strong>Standard-IA</strong></td><td>99.9%</td><td>≥ 3</td><td>30 días</td><td>128 KB</td><td>ms + retrieval fee</td><td>Acceso ~1×/mes; backups, datos primarios no recreables</td></tr>
+            <tr><td><strong>One Zone-IA</strong></td><td>99.5%</td><td>1</td><td>30 días</td><td>128 KB</td><td>ms + retrieval fee</td><td>Recreable; réplicas de CRR; puede perderse con la AZ</td></tr>
+            <tr><td><strong>Glacier Instant Retrieval</strong></td><td>99.9%</td><td>≥ 3</td><td>90 días</td><td>128 KB</td><td>milisegundos</td><td>Archivo accedido 1×/trimestre con acceso ms</td></tr>
+            <tr><td><strong>Glacier Flexible Retrieval</strong></td><td>99.99% (tras restore)</td><td>≥ 3</td><td>90 días</td><td>40 KB de metadata</td><td>Expedited 1–5 min · Standard 3–5 h · Bulk 5–12 h gratis</td><td>Archivo 1–2×/año; backup y DR</td></tr>
+            <tr><td><strong>Glacier Deep Archive</strong></td><td>99.99% (tras restore)</td><td>≥ 3</td><td>180 días</td><td>40 KB de metadata</td><td>Standard 12 h · Bulk 48 h</td><td>Acceso &lt;1×/año; compliance. <strong>El storage más barato de AWS</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Intelligent-Tiering mueve solo: 30 días sin acceso → IA tier, 90 días → Archive Instant (tiers Archive y Deep Archive opcionales, 90/180 días). Objetos &lt; 128 KB nunca se monitorizan. Duración mín. = si borras antes, pagas igual el mínimo.</p>
+
+      <h3>2.2 · EBS volume types</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo</th><th>Basado en</th><th>Máx IOPS</th><th>Máx throughput</th><th>Tamaño</th><th>Uso / nota clave</th></tr></thead>
+          <tbody>
+            <tr><td><strong>gp3</strong></td><td>SSD general</td><td><strong>80.000</strong> (baseline 3.000 + 125 MiB/s incluidos)</td><td>2.000 MiB/s</td><td>1 GiB–64 TiB</td><td>Default moderno: boot, apps, DB medianas; el más barato de SSD</td></tr>
+            <tr><td><strong>gp2</strong></td><td>SSD general</td><td>16.000</td><td>128–250 MiB/s (según tamaño)</td><td>1 GiB–16 TiB</td><td>Generación anterior; IOPS ligadas al tamaño</td></tr>
+            <tr><td><strong>io2 Block Express</strong></td><td>SSD provisionado</td><td><strong>256.000</strong></td><td>4.000 MiB/s</td><td>4 GiB–64 TiB</td><td>Sub-milisegundo (&lt;500 µs); 99.999% durabilidad; <span class="term-en">multi-attach</span>; DB críticas</td></tr>
+            <tr><td><strong>io1</strong></td><td>SSD provisionado</td><td>64.000</td><td>1.000 MiB/s</td><td>4 GiB–16 TiB</td><td>IO-intensivo legado; también <span class="term-en">multi-attach</span></td></tr>
+            <tr><td><strong>st1</strong></td><td>HDD</td><td>500</td><td>500 MiB/s</td><td>125 GiB–16 TiB</td><td>Big data, log processing, data warehouse; throughput barato</td></tr>
+            <tr><td><strong>sc1</strong></td><td>HDD frío</td><td>250</td><td>250 MiB/s</td><td>125 GiB–16 TiB</td><td>El $/GB más bajo de EBS; datos raramente accedidos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">HDD (st1/sc1) <strong>no pueden ser boot volume</strong>. Multi-attach solo en io1/io2. Precio relativo: sc1 &lt; st1 &lt; gp3 &lt; gp2 &lt; io1 &lt; io2. IOPS máximas completas requieren instancias Nitro/EBS-optimized.</p>
+
+      <h3>2.3 · S3 vs EBS vs EFS vs FSx</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>S3</th><th>EBS</th><th>EFS</th><th>FSx</th></tr></thead>
+          <tbody>
+            <tr><td>Tipo</td><td>objeto</td><td>bloque</td><td>archivo (NFS)</td><td>archivo (SMB/Lustre/ONTAP/OpenZFS)</td></tr>
+            <tr><td>Acceso</td><td>HTTP/S, desde cualquier sitio</td><td>una instancia (o pocas con multi-attach io)</td><td>miles de instancias concurrentes</td><td>Windows o HPC</td></tr>
+            <tr><td>Latencia</td><td>ms</td><td>sub-ms (SSD)</td><td>ms (varios ms)</td><td>sub-ms (Lustre para HPC)</td></tr>
+            <tr><td>Escalado</td><td>ilimitado (objetos hasta 5 TB)</td><td>hasta 64 TiB (io2)</td><td>PB elástico automático</td><td>según tipo, hasta TB/velocidades altísimas</td></tr>
+            <tr><td>AZ</td><td>≥ 3 (One Zone aparte)</td><td>1 (replicas manuales vía snapshots)</td><td>multi-AZ (o One Zone, ±50% costo)</td><td>multi-AZ (ONTAP/Windows)</td></tr>
+            <tr><td>Caso examen</td><td>estáticos, data lake, backups</td><td>disco de BD, boot</td><td>contenido web compartido, home dirs, CMS</td><td>Lift-and-shift Windows, HPC con Lustre</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Trampa clásica: "muchas instancias EC2 Linux comparten archivos" → EFS, no EBS. "Discos de alta IOPS para una BD" → EBS io2.</p>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/storage-s3/storage-class-intro.md</code> ·
+      <code>../../bronze/05-docs/storage-s3/glacier-storage-classes.md</code> ·
+      <code>../../bronze/05-docs/storage-ebs/ebs-volume-types.md</code></p>
+
+      <h2 id="computo"><span class="h2-num">3</span>Cómputo</h2>
+
+      <h3>3.1 · Purchasing options de EC2</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción</th><th>Descuento máx.</th><th>Compromiso</th><th>Uso ideal</th></tr></thead>
+          <tbody>
+            <tr><td><strong>On-Demand</strong></td><td>—</td><td>ninguno; pago por segundo (mín 60 s)</td><td>Cargas irregulares, pruebas, primeras horas de producción</td></tr>
+            <tr><td><strong>Spot</strong></td><td><strong>hasta 90%</strong></td><td>ninguno; puede interrumpirse (aviso 2 min)</td><td>Batch, fault-tolerant, stateless, CI, rendering</td></tr>
+            <tr><td><strong>Reserved Standard</strong></td><td><strong>hasta 72%</strong></td><td>1 o 3 años; atributos fijos (familia, tamaño, región, OS, tenancy)</td><td>Carga estable y predecible, 24/7</td></tr>
+            <tr><td><strong>Compute Savings Plans</strong></td><td>hasta 66%</td><td>1 o 3 años de $/hora; aplica a EC2 <em>+</em> Fargate <em>+</em> Lambda, cualquier familia/región/OS</td><td>Uso flexible que puede migrar de servicio o familia</td></tr>
+            <tr><td><strong>Scheduled Instances</strong></td><td>similar a RI 1 año</td><td>bloques recurrentes (p. ej. 4 h/día durante 1 año); pagas solo las horas reservadas</td><td>Cargas con ventana fija (batch nocturno, reporting diario)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">EC2 Instance Savings Plans: hasta 72% comprometiendo una familia en una región (mitad de camino entre RI y Compute SP).</p>
+
+      <h3>3.2 · Familias de instancias</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Familia</th><th>Optimizada para</th><th>Ejemplo de uso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>t</strong></td><td>burstable (CPU credits)</td><td>Webs de bajo tráfico, dev/test, ahorro máximo</td></tr>
+            <tr><td><strong>c</strong></td><td>compute</td><td>HPC, encoding de video, batch, servidores de juego</td></tr>
+            <tr><td><strong>m</strong></td><td>general (balance)</td><td>Apps web y empresariales típicas</td></tr>
+            <tr><td><strong>r</strong></td><td>memory</td><td>Cachés in-memory, analytics en memoria, SAP</td></tr>
+            <tr><td><strong>x</strong></td><td>memoria extrema</td><td>SAP HANA, bases en memoria enormes</td></tr>
+            <tr><td><strong>i</strong></td><td>alta IOPS (NVMe)</td><td>NoSQL (Cassandra, MongoDB), OLTP</td></tr>
+            <tr><td><strong>d</strong></td><td>storage denso (HDD)</td><td>HDFS/MapReduce, file servers masivos</td></tr>
+            <tr><td><strong>f</strong></td><td>FPGA</td><td>Genómica, análisis financiero en tiempo real</td></tr>
+            <tr><td><strong>g</strong></td><td>GPU gráficos</td><td>3D, streaming de video, workstations virtuales</td></tr>
+            <tr><td><strong>p</strong></td><td>GPU entrenamiento</td><td>Deep learning, HPC con CUDA</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Modernas: <strong>inf</strong> (Inferentia, inferencia ML barata), <strong>trn</strong> (Trainium, entrenamiento), <strong>hpc/gr</strong> (HPC de red mejorada). Truco: la letra es la inicial en inglés (r = RAM, c = CPU, i = I/O).</p>
+
+      <h3>3.3 · Lambda: límites clave</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Límite</th><th>Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Memoria</td><td>128 MB – <strong>10 GB</strong> (la CPU escala con la memoria)</td></tr>
+            <tr><td>Timeout</td><td>máx <strong>15 min</strong> (900 s)</td></tr>
+            <tr><td>Payload de invocación</td><td><strong>256 KB</strong> (síncrona y asíncrona)</td></tr>
+            <tr><td>Almacenamiento <code>/tmp</code></td><td>512 MB – 10 GB</td></tr>
+            <tr><td>Variables de entorno</td><td>4 KB en total</td></tr>
+            <tr><td>Paquete de despliegue</td><td>50 MB zipped directo; 250 MB descomprimido (vía S3)</td></tr>
+            <tr><td>Concurrencia</td><td>1.000 ejecuciones simultáneas por región (soft limit, ampliable; se puede reservar por función)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Si algo necesita &gt; 15 min o &gt; 10 GB: Step Functions encadenando, ECS/Fargate, o Batch. Los payloads grandes van por S3 + paso de referencia (patrón claim check).</p>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/compute-ec2/ec2-reserved-instances.md</code> ·
+      <code>../../bronze/05-docs/compute-ec2/using-spot-instances.md</code> ·
+      <code>../../bronze/04-faqs/savings-plans.md</code> · <code>../../bronze/04-faqs/aws-lambda.md</code></p>
+
+      <h2 id="redes"><span class="h2-num">4</span>Redes</h2>
+
+      <h3>4.1 · Security group vs NACL</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Security group</th><th>NACL</th></tr></thead>
+          <tbody>
+            <tr><td>Nivel</td><td>instancia (ENI)</td><td>subnet</td></tr>
+            <tr><td>Estado</td><td><span class="term-en">stateful</span>: el retorno se permite solo</td><td><span class="term-en">stateless</span>: hay que abrir puertos efímeros (1024–65535) de vuelta</td></tr>
+            <tr><td>Reglas</td><td>solo <strong>allow</strong></td><td><strong>allow y deny</strong></td></tr>
+            <tr><td>Evaluación</td><td>todas las reglas antes de decidir</td><td>en orden numérico (menor primero); <code>*</code> es el deny final</td></tr>
+            <tr><td>Default</td><td>deny todo inbound / allow todo outbound</td><td>allow todo in/out (número 100)</td></tr>
+            <tr><td>Bloquear una IP maliciosa</td><td>imposible (no hay deny)</td><td>posible (regla deny &lt; 100)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">La pregunta "bloquear una IP específica en la subnet" → NACL. "Reglas que aplican a la instancia" → SG.</p>
+
+      <h3>4.2 · ALB vs NLB vs GLB</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>ALB</th><th>NLB</th><th>GLB (Gateway LB)</th></tr></thead>
+          <tbody>
+            <tr><td>Capa</td><td>L7 (HTTP/HTTPS)</td><td>L4 (TCP/UDP/TLS)</td><td>L3 (GENEVE, puerto 6081)</td></tr>
+            <tr><td>Routing</td><td>path, host, headers, query</td><td>por IP/puerto; target groups</td><td>afinidad de flujo al mismo appliance</td></tr>
+            <tr><td>IP estática</td><td>no (DNS)</td><td><strong>sí (EIP por AZ)</strong></td><td>usa GWLB endpoint</td></tr>
+            <tr><td>Targets</td><td>instancias, IP, <strong>Lambda</strong>, ALB</td><td>instancias, IP, ALB</td><td>appliance virtual (firewall/IDS) en línea</td></tr>
+            <tr><td>Latencia</td><td>milisegundos</td><td>muy baja; millones de req/s</td><td>inspección transparente del tráfico</td></tr>
+            <tr><td>Sticky sessions</td><td>app-based cookies</td><td>source IP</td><td>afinidad por flujo</td></tr>
+            <tr><td>Caso</td><td>microservicios, routing HTTP</td><td>gaming, IoT, TCP/UDP extremo, IP fija</td><td>firewalls virtuales inline (p. ej. Suricata)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">CLB (Classic) es legacy v1: solo aparece como distractor. "Static IP para el LB" → NLB.</p>
+
+      <h3>4.3 · Route 53: 8 routing policies</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Política</th><th>Caso de uso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Simple</strong></td><td>Un recurso por función; sin health checks ni failover</td></tr>
+            <tr><td><strong>Weighted</strong></td><td>Repartir % de tráfico: canary, test A/B, migración gradual</td></tr>
+            <tr><td><strong>Latency</strong></td><td>Región con mejor latencia para el usuario</td></tr>
+            <tr><td><strong>Failover</strong></td><td>Active-passive con health checks (primaria + secundaria DR)</td></tr>
+            <tr><td><strong>Geolocation</strong></td><td>Según ubicación del <em>usuario</em> (continente/país); default record si no coincide</td></tr>
+            <tr><td><strong>Geoproximity</strong></td><td>Según ubicación del <em>recurso</em> + <span class="term-en">bias</span> para desplazar tráfico (Traffic Flow)</td></tr>
+            <tr><td><strong>IP-based</strong></td><td>Según IP de origen del cliente (listas CIDR conocidas: oficinas, partners)</td></tr>
+            <tr><td><strong>Multivalue answer</strong></td><td>Hasta <strong>8 registros sanos</strong> aleatorios (mini-HA sin LB)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Trampa geolocation vs latency: geolocation mira DE DÓNDE es el usuario (compliance, idiomas); latency mide QUÉ región responde más rápido.</p>
+
+      <h3>4.4 · CloudFront vs Global Accelerator</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>CloudFront</th><th>Global Accelerator</th></tr></thead>
+          <tbody>
+            <tr><td>Qué es</td><td>CDN con caché en edge locations</td><td>Anycast + backbone AWS hacia tu región</td></tr>
+            <tr><td>Protocolos</td><td>HTTP(S), WebSocket</td><td>cualquier <strong>TCP/UDP</strong></td></tr>
+            <tr><td>Caché</td><td>sí (estáticos + dinámico sin cache)</td><td>no (solo acelera la ruta)</td></tr>
+            <tr><td>IPs</td><td>DNS</td><td><strong>2 IP anycast estáticas</strong></td></tr>
+            <tr><td>IP del cliente</td><td>llega en headers (X-Forwarded-For)</td><td><strong>se preserva</strong></td></tr>
+            <tr><td>Caso</td><td>Sitio web, S3, streaming, APIs HTTP</td><td>Apps no HTTP (gaming UDP, IoT), necesidad de IP fijas, failover instantáneo sin DNS TTL</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.5 · Gateway vs interface endpoint</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Gateway endpoint</th><th>Interface endpoint</th></tr></thead>
+          <tbody>
+            <tr><td>Servicios</td><td>solo <strong>S3 y DynamoDB</strong></td><td>decenas (KMS, SQS, SNS, API Gateway, CloudWatch…)</td></tr>
+            <tr><td>Mecanismo</td><td>entrada en la <strong>route table</strong> (prefijo)</td><td><strong>ENI</strong> con IP privada en tus subnets</td></tr>
+            <tr><td>Coste</td><td><strong>gratis</strong></td><td>$0.01/h por AZ + $0.01/GB procesado</td></tr>
+            <tr><td>Escalado</td><td>ilimitado, sin gestionar nada</td><td>una ENI por AZ (mejor práctica)</td></tr>
+            <tr><td>Seguridad</td><td>endpoint policy</td><td>security group del ENI + policies</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">"Acceso privado a S3 desde la VPC sin costo" → gateway endpoint. Cualquier otro servicio o filtro por SG → interface endpoint (PrivateLink).</p>
+
+      <h3>4.6 · Direct Connect vs Site-to-Site VPN</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Direct Connect</th><th>Site-to-Site VPN</th></tr></thead>
+          <tbody>
+            <tr><td>Medio</td><td>conexión física dedicada (fibra, cross-connect)</td><td>túnel IPsec sobre Internet</td></tr>
+            <tr><td>Ancho de banda</td><td>1 / 10 / 100 Gbps</td><td>hasta ~1.25 Gbps por túnel</td></tr>
+            <tr><td>Latencia</td><td>consistente y baja</td><td>variable (Internet pública)</td></tr>
+            <tr><td>Provisionar</td><td>semanas (instalación física)</td><td>minutos / horas</td></tr>
+            <tr><td>Costo</td><td>alto (puerto + datos)</td><td>bajo</td></tr>
+            <tr><td>Cifrado</td><td>no nativo → MACsec o VPN sobre DX</td><td>IPsec nativo</td></tr>
+            <tr><td>Caso</td><td>híbrido estable, data transfer masivo, compliance</td><td>DR rápido, pilotos, presupuesto corto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Patrón examen: conexión estable + confidencial → <strong>DX + VPN encima</strong> (túneles IPsec sobre la conexión dedicada).</p>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/network-vpc/vpc-security-groups.md</code> ·
+      <code>../../bronze/05-docs/network-vpc/vpc-network-acls.md</code> ·
+      <code>../../bronze/05-docs/network-route53/routing-policy.md</code> ·
+      <code>../../bronze/05-docs/network-privatelink/gateway-endpoints.md</code> ·
+      <code>../../bronze/04-faqs/aws-direct-connect.md</code></p>
+
+      <h2 id="bases-de-datos"><span class="h2-num">5</span>Bases de datos</h2>
+
+      <h3>5.1 · RDS Multi-AZ vs read replicas</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Multi-AZ</th><th>Read replica</th></tr></thead>
+          <tbody>
+            <tr><td>Propósito</td><td><strong>HA / failover</strong></td><td><strong>escalar lecturas</strong></td></tr>
+            <tr><td>Replicación</td><td><span class="term-en">synchronous</span> a la standby</td><td><span class="term-en">asynchronous</span></td></tr>
+            <tr><td>Failover</td><td>automático, 60–120 s (cambia el DNS del endpoint)</td><td>promoción manual (minutos)</td></tr>
+            <tr><td>RPO</td><td>0 (síncrona)</td><td>segundos-minutos</td></tr>
+            <tr><td>¿Sirve para leer?</td><td>no (standby inactiva)</td><td>sí (endpoint propio)</td></tr>
+            <tr><td>Cross-region</td><td>misma región (usa cross-region RR para DR lejano)</td><td>sí, cross-region (DR + latencia local)</td></tr>
+            <tr><td>Costo</td><td>duplica la instancia</td><td>por cada réplica</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.2 · Aurora vs RDS</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Aurora</th><th>RDS</th></tr></thead>
+          <tbody>
+            <tr><td>Storage</td><td>6 copias en 3 AZs, auto-crece 10 GB → 128 TiB</td><td>1–2 copias según motor, tamaño fijo</td></tr>
+            <tr><td>Réplicas</td><td>hasta <strong>15</strong>, lag de ms (comparten storage)</td><td>1–15 según motor, lag mayor</td></tr>
+            <tr><td>Failover</td><td>~30 s o menos</td><td>60–120 s</td></tr>
+            <tr><td>Global</td><td><strong>Aurora Global Database</strong>: replicación &lt;1 s entre regiones</td><td>cross-region read replica</td></tr>
+            <tr><td>Serverless</td><td>Aurora Serverless v2 (escala por ACUs)</td><td>no (solo Data API en Aurora)</td></tr>
+            <tr><td>Rendimiento</td><td>hasta 5× MySQL / 3× Postgres</td><td>línea base del motor</td></tr>
+            <tr><td>Costo</td><td>~20% más por hora, I/O por uso (on-demand)</td><td>más barato por hora</td></tr>
+            <tr><td>Endpoints</td><td>writer, reader y custom</td><td>uno principal + endpoints de réplicas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Clave del examen: Aurora replicas son réplicas DE LECTURA (writer único); las "6 copias" protegen el <em>storage</em>, no añaden writers.</p>
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>En preguntas de BD, los números del escenario delatan la respuesta: <span class="term-en">15 replicas</span>
+        o <span class="term-en">sub-second failover</span> → Aurora; "existing MySQL app, minimize changes" → RDS MySQL;
+        <span class="term-en">scale reads globally</span> → read replicas / Aurora Global; y si aparece
+        <span class="term-en">unpredictable workloads</span> sin querer gestionar capacidad → Aurora Serverless v2
+        o DynamoDB on-demand.</p>
+      </div>
+
+      <h3>5.3 · ElastiCache: Redis vs Memcached</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Redis</th><th>Memcached</th></tr></thead>
+          <tbody>
+            <tr><td>Persistencia</td><td>sí (RDB snapshots / AOF)</td><td>no (todo se pierde al reiniciar)</td></tr>
+            <tr><td>HA</td><td>Multi-AZ + <span class="term-en">read replicas</span> + failover</td><td>no (hay que reconstruir la caché)</td></tr>
+            <tr><td>Estructuras</td><td>strings, lists, sets, sorted sets, hashes, streams, pub/sub</td><td>solo key-value simple</td></tr>
+            <tr><td>Autenticación</td><td>Redis AUTH, RBAC, TLS</td><td>soporte TLS (sin RBAC)</td></tr>
+            <tr><td>Backup / restore</td><td>sí</td><td>no</td></tr>
+            <tr><td>Multithreading</td><td>sí (I/O)</td><td>sí (aprovecha todos los cores)</td></tr>
+            <tr><td>Caso</td><td>session store durable, rankings, pub/sub</td><td>caché pura y simple, objetos descartables</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.4 · DynamoDB: provisioned vs on-demand</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Provisioned (+ autoscaling)</th><th>On-demand</th></tr></thead>
+          <tbody>
+            <tr><td>Unidades</td><td>RCU / WCU que reservas</td><td>RRU / WRU por petición efectiva</td></tr>
+            <tr><td>Planificación</td><td>debes estimar y configurar autoscaling</td><td>nada: adapta el throughput a la carga</td></tr>
+            <tr><td>Costo óptimo</td><td>tráfico <strong>sostenido y predecible</strong> (&gt;~1/3 del tiempo ocupado)</td><td>tráfico <strong>intermitente, nuevo o impredecible</strong></td></tr>
+            <tr><td>Throttling</td><td>posible si te quedas corto</td><td>improbable (límites por defecto muy altos, ampliables)</td></tr>
+            <tr><td>Switch</td><td colspan="2">puedes conmutar de modo una vez cada 24 h</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.5 · DynamoDB: GSI vs LSI</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>GSI</th><th>LSI</th></tr></thead>
+          <tbody>
+            <tr><td>Partición</td><td>cualquier atributo (partición <em>distinta</em> de la tabla)</td><td><strong>misma</strong> partition key + sort key distinta</td></tr>
+            <tr><td>Creación</td><td>en cualquier momento</td><td>solo al crear la tabla</td></tr>
+            <tr><td>Throughput</td><td>RCU/WCU propias (independientes)</td><td>comparte el de la tabla base</td></tr>
+            <tr><td>Consistencia</td><td>solo <span class="term-en">eventual</span></td><td>eventual o <span class="term-en">strong</span></td></tr>
+            <tr><td>Límite</td><td>20 por tabla (default)</td><td>5 por tabla; <strong>10 GB</strong> por valor de partition key</td></tr>
+            <tr><td>Proyección</td><td>solo atributos proyectados</td><td>si falta un atributo, lo <em>fetcha</em> de la tabla</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.6 · Motores especializados</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Modelo</th><th>Caso de uso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>DocumentDB</strong></td><td>documentos (compatible <em>MongoDB</em>)</td><td>Apps escritas para MongoDB, contenido JSON, catálogos</td></tr>
+            <tr><td><strong>Neptune</strong></td><td>grafo (property graph + RDF/SPARQL)</td><td>Recomendaciones, detección de fraude, knowledge graphs, redes sociales</td></tr>
+            <tr><td><strong>Keyspaces</strong></td><td>columna ancha (compatible <em>Cassandra</em>)</td><td>Migrar cargas Cassandra sin gestionar clusters</td></tr>
+            <tr><td><strong>QLDB</strong></td><td>ledger central, <em>inmutable</em> y verificable criptográficamente</td><td>Registro de transacciones financieras, historial de cambios ("blockchain centralizado")</td></tr>
+            <tr><td><strong>Timestream</strong></td><td>time series</td><td>IoT, telemetría, métricas de DevOps con SQL</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">OpenSearch (búsqueda full-text y logs) y Redshift (OLAP, data warehouse) completan la familia: el truco del examen es <em>la forma del dato</em> decide el motor.</p>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/db-rds/concepts-multiazsinglestandby.md</code> ·
+      <code>../../bronze/05-docs/db-aurora/chap-auroraoverview.md</code> ·
+      <code>../../bronze/05-docs/db-elasticache/red-ug/whatis.md</code> ·
+      <code>../../bronze/05-docs/db-dynamodb/secondaryindexes.md</code> ·
+      <code>../../bronze/05-docs/db-dynamodb/on-demand-capacity-mode.md</code></p>
+
+      <h2 id="integracion"><span class="h2-num">6</span>Integración y mensajería</h2>
+
+      <h3>6.1 · SQS vs SNS vs EventBridge vs MSK</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>SQS</th><th>SNS</th><th>EventBridge</th><th>MSK</th></tr></thead>
+          <tbody>
+            <tr><td>Modelo</td><td>cola <strong>pull</strong></td><td>tópico <strong>push</strong></td><td>bus de eventos con reglas</td><td>Kafka gestionado (topics+particiones)</td></tr>
+            <tr><td>Acoplamiento</td><td>buffer: productor no conoce consumidores</td><td>fan-out 1→N suscriptores</td><td>routing por <em>contenido</em>, 90+ SaaS, eventos de servicios AWS</td><td>streaming, múltiples consumer groups independientes</td></tr>
+            <tr><td>Retención</td><td>1–14 días (default 4)</td><td>no persiste (retry + DLQ)</td><td>archivo/replay opcional</td><td>hasta 7 días (default 7)</td></tr>
+            <tr><td>Tamaño mensaje</td><td>256 KB</td><td>256 KB</td><td>256 KB</td><td>1 MB (default)</td></tr>
+            <tr><td>Caso estrella</td><td><span class="term-en">decouple</span>, nivelar picos, workers</td><td>notificar emails/SMS/móviles, fan-out a colas</td><td>event-driven serverless, filtros JSON, schema registry</td><td>ecosistema Kafka, replay, orden por partición</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 · SQS Standard vs FIFO</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Standard</th><th>FIFO</th></tr></thead>
+          <tbody>
+            <tr><td>Throughput</td><td>casi ilimitado</td><td><strong>300 API/s</strong> → <strong>3.000 msg/s</strong> con batching (10/batch); <span class="term-en">high throughput mode</span>: hasta 30.000 TPS con orden relajado entre grupos</td></tr>
+            <tr><td>Orden</td><td>best-effort</td><td>estricta, por <span class="term-en">message group</span></td></tr>
+            <tr><td>Duplicados</td><td>posibles (diseña <span class="term-en">idempotent</span>)</td><td>exactamente una vez (<span class="term-en">MessageDeduplicationId</span> o content-based, ventana 5 min)</td></tr>
+            <tr><td>Nombre</td><td>cualquiera</td><td>debe acabar en <code>.fifo</code></td></tr>
+            <tr><td>Caso</td><td>throughput, tolerancia a duplicados</td><td>órdenes, transacciones, comandos de usuario</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.3 · Step Functions: Standard vs Express</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Standard</th><th>Express</th></tr></thead>
+          <tbody>
+            <tr><td>Duración máx.</td><td><strong>1 año</strong></td><td><strong>5 minutos</strong></td></tr>
+            <tr><td>Tasa</td><td>2.000 ejecuciones/s · 4.000 transiciones de estado/s</td><td>100.000 ejecuciones/s · transiciones casi ilimitadas</td></tr>
+            <tr><td>Semántica</td><td><span class="term-en">exactly-once</span></td><td><span class="term-en">at-least-once</span> (async) o <span class="term-en">at-most-once</span> (sync)</td></tr>
+            <tr><td>Precio</td><td>por transición de estado</td><td>por número y duración de ejecuciones</td></tr>
+            <tr><td>Historial</td><td>visible en consola, auditable</td><td>en CloudWatch Logs</td></tr>
+            <tr><td>Caso</td><td>orquestación larga, auditoría</td><td>alta tasa de eventos (IoT, streaming)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.4 · API Gateway: REST vs HTTP API</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>REST API (v1)</th><th>HTTP API (v2)</th></tr></thead>
+          <tbody>
+            <tr><td>Costo / latencia</td><td>más caro, más lento</td><td>más barato y más rápido</td></tr>
+            <tr><td>Features</td><td><strong>todo</strong>: usage plans, API keys, request validation, mapping templates, WAF, mock, cache, autorizadores Cognito/Lambda</td><td>lo esencial: proxy, JWT authorizers, CORS, throttling</td></tr>
+            <tr><td>Caso</td><td>API producto con clientes externos, cuotas por key</td><td>backend simple de Lambda, interna de baja fricción</td></tr>
+            <tr><td>Compartido</td><td colspan="2">dominios custom, stages, métricas CloudWatch, throttling</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/integration-sqs/sqs-queue-types.md</code> ·
+      <code>../../bronze/05-docs/integration-stepfunctions/welcome.md</code> ·
+      <code>../../bronze/04-faqs/amazon-sqs.md</code> · <code>../../bronze/04-faqs/amazon-eventbridge.md</code></p>
+
+      <h2 id="seguridad"><span class="h2-num">7</span>Seguridad</h2>
+
+      <h3>7.1 · KMS key types</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo</th><th>Quién la crea</th><td>Control / visibilidad</th><th>Costo</th><th>Cuándo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AWS owned</strong></td><td>AWS, compartida entre cuentas</td><td>nunca la ves</td><td>gratis</td><td>Es la que usa SSE-S3 por defecto</td></tr>
+            <tr><td><strong>AWS managed</strong> (<code>aws/s3</code>, <code>aws/ssm</code>…)</td><td>automáticamente en tu cuenta</td><td>la ves pero no la administras (ni policies ni disable); rotación gestionada por AWS</td><td>sin cargo mensual</td><td>Usar KMS sin gestionar nada</td></tr>
+            <tr><td><strong>Customer managed</strong></td><td>tú</td><td><strong>total</strong>: key policies, grants, alias, rotación (anual automática, on-demand o nunca)</td><td>$1/mes + llamadas</td><td>SSE-KMS con auditoría, control de acceso</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Variantes de customer managed: <strong>simétrica</strong> (AES-256, única con rotación automática), <strong>asimétrica</strong> (RSA/ECC, para cifrar fuera de AWS y firmas; sin auto-rotación), <strong>multi-Region</strong>, y <strong>custom key store</strong> respaldada por tu CloudHSM.</p>
+
+      <h3>7.2 · Secrets Manager vs Parameter Store</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>Secrets Manager</th><th>Parameter Store (SSM)</th></tr></thead>
+          <tbody>
+            <tr><td>Precio</td><td>$0.40/secreto/mes + $0.05 por 10.000 API calls</td><td><strong>Standard gratis</strong> (Advanced $0.05, 8 KB)</td></tr>
+            <tr><td>Rotación</td><td><strong>integrada</strong> (Lambda, RDS y otros listos)</td><td>manual (tu propia automation)</td></tr>
+            <tr><td>Cifrado</td><td>KMS siempre</td><td><span class="term-en">SecureString</span> con KMS (opcional)</td></tr>
+            <tr><td>Valor máx.</td><td>64 KB</td><td>4 KB (standard) / 8 KB (advanced)</td></tr>
+            <tr><td>Cross-region / account</td><td>replicación nativa</td><td>compartir manual</td></tr>
+            <tr><td>Caso</td><td>credenciales de BD, API keys con rotación</td><td>config no sensible, parámetros de bootstrap, AMIs</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.3 · Servicios de detección y análisis</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Qué hace</th><th>Origen de sus datos</th></tr></thead>
+          <tbody>
+            <tr><td><strong>GuardDuty</strong></td><td>Detección de <em>amenazas</em> con ML (cuentas comprometidas, cryptomining, brute force)</td><td>CloudTrail, VPC flow logs, DNS</td></tr>
+            <tr><td><strong>Inspector</strong></td><td><em>Vulnerabilidades</em> automáticas (CVE, exposiciones de red)</td><td>EC2, ECR, Lambda</td></tr>
+            <tr><td><strong>Macie</strong></td><td>Datos <em>sensibles</em> (PII) en S3 con ML</td><td>contenido de buckets S3</td></tr>
+            <tr><td><strong>Security Hub</strong></td><td><em>Centraliza</em> findings + compliance (CIS Benchmark, standards)</td><td>agrega a los anteriores y a Config</td></tr>
+            <tr><td><strong>Detective</strong></td><td><em>Investigación</em>: grafos de comportamiento para root-cause</td><td>findings de GuardDuty/Inspector/Macie</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Mnemotecnia: GuardDuty = <em>malos</em>; Inspector = <em>agujeros</em>; Macie = <em>secretos</em>; Hub = <em>centro</em>; Detective = <em>investiga lo que ya pasó</em>.</p>
+
+      <h3>7.4 · WAF · Shield · FMS · Network Firewall</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Capa</th><th>Qué hace</th><th>Protege a</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AWS WAF</strong></td><td>L7</td><td>Reglas: SQLi, XSS, geo-match, <span class="term-en">rate-based</span> (rate limit), bot control</td><td>CloudFront, ALB, API Gateway, AppSync</td></tr>
+            <tr><td><strong>Shield Standard</strong></td><td>L3/L4</td><td>anti-DDoS <strong>siempre activo y gratis</strong></td><td>todos los clientes</td></tr>
+            <tr><td><strong>Shield Advanced</strong></td><td>L3–L7</td><td>$3.000/mes: SRT 24/7, protección de costos DDoS, alertas</td><td>CF, Route 53, Global Accelerator, ALB/NLB</td></tr>
+            <tr><td><strong>Firewall Manager (FMS)</strong></td><td>gestión</td><td>Administra reglas WAF/Shield/SG/Network Firewall <em>multi-cuenta y multi-región</em> (Organizations)</td><td>toda la organización</td></tr>
+            <tr><td><strong>Network Firewall</strong></td><td>L3–L7 en la VPC</td><td>Stateful/stateless gestionado (reglas Suricata) para inspeccionar tráfico VPC→VPC y egress a Internet</td><td>subnets de la VPC</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.5 · Cifrado en S3</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Método</th><th>Clave</th><th>Quién la gestiona</th><th>Nota de examen</th></tr></thead>
+          <tbody>
+            <tr><td><strong>SSE-S3</strong></td><td>AES-256</td><td>AWS (clave propia de S3)</td><td>Default desde enero 2023; sin costo extra ni auditoría de uso de clave</td></tr>
+            <tr><td><strong>SSE-KMS</strong></td><td>CMK de KMS</td><td>tú (o aws/managed)</td><td>Auditable con CloudTrail + control con key policy; cuesta llamadas KMS → mitiga con <span class="term-en">bucket keys</span></td></tr>
+            <tr><td><strong>DSSE-KMS</strong></td><td>2 capas, 2 CMKs distintas</td><td>tú</td><td>Para requisitos de doble cifrado</td></tr>
+            <tr><td><strong>SSE-C</strong></td><td>la provees <em>en cada request</em></td><td>tú (fuera de AWS)</td><td>HTTPS obligatorio; S3 no guarda la clave</td></tr>
+            <tr><td><strong>CSE</strong></td><td>cifras antes de subir</td><td>tú (cliente)</td><td>S3 solo ve ciphertext; máximo control</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/05-docs/security-kms/overview.md</code> ·
+      <code>../../bronze/05-docs/security-kms/key-policies.md</code> ·
+      <code>../../bronze/04-faqs/aws-secrets-manager.md</code> ·
+      <code>../../bronze/05-docs/security-waf/what-is-aws-waf.md</code> ·
+      <code>../../bronze/05-docs/storage-s3/serv-side-encryption.md</code></p>
+
+      <h2 id="costo"><span class="h2-num">8</span>Costo y gestión</h2>
+
+      <h3>8.1 · Herramientas de costo</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Herramienta</th><th>Qué responde</th><th>Nota</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cost Explorer</strong></td><td>¿En qué gasté? ¿Qué pronóstico tengo?</td><td>12 meses atrás + forecast 12; cobertura y utilización de RI/SP</td></tr>
+            <tr><td><strong>Budgets</strong></td><td>¿Me paso de $X?</td><td>Alertas (costo, usage, RI coverage, SP utilization) → SNS; forecasts</td></tr>
+            <tr><td><strong>CUR</strong> (Cost &amp; Usage Report)</td><td>El detalle línea por línea</td><td>El más granular; se analiza con Athena/Redshift/QuickSight</td></tr>
+            <tr><td><strong>Cost allocation tags</strong></td><td>¿Cuánto cuesta cada equipo/proyecto?</td><td>Hay que <em>activarlas</em> para que aparezcan en billing</td></tr>
+            <tr><td><strong>Compute Optimizer</strong></td><td>¿Están sobredimensionadas mis instancias?</td><td>Recomendaciones de right-sizing con ML</td></tr>
+            <tr><td><strong>Pricing Calculator</strong></td><td>¿Cuánto costará esto antes de crearlo?</td><td>Estimaciones pre-deployment</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.2 · Data transfer costs (aprox., us-east-1)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Escenario</th><th>Costo</th><th>Truco de diseño</th></tr></thead>
+          <tbody>
+            <tr><td>Entrada desde Internet</td><td><strong>gratis</strong></td><td>—</td></tr>
+            <tr><td>Misma AZ (IP privada)</td><td><strong>gratis</strong></td><td>Coloca juntos los componentes que hablan mucho</td></tr>
+            <tr><td>Cross-AZ</td><td>~$0.01/GB (en cada dirección)</td><td>Asume el costo por diseño multi-AZ; evita chatty cross-AZ</td></tr>
+            <tr><td>Cross-region</td><td>~$0.02/GB+ según regiones</td><td>Replica solo lo que el RPO exige</td></tr>
+            <tr><td>Salida a Internet (egress)</td><td>~$0.09/GB (decreciente por volumen)</td><td>Usa CloudFront: egress más barato + gratis S3→CloudFront</td></tr>
+            <tr><td>Salida por Direct Connect</td><td>~$0.02/GB</td><td>Con volúmenes grandes sale más barato que Internet</td></tr>
+            <tr><td>VPC → S3/DynamoDB</td><td>$0.01/GB… <strong>gratis con gateway endpoint</strong></td><td>Endpoint y te ahorras el data transfer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Números aproximados para razonar el examen, no para cotizar: lo que debes memorizar son los <em>ordenes relativos</em> (misma AZ &lt; cross-AZ &lt; cross-region &lt; Internet).</p>
+
+      <h3>8.3 · Trusted Advisor (5 categorías)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Categoría</th><th>Ejemplo de check</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cost optimization</strong></td><td>Load balancers ociosos, EIPs sin asociar, instancias subutilizadas</td></tr>
+            <tr><td><strong>Performance</strong></td><td>Sobre-utilización de EBS, uso alto de config de instancia</td></tr>
+            <tr><td><strong>Security</strong></td><td>SG con 0.0.0.0/0 en puertos sensibles, buckets S3 públicos, MFA ausente en root</td></tr>
+            <tr><td><strong>Fault tolerance</strong></td><td>RDS sin backups, AZ única</td></tr>
+            <tr><td><strong>Service limits</strong></td><td>Servicios por encima del 80% de la cuota</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Solo Business/Enterprise Support tiene las 5 categorías completas + API. Sucesor conceptual para infraestructura: AWS Config (compliance como código) y Compute Optimizer (costo).</p>
+
+      <p class="bronze-link">Fuentes bronze: <code>../../bronze/04-faqs/aws-trusted-advisor.md</code> ·
+      <code>../../bronze/04-faqs/savings-plans.md</code> · <code>../../bronze/05-docs/cost-management/</code> ·
+      <code>../../bronze/05-docs/cost-budgets/</code></p>
+
+      <h2 id="dr"><span class="h2-num">9</span>DR y resiliencia</h2>
+
+      <h3>9.1 · Las 4 estrategias DR (del whitepaper oficial)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estrategia</th><th>RPO</th><th>RTO</th><th>Costo</th><th>Qué hay listo ANTES del desastre</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Backup &amp; Restore</strong></td><td>horas</td><td>horas</td><td>$</td><td>Solo datos copiados (S3 cross-region, snapshots); la infra se crea después</td></tr>
+            <tr><td><strong>Pilot Light</strong></td><td>minutos</td><td>decenas de minutos</td><td>$$</td><td>Datos replicados + núcleo mínimo encendido (BD réplica); app servers AMI paradas</td></tr>
+            <tr><td><strong>Warm Standby</strong></td><td>segundos</td><td>minutos</td><td>$$$</td><td>Versión reducida pero <em>completa</em> y corriendo; se escala al fallar</td></tr>
+            <tr><td><strong>Multi-site active/active</strong></td><td>~0 (real-time)</td><td>~0</td><td>$$$$</td><td>Todo sirve tráfico en ambas regiones (Route 53 weighted/failover)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">La regla: a menor RPO/RTO, mayor costo. El examen da un RPO/RTO objetivo y la respuesta es la estrategia <em>más barata que lo cumple</em> — nunca sobre-ingeniería.</p>
+      <div class="callout exam">
+        <div class="co-title">Señales del examen</div>
+        <p>Cuando el escenario da un RPO exacto, la solución está casi dictada: <strong>RPO 5 min</strong> → PITR;
+        <strong>RPO 15 min</strong> en S3 → CRR; <strong>RPO &lt; 1 s</strong> multi-region → Aurora Global Database o
+        DynamoDB Global Tables; <strong>RPO 0</strong> síncrono → RDS Multi-AZ (misma región). Y si el texto dice
+        <span class="term-en">within the same Region</span>, descarta las opciones globales: son distractores.</p>
+      </div>
+
+      <h3>9.2 · RTO/RPO de soluciones AWS típicas</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Solución</th><th>RPO</th><th>RTO</th></tr></thead>
+          <tbody>
+            <tr><td>RDS <strong>Multi-AZ</strong></td><td>0 (síncrona)</td><td>failover <strong>60–120 s</strong></td></tr>
+            <tr><td>Aurora failover interno</td><td>0</td><td>~30 s o menos</td></tr>
+            <tr><td>Aurora <strong>Global Database</strong></td><td><strong>&lt;1 s</strong> de replicación</td><td>~1 min (promoción de la secundaria)</td></tr>
+            <tr><td>S3 <strong>CRR</strong></td><td>15 min (99.99% de objetos)</td><td>depende del acceso</td></tr>
+            <tr><td>DynamoDB <strong>Global Tables</strong></td><td>&lt;1 s (típicamente ms)</td><td>segundos</td></tr>
+            <tr><td><strong>PITR</strong> (RDS/Aurora)</td><td><strong>5 min</strong> (logs transaccionales)</td><td>minutos-horas (restaurar)</td></tr>
+            <tr><td>Snapshots manuales</td><td>= frecuencia del snapshot (horas típico)</td><td>horas (restaurar + levantar)</td></tr>
+            <tr><td>Promoción de read replica</td><td>segundos-minutos (async)</td><td>minutos</td></tr>
+            <tr><td>Route 53 failover</td><td>—</td><td>~10–30 s de health check + TTL</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="bronze-link">Fuente bronze: <code>../../bronze/03-whitepapers/dr-whitepaper/disaster-recovery-workloads-on-aws.md</code> ·
+      <code>../../bronze/05-docs/db-rds/concepts-multiazsinglestandby.md</code> ·
+      <code>../../bronze/05-docs/storage-s3/replication.md</code></p>
+
+      <h2 id="decision-rapida"><span class="h2-num">10</span>Decisiones rápidas (mini flowcharts)</h2>
+      <p>Cuatro circuitos de decisión que resuelven la mitad de las preguntas de diseño. Recórrelos en voz alta hasta
+      que la ruta sea reflejo: pregunta → restricción → servicio.</p>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿Cómo accede la app<br>a los datos?"}
+  Q -->|"disco de una instancia<br>(bloque)"| E["EBS<br>gp3 / io2 · 1 AZ"]
+  Q -->|"archivo compartido por<br>muchas instancias"| F{"¿Qué tipo de<br>file system?"}
+  F -->|"Linux / POSIX,<br>crece solo"| EFS["EFS"]
+  F -->|"Windows SMB o<br>HPC (Lustre)"| FSX["FSx"]
+  Q -->|"objeto / HTTP,<br>desde cualquier sitio"| S["S3 + clase<br>de storage"]
+          </pre>
+        </div>
+        <figcaption>Fig. 1 — ¿Qué storage? El patrón de acceso decide el tipo; la frecuencia, la clase.</figcaption>
+      </figure>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿Qué forma tienen<br>los datos?"}
+  Q -->|"relacional + SQL,<br>transacciones"| R["RDS / Aurora<br>(Aurora si escala)"]
+  Q -->|"key-value masivo,<br>latencia de ms"| D["DynamoDB<br>(+ DAX si lee mucho)"]
+  Q -->|"caché / sesión,<br>volátil"| C["ElastiCache<br>Redis o Memcached"]
+  Q -->|"analítica de columnas,<br>GB-TB de aggregates"| W["Redshift"]
+  Q -->|"grafo, documento,<br>ledger, series temporales"| X["Neptune / DocumentDB<br>QLDB / Timestream"]
+          </pre>
+        </div>
+        <figcaption>Fig. 2 — ¿Qué base de datos? La forma del dato manda sobre el nombre del motor.</figcaption>
+      </figure>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿Qué tráfico<br>hay que repartir?"}
+  Q -->|"HTTP/HTTPS con routing<br>por path o host"| A["ALB"]
+  Q -->|"TCP/UDP extremo,<br>IP estática"| N["NLB"]
+  Q -->|"inspección inline de un<br>appliance virtual"| G["GLB"]
+  Q -->|"global: contenido cacheable<br>en el edge"| C["CloudFront"]
+          </pre>
+        </div>
+        <figcaption>Fig. 3 — ¿Qué load balancer? Capa y protocolo primero; "static IP" es la palabra clave de NLB.</figcaption>
+      </figure>
+
+      <figure class="diagram">
+        <div class="diagram-inner">
+          <pre class="mermaid">
+flowchart TB
+  Q{"¿Qué quieres acelerar?"}
+  Q -->|"contenido estático,<br>usuarios globales"| C["CloudFront<br>(edge)"]
+  Q -->|"consultas de la app<br>a la base de datos"| E["ElastiCache<br>Redis / Memcached"]
+  Q -->|"lecturas de<br>DynamoDB"| D["DAX"]
+  Q -->|"respuestas repetidas<br>de una API"| A["API Gateway<br>caching"]
+          </pre>
+        </div>
+        <figcaption>Fig. 4 — ¿Caching dónde? Cada capa tiene su caché: edge, datos, tabla, API.</figcaption>
+      </figure>
+
+      <nav class="pager">
+        <a href="../dominios/dominio-4-deep-dive.html"><span class="p-dir">← Anterior</span><br>Dominio 4 · Cost-optimized</a>
+        <a class="p-next" href="banco-preguntas.html"><span class="p-dir">Siguiente →</span><br>Banco de preguntas</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../assets/js/mermaid-dd.min.js"></script>
+  <script src="../assets/js/saa.js"></script>
+</body>
+</html>

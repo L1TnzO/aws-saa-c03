@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Migrating data from self-managed OpenSearch clusters using Amazon OpenSearch Ingestion - Amazon OpenSearch Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="configure-client-self-managed-opensearch" /><meta name="default_state" content="configure-client-self-managed-opensearch" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" /><meta name="description" content="Migrate data from self-managed OpenSearch or Elasticsearch clusters to Amazon OpenSearch Service using ingestion pipelines with public or VPC configurations." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon OpenSearch Service" /><meta name="guide" content="Developer Guide" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" hreflang="x-default" /><meta name="feedback-item" content="OpenSearch" /><meta name="this_doc_product" content="Amazon OpenSearch Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'opensearch-service'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Migrating data from self-managed OpenSearch clusters using Amazon OpenSearch Ingestion" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="configure-client-self-managed-opensearch.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Migrating data from self-managed OpenSearch clusters using Amazon OpenSearch Ingestion - Amazon OpenSearch Service</title><meta name="pdf" content="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#configure-client-self-managed-opensearch" /><meta name="rss" content="amazon-opensearch-service-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TA6VFzFFY6QQa_KlHRKR-WsA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html" /><meta name="keywords" content="Elasticsearch,Amazon Elasticsearch Service,Amazon ES,Kibana,OpenSearch,Amazon OpenSearch Service,Amazon OpenSearch Serverless,OpenSearch Service,OpenSearch Serverless,OpenSearch Ingestion,Open Distro,OpenSearch Dashboards,Vector search,ingestion-service,opensearch,cluster,configure-clients,ingestion,pipeline,configuration,configure-clients-self-managed-opensearch" /><link rel="alternate" type="text/markdown" href="configure-client-self-managed-opensearch.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Overview of Amazon OpenSearch Ingestion",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Integrating Amazon OpenSearch Ingestion pipelines with other services and applications",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Migrating data from self-managed OpenSearch clusters using Amazon OpenSearch Ingestion",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/configure-client.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#configure-client-self-managed-opensearch" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/opensearch-service/index.html">Amazon OpenSearch Service</a><a href="what-is.html">Developer Guide</a></div><div id="page-toc-src"><a href="#self-managaged-opensearch-public">Migrating from public OpenSearch clusters</a><a href="#self-managaged-opensearch-private">Migrating data from OpenSearch clusters in a VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="configure-client-self-managed-opensearch">Migrating data from self-managed OpenSearch clusters using Amazon OpenSearch Ingestion</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use an Amazon OpenSearch Ingestion pipeline with self-managed OpenSearch or Elasticsearch
+        to migrate data to Amazon OpenSearch Service domains and OpenSearch Serverless collections. OpenSearch Ingestion supports both
+        public and private network configurations for the migration of data from self-managed
+        OpenSearch and Elasticsearch. </p>
+        <h2 id="self-managaged-opensearch-public">Migrating from public OpenSearch clusters</h2>
+        <p>You can use OpenSearch Ingestion pipelines to migrate data from a self-managed OpenSearch or
+            Elasticsearch cluster with a public configuration, which means that the domain DNS name
+            can be publicly resolved. To do so, set up an OpenSearch Ingestion pipeline with self-managed
+            OpenSearch or Elasticsearch as the source and OpenSearch Service or OpenSearch Serverless as the destination. This
+            effectively migrates your data from a self-managed source cluster to an AWS-managed
+            destination domain or collection.</p>
+         
+            <h3 id="self-managaged-opensearch-public-prereqs">Prerequisites</h3>
+            <p>Before you create your OpenSearch Ingestion pipeline, perform the following
+                steps:</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p>Create a self-managed OpenSearch or Elastisearch cluster that contains the
+                        data you want to migrate and configure a public DNS name. For instructions,
+                        see <a href="https://opensearch.org/docs/latest/tuning-your-cluster/" rel="noopener noreferrer" target="_blank"><span>Create a cluster</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the OpenSearch documentation.</p>
+                </li><li>
+                    <p>Create an OpenSearch Service domain or OpenSearch Serverless collection where you want to migrate data
+                        to. For more information, see <a href="./createupdatedomains.html#createdomains">Creating OpenSearch Service domains</a> and <a href="./serverless-create.html">Creating collections</a>.</p>
+                </li><li>
+                    <p>Set up authentication on your self-managed cluster with AWS Secrets Manager. Enable
+                        secrets rotation by following the steps in <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html">Rotate
+                            AWS Secrets Manager secrets</a>.</p>
+                </li><li>
+                    <p>Attach a <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-resource">resource-based policy</a> to your domain or a <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">data access policy</a> to your collection. These access policies
+                        allow OpenSearch Ingestion to write data from your self-managed cluster to your
+                        domain or collection. </p>
+                    <p>The following sample domain access policy allows the pipeline role, which
+                        you create in the next step, to write data to a domain. Make sure that you
+                        update the <code class="code">resource</code> with your own ARN. </p>
+                    <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="feea230e32e02e832d8b9311d84a1a046e241647b623b26a66ab5492a8f0a20a"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::<code class="replaceable">444455556666</code>:role/<code class="replaceable">pipeline-role</code>"
+      },
+      "Action": [
+        "es:DescribeDomain",
+        "es:ESHttp*"
+      ],
+      "Resource": [
+        "arn:aws:es:<code class="replaceable">us-east-1</code>:<code class="replaceable">111122223333</code>:domain/<code class="replaceable">domain-name</code>"
+      ]
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+                    <p>To create an IAM role with the correct permissions to access write data
+                        to the collection or domain, see <a href="./pipeline-security-overview.html">Setting up roles and users in Amazon OpenSearch Ingestion</a>.</p>
+                </li></ol></div>
+         
+         
+            <h3 id="self-managed-opensearch-public-pipeline-role">Step 1: Configure the pipeline role</h3>
+            <p>After you have your OpenSearch pipeline prerequisites set up, <a href="./pipeline-security-overview.html#pipeline-security-sink">configure the pipeline role</a> that you
+                want to use in your pipeline configuration, and add permission to write to an OpenSearch Service
+                domain or OpenSearch Serverless collection, as well as permission to read secrets from
+                Secrets Manager.</p>
+         
+         
+            <h3 id="self-managed-opensearch-public-pipeline">Step 2: Create the pipeline</h3>
+            <p>You can then configure an OpenSearch Ingestion pipeline like the following, which
+                specifies OpenSearch as the source. </p>
+            <p>You can specify multiple OpenSearch Service domains as destinations for your data. This
+                capability enables conditional routing or replication of incoming data into multiple
+                OpenSearch Service domains.</p>
+            <p>You can also migrate data from a source OpenSearch or Elasticsearch cluster to an
+                OpenSearch Serverless VPC collection. Ensure you provide a network access policy within the
+                pipeline configuration.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (YAML)--><code class="YAML ">version: "2"
+opensearch-migration-pipeline:
+  source:
+    opensearch:
+      acknowledgments: true
+      host: [ "https://<code class="replaceable">my-self-managed-cluster-name</code>:<code class="replaceable">9200</code>" ]
+      indices:
+        include:
+          - index_name_regex: "include-.*"
+        exclude:
+          - index_name_regex: '\..*'
+      authentication:
+        username: $<span>{</span>aws_secrets:secret:<code class="replaceable">username</code>}
+        password: $<span>{</span>aws_secrets:secret:<code class="replaceable">password</code>}
+        scheduling:
+           interval: "PT2H"
+           index_read_count: 3
+           start_time: "2023-06-02T22:01:30.00Z"
+  sink:
+  - opensearch:
+      hosts: ["<code class="replaceable">https://search-mydomain.us-east-1.es.amazonaws.com</code>"]
+      aws:
+          region: "<code class="replaceable">us-east-1</code>"
+          #Uncomment the following lines if your destination is an OpenSearch Serverless collection
+          #serverless: true
+          # serverless_options:
+          #     network_policy_name: "<code class="replaceable">network-policy-name</code>"
+      index: "$<span>{</span>getMetadata(\"<code class="replaceable">opensearch-index</code>\")}"
+      document_id: "$<span>{</span>getMetadata(\"<code class="replaceable">opensearch-document_id</code>\")}"
+      enable_request_compression: true
+      dlq:
+        s3:
+          bucket: "<code class="replaceable">bucket-name</code>"
+          key_path_prefix: "apache-log-pipeline/logs/dlq"
+          region: "<code class="replaceable">us-east-1</code>"
+extension:
+  aws:
+    secrets:
+      secret:
+        secret_id: "<code class="replaceable">my-opensearch-secret</code>"
+        region: "<code class="replaceable">us-east-1</code>"
+        refresh_interval: PT1H   </code></pre>
+            <p>You can use a preconfigured blueprint to create this pipeline. For more
+                information, see <a href="./pipeline-blueprint.html">Working with blueprints</a>.</p>
+         
+     
+        <h2 id="self-managaged-opensearch-private">Migrating data from OpenSearch clusters in a VPC</h2>
+        <p>You can also use OpenSearch Ingestion pipelines to migrate data from a self-managed
+            OpenSearch or Elasticsearch cluster running in a VPC. To do so, set up an OpenSearch Ingestion
+            pipeline with self-managed OpenSearch or Elasticsearch as the source and OpenSearch Service or OpenSearch Serverless
+            as the destination. This effectively migrates your data from a self-managed source
+            cluster to an AWS-managed destination domain or collection.</p>
+         
+            <h3 id="self-managaged-opensearch-private-prereqs">Prerequisites</h3>
+            <p>Before you create your OpenSearch Ingestion pipeline, perform the following
+                steps:</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p>Create a self-managed OpenSearch or Elastisearch cluster with a VPC network
+                        configuration that contains the data you want to migrate. </p>
+                </li><li>
+                    <p>Create an OpenSearch Service domain or OpenSearch Serverless collection where you want to migrate data
+                        to. For more information, see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomains">Creating OpenSearch Service domains</a> and <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create">Creating collections</a>.</p>
+                </li><li>
+                    <p>Set up authentication on your self-managed cluster with AWS Secrets Manager. Enable
+                        secrets rotation by following the steps in <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html">Rotate
+                            AWS Secrets Manager secrets</a>.</p>
+                </li><li>
+                    <p>Obtain the ID of the VPC that that has access to self-managed OpenSearch or
+                        Elasticsearch. Choose the /24 VPC CIDR block to be used by OpenSearch Ingestion.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you're using the AWS Management Console to create your pipeline, you must also
+                            attach your OpenSearch Ingestion pipeline to your VPC in order to use
+                            self-managed OpenSearch or Elasticsearch. To do so, find the
+                                <b>Source network options</b> section, select the
+                                <b>Attach to VPC</b> checkbox, and choose your CIDR
+                            from one of the provided default options. The CIDR block must use a /24
+                            prefix length. You can use any /24 CIDR from a
+                            private address space as defined in the <a href="https://datatracker.ietf.org/doc/html/rfc1918" rel="noopener noreferrer" target="_blank"><span>RFC 1918 Best
+                                Current Practice</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p>To provide a custom CIDR, select <b>Other</b> from the
+                            dropdown menu. To avoid a collision in IP addresses between
+                            OpenSearch Ingestion and self-managed OpenSearch, ensure that the
+                            self-managed OpenSearch VPC CIDR is different from the CIDR for
+                            OpenSearch Ingestion. </p></div></div>
+                </li><li>
+                    <p>Attach a <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-resource">resource-based policy</a> to your domain or a <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html">data access policy</a> to your collection. These access policies
+                        allow OpenSearch Ingestion to write data from your self-managed cluster to your
+                        domain or collection. </p>
+                    <p>The following sample domain access policy allows the pipeline role, which
+                        you create in the next step, to write data to a domain. Make sure that you
+                        update the <code class="code">resource</code> with your own ARN. </p>
+                    <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="2358cca16aaebf145cd24a3a831f47d42b3adf9f87ce230e0d41f6a42447e020"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+  "Version":"2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::<code class="replaceable">444455556666</code>:role/<code class="replaceable">pipeline-role</code>"
+      },
+      "Action": [
+        "es:DescribeDomain",
+        "es:ESHttp*"
+      ],
+      "Resource": [
+        "arn:aws:es:<code class="replaceable">us-east-1</code>:<code class="replaceable">111122223333</code>:domain/<code class="replaceable">example.com</code>"
+      ]
+    }
+  ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+                    <p>To create an IAM role with the correct permissions to access write data
+                        to the collection or domain, see <a href="./pipeline-security-overview.html">Setting up roles and users in Amazon OpenSearch Ingestion</a>.</p>
+                </li></ol></div>
+         
+         
+            <h3 id="self-managed-opensearch-private-pipeline-role">Step 1: Configure the pipeline role</h3>
+            <p>After you have your  pipeline prerequisites set up, <a href="./pipeline-security-overview.html#pipeline-security-sink">configure the pipeline role</a> that you
+                want to use in your pipeline configuration, and add the following  permissions in
+                the role:</p>
+            <awsdocs-tabs><dl style="display: none">
+    <dt>JSON</dt><dd tab-id="json">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term"></span></b></dt>
+        <dd>
+            
+                
+                <pre class="programlisting" data-example-id="066d3a4e1fecc303e1bca9d2eb2ef36d2e3e874a7bd18d44d929519badea33f6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><code class="userinput"><span>{</span>
+    "Version":"2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "SecretsManagerReadAccess",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": ["arn:aws:secretsmanager:<code class="replaceable">us-east-1</code>:<code class="replaceable">111122223333</code>:secret:<code class="replaceable">secret-name</code>"]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AttachNetworkInterface",
+                "ec2:CreateNetworkInterface",
+                "ec2:CreateNetworkInterfacePermission",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DeleteNetworkInterfacePermission",
+                "ec2:DetachNetworkInterface",
+                "ec2:DescribeNetworkInterfaces"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:network-interface/*",
+                "arn:aws:ec2:*:*:subnet/*",
+                "arn:aws:ec2:*:*:security-group/*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeDhcpOptions",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:Describe*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span> 
+            "Effect": "Allow",
+            "Action": [ 
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:*:*:network-interface/*",
+            "Condition": <span>{</span> 
+               "StringEquals": 
+                    <span>{</span>
+                        "aws:RequestTag/OSISManaged": "true"
+                    } 
+            } 
+        }
+    ]
+}</code>
+</code></pre>
+            
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+            <p>You must provide the above Amazon EC2 permissions on the IAM role that you use to
+                create the OpenSearch Ingestion pipeline because the pipeline uses these permissions to
+                create and delete a network interface in your VPC. The pipeline can only access the
+                OpenSearch cluster through this network interface.</p>
+         
+         
+            <h3 id="self-managed-opensearch-private-pipeline">Step 2: Create the pipeline</h3>
+            <p>You can then configure an OpenSearch Ingestion pipeline like the following, which
+                specifies OpenSearch as the source. </p>
+            <p>You can specify multiple OpenSearch Service domains as destinations for your data. This
+                capability enables conditional routing or replication of incoming data into multiple
+                OpenSearch Service domains.</p>
+            <p>You can also migrate data from a source OpenSearch or Elasticsearch cluster to an
+                OpenSearch Serverless VPC collection. Ensure you provide a network access policy within the
+                pipeline configuration.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (YAML)--><code class="YAML ">version: "2"
+opensearch-migration-pipeline:
+  source:
+    opensearch:
+      acknowledgments: true
+      host: [ "https://<code class="replaceable">my-self-managed-cluster-name</code>:<code class="replaceable">9200</code>" ]
+      indices:
+        include:
+          - index_name_regex: "include-.*"
+        exclude:
+          - index_name_regex: '\..*'
+      authentication:
+        username: $<span>{</span>aws_secrets:secret:<code class="replaceable">username</code>}
+        password: $<span>{</span>aws_secrets:secret:<code class="replaceable">password</code>}
+        scheduling:
+           interval: "PT2H"
+           index_read_count: 3
+           start_time: "2023-06-02T22:01:30.00Z"
+  sink:
+  - opensearch:
+      hosts: ["<code class="replaceable">https://search-mydomain.us-east-1.es.amazonaws.com</code>"]
+      aws:
+          region: "<code class="replaceable">us-east-1</code>"
+          #Uncomment the following lines if your destination is an OpenSearch Serverless collection
+          #serverless: true
+          # serverless_options:
+          #     network_policy_name: "<code class="replaceable">network-policy-name</code>"
+      index: "$<span>{</span>getMetadata(\"<code class="replaceable">opensearch-index</code>\")}"
+      document_id: "$<span>{</span>getMetadata(\"<code class="replaceable">opensearch-document_id</code>\")}"
+      enable_request_compression: true
+      dlq:
+        s3:
+          bucket: "<code class="replaceable">bucket-name</code>"
+          key_path_prefix: "apache-log-pipeline/logs/dlq"
+          region: "<code class="replaceable">us-east-1</code>"
+extension:
+  aws:
+    secrets:
+      secret:
+        secret_id: "<code class="replaceable">my-opensearch-secret</code>"
+        region: "<code class="replaceable">us-east-1</code>"
+        refresh_interval: PT1H  </code></pre>
+            <p>You can use a preconfigured blueprint to create this pipeline. For more
+                information, see <a href="./pipeline-blueprint.html">Working with blueprints</a>.</p>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./configure-client-self-managed-kafka.html">Self-managed Kafka</div><div id="next" class="next-link" accesskey="n" href="./configure-client-kinesis.html">Amazon Kinesis Data Streams</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/configure-client-self-managed-opensearch.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

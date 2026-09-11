@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Setting up AWS Shield Response Team (SRT) support for DDoS event response - AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="authorize-srt" /><meta name="default_state" content="authorize-srt" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-srt.html" /><meta name="description" content="Getting started option for SRT support." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Describes how to get started with AWS WAF and AWS Firewall Manager, the AWS web application firewall services, Shield Advanced, which provides expanded DDoS attack protection, and AWS Shield network security director, which runs network analysiss and evaluates the security of AWS resources." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-srt.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/waf/latest/developerguide/authorize-srt.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/waf/latest/developerguide/authorize-srt.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/waf/latest/developerguide/authorize-srt.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/waf/latest/developerguide/authorize-srt.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-srt.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-srt.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/waf/latest/developerguide/authorize-srt.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/waf/latest/developerguide/authorize-srt.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/waf/latest/developerguide/authorize-srt.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/waf/latest/developerguide/authorize-srt.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/waf/latest/developerguide/authorize-srt.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/waf/latest/developerguide/authorize-srt.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/authorize-srt.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/authorize-srt.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/waf/latest/developerguide/authorize-srt.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/waf/latest/developerguide/authorize-srt.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/waf/latest/developerguide/authorize-srt.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/waf/latest/developerguide/authorize-srt.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/waf/latest/developerguide/authorize-srt.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/waf/latest/developerguide/authorize-srt.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-srt.html" hreflang="x-default" /><meta name="feedback-item" content="AWS WAF" /><meta name="this_doc_product" content="AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'waf'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Setting up AWS Shield Response Team (SRT) support for DDoS event response" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="authorize-srt.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Setting up AWS Shield Response Team (SRT) support for DDoS event response - AWS WAF, AWS Firewall Manager, AWS Shield Advanced, and AWS Shield network security director</title><meta name="pdf" content="/pdfs/waf/latest/developerguide/waf-dg.pdf#authorize-srt" /><meta name="rss" content="aws-waf-doc-history.rss" /><meta name="forums" content="https://repost.aws/tags/TAKdJ093DSSdGOQ1VVKX4EvQ" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/authorize-srt.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/authorize-srt.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/authorize-srt.html" /><meta name="keywords" content="AWS Firewall Manager,Firewall Manager,AWS WAF,web application firewall,firewall,ACL,access control list,getting started,SRT,support" /><link rel="alternate" type="text/markdown" href="authorize-srt.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS WAF",
+        "item" : "https://docs.aws.amazon.com/waf/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Shield",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/shield-chapter.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Setting up AWS Shield Advanced",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Setting up AWS Shield Response Team (SRT) support for DDoS event response",
+        "item" : "https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/waf/latest/developerguide/waf-dg.pdf#authorize-srt" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/waf/index.html">AWS WAF</a><a href="what-is-aws-waf.html">Developer Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p><b>Introducing a new console experience for AWS WAF</b></p><p>You can now use the updated experience to access AWS WAF functionality anywhere in the console.
+				For more details, see <a href="https://docs.aws.amazon.com/waf/latest/developerguide/working-with-console.html">Working with the console</a>.
+			</p></awsui-alert><h1 class="topictitle" id="authorize-srt">Setting up AWS Shield Response Team (SRT) support for DDoS event response</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This page provides instructions for setting up Shield Response Team (SRT) support.</p><p>The SRT includes security engineers who specialize in DDoS event response. 
+			You can optionally add permissions that allow the SRT to manage resources on your behalf during a DDoS event. 
+			In addition, you can configure the SRT to proactively engage with you if the Route 53 health checks associated 
+			with your protected resources are unhealthy during a detected event. Both of these additions to your protections 
+		enable quicker responses to DDoS events. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To use the services of the Shield Response Team (SRT), you must be subscribed to the <a href="https://aws.amazon.com/premiumsupport/business-support/" rel="noopener noreferrer" target="_blank"><span>Business Support
+					plan</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or the <a href="https://aws.amazon.com/premiumsupport/enterprise-support/" rel="noopener noreferrer" target="_blank"><span>Enterprise
+					Support plan</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p></div></div><p>The SRT can monitor AWS WAF request data and logs during application layer events to
+			identify anomalous traffic. They can help craft custom AWS WAF rules to mitigate offending
+			traffic sources. As needed, the SRT might make architectural recommendations to help
+			you better align your resources with AWS recommendations. </p><p>For more information about the SRT, see <a href="./ddos-srt-support.html">Managed DDoS event response with Shield Response Team (SRT) support</a>.</p><div class="procedure"><h6>To grant permissions to the SRT</h6><ol><li>
+				<p>In the AWS Shield console <b>Overview</b> page, under
+						<b>Configure AWS SRT support</b>, choose <b>Edit SRT
+						access</b>. The <b>Edit AWS Shield Response Team (SRT) access</b>
+					page opens.</p>
+			</li><li>
+				<p>For <b>SRT access setting</b> select one of the options: </p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b>Do not grant the SRT access to my account</b> – Shield 
+							removes any permissions you previously gave to the SRT to access your
+							account and resources.</p>
+					</li><li class="listitem">
+						<p><b>Create a new role for the SRT to access my account</b> – 
+							Shield creates a role that trusts the
+					service principal <code class="code">drt.shield.amazonaws.com</code>, which represents the SRT, and attaches 
+					the managed policy <code class="code">AWSShieldDRTAccessPolicy</code> to it. The managed policy allows the SRT to make AWS Shield Advanced
+									and AWS WAF API calls on your behalf and to access your AWS WAF
+									logs. For more information about the managed policy, see <a href="./shd-security-iam-awsmanpol.html#shd-security-iam-awsmanpol-AWSShieldDRTAccessPolicy">AWS managed policy: AWSShieldDRTAccessPolicy</a>.</p>
+				</li><li class="listitem">
+						<p><b>Choose an existing role for the SRT to access my accounts</b>
+							– For this option, you must modify the configuration of the role
+							in AWS Identity and Access Management (IAM) as follows: </p>
+						<div class="itemizedlist">
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p>Attach the managed policy <code class="code">AWSShieldDRTAccessPolicy</code> to
+									the role. This managed policy allows the SRT to make AWS Shield Advanced
+									and AWS WAF API calls on your behalf and to access your AWS WAF
+									logs. For more information about the managed policy, see <a href="./shd-security-iam-awsmanpol.html#shd-security-iam-awsmanpol-AWSShieldDRTAccessPolicy">AWS managed policy: AWSShieldDRTAccessPolicy</a>. For information about attaching the managed policy to
+									your role, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html">Attaching and Detaching IAM Policies</a>. </p>
+							</li><li class="listitem">
+								<p>Modify the role to trust the service principal
+										<code class="code">drt.shield.amazonaws.com</code>. This is the service
+									principal that represents the SRT. For more information, see
+										<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">IAM JSON Policy Elements: Principal</a>. </p>
+							</li></ul></div>
+					</li></ul></div>
+			</li><li>
+				<p>Choose <b>Save</b> to save your changes. </p>
+			</li></ol></div><p>For more information about giving the SRT access to your protections and data, see <a href="./ddos-srt-access.html">Granting access for the SRT</a>. </p><div class="procedure"><h6>To enable SRT proactive engagement</h6><ol><li>
+				<p>In the AWS Shield console <b>Overview</b> page, under
+						<b>Proactive engagement and contacts</b>, in the contacts area,
+					choose <b>Edit</b>.</p>
+				<p>In the <b>Edit contacts</b> page, provide the contact information
+					for the people that you want the SRT to contact for proactive engagement. </p>
+				<p>If you provide more than one contact, in the <b>Notes</b>, indicate the
+					circumstances under which each contact should be used. Include primary and
+					secondary contact designations, and provide the hours of availability and time
+					zones for each contact. </p>
+				<p>Example contact notes: </p>
+				<div class="itemizedlist">
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem"><p>This is a hotline that's staffed 24x7x365. Please work with the responding analyst and they
+							will get the appropriate person on the call. </p></li><li class="listitem"><p>Please contact me if the hotline doesn't respond within 5 minutes.</p></li></ul></div>
+			</li><li>
+				<p>Choose <b>Save</b>. </p>
+				<p>The <b>Overview</b> page reflects the updated contact
+					information.</p>
+			</li><li>
+				<p>Choose <b>Edit proactive engagement feature</b>, choose
+						<b>Enable</b>, and then choose <b>Save</b> to enable proactive engagement. </p>
+			</li></ol></div><p>For more information about proactive engagement, see <a href="./ddos-srt-proactive-engagement.html">Setting up proactive engagement for the SRT to contact you directly</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ddos-get-started-review-and-configure.html">Reviewing and finishing your
+					protection configuration</div><div id="next" class="next-link" accesskey="n" href="./deploy-waf-dashboard.html">Creating a DDoS dashboard</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/authorize-srt.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS WAF&amp;topic_url=https://docs.aws.amazon.com/en_us/waf/latest/developerguide/authorize-srt.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

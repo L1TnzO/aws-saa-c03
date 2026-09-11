@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Modifying throughput capacity - FSx for OpenZFS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="managing-throughput-capacity" /><meta name="default_state" content="managing-throughput-capacity" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" /><meta name="description" content="Learn how to modify the throughput capacity configured on your FSx for OpenZFS file system when you need additional performance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="FSx for OpenZFS" /><meta name="guide" content="OpenZFS User Guide" /><meta name="abstract" content="This is the official Amazon Web Services documentation for FSx for OpenZFS. FSx for OpenZFS is an AWS service that makes it easier to launch and run fully-featured OpenZFS file systems in the AWS Cloud. The FSx for OpenZFS User Guide describes key concepts for FSx for OpenZFS and provides instructions for launching and using your file system." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" hreflang="x-default" /><meta name="feedback-item" content="FSx" /><meta name="this_doc_product" content="FSx for OpenZFS" /><meta name="this_doc_guide" content="OpenZFS User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'fsx'}"></script><meta id="panorama-serviceSubSection" value="OpenZFS User Guide" /><meta id="panorama-serviceConsolePage" value="Modifying throughput capacity" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="managing-throughput-capacity.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Modifying throughput capacity - FSx for OpenZFS</title><meta name="pdf" content="/pdfs/fsx/latest/OpenZFSGuide/OpenZFSGuide.pdf#managing-throughput-capacity" /><meta name="rss" content="OpenZFSGuide.rss" /><meta name="forums" content="https://repost.aws/tags/TA74tGK04VRAGj9SRHphNQrA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html" /><meta name="keywords" content="file system,create, list, update, and delete,AWS Management Console, AWS CLI, and API,configurable,FSx for OpenZFS file system properties,quick create,standard create,modify file system properties,update an FSx for OpenZFS file system's configuration,managing throughput capacity,IOPS,modify your file system's throughput capacity,when to modify throughput capacity,how to modify throughput capacity" /><link rel="alternate" type="text/markdown" href="managing-throughput-capacity.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon FSx",
+        "item" : "https://docs.aws.amazon.com/fsx/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "OpenZFS User Guide",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing Amazon FSx for OpenZFS file system resources",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-file-systems.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Updating an Amazon FSx for OpenZFS file system",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/updating-file-system.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Modifying throughput capacity",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/updating-file-system.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/fsx/latest/OpenZFSGuide/OpenZFSGuide.pdf#managing-throughput-capacity" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/fsx/index.html">Amazon FSx</a><a href="what-is-fsx.html">OpenZFS User Guide</a></div><div id="page-toc-src"><a href="#when-to-modify-throughput-capacity">When to modify throughput capacity</a><a href="#increase-throughput-capacity">Modifying throughput capacity</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="managing-throughput-capacity">Modifying throughput capacity</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p> Every FSx for OpenZFS file system has a throughput capacity that is configured when you
+  create the file system. You can modify your file system's throughput capacity at any time, as needed. 
+  Throughput capacity is one factor that determines the speed at which the file server hosting the file system
+  can serve file data. Higher levels of throughput capacity also come with higher levels of I/O operations per
+  second (IOPS) and more memory for caching of data on the file server. For more information, see 
+  <a href="./performance.html">Performance for Amazon FSx for OpenZFS</a>.
+ </p><p> When you modify your file system's throughput capacity, behind the scenes, Amazon FSx
+  switches out the file system's file server. For Single-AZ (HA) and Multi-AZ (HA) file systems, it results in an
+  automatic failover and failback while Amazon FSx switches out the preferred and secondary file servers.
+  Single-AZ (non-HA) file systems will be unavailable for a few minutes during throughput
+  capacity scaling. You are billed for the new amount of throughput capacity once it is available to your file
+  system.</p><p> For all FSx for OpenZFS file systems, you can't request a throughput capacity update if there is an ongoing SSD
+  storage capacity or provisioned SSD IOPS update. You must wait until the SSD storage capacity or provisioned
+  SSD IOPS update has completed before requesting a throughput capacity update. For Multi-AZ and Intelligent-Tiering
+  file systems, you must wait a minimum of six hours between requests to update the throughput capacity, SSD storage
+  capacity, or provisioned SSD IOPS. For more information on SSD storage and provisioned IOPS updates, see
+  <a href="./managing-storage-capacity.html">Modifying provisioned SSD storage capacity and IOPS</a>.</p><p>File systems offer varying levels of throughput capacity, depending on your deployment type.
+  The values of throughput capacity (in MBps) for all Single-AZ deployment types and Multi-AZ (HA) are as
+  follows:</p><div class="itemizedlist">
+   
+   
+   
+ <ul class="itemizedlist"><li class="listitem">
+   <p><b>Single-AZ 2 (non-HA and HA) and Multi-AZ (HA)</b> – 160, 320, 640, 1280, 2560,
+    3840, 5120, 7680, 10240</p>
+   
+  </li><li class="listitem">
+   <p><b>Single-AZ 1 (HA)</b> – 128, 256, 512, 1024, 2048, 3072,
+    4096</p>
+  </li><li class="listitem">
+   <p><b>Single-AZ 1 (non-HA)</b> – 64, 128, 256, 512, 1024, 2048, 3072,
+    4096</p>
+  </li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#when-to-modify-throughput-capacity">When to modify throughput capacity</a></p></li><li><p><a href="#increase-throughput-capacity">Modifying throughput capacity</a></p></li></ul></div>
+  <h2 id="when-to-modify-throughput-capacity">When to modify throughput capacity</h2>
+  <p>Amazon FSx integrates with Amazon CloudWatch, enabling you to monitor your file system's ongoing
+   throughput usage levels. The performance (throughput and IOPS) that you can drive through your
+   file system depends on your specific workload’s characteristics, in addition to your file
+   system’s throughput capacity, storage capacity, and storage type. You
+   can use CloudWatch metrics to determine which of these dimensions to change to improve performance. For
+   more information, see <a href="./monitoring-cloudwatch.html">Monitoring with Amazon CloudWatch</a>.</p>
+  
+  <h2 id="increase-throughput-capacity">Modifying throughput capacity</h2>
+  <p>You can modify a file system's throughput capacity using the Amazon FSx console, the
+   AWS Command Line Interface (AWS CLI), or the Amazon FSx API.</p>
+  <div class="collapsible"><awsui-expandable-section variant="container" header="To modify a file system's throughput capacity (console)" id="increase-throughput-console" expanded="true"><div class="procedure"><ol><li><p>Open the Amazon FSx console at <a href="https://console.aws.amazon.com/fsx/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/fsx/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>Navigate to <b>File systems</b>, and choose the FSx for OpenZFS file system that you
+       want to increase the throughput capacity for.</p></li><li><p>For <b>Actions</b>, choose <b>Update throughput capacity</b>. Or, in the
+        <b>Summary</b> panel, choose <b>Update</b> next to the file
+       system's <b>Throughput capacity</b>.</p>
+      <p>The <b>Update throughput capacity</b> window appears.</p></li><li><p>Choose the new value for <b>Desired throughput capacity</b> from the list.</p>
+      
+      </li><li><p>Choose <b>Update</b> to initiate the throughput capacity update.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Your file system may experience a very brief period of unavailability during
+        the update.</p></div></div></li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="To modify a file system's throughput capacity (CLI)" id="increase-throughput-cli" expanded="false"><div class="procedure"><ul><li><p>To modify a file system's throughput capacity, use the <a href="https://docs.aws.amazon.com/cli/latest/reference/fsx/update-file-system.html">update-file-system</a> CLI command (or the equivalent
+      <a href="https://docs.aws.amazon.com/fsx/latest/APIReference/API_UpdateFileSystem.html">UpdateFileSystem</a> API operation), as shown in the
+      following example.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="userinput">aws fsx update-file-system \
+    --file-system-id fs-0123456789abcdef0 \
+    --open-zfs-configuration '<span>{</span>"ThroughputCapacity":512}'</code></code></pre>
+     </li></ul></div></awsui-expandable-section></div>
+  
+ <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./managing-ssd-read-cache.html">Modifying SSD read cache</div><div id="next" class="next-link" accesskey="n" href="./manage-network-type.html">Modifying network type</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/OpenZFSGuide/managing-throughput-capacity.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

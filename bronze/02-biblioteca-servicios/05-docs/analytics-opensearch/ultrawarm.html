@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>UltraWarm storage for Amazon OpenSearch Service - Amazon OpenSearch Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ultrawarm" /><meta name="default_state" content="ultrawarm" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html" /><meta name="description" content="Add UltraWarm storage to domains and move indexes from hot to warm storage." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon OpenSearch Service" /><meta name="guide" content="Developer Guide" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ultrawarm.html" hreflang="x-default" /><meta name="feedback-item" content="OpenSearch" /><meta name="this_doc_product" content="Amazon OpenSearch Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'opensearch-service'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="UltraWarm storage for Amazon OpenSearch Service" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="ultrawarm.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>UltraWarm storage for Amazon OpenSearch Service - Amazon OpenSearch Service</title><meta name="pdf" content="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#ultrawarm" /><meta name="rss" content="amazon-opensearch-service-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TA6VFzFFY6QQa_KlHRKR-WsA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ultrawarm.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ultrawarm.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ultrawarm.html" /><meta name="keywords" content="Elasticsearch,Amazon Elasticsearch Service,Amazon ES,Kibana,OpenSearch,Amazon OpenSearch Service,Amazon OpenSearch Serverless,OpenSearch Service,OpenSearch Serverless,OpenSearch Ingestion,Open Distro,OpenSearch Dashboards,Vector search,managing-indices,opensearch,ultra-warm,ai" /><link rel="alternate" type="text/markdown" href="ultrawarm.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing indexes in Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managing-indices.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "UltraWarm storage for Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managing-indices.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#ultrawarm" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/opensearch-service/index.html">Amazon OpenSearch Service</a><a href="what-is.html">Developer Guide</a></div><div id="page-toc-src"><a href="#ultrawarm-pp">Prerequisites</a><a href="#ultrawarm-calc">UltraWarm storage requirements and performance considerations</a><a href="#ultrawarm-pricing">UltraWarm pricing</a><a href="#ultrawarm-enable">Enabling UltraWarm</a><a href="#ultrawarm-migrating">Migrating indexes to UltraWarm storage</a><a href="#ultrawarm-ism">Automating migrations</a><a href="#ultrawarm-settings">Migration tuning</a><a href="#ultrawarm-cancel">Cancelling migrations</a><a href="#ultrawarm-api">Listing hot and warm indexes</a><a href="#ultrawarm-migrating-back">Returning warm indexes to hot storage</a><a href="#ultrawarm-snapshot">Restoring warm indexes from snapshots</a><a href="#ultrawarm-manual-snapshot">Manual snapshots of warm indexes</a><a href="#ultrawarm-cold">Migrating warm indexes to cold storage</a><a href="#ultrawarm-recommendations">Best practices for KNN indexes</a><a href="#ultrawarm-disable">Disabling UltraWarm</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ultrawarm">UltraWarm storage for Amazon OpenSearch Service</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>UltraWarm provides a cost-effective way to store large amounts of read-only data on
+        Amazon OpenSearch Service. Standard data nodes use "hot" storage, which takes the form of instance stores or
+        Amazon EBS volumes attached to each node. Hot storage provides the fastest possible performance
+        for indexing and searching new data.</p><p>Rather than attached storage, UltraWarm nodes use Amazon S3 and a sophisticated caching
+        solution to improve performance. For indexes that you are not actively writing to, query
+        less frequently, and don't need the same performance from, UltraWarm offers significantly
+        lower costs per GiB of data. Because warm indexes are read-only unless you return them to
+        hot storage, UltraWarm is best-suited to immutable data, such as logs.</p><p>In OpenSearch, warm indexes behave just like any other index. You can query them using the
+        same APIs or use them to create visualizations in OpenSearch Dashboards.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#ultrawarm-pp">Prerequisites</a></p></li><li><p><a href="#ultrawarm-calc">UltraWarm storage requirements and performance considerations</a></p></li><li><p><a href="#ultrawarm-pricing">UltraWarm pricing</a></p></li><li><p><a href="#ultrawarm-enable">Enabling UltraWarm</a></p></li><li><p><a href="#ultrawarm-migrating">Migrating indexes to UltraWarm storage</a></p></li><li><p><a href="#ultrawarm-ism">Automating migrations</a></p></li><li><p><a href="#ultrawarm-settings">Migration tuning</a></p></li><li><p><a href="#ultrawarm-cancel">Cancelling migrations</a></p></li><li><p><a href="#ultrawarm-api">Listing hot and warm indexes</a></p></li><li><p><a href="#ultrawarm-migrating-back">Returning warm indexes to hot storage</a></p></li><li><p><a href="#ultrawarm-snapshot">Restoring warm indexes from snapshots</a></p></li><li><p><a href="#ultrawarm-manual-snapshot">Manual snapshots of warm indexes</a></p></li><li><p><a href="#ultrawarm-cold">Migrating warm indexes to cold storage</a></p></li><li><p><a href="#ultrawarm-recommendations">Best practices for KNN indexes</a></p></li><li><p><a href="#ultrawarm-disable">Disabling UltraWarm</a></p></li></ul></div>
+        <h2 id="ultrawarm-pp">Prerequisites</h2>
+        <p>UltraWarm has a few important prerequisites:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>UltraWarm requires OpenSearch or Elasticsearch 6.8 or higher.</p>
+            </li><li class="listitem">
+                <p>To use warm storage, domains must have <a href="./managedomains-dedicatedmasternodes.html">dedicated master
+                    nodes</a>.</p>
+            </li><li class="listitem">
+                <p>When using a <a href="./managedomains-multiaz.html#managedomains-za-standby">Multi-AZ with
+                        Standby</a> domain, the number of warm nodes must be a multiple of the
+                    number of Availability Zones being used.</p>
+            </li><li class="listitem">
+                <p>If your domain uses a T2 or T3 instance type for your data nodes, you can't
+                    use warm storage.</p>
+            </li><li class="listitem">
+                <p>If your index uses approximate k-NN (<code class="code">"index.knn":true</code>), you can
+                    move it to warm storage from version 2.17 and later. Domains on versions earlier
+                    than 2.17 can upgrade to 2.17 to use this functionality, but KNN indices created
+                    on versions earlier than 2.x can't migrate to UltraWarm. </p>
+            </li><li class="listitem">
+                <p>If the domain uses <a href="./fgac.html">fine-grained access control</a>,
+                    users must be mapped to the <code class="code">ultrawarm_manager</code> role in
+                    OpenSearch Dashboards to make UltraWarm API calls.</p>
+            </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The <code class="code">ultrawarm_manager</code> role might not be defined on some preexisting
+                OpenSearch Service domains. If you don't see the role in Dashboards, you need to <a href="#ultrawarm-create-role">manually create it</a>.</p></div></div>
+         
+            <h3 id="ultrawarm-create-role">Configure permissions</h3>
+            <p>If you enable UltraWarm on a preexisting OpenSearch Service domain, the
+                    <code class="code">ultrawarm_manager</code> role might not be defined on the domain.
+                Non-admin users must be mapped to this role in order to manage warm indexes on
+                domains using fine-grained access control. To manually create the
+                    <code class="code">ultrawarm_manager</code> role, perform the following steps:</p>
+            <div class="procedure"><ol><li>
+                    <p>In OpenSearch Dashboards, go to <b>Security</b> and choose
+                            <b>Permissions</b>.</p>
+                </li><li>
+                    <p>Choose <b>Create action group</b> and configure the
+                        following groups: </p>
+                    <div class="table-container"><div class="table-contents disable-scroll"><table id="w401aac41c11c11b9b5b3b3"><thead>
+                                <tr>
+                                    <th>Group name</th>
+                                    <th>Permissions</th>
+                                </tr>
+                            </thead>
+                                <tr>
+                                    <td tabindex="-1"><code class="code">ultrawarm_cluster</code></td>
+                                    <td tabindex="-1">
+                                        <div class="itemizedlist">
+                                             
+                                             
+                                        <ul class="itemizedlist"><li class="listitem">
+                                                <p><code class="code">cluster:admin/ultrawarm/migration/list</code></p>
+                                            </li><li class="listitem">
+                                                <p><code class="code">cluster:monitor/nodes/stats</code></p>
+                                            </li></ul></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td tabindex="-1"><code class="code">ultrawarm_index_read</code></td>
+                                    <td tabindex="-1">
+                                        <div class="itemizedlist">
+                                             
+                                             
+                                        <ul class="itemizedlist"><li class="listitem">
+                                                <p><code class="code">indices:admin/ultrawarm/migration/get</code></p>
+                                            </li><li class="listitem">
+                                                <p><code class="code">indices:admin/get</code></p>
+                                            </li></ul></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td tabindex="-1"><code class="code">ultrawarm_index_write</code></td>
+                                    <td tabindex="-1">
+                                        <div class="itemizedlist">
+                                             
+                                             
+                                             
+                                             
+                                        <ul class="itemizedlist"><li class="listitem">
+                                                <p><code class="code">indices:admin/ultrawarm/migration/warm</code></p>
+                                            </li><li class="listitem">
+                                                <p><code class="code">indices:admin/ultrawarm/migration/hot</code></p>
+                                            </li><li class="listitem">
+                                                <p><code class="code">indices:monitor/stats</code></p>
+                                            </li><li class="listitem">
+                                                <p><code class="code">indices:admin/ultrawarm/migration/cancel</code></p>
+                                            </li></ul></div>
+                                    </td>
+                                </tr>
+                            </table></div></div>
+                </li><li>
+                    <p>Choose <b>Roles</b> and <b>Create
+                        role</b>.</p>
+                </li><li>
+                    <p>Name the role <b>ultrawarm_manager</b>.</p>
+                </li><li>
+                    <p>For <b>Cluster permissions, </b>select
+                            <code class="code">ultrawarm_cluster</code> and <code class="code">cluster_monitor</code>.</p>
+                </li><li>
+                    <p>For <b>Index</b>, type <code class="code">*</code>.</p>
+                </li><li>
+                    <p>For <b>Index permissions</b>, select
+                            <code class="code">ultrawarm_index_read</code>, <code class="code">ultrawarm_index_write</code>,
+                        and <code class="code">indices_monitor</code>.</p>
+                </li><li>
+                    <p>Choose <b>Create</b>.</p>
+                </li><li>
+                    <p>After you create the role, <a href="./fgac.html#fgac-mapping">map it</a> to
+                        any user or backend role that will manage UltraWarm indexes.</p>
+                </li></ol></div>
+         
+     
+        <h2 id="ultrawarm-calc">UltraWarm storage requirements and performance considerations</h2>
+        <p>As covered in <a href="./bp-storage.html">Calculating storage requirements</a>, data in hot storage incurs significant
+            overhead: replicas, Linux reserved space, and OpenSearch Service reserved space. For example, a 20 GiB
+            primary shard with one replica shard requires roughly 58 GiB of hot storage.</p>
+        <p>Because it uses Amazon S3, UltraWarm incurs none of this overhead. When calculating
+            UltraWarm storage requirements, you consider only the size of the primary shards. The
+            durability of data in S3 removes the need for replicas, and S3 abstracts away any
+            operating system or service considerations. That same 20 GiB shard requires 20 GiB of
+            warm storage. If you provision an <code class="code">ultrawarm1.large.search</code> instance, you can
+            use all 20 TiB of its maximum storage for primary shards. See <a href="./limits.html#limits-ultrawarm">UltraWarm storage quotas</a> for a summary of instance types and the maximum amount
+            of storage that each can address.</p>
+        <p>With UltraWarm, we still recommend a maximum shard size of 50 GiB. The <a href="#ultrawarm-pricing">number of CPU cores and amount of RAM allocated to each
+                UltraWarm instance type</a> gives you an idea of the number of shards they can
+            simultaneously search. Note that while only primary shards count toward UltraWarm
+            storage in S3, OpenSearch Dashboards and <code class="code">_cat/indices</code> still report
+            UltraWarm index size as the <em>total</em> of all primary and replica
+            shards.</p>
+        <p>For example, each <code class="code">ultrawarm1.medium.search</code> instance has two CPU cores and
+            can address up to 1.5 TiB of storage on S3. Two of these instances have a combined 3 TiB
+            of storage, which works out to approximately 62 shards if each shard is 50 GiB. If a
+            request to the cluster only searches four of these shards, performance might be
+            excellent. If the request is broad and searches all 62 of them, the four CPU cores might
+            struggle to perform the operation. Monitor the <code class="code">WarmCPUUtilization</code> and
+                <code class="code">WarmJVMMemoryPressure</code>
+            <a href="./managedomains-cloudwatchmetrics.html#managedomains-cloudwatchmetrics-uw">UltraWarm metrics</a> to
+            understand how the instances handle your workloads.</p>
+        <p>If your searches are broad or frequent, consider leaving the indexes in hot storage.
+            Just like any other OpenSearch workload, the most important step to determining if
+            UltraWarm meets your needs is to perform representative client testing using a realistic
+            dataset.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When UltraWarm is enabled on a domain, the <code class="code">search.max_buckets</code>
+                setting defaults to 10,000 instead of the standard OpenSearch default of 65,536.
+                This setting limits the maximum number of buckets allowed in a single aggregation
+                response. If your aggregations require more buckets, you can increase this value by
+                updating the domain's advanced cluster settings.</p></div></div>
+     
+        <h2 id="ultrawarm-pricing">UltraWarm pricing</h2>
+        <p>With hot storage, you pay for what you provision. Some instances require an attached
+            Amazon EBS volume, while others include an instance store. Whether that storage is empty or
+            full, you pay the same price.</p>
+        <p>With UltraWarm storage, you pay for what you use. An
+                <code class="code">ultrawarm1.large.search</code> instance can address up to 20 TiB of storage on
+            S3, but if you store only 1 TiB of data, you're only billed for 1 TiB of data. Like all
+            other node types, you also pay an hourly rate for each UltraWarm node. For more
+            information, see <a href="./what-is.html#pricing">Pricing for Amazon OpenSearch Service</a>.</p>
+     
+        <h2 id="ultrawarm-enable">Enabling UltraWarm</h2>
+        <p>The console is the simplest way to create a domain that uses warm storage. While
+            creating the domain, choose <b>Enable warm data nodes</b> and the number
+            of warm nodes that you want. The same basic process works on existing domains, provided
+            they meet the <a href="#ultrawarm-pp">prerequisites</a>. Even after the domain
+            state changes from <b>Processing</b> to <b>Active</b>,
+            UltraWarm might not be available to use for several hours.</p>
+        <p>When using a Multi-AZ with Standby domain, the number of warm nodes must be a multiple
+            of the number of Availability Zones. For more information, see <a href="./managedomains-multiaz.html#managedomains-za-standby">Multi-AZ with Standby</a>.</p>
+        <p>You can also use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/opensearch/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/Welcome.html">configuration API</a>
+            to enable UltraWarm, specifically the <code class="code">WarmEnabled</code>, <code class="code">WarmCount</code>,
+            and <code class="code">WarmType</code> options in <code class="code">ClusterConfig</code>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Domains support a maximum number of warm nodes. For details, see <a href="./limits.html">Amazon OpenSearch Service quotas</a>.</p></div></div>
+         
+            <h3 id="ultrawarm-sample-cli">Sample CLI command</h3>
+            <p>The following AWS CLI command creates a domain with three data nodes, three
+                dedicated master nodes, six warm nodes, and fine-grained access control
+                enabled:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws opensearch create-domain \
+  --domain-name <code class="replaceable">my-domain</code> \
+  --engine-version Opensearch_1.0 \
+  --cluster-config InstanceCount=3,InstanceType=r6g.large.search,DedicatedMasterEnabled=true,DedicatedMasterType=r6g.large.search,DedicatedMasterCount=3,ZoneAwarenessEnabled=true,ZoneAwarenessConfig=<span>{</span>AvailabilityZoneCount=3},WarmEnabled=true,WarmCount=6,WarmType=ultrawarm1.medium.search \
+  --ebs-options EBSEnabled=true,VolumeType=gp2,VolumeSize=11 \
+  --node-to-node-encryption-options Enabled=true \
+  --encryption-at-rest-options Enabled=true \
+  --domain-endpoint-options EnforceHTTPS=true,TLSSecurityPolicy=Policy-Min-TLS-1-2-2019-07 \
+  --advanced-security-options Enabled=true,InternalUserDatabaseEnabled=true,MasterUserOptions='<span>{</span>MasterUserName=<code class="replaceable">master-user</code>,MasterUserPassword=<code class="replaceable">master-password</code>}' \
+  --access-policies '<span>{</span>"Version": "2012-10-17","Statement":[<span>{</span>"Effect":"Allow","Principal":<span>{</span>"AWS":["<code class="replaceable">123456789012</code>"]},"Action":["es:*"],"Resource":"arn:aws:es:<code class="replaceable">us-west-1</code>:<code class="replaceable">123456789012</code>:domain/<code class="replaceable">my-domain</code>/*"}]}' \
+  --region <code class="replaceable">us-east-1</code></code></pre>
+            <p>For detailed information, see the <a href="https://docs.aws.amazon.com/cli/latest/reference/">AWS CLI Command Reference</a>.</p>
+         
+         
+            <h3 id="ultrawarm-sample-config-api">Sample configuration API request</h3>
+            <p>The following request to the configuration API creates a domain with three data
+                nodes, three dedicated master nodes, and six warm nodes with fine-grained access
+                control enabled and a restrictive access policy:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">POST https://es.us-east-2.amazonaws.com/2021-01-01/opensearch/domain
+<span>{</span>
+  "ClusterConfig": <span>{</span>
+    "InstanceCount": 3,
+    "InstanceType": "r6g.large.search",
+    "DedicatedMasterEnabled": true,
+    "DedicatedMasterType": "r6g.large.search",
+    "DedicatedMasterCount": 3,
+    "ZoneAwarenessEnabled": true,
+    "ZoneAwarenessConfig": <span>{</span>
+      "AvailabilityZoneCount": 3
+    },
+    "WarmEnabled": true,
+    "WarmCount": 6,
+    "WarmType": "ultrawarm1.medium.search"
+  },
+  "EBSOptions": <span>{</span>
+    "EBSEnabled": true,
+    "VolumeType": "gp2",
+    "VolumeSize": 11
+  },
+  "EncryptionAtRestOptions": <span>{</span>
+    "Enabled": true
+  },
+  "NodeToNodeEncryptionOptions": <span>{</span>
+    "Enabled": true
+  },
+  "DomainEndpointOptions": <span>{</span>
+    "EnforceHTTPS": true,
+    "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07"
+  },
+   "AdvancedSecurityOptions": <span>{</span>
+    "Enabled": true,
+    "InternalUserDatabaseEnabled": true,
+    "MasterUserOptions": <span>{</span>
+      "MasterUserName": "<code class="replaceable">master-user</code>",
+      "MasterUserPassword": "<code class="replaceable">master-password</code>"
+    }
+  },
+  "EngineVersion": "Opensearch_1.0",
+  "DomainName": "<code class="replaceable">my-domain</code>",
+  "AccessPolicies": "<span>{</span>\"Version\":\"2012-10-17\",\"Statement\":[<span>{</span>\"Effect\":\"Allow\",\"Principal\":<span>{</span>\"AWS\":[\"<code class="replaceable">123456789012</code>\"]},\"Action\":[\"es:*\"],\"Resource\":\"arn:aws:es:<code class="replaceable">us-east-1</code>:<code class="replaceable">123456789012</code>:domain/<code class="replaceable">my-domain</code>/*\"}]}"
+}</code></pre>
+            <p>For detailed information, see the <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/Welcome.html">Amazon OpenSearch Service API
+                    Reference</a>.</p>
+         
+     
+        <h2 id="ultrawarm-migrating">Migrating indexes to UltraWarm storage</h2>
+        <p>If you finished writing to an index and no longer need the fastest possible search
+            performance, migrate it from hot to UltraWarm:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">POST _ultrawarm/migration/<code class="replaceable">my-index</code>/_warm</code></pre>
+        <p>Then check the status of the migration:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">GET _ultrawarm/migration/<code class="replaceable">my-index</code>/_status
+
+<span>{</span>
+  "migration_status": <span>{</span>
+    "index": "<code class="replaceable">my-index</code>",
+    "state": "RUNNING_SHARD_RELOCATION",
+    "migration_type": "HOT_TO_WARM",
+    "shard_level_status": <span>{</span>
+      "running": 0,
+      "total": 5,
+      "pending": 3,
+      "failed": 0,
+      "succeeded": 2
+    }
+  }
+}</code></pre>
+        <p>Index health must be green to perform a migration. If you migrate several indexes in
+            quick succession, you can get a summary of all migrations in plaintext, similar to the
+                <code class="code">_cat</code> API:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">GET _ultrawarm/migration/_status?v
+
+index    migration_type state
+<code class="replaceable">my-index</code> HOT_TO_WARM    RUNNING_SHARD_RELOCATION</code></pre>
+        <p>OpenSearch Service migrates one index at a time to UltraWarm. You can have up to 200 migrations in
+            the queue. Any request that exceeds the limit will be rejected. To check the current
+            number of migrations in the queue, monitor the <code class="code">HotToWarmMigrationQueueSize</code>
+            <a href="./managedomains-cloudwatchmetrics.html#managedomains-cloudwatchmetrics-uw">metric</a>. Indexes remain
+            available throughout the migration process—no downtime.</p>
+        <p>The migration process has the following states:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">PENDING_INCREMENTAL_SNAPSHOT
+RUNNING_INCREMENTAL_SNAPSHOT
+FAILED_INCREMENTAL_SNAPSHOT
+PENDING_FORCE_MERGE
+RUNNING_FORCE_MERGE
+FAILED_FORCE_MERGE
+PENDING_FULL_SNAPSHOT
+RUNNING_FULL_SNAPSHOT
+FAILED_FULL_SNAPSHOT
+PENDING_SHARD_RELOCATION
+RUNNING_SHARD_RELOCATION
+FINISHED_SHARD_RELOCATION</code></pre>
+        <p>As these states indicate, migrations might fail during snapshots, shard relocations,
+            or force merges. Failures during snapshots or shard relocation are typically due to node
+            failures or S3 connectivity issues. Lack of disk space is usually the underlying cause
+            of force merge failures.</p>
+        <p>After a migration finishes, the same <code class="code">_status</code> request returns an error. If
+            you check the index at that time, you can see some settings that are unique to warm
+            indexes:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">GET <code class="replaceable">my-index</code>/_settings
+
+<span>{</span>
+  "<code class="replaceable">my-index</code>": <span>{</span>
+    "settings": <span>{</span>
+      "index": <span>{</span>
+        "refresh_interval": "-1",
+        "auto_expand_replicas": "false",
+        "provided_name": "<code class="replaceable">my-index</code>",
+        "creation_date": "1599241458998",
+        "unassigned": <span>{</span>
+          "node_left": <span>{</span>
+            "delayed_timeout": "5m"
+          }
+        },
+        "number_of_replicas": "1",
+        "uuid": "GswyCdR0RSq0SJYmzsIpiw",
+        "version": <span>{</span>
+          "created": "7070099"
+        },
+        "routing": <span>{</span>
+          "allocation": <span>{</span>
+            "require": <span>{</span>
+              "box_type": "warm"
+            }
+          }
+        },
+        "number_of_shards": "5",
+        "merge": <span>{</span>
+          "policy": <span>{</span>
+            "max_merge_at_once_explicit": "50"
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><code class="code">number_of_replicas</code>, in this case, is the number of passive
+                    replicas, which don't consume disk space.</p>
+            </li><li class="listitem">
+                <p><code class="code">routing.allocation.require.box_type</code> specifies that the index
+                    should use warm nodes rather than standard data nodes.</p>
+            </li><li class="listitem">
+                <p><code class="code">merge.policy.max_merge_at_once_explicit</code> specifies the number of
+                    segments to simultaneously merge during the migration.</p>
+            </li></ul></div>
+        <p>Indexes in warm storage are read-only unless you <a href="#ultrawarm-migrating-back">return them to hot storage</a>, which makes
+            UltraWarm best-suited to immutable data, such as logs. You can query the indexes and
+            delete them, but you can't add, update, or delete individual documents. If you try, you
+            might encounter the following error:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+  "error" : <span>{</span>
+    "root_cause" : [
+      <span>{</span>
+        "type" : "cluster_block_exception",
+        "reason" : "index [indexname] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block];"
+      }
+    ],
+    "type" : "cluster_block_exception",
+    "reason" : "index [indexname] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block];"
+  },
+  "status" : 429
+}</code></pre>
+     
+        <h2 id="ultrawarm-ism">Automating migrations</h2>
+        <p>We recommend using <a href="./ism.html">Index State Management in Amazon OpenSearch Service</a> to automate the migration process after an
+            index reaches a certain age or meets other conditions. See the <a href="./ism.html#ism-example-cold">sample policy</a> that demonstrates this
+            workflow.</p>
+     
+        <h2 id="ultrawarm-settings">Migration tuning</h2>
+        <p>Index migrations to UltraWarm storage require a force merge. Each OpenSearch index
+            is composed of some number of shards, and each shard is composed of some number of
+            Lucene segments. The force merge operation purges documents that were marked for
+            deletion and conserves disk space. By default, UltraWarm merges indexes into one
+            segment, except for kNN indices, where a default value of 20 is used.</p>
+        <p>You can change this value up to 1,000 segments using the
+                <code class="code">index.ultrawarm.migration.force_merge.max_num_segments</code> setting. Higher
+            values speed up the migration process, but increase query latency for the warm index
+            after the migration finishes. To change the setting, make the following request:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">PUT <code class="replaceable">my-index</code>/_settings
+<span>{</span>
+  "index": <span>{</span>
+    "ultrawarm": <span>{</span>
+      "migration": <span>{</span>
+        "force_merge": <span>{</span>
+          "max_num_segments": <code class="replaceable">1</code>
+        }
+      }
+    }
+  }
+}</code></pre>
+        <p>To check how long this stage of the migration process takes, monitor the
+                <code class="code">HotToWarmMigrationForceMergeLatency</code>
+            <a href="./managedomains-cloudwatchmetrics.html#managedomains-cloudwatchmetrics-uw">metric</a>.</p>
+     
+        <h2 id="ultrawarm-cancel">Cancelling migrations</h2>
+        <p>UltraWarm handles migrations sequentially, in a queue. If a migration is in the queue,
+            but has not yet started, you can remove it from the queue using the following
+            request:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">POST _ultrawarm/migration/_cancel/<code class="replaceable">my-index</code></code></pre>
+        <p>If your domain uses fine-grained access control, you must have the
+                <code class="code">indices:admin/ultrawarm/migration/cancel</code> permission to make this
+            request.</p>
+     
+        <h2 id="ultrawarm-api">Listing hot and warm indexes</h2>
+        <p>UltraWarm adds two additional options, similar to <code class="code">_all</code>, to help manage
+            hot and warm indexes. For a list of all warm or hot indexes, make the following
+            requests:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">GET _warm
+GET _hot</code></pre>
+        <p>You can use these options in other requests that specify indexes, such as:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">_cat/indices/_warm
+_cluster/state/_all/_hot</code></pre>
+     
+        <h2 id="ultrawarm-migrating-back">Returning warm indexes to hot storage</h2>
+        <p>If you need to write to an index again, migrate it back to hot storage:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">POST _ultrawarm/migration/<code class="replaceable">my-index</code>/_hot</code></pre>
+        <p>You can have up to 10 queued migrations from warm to hot storage at a time. OpenSearch Service
+            processes migration requests one at a time, in the order that they were queued. To check
+            the current number, monitor the <code class="code">WarmToHotMigrationQueueSize</code>
+            <a href="./managedomains-cloudwatchmetrics.html#managedomains-cloudwatchmetrics-uw">metric</a>.</p>
+        <p>After the migration finishes, check the index settings to make sure they meet your
+            needs. Indexes return to hot storage with one replica.</p>
+     
+        <h2 id="ultrawarm-snapshot">Restoring warm indexes from snapshots</h2>
+        <p>In addition to the standard repository for automated snapshots, UltraWarm adds a
+            second repository for warm indexes, <code class="code">cs-ultrawarm</code>. Each snapshot in this
+            repository contains only one index. If you delete a warm index, its snapshot remains in
+            the <code class="code">cs-ultrawarm</code> repository for 14 days, just like any other automated
+            snapshot.</p>
+        <p>When you restore a snapshot from <code class="code">cs-ultrawarm</code>, it restores to warm
+            storage, not hot storage. Snapshots in the <code class="code">cs-automated</code> and
+                <code class="code">cs-automated-enc</code> repositories restore to hot storage.</p>
+        <div class="procedure"><h6>To restore an UltraWarm snapshot to warm storage</h6><ol><li>
+                <p>Identify the latest snapshot that contains the index you want to
+                    restore:</p>
+                <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (json)--><code class="json ">GET _snapshot/cs-ultrawarm/_all?verbose=false
+
+<span>{</span>
+  "snapshots": [<span>{</span>
+    "snapshot": "<code class="replaceable">snapshot-name</code>",
+    "version": "1.0",
+    "indices": [
+      "<code class="replaceable">my-index</code>"
+    ]
+  }]
+}</code></pre>
+
+
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>By default, the <code class="code">GET _snapshot/&lt;repo&gt;</code> operation displays
+                        verbose data information such as start time, end time, and duration for each
+                        snapshot within a repository. The <code class="code">GET _snapshot/&lt;repo&gt;</code>
+                        operation retrieves information from the files of each snapshot contained in
+                        a repository. If you do not need the start time, end time, and duration and
+                        require only the name and index information of a snapshot, we recommend
+                        using the <code class="code">verbose=false</code> parameter when listing snapshots to
+                        minimize processing time and prevent timing out.</p></div></div>
+            </li><li>
+                <p>If the index already exists, delete it:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (none)--><code class="nohighlight">DELETE <code class="replaceable">my-index</code></code></pre>
+                <p>If you don't want to delete the index, <a href="#ultrawarm-migrating-back">return it to hot storage</a> and
+                        <a href="https://docs.opensearch.org/latest/opensearch/reindex-data/" rel="noopener noreferrer" target="_blank"><span>reindex</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> it.</p>
+            </li><li>
+                <p>Restore the snapshot:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json ">POST _snapshot/cs-ultrawarm/<code class="replaceable">snapshot-name</code>/_restore</code></pre>
+                <p>UltraWarm ignores any index settings you specify in this restore request, but
+                    you can specify options like <code class="code">rename_pattern</code> and
+                        <code class="code">rename_replacement</code>. For a summary of OpenSearch snapshot restore
+                    options, see the <a href="https://docs.opensearch.org/latest/opensearch/snapshot-restore/#restore-snapshots" rel="noopener noreferrer" target="_blank"><span>OpenSearch documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li></ol></div>
+     
+        <h2 id="ultrawarm-manual-snapshot">Manual snapshots of warm indexes</h2>
+        <p>You <em>can</em> take manual snapshots of warm indexes, but
+            we don't recommend it. The automated <code class="code">cs-ultrawarm</code> repository already
+            contains a snapshot for each warm index, taken during the migration, at no additional
+            charge.</p>
+        <p>By default, OpenSearch Service does not include warm indexes in manual snapshots. For example, the
+            following call only includes hot indexes:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">PUT _snapshot/<code class="replaceable">my-repository</code>/<code class="replaceable">my-snapshot</code></code></pre>
+        <p>If you choose to take manual snapshots of warm indexes, several important
+            considerations apply.</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You can't mix hot and warm indexes. For example, the following request
+                    fails:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">PUT _snapshot/<code class="replaceable">my-repository</code>/<code class="replaceable">my-snapshot</code>
+<span>{</span>
+  "indices": "<code class="replaceable">warm-index-1</code>,<code class="replaceable">hot-index-1</code>",
+  "include_global_state": false
+}</code></pre>
+                <p>If they include a mix of hot and warm indexes, wildcard (<code class="code">*</code>)
+                    statements fail, as well.</p>
+            </li><li class="listitem">
+                <p>You can only include one warm index per snapshot. For example, the following
+                    request fails:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">PUT _snapshot/<code class="replaceable">my-repository</code>/<code class="replaceable">my-snapshot</code>
+<span>{</span>
+  "indices": "<code class="replaceable">warm-index-1</code>,<code class="replaceable">warm-index-2</code>,<code class="replaceable">other-warm-indices-*</code>",
+  "include_global_state": false
+}</code></pre>
+                <p>This request succeeds:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">PUT _snapshot/<code class="replaceable">my-repository</code>/<code class="replaceable">my-snapshot</code>
+<span>{</span>
+  "indices": "<code class="replaceable">warm-index-1</code>",
+  "include_global_state": false
+}</code></pre>
+            </li><li class="listitem">
+                <p>Manual snapshots always restore to hot storage, even if they originally
+                    included a warm index.</p>
+            </li></ul></div>
+     
+        <h2 id="ultrawarm-cold">Migrating warm indexes to cold storage</h2>
+        <p>If you have data in UltraWarm that you query infrequently, consider migrating it to
+            cold storage. Cold storage is meant for data you only access occasionally or is no
+            longer in active use. You can't read from or write to cold indexes, but you can migrate
+            them back to warm storage at no cost whenever you need to query them. For instructions,
+            see <a href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cold-storage.html#coldstorage-migrating">Migrating indexes to cold storage</a>.</p>
+     
+        <h2 id="ultrawarm-recommendations">Best practices for KNN indexes</h2>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Ultrawarm/Cold tier is available for all KNN index engine types. We recommend
+                    it for KNN indexes using Lucene engine and Disk-optimized vector search, which
+                    does not require to fully load the graph data in off-heap memory. While using it
+                    with native in-memory engines like FAISS and NMSLIB, you must account for the
+                    shards graph size that will be actively searched on, and provision the UltraWarm
+                    instances, preferably of the <code class="code">uw.large</code> instance type, accordingly.
+                    For example, if customers have 2 <code class="code">uw.large</code> instances configured,
+                    then they each will have approximately <code class="code">knn.memory.circuit_breaker.limit *
+                        61</code> GiB available off-heap memory. You get optimal performance if all
+                    your warm queries are targeting shards whose cumulative graph size does not
+                    exceed available off-heap memory. Latency is impacted if the available memory is
+                    lower than needed to load the graph because of evictions and waiting on off-heap
+                    memory to become available. That's why we don’t recommend using
+                        <code class="code">uw.medium</code> instances for use cases where in-memory engines are
+                    being used or for higher search throughput cases, irrespective of
+                    engines.</p>
+            </li><li class="listitem">
+                <p>KNN indexes migrating to UltraWarm will not be force-merged to single segment.
+                    This avoids any impact on the hot and warm nodes running into OOM issues because
+                    of graph size becoming too big for in-memory engines. Due to the increase in
+                    number of segments per shard, this might result in consuming more local cache
+                    space and allowing fewer indices to migrate to the warm tier. You can choose to
+                    force-merge indexes to single segment by using the existing setting, and
+                    overriding it before migrating indexes to the warm tier. For more information,
+                    see <a href="#ultrawarm-settings">Migration tuning</a>.</p>
+            </li><li class="listitem">
+                <p>If you have a use case where indexes are searched infrequently and do not
+                    serve a latency sensitive workload, you can choose to migrate those indexes to
+                    the UltraWarm tier. This will help you to scale down the hot tier compute
+                    instances and let the UltraWarm tier compute handle the query on such low
+                    priority indexes. This can also help to provide isolation of resources consumed
+                    between the queries of low and high priority indexes so they don't impact each
+                    other.</p>
+            </li></ul></div>
+
+     
+        <h2 id="ultrawarm-disable">Disabling UltraWarm</h2>
+        <p>The console is the simplest way to disable UltraWarm. Choose the domain,
+                <b>Actions</b>, and <b>Edit cluster configuration</b>.
+            Deselect <b>Enable warm data nodes</b> and choose <b>Save
+                changes</b>. You can also use the <code class="code">WarmEnabled</code> option in the
+            AWS CLI and configuration API.</p>
+        <p>Before you disable UltraWarm, you must either <a href="https://opensearch.org/docs/latest/opensearch/rest-api/index-apis/delete-index/" rel="noopener noreferrer" target="_blank"><span>delete</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> all warm indexes or <a href="#ultrawarm-migrating-back">migrate
+                them back to hot storage</a>. After warm storage is empty, wait five minutes
+            before attempting to disable UltraWarm.</p>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./multi-tier-storage.html">Multi-tier storage</div><div id="next" class="next-link" accesskey="n" href="./cold-storage.html">Cold storage</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ultrawarm.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=OpenSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ultrawarm.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

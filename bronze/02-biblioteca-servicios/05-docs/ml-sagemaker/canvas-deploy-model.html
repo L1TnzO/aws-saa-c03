@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Deploy your models to an endpoint - Amazon SageMaker AI</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="canvas-deploy-model" /><meta name="default_state" content="canvas-deploy-model" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-deploy-model.html" /><meta name="description" content="Learn how to deploy your models from SageMaker Canvas to an endpoint and get real-time predictions in a production environment." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon SageMaker AI" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use SageMaker AI to build, train, and host machine learning models in AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-deploy-model.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-deploy-model.html" hreflang="x-default" /><meta name="feedback-item" content="SageMaker" /><meta name="this_doc_product" content="Amazon SageMaker AI" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sagemaker'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Deploy your models to an endpoint" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="canvas-deploy-model.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Deploy your models to an endpoint - Amazon SageMaker AI</title><meta name="pdf" content="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#canvas-deploy-model" /><meta name="rss" content="amazon-sagemaker-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAT80swPyVRPKPcA0rsJYPuA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/canvas-deploy-model.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/canvas-deploy-model.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/canvas-deploy-model.html" /><meta name="keywords" content="SageMaker,Amazon SageMaker,machine learning,notebook instance,ml environments,supports,Interactive development environment,IDEs,no-code,predictions,generative AI,train models,deployment,inference,prediction,endpoint" /><link rel="alternate" type="text/markdown" href="canvas-deploy-model.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon SageMaker",
+        "item" : "https://docs.aws.amazon.com/sagemaker/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Machine learning environments offered by Amazon SageMaker AI",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/machine-learning-environments.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon SageMaker Canvas",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Custom models",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-custom-models.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "MLOps",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-mlops.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Deploy your models to an endpoint",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-mlops.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#canvas-deploy-model" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sagemaker/index.html">Amazon SageMaker</a><a href="whatis.html">Developer Guide</a></div><div id="page-toc-src"><a href="#canvas-deploy-model-prereqs">Permissions management</a><a href="#canvas-deploy-model-deploy">Deploy a model</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="canvas-deploy-model">Deploy your models to an endpoint</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In Amazon SageMaker Canvas, you can deploy your models to an endpoint to make predictions. SageMaker AI provides
+        the ML infrastructure for you to host your model on an endpoint with the compute instances
+        that you choose. Then, you can <em>invoke</em> the endpoint (send
+        a prediction request) and get a real-time prediction from your model. With this
+        functionality, you can use your model in production to respond to incoming requests, and you
+        can integrate your model with existing applications and workflows.</p><p>To get started, you should have a model that you'd like to deploy. You can deploy
+        custom model versions that you've built, Amazon SageMaker JumpStart foundation
+        models, and fine-tuned JumpStart foundation models.
+        For more information about building a model in Canvas, see <a href="./canvas-build-model.html">How custom models work</a>.  For more information about JumpStart
+        foundation models in Canvas, see <a href="./canvas-fm-chat.html">Generative AI foundation models in SageMaker Canvas</a>.</p><p>Review the following <b>Permissions management</b> section, and
+        then begin creating new deployments in the <b>Deploy a model</b>
+        section.</p>
+        <h2 id="canvas-deploy-model-prereqs">Permissions management</h2>
+        <p>By default, you have permissions to deploy models to SageMaker AI Hosting
+            endpoints. SageMaker AI grants these permissions for all new and existing Canvas user
+            profiles through the <a href="https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonSageMakerCanvasFullAccess.html">AmazonSageMakerCanvasFullAccess</a> policy, which is attached to the AWS
+            IAM execution role for the SageMaker AI domain that hosts your Canvas
+            application.</p>
+        <p>If your Canvas administrator is setting up a new domain or user profile, when
+            they're setting up the domain and following the prerequisite instructions in the
+                <a href="./canvas-getting-started.html#canvas-prerequisites">Prerequisites for setting up Amazon SageMaker Canvas</a>, SageMaker AI
+            turns on the model deployment permissions through the <b>Enable direct deployment
+                of Canvas models</b> option, which is enabled by default.</p>
+        <p>The Canvas administrator can manage model deployment permissions at the user
+            profile level as well. For example, if the administrator doesn't want to grant model deployment
+            permissions to all user profiles when setting up a domain, they can grant
+            permissions to specific users after creating the domain.</p>
+        <p>The following procedure shows how to modify the model deployment permissions for a
+            specific user profile:</p>
+        <div class="procedure"><ol><li>
+                <p>Open the SageMaker AI console at <a href="https://console.aws.amazon.com/sagemaker/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/sagemaker/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+                <p>On the left navigation pane, choose <b>Admin
+                    configurations</b>.</p>
+            </li><li>
+                <p>Under <b>Admin configurations</b>, choose
+                        <b>Domains</b>.</p>
+            </li><li>
+                <p>From the list of domains, select the user profile’s domain.</p>
+            </li><li>
+                <p>On the <b>Domain details</b> page, select the <b>User
+                        profiles</b> tab.</p>
+            </li><li>
+                <p>Choose your <b>User profile</b>.</p>
+            </li><li>
+                <p>On the user profile's page, select the <b>App Configurations</b>
+                        tab.</p>
+            </li><li>
+                <p>In the <b>Canvas</b> section, choose <b>Edit</b>.</p>
+            </li><li>
+                <p>In the <b>ML Ops configuration</b> section, turn on
+                    the <b>Enable direct deployment of Canvas models</b>
+                    toggle to enable deployment permissions.</p>
+            </li><li>
+                <p>Choose <b>Submit</b> to save the changes to your domain
+                    settings.</p>
+            </li></ol></div>
+        <p>The user profile should now have model deployment permissions.</p>
+        <p>After granting permissions to the domain or user profile, make sure that the user
+        logs out of their Canvas application and logs back in to apply the permission changes.</p>
+     
+        <h2 id="canvas-deploy-model-deploy">Deploy a model</h2>
+        <p>To get started with deploying your model, you create a new deployment in Canvas
+            and specify the model version that you want to deploy along with the ML infrastructure,
+            such as the type and number of compute instances that you would like to use for hosting
+            the model.</p>
+        <p>Canvas suggests a default type and number of instances based on your model type,
+            or you can learn more about the various SageMaker AI instance types on the <a href="https://aws.amazon.com/sagemaker/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon SageMaker pricing page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. You are
+            charged based on the SageMaker AI instance pricing while your endpoint is active.</p>
+        <p>When deploying JumpStart foundation models, you also have the option to specify
+            the length of the deployment time. You can deploy the model to an endpoint indefinitely
+            (meaning the endpoint is active until you delete the deployment). Or, if you only need
+            the endpoint for a short period of time and would like to reduce costs, you can deploy
+            the model to an endpoint for a specified amount of time, after which SageMaker AI shuts down the
+            endpoint for you.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you deploy a model for a specified amount of time, stay logged in to the Canvas
+        application for the duration of the endpoint. If you log out of or delete the application,
+        then Canvas is unable to shut down the endpoint at the specified time.</p></div></div>
+        <p>After your model is deployed to a SageMaker AI Hosting <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html">real-time inference
+                endpoint</a>, you can begin making predictions by <em>invoking</em> the endpoint.</p>
+        <p>There are several different ways for you to deploy a model from the Canvas
+            application. You can access the model deployment option through any of the following
+            methods:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>On the <b>My models</b> page of the Canvas application,
+                    choose the model that you want to deploy. Then, from the model’s
+                        <b>Versions</b> page, choose the <b>More
+                        options</b> icon (<span class="inlinemediaobject">
+                         
+                            <img src="/images/sagemaker/latest/dg/images/studio/canvas/more-options-icon.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" alt="Vertical ellipsis icon representing a menu or more options." data-alt-text-source="generated" />
+                         
+                         
+                    </span>) next to a model version and select
+                        <b>Deploy</b>.</p>
+            </li><li class="listitem">
+                <p>When on the details page for a model version, on the
+                        <b>Analyze</b> tab, choose the
+                        <b>Deploy</b> option.</p>
+            </li><li class="listitem">
+                <p>When on the details page for a model version, on the
+                        <b>Predict</b> tab, choose the <b>More
+                        options</b> icon (<span class="inlinemediaobject">
+                         
+                            <img src="/images/sagemaker/latest/dg/images/studio/canvas/more-options-icon.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" />
+                         
+                        
+                    </span>) at the top of the page and select
+                        <b>Deploy</b>.</p>
+            </li><li class="listitem">
+                <p>On the <b>ML Ops</b> page of the Canvas application, choose
+                    the <b>Deployments</b> tab and then choose <b>Create
+                        deployment</b>.</p>
+            </li><li class="listitem">
+                <p>For JumpStart foundation models and fine-tuned foundation models, go to
+                    the <b>Ready-to-use models</b> page of the Canvas application.
+                    Choose <b>Generate, extract and summarize content</b>. Then, find
+                    the JumpStart foundation model or fine-tuned foundation model that you want
+                    to deploy. Choose the model, and on the model's chat page, choose the
+                        <b>Deploy</b> button.</p>
+            </li></ul></div>
+        <p>All of these methods open the <b>Deploy model</b> side panel, where you
+            specify the deployment configuration for your model. To deploy the model from this
+            panel, do the following:</p>
+        <div class="procedure"><ol><li>
+                <p>(Optional) If you’re creating a deployment from the <b>ML
+                        Ops</b> page, you’ll have the option to <b>Select model and
+                        version</b>. Use the dropdown menus to select the model and model
+                    version that you want to deploy.</p>
+            </li><li>
+                <p>Enter a name in the <b>Deployment name</b> field.</p>
+            </li><li>
+                <p>(For JumpStart foundation models and fine-tuned foundation models only)
+                    Choose a <b>Deployment length</b>. Select
+                        <b>Indefinite</b> to leave the endpoint active until you shut
+                    it down, or select <b>Specify length</b> and then enter the period
+                    of time for which you want the endpoint to remain active.</p>
+            </li><li>
+                <p>For <b>Instance type</b>, SageMaker AI detects a default instance type
+                    and number that is suitable for your model. However, you can change the instance
+                    type that you would like to use for hosting your model.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you run out of the instance quota for the chosen instance type
+                    on your AWS account, you can request a quota increase. For more information
+                    about the default quotas and how to request an increase, see
+                    <a href="https://docs.aws.amazon.com/general/latest/gr/sagemaker.html">Amazon SageMaker AI endpoints and quotas</a>
+                in the <em>AWS General Reference guide</em>.</p></div></div>
+            </li><li>
+                <p>For <b>Instance count</b>, you can set the number of active
+                    instances that are used for your endpoint. SageMaker AI detects a default number that is
+                    suitable for your model, but you can change this number.</p>
+            </li><li>
+                <p>When you’re ready to deploy your model, choose
+                    <b>Deploy</b>.</p>
+            </li></ol></div>
+        <p>Your model should now be deployed to an endpoint.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./canvas-register-model.html">Register a model version in the SageMaker AI model registry</div><div id="next" class="next-link" accesskey="n" href="./canvas-deploy-model-view.html">View your deployments</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/canvas-deploy-model.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/canvas-deploy-model.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

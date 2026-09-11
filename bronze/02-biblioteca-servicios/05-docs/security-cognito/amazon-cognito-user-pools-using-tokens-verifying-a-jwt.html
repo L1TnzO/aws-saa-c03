@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Verifying JSON web tokens - Amazon Cognito</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="amazon-cognito-user-pools-using-tokens-verifying-a-jwt" /><meta name="default_state" content="amazon-cognito-user-pools-using-tokens-verifying-a-jwt" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" /><meta name="description" content="Verify a user pool JSON Web Token in three steps." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Cognito" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon Cognito is a service that you can use to sign in users, federate with identity providers, control permissions to access your backend resources, and save mobile user data in the AWS Cloud. This guide provides an overview of Amazon Cognito and includes development instructions for its features." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" hreflang="x-default" /><meta name="feedback-item" content="Cognito" /><meta name="this_doc_product" content="Amazon Cognito" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cognito'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Verifying JSON web tokens" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Verifying JSON web tokens - Amazon Cognito</title><meta name="pdf" content="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#amazon-cognito-user-pools-using-tokens-verifying-a-jwt" /><meta name="forums" content="https://repost.aws/tags/TAkhAE7QaGSoKZwd6utGhGDA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" /><meta name="keywords" content="Cognito,Amazon Cognito,Amazon Cognito user pools,user pools,user pool features,user pool security features,user pool user experience,token concepts,token schema,token claims,what are tokens for,what to do with tokens,signature,verify,JWT" /><link rel="alternate" type="text/markdown" href="amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Cognito",
+        "item" : "https://docs.aws.amazon.com/cognito/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Cognito user pools",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Understanding user pool JSON web tokens (JWTs)",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Verifying JSON web tokens",
+        "item" : "https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/cognito/latest/developerguide/cognito-dg.pdf#amazon-cognito-user-pools-using-tokens-verifying-a-jwt" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cognito/index.html">Amazon Cognito</a><a href="what-is-amazon-cognito.html">Developer Guide</a></div><div id="page-toc-src"><a href="#amazon-cognito-user-pools-using-tokens-prerequisites">Prerequisites</a><a href="#amazon-cognito-user-pools-using-tokens-aws-jwt-verify">Validate tokens with aws-jwt-verify</a><a href="#amazon-cognito-user-pools-using-tokens-manually-inspect">Understanding and inspecting tokens</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="amazon-cognito-user-pools-using-tokens-verifying-a-jwt">Verifying JSON web tokens</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>JSON web tokens (JWTs) can be decoded, read, and modified easily. A modified access token
+      creates a risk of privilege escalation. A modified ID token creates a risk of impersonation.
+      Your application trusts your user pool as a token issuer, but what if a user intercepts the
+      token in transit? You must ensure that your application is receiving the same token that Amazon Cognito
+      issued.</p><p>Amazon Cognito issues tokens that use some of the integrity and confidentiality features of the
+      OpenID Connect (OIDC) specification. User pool tokens indicate validity with objects like the
+      expiration time, issuer, and digital signature. The signature, the third and final segment of
+      the <code class="code">.</code>-delimited JWT, is the key component of token validation. A malicious user
+      can modify a token, but if your application retrieves the public key and compares the
+      signature, it won't match. Any application that processes JWTs from OIDC authentication must
+      perform this verification operation with each sign-in.</p><p>On this page, we make some general and specific recommendations for verification of JWTs.
+      Application development spans a variety of programming languages and platforms. Because Amazon Cognito
+      implements OIDC sufficiently close to the public specification, any reputable JWT library in
+      your developer environment of choice can handle your verification requirements.</p><p>These steps describe verifying a user pool JSON Web Token (JWT).</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#amazon-cognito-user-pools-using-tokens-prerequisites">Prerequisites</a></p></li><li><p><a href="#amazon-cognito-user-pools-using-tokens-aws-jwt-verify">Validate tokens with aws-jwt-verify</a></p></li><li><p><a href="#amazon-cognito-user-pools-using-tokens-manually-inspect">Understanding and inspecting tokens</a></p></li></ul></div>
+      <h2 id="amazon-cognito-user-pools-using-tokens-prerequisites">Prerequisites</h2>
+      <p>Your library, SDK, or software framework might already handle the tasks in this section.
+        AWS SDKs provide tools for Amazon Cognito user pool token handling and management in your app.
+        AWS Amplify includes functions to retrieve and refresh Amazon Cognito tokens.</p>
+      <p>For more information, see the following pages.</p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><a href="./cognito-integrate-apps.html">Integrating Amazon Cognito authentication and authorization with web and mobile apps</a></p>
+        </li><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples.html">Code examples for Amazon Cognito
+              Identity Provider using AWS SDKs</a></p>
+        </li><li class="listitem">
+          <p><a href="https://docs.amplify.aws/lib/auth/advanced/q/platform/js/#retrieve-jwt-tokens" rel="noopener noreferrer" target="_blank"><span>Advanced workflows</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the <em>Amplify Dev
+              Center</em></p>
+        </li></ul></div>
+      <p>Many libraries are available for decoding and verifying a JSON Web Token (JWT). If you
+        want to manually process tokens for server-side API processing, or if you are using other
+        programming languages, these libraries can help. See the <a href="http://openid.net/developers/jwt/" rel="noopener noreferrer" target="_blank"><span>OpenID foundation list of libraries for working
+          with JWT tokens</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+     
+      <h2 id="amazon-cognito-user-pools-using-tokens-aws-jwt-verify">Validate tokens with aws-jwt-verify</h2>
+      <p>In a Node.js app, AWS recommends the <a href="https://github.com/awslabs/aws-jwt-verify" rel="noopener noreferrer" target="_blank"><span>aws-jwt-verify
+          library</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to validate the parameters in the token that your user passes to your app.
+        With <code class="code">aws-jwt-verify</code>, you can populate a <code class="code">CognitoJwtVerifier</code> with
+        the claim values that you want to verify for one or more user pools. Some of the values that
+        it can check include the following.</p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>That access or ID tokens aren't malformed or expired, and have a valid
+            signature.</p>
+        </li><li class="listitem">
+          <p>That access tokens came from the <a href="https://github.com/awslabs/aws-jwt-verify#verifying-jwts-from-amazon-cognito" rel="noopener noreferrer" target="_blank"><span>correct user pools and app clients</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li class="listitem">
+          <p>That access token claims contain the <a href="https://github.com/awslabs/aws-jwt-verify#checking-scope" rel="noopener noreferrer" target="_blank"><span>correct OAuth 2.0
+              scopes</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        </li><li class="listitem">
+          <p>That the keys that signed your access and ID tokens <a href="https://github.com/awslabs/aws-jwt-verify#the-jwks-cache" rel="noopener noreferrer" target="_blank"><span>match a signing key
+                <code class="code">kid</code> from the <em>JWKS URI</em> of your user
+              pools</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+          <p>The JWKS URI contains public information about the private key that signed your
+            user's token. You can find the JWKS URI for your user pool at
+                <code class="code">https://cognito-idp.<code class="replaceable">&lt;Region&gt;</code>.amazonaws.com/<code class="replaceable">&lt;userPoolId&gt;</code>/.well-known/jwks.json</code>.</p>
+        </li></ul></div>
+      <p>For more information and example code that you can use in a Node.js app or a AWS Lambda
+        authorizer, see <a href="https://github.com/awslabs/aws-jwt-verify" rel="noopener noreferrer" target="_blank"><span>aws-jwt-verify</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on GitHub.</p>
+     
+      <h2 id="amazon-cognito-user-pools-using-tokens-manually-inspect">Understanding and inspecting tokens</h2>
+      <p>Before you integrate token inspection with your app, consider how Amazon Cognito assembles JWTs.
+        Retrieve example tokens from your user pool. Decode and examine them in detail to understand
+        their characteristics, and determine what you want to verify and when. For example, you
+        might want to examine group membership in one scenario, and scopes in another.</p>
+      <p>The following sections describe a process to manually inspect Amazon Cognito JWTs as you prepare
+        your app.</p>
+       
+        <h3 id="amazon-cognito-user-pools-using-tokens-step-1">Confirm the structure of the JWT</h3>
+        <p>A JSON Web Token (JWT) includes three sections with a <code class="code">.</code> (dot) delimiter
+          between them.</p>
+        <div class="variablelist">
+           
+           
+           
+        <dl>
+            <dt><b><span class="term">Header</span></b></dt>
+            <dd>
+              <p>The key ID, <code class="code">kid</code>, and the RSA algorithm, <code class="code">alg</code>, that
+                Amazon Cognito used to sign the token. Amazon Cognito signs tokens with an <code class="code">alg</code> of
+                  <code class="code">RS256</code>. The <code class="code">kid</code> is a truncated reference to a 2048-bit
+                RSA private signing key held by your user pool.</p>
+            </dd>
+          
+            <dt><b><span class="term">Payload</span></b></dt>
+            <dd>
+              <p>Token claims. In an ID token, the claims include user attributes and information
+                about the user pool, <code class="code">iss</code>, and app client, <code class="code">aud</code>. In an
+                access token, the payload includes scopes, group membership, your user pool as
+                  <code class="code">iss</code>, and your app client as <code class="code">client_id</code>.</p>
+            </dd>
+          
+            <dt><b><span class="term">Signature</span></b></dt>
+            <dd>
+              <p>The signature isn't decodable base64url like the header and payload. It's an
+                RSA256 identifier derived from a signing key and parameters that you can observe at
+                your JWKS URI.</p>
+            </dd>
+          </dl></div>
+        <p>The header and payload are base64url-encoded JSON. You can identify them by the
+          opening characters <code class="code">eyJ</code> that decode to the starting character <code class="code"><span>{</span></code>.
+          If your user presents a base64url-encoded JWT to your app and it's not in the format
+            <code class="code">[JSON Header].[JSON Payload].[Signature]</code>, it's not a valid Amazon Cognito token and
+          you can discard it.</p>
+        <p>The following example application verifies user pool tokens with
+            <code class="code">aws-jwt-verify</code>.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">// cognito-verify.js
+// Usage example: node cognito-verify.js eyJra789ghiEXAMPLE
+
+const <span>{</span> CognitoJwtVerifier } = require('aws-jwt-verify');
+
+// Replace with your Amazon Cognito user pool ID
+const userPoolId = '<code class="replaceable">us-west-2_EXAMPLE</code>';
+
+async function verifyJWT(token) <span>{</span>
+  try <span>{</span>
+    const verifier = CognitoJwtVerifier.create(<span>{</span>
+      userPoolId,
+      tokenUse: '<code class="replaceable">access</code>', // or 'id' for ID tokens
+      clientId: '<code class="replaceable">1example23456789</code>', // you must verify the token audience
+    });
+
+    const payload = await verifier.verify(token);
+    console.log('Decoded JWT:', payload);
+  } catch (err) <span>{</span>
+    console.error('Error verifying JWT:', err);
+  }
+}
+
+// Example usage
+if (process.argv.length &lt; 3) <span>{</span>
+  console.error('Please provide a JWT token as an argument.');
+  process.exit(1);
+}
+
+const MyToken = process.argv[2];
+verifyJWT(MyToken);</code></pre>
+       
+       
+        <h3 id="amazon-cognito-user-pools-using-tokens-step-2">Validate the JWT</h3>
+        <p>The JWT signature is a hashed combination of the header and the payload. Amazon Cognito
+          generates two pairs of RSA cryptographic keys for each user pool. One private key signs
+          access tokens, and the other signs ID tokens.</p>
+        <div class="procedure"><h6>To verify the signature of a JWT token</h6><ol><li>
+            <p>Decode the ID token.</p>
+            <p>The OpenID Foundation also <a href="http://openid.net/developers/jwt/" rel="noopener noreferrer" target="_blank"><span>maintains a list of libraries for working with JWT tokens</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            <p>You can also use AWS Lambda to decode user pool JWTs. For more information, see
+                <a href="https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt" rel="noopener noreferrer" target="_blank"><span>Decode and verify Amazon Cognito JWT tokens using AWS Lambda</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+          </li><li>
+            <p>Compare the local key ID (<code class="code">kid</code>) to the public <code class="code">kid</code>.</p>
+            <ol><li>
+                <p>Download and store the corresponding public JSON Web Key (JWK) for your user
+                  pool. It is available as part of a JSON Web Key Set (JWKS). You can locate it by
+                  constructing the following <code class="code">jwks_uri</code> URI for your environment:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight">https://cognito-idp.<code class="replaceable">&lt;Region&gt;</code>.amazonaws.com/<code class="replaceable">&lt;userPoolId&gt;</code>/.well-known/jwks.json</code></pre>
+                <p>For more information on JWK and JWK sets, see <a href="https://tools.ietf.org/html/rfc7517" rel="noopener noreferrer" target="_blank"><span>JSON Web Key (JWK)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon Cognito might rotate signing keys in your user pool. As a best practice, cache
+                    public keys in your app, using the <code class="code">kid</code> as a cache key, and refresh
+                    the cache periodically. Compare the <code class="code">kid</code> in the tokens that your app
+                    receives to your cache.</p><p>If you receive a token with the correct issuer but a different
+                      <code class="code">kid</code>, Amazon Cognito might have rotated the signing key. Refresh the cache
+                    from your user pool <code class="code">jwks_uri</code> endpoint.</p></div></div>
+                <p>This is a sample <code>jwks.json</code> file:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class=""><span>{</span>
+	"keys": [<span>{</span>
+		"kid": "1234example=",
+		"alg": "RS256",
+		"kty": "RSA",
+		"e": "AQAB",
+		"n": "1234567890",
+		"use": "sig"
+	}, <span>{</span>
+		"kid": "5678example=",
+		"alg": "RS256",
+		"kty": "RSA",
+		"e": "AQAB",
+		"n": "987654321",
+		"use": "sig"
+	}]
+}</code></pre>
+                <div class="variablelist">
+                   
+                   
+                   
+                   
+                   
+                   
+                <dl>
+                    <dt><b><span class="term">Key ID (<code class="code">kid</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">kid</code> is a hint that indicates which key was used to
+                        secure the JSON Web Signature (JWS) of the token.</p>
+                    </dd>
+                  
+                    <dt><b><span class="term">Algorithm (<code class="code">alg</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">alg</code> header parameter represents the cryptographic
+                        algorithm that is used to secure the ID token. User pools use an RS256
+                        cryptographic algorithm, which is an RSA signature with SHA-256. For more
+                        information on RSA, see <a href="https://tools.ietf.org/html/rfc3447" rel="noopener noreferrer" target="_blank"><span>RSA
+                          cryptography</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+                    </dd>
+                  
+                    <dt><b><span class="term">Key type (<code class="code">kty</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">kty</code> parameter identifies the cryptographic algorithm
+                        family that is used with the key, such as "RSA" in this example.</p>
+                    </dd>
+                  
+                    <dt><b><span class="term">RSA exponent (<code class="code">e</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">e</code> parameter contains the exponent value for the RSA
+                        public key. It is represented as a Base64urlUInt-encoded value.</p>
+                    </dd>
+                  
+                    <dt><b><span class="term">RSA modulus (<code class="code">n</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">n</code> parameter contains the modulus value for the RSA
+                        public key. It is represented as a Base64urlUInt-encoded value.</p>
+                    </dd>
+                  
+                    <dt><b><span class="term">Use (<code class="code">use</code>)</span></b></dt>
+                    <dd>
+                      <p>The <code class="code">use</code> parameter describes the intended use of the public
+                        key. For this example, the <code class="code">use</code> value <code class="code">sig</code>
+                        represents signature.</p>
+                    </dd>
+                  </dl></div>
+              </li><li>
+                <p>Search the public JSON Web Key for a <code class="code">kid</code> that matches the
+                    <code class="code">kid</code> of your JWT.</p>
+              </li></ol>
+          </li></ol></div>
+       
+       
+        <h3 id="amazon-cognito-user-pools-using-tokens-step-3">Verify the claims</h3>
+        <div class="procedure"><h6>To verify JWT claims</h6><ol><li>
+            <p>By one of the following methods, verify that the token hasn't expired.</p>
+            <ol><li>
+                <p>Decode the token and compare the <code class="code">exp</code> claim to the current
+                  time.</p>
+              </li><li>
+                <p>If your access token includes an <code class="code">aws.cognito.signin.user.admin</code>
+                  claim, send a request to an API like <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html">GetUser</a>. API requests that you <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html#user-pool-apis-auth-unauth">authorize with an access token</a> return an error if your token has
+                  expired.</p>
+              </li><li>
+                <p>Present your access token in a request to the <a href="./userinfo-endpoint.html">userInfo endpoint</a>. Your request
+                  returns an error if your token has expired.</p>
+              </li></ol>
+          </li><li>
+            <p>The <code class="code">aud</code> claim in an ID token and the <code class="code">client_id</code> claim in
+              an access token must match the app client ID that was created in the Amazon Cognito user
+              pool.</p>
+          </li><li>
+            <p>The issuer (<code class="code">iss</code>) claim must match your user pool. For example, a
+              user pool created in the <code class="code">us-east-1</code> Region will have the following
+                <code class="code">iss</code> value:</p>
+            <p><code class="code">https://cognito-idp.us-east-1.amazonaws.com/<code class="replaceable">&lt;userpoolID&gt;</code></code>.</p>
+          </li><li>
+            <p>Check the <code class="code">token_use</code> claim. </p>
+            <div class="itemizedlist">
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem">
+                <p>If you are only accepting the access token in your web API operations, its
+                  value must be <code class="code">access</code>.</p>
+              </li><li class="listitem">
+                <p>If you are only using the ID token, its value must be <code class="code">id</code>.</p>
+              </li><li class="listitem">
+                <p>If you are using both ID and access tokens, the <code class="code">token_use</code> claim
+                  must be either <code class="code">id</code> or <code class="code">access</code>.</p>
+              </li></ul></div>
+          </li></ol></div>
+        <p>You can now trust the claims inside the token.</p>
+       
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./token-revocation.html">Revoking tokens</div><div id="next" class="next-link" accesskey="n" href="./amazon-cognito-user-pools-using-tokens-caching-tokens.html">Caching tokens</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Cognito&amp;topic_url=https://docs.aws.amazon.com/en_us/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

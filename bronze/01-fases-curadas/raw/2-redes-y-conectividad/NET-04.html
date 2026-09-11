@@ -1,0 +1,182 @@
+<!--
+BRONZE RAW — NET-04
+URL: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html
+Dominios: D1
+Título doc: Control traffic to your AWS resources using security groups
+Fase: 2
+Servicio: Amazon VPC
+Descargado: 2026-09-11T03:05:31
+Fuente: extracción page_reader (z-ai-web-dev-sdk)
+-->
+
+<div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>A <em>security group</em> controls the traffic that is allowed to reach and leave
+		the resources that it is associated with. For example, after you associate a security group
+		with an EC2 instance, it controls the inbound and outbound traffic for the instance.</p><p>When you create a VPC, it comes with a default security group. You can create additional
+		security groups for a VPC, each with their own inbound and outbound rules. You can specify 
+		the source, port range, and protocol for each inbound rule. You can specify the destination, 
+		port range, and protocol for each outbound rule.</p><p>The following diagram shows a VPC with a subnet, an internet gateway, and a security group.
+	    The subnet contains an EC2 instance. The security group is assigned to the instance.
+	    The security group acts as a virtual firewall. The only traffic that reaches the instance
+	    is the traffic allowed by the security group rules. For example, if the security group
+	    contains a rule that allows ICMP traffic to the instance from your network, then you
+	    could ping the instance from your computer. If the security group does not contain a
+	    rule that allows SSH traffic, then you could not connect to your instance using SSH.</p><div class="mediaobject">
+		 
+			<img src="/images/vpc/latest/userguide/images/security-group-overview.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="VPC with 2 subnets, 2 security groups, servers in subnets associated with different security groups.">
+		 
+		 
+	<div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4e:" type="submit" data-analytics-performance-mark="27-1789095897722-5778"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div><div class="highlights"><h6>Contents</h6><ul><li><p><a href="#security-group-basics">Security group basics</a></p></li><li><p><a href="#security-group-example-details">Security group example</a></p></li><li><p><a href="./security-group-rules.html">Security group rules</a></p></li><li><p><a href="./default-security-group.html">Default security groups</a></p></li><li><p><a href="./creating-security-groups.html">Create a security group</a></p></li><li><p><a href="./working-with-security-group-rules.html">Configure security group rules</a></p></li><li><p><a href="./deleting-security-groups.html">Delete a security group</a></p></li><li><p><a href="./security-group-assoc.html">Associate security groups with multiple VPCs</a></p></li><li><p><a href="./security-group-sharing.html">Share security groups with AWS Organizations</a></p></li></ul></div>
+		<h6>Pricing</h6>
+		<p>There is no additional charge for using security groups.</p>
+	 
+    		<h2 id="security-group-basics">Security group basics<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r48:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="security-group-basics" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r49:" type="submit" data-analytics-performance-mark="25-1789095897720-2193"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    		
+    		<div class="itemizedlist">
+    			 
+    			 
+    			 
+    			
+    			 
+    			 
+    		<ul class="itemizedlist"><li class="listitem">
+    				<p>You can assign a security group to resources created in the same VPC as the security group or to resources in other VPCs if using the <a href="./security-group-assoc.html">Security Group VPC Association feature</a> to associate the security group to other VPCs in the same Region. You can also assign multiple security groups to a single resource.</p>
+    			</li><li class="listitem">
+    				<p>When you create a security group, you must provide it with a name and a
+    					description. The following rules apply:</p>
+    				<div class="itemizedlist">
+    					 
+    					 
+    					 
+    					 
+    					 
+    					 
+    				<ul class="itemizedlist"><li class="listitem">
+    						<p>A security group name must be unique within the VPC.</p>
+    					</li><li class="listitem">
+    						<p>Security group names are not case-sensitive.</p>
+    					</li><li class="listitem">
+    						<p>Names and descriptions can be up to 255 characters in length.</p>
+    					</li><li class="listitem">
+    						<p>Names and descriptions are limited to the following characters: a-z,
+    							A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;<span>{</span>}!$*.</p>
+    					</li><li class="listitem">
+    						<p>When the name contains trailing spaces, we trim the space at the end of the name. For
+    							example, if you enter "Test Security Group " for the name, we store it
+    							as "Test Security Group".</p>
+    					</li><li class="listitem">
+    						<p>A security group name can't start with <code class="code">sg-</code>.</p>
+    					</li></ul></div>
+    			</li><li class="listitem">
+    				<p>Security groups are stateful. For example, if you send a request from an
+    					instance, the response traffic for that request is allowed to reach the 
+    					instance regardless of the inbound security group rules. Responses to 
+    					allowed inbound traffic are allowed to leave the instance, regardless of 
+    					the outbound rules.</p>
+    			</li><li class="listitem">
+    				<p>Security groups do not filter traffic destined to and from the
+    					following:</p>
+    				<div class="itemizedlist">
+    					 
+    					 
+    					 
+    					 
+    					 
+    					 
+    					 
+    				<ul class="itemizedlist"><li class="listitem">
+    						<p>Amazon Domain Name Services (DNS)</p>
+    					</li><li class="listitem">
+    						<p>Amazon Dynamic Host Configuration Protocol (DHCP)</p>
+    					</li><li class="listitem">
+    						<p>Amazon EC2 instance metadata</p>
+    					</li><li class="listitem">
+    						<p>Amazon ECS task metadata endpoints</p>
+    					</li><li class="listitem">
+    						<p>License activation for Windows instances</p>
+    					</li><li class="listitem">
+    						<p>Amazon Time Sync Service</p>
+    					</li><li class="listitem">
+    						<p>Reserved IP addresses used by the default VPC router</p>
+    					</li></ul></div>
+    			</li><li class="listitem">
+    				<p>There are quotas on the number of security groups that you can create per VPC,
+    					the number of rules that you can add to each security group, and the number of
+    					security groups that you can associate with a network interface.</p>
+    				<p>For more
+    					information, see <a href="./amazon-vpc-limits.html">Amazon VPC quotas</a>.</p>
+    			</li></ul></div>
+    		
+    		<div class="itemizedlist">
+    			<h6>Best practices</h6>
+    			 
+    			 
+    			 
+    			 
+    			 
+    		<ul class="itemizedlist"><li class="listitem">
+    				<p>Authorize only specific IAM principals to create and modify security groups.</p>
+    			</li><li class="listitem">
+    				<p>Create the minimum number of security groups that you need, to decrease the 
+    					risk of error. Use each security group to manage access to resources that have 
+    					similar functions and security requirements.</p>
+    			</li><li class="listitem">
+    				<p>When you add inbound rules for ports 22 (SSH) or 3389 (RDP) so that you can access 
+    					your EC2 instances, authorize only specific IP address ranges. If you specify 
+    					0.0.0.0/0 (IPv4) and ::/ (IPv6), this enables anyone to access your instances 
+    					from any IP address using the specified protocol.</p>
+    			</li><li class="listitem">
+    				<p>Do not open large port ranges. Ensure that access through each port is restricted
+    					to the sources or destinations that require it.</p>
+    			</li><li class="listitem">
+    				<p>Consider creating network ACLs with rules similar to your security groups, to add
+    					an additional layer of security to your VPC. For more information about the differences
+    					between security groups and network ACLs, see <a href="./infrastructure-security.html#VPC_Security_Comparison">Compare security groups and network ACLs</a>.</p>
+    			</li></ul></div>
+    	 
+    	<h2 id="security-group-example-details">Security group example<div class="_0RyrTGB0Kc7J6GM+SjQKtA=="><span tabindex="-1" class="_6cXlowEstJU-2JYC67+uHQ=="><span class="awsui_root_xjuzf_1izsy_407"><span class="awsui_trigger_xjuzf_1izsy_442" id=":r4b:"><span class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-right-xxs_18wu0_gmlmv_577 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-analytics="copyLink" data-analytics-type="eventContext" class="wn3-i0wpB6OIOxt5HoT9uA=="><div data-analytics="security-group-example-details" data-analytics-type="eventDetail"><button aria-label="Copy link to the section" title="Copy link to the section" class="awsui_button_vjswe_1vlnw_70 awsui_variant-inline-icon_vjswe_1vlnw_247 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4c:" type="submit" data-analytics-performance-mark="26-1789095897721-775"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-anchor-link_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M5 8h6" class="stroke-linejoin-round"></path><path d="M7 12H5c-2.21 0-4-1.79-4-4s1.79-4 4-4h2" class="stroke-linejoin-round awsui-icon-left"></path><path d="M9 12h2c2.21 0 4-1.79 4-4s-1.79-4-4-4H9" class="stroke-linejoin-round awsui-icon-right"></path></svg></span></button></div></div></span></span></span></span></div></h2>
+    	<div class="itemizedlist">
+    		<p>The following diagram shows a VPC with two security groups and two subnets. The
+				instances in subnet A have the same connectivity requirements, so they are
+				associated with security group 1. The instances in subnet B have the same
+				connectivity requirements, so they are associated with security group 2. The
+				security group rules allow traffic as follows:</p>
+    		 
+    		 
+    		 
+    		 
+    		 
+    	<ul class="itemizedlist"><li class="listitem">
+    			<p>The first inbound rule in security group 1 allows SSH traffic to the instances in subnet A
+    				from the specified address range (for example, a range in your own network).</p>
+    		</li><li class="listitem">
+    			<p>The second inbound rule in security group 1 allows the instances in subnet A to communicate 
+    				with each other using any protocol and port.</p>
+    		</li><li class="listitem">
+    			<p>The first inbound rule in security group 2 allows the instances in subnet B to communicate 
+    				with each other using any protocol and port.</p>
+    		</li><li class="listitem">
+    			<p>The second inbound rule in security group 2 allows the instances in subnet A to communicate
+    				with the instances in subnet B using SSH.</p>
+    		</li><li class="listitem">
+    			<p>Both security groups use the default outbound rule, which allows all traffic.</p>
+    		</li></ul></div>
+    	<div class="mediaobject">
+    		 
+    			<img src="/images/vpc/latest/userguide/images/security-group-details.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A VPC with two subnets, each associated with a different security group." style="max-width:100%">
+    		 
+    		 
+    	<div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_m-top-m_18wu0_gmlmv_647 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81 awsui_t-left_18wu0_gmlmv_250"><button aria-label="Open image magnifier" title="Open image magnifier" class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r4i:" type="submit" data-analytics-performance-mark="28-1789095897724-735"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-expand_h11ix_rh18t_601"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M14 7V2H9M10 6l4-4" class="stroke-linejoin-round awsui-icon-corner-tr"></path><path d="M6.99 14H2V9M6 10l-4 4" class="stroke-linejoin-round awsui-icon-corner-bl"></path><path d="M9 14h5V9M10 10l4 4" class="stroke-linejoin-round awsui-icon-corner-br"></path><path d="M2 6.99V2h5M6 6 2 2" class="stroke-linejoin-round awsui-icon-corner-tl"></path></svg></span></button></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./infrastructure-security.html">Infrastructure security</div><div id="next" class="next-link" accesskey="n" href="./security-group-rules.html">Security group rules</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-security-groups.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-security-groups.html"></awsui-button></p></div></div></div></div></div></div></div><div class="
+          VM-l1UkHFVRegR13nxZ24g==
+          mNZvV+FFPB9yiUlzl0xk0g== 
+          
+           
+        "><div class="_1OgNW+pmdk5JO3ljxIFK2g=="><button aria-label="Close page navigation and information panel" title="Close page navigation and information panel" class="awsui_button_vjswe_1vlnw_70 awsui_variant-icon_vjswe_1vlnw_218 awsui_button-no-text_vjswe_1vlnw_526" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r1g:" type="submit" data-analytics-performance-mark="14-1789095897530-3633"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="m2 1.71 12 12M2 13.71l12-12" class="stroke-linejoin-round"></path></svg></span></button></div><ul class="OTzAoHvbdxaTRWoYMv+4yw=="><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">On this page</span></h3><nav aria-labelledby="anchor-navigation-heading" class="awsui_root_swimc_1bw6y_9 awsui_root_17oho_5eh15_5"><ol class="awsui_anchor-list_swimc_1bw6y_41 awsui_anchor-list_17oho_5eh15_9"><li data-itemid="anchor-item-1" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#security-group-basics"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Security group basics</span></a></li><li data-itemid="anchor-item-2" class="awsui_anchor-item_swimc_1bw6y_65"><a class="awsui_anchor-link_swimc_1bw6y_103 awsui_anchor-link_17oho_5eh15_17" href="#security-group-example-details"><span class="awsui_anchor-link-text_swimc_1bw6y_152 awsui_anchor-link-text_17oho_5eh15_21" style="padding-inline-start: 20px;">Security group example</span></a></li></ol></nav></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div data-testid="related-resources-section"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-xxs_18582_15yy8_62"><div class="awsui_child_18582_15yy8_13"><h3 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h3-variant_18wu0_gmlmv_28 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><span id="anchor-navigation-heading">Related resources</span></h3></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r6m:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6l:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/vpc/latest/peering/"><span>VPC Peering Guide</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r6p:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6o:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/vpc/latest/tgw/"><span>Amazon VPC Transit Gateways</span></a></span></div><div class="awsui_child_18582_15yy8_13"><span><a id="link-self:r6s:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r6r:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="https://docs.aws.amazon.com/ec2/latest/devguide/"><span>Amazon EC2 Developer Guide</span></a></span></div></div></div></div></li><li class="
+            YLh9T6Dnpm2IV3LX3cO+ug== 
+          "><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-vertical-m_18wu0_gmlmv_398 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81"><div class="gMlLJ2Yy-nuwHZe7cihPtQ=="><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-s_18582_15yy8_68"><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_vertical_18582_15yy8_56 awsui_vertical-l_18582_15yy8_74"><div class="awsui_child_18582_15yy8_13"><label id="feedbackHelpYou"><div class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_p-n_18wu0_gmlmv_267 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-heading-m_18wu0_gmlmv_212 awsui_font-weight-heavy_18wu0_gmlmv_161">Did this page help you?</div></label></div><div class="awsui_child_18582_15yy8_13"><div class="awsui_root_18582_15yy8_9 awsui_horizontal_18582_15yy8_24 awsui_horizontal-xs_18582_15yy8_34"><div class="awsui_child_18582_15yy8_13"><button aria-label="Yes-This page is helpful.
+  " aria-describedby="feedbackHelpYou" title="Yes-This page is helpful.
+  " class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r6u:" type="submit" data-analytics-performance-mark="35-1789095897859-4985"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-up_h11ix_rh18t_635"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 2.871v4.13h4.12c.6 0 1.02.59.83 1.16l-1.6 4.77a1.58 1.58 0 0 1-1.49 1.07H1v-8h4l2.41-3.61c.48-.72 1.59-.38 1.59.48ZM5 14.001v-8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">Yes</span></button></div><div class="awsui_child_18582_15yy8_13"><button aria-label="No-This page is not helpful." aria-describedby="feedbackHelpYou" title="No-This page is not helpful." class="awsui_button_vjswe_1vlnw_70 awsui_variant-normal_vjswe_1vlnw_131 awsui_button-no-wrap_vjswe_1vlnw_530" data-awsui-motion-trigger="hover" data-awsui-motion-target="" data-analytics-funnel-value="button:r70:" type="submit" data-analytics-performance-mark="36-1789095897859-9926"><span class="awsui_icon_vjswe_1vlnw_560 awsui_icon-left_vjswe_1vlnw_560 awsui_icon_h11ix_rh18t_13 awsui_size-normal-mapped-height_h11ix_rh18t_97 awsui_size-normal_h11ix_rh18t_93 awsui_variant-normal_h11ix_rh18t_181 awsui_name-thumbs-down_h11ix_rh18t_653"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true" data-awsui-icon-animated="true"><path d="M9 13.13V9h4.12c.6 0 1.02-.59.83-1.16l-1.6-4.77A1.58 1.58 0 0 0 10.86 2H1v8h4l2.41 3.61c.48.72 1.59.38 1.59-.48ZM5 2v8" class="stroke-linejoin-round"></path></svg></span><span class="awsui_content_vjswe_1vlnw_66 awsui_label_1f1d4_ocied_5">No</span></button></div></div></div></div></div><div class="awsui_child_18582_15yy8_13"><div><span><a id="link-self:r73:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r72:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/feedback/doc-feedback.html?hidden_service_name=VPC&amp;topic_url=https%3A%2F%2Fdocs.aws.amazon.com%2Fvpc%2Flatest%2Fuserguide%2FVPC_SecurityGroups.html"><span>Provide feedback</span></a></span></div></div></div></div></div></li></ul></div><div class="LERjeVcK6nut-e7aeHxQOQ==" data-testid="utility-footer"><div class="G7Bey25cFbRC2Carn-F2vQ=="><div class="AFZgK626Jav12yYP8tO08Q=="><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Next topic:</h4><span><a id="link-self:r1q:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1p:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./security-group-rules.html"><span>Security group rules</span></a></span></div><div><h4 class="awsui_root_18wu0_gmlmv_950 awsui_box_18wu0_gmlmv_24 awsui_h4-variant_18wu0_gmlmv_28 awsui_p-n_18wu0_gmlmv_267 awsui_d-inline_18wu0_gmlmv_770 awsui_color-default_18wu0_gmlmv_24 awsui_font-size-default_18wu0_gmlmv_40 awsui_font-weight-default_18wu0_gmlmv_81">Previous topic:</h4><span><a id="link-self:r1t:" class="awsui_link_4c84z_1n50m_9 awsui_variant-secondary_4c84z_1n50m_110 awsui_font-size-body-m_4c84z_1n50m_393" data-analytics-funnel-value="link:r1s:" data-awsui-motion-trigger="hover" data-awsui-motion-target="" href="./infrastructure-security.html"><span>Infrastructure security</span></a></span></div></div></div></div></div></div></div></div></div></div></div></div></div>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Understanding S3 Glacier storage classes for long-term data storage - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="glacier-storage-classes" /><meta name="default_state" content="glacier-storage-classes" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" /><meta name="description" content="Learn about the Amazon S3 storage classes for long-term data: S3 Glacier Instant Retrieval, S3 Glacier Flexible Retrieval, and S3 Glacier Deep Archive." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Understanding S3 Glacier storage classes for long-term data storage" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="glacier-storage-classes.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Understanding S3 Glacier storage classes for long-term data storage - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#glacier-storage-classes" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/glacier-storage-classes.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/glacier-storage-classes.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/glacier-storage-classes.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,storage class,storage classes,Glacier,glacier,archival storage,glacier flexible retrieval,glacier instant retrieval,glacier deep archive" /><link rel="alternate" type="text/markdown" href="glacier-storage-classes.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Cost optimization",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/cost-optimization.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Understanding and managing Amazon S3 storage classes",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Understanding S3 Glacier storage classes for long-term data storage",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#glacier-storage-classes" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#glacier-class-compare">Comparing the S3 Glacier storage classes</a><a href="#GIR">S3 Glacier Instant Retrieval</a><a href="#GFR">S3 Glacier Flexible Retrieval</a><a href="#GDA">S3 Glacier Deep Archive</a><a href="#glacier-storage-vs-service">How these storage classes differ from the Amazon Glacier service</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="glacier-storage-classes">Understanding S3 Glacier storage classes for long-term data storage</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use Amazon S3 S3 Glacier storage classes to provide cost-effective solutions to storing long-term data that isn't accessed often. The S3 Glacier storage classes are:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem"><p>S3 Glacier Instant Retrieval</p></li><li class="listitem"><p>S3 Glacier Flexible Retrieval</p></li><li class="listitem"><p>S3 Glacier Deep Archive</p></li></ul></div><p>You choose one of these storage classes based on how often you access your data and how
+        fast you need to retrieve it. Each of these storage classes offer the same durability and
+        resiliency as the S3 Standard storage class, but at lower storage costs. For more
+        information about the S3 Glacier storage classes, see <a href="https://aws.amazon.com/s3/storage-classes/glacier/" rel="noopener noreferrer" target="_blank"><span>https://aws.amazon.com/s3/storage-classes/glacier/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#glacier-class-compare">Comparing the S3 Glacier storage classes</a></p></li><li><p><a href="#GIR">S3 Glacier Instant Retrieval</a></p></li><li><p><a href="#GFR">S3 Glacier Flexible Retrieval</a></p></li><li><p><a href="#GDA">S3 Glacier Deep Archive</a></p></li><li><p><a href="./archival-storage.html">Understanding archival storage in S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive</a></p></li><li><p><a href="#glacier-storage-vs-service">How these storage classes differ from the Amazon Glacier service</a></p></li></ul></div>
+        <h2 id="glacier-class-compare">Comparing the S3 Glacier storage classes</h2>
+        <p>Each S3 Glacier storage class has a minimum storage duration for all objects. If you delete, overwrite, or transition the object to a different storage class before the minimum, you are charged for the remainder of that duration.</p>
+        <p>Some S3 Glacier storage classes are archival, which means the objects stored in those classes are archived and not available for real-time access. For more information, see <a href="./archival-storage.html">Understanding archival storage in S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive</a>.</p>
+        <p>Storage classes designed for less frequent access patterns with longer retrieval times offer lower storage costs. For pricing information, see <a href="https://aws.amazon.com/s3/pricing/" rel="noopener noreferrer" target="_blank"><span>https://aws.amazon.com/s3/pricing/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        <p>The following table summarizes the key points to consider when choosing a S3 Glacier storage class:</p>
+        <div class="table-container"><div class="table-contents disable-scroll"><table id="w702aac30c17c27c11c11"><thead>
+                    
+                    <tr>
+                        <th>S3 Glacier storage class</th>
+                        <th>Minimum storage duration</th>
+                        <th>Recommended access frequency</th>
+                        <th>Average retrieval times</th>
+                        <th>Archival?</th>
+                    </tr>
+                </thead> 
+                    <tr>
+                        <td tabindex="-1">S3 Glacier Instant Retrieval</td>
+                        <td tabindex="-1">90 days</td>
+                        <td tabindex="-1">Quarterly</td>
+                        <td tabindex="-1">Milliseconds</td>
+                        <td tabindex="-1">No</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">S3 Glacier Flexible Retrieval</td>
+                        <td tabindex="-1">90 days</td>
+                        <td tabindex="-1">Semi-annually</td>
+                        <td tabindex="-1">Minutes to 12 hours</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">S3 Glacier Deep Archive</td>
+                        <td tabindex="-1">180 days</td>
+                        <td tabindex="-1">Annually</td>
+                        <td tabindex="-1">9 to 48 hours</td>
+                        <td tabindex="-1">Yes</td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="GIR">S3 Glacier Instant Retrieval</h2>
+        <p>We recommend using S3 Glacier Instant Retrieval for long-term data that's accessed once per quarter and
+            requires millisecond retrieval times. This storage class is ideal for
+            performance-sensitive use cases such as image hosting, file-sharing applications, and
+            storing medical records for access during appointments.</p>
+        <p>S3 Glacier Instant Retrieval storage class offers real-time access to your objects with the same latency and throughput performance as the S3 Standard-IA storage class. When compared to S3 Standard-IA, S3 Glacier Instant Retrieval has lower storage costs but higher data access costs.</p>
+        <p>There is a minimum object size of 128 KB for data stored in the S3 Glacier Instant Retrieval storage class. This storage class also has a minimum storage duration period of 90 days. </p>
+     
+        <h2 id="GFR">S3 Glacier Flexible Retrieval</h2>
+        <p>We recommend using S3 Glacier Flexible Retrieval for archive data that's accessed one to two
+            times a year and doesn't require immediate access. S3 Glacier Flexible Retrieval offers
+            flexible retrieval times to help you balance costs, with access times ranging from a few
+            minutes to hours, and free bulk retrievals. This storage class is ideal for backup and
+            disaster recovery.</p>
+        <p>Objects stored in S3 Glacier Flexible Retrieval are archived and not available for
+            real-time access. For more information, see <a href="./archival-storage.html">Understanding archival storage in S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive</a>. To access these objects, you first initiate a
+            restore request which creates a temporary copy of the object that you can access when
+            the request completes. For information, see <a href="./archived-objects.html">Working with archived objects</a>. When you restore an object, you can choose a
+            retrieval tier to meet your use case, with lower costs for longer restore times.</p>
+        <p>The following retrieval tiers are available for S3 Glacier Flexible Retrieval:</p>
+        <div class="itemizedlist">
+            
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p><b>Expedited retrieval</b> – Typically restores the object in
+                1–5 minutes. Expedited retrievals are subject to demand, so to make sure
+                you have reliable and predictable restore times, we recommend that you purchase
+                provisioned retrieval capacity. For more information, see <a href="./restoring-objects-retrieval-options.html#restoring-objects-expedited-capacity">Provisioned capacity</a>.</p></li><li class="listitem"><p><b>Standard retrieval</b> – Typically restores the object in 3–5 hours, or within 1 minute to 5 hours when you use S3 Batch Operations. For more information, see <a href="./batch-ops-initiate-restore-object.html">Restore objects with Batch Operations</a>.</p></li><li class="listitem"><p><b>Bulk retrieval</b> – Typically restores the object within 5–12 hours. Bulk retrievals are free.</p></li></ul></div>
+        <p>For any retrieval option, objects larger than 5 TB typically finish within 48 hours
+            with up to 300 megabytes per second (MBps) of retrieval throughput. For more
+            information, see <a href="./restoring-objects-retrieval-options.html">Understanding archive retrieval options</a>.</p>
+        <p>The minimum storage duration for objects in S3 Glacier Flexible Retrieval storage class is 90 days. </p><p>S3 Glacier Flexible Retrieval requires 40 KB of additional metadata for each object. This includes 32 KB of metadata required to identify and retrieve your data, which is charged at the default rate for S3 Glacier Flexible Retrieval. An additional 8 KB data is required to maintain the user-defined name and metadata for archived objects, and is charged at the S3 Standard rate.</p>
+     
+        <h2 id="GDA">S3 Glacier Deep Archive</h2>
+        <p>We recommend using S3 Glacier Deep Archive for archive data that's accessed less than once a
+            year. This storage class is designed for retaining data sets for multiple years to meet
+            compliance requirements and can also be used for backup or disaster recovery or any
+            infrequently accessed data that you can wait up to 72 hours to retrieve. S3 Glacier Deep Archive
+            is the lowest-cost storage option in AWS.</p>
+        <p>Objects stored in S3 Glacier Deep Archive are archived and not available for
+            real-time access. For more information, see <a href="./archival-storage.html">Understanding archival storage in S3 Glacier Flexible Retrieval and S3 Glacier Deep Archive</a>. To access these objects, you first initiate a
+            restore request which creates a temporary copy of the object that you can access when
+            the request completes. For information, see <a href="./archived-objects.html">Working with archived objects</a>. When you restore an object, you can choose a
+            retrieval tier to meet your use case, with lower costs for longer restore times.</p>
+        <p>The following retrieval tiers are available for S3 Glacier Deep Archive:</p>
+        <div class="itemizedlist">
+            
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p><b>Standard retrieval</b> – Typically restores the object within 12 hours, or within 9–12 hours when you use S3 Batch Operations. For more information, see <a href="./batch-ops-initiate-restore-object.html">Restore objects with Batch Operations</a>.</p></li><li class="listitem"><p><b>Bulk retrieval</b> – Typically restores the object within 48 hours at a fraction of the cost of the Standard retrieval tier.</p></li></ul></div>
+        <p>The minimum storage duration for objects in S3 Glacier Deep Archive storage class is 180 days. </p><p>S3 Glacier Deep Archive requires 40 KB of additional metadata for each object. This includes 32 KB of metadata required to identify and retrieve your data, which is charged at the default rate for S3 Glacier Deep Archive. An additional 8 KB data is required to maintain the user-defined name and metadata for archived objects, and is charged at the S3 Standard rate.</p>
+     
+        <h2 id="glacier-storage-vs-service">How these storage classes differ from the Amazon Glacier service</h2>
+        <p>The S3 Glacier storage classes are part of the Amazon S3 service and store data as objects in S3
+            buckets. You can manage objects in these storage classes using the S3 console or
+            programmatically using the S3 APIs or SDKs. When you store objects in
+            S3 Glacier storage classes, you can use S3 features such as advanced encryption, object
+            tagging, and S3 Lifecycle configurations to help manage data accessibility and cost. </p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>We recommend using the S3 Glacier storage classes within the Amazon S3 service for all of your long-term data.</p></div></div>
+        
+        <p>The Amazon Glacier service is a separate service that stores data as archives
+            within vaults. This service doesn't support Amazon S3 features and doesn’t provide console
+            support for data upload and download operations. We don't recommend using the Amazon Glacier
+            service for your long-term data. Data stored in this service isn't accessible from the Amazon S3 service. If
+            you are looking for information on the Amazon Glacier service, see the <a href="https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html">Amazon Glacier
+                Developer Guide</a>. To transfer data from the Amazon Glacier service to a storage
+            class in Amazon S3 see <a href="https://aws.amazon.com/solutions/implementations/data-transfer-from-amazon-s3-glacier-vaults-to-amazon-s3/" rel="noopener noreferrer" target="_blank"><span>Data Transfer from Amazon Glacier Vaults to Amazon S3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the AWS solutions
+            library.</p>
+        
+        
+        
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./intelligent-tiering-managing.html">Managing S3 Intelligent-Tiering</div><div id="next" class="next-link" accesskey="n" href="./archival-storage.html">Archival storage in S3 Glacier storage classes</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/glacier-storage-classes.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/glacier-storage-classes.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

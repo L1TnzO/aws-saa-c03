@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Managing storage capacity - FSx for ONTAP</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="managing-storage-capacity" /><meta name="default_state" content="managing-storage-capacity" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html" /><meta name="description" content="Monitor and manage the storage capacity of your FSx for ONTAP file system by using volume data tiering policies, and scaling storage capacity and IOPS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="FSx for ONTAP" /><meta name="guide" content="ONTAP User Guide" /><meta name="abstract" content="This is the official Amazon Web Services documentation for Amazon FSx for NetApp ONTAP. Amazon FSx for NetApp ONTAP is an AWS service that makes it easier to launch and run fully-featured NetApp ONTAP file systems in the AWS Cloud. The Amazon FSx for NetApp ONTAP User Guide describes key concepts for FSx for ONTAP and provides instructions for launching and using your file system." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html" hreflang="x-default" /><meta name="feedback-item" content="FSx" /><meta name="this_doc_product" content="FSx for ONTAP" /><meta name="this_doc_guide" content="ONTAP User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'fsx'}"></script><meta id="panorama-serviceSubSection" value="ONTAP User Guide" /><meta id="panorama-serviceConsolePage" value="Managing storage capacity" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="managing-storage-capacity.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Managing storage capacity - FSx for ONTAP</title><meta name="pdf" content="/pdfs/fsx/latest/ONTAPGuide/ONTAPGuide.pdf#managing-storage-capacity" /><meta name="rss" content="ONTAPGuide.rss" /><meta name="forums" content="https://repost.aws/tags/TA74tGK04VRAGj9SRHphNQrA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/managing-storage-capacity.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/managing-storage-capacity.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/managing-storage-capacity.html" /><meta name="keywords" content="fsx ontap file system,managing file systems,svm,managing storage virtual machines,fsx ontap storage virtual machines,managing volumes,fsx ontap volumes,FSx for ONTAP storage tiers,SSD storage capacity management,Volume data tiering,File system storage efficiency,ONTAP software overhead,Capacity pool tier utilization,Storage efficiency savings calculation" /><link rel="alternate" type="text/markdown" href="managing-storage-capacity.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon FSx",
+        "item" : "https://docs.aws.amazon.com/fsx/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ONTAP User Guide",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Administering FSx for ONTAP resources",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/administering-file-systems.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Managing storage capacity",
+        "item" : "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/administering-file-systems.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/fsx/latest/ONTAPGuide/ONTAPGuide.pdf#managing-storage-capacity" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/fsx/index.html">Amazon FSx</a><a href="what-is-fsx-ontap.html">ONTAP User Guide</a></div><div id="page-toc-src"><a href="#storage-tiers">Storage tiers</a><a href="#choose-ssd-capacity">Choosing file system storage capacity</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="managing-storage-capacity">Managing storage capacity</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon FSx for NetApp ONTAP provides a number of storage-related features you can use to manage storage capacity on your file system.</p><div class="highlights"><h6>Topics</h6><ul><li><p><a href="#storage-tiers">FSx for ONTAP storage tiers</a></p></li><li><p><a href="#choose-ssd-capacity">Choosing the right amount of file system SSD storage</a></p></li><li><p><a href="./storage-capacity-and-IOPS.html">File system storage capacity and IOPS</a></p></li><li><p><a href="./volume-storage-capacity.html">Volume storage capacity</a></p></li></ul></div>
+            <h2 id="storage-tiers">FSx for ONTAP storage tiers</h2>
+                <p>Storage tiers are the physical storage media for an Amazon FSx for NetApp ONTAP file
+            system. FSx for ONTAP offers the following storage tiers:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem"><p><em>SSD tier</em> – The user-provisioned, high-performance solid-state
+                    drive (SSD) storage that’s purpose-built for the active portion of your data
+                    set.</p></li><li class="listitem"><p><em>Capacity pool tier</em> – Fully elastic storage that automatically
+                    scales to petabytes in size, and is cost-optimized for your infrequently accessed
+                    data.</p></li></ul></div>
+                                
+                <p>An FSx for ONTAP volume is a virtual resource that, similar to folders, doesn't
+            consume storage capacity. The data that you store—and that consumes physical
+            storage—lives inside volumes. When you create a volume, you specify its size—which 
+            you can modify after it's created. FSx for ONTAP volumes are thin provisioned, and
+            file system storage is not reserved in advance. Instead, SSD and capacity pool storage
+            are allocated dynamically, as needed. A <a href="./volume-storage-capacity.html#data-tiering-policy">tiering
+                policy</a>, which you configure at the volume level, determines if and when data
+            that's stored in the SSD tier transitions to the capacity pool tier.</p>
+            
+            <p>The following diagram illustrates an example of data laid out across multiple FSx for ONTAP volumes in a file system.</p>
+            
+            <div class="mediaobject">
+                 
+                    <img src="/images/fsx/latest/ONTAPGuide/images/fsx-ontap-volume-virtual-resource.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="FSx for ONTAP SSD and capacity pool storage tiers logically provisioned across file system volumes." style="max-width:85%" />
+                 
+                 
+            </div>
+            
+            <p>The following diagram illustrates how the file system's physical storage capacity is consumed by the data in the four volumes in the previous diagram.</p>
+            <div class="mediaobject">
+                 
+                    <img src="/images/fsx/latest/ONTAPGuide/images/fsx-ontap-storage-tiers-physical-resource.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="How the SSD, or primary storage tier, and the capacity pool storage tier usage of the file system's physical storage capacity looks across all volumes in a file system." style="max-width:85%" />
+                 
+                 
+            </div>
+            <p>You can reduce your storage costs by choosing the tiering policy that best meets
+            the requirements for each volume on your file system. For more information, see <a href="./volume-storage-capacity.html#volume-data-tiering">Volume data tiering</a>.</p>                                   
+         
+            <h2 id="choose-ssd-capacity">Choosing the right amount of file system SSD storage</h2>
+            <p>When choosing amount of SSD storage capacity for your FSx for ONTAP file system, you need to keep in mind the following items 
+                that impact the amount of SSD storage available for storing your data:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                                                 
+                <ul class="itemizedlist"><li class="listitem"><p>Storage capacity reserved for the NetApp ONTAP software overhead.</p></li><li class="listitem"><p>File metadata</p></li><li class="listitem"><p>Recently written data</p></li><li class="listitem"><p>Files that you intend to store on SSD storage, whether it's data that hasn't hit its cooling period, 
+                        or data that you recently read that was retrieved back to SSD.</p></li></ul></div>
+            
+             
+                <h3 id="how-ssd-is-used">How SSD storage is used</h3>
+                <p>Your file system's SSD storage is used for a combination of NetApp ONTAP software (overhead), 
+                file metadata, and your data.</p>
+                
+                 
+                    <h4 id="ONTAP-overhead">NetApp ONTAP software overhead</h4>
+                <p>Like other NetApp ONTAP file systems, up to 16% of a file system's SSD
+                    storage capacity is reserved for ONTAP overhead, which means it's not available
+                    for storing your files. The ONTAP overhead is allocated as follows:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem"><p>11% is reserved for NetApp ONTAP software. For file systems with over 30 tebibytes
+                            (TiB) of SSD storage capacity, 6% is reserved.</p></li><li class="listitem"><p>5% is reserved for aggregate snapshots, which are required to synchronize data between 
+                        both of a file system's file servers.</p></li></ul></div>
+                <p></p>
+                 
+                
+                 
+                    <h4 id="file-metadata">File metadata</h4>
+                    <p>File metadata typically consumes 3-7% of the storage
+            capacity that is consumed by the files. This percentage depends on the average
+            file size (a smaller average file size requires more metadata), and the amount
+            of storage efficiency savings achieved on your files. Note that file metadata
+            doesn't benefit from storage efficiency savings. You can use the following
+            guidelines for estimating the amount of SSD storage used for metadata on your
+            file system.</p>
+                <div class="table-container"><div class="table-contents"><table id="w257aac20b9b9b7b7b5"><thead>
+                            <tr>
+                                <th>Average file size</th>
+                                <th>Size of metadata as a percentage of file data</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>4 KB</p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>7%</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>8 KB</p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>3.5%</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">
+                                    <p>32 KB or greater</p>
+                                </td>
+                                <td tabindex="-1">
+                                    <p>1-3%</p>
+                                </td>
+                            </tr>
+                        </table></div></div>
+                <p>When sizing the amount of SSD storage capacity you need for the metadata of files you plan to store on the capacity pool tier, 
+                    we recommend using a conservative ratio of 1 GiB of SSD storage for every 10 GiB of data you plan to store on the capacity pool tier.</p>
+                 
+                
+                 
+                    <h4 id="file-data-on-ssd-tier">File data stored on your SSD tier</h4>
+                <p>In addition to your active data set and all file metadata, all data written to your file system is initially written
+                      to the SSD tier before being tiered-off to capacity pool storage. This is true regardless of the volume's tiering policy, 
+                      with the exception that data is written directly to capacity pool storage when using SnapMirror on a volume configured
+                      with an <b>All</b> data tiering policy.</p>
+                    <p>Random reads from the capacity pool tier are cached in the SSD tier, as long as the SSD tier is under 90% utilization.
+                        For more information, see <a href="./volume-storage-capacity.html#volume-data-tiering">Volume data tiering</a>.</p>
+                                   
+             
+             
+                <h3 id="ssd-utilization">Recommended SSD capacity utilization</h3>
+                <p>We recommend that you do not exceed 80% utilization of your SSD storage tier on an ongoing basis. For second-generation
+                    file systems, we additionally recommend that you don't exceed 80% utilization of any of your file system's aggregates 
+                    on an ongoing basis. 
+                    These recommendations is consistent with NetApp's recommendation for ONTAP. Because your file system’s 
+                    SSD tier is also used for staging writes to, and for random reads from, the capacity 
+                    pool tier, any sudden changes in access patterns can quickly cause the utilization of your SSD tier to increase.</p>
+                <p>At 90% SSD utilization, data read from the capacity pool tier is no longer cached on the SSD tier 
+                    so that the remaining SSD capacity is preserved for any new data that is written to the file system. 
+                    This causes repeat reads of the same data from the capacity pool tier to be read from capacity pool storage instead
+                    of being cached and read from the SSD tier, which can impact the throughput capacity your file system.</p>
+                <p>All tiering functionality stops when the SSD tier is at or above 98% utilization.
+                    For more information, see <a href="./volume-storage-capacity.html#storage-tiering-thresholds">Tiering thresholds</a>.</p>
+             
+             
+                <h3 id="storage-efficiency">Storage efficiency</h3>
+                
+                <p>NetApp ONTAP offers block-level storage efficiency features at the volume level that include compression, compaction, and deduplication. 
+                    These features can save you up to 65% in storage capacity for general file shares, without sacrificing performance. You can enable storage efficiency on a 
+                    per volume basis. These features reduce the amount of storage capacity that your data consumes, allowing you to consume less storage spaces in SSD, 
+                    capacity pool, and backups storage. You can enable compression and deduplication on each volume for data in SSD storage. Storage savings from compression 
+                    and deduplication in SSD storage is preserved when data is tiered to capacity pool storage. Storage efficiency is always enabled for backup data, regardless 
+                    of your file system's storage efficiency configuration.</p>
+                <p>The following table shows examples of typical storage savings.</p>
+                <div class="table-container"><div class="table-contents"><table id="w257aac20b9b9c11b7"><thead>
+                            <tr>
+                                <th></th>
+                                <th>Compression only</th>
+                                <th>Deduplication only</th>
+                                <th>Compression &amp; deduplication</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td tabindex="-1">General-purpose file shares</td>
+                                <td tabindex="-1">50%</td>
+                                <td tabindex="-1">30%</td>
+                                <td tabindex="-1">65%</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Virtual servers and desktops</td>
+                                <td tabindex="-1">55%</td>
+                                <td tabindex="-1">70%</td>
+                                <td tabindex="-1">70%</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Databases</td>
+                                <td tabindex="-1">65-70%</td>
+                                <td tabindex="-1">0%</td>
+                                <td tabindex="-1">65-70%</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Engineering data</td>
+                                <td tabindex="-1">55%</td>
+                                <td tabindex="-1">30%</td>
+                                <td tabindex="-1">75%</td>
+                            </tr>
+                            <tr>
+                                <td tabindex="-1">Geoseismic data</td>
+                                <td tabindex="-1">40%</td>
+                                <td tabindex="-1">3%</td>
+                                <td tabindex="-1">40%</td>
+                            </tr>
+                        </table></div></div>
+                <p>For most workloads, enabling compression and deduplication will not adversely impact file system performance. 
+                    For most workloads, compression increases overall performance. To provide fast reads and writes from RAM cache, FSx for ONTAP 
+                    file servers are equipped with higher levels of network bandwidth on the front-end network interface cards (NICs) than is 
+                    available between the file servers and storage disks. Since data compression reduces the amount of data sent between file 
+                    servers and storage disks, for most workloads, you will see an increase in overall file system throughput capacity when 
+                    using data compression. Increases in throughput capacity related to data compression will be capped once you saturate the 
+                    front-end NIC of your file system.</p>
+                <p>Amazon FSx for NetApp ONTAP also supports other ONTAP features that save you space, including snapshots, thin provisioning, and FlexClone volumes.</p>
+                
+                    <p>Storage efficiency features are not enabled by default. You can enable them as follows:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem"><p>On an SVM's root volume when you <a href="./creating-file-systems.html">create a file system</a>.</p></li><li class="listitem"><p>When you <a href="./creating-volumes.html">create a new volume</a>.</p></li><li class="listitem"><p>When you <a href="./updating-volumes.html">modify an existing volume</a>.</p></li></ul></div>
+                    <p>To view the amount of storage savings on a file system with storage efficiency enabled, 
+                        see <a href="./view-storage-efficiency.html">Monitoring storage efficiency savings</a>.</p>
+                     
+                        <h4 id="storage-efficiency-calculation">Calculating storage efficiency savings</h4>
+                        <p>You can use the <code class="code">LogicalDataStored</code> and <code class="code">StorageUsed</code> FSx for ONTAP CloudWatch file system metrics to 
+                            calculate storage savings from compression, deduplication, compaction, snapshots, and FlexClones. These 
+                            metrics have a single dimension, <code class="code">FileSystemId</code>. For more information, 
+                            see <a href="./file-system-metrics.html">File system metrics</a>.</p>
+                        <div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem"><p>To compute storage-efficiency savings in bytes, take the Average of <code class="code">StorageUsed</code> over a given 
+                                period and subtract it from the Average of <code class="code">LogicalDataStored</code> over the same period.</p></li><li class="listitem"><p>To compute storage-efficiency savings as a percentage of total logical data size, take the 
+                                <code class="code">Average</code> of <code class="code">StorageUsed</code> over a given period and subtract it from the <code class="code">Average</code>
+                                of <code class="code">LogicalDataStored</code> over the same period. Then divide the difference by the <code class="code">Average</code> of 
+                                <code class="code">LogicalDataStored</code> over the same period.</p></li></ul></div>
+                     
+                
+             
+                <h4 id="sizing-ssd-example">SSD sizing example</h4>
+                <p>Assume you want to store 100 TiB of data for an application where 80% of the data is infrequently accessed. 
+                    In this scenario, 80% (80 TiB) of your data is automatically tiered to the capacity pool tier and the remaining 20% (20 TiB) remains in SSD storage. 
+                    Based on the typical storage efficiency savings 
+                    of 65% for general-purpose file sharing workloads, that equates to 7 TiB of data. To maintain an 80% SSD utilization rate, you 
+                    need 8.75 TiB of SSD storage capacity for the 20 TiB of actively-accessed data. The amount of SSD storage that you 
+                    provision also needs to account for the ONTAP software storage overhead of 16%, as shown in the following calculation.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">ssdNeeded = ssdProvisioned * (1 - 0.16)
+8.75 TiB / 0.84 = ssdProvisioned
+10.42 TiB = ssdProvisioned</code></pre>
+                <p>So in this example, you need to provision at least 10.42 TiB of SSD storage. You will also use 28 TiB of capacity pool storage 
+                    for the remaining 80 TiB of infrequently accessed data.</p>
+             
+         
+
+
+
+        
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./administering-file-systems.html">Administering resources</div><div id="next" class="next-link" accesskey="n" href="./storage-capacity-and-IOPS.html">File system storage capacity and IOPS</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/managing-storage-capacity.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=FSx&amp;topic_url=https://docs.aws.amazon.com/en_us/fsx/latest/ONTAPGuide/managing-storage-capacity.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring an SFTP, FTPS, or FTP server endpoint - AWS Transfer Family</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tf-server-endpoint" /><meta name="default_state" content="tf-server-endpoint" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html" /><meta name="description" content="Describe how to create a Transfer Family server, including the available protocols and both public and private endpoints." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Transfer Family" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Transfer Family is a secure transfer service that stores your data in Amazon Simple Storage Service or Amazon Elastic File System and simplifies the migration of Secure File Transfer Protocol (SFTP), File Transfer Protocol Secure (FTPS), File Transfer Protocol (FTP), and Applicability Statement 2 (AS2) workflows to AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/tf-server-endpoint.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/transfer/latest/userguide/tf-server-endpoint.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/tf-server-endpoint.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/transfer/latest/userguide/tf-server-endpoint.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/tf-server-endpoint.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/transfer/latest/userguide/tf-server-endpoint.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/tf-server-endpoint.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/transfer/latest/userguide/tf-server-endpoint.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/tf-server-endpoint.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/transfer/latest/userguide/tf-server-endpoint.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/tf-server-endpoint.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/transfer/latest/userguide/tf-server-endpoint.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/tf-server-endpoint.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/transfer/latest/userguide/tf-server-endpoint.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/tf-server-endpoint.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/transfer/latest/userguide/tf-server-endpoint.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/transfer/latest/userguide/tf-server-endpoint.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/transfer/latest/userguide/tf-server-endpoint.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/transfer/latest/userguide/tf-server-endpoint.html" hreflang="x-default" /><meta name="feedback-item" content="transfer" /><meta name="this_doc_product" content="AWS Transfer Family" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'transfer'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Configuring an SFTP, FTPS, or FTP server endpoint" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="tf-server-endpoint.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring an SFTP, FTPS, or FTP server endpoint - AWS Transfer Family</title><meta name="pdf" content="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#tf-server-endpoint" /><meta name="forums" content="https://repost.aws/tags/TAtf43W5cjQ3CIFYTKipVfGg" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/tf-server-endpoint.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/tf-server-endpoint.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/tf-server-endpoint.html" /><meta name="keywords" content="SFTP for Transfer Family,FTPS for Transfer Family,FTP for Transfer Family,create a Transfer Family server,SFTP, FTP, FTPS, Transfer Family file transfer servers,VPC, public endpoints, custom hostnames for Transfer Family servers" /><link rel="alternate" type="text/markdown" href="tf-server-endpoint.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Transfer Family",
+        "item" : "https://docs.aws.amazon.com/transfer/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Configuring an SFTP, FTPS, or FTP server endpoint",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configuring an SFTP, FTPS, or FTP server endpoint",
+        "item" : "https://docs.aws.amazon.com/transfer/latest/userguide/sftp-for-transfer-family.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/transfer/latest/userguide/transferfamily-ug.pdf#tf-server-endpoint" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/transfer/index.html">AWS Transfer Family</a><a href="what-is-aws-transfer-family.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tf-server-endpoint">Configuring an SFTP, FTPS, or FTP server endpoint</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can create a file transfer server by using the AWS Transfer Family service. The following
+            file transfer protocols are available:</p><div class="itemizedlist">
+             
+
+             
+
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Secure Shell (SSH) File Transfer Protocol (SFTP) – File transfer over
+                    SSH. For details, see <a href="./create-server-sftp.html">Create an SFTP-enabled server</a>.</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>We provide an AWS CDK example for creating an SFTP Transfer Family server. The example uses TypeScript, and is available on GitHub <a href="https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/aws-transfer-sftp-server" rel="noopener noreferrer" target="_blank"><span>here</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div>
+            </li><li class="listitem">
+                <p>File Transfer Protocol Secure (FTPS) – File transfer with TLS
+                    encryption. For details, see <a href="./create-server-ftps.html">Create an FTPS-enabled server</a>.</p>
+            </li><li class="listitem">
+                <p>File Transfer Protocol (FTP) – Unencrypted file transfer. For details,
+                    see <a href="./create-server-ftp.html">Create an FTP-enabled server</a>.</p>
+            </li><li class="listitem">
+                <p>Applicability Statement 2 (AS2) – File transfer for transporting
+                    structured business-to-business data. For details, see <a href="./create-b2b-server.html">Configuring AS2</a>. For AS2, you  can quickly create an CloudFormation stack for demonstration purposes. This procedure is
+                described in <a href="./create-as2-transfer-server.html#as2-cfn-demo-template">Use a template to create a demo Transfer Family AS2 stack</a>.</p>
+            </li></ul></div><p>You can create a server with multiple protocols.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have multiple protocols enabled for the same server endpoint and you want
+                to provide access by using the same username over multiple protocols, you can do so
+                as long as the credentials specific to the protocol have been set up in your
+                identity provider. For FTP, we recommend maintaining separate credentials from SFTP
+                and FTPS. This is because, unlike SFTP and FTPS, FTP transmits credentials in clear
+                text. By isolating FTP credentials from SFTP or FTPS, if FTP credentials are shared
+                or exposed, your workloads using SFTP or FTPS remain secure.</p></div></div><p>When you create a server, you choose a specific AWS Region to perform the file
+            operation requests of users who are assigned to that server. Along with assigning the
+            server one or more protocols, you also assign one of the following identity provider
+            types:</p><div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>Service managed by using SSH keys</b>. For
+                    details, see <a href="./service-managed-users.html">Working with service-managed users</a>.</p>
+            </li><li class="listitem">
+                <p><b>AWS Directory Service for Microsoft Active Directory (AWS Managed Microsoft AD)</b>. This method
+                    allows you integrate your Microsoft Active Directory groups to provide access to
+                    your Transfer Family servers. For details, see <a href="./directory-services-users.html">Using AWS Directory Service for Microsoft Active Directory</a>.</p>
+            </li><li class="listitem">
+                <p><b>A custom identity provider</b>. Transfer Family offers
+                    several options for using a custom identity provider, as described in the <a href="./custom-idp-intro.html">Working with custom identity providers</a> topic.</p>
+            </li></ul></div><p>You also assign the server an endpoint type (publicly accessible or VPC hosted) and a
+            hostname by using the default server endpoint, or a custom hostname by using the
+            Amazon Route 53 service or by using a Domain Name System (DNS) service of your choice. A
+            server hostname must be unique in the AWS Region where it's created.</p><p>Additionally, you can assign an Amazon CloudWatch logging role to push events to your CloudWatch
+            logs, choose a security policy that contains the cryptographic algorithms that are
+            enabled for use by your server, and add metadata to the server in the form of tags that
+            are key-value pairs.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You incur costs for instantiated servers and for data transfer. For information
+                about pricing and to use AWS Pricing Calculator to get an estimate of the cost to use Transfer Family, see
+                    <a href="https://aws.amazon.com/aws-transfer-family/pricing/" rel="noopener noreferrer" target="_blank"><span>AWS Transfer Family
+                    pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sftp-for-transfer-family.html">Transfer Family for SFTP, FTPS, FTP</div><div id="next" class="next-link" accesskey="n" href="./create-server-sftp.html">Create an SFTP-enabled server</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/tf-server-endpoint.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=transfer&amp;topic_url=https://docs.aws.amazon.com/en_us/transfer/latest/userguide/tf-server-endpoint.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

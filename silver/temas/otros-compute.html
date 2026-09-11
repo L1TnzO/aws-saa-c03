@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch, EMR, Beanstalk y más — SAA-C03 Study Pack</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+<header class="site-header">
+  <span class="mark">SAA</span>
+  <span class="title">AWS Solutions Architect Associate <small>SAA-C03 · curso autocontenido</small></span>
+  <span class="spacer"></span>
+  <span class="badge-exam">Examen en inglés · 65 preguntas · 130 min</span>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+<nav class="sidebar-nav">
+<div class="nav-section"><h4>INICIO</h4>
+<a class="nav-link" data-slug="index" href="../index.html">Inicio: cómo usar este curso</a>
+<a class="nav-link" data-slug="examen" href="../examen.html">El examen SAA-C03 en cifras</a>
+<a class="nav-link" data-slug="ruta" href="../ruta.html">Ruta de estudio (9 fases)</a>
+<a class="nav-link" data-slug="estrategia" href="../estrategia.html">Estrategia del examen (EN)</a>
+<a class="nav-link" data-slug="skill-builder" href="../skill-builder.html">Recursos Skill Builder</a>
+</div>
+<div class="nav-section"><h4>FASE 1 · FUNDAMENTOS</h4>
+<a class="nav-link" data-slug="well-architected" href="../temas/well-architected.html">Well-Architected Framework</a>
+<a class="nav-link" data-slug="fundamentos" href="../temas/fundamentos.html">Cuenta AWS, regiones y AZ</a>
+<a class="nav-link" data-slug="iam" href="../temas/iam.html">IAM: identidad y acceso</a>
+<a class="nav-link" data-slug="organizaciones" href="../temas/organizaciones.html">Organizations y multi-cuenta</a>
+</div>
+<div class="nav-section"><h4>FASE 2 · REDES</h4>
+<a class="nav-link" data-slug="vpc" href="../temas/vpc.html">VPC, subnets y rutas</a>
+<a class="nav-link" data-slug="seguridad-red" href="../temas/seguridad-red.html">SG, NACL y NAT</a>
+<a class="nav-link" data-slug="conectividad" href="../temas/conectividad.html">TGW, peering, PrivateLink, DX/VPN</a>
+<a class="nav-link" data-slug="route53" href="../temas/route53.html">Route 53 (DNS)</a>
+<a class="nav-link" data-slug="cloudfront" href="../temas/cloudfront.html">CloudFront y Global Accelerator</a>
+<a class="nav-link" data-slug="elb" href="../temas/elb.html">Load balancers: ALB/NLB/GWLB</a>
+</div>
+<div class="nav-section"><h4>FASE 3 · CÓMPUTO</h4>
+<a class="nav-link" data-slug="ec2" href="../temas/ec2.html">EC2: instancias y compra</a>
+<a class="nav-link" data-slug="ebs" href="../temas/ebs.html">EBS: block storage</a>
+<a class="nav-link" data-slug="auto-scaling" href="../temas/auto-scaling.html">Auto Scaling</a>
+<a class="nav-link" data-slug="contenedores" href="../temas/contenedores.html">ECS, EKS y Fargate</a>
+<a class="nav-link" data-slug="lambda" href="../temas/lambda.html">Lambda</a>
+<a class="nav-link" data-slug="otros-compute" href="../temas/otros-compute.html">Batch, EMR, Beanstalk y más</a>
+</div>
+<div class="nav-section"><h4>FASE 4 · ALMACENAMIENTO</h4>
+<a class="nav-link" data-slug="s3" href="../temas/s3.html">S3 y Glacier</a>
+<a class="nav-link" data-slug="efs-fsx" href="../temas/efs-fsx.html">EFS y FSx (file storage)</a>
+<a class="nav-link" data-slug="storage-hibrido" href="../temas/storage-hibrido.html">Storage Gateway / DataSync / Transfer</a>
+<a class="nav-link" data-slug="backup" href="../temas/backup.html">AWS Backup</a>
+</div>
+<div class="nav-section"><h4>FASE 5 · BASES DE DATOS</h4>
+<a class="nav-link" data-slug="rds" href="../temas/rds.html">RDS: Multi-AZ y réplicas</a>
+<a class="nav-link" data-slug="aurora" href="../temas/aurora.html">Aurora</a>
+<a class="nav-link" data-slug="dynamodb" href="../temas/dynamodb.html">DynamoDB</a>
+<a class="nav-link" data-slug="elasticache" href="../temas/elasticache.html">ElastiCache</a>
+</div>
+<div class="nav-section"><h4>FASE 6 · INTEGRACIÓN</h4>
+<a class="nav-link" data-slug="sqs-sns" href="../temas/sqs-sns.html">SQS y SNS</a>
+<a class="nav-link" data-slug="eventbridge" href="../temas/eventbridge.html">EventBridge</a>
+<a class="nav-link" data-slug="step-functions" href="../temas/step-functions.html">Step Functions</a>
+<a class="nav-link" data-slug="apigateway" href="../temas/apigateway.html">API Gateway</a>
+<a class="nav-link" data-slug="kinesis" href="../temas/kinesis.html">Kinesis</a>
+<a class="nav-link" data-slug="analytics" href="../temas/analytics.html">Analytics: Glue, Athena, Redshift</a>
+</div>
+<div class="nav-section"><h4>FASE 7 · SEGURIDAD Y DR</h4>
+<a class="nav-link" data-slug="kms" href="../temas/kms.html">KMS, ACM y cifrado</a>
+<a class="nav-link" data-slug="secrets" href="../temas/secrets.html">Secrets Manager y SSM</a>
+<a class="nav-link" data-slug="cognito" href="../temas/cognito.html">Cognito</a>
+<a class="nav-link" data-slug="deteccion" href="../temas/deteccion.html">GuardDuty, Macie, Inspector</a>
+<a class="nav-link" data-slug="waf-shield" href="../temas/waf-shield.html">WAF y Shield</a>
+<a class="nav-link" data-slug="cloudtrail" href="../temas/cloudtrail.html">CloudTrail y Config</a>
+<a class="nav-link" data-slug="dr" href="../temas/dr.html">Disaster Recovery (RTO/RPO)</a>
+<a class="nav-link" data-slug="migracion" href="../temas/migracion.html">Migración: DMS, MGN, Snow</a>
+</div>
+<div class="nav-section"><h4>FASE 8 · GOBIERNO Y COSTOS</h4>
+<a class="nav-link" data-slug="cloudwatch" href="../temas/cloudwatch.html">CloudWatch y X-Ray</a>
+<a class="nav-link" data-slug="cloudformation" href="../temas/cloudformation.html">CloudFormation y Systems Manager</a>
+<a class="nav-link" data-slug="costos" href="../temas/costos.html">Costos: CE, Budgets, CUR</a>
+</div>
+<div class="nav-section"><h4>REPASO POR DOMINIO</h4>
+<a class="nav-link" data-slug="dominio-1" href="../dominios/dominio-1.html">D1 · Design Secure (30%)</a>
+<a class="nav-link" data-slug="dominio-2" href="../dominios/dominio-2.html">D2 · Design Resilient (26%)</a>
+<a class="nav-link" data-slug="dominio-3" href="../dominios/dominio-3.html">D3 · High-Performing (24%)</a>
+<a class="nav-link" data-slug="dominio-4" href="../dominios/dominio-4.html">D4 · Cost-Optimized (20%)</a>
+<a class="nav-link" data-slug="dd-dominio-1" href="../dominios/dominio-1-deep-dive.html">D1 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-2" href="../dominios/dominio-2-deep-dive.html">D2 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-3" href="../dominios/dominio-3-deep-dive.html">D3 deep dive (extendido)</a>
+<a class="nav-link" data-slug="dd-dominio-4" href="../dominios/dominio-4-deep-dive.html">D4 deep dive (extendido)</a>
+</div>
+<div class="nav-section"><h4>APÉNDICE TÉCNICO · DEEP DIVE</h4>
+<a class="nav-link" data-slug="ap-computo" href="../apendice/computo.html">Apéndice · Cómputo</a>
+<a class="nav-link" data-slug="ap-almacenamiento" href="../apendice/almacenamiento.html">Apéndice · Almacenamiento</a>
+<a class="nav-link" data-slug="ap-redes" href="../apendice/redes.html">Apéndice · Redes y conectividad</a>
+<a class="nav-link" data-slug="ap-bases-datos" href="../apendice/bases-datos.html">Apéndice · Bases de datos</a>
+<a class="nav-link" data-slug="ap-seguridad-identidad" href="../apendice/seguridad-identidad.html">Apéndice · Seguridad e identidad</a>
+<a class="nav-link" data-slug="ap-contenedores-serverless" href="../apendice/contenedores-serverless.html">Apéndice · Contenedores y serverless</a>
+<a class="nav-link" data-slug="ap-integracion-mensajeria" href="../apendice/integracion-mensajeria.html">Apéndice · Integración y mensajería</a>
+<a class="nav-link" data-slug="ap-analitica-datos" href="../apendice/analitica-datos.html">Apéndice · Analítica y big data</a>
+<a class="nav-link" data-slug="ap-migracion-hibrido" href="../apendice/migracion-hibrido.html">Apéndice · Migración e híbrido</a>
+<a class="nav-link" data-slug="ap-gestion-gobernanza" href="../apendice/gestion-gobernanza.html">Apéndice · Gestión y gobernanza</a>
+</div>
+<div class="nav-section"><h4>EXTRAS</h4>
+<a class="nav-link" data-slug="comparativas" href="../extras/comparativas.html">Tablas comparativas</a>
+<a class="nav-link" data-slug="laboratorios" href="../extras/laboratorios.html">Ruta de laboratorios</a>
+<a class="nav-link" data-slug="banco-preguntas" href="../extras/banco-preguntas.html">Banco de preguntas (60)</a>
+<a class="nav-link" data-slug="banco-preguntas-2" href="../extras/banco-preguntas-2.html">Banco II · 24 escenarios</a>
+<a class="nav-link" data-slug="cheat-sheets" href="../extras/cheat-sheets.html">Cheat sheets</a>
+<a class="nav-link" data-slug="glosario" href="../extras/glosario.html">Glosario (conceptos)</a>
+<a class="nav-link" data-slug="glosario-terminos" href="../extras/glosario-terminos.html">Glosario (176 términos EN)</a>
+<a class="nav-link" data-slug="ruta-8-semanas" href="../extras/ruta-8-semanas.html">Ruta 8 semanas</a>
+<a class="nav-link" data-slug="fuentes" href="../fuentes.html">Trazabilidad de fuentes</a>
+</div>
+</nav>
+  </aside>
+  <main class="content">
+<h1>Otros servicios de cómputo <span class="en">Batch, EMR, Beanstalk, Outposts y Snow</span></h1>
+<p class="subtitle">Cinco servicios especializados que aparecen como respuesta correcta cuando el enunciado sale del patrón "servidor web + base de datos": jobs por lotes, big data, PaaS, cómputo híbrido y migración física.</p>
+<div class="chips">
+  <span class="chip">Fase 3 · Cómputo</span>
+  <span class="chip d3">Dominio 3 · 24%</span>
+  <span class="chip d4">Dominio 4 · 20%</span>
+</div>
+
+<p>No todo workload es una API con tráfico variable. Hay <em>jobs</em> que corren miles de veces al día, clusters que digieren petabytes con Spark, equipos que solo quieren subir código y verlo desplegado, fábricas que necesitan latencia de milisegundos contra máquinas locales, y datasets de cientos de terabytes que nacen on-premises. Para cada uno de esos nichos AWS tiene un servicio especializado: <strong>AWS Batch</strong> (jobs por lotes), <strong>Amazon EMR</strong> (big data), <strong>AWS Elastic Beanstalk</strong> (PaaS de despliegue), <strong>AWS Outposts</strong> (AWS dentro de tu datacenter) y la <strong>AWS Snow Family</strong> (migración y cómputo en el edge con dispositivos físicos).</p>
+
+<p>La estrategia de estudio para esta página es distinta a la de EC2: aquí no hay decenas de cifras que memorizar, sino <em>señales de enunciado</em> que mapean a un solo servicio. La pregunta casi nunca es "¿cómo configuras Batch?" sino "¿cuál de estos cinco —o de Lambda, ECS o EC2— resuelve este escenario con <span class="tag-en">least operational overhead</span>?". La tabla de decisión al final de la página resume ese mapeo; el resto de la página te da el contexto de cada servicio para que la tabla tenga sentido.</p>
+
+<h2>AWS Batch: jobs por lotes sin gestionar la orquestación</h2>
+
+<p><strong>AWS Batch</strong> ejecuta <em>batch computing</em> a cualquier escala: trabajos largos, repetitivos o masivamente paralelos (rendering, simulaciones científicas, procesamiento de archivos) que se envían como <span class="tag-en">jobs</span> a <span class="tag-en">job queues</span>. Su propuesta de valor oficial: elimina el <em>undifferentiated heavy lifting</em> — no instalas ni gestionas software de orquestación de jobs ni capacidad; Batch <strong>aprovisiona los recursos de cómputo automáticamente en respuesta a los jobs enviados</strong> y optimiza la distribución del workload, eliminando cuellos de capacidad y reduciendo costos. Es la respuesta cuando el enunciado habla de "run thousands of batch jobs / parallel processing without managing infrastructure": ni EC2 a mano (overhead), ni Lambda si los jobs exceden 15 minutos o necesitan entornos pesados — Batch (que además puede ejecutar los jobs como contenedores) combina con Spot para costo mínimo.</p>
+
+<p>Como Batch comparte escenario con Lambda y Fargate en muchas preguntas, conviene fijar la frontera con una comparación directa antes de seguir. Los tres ejecutan "trabajo que corre y termina"; lo que cambia es la duración, el disparador y la gestión. El filtro de las tres preguntas: ¿cuánto dura un job, qué lo dispara y quién prepara el entorno de ejecución? Con esas respuestas, la tabla siguiente te da el servicio correcto sin dudar.</p>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Criterio</th><th>AWS Lambda</th><th>AWS Batch</th><th>ECS/Fargate tasks</th></tr></thead>
+<tbody>
+<tr><td>Duración típica</td><td>Segundos a 15 minutos máximo</td><td>Minutos a horas, sin tope por job</td><td>Indefinida o por tarea</td></tr>
+<tr><td>Disparador</td><td>Eventos (S3, SQS, API Gateway)</td><td>Jobs enviados a job queues</td><td>Scheduler del service o tarea manual</td></tr>
+<tr><td>Entorno de ejecución</td><td>Runtimes gestionados por Lambda</td><td>Contenedores que tú defines</td><td>Contenedores que tú defines</td></tr>
+<tr><td>Elegir cuando</td><td>Evento corto, escala instantánea, cero infra</td><td>Miles de jobs en cola, prioridades, dependencias</td><td>Servicio de larga vida o jobs con imagen propia</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Amazon EMR: clusters de big data gestionados</h2>
+
+<p><strong>Amazon EMR</strong> (antes Elastic MapReduce) es la plataforma de clusters gestionada para frameworks de big data — <strong>Apache Hadoop y Apache Spark</strong> sobre todo — con los que procesas y analizas enormes volúmenes de datos, y transformas y mueves datos hacia y desde almacenes como <strong>S3 y DynamoDB</strong>. La palabra clave del examen es "framework": si el enunciado menciona Spark, Hadoop, HBase o pipelines de ETL/analítica a gran escala, EMR aparece como la respuesta gestionada frente a montar el cluster tú mismo en EC2 (que es el distractor clásico, porque te deja la operación del framework encima). EMR también escala el cluster y gestiona el ciclo de vida de los nodos; el costo se optimiza con instancias Spot para task nodes o con precios por lotes según el patrón de uso. Como pista complementaria, recuerda con qué se habla de EMR: datasets en S3 procesados con Spark a petabyte-scale y resultados que vuelven a S3 o alimentan un data warehouse.</p>
+
+<h2>AWS Elastic Beanstalk: el PaaS del despliegue</h2>
+
+<p><strong>Elastic Beanstalk</strong> es la capa de <span class="tag-en">Platform as a Service</span>: subes tu código (Java, .NET, PHP, Python, Node, Docker, entre otras plataformas soportadas) y el servicio <strong>provisiona las instancias EC2, configura el load balancing, monta el health monitoring y escala dinámicamente el environment</strong>. El detalle que lo distingue de otros PaaS y que el examen explota: <strong>tú sigues siendo dueño de los recursos subyacentes</strong> — puedes ver y tocar las instancias, security groups y auto scaling que Beanstalk creó, e incluso tomarlos por tu cuenta si más adelante lo necesitas. Ofrece dos sabores de environment: <em>web server</em> (recibir tráfico HTTP detrás de un load balancer) y <em>worker</em> (consumir mensajes de una cola <strong>SQS</strong> para tareas asíncronas o de larga duración, con la cola creada y cableada por el propio servicio). Señal de enunciado: "deploy a web application without managing infrastructure but retaining full control of the EC2 instances" → Beanstalk, no ECS ni Lambda; y si dice "asynchronously process jobs from a queue" → un worker environment, no una Lambda por mensaje.</p>
+
+<h2>AWS Outposts: la región extendida a tu edificio</h2>
+
+<p><strong>AWS Outposts</strong> lleva la infraestructura, servicios, APIs y herramientas de AWS <strong>a las instalaciones del cliente</strong>: un pool de cómputo y almacenamiento AWS que se despliega físicamente en tu sitio y que AWS opera, monitorea y gestiona <strong>como parte de una región AWS</strong>. El truco arquitectónico que lo hace elegante: creas <em>subnets</em> de tu VPC que viven en el Outpost, y las instancias EC2, volúmenes EBS, clusters ECS o instancias RDS creadas ahí <strong>se direccionan con IPs privadas dentro del mismo VPC</strong>, como cualquier otra subnet — solo que con latencia local. Los casos de uso son los de ley: <span class="tag-en">low-latency</span> frente a sistemas on-premises (industrial, trading, fábrica), procesamiento local de datos por regulación que impide que salgan del edificio, y migraciones graduales con un modelo operativo único. Señal de enunciado: "AWS experience and APIs on-premises / same VPC / low latency to local systems" → Outposts — nunca "más instancias EC2 en tu datacenter", que es el distractor manual.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    subgraph ONPREM["Sitio del cliente"]
+        OUT["AWS Outposts<br>capacidad AWS gestionada"]
+        subgraph VPC["VPC de la región"]
+            SUB["Subnet del Outpost<br>IPs privadas del VPC"]
+            RSC["EC2 · EBS · ECS · RDS"]
+        end
+    end
+    REG["Región AWS padre<br>opera y gestiona el Outpost"]
+    LOCAL["Sistemas locales<br>latencia de milisegundos"]
+    OUT --> SUB
+    SUB --> RSC
+    REG -.->|"gestión y APIs"| OUT
+    RSC -- "LAN local" --> LOCAL
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class OUT,SUB navy
+    class RSC,REG green
+    class LOCAL amber
+</div>
+<figcaption>Figura 1 — Outposts: subnets del VPC que residen físicamente on-premises, gestionadas desde su región AWS padre.</figcaption>
+</figure>
+
+<h2>AWS Snow Family: cómputo y migración en el borde físico</h2>
+
+<p>La <strong>Snow Family</strong> son dispositivos físicos de AWS para trabajar donde la red no llega: transferir cientos de terabytes o ejecutar cómputo en el <span class="tag-en">edge</span> (vehículos, barcos, minas, fábricas sin conectividad estable). Snow es el doble agente de esta historia: además de cómputo en el edge, <strong>es el servicio de migración física de datos</strong> — el dispositivo llega a tu datacenter, cargas los datos, se devuelve a AWS y se importan a S3 (y a la inversa para exportaciones). Ese papel de "migración" lo comparte con DataSync y la familia de transferencias, y cae con más fuerza en las preguntas del dominio de migración y D2/D4. Nota de vigencia importante tomada de la documentación oficial: <strong>Snowball Edge ya no está disponible para clientes nuevos</strong>, que son dirigidos a <strong>AWS DataSync</strong> para transferencias online, <strong>AWS Data Transfer Terminal</strong> para transferencias físicas seguras de alta velocidad, y <strong>AWS Outposts</strong> para cómputo en el edge — memorízalo porque convierte a "Snowball Edge" en distractor y a las tres alternativas en respuesta correcta en escenarios nuevos.</p>
+
+<figure class="diagram">
+<div class="mermaid">
+flowchart TB
+    Q["¿Qué necesito?"]
+    Q --> B{"Jobs por lotes repetitivos"}
+    B -->|"Sí"| BATCH["AWS Batch<br>queues + aprovisiona solo"]
+    B -->|"No"| D{"¿Big data frameworks?"}
+    D -->|"Spark / Hadoop"| EMR["Amazon EMR<br>clusters gestionados"]
+    D -->|"No"| W{"¿Solo desplegar código?"}
+    W -->|"PaaS con control"| EB["Elastic Beanstalk<br>EC2 + ALB + ASG por ti"]
+    W -->|"No"| E{"¿Bajo qué restricción?"}
+    E -->|"Latencia local / leyes"| OUT["AWS Outposts<br>subnets on-premises"]
+    E -->|"Sin red usable"| SNOW["Snow Family<br>dispositivo físico"]
+    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
+    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
+    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
+    class Q,B,D,W,E navy
+    class BATCH,EMR green
+    class EB,OUT,SNOW amber
+</div>
+<figcaption>Figura 2 — Árbol de decisión de los servicios especializados: patrón de workload primero, restricción física después.</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table class="data">
+<thead><tr><th>Servicio</th><th>Qué resuelve</th><th>Señal en el enunciado</th><th>Cuándo NO es la respuesta</th></tr></thead>
+<tbody>
+<tr><td><strong>AWS Batch</strong></td><td>Jobs por lotes a cualquier escala, con colas y aprovisionamiento automático</td><td>"Thousands of jobs", "parallel batch processing", "no batch software to manage"</td><td>Eventos cortos y aislados → Lambda; servicios de larga vida → ECS.</td></tr>
+<tr><td><strong>Amazon EMR</strong></td><td>Clusters gestionados de Hadoop/Spark y frameworks de big data</td><td>"Spark jobs", "process petabytes", "big data framework on managed clusters"</td><td>SQL analítico sobre data lake → Athena/Redshift; ETL simple → Glue.</td></tr>
+<tr><td><strong>Elastic Beanstalk</strong></td><td>Deploy de apps web sin gestionar infra, conservando la propiedad de los recursos</td><td>"Upload code and deploy", "web + worker environments", "control the underlying EC2"</td><td>Contenedores como unidad → ECS/EKS; eventos → Lambda.</td></tr>
+<tr><td><strong>AWS Outposts</strong></td><td>AWS gestionado dentro del datacenter del cliente, dentro de tu VPC</td><td>"On-premises with AWS APIs", "ultra-low latency to local systems", "local data processing"</td><td>Solo almacenamiento híbrido → Storage Gateway; migración online → DataSync.</td></tr>
+<tr><td><strong>Snow Family</strong></td><td>Transferencia física masiva + cómputo en el edge sin red</td><td>"No connectivity", "hundreds of TB", "one-time migration"; clientes nuevos → DataSync / Data Transfer Terminal / Outposts</td><td>Transferencia online continua → DataSync; migración de apps → AWS MGN.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+<div class="co-title">Para el examen</div>
+El patrón de estas preguntas es un escenario + la frase "with the least operational overhead". Ordena tu razonamiento: (1) ¿el workload es un <em>job</em> que corre y termina? → Lambda si cabe en 15 min, Batch si no. (2) ¿el equipo pide un framework de big data? → EMR. (3) ¿el equipo pide "solo desplegar"? → Beanstalk. (4) ¿hay una restricción física (latencia local, sin red, datos que no salen)? → Outposts o Snow. La restricción física es la única pista que saca la respuesta del "cómpulo clásico" de EC2/Lambda/contenedores.
+</div>
+
+<div class="callout ok">
+<div class="co-title">Checkpoint — lo que debes recordar</div>
+<ol>
+<li><strong>Batch</strong>: jobs + job queues; aprovisiona cómputo automáticamente — el gestor de "trabajo que corre y termina".</li>
+<li><strong>EMR</strong>: clusters gestionados para <strong>Hadoop/Spark</strong> y big data; mueve datos hacia/desde S3 y DynamoDB.</li>
+<li><strong>Beanstalk</strong>: PaaS con web server y <strong>worker (SQS)</strong> environments; tú conservas el control de los recursos EC2.</li>
+<li><strong>Outposts</strong>: capacidad AWS on-premises gestionada como parte de una región; <strong>subnets del propio VPC</strong> con IPs privadas.</li>
+<li><strong>Snow</strong>: es a la vez <strong>migración física</strong> y cómputo en el edge — doble papel que comparte con la página de migración.</li>
+<li><strong>Snowball Edge no acepta clientes nuevos</strong>: las respuestas vigentes son DataSync (online), Data Transfer Terminal (físico) y Outposts (edge).</li>
+<li>Ante "least operational overhead" con restricción física, la especialización gana a EC2 manual.</li>
+</ol>
+</div>
+
+<div class="sources">
+<div class="co-title">Fuentes oficiales (trazabilidad bronze)</div>
+<ul>
+<li><span class="id">CMP-21</span> AWS Batch — What is AWS Batch (jobs, queues) · <a href="https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html" target="_blank" rel="noopener">docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html</a></li>
+<li><span class="id">CMP-22</span> AWS Elastic Beanstalk — Welcome (PaaS deployment) · <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html" target="_blank" rel="noopener">docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html</a></li>
+<li><span class="id">CMP-23</span> Amazon EMR — What is Amazon EMR (big data clusters) · <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html" target="_blank" rel="noopener">docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html</a></li>
+<li><span class="id">CMP-24</span> AWS Outposts — What is AWS Outposts (hybrid compute) · <a href="https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html" target="_blank" rel="noopener">docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html</a></li>
+<li><span class="id">CMP-25</span> AWS Snow Family — What is Snowball Edge (edge + migración) · <a href="https://docs.aws.amazon.com/snowball/latest/developer-guide/whatis-snowball.html" target="_blank" rel="noopener">docs.aws.amazon.com/snowball/latest/developer-guide/whatis-snowball.html</a></li>
+</ul>
+</div>
+
+<div class="pager"><a class="prev" href="../temas/lambda.html"><span class="dir">← Anterior</span>Lambda</a><a class="next" href="../temas/s3.html"><span class="dir">Siguiente →</span>S3 y Glacier</a></div>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="cols">
+    <div>
+      <h5>SAA-C03 Study Pack</h5>
+      Curso autocontenido basado en 155 documentos oficiales AWS (capa bronze).<br>
+      Funciona offline: Mermaid y estilos incluidos localmente.
+    </div>
+    <div>
+      <h5>Capas del paquete</h5>
+      <a href="../../bronze/01-fases-curadas/manifest.csv">bronze/manifest.csv</a> — trazabilidad de fuentes<br>
+      <a href="../fuentes.html">Página de trazabilidad</a> — dominio → doc oficial
+    </div>
+    <div>
+      <h5>Fuentes oficiales</h5>
+      docs.aws.amazon.com · skillbuilder.aws<br>
+      aws.amazon.com/certification · d1.awsstatic.com
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/mermaid.min.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

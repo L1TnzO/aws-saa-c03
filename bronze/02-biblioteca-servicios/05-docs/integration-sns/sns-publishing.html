@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Publishing an Amazon SNS message - Amazon Simple Notification Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sns-publishing" /><meta name="default_state" content="sns-publishing" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-publishing.html" /><meta name="description" content="Learn how to publish messages to an Amazon SNS topic using both the AWS Management Console and AWS SDK. This topic covers the steps to set message attributes, deduplication IDs, and message group IDs for FIFO topics and explains how to handle large messages and use custom payloads for different delivery protocols." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Notification Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Coordinate and manage the delivery or sending of messages to subscribing endpoints or clients using Amazon SNS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sns/latest/dg/sns-publishing.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-publishing.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/sns/latest/dg/sns-publishing.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-publishing.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/sns/latest/dg/sns-publishing.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-publishing.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-publishing.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-publishing.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/sns/latest/dg/sns-publishing.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-publishing.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/sns/latest/dg/sns-publishing.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-publishing.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/sns/latest/dg/sns-publishing.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-publishing.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-publishing.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-publishing.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/sns/latest/dg/sns-publishing.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-publishing.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/sns/latest/dg/sns-publishing.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/sns/latest/dg/sns-publishing.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/sns/latest/dg/sns-publishing.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/sns/latest/dg/sns-publishing.html" hreflang="x-default" /><meta name="feedback-item" content="SNS" /><meta name="this_doc_product" content="Amazon Simple Notification Service" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sns'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Publishing an Amazon SNS message" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sns-publishing.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Publishing an Amazon SNS message - Amazon Simple Notification Service</title><meta name="pdf" content="/pdfs/sns/latest/dg/sns-dg.pdf#sns-publishing" /><meta name="rss" content="recent-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TAyateCXj5QMiBTHtJZlF3Gw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-publishing.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-publishing.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-publishing.html" /><meta name="keywords" content="Getting started in Amazon SNS,Creating an Amazon SNS topic,Email subscription setup,Publishing an Amazon SNS message,Amazon SNS console guide,Amazon SNS,Message publishing,FIFO topics,Message attributes,AWS SDK,Publish messages,AWS Management Console,Publish message,FIFO topic,Deduplication" /><link rel="alternate" type="text/markdown" href="sns-publishing.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Notification Service",
+        "item" : "https://docs.aws.amazon.com/sns/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Create an Amazon SNS topic and publish messages",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Publishing an Amazon SNS message",
+        "item" : "https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sns/latest/dg/sns-dg.pdf#sns-publishing" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sns/index.html">Amazon Simple Notification Service</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#sns-publishing-messages">AWS Management Console</a><a href="#publish-to-topic-aws-sdks">AWS SDKs</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sns-publishing">Publishing an Amazon SNS message</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>After you <a href="./sns-create-topic.html">create an Amazon SNS topic</a> and <a href="./sns-create-subscribe-endpoint-to-topic.html">subscribe</a> an endpoint to it, you
+		can <em>publish</em> messages to the topic. When a message is published, Amazon SNS
+		attempts to deliver the message to the subscribed <a href="./sns-create-subscribe-endpoint-to-topic.html#sns-endpoints">endpoints</a>. </p>
+		<h2 id="sns-publishing-messages">To publish messages to Amazon SNS topics using the AWS Management Console</h2>
+		<div class="procedure"><ol><li><p>Sign in to the <a href="https://console.aws.amazon.com/sns/home" rel="noopener noreferrer" target="_blank"><span>Amazon SNS console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+				<p>In the left navigation pane, choose <b>Topics</b>.</p>
+			</li><li>
+				<p>On the <b>Topics</b> page, select a topic, and then choose
+						<b>Publish message</b>.</p>
+				<p>The console opens the <b>Publish message to topic</b>
+					page.</p>
+			</li><li>
+				<p>In the <b>Message details</b> section, do the following:</p>
+				<ol><li>
+						<p>(Optional) Enter a message <b>Subject</b>.</p>
+					</li><li>
+						<p>For a <a href="./sns-fifo-topics.html">FIFO topic</a>, enter a
+								<b>Message group ID</b>. <b>Message group ID</b>
+								 is required for FIFO topics. Messages in the same message
+							group are delivered in the order that they are published.</p>
+					</li><li>
+							<p>(Optional)For a standard topic, enter a <b>Message group ID</b>.
+							 This ID is forwarded to all Amazon SQS standard subscriptions and is not used for,
+							  or sent to, any other endpoint types.
+							  </p>
+					</li><li>
+						<p>For a FIFO topic, enter a <b>Message deduplication
+								ID</b>. This ID is optional if you enabled the <b>Content-based message deduplication</b> setting
+							for the topic.</p>
+					</li><li>
+						<p>(Optional) For <a href="./sns-ttl.html">mobile push
+								notifications</a>, enter a <b>Time to Live
+								(TTL)</b> value in seconds. This is the amount of time that a
+							push notification service—such as Apple Push Notification Service
+							(APNs) or Firebase Cloud Messaging (FCM)—has to deliver the
+							message to the endpoint.</p>
+					</li></ol>
+			</li><li>
+				<p>In the <b>Message body</b> section, do one of the
+					following:</p>
+				<ol><li>
+						<p>Choose <b>Identical payload for all delivery
+								protocols</b>, and then enter a message.</p>
+					</li><li>
+						<p>Choose <b>Custom payload for each delivery protocol</b>,
+							and then enter a JSON object to define the message to send for each
+							delivery protocol.</p>
+						<p>For more information, see <a href="./sns-send-custom-platform-specific-payloads-mobile-devices.html">Publishing Amazon SNS notifications with platform-specific payloads</a>.</p>
+					</li></ol>
+			</li><li>
+				<p>In the <b>Message attributes</b> section, add any attributes
+					that you want Amazon SNS to match with the subscription attribute
+						<code class="code">FilterPolicy</code> to decide whether the subscribed endpoint is
+					interested in the published message.</p>
+				<ol><li>
+						<p>For <b>Type</b>, choose an attribute type, such as
+								<b>String.Array</b>.</p>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For attribute type <b>String.Array</b>, enclose the
+								array in square brackets (<code class="code">[]</code>). Within the array,
+								enclose string values in double quotation marks. You don't need
+								quotation marks for numbers or for the keywords <code class="code">true</code>,
+									<code class="code">false</code>, and <code class="code">null</code>.</p></div></div>
+					</li><li>
+						<p>Enter an attribute <b>Name</b>, such as
+								<code class="code">customer_interests</code>.</p>
+					</li><li>
+						<p>Enter an attribute <b>Value</b>, such as
+								<code class="code">["soccer", "rugby", "hockey"]</code>.</p>
+					</li></ol>
+				<p>If the attribute type is <b>String</b>,
+						<b>String.Array</b>, or <b>Number</b>, Amazon SNS
+					evaluates the message attribute against a subscription's <a href="./sns-message-filtering.html">filter policy</a> (if present) before
+					sending the message to the subscription given filter policy scope is not
+					explicitly set to <code class="code">MessageBody</code>.</p>
+				<p>For more information, see <a href="./sns-message-attributes.html">Amazon SNS message attributes</a>.</p>
+			</li><li>
+				<p>Choose <b>Publish message</b>.</p>
+				<p>The message is published to the topic, and the console opens the topic's
+						<b>Details</b> page.</p>
+			</li></ol></div>
+	 
+		<h2 id="publish-to-topic-aws-sdks">To publish a message to a topic using an AWS SDK</h2>
+		<p>To use an AWS SDK, you must configure it with your credentials. For more
+			information, see <a href="https://docs.aws.amazon.com/sdkref/latest/guide/creds-config-files.html">The shared config and credentials
+				files</a> in the <em>AWS SDKs and Tools Reference Guide</em>.</p>
+		
+<p>The following code examples show how to use <code class="code">Publish</code>.</p>
+
+		<awsdocs-tabs><dl style="display: none">
+    <dt>.NET</dt><dd tab-id=".net">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for .NET</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SNS#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>Publish a message to a topic.</p>
+                
+                <pre class="programlisting" data-example-id="199c653629acf2e0573ddb9e41dfac1495499f297451c0d35b94d5771607a5c6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">    using System;
+    using System.Threading.Tasks;
+    using Amazon.SimpleNotificationService;
+    using Amazon.SimpleNotificationService.Model;
+
+    /// &lt;summary&gt;
+    /// This example publishes a message to an Amazon Simple Notification
+    /// Service (Amazon SNS) topic.
+    /// &lt;/summary&gt;
+    public class PublishToSNSTopic
+    <span>{</span>
+        public static async Task Main()
+        <span>{</span>
+            string topicArn = "arn:aws:sns:us-east-2:000000000000:ExampleSNSTopic";
+            string messageText = "This is an example message to publish to the ExampleSNSTopic.";
+
+            IAmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient();
+
+            await PublishToTopicAsync(client, topicArn, messageText);
+        }
+
+        /// &lt;summary&gt;
+        /// Publishes a message to an Amazon SNS topic.
+        /// &lt;/summary&gt;
+        /// &lt;param name="client"&gt;The initialized client object used to publish
+        /// to the Amazon SNS topic.&lt;/param&gt;
+        /// &lt;param name="topicArn"&gt;The ARN of the topic.&lt;/param&gt;
+        /// &lt;param name="messageText"&gt;The text of the message.&lt;/param&gt;
+        public static async Task PublishToTopicAsync(
+            IAmazonSimpleNotificationService client,
+            string topicArn,
+            string messageText)
+        <span>{</span>
+            var request = new PublishRequest
+            <span>{</span>
+                TopicArn = topicArn,
+                Message = messageText,
+            };
+
+            var response = await client.PublishAsync(request);
+
+            Console.WriteLine($"Successfully published message ID: <span>{</span>response.MessageId}");
+        }
+    }
+
+
+</code></pre>
+            
+            
+                    <p>Publish a message to a topic with group, duplication, and attribute options.</p>
+                
+                <pre class="programlisting" data-example-id="199c653629acf2e0573ddb9e41dfac1495499f297451c0d35b94d5771607a5c6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">    /// &lt;summary&gt;
+    /// Publish messages using user settings.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;Async task.&lt;/returns&gt;
+    public static async Task PublishMessages()
+    <span>{</span>
+        Console.WriteLine("Now we can publish messages.");
+
+        var keepSendingMessages = true;
+        string? deduplicationId = null;
+        string? toneAttribute = null;
+        while (keepSendingMessages)
+        <span>{</span>
+            Console.WriteLine();
+            var message = GetUserResponse("Enter a message to publish.", "This is a sample message");
+
+            if (_useFifoTopic)
+            <span>{</span>
+                Console.WriteLine("Because you are using a FIFO topic, you must set a message group ID." +
+                                  "\r\nAll messages within the same group will be received in the order " +
+                                  "they were published.");
+
+                Console.WriteLine();
+                var messageGroupId = GetUserResponse("Enter a message group ID for this message:", "1");
+
+                if (!_useContentBasedDeduplication)
+                <span>{</span>
+                    Console.WriteLine("Because you are not using content-based deduplication, " +
+                                      "you must enter a deduplication ID.");
+
+                    Console.WriteLine("Enter a deduplication ID for this message.");
+                    deduplicationId = GetUserResponse("Enter a deduplication ID for this message.", "1");
+                }
+
+                if (GetYesNoResponse("Add an attribute to this message?"))
+                <span>{</span>
+                    Console.WriteLine("Enter a number for an attribute.");
+                    for (int i = 0; i &lt; _tones.Length; i++)
+                    <span>{</span>
+                        Console.WriteLine($"\t<span>{</span>i + 1}. <span>{</span>_tones[i]}");
+                    }
+
+                    var selection = GetUserResponse("", "1");
+                    int.TryParse(selection, out var selectionNumber);
+
+                    if (selectionNumber &gt; 0 &amp;&amp; selectionNumber &lt; _tones.Length)
+                    <span>{</span>
+                        toneAttribute = _tones[selectionNumber - 1];
+                    }
+                }
+
+                var messageID = await SnsWrapper.PublishToTopicWithAttribute(
+                    _topicArn, message, "tone", toneAttribute, deduplicationId, messageGroupId);
+
+                Console.WriteLine($"Message published with id <span>{</span>messageID}.");
+            }
+
+            keepSendingMessages = GetYesNoResponse("Send another message?", false);
+        }
+    }
+
+</code></pre>
+            
+            
+                    <p>Apply the user's selections to the publish action.</p>
+                
+                <pre class="programlisting" data-example-id="199c653629acf2e0573ddb9e41dfac1495499f297451c0d35b94d5771607a5c6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (csharp)--><code class="csharp ">    /// &lt;summary&gt;
+    /// Publish a message to a topic with an attribute and optional deduplication and group IDs.
+    /// &lt;/summary&gt;
+    /// &lt;param name="topicArn"&gt;The ARN of the topic.&lt;/param&gt;
+    /// &lt;param name="message"&gt;The message to publish.&lt;/param&gt;
+    /// &lt;param name="attributeName"&gt;The optional attribute for the message.&lt;/param&gt;
+    /// &lt;param name="attributeValue"&gt;The optional attribute value for the message.&lt;/param&gt;
+    /// &lt;param name="deduplicationId"&gt;The optional deduplication ID for the message.&lt;/param&gt;
+    /// &lt;param name="groupId"&gt;The optional group ID for the message.&lt;/param&gt;
+    /// &lt;returns&gt;The ID of the message published.&lt;/returns&gt;
+    public async Task&lt;string&gt; PublishToTopicWithAttribute(
+        string topicArn,
+        string message,
+        string? attributeName = null,
+        string? attributeValue = null,
+        string? deduplicationId = null,
+        string? groupId = null)
+    <span>{</span>
+        var publishRequest = new PublishRequest()
+        <span>{</span>
+            TopicArn = topicArn,
+            Message = message,
+            MessageDeduplicationId = deduplicationId,
+            MessageGroupId = groupId
+        };
+
+        if (attributeValue != null)
+        <span>{</span>
+            // Add the string attribute if it exists.
+            publishRequest.MessageAttributes =
+                new Dictionary&lt;string, MessageAttributeValue&gt;
+                <span>{</span>
+                    <span>{</span> attributeName!, new MessageAttributeValue() <span>{</span> StringValue = attributeValue, DataType = "String"} }
+                };
+        }
+
+        var publishResponse = await _amazonSNSClient.PublishAsync(publishRequest);
+        return publishResponse.MessageId;
+    }
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/DotNetSDKV3/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for .NET API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>C++</dt><dd tab-id="c++">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for C++</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="5eb494dc0d2a2d12d387e272a846f6c5282af8257b8603caa7376f6528df91d8"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cpp)--><code class="cpp ">//! Send a message to an Amazon Simple Notification Service (Amazon SNS) topic.
+/*!
+  \param message: The message to publish.
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SNS::publishToTopic(const Aws::String &amp;message,
+                                 const Aws::String &amp;topicARN,
+                                 const Aws::Client::ClientConfiguration &amp;clientConfiguration) <span>{</span>
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
+
+    Aws::SNS::Model::PublishRequest request;
+    request.SetMessage(message);
+    request.SetTopicArn(topicARN);
+
+    const Aws::SNS::Model::PublishOutcome outcome = snsClient.Publish(request);
+
+    if (outcome.IsSuccess()) <span>{</span>
+        std::cout &lt;&lt; "Message published successfully with id '"
+                  &lt;&lt; outcome.GetResult().GetMessageId() &lt;&lt; "'." &lt;&lt; std::endl;
+    }
+    else <span>{</span>
+        std::cerr &lt;&lt; "Error while publishing message "
+                  &lt;&lt; outcome.GetError().GetMessage()
+                  &lt;&lt; std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+</code></pre>
+            
+            
+                    <p>Publish a message with an attribute.</p>
+                
+                <pre class="programlisting" data-example-id="5eb494dc0d2a2d12d387e272a846f6c5282af8257b8603caa7376f6528df91d8"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cpp)--><code class="cpp ">        static const Aws::String TONE_ATTRIBUTE("tone");
+        static const Aws::Vector&lt;Aws::String&gt; TONES = <span>{</span>"cheerful", "funny", "serious",
+                                                       "sincere"};
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
+
+        Aws::SNS::Model::PublishRequest request;
+        request.SetTopicArn(topicARN);
+        Aws::String message = askQuestion("Enter a message text to publish.  ");
+        request.SetMessage(message);
+
+        if (filteringMessages &amp;&amp; askYesNoQuestion(
+                "Add an attribute to this message? (y/n) ")) <span>{</span>
+            for (size_t i = 0; i &lt; TONES.size(); ++i) <span>{</span>
+                std::cout &lt;&lt; "  " &lt;&lt; (i + 1) &lt;&lt; ". " &lt;&lt; TONES[i] &lt;&lt; std::endl;
+            }
+            int selection = askQuestionForIntRange(
+                    "Enter a number for an attribute. ",
+                    1, static_cast&lt;int&gt;(TONES.size()));
+            Aws::SNS::Model::MessageAttributeValue messageAttributeValue;
+            messageAttributeValue.SetDataType("String");
+            messageAttributeValue.SetStringValue(TONES[selection - 1]);
+            request.AddMessageAttributes(TONE_ATTRIBUTE, messageAttributeValue);
+        }
+
+        Aws::SNS::Model::PublishOutcome outcome = snsClient.Publish(request);
+
+        if (outcome.IsSuccess()) <span>{</span>
+            std::cout &lt;&lt; "Your message was successfully published." &lt;&lt; std::endl;
+        }
+        else <span>{</span>
+            std::cerr &lt;&lt; "Error with TopicsAndQueues::Publish. "
+                      &lt;&lt; outcome.GetError().GetMessage()
+                      &lt;&lt; std::endl;
+
+            cleanUp(topicARN,
+                    queueURLS,
+                    subscriptionARNS,
+                    snsClient,
+                    sqsClient);
+
+            return false;
+        }
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/SdkForCpp/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for C++ API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>CLI</dt><dd tab-id="cli">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">AWS CLI</span></b></dt>
+        <dd>
+            
+                    <p><b>Example 1: To publish a message to a topic</b></p>
+            
+            
+                    <p>The following <code class="code">publish</code> example publishes the specified message to the specified SNS topic. The message comes from a text file, which enables you to include line breaks.</p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="2fa51c8ae92477950bd77e2c6c1396517c84adedc2b0dd0e9f89b516a39774d4"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cli)--><code class="nohighlight " data-source="content"><code class="userinput">aws sns publish \
+    --topic-arn <code class="replaceable">"arn:aws:sns:us-west-2:123456789012:my-topic"</code> \
+    --message <code class="replaceable">file://message.txt</code></code>
+</code></pre>
+            
+            
+                    <p>Contents of <code class="code">message.txt</code>:</p>
+            
+            
+                    <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight">Hello World
+Second Line</code></pre>
+            
+            
+                    <p>Output:</p>
+            
+            
+                    <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight"><span>{</span>
+    "MessageId": "123a45b6-7890-12c3-45d6-111122223333"
+}</code></pre>
+            
+            
+                    <p><b>Example 2: To publish an SMS message to a phone number</b></p>
+            
+            
+                    <p>The following <code class="code">publish</code> example publishes the message <code class="code">Hello world!</code> to the phone number <code class="code">+1-555-555-0100</code>.</p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="2fa51c8ae92477950bd77e2c6c1396517c84adedc2b0dd0e9f89b516a39774d4"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (cli)--><code class="nohighlight " data-source="content"><code class="userinput">aws sns publish \
+    --message <code class="replaceable">"Hello world!"</code> \
+    --phone-number <code class="replaceable">+1-555-555-0100</code></code>
+</code></pre>
+            
+            
+                    <p>Output:</p>
+            
+            
+                    <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli (none)--><code class="nohighlight"><span>{</span>
+    "MessageId": "123a45b6-7890-12c3-45d6-333322221111"
+}</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sns/publish.html" rel="noopener noreferrer" target="_blank"><span>Publish</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                        in <em>AWS CLI Command Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Go</dt><dd tab-id="go">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Go V2</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/workflows/topics_and_queues#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="9d48ddb28b692981cbcee337b1d0bbaf5450182a62d9f9ece4f9d9a70291ad8a"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (go)--><code class="go ">
+import (
+	"context"
+	"encoding/json"
+	"log"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/sns"
+	"github.com/aws/aws-sdk-go-v2/service/sns/types"
+)
+
+// SnsActions encapsulates the Amazon Simple Notification Service (Amazon SNS) actions
+// used in the examples.
+type SnsActions struct <span>{</span>
+	SnsClient *sns.Client
+}
+
+
+
+// Publish publishes a message to an Amazon SNS topic. The message is then sent to all
+// subscribers. When the topic is a FIFO topic, the message must also contain a group ID
+// and, when ID-based deduplication is used, a deduplication ID. An optional key-value
+// filter attribute can be specified so that the message can be filtered according to
+// a filter policy.
+func (actor SnsActions) Publish(ctx context.Context, topicArn string, message string, groupId string, dedupId string, filterKey string, filterValue string) error <span>{</span>
+	publishInput := sns.PublishInput<span>{</span>TopicArn: aws.String(topicArn), Message: aws.String(message)}
+	if groupId != "" <span>{</span>
+		publishInput.MessageGroupId = aws.String(groupId)
+	}
+	if dedupId != "" <span>{</span>
+		publishInput.MessageDeduplicationId = aws.String(dedupId)
+	}
+	if filterKey != "" &amp;&amp; filterValue != "" <span>{</span>
+		publishInput.MessageAttributes = map[string]types.MessageAttributeValue<span>{</span>
+			filterKey: <span>{</span>DataType: aws.String("String"), StringValue: aws.String(filterValue)},
+		}
+	}
+	_, err := actor.SnsClient.Publish(ctx, &amp;publishInput)
+	if err != nil <span>{</span>
+		log.Printf("Couldn't publish message to topic %v. Here's why: %v", topicArn, err)
+	}
+	return err
+}
+
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/sns#Client.Publish" rel="noopener noreferrer" target="_blank"><span>Publish</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                        in <em>AWS SDK for Go API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Java</dt><dd tab-id="java">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Java 2.x</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="84e50e664d0c84df9888dc469ba2120992598c60336791d58178b6d6123274a8"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (java)--><code class="java ">import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
+
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+public class PublishTopic <span>{</span>
+    public static void main(String[] args) <span>{</span>
+        final String usage = """
+
+                Usage:    &lt;message&gt; &lt;topicArn&gt;
+
+                Where:
+                   message - The message text to send.
+                   topicArn - The ARN of the topic to publish.
+                """;
+
+        if (args.length != 2) <span>{</span>
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String message = args[0];
+        String topicArn = args[1];
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        pubTopic(snsClient, message, topicArn);
+        snsClient.close();
+    }
+
+    public static void pubTopic(SnsClient snsClient, String message, String topicArn) <span>{</span>
+        try <span>{</span>
+            PublishRequest request = PublishRequest.builder()
+                    .message(message)
+                    .topicArn(topicArn)
+                    .build();
+
+            PublishResponse result = snsClient.publish(request);
+            System.out
+                    .println(result.messageId() + " Message sent. Status is " + result.sdkHttpResponse().statusCode());
+
+        } catch (SnsException e) <span>{</span>
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for Java 2.x API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>JavaScript</dt><dd tab-id="javascript">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for JavaScript (v3)</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>Create the client in a separate module and export it.</p>
+                
+                <pre class="programlisting" data-example-id="d5dcb286d48f2c3a85836639f77d332aa9d9f4d4b930b9d0ef8310bc3e3aa5b6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import <span>{</span> SNSClient } from "@aws-sdk/client-sns";
+
+// The AWS Region can be provided here using the `region` property. If you leave it blank
+// the SDK will default to the region set in your AWS config.
+export const snsClient = new SNSClient(<span>{</span>});
+
+</code></pre>
+            
+            
+                    <p>Import the SDK and client modules and call the API.</p>
+                
+                <pre class="programlisting" data-example-id="d5dcb286d48f2c3a85836639f77d332aa9d9f4d4b930b9d0ef8310bc3e3aa5b6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">import <span>{</span> PublishCommand } from "@aws-sdk/client-sns";
+import <span>{</span> snsClient } from "../libs/snsClient.js";
+
+/**
+ * @param <span>{</span>string | Record&lt;string, any&gt;} message - The message to send. Can be a plain string or an object
+ *                                                 if you are using the `json` `MessageStructure`.
+ * @param <span>{</span>string} topicArn - The ARN of the topic to which you would like to publish.
+ */
+export const publish = async (
+  message = "Hello from SNS!",
+  topicArn = "TOPIC_ARN",
+) =&gt; <span>{</span>
+  const response = await snsClient.send(
+    new PublishCommand(<span>{</span>
+      Message: message,
+      TopicArn: topicArn,
+    }),
+  );
+  console.log(response);
+  // <span>{</span>
+  //   '$metadata': <span>{</span>
+  //     httpStatusCode: 200,
+  //     requestId: 'e7f77526-e295-5325-9ee4-281a43ad1f05',
+  //     extendedRequestId: undefined,
+  //     cfId: undefined,
+  //     attempts: 1,
+  //     totalRetryDelay: 0
+  //   },
+  //   MessageId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  // }
+  return response;
+};
+
+</code></pre>
+            
+            
+                    <p>Publish a message to a topic with group, duplication, and attribute options.</p>
+                
+                <pre class="programlisting" data-example-id="d5dcb286d48f2c3a85836639f77d332aa9d9f4d4b930b9d0ef8310bc3e3aa5b6"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (javascript)--><code class="javascript ">  async publishMessages() <span>{</span>
+    const message = await this.prompter.input(<span>{</span>
+      message: MESSAGES.publishMessagePrompt,
+    });
+
+    let groupId;
+    let deduplicationId;
+    let choices;
+
+    if (this.isFifo) <span>{</span>
+      await this.logger.log(MESSAGES.groupIdNotice);
+      groupId = await this.prompter.input(<span>{</span>
+        message: MESSAGES.groupIdPrompt,
+      });
+
+      if (this.autoDedup === false) <span>{</span>
+        await this.logger.log(MESSAGES.deduplicationIdNotice);
+        deduplicationId = await this.prompter.input(<span>{</span>
+          message: MESSAGES.deduplicationIdPrompt,
+        });
+      }
+
+      choices = await this.prompter.checkbox(<span>{</span>
+        message: MESSAGES.messageAttributesPrompt,
+        choices: toneChoices,
+      });
+    }
+
+    await this.snsClient.send(
+      new PublishCommand(<span>{</span>
+        TopicArn: this.topicArn,
+        Message: message,
+        ...(groupId
+          ? <span>{</span>
+              MessageGroupId: groupId,
+            }
+          : <span>{</span>}),
+        ...(deduplicationId
+          ? <span>{</span>
+              MessageDeduplicationId: deduplicationId,
+            }
+          : <span>{</span>}),
+        ...(choices
+          ? <span>{</span>
+              MessageAttributes: <span>{</span>
+                tone: <span>{</span>
+                  DataType: "String.Array",
+                  StringValue: JSON.stringify(choices),
+                },
+              },
+            }
+          : <span>{</span>}),
+      }),
+    );
+
+    const publishAnother = await this.prompter.confirm(<span>{</span>
+      message: MESSAGES.publishAnother,
+    });
+
+    if (publishAnother) <span>{</span>
+      await this.publishMessages();
+    }
+  }
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For more information, see <a href="https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-publishing-messages.html">AWS SDK for JavaScript Developer Guide</a>.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/sns/command/PublishCommand">Publish</a>
+                        in <em>AWS SDK for JavaScript API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Kotlin</dt><dd tab-id="kotlin">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Kotlin</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="e08f36be44b9ba5f5b221ca2e84f9fdcf16e21421947713915808b71c0576060"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (kotlin)--><code class="kotlin ">suspend fun pubTopic(
+    topicArnVal: String,
+    messageVal: String,
+) <span>{</span>
+    val request =
+        PublishRequest <span>{</span>
+            message = messageVal
+            topicArn = topicArnVal
+        }
+
+    SnsClient.fromEnvironment <span>{</span> region = "us-east-1" }.use <span>{</span> snsClient -&gt;
+        val result = snsClient.publish(request)
+        println("$<span>{</span>result.messageId} message sent.")
+    }
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://sdk.amazonaws.com/kotlin/api/latest/index.html" rel="noopener noreferrer" target="_blank"><span>Publish</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                        in <em>AWS SDK for Kotlin API reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>PHP</dt><dd tab-id="php">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for PHP</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="0a14f1d273bb9f449e9b0afd1383ffc9386d2d44c3166b536929e636164b6557"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (php)--><code class="php ">require 'vendor/autoload.php';
+
+use Aws\Exception\AwsException;
+use Aws\Sns\SnsClient;
+
+
+/**
+ * Sends a message to an Amazon SNS topic.
+ *
+ * This code expects that you have AWS credentials set up per:
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
+ */
+
+$SnSclient = new SnsClient([
+    'profile' =&gt; 'default',
+    'region' =&gt; 'us-east-1',
+    'version' =&gt; '2010-03-31'
+]);
+
+$message = 'This message is sent from a Amazon SNS code sample.';
+$topic = 'arn:aws:sns:us-east-1:111122223333:MyTopic';
+
+try <span>{</span>
+    $result = $SnSclient-&gt;publish([
+        'Message' =&gt; $message,
+        'TopicArn' =&gt; $topic,
+    ]);
+    var_dump($result);
+} catch (AwsException $e) <span>{</span>
+    // output error message if fails
+    error_log($e-&gt;getMessage());
+}
+
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For more information, see <a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sns-examples-subscribing-unsubscribing-topics.html#publish-a-message-to-an-sns-topic">AWS SDK for PHP Developer Guide</a>.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/SdkForPHPV3/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for PHP API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>PowerShell</dt><dd tab-id="powershell">
+            <div class="variablelist">
+     
+     
+<dl>
+        <dt><b><span class="term">Tools for PowerShell V4</span></b></dt>
+        <dd>
+            
+                    <p><b>Example 1: This example shows publishing a message with a single MessageAttribute declared inline.</b></p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="a6190b9a13e1829c11e36c657e16bf6a4d71cb18551978cb7a4f68a41593fae1"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">Publish-SNSMessage -TopicArn "arn:aws:sns:us-west-2:123456789012:my-topic" -Message "Hello" -MessageAttribute @<span>{</span>'City'=[Amazon.SimpleNotificationService.Model.MessageAttributeValue]@<span>{</span>DataType='String'; StringValue ='AnyCity'}}
+</code></pre>
+            
+            
+                    <p><b>Example 2: This example shows publishing a message with multiple MessageAttributes declared in advance.</b></p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="a6190b9a13e1829c11e36c657e16bf6a4d71cb18551978cb7a4f68a41593fae1"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">$cityAttributeValue = New-Object Amazon.SimpleNotificationService.Model.MessageAttributeValue
+$cityAttributeValue.DataType = "String"
+$cityAttributeValue.StringValue = "AnyCity"
+
+$populationAttributeValue = New-Object Amazon.SimpleNotificationService.Model.MessageAttributeValue
+$populationAttributeValue.DataType = "Number"
+$populationAttributeValue.StringValue = "1250800"
+
+$messageAttributes = New-Object System.Collections.Hashtable
+$messageAttributes.Add("City", $cityAttributeValue)
+$messageAttributes.Add("Population", $populationAttributeValue)
+
+Publish-SNSMessage -TopicArn "arn:aws:sns:us-west-2:123456789012:my-topic" -Message "Hello" -MessageAttribute $messageAttributes
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/powershell/v4/reference">Publish</a>
+                        in <em>AWS Tools for PowerShell Cmdlet Reference (V4)</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    
+        <dt><b><span class="term">Tools for PowerShell V5</span></b></dt>
+        <dd>
+            
+                    <p><b>Example 1: This example shows publishing a message with a single MessageAttribute declared inline.</b></p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="647150ad03ea8dcd4f4caeaf440f57f7cc1c6dd8fa782dd1eeac5a617aee899a"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">Publish-SNSMessage -TopicArn "arn:aws:sns:us-west-2:123456789012:my-topic" -Message "Hello" -MessageAttribute @<span>{</span>'City'=[Amazon.SimpleNotificationService.Model.MessageAttributeValue]@<span>{</span>DataType='String'; StringValue ='AnyCity'}}
+</code></pre>
+            
+            
+                    <p><b>Example 2: This example shows publishing a message with multiple MessageAttributes declared in advance.</b></p>
+            
+            
+                
+                <pre class="programlisting" data-example-id="647150ad03ea8dcd4f4caeaf440f57f7cc1c6dd8fa782dd1eeac5a617aee899a"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (powershell)--><code class="powershell ">$cityAttributeValue = New-Object Amazon.SimpleNotificationService.Model.MessageAttributeValue
+$cityAttributeValue.DataType = "String"
+$cityAttributeValue.StringValue = "AnyCity"
+
+$populationAttributeValue = New-Object Amazon.SimpleNotificationService.Model.MessageAttributeValue
+$populationAttributeValue.DataType = "Number"
+$populationAttributeValue.StringValue = "1250800"
+
+$messageAttributes = New-Object System.Collections.Hashtable
+$messageAttributes.Add("City", $cityAttributeValue)
+$messageAttributes.Add("Population", $populationAttributeValue)
+
+Publish-SNSMessage -TopicArn "arn:aws:sns:us-west-2:123456789012:my-topic" -Message "Hello" -MessageAttribute $messageAttributes
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/powershell/v5/reference">Publish</a>
+                        in <em>AWS Tools for PowerShell Cmdlet Reference (V5)</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Python</dt><dd tab-id="python">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Python (Boto3)</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                    <p>Publish a message with attributes so that a subscription can filter based on attributes.</p>
+                
+                <pre class="programlisting" data-example-id="e292333a1d45eef9fcb6377f3705c3bdaa645d483ae404f58dccf255f4e23765"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">class SnsWrapper:
+    """Encapsulates Amazon SNS topic and subscription functions."""
+
+    def __init__(self, sns_resource):
+        """
+        :param sns_resource: A Boto3 Amazon SNS resource.
+        """
+        self.sns_resource = sns_resource
+
+
+    @staticmethod
+    def publish_message(topic, message, attributes):
+        """
+        Publishes a message, with attributes, to a topic. Subscriptions can be filtered
+        based on message attributes so that a subscription receives messages only
+        when specified attributes are present.
+
+        :param topic: The topic to publish to.
+        :param message: The message to publish.
+        :param attributes: The key-value attributes to attach to the message. Values
+                           must be either `str` or `bytes`.
+        :return: The ID of the message.
+        """
+        try:
+            att_dict = <span>{</span>}
+            for key, value in attributes.items():
+                if isinstance(value, str):
+                    att_dict[key] = <span>{</span>"DataType": "String", "StringValue": value}
+                elif isinstance(value, bytes):
+                    att_dict[key] = <span>{</span>"DataType": "Binary", "BinaryValue": value}
+            response = topic.publish(Message=message, MessageAttributes=att_dict)
+            message_id = response["MessageId"]
+            logger.info(
+                "Published message with attributes %s to topic %s.",
+                attributes,
+                topic.arn,
+            )
+        except ClientError:
+            logger.exception("Couldn't publish message to topic %s.", topic.arn)
+            raise
+        else:
+            return message_id
+
+
+</code></pre>
+            
+            
+                    <p>Publish a message that takes different forms based on the protocol of the subscriber.</p>
+                
+                <pre class="programlisting" data-example-id="e292333a1d45eef9fcb6377f3705c3bdaa645d483ae404f58dccf255f4e23765"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">class SnsWrapper:
+    """Encapsulates Amazon SNS topic and subscription functions."""
+
+    def __init__(self, sns_resource):
+        """
+        :param sns_resource: A Boto3 Amazon SNS resource.
+        """
+        self.sns_resource = sns_resource
+
+
+    @staticmethod
+    def publish_multi_message(
+        topic, subject, default_message, sms_message, email_message
+    ):
+        """
+        Publishes a multi-format message to a topic. A multi-format message takes
+        different forms based on the protocol of the subscriber. For example,
+        an SMS subscriber might receive a short version of the message
+        while an email subscriber could receive a longer version.
+
+        :param topic: The topic to publish to.
+        :param subject: The subject of the message.
+        :param default_message: The default version of the message. This version is
+                                sent to subscribers that have protocols that are not
+                                otherwise specified in the structured message.
+        :param sms_message: The version of the message sent to SMS subscribers.
+        :param email_message: The version of the message sent to email subscribers.
+        :return: The ID of the message.
+        """
+        try:
+            message = <span>{</span>
+                "default": default_message,
+                "sms": sms_message,
+                "email": email_message,
+            }
+            response = topic.publish(
+                Message=json.dumps(message), Subject=subject, MessageStructure="json"
+            )
+            message_id = response["MessageId"]
+            logger.info("Published multi-format message to topic %s.", topic.arn)
+        except ClientError:
+            logger.exception("Couldn't publish message to topic %s.", topic.arn)
+            raise
+        else:
+            return message_id
+
+
+
+</code></pre>
+            
+            
+                
+                <pre class="programlisting" data-example-id="e292333a1d45eef9fcb6377f3705c3bdaa645d483ae404f58dccf255f4e23765"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">class SnsWrapper:
+    """Wrapper class for managing Amazon SNS operations."""
+
+    def __init__(self, sns_client: Any) -&gt; None:
+        """
+        Initialize the SnsWrapper.
+
+        :param sns_client: A Boto3 Amazon SNS client.
+        """
+        self.sns_client = sns_client
+
+    @classmethod
+    def from_client(cls) -&gt; 'SnsWrapper':
+        """
+        Create an SnsWrapper instance using a default boto3 client.
+
+        :return: An instance of this class.
+        """
+        sns_client = boto3.client('sns')
+        return cls(sns_client)
+
+
+    def publish_message(
+        self,
+        topic_arn: str,
+        message: str,
+        tone_attribute: Optional[str] = None,
+        deduplication_id: Optional[str] = None,
+        message_group_id: Optional[str] = None
+    ) -&gt; str:
+        """
+        Publish a message to an SNS topic.
+
+        :param topic_arn: The ARN of the SNS topic.
+        :param message: The message content to publish.
+        :param tone_attribute: Optional tone attribute for message filtering.
+        :param deduplication_id: Optional deduplication ID for FIFO topics.
+        :param message_group_id: Optional message group ID for FIFO topics.
+        :return: The message ID of the published message.
+        :raises ClientError: If the message publication fails.
+        """
+        try:
+            publish_args = <span>{</span>
+                'TopicArn': topic_arn,
+                'Message': message
+            }
+
+            # Add message attributes if tone is specified
+            if tone_attribute:
+                publish_args['MessageAttributes'] = <span>{</span>
+                    'tone': <span>{</span>
+                        'DataType': 'String',
+                        'StringValue': tone_attribute
+                    }
+                }
+
+            # Add FIFO-specific parameters
+            if message_group_id:
+                publish_args['MessageGroupId'] = message_group_id
+
+            if deduplication_id:
+                publish_args['MessageDeduplicationId'] = deduplication_id
+
+            response = self.sns_client.publish(**publish_args)
+
+            message_id = response['MessageId']
+            logger.info(f"Published message to topic <span>{</span>topic_arn} with ID: <span>{</span>message_id}")
+            return message_id
+
+        except ClientError as e:
+            error_code = e.response.get('Error', <span>{</span>}).get('Code', 'Unknown')
+            logger.error(f"Error publishing message to topic: <span>{</span>error_code} - <span>{</span>e}")
+            raise
+
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/boto3/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for Python (Boto3) API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Ruby</dt><dd tab-id="ruby">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Ruby</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="e71ff99fb620e0b97ca3b2978163d288a626beabd4891953bbb1e9d718e387a1"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (ruby)--><code class="ruby "># Service class for sending messages using Amazon Simple Notification Service (SNS)
+class SnsMessageSender
+  # Initializes the SnsMessageSender with an SNS client
+  #
+  # @param sns_client [Aws::SNS::Client] The SNS client
+  def initialize(sns_client)
+    @sns_client = sns_client
+    @logger = Logger.new($stdout)
+  end
+
+  # Sends a message to a specified SNS topic
+  #
+  # @param topic_arn [String] The ARN of the SNS topic
+  # @param message [String] The message to send
+  # @return [Boolean] true if message was successfully sent, false otherwise
+  def send_message(topic_arn, message)
+    @sns_client.publish(topic_arn: topic_arn, message: message)
+    @logger.info("Message sent successfully to #<span>{</span>topic_arn}.")
+    true
+  rescue Aws::SNS::Errors::ServiceError =&gt; e
+    @logger.error("Error while sending the message: #<span>{</span>e.message}")
+    false
+  end
+end
+
+# Example usage:
+if $PROGRAM_NAME == __FILE__
+  topic_arn = 'SNS_TOPIC_ARN' # Should be replaced with a real topic ARN
+  message = 'MESSAGE'         # Should be replaced with the actual message content
+
+  sns_client = Aws::SNS::Client.new
+  message_sender = SnsMessageSender.new(sns_client)
+
+  @logger.info('Sending message.')
+  unless message_sender.send_message(topic_arn, message)
+    @logger.error('Message sending failed. Stopping program.')
+    exit 1
+  end
+end
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For more information, see <a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/sns-example-send-message.html">AWS SDK for Ruby Developer Guide</a>.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/goto/SdkForRubyV3/sns-2010-03-31/Publish">Publish</a>
+                        in <em>AWS SDK for Ruby API Reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Rust</dt><dd tab-id="rust">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Rust</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rustv1/examples/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="99a60eeaa793f677aafb4a8a89cc5d18bd22fc3f0193baa39f2c411681149388"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (rust)--><code class="rust ">async fn subscribe_and_publish(
+    client: &amp;Client,
+    topic_arn: &amp;str,
+    email_address: &amp;str,
+) -&gt; Result&lt;(), Error&gt; <span>{</span>
+    println!("Receiving on topic with ARN: `<span>{</span>}`", topic_arn);
+
+    let rsp = client
+        .subscribe()
+        .topic_arn(topic_arn)
+        .protocol("email")
+        .endpoint(email_address)
+        .send()
+        .await?;
+
+    println!("Added a subscription: <span>{</span>:?}", rsp);
+
+    let rsp = client
+        .publish()
+        .topic_arn(topic_arn)
+        .message("hello sns!")
+        .send()
+        .await?;
+
+    println!("Published message: <span>{</span>:?}", rsp);
+
+    Ok(())
+}
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.rs/aws-sdk-sns/latest/aws_sdk_sns/client/struct.Client.html#method.publish" rel="noopener noreferrer" target="_blank"><span>Publish</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                        in <em>AWS SDK for Rust API reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>SAP ABAP</dt><dd tab-id="sap-abap">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for SAP ABAP</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/sap-abap/services/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="d8634441ccc31e1be21763f32659e1624ffac9c9b56bdab6094ea807b7b1bfc9"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (sap-abap)--><code class="sap-abap ">    TRY.
+        oo_result = lo_sns-&gt;publish(              " oo_result is returned for testing purposes. "
+          iv_topicarn = iv_topic_arn
+          iv_message = iv_message ).
+        MESSAGE 'Message published to SNS topic.' TYPE 'I'.
+      CATCH /aws1/cx_snsnotfoundexception.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
+    ENDTRY.
+
+</code></pre>
+            
+            
+                    <p>Publish a message with attributes to a topic.</p>
+                
+                <pre class="programlisting" data-example-id="d8634441ccc31e1be21763f32659e1624ffac9c9b56bdab6094ea807b7b1bfc9"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (sap-abap)--><code class="sap-abap ">    TRY.
+        oo_result = lo_sns-&gt;publish(              " oo_result is returned for testing purposes. "
+          iv_topicarn = iv_topic_arn
+          iv_message = iv_message
+          it_messageattributes = it_msg_attrs ).
+        MESSAGE 'Message with attributes published to SNS topic.' TYPE 'I'.
+      CATCH /aws1/cx_snsnotfoundexception.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
+    ENDTRY.
+
+</code></pre>
+            
+            
+                    <p>Publish a multi-format message to a topic.</p>
+                
+                <pre class="programlisting" data-example-id="d8634441ccc31e1be21763f32659e1624ffac9c9b56bdab6094ea807b7b1bfc9"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (sap-abap)--><code class="sap-abap ">    " Build JSON message structure for multi-format message
+    DATA(lv_json_message) = |\<span>{</span> "default": "<span>{</span> iv_default_message }", "sms": "<span>{</span> iv_sms_message }", "email": "<span>{</span> iv_email_message }" \}|.
+
+    TRY.
+        oo_result = lo_sns-&gt;publish(              " oo_result is returned for testing purposes. "
+          iv_topicarn = iv_topic_arn
+          iv_message = lv_json_message
+          iv_subject = iv_subject
+          iv_messagestructure = 'json' ).
+        MESSAGE 'Multi-format message published to SNS topic.' TYPE 'I'.
+      CATCH /aws1/cx_snsnotfoundexception.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
+    ENDTRY.
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/index.html">Publish</a>
+                        in <em>AWS SDK for SAP ABAP API reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Swift</dt><dd tab-id="swift">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Swift</span></b></dt>
+        <dd>
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift/example_code/sns#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code
+            Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+    </p></div></div>
+            
+                
+                <pre class="programlisting" data-example-id="1fdc5c898f338e0339ae2c1de1be8038d2d0634be302a3e63a18540a7d9508c1"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (swift)--><code class="swift ">import AWSSNS
+
+        let config = try await SNSClient.SNSClientConfiguration(region: region)
+        let snsClient = SNSClient(config: config)
+
+        let output = try await snsClient.publish(
+            input: PublishInput(
+                message: message,
+                topicArn: arn
+            )
+        )
+
+        guard let messageId = output.messageId else <span>{</span>
+            print("No message ID received from Amazon SNS.")
+            return
+        }
+        
+        print("Published message with ID \(messageId)")
+
+</code></pre>
+            
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For API details, see
+                        <a href="https://sdk.amazonaws.com/swift/api/awssns/latest/documentation/awssns/snsclient/publish(input:)" rel="noopener noreferrer" target="_blank"><span>Publish</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                        in <em>AWS SDK for Swift API reference</em>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sns-create-subscribe-endpoint-to-topic.html">Step 2: Creating a subscription to a topic</div><div id="next" class="next-link" accesskey="n" href="./large-message-payloads.html">Large message payloads</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-publishing.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SNS&amp;topic_url=https://docs.aws.amazon.com/en_us/sns/latest/dg/sns-publishing.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

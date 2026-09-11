@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring a bucket lifecycle configuration to delete incomplete multipart uploads - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="mpu-abort-incomplete-mpu-lifecycle-config" /><meta name="default_state" content="mpu-abort-incomplete-mpu-lifecycle-config" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" /><meta name="description" content="Configure a lifecycle rule to abort incomplete multipart uploads by using the AWS Command Line Interface or AWS Management Console." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Configuring a bucket lifecycle configuration to delete incomplete multipart uploads" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="mpu-abort-incomplete-mpu-lifecycle-config.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring a bucket lifecycle configuration to delete incomplete multipart uploads - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#mpu-abort-incomplete-mpu-lifecycle-config" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="https://repost.aws/tags/TADSTjraA0Q4-a1dxk6eUYaw" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,Amazon S3 objects,What is an object,How to use objects,upload files to the internet,upload files to AWS,upload a single object up to 160 GB,Upload a single object as a set of parts,Upload folder with TransferUtility with .NET and C# example,object too big to upload,using lifecycle and mpu with cli,using lifecycle and mpu with console,automatically delete incomplete multipart uploads" /><link rel="alternate" type="text/markdown" href="mpu-abort-incomplete-mpu-lifecycle-config.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Uploading objects",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Uploading and copying objects using multipart upload in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Configuring a bucket lifecycle configuration to delete incomplete multipart uploads",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#mpu-abort-incomplete-mpu-lifecycle-config" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="mpu-abort-incomplete-mpu-lifecycle-config">Configuring a bucket lifecycle configuration to delete incomplete multipart uploads</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>As a best practice, we recommend that you configure a lifecycle rule by using the
+            <code class="code">AbortIncompleteMultipartUpload</code> action to minimize your storage costs. For
+        more information about aborting a multipart upload, see <a href="./abort-mpu.html">Aborting a multipart upload</a>.</p><p>Amazon S3 supports a bucket lifecycle rule that you can use to direct Amazon S3 to stop multipart
+        uploads that aren't completed within a specified number of days after being initiated. When
+        a multipart upload isn't completed within the specified time frame, it becomes eligible for
+        an abort operation. Amazon S3 then stops the multipart upload and deletes the parts associated
+        with the multipart upload. This rule applies to both existing multipart uploads and those that you create later.</p><p> The following is an example lifecycle configuration that specifies a rule with the
+        <code class="code">AbortIncompleteMultipartUpload</code> action. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (xml)--><code class="xml ">&lt;LifecycleConfiguration&gt;
+    &lt;Rule&gt;
+        &lt;ID&gt;sample-rule&lt;/ID&gt;
+        &lt;Prefix&gt;&lt;/Prefix&gt;
+        &lt;Status&gt;Enabled&lt;/Status&gt;
+        &lt;AbortIncompleteMultipartUpload&gt;
+          &lt;DaysAfterInitiation&gt;7&lt;/DaysAfterInitiation&gt;
+        &lt;/AbortIncompleteMultipartUpload&gt;
+    &lt;/Rule&gt;
+&lt;/LifecycleConfiguration&gt;</code></pre><p>In the example, the rule doesn't specify a value for the <code class="code">Prefix</code> element (the
+            <a href="https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#keyprefix">object key
+            name prefix</a>). Therefore, the rule applies to all objects in the bucket for which
+        you initiated multipart uploads. Any multipart uploads that were initiated and weren't
+        completed within seven days become eligible for an abort operation. The abort action has no
+        effect on completed multipart uploads.</p><p>For more information about the bucket lifecycle configuration, see <a href="./object-lifecycle-mgmt.html">Managing the lifecycle of objects</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If the multipart upload is completed within the number of days specified in the rule,
+            the <code class="code">AbortIncompleteMultipartUpload</code> lifecycle action does not apply (that
+            is, Amazon S3 doesn't take any action). Also, this action doesn't apply to objects. No
+            objects are deleted by this lifecycle action. Additionally, you will not incur early
+            delete charges for S3 Lifecycle when you remove any incomplete multipart upload
+            parts.</p></div></div><div class="collapsible" data-expand-section="_collapse_all"><awsui-expandable-section variant="container" header="Using the S3 console" id="mpu-abort-incomplete-mpu-lifecycle-config-console" expanded="false"><p>To automatically manage incomplete multipart uploads, you can use the S3 console
+                to create a lifecycle rule to expire incomplete multipart upload bytes from your
+                bucket after a specified number of days. The following procedure shows you how to
+                add a lifecycle rule to delete incomplete multipart uploads after 7 days. For more
+                information about adding lifecycle rules, see <a href="./how-to-set-lifecycle-configuration-intro.html">Setting an S3 Lifecycle configuration on a bucket</a>.</p><div class="procedure"><h6>To add a lifecycle rule to abort incomplete multipart uploads that are more than 7 days old</h6><ol><li>
+                <p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li>
+                    <p>In the <b>Buckets </b>list, choose the name of
+                        the bucket that you want to create a lifecycle rule for.</p>
+            </li><li>
+                 <p>Choose the <b>Management</b> tab, and choose
+                            <b>Create lifecycle rule</b>.</p>
+            </li><li>
+                 <p>In <b>Lifecycle rule name</b>, enter a name for
+                        your rule.</p>
+                 <p>The name must be unique within the bucket. </p>
+            </li><li>
+                 <p>Choose the scope of the lifecycle rule:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                            <p>To create a lifecycle rule for all objects with a specific prefix,
+                                choose <b>Limit the scope of this rule using one
+                                    or more filters</b>, and enter the prefix in the
+                                    <b>Prefix </b>field.</p>
+                    </li><li class="listitem">
+                            <p>To create a lifecycle rule for all objects in the bucket, choose
+                                    <b>This rule applies to <b>all</b> objects in the
+                                    bucket</b>, and choose <b>I
+                                    acknowledge that this rule applies to all objects in the
+                                    bucket</b>.</p>
+                    </li></ul></div>
+            </li><li>
+                    <p>Under <b>Lifecycle rule actions</b>, select
+                            <b>Delete expired object delete markers or incomplete
+                            multipart uploads</b>.</p>
+            </li><li>
+                    <p>Under <b>Delete expired object delete markers or
+                            incomplete multipart uploads</b>, select <b>Delete incomplete multipart uploads</b>.</p>
+            </li><li>
+                    <p>In the <b>Number of days </b>field, enter the
+                        number of days after which to delete incomplete multipart uploads (for this
+                        example, 7 days). </p>
+            </li><li>
+                    <p>Choose <b>Create rule</b>.</p>
+            </li></ol></div></awsui-expandable-section></div><div class="collapsible" data-expand-section="_collapse_all"><awsui-expandable-section variant="container" header="Using the AWS CLI" id="mpu-abort-incomplete-mpu-lifecycle-config-cli" expanded="false"><p>The following <code class="code">put-bucket-lifecycle-configuration</code> AWS Command Line Interface (AWS CLI)
+                command adds the lifecycle configuration for the specified bucket. To use this
+                command, replace the <code class="code"><code class="replaceable">user input placeholders</code></code>
+                with your information.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3api put-bucket-lifecycle-configuration  \
+        --bucket <code class="replaceable">amzn-s3-demo-bucket</code>  \
+        --lifecycle-configuration <code class="replaceable">filename-containing-lifecycle-configuration</code> </code></pre><p>The following example shows how to add a lifecycle rule to abort incomplete
+                multipart uploads by using the AWS CLI. It includes an example JSON lifecycle
+                configuration to abort incomplete multipart uploads that are more than 7 days
+                old.</p><p>To use the CLI commands in this example, replace the <code class="code"><code class="replaceable">user input
+                        placeholders</code></code> with your information.</p><div class="procedure"><h6>To add a lifecycle rule to abort incomplete multipart uploads</h6><ol><li>
+                    <p>Set up the AWS CLI. For instructions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/setup-aws-cli.html">Developing with Amazon S3 using the AWS CLI</a> in the <em>Amazon S3 API Reference</em>.
+                        </p>
+                </li><li>
+                    <p>Save the following example lifecycle configuration in a file (for example,
+                                <code class="replaceable"><code>lifecycle.json</code></code><code></code>).
+                        This example configuration specifies an empty prefix, and therefore it
+                        applies to all objects in the bucket. To restrict the configuration to a subset of
+                        objects, you can specify a prefix.</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (json)--><code class="json "><span>{</span>
+    "Rules": [
+        <span>{</span>
+            "ID": "Test Rule",
+            "Status": "Enabled",
+            "Filter": <span>{</span>
+                "Prefix": ""
+            },
+            "AbortIncompleteMultipartUpload": <span>{</span>
+                "DaysAfterInitiation": 7
+            }
+        }
+    ]
+}</code></pre>
+                </li><li>
+                    <p> Run the following CLI command to set this lifecycle configuration on your
+                        bucket. </p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3api put-bucket-lifecycle-configuration   \
+--bucket <code class="replaceable">amzn-s3-demo-bucket</code>  \
+--lifecycle-configuration file://<code class="replaceable">lifecycle.json</code>  </code></pre>
+                </li><li>
+                    <p> To verify that the lifecycle configuration has been set on your bucket,
+                        retrieve the lifecycle configuration by using the following
+                            <code class="code">get-bucket-lifecycle</code> command. </p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3api get-bucket-lifecycle  \
+--bucket <code class="replaceable">amzn-s3-demo-bucket</code> </code></pre>
+                </li><li>
+                    <p> To delete the lifecycle configuration, use the following
+                            <code class="code">delete-bucket-lifecycle</code> command. </p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (bash)--><code class="bash ">aws s3api delete-bucket-lifecycle \
+--bucket <code class="replaceable">amzn-s3-demo-bucket</code></code></pre>
+                </li></ol></div></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./mpuoverview.html">Using multipart upload</div><div id="next" class="next-link" accesskey="n" href="./mpu-upload-object.html">Uploading an object using multipart upload</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/mpu-abort-incomplete-mpu-lifecycle-config.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

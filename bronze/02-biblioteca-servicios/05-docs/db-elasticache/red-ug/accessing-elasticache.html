@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Accessing your ElastiCache cluster or replication group - Amazon ElastiCache</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="accessing-elasticache" /><meta name="default_state" content="accessing-elasticache" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/accessing-elasticache.html" /><meta name="description" content="Access Amazon ElastiCache instances." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon ElastiCache" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Amazon ElastiCache is a web service that makes it easy to set up, manage, and scale a distributed in-memory data store or cache in the cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/accessing-elasticache.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/accessing-elasticache.html" hreflang="x-default" /><meta name="feedback-item" content="ElastiCache" /><meta name="this_doc_product" content="Amazon ElastiCache" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'elasticache'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Accessing your ElastiCache cluster or replication group" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="accessing-elasticache.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Accessing your ElastiCache cluster or replication group - Amazon ElastiCache</title><meta name="pdf" content="/pdfs/AmazonElastiCache/latest/dg/redis-ug.pdf#accessing-elasticache" /><meta name="rss" content="amazon-elcr-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TARDe-88acTLSr8i9rSAfn_Q" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/accessing-elasticache.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/accessing-elasticache.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/accessing-elasticache.html" /><meta name="keywords" content="ElastiCache,Amazon ElastiCache,cache,cluster,cache cluster,Redis,replication,replication group,database,redis,memcached" /><link rel="alternate" type="text/markdown" href="accessing-elasticache.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ElastiCache",
+        "item" : "https://docs.aws.amazon.com/elasticache/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Creating and managing a node-based ElastiCache cluster",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/designing-elasticache-cluster.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Managing clusters in ElastiCache",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Clusters.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Accessing your ElastiCache cluster or replication group",
+        "item" : "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Clusters.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonElastiCache/latest/dg/redis-ug.pdf#accessing-elasticache" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/elasticache/index.html">Amazon ElastiCache</a><a href="WhatIs.html">User Guide</a></div><div id="page-toc-src"><a href="#grant-access">Grant access to your clusteror replication group</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="accessing-elasticache">Accessing your ElastiCache cluster <span>or replication group</span></h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Your Amazon ElastiCache instances are designed to be accessed through an Amazon EC2 instance.</p><p>If you launched your ElastiCache instance in an Amazon Virtual Private Cloud (Amazon VPC), you can access your ElastiCache
+		instance from an Amazon EC2 instance in the same Amazon VPC. Or, by using VPC peering, you can
+		access your ElastiCache instance from an Amazon EC2 in a different Amazon VPC.</p><p>If you launched your ElastiCache instance in EC2 Classic, 
+		you allow the EC2 instance to access your cluster by granting the Amazon EC2 security group 
+		associated with the instance access to your cache security group.
+		By default, access to a cluster is restricted to the account that launched the cluster.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#grant-access">Grant access to your clusteror replication group</a></p></li></ul></div>
+		<h2 id="grant-access">Grant access to your cluster<span>or replication group</span></h2>
+		
+		
+		 
+			<h3 id="authorize-access-vpc">You launched your cluster into EC2-VPC</h3>
+			
+			<p>If you launched your cluster into an Amazon Virtual Private Cloud (Amazon VPC), you can connect to your ElastiCache
+				cluster only from an Amazon EC2 instance that is running in the same Amazon VPC. 
+				In this case, you will need to grant network ingress to the cluster.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If your are using <em>Local Zones</em>, make sure you have enabled it. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#opt-in-local-zone">Enable Local Zones</a>.
+				By doing so, your VPC is extended to that Local Zone and your VPC will treat the subnet as any subnet in any other Availability Zone and relevant gateways, route tables and other security group considerations. will be automatically adjusted.</p></div></div>
+			<div class="procedure"><h6>To grant network ingress from an Amazon VPC security group to a cluster</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon EC2 console at
+         <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+					<p>In the navigation pane, under <b>Network &amp; Security</b>, choose
+						<b>Security Groups</b>.</p></li><li>
+					<p>From the list of security groups, choose the security group for your Amazon VPC. 
+						Unless you created a security group for ElastiCache use, 
+						this security group will be named <em>default</em>.</p>
+				</li><li>
+					<p>Choose the <b>Inbound</b> tab, and then do
+						the following:</p>
+					<ol><li>
+							<p>Choose <b>Edit</b>.</p></li><li>
+							<p>Choose <b>Add rule</b>.</p></li><li>
+							<p>In the <b>Type</b> column, choose <b>Custom TCP
+								rule</b>.</p></li><li>
+							<p>In the <b>Port range</b> box, type the port number for your cluster
+								node. This number must be the same one that you specified when you
+								launched the cluster. 
+								<span>The default port for Memcached is <code class="userinput">11211</code></span>
+								<span>The default port for Valkey and Redis OSS is <code class="userinput">6379</code></span>.</p></li><li>
+							<p>In the <b>Source</b> box, choose <b>Anywhere</b> 
+								which has the port range (0.0.0.0/0) so that any Amazon EC2 instance that you 
+								launch within your Amazon VPC can connect to your ElastiCache nodes.</p>
+							<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Opening up the ElastiCache cluster to 0.0.0.0/0 does not expose the cluster to the Internet 
+									because it has no public IP address and therefore cannot be accessed from outside the VPC.
+									However, the default security group may be applied to other Amazon EC2 instances in the customer’s account, 
+									and those instances may have a public IP address.  
+									If they happen to be running something on the default port, 
+									then that service could be exposed unintentionally.
+									Therefore, we recommend creating a VPC Security Group that will be used exclusively by ElastiCache.
+									For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#creating-your-own-security-groups">Custom Security Groups</a>.</p></div></div></li><li>
+							<p>Choose <b>Save</b>.</p></li></ol></li></ol></div>
+			<p>When you launch an Amazon EC2 instance into your Amazon VPC, that instance will be able to connect to
+				your ElastiCache cluster.</p>
+		 			
+
+		
+
+		 
+    <h3 id="access-from-outside-aws">Accessing ElastiCache resources from outside AWS</h3>
+    
+    <p>Amazon ElastiCache is an AWS service that provides cloud-based in-memory key-value store. 
+        The service is designed to be accessed exclusively from within AWS. 
+        However, if the ElastiCache cluster is hosted inside a VPC, 
+        you can use an EC2 instance configured for Network Address Translation (NAT) with port forwarding
+        to provide outside access.</p>
+    
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>This approach should be used for testing and development purposes only. 
+            For production workloads requiring external access, consider using 
+            <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> or 
+            <a href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html">AWS Client VPN</a> instead.</p></div></div>
+    
+     
+        <h4 id="access-from-outside-aws-requirements">Requirements</h4>
+        
+        <p>The following requirements must be met for you to access your 
+            ElastiCache resources from outside AWS:</p>
+        
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The cluster must reside within a VPC and be accessed through a Network Address Translation 
+                    (NAT) instance. 
+                    There are no exceptions to this requirement.</p></li><li class="listitem">
+                <p>The port-forwarding EC2 instance must be launched in the same VPC as the cluster.</p></li><li class="listitem">
+                <p>The port-forwarding EC2 instance must be launched in a public subnet separate from the cluster.</p></li><li class="listitem">
+                <p>An Elastic IP Address (EIP) must be associated with the EC2 instance. 
+                    The port forwarding feature of iptables is used to forward a port on the instance 
+                    to the cache node port within the VPC.</p></li></ul></div>
+     	
+    
+     
+        <h4 id="access-from-outside-aws-considerations">Considerations</h4>
+        
+        <p>The following considerations should be kept in mind when accessing your
+            ElastiCache resources from outside ElastiCache.</p>
+        
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Clients connect to the EIP and cache port of the NAT instance. 
+                    Port forwarding on the NAT instance forwards traffic to the appropriate cluster node.</p></li><li class="listitem">
+                <p>If a cluster node is added or replaced, the iptables rules need to be updated to reflect this change.</p></li></ul></div>
+     	
+    
+    
+     
+        <h4 id="access-from-outside-aws-limitations">Limitations</h4>
+        
+        <p>This approach should be used for testing and development purposes only. 
+            It is not recommended for production use due to the following limitations:</p>
+        
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The NAT instance is acting as a proxy between clients and multiple clusters. 
+                    The addition of a proxy impacts the performance of the cluster. 
+                    The impact increases with number of clusters you are accessing through the NAT instance.</p></li><li class="listitem">
+                <p>The traffic from clients to the NAT instance is unencrypted. 
+                    Therefore, you should avoid sending sensitive data via the NAT instance.</p></li><li class="listitem">
+                <p>The NAT instance adds the overhead of maintaining another instance.</p></li><li class="listitem">
+                <p>The NAT instance serves as a single point of failure. 
+                    For high availability, consider using a <a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">NAT gateway</a> instead.</p></li><li class="listitem">
+                <p>This approach does not work with Valkey or Redis OSS (cluster mode enabled). 
+                    In cluster mode, clients follow <code class="code">MOVED</code> and <code class="code">ASK</code> redirects 
+                    to the cluster's internal node addresses. These addresses are not reachable 
+                    through the static port-forwarding rules (iptables) on the NAT instance. Use this approach 
+                    only with Memcached or with cluster mode disabled.</p></li></ul></div>
+        
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Security considerations for external access</h6></div><div class="awsdocs-note-text"><p>Port forwarding relays a cache port to a public Elastic IP address. If the NAT instance's 
+                security group allows access from a broad range of source addresses, this can expose your 
+                cache to the internet. Memcached provides no built-in authentication, and the NAT instance does not encrypt traffic in transit. Restrict the NAT instance security group to the specific 
+                trusted client IP addresses that require access. Do not send sensitive data through 
+                this connection.</p><p>This approach cannot provide encrypted, authenticated access to the cache. For in-transit 
+                encryption with Transport Layer Security (TLS), connect to an encryption-enabled cache 
+                from within the VPC. Alternatively, use 
+                <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> or 
+                <a href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html">AWS Client VPN</a> 
+                for external access. For more information, see 
+                <a href="./in-transit-encryption.html">ElastiCache in-transit encryption (TLS)</a>.</p></div></div>
+     	
+    
+    
+     
+        <h4 id="access-from-outside-aws-how-to">How to access ElastiCache resources from outside AWS</h4>
+        
+        <p>The following procedure demonstrates how to connect to your ElastiCache resources
+            using a NAT instance.</p>
+        
+        <p>These steps assume the following:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p><code class="code">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6380 -j DNAT --to 10.0.1.231:6379</code></p></li><li class="listitem"><p><code class="code">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6381 -j DNAT --to 10.0.1.232:6379</code></p></li></ul></div>
+        <p>Next you need NAT in the opposite direction:</p>
+        
+        
+       <p><code class="code">iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source 10.0.0.55</code></p>
+        <p>You also need to enable IP forwarding, which is disabled by default:</p>
+        
+
+        <p><code class="code">sudo sed -i 's/net.ipv4.ip_forward=0/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+
+            sudo sysctl --system</code></p>
+        
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You are accessing a Memcached cluster with:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>IP address – <em>10.0.1.230</em></p></li><li class="listitem">
+                        <p>Default Memcached port – <em>11211</em></p></li><li class="listitem">
+                        <p>Security group – <em>*10\.0\.0\.55*</em></p></li></ul></div></li><li class="listitem">
+
+                <p>You are accessing a Valkey or Redis OSS cluster with:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>IP address – <em>10.0.1.230</em></p></li><li class="listitem">
+                        <p>Default port – <em>6379</em></p></li><li class="listitem">
+                        <p>Security group – <em>sg-bd56b7da</em></p></li><li class="listitem">
+                        <p>AWS instance IP address – <em>198.99.100.27</em></p></li></ul></div></li><li class="listitem">
+                <p>Your trusted client has the IP address <em>198.51.100.27</em>.</p></li><li class="listitem">
+                <p>Your NAT instance has the Elastic IP Address <em>203.0.113.73</em>.</p></li><li class="listitem">
+                <p>Your NAT instance has security group <em>sg-ce56b7a9</em>.</p></li></ul></div>
+        <p></p>
+        <div class="procedure"><h6>To connect to your ElastiCache resources using a NAT instance</h6><ol><li>
+                <p>Launch an EC2 instance in the same VPC as your cluster but in a public subnet. 
+                    This instance will act as your NAT/port-forwarding host.</p>
+                <p>Use a current Amazon Linux 2023 AMI (or other Linux AMI of your choice). 
+                    Select an instance size based on your expected traffic. The instance needs a public subnet, 
+                    an Elastic IP address, and IP forwarding enabled.</p>
+                <p>For information about launching EC2 instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/LaunchingAndUsingInstances.html">Launch an instance</a> in the Amazon Elastic Compute Cloud User Guide.</p></li><li>
+                <p>Create security group rules for the cluster and NAT instance.</p>
+                <p>The NAT instance security group and the cluster instance should have the following rules:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Two inbound rules</p> 
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>With Memcached, the first rule is to allow TCP connections from trusted clients to each cache port 
+                                    forwarded from the NAT instance (11211 - 11213).</p></li><li class="listitem">
+                                <p>With Valkey and Redis OSS, the first rule is to allow TCP connections from trusted clients to each cache port 
+                                    forwarded from the NAT instance (6379 - 6381).</p></li><li class="listitem">
+                                <p>A second rule to allow SSH access to trusted clients.</p></li></ul></div>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b1b5"><caption>NAT instance security group - inbound rules with Memcached</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Source </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">11211-11213</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">198.51.100.27/32</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">SSH</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">22</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">198.51.100.27/32</td>
+                                    </tr>
+                                </table></div></div>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b1b7"><caption>NAT instance security group - inbound rules with Valkey or Redis OSS</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Source </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">6379-6380</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">198.51.100.27/32</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">SSH</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">22</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">203.0.113.73/32</td>
+                                    </tr>
+                                </table></div></div></li><li class="listitem">
+                        <p>With Memcached, an outbound rule to allow TCP connections to cache port (11211).</p>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b3b3"><caption>NAT instance security group - outbound rule</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Destination </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">11211</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">sg-ce56b7a9
+                                            (NAT Security Group)</td>
+                                    </tr>
+                                </table></div></div></li><li class="listitem">
+                        <p>With Valkey or Redis OSS, an outbound rule to allow TCP connections to cache port (6379).</p>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b5b3"><caption>NAT instance security group - outbound rule</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Destination </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">6379</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">sg-ce56b7a9
+                                            (NAT Security Group)</td>
+                                    </tr>
+                                </table></div></div></li><li class="listitem">
+                        <p>With Memcached, an inbound rule for the cluster's security group
+                            that allows TCP connections from the NAT instance to
+                            the cache port (11211).</p>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b7b3"><caption>Cluster instance security group - inbound rule</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Source </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">11211</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">sg-ce56b7a9 (NAT Security Group)</td>
+                                    </tr>
+                                </table></div></div></li><li class="listitem">
+                        <p>With Valkey or Redis OSS, an inbound rule for the cluster's security group
+                            that allows TCP connections from the NAT instance to
+                            the cache port (6379).</p>
+                        <div class="table-container"><div class="table-contents"><table id="w253aac11c23c76c11b6c13c21b4b5b9b3"><caption>Cluster instance security group - inbound rule</caption><thead>
+                                    <tr>
+                                        <th> Type </th>
+                                        <th> Protocol </th>
+                                        <th> Port range </th>
+                                        <th> Source </th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td align="center" style="text-align: center;" tabindex="-1">Custom TCP Rule</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">TCP</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">6379</td>
+                                        <td align="center" style="text-align: center;" tabindex="-1">sg-ce56b7a9 (NAT Security Group)</td>
+                                    </tr>
+                                </table></div></div></li></ul></div></li><li>
+                <p>Validate the rules.</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Confirm that the trusted client is able to SSH to the NAT instance.</p></li><li class="listitem">
+                        <p>Confirm that the trusted client is able to connect to the cluster from the NAT instance.</p></li></ul></div></li><li>
+                <p><b>Memcached</b></p>
+                <p>Add an iptables rule to the NAT instance.</p>
+                <p>An iptables rule must be added to the NAT table for each node in the cluster 
+                    to forward the cache port from the NAT instance to the cluster node. 
+                    An example might look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 11211 -j DNAT --to 10.0.1.230:11211</code></pre>
+                <p>The port number must be unique for each node in the cluster. 
+                    For example, if working with a three node Memcached cluster using ports 11211 - 11213, 
+                    the rules would look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 11211 -j DNAT --to 10.0.1.230:11211
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 11212 -j DNAT --to 10.0.1.231:11211
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 11213 -j DNAT --to 10.0.1.232:11211</code></pre>
+                
+                
+                <p>Confirm that the trusted client is able to connect to the cluster.</p>
+                <p>The trusted client should connect to the EIP associated with the NAT instance and
+                    the cluster port corresponding to the appropriate cluster node. 
+                    For example, the connection string for PHP might look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">$memcached-&gt;connect( '203.0.113.73', 11211 );
+$memcached-&gt;connect( '203.0.113.73', 11212 );
+$memcached-&gt;connect( '203.0.113.73', 11213 );</code></pre>
+                <p>A telnet client can also be used to verify the connection. For example:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">telnet 203.0.113.73 11211
+telnet 203.0.113.73 11212
+telnet 203.0.113.73 11213</code></pre>
+                
+                <p><b>Valkey or Redis OSS</b></p>
+                
+                <p>Add an iptables rule to the NAT instance.</p>
+                <p>An iptables rule must be added to the NAT table for each node in the cluster 
+                    to forward the cache port from the NAT instance to the cluster node. 
+                    An example might look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6379 -j DNAT --to 10.0.1.230:6379</code></pre>
+                <p>The port number must be unique for each node in the cluster. 
+                    For example, if working with a three node Redis OSS cluster using ports 6379 - 6381, 
+                    the rules would look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6379 -j DNAT --to 10.0.1.230:6379
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6380 -j DNAT --to 10.0.1.231:6379
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 6381 -j DNAT --to 10.0.1.232:6379</code></pre>
+                
+                <p>Confirm that the trusted client is able to connect to the cluster.</p>
+                <p>The trusted client should connect to the EIP associated with the NAT instance and
+                    the cluster port corresponding to the appropriate cluster node. 
+                    For example, the connection string for PHP might look like the following:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">redis-&gt;connect( '203.0.113.73', 6379 );
+redis-&gt;connect( '203.0.113.73', 6380 );
+redis-&gt;connect( '203.0.113.73', 6381 );</code></pre>
+                <p>A telnet client can also be used to verify the connection. For example:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">telnet 203.0.113.73 6379
+telnet 203.0.113.73 6380
+telnet 203.0.113.73 6381</code></pre></li><li>
+                <p>Save the iptables configuration.</p>
+                <p>Save the rules after you test and verify them. 
+                    If you are using a Redhat-based Linux distribution (like Amazon Linux), 
+                    run the following command:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="">service iptables save</code></pre></li></ol></div>
+        
+     	
+    
+     
+        <h4 id="access-from-outside-aws-see-also">Related topics</h4>
+        
+        <p>The following topics may be of additional interest.</p>
+        
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="./elasticache-vpc-accessing.html">Access Patterns for Accessing an ElastiCache Cache in an Amazon VPC</a></p></li><li class="listitem">
+                <p><a href="./elasticache-vpc-accessing.html#elasticache-vpc-accessing-data-center">Accessing an ElastiCache Cache from an Application Running in a Customer's Data Center</a></p></li><li class="listitem">
+                <p><a href="./ClientConfig.html">Configuring ElastiCache Clients</a></p></li><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">NAT Gateways</a></p></li></ul></div>
+     	
+  
+		
+		
+
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./Clusters.Delete.html">Deleting a cluster in ElastiCache</div><div id="next" class="next-link" accesskey="n" href="./Endpoints.html">Finding connection endpoints in ElastiCache</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/accessing-elasticache.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=ElastiCache&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonElastiCache/latest/dg/accessing-elasticache.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>
