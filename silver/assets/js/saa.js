@@ -3,17 +3,44 @@
 (function () {
   "use strict";
 
-  // ----- Navegación móvil -----
+  // ----- Navegación y Colapso del Sidebar -----
   var toggle = document.querySelector(".sidebar-toggle");
   var sidebar = document.querySelector(".sidebar");
+
+  // Restaurar estado en localStorage
+  if (localStorage.getItem("sidebar-collapsed") === "true") {
+    document.body.classList.add("sidebar-collapsed");
+    document.documentElement.classList.add("sidebar-collapsed");
+  }
+
   if (toggle && sidebar) {
-    toggle.addEventListener("click", function () { sidebar.classList.toggle("open"); });
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (window.innerWidth <= 960) {
+        var isOpen = sidebar.classList.toggle("open");
+        document.body.classList.toggle("sidebar-open", isOpen);
+      } else {
+        var isCollapsed = document.body.classList.toggle("sidebar-collapsed");
+        document.documentElement.classList.toggle("sidebar-collapsed", isCollapsed);
+        localStorage.setItem("sidebar-collapsed", isCollapsed ? "true" : "false");
+      }
+    });
+
     document.addEventListener("click", function (e) {
-      if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && e.target !== toggle) {
+      if (window.innerWidth <= 960 && sidebar.classList.contains("open") && !sidebar.contains(e.target) && e.target !== toggle) {
         sidebar.classList.remove("open");
+        document.body.classList.remove("sidebar-open");
       }
     });
   }
+
+  // ----- Secciones colapsables en el sidebar -----
+  document.querySelectorAll(".nav-group .nav-label").forEach(function (label) {
+    label.addEventListener("click", function () {
+      var group = label.closest(".nav-group");
+      if (group) group.classList.toggle("collapsed");
+    });
+  });
 
   // ----- Marcar enlace activo -----
   var path = location.pathname.split("/").pop() || "index.html";
