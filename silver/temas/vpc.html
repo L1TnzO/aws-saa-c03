@@ -132,31 +132,8 @@
 <p>Esta página es la "core" de redes porque el patrón que aquí se describe — VPC con subnets públicas y privadas en varias AZs, internet gateway para las públicas, NAT gateway para la salida de las privadas y route tables dirigiendo el tráfico — es el sustrato de todos los demás temas: load balancers, endpoints, peering, VPN y seguridad de red lo presuponen. El examen dice <span class="tag-en">public subnet</span> y <span class="tag-en">private subnet</span> sin explicarlas: publica es la que tiene ruta directa al internet gateway; privada es la que no la tiene y necesita un dispositivo NAT para salir. Ni más ni menos.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    NET["Internet"] --> IGW["Internet gateway"]
-    subgraph VPC["VPC 10.0.0.0/16 · una Region"]
-        subgraph AZA["AZ A"]
-            PUBA["Public subnet<br>10.0.1.0/24<br>ALB y NAT GW"]
-            PRIVA["Private subnet<br>10.0.11.0/24<br>servidores"]
-        end
-        subgraph AZB["AZ B"]
-            PUBB["Public subnet<br>10.0.2.0/24"]
-            PRIVB["Private subnet<br>10.0.12.0/24<br>base de datos"]
-        end
-    end
-    IGW --> PUBA
-    IGW --> PUBB
-    PRIVA -->|"salida via NAT"| PUBA
-    PRIVB -->|"salida via NAT"| PUBB
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class NET,IGW navy
-    class PUBA,PUBB green
-    class PRIVA,PRIVB amber
-</div>
-<figcaption>Figura 1 — El patrón estrella del examen: VPC multi-AZ con subnets públicas (verde) y privadas (ámbar), IGW en la frontera y salida a internet de las privadas vía NAT.</figcaption>
+  <img src="../assets/img/arquitectura-vpc-multiaz.jpg" alt="Arquitectura VPC Multi-AZ de Alta Disponibilidad en AWS" loading="lazy">
+  <figcaption>Figura 1 — El patrón estrella del examen: VPC Multi-AZ de 3 capas. Internet Gateway en el perímetro, capa pública (ALB y NAT Gateway por AZ), capa privada de aplicación (Auto Scaling EC2 cruzando AZs) y capa privada de datos (RDS primario con standby síncrono en la AZ secundaria).</figcaption>
 </figure>
 
 <h2>Qué es una VPC y qué se despliega en ella</h2>
@@ -227,7 +204,7 @@ flowchart TB
 
 <p>El bloque CIDR es una decisión de arquitectura, no un trámite: condiciona cuántas subnets puedes crear, cuántos hosts caben en cada una y con quién podrás interconectar la VPC después. Elige rangos privados RFC 1918 (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>) y planifica <strong>sin solapamientos</strong> con tus otras VPCs ni con la red on-premises: la documentación de VPN y peering recomienda expresamente CIDRs no superpuestos, porque un solape impide el enrutado correcto. Un patrón sano es CIDR de VPC amplio (p. ej. <code>10.0.0.0/16</code>) dividido en subnets /24 por AZ (p. ej. <code>10.0.1.0/24</code>, <code>10.0.2.0/24</code>…), reservando espacio para AZs futuras y para segmentos nuevos.</p>
 
-<p>Piensa también en el crecimiento de cada capa: la subnet de datos no necesita el mismo tamaño que la de aplicación, y ciertos rangos quedan reservados dentro de cada subnet (AWS reserva la primera dirección — red —, las dos siguientes y la última: en una /24 quedan 251 direcciones utilizables). Si conectas muchas VPCs entre sí o con on-premises, el diseño de CIDRs es lo que decide entre "peering directo" y "habrá que renumerar". El destino puede ser también un <span class="tag-en">prefix list</span> — una lista nombrada de CIDRs gestionada centralizadamente — útil para no repetir la misma lista de redes en mil rutas. Con IPv6 el diseño cambia: los blocos los asigna AWS de su espacio y el reto se desplaza al routing y a los mecanismos de salida (egress-only IGW, NAT64/DNS64).</p>
+<p>Piensa también en el crecimiento de cada capa: la subnet de datos no necesita el mismo tamaño que la de aplicación, y ciertos rangos quedan reservados dentro de cada subnet (AWS reserva exactamente <strong>5 direcciones IP</strong> en cada subnet: la primera para red <code>.0</code>, la <code>.1</code> para el router de la VPC, la <code>.2</code> para el DNS de AWS/AmazonProvidedDNS, la <code>.3</code> para uso futuro de AWS y la última <code>.255</code> para network broadcast: en una /24 quedan 251 direcciones utilizables, es decir 256 − 5 = 251). Si conectas muchas VPCs entre sí o con on-premises, el diseño de CIDRs es lo que decide entre "peering directo" y "habrá que renumerar". El destino puede ser también un <span class="tag-en">prefix list</span> — una lista nombrada de CIDRs gestionada centralizadamente — útil para no repetir la misma lista de redes en mil rutas. Con IPv6 el diseño cambia: los blocos los asigna AWS de su espacio y el reto se desplaza al routing y a los mecanismos de salida (egress-only IGW, NAT64/DNS64).</p>
 
 <figure class="diagram">
 <div class="mermaid">

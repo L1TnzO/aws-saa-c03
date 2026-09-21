@@ -131,27 +131,8 @@
 <p>El modelo mental es el mismo que ya viste con Organizations o SCPs: <strong>política declarativa aplicada a escala</strong>. Tú defines <em>qué</em> quieres proteger y <em>con qué reglas</em>; el servicio se encarga del <em>cómo</em> y del <em>cuándo</em>. En el examen aparece asociado a requisitos de compliance — retenciones de años, copias aisladas de la cuenta de producción, evidencia auditable — y su gran ventaja competitiva es que cubre con la misma interfaz recursos que de otra forma exigirían herramientas dispares: EC2 y EBS, RDS y Aurora, DynamoDB, EFS, la familia FSx, Storage Gateway, entre otros. Ojo con un matiz que la propia documentación remarca: AWS Backup no gobierna los backups que tomes <em>fuera</em> de él — la protección centralizada exige que las copias se hagan desde el servicio.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    subgraph ORG["AWS Organizations"]
-        ACC1["Cuenta de producción"]
-        ACC2["Cuenta de desarrollo"]
-    end
-    BP["Backup plan<br>schedule, retención, lifecycle"]
-    ACC1 -.->|"policy asignada"| BP
-    ACC2 -.->|"policy asignada"| BP
-    BP --> R["Recursos seleccionados<br>por tag o por ARN"]
-    R --> V["Backup vault<br>primera copia full"]
-    V -->|"copia cross-region"| V2["Vault en otra región"]
-    V -->|"copia cross-account"| V3["Vault en cuenta aislada"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class ACC1,ACC2 navy
-    class BP,R amber
-    class V,V2,V3 green
-</div>
-<figcaption>Figura 1 — Copias nacen de un backup plan, viven en vaults y se replican entre regiones y cuentas para DR y aislamiento.</figcaption>
+  <img src="../assets/img/aws-backup-vault-lock.jpg" alt="Protección de Datos Centralizada con AWS Backup y Vault Lock: Planes de Backup, Servicios Integrados, Copias Cross-Account/Cross-Region y Cumplimiento WORM Inmutable" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura de protección de datos unificada con AWS Backup y AWS Backup Vault Lock. Panel 1 (izquierda): gobernanza declarativa mediante <em>Backup Plans</em> centralizados (programación cron, ventana de inicio de 1 a 8 horas para mitigar la contención de I/O y copias on-demand), asignación dinámica de recursos por etiquetas (tags como <code>backup=diario</code>) sin modificar el plan, ciclo de vida automatizado con transición de <em>Warm Storage</em> a <em>Cold Storage Tier</em> (almacenamiento de bajo costo para archivo prolongado) y expiración segura, todo alojado en <em>Backup Vaults</em> regionales con cifrado KMS y <em>Vault Access Policies</em> orquestadas jerárquicamente con AWS Organizations. Panel 2 (centro): cobertura nativa sobre servicios clave (EC2, EBS, RDS, Aurora, DynamoDB, EFS, FSx y S3) con copias iniciales completas e incrementales continuas, integrada con arquitectura anti-ransomware y Disaster Recovery (DR) mediante copias <em>Cross-Region</em> (distancia geográfica ante contingencias regionales) y copias <em>Cross-Account</em> hacia una cuenta central aislada (patrón <em>Air-Gap</em> con claves KMS segregadas, preservando los respaldos intactos si las credenciales de la cuenta de producción resultan comprometidas), con supervisión continua vía AWS Backup Audit Manager. Panel 3 (derecha): protección WORM (<em>Write Once, Read Many</em>) con <em>AWS Backup Vault Lock</em>, contrastando el <em>Modo Gobernanza</em> (protección contra borrado accidental con posibilidad de revocación mediante permisos IAM privilegiados) frente al <em>Modo Cumplimiento</em> (inmutabilidad estricta e irreversible tras un período de gracia inicial, donde nadie —ni administradores IAM, ni el usuario root de la cuenta, ni AWS Support— puede eliminar copias ni reducir la retención mínima), cumpliendo normativas de retención financiera y legal estricta como SEC Rule 17a-4(f), FINRA 4511, CFTC 1.31 y HIPAA.</figcaption>
 </figure>
 
 <h2>Backup plans: la política es el producto</h2>

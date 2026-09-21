@@ -131,21 +131,8 @@
 <p>El examen lo enfoca como pieza del <span class="tag-en">serverless</span>: API Gateway + Lambda + DynamoDB es la tríada que aparece una y otra vez como la arquitectura de "minimum operational overhead, maximum scalability". Pero el servicio también protagoniza preguntas propias: qué tipo de API elegir (REST vs HTTP), cómo proteger el backend de ráfagas (throttling), cómo autenticar sin password propio (autorizadores de Cognito o Lambda) y cómo promover versiones (stages y deployments). Esta página cubre las cuatro decisiones, y remata con el ecosistema de frontend: AppSync para GraphQL y Amplify para hosting con CI/CD.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    C["Clientes HTTPS<br>web y móvil"] --> GW["API Gateway"]
-    GW --> TH["Throttling y<br>autorizadores"]
-    TH --> ST["Stage<br>despliegue"]
-    ST --> L["Lambda"]
-    ST --> B["Servicios AWS o<br>backend HTTP"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class C,GW navy
-    class TH,ST amber
-    class L,B green
-</div>
-<figcaption>Figura 1 — El camino de una petición: entra por el gateway, pasa controles de rate y autorización, y se enruta desde un stage hacia el backend.</figcaption>
+  <img src="../assets/img/api-gateway-arquitectura-seguridad.jpg" alt="Arquitectura, Seguridad e Integraciones en Amazon API Gateway: REST vs HTTP vs WebSocket, Autenticación, Throttling y VPC Link" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura, capas de seguridad e integraciones en Amazon API Gateway. <em>Panel 1 (Familias de API):</em> Selección del protocolo de entrada según el caso de uso técnico y comercial: <strong>REST API</strong> ofrece la suite completa de gobierno enterprise (transformación y mapeo de request/response con Velocity Templates VTL, validación estricta de JSON schemas en el edge, monetización y cuotas con API Keys y Usage Plans, integración directa con AWS WAF y despliegues canary); <strong>HTTP API</strong> representa la opción ligera de proxy de baja latencia con hasta un 71% de ahorro en costos respecto a REST API, soporte nativo para OIDC/OAuth 2.0 y validación automática de tokens JWT sin código, ideal para arquitecturas serverless con Lambda; y <strong>WebSocket API</strong> provee un canal de comunicación persistente y bidireccional (full-duplex sobre TCP) con enrutamiento según el payload JSON para chats, feeds financieros y notificaciones en tiempo real sin sobrecarga de sondeo (polling). <em>Panel 2 (Seguridad, Control y Caching):</em> Mecanismos de protección en profundidad: en el perímetro, <strong>AWS WAF</strong> bloquea ataques L7 (SQLi, XSS, rate limits por IP) y <strong>Custom Domains</strong> gestiona certificados SSL/TLS con ACM; en autorización, coexisten <strong>IAM SigV4</strong> para comunicación interna máquina a máquina, <strong>Cognito User Pools</strong> para validar JWTs de usuarios finales, y <strong>Lambda Authorizers</strong> para lógica personalizada que devuelve una IAM Policy dinámica (Allow/Deny); para protección del backend, el algoritmo <strong>Token Bucket</strong> impone límites continuos (Rate) y de ráfaga (Burst), respondiendo <strong>HTTP 429 Too Many Requests</strong> en el edge ante saturación; y <strong>API Gateway Cache</strong> memoriza respuestas por stage con TTL configurable y cifrado, descargando de computación a las funciones Lambda y bases de datos. <em>Panel 3 (Integraciones y Backends):</em> Vías de enrutamiento hacia la infraestructura: <strong>AWS Lambda</strong> mediante proxy integration para ejecución elástica serverless; <strong>HTTP Endpoints</strong> hacia servidores web externos o instancias EC2 legacy; <strong>VPC Link</strong> (clave de examen) para conectar privadamente con recursos en subnets privadas sin IP pública ni Internet Gateway mediante Application Load Balancer (ALB) interno, Network Load Balancer (NLB) o AWS Cloud Map; y <strong>AWS Service Integrations</strong> para invocar directamente servicios de AWS (como ingesta en SQS, escrituras en DynamoDB o streams en Kinesis) asumiendo un rol IAM sin pagar ni ejecutar código Lambda intermediario.</figcaption>
 </figure>
 
 <h2>REST API, HTTP API y WebSocket API</h2>

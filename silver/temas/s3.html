@@ -132,24 +132,8 @@
 <p>La cifra que el examen espera que recites de memoria es la durabilidad: <strong>99.999999999% (once nueves)</strong>, verificada en la documentación oficial para las storage classes. Lo importante para diseñar es que esa durabilidad es la misma en casi todas las clases: lo que cambia entre ellas es el precio, la disponibilidad y la velocidad de recuperación (<span class="tag-en">retrieval</span>). Esa distinción — durabilidad vs disponibilidad vs costo — es exactamente lo que el examen evalúa cuando te presenta un escenario de datos fríos, datasets públicos o retenciones regulatorias.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    Q["Nuevo objeto en S3"] --> A{"¿Patrón de acceso conocido?"}
-    A -->|"No o cambiante"| IT["Intelligent-Tiering<br>autooptimiza por objeto"]
-    A -->|"Sí"| B{"¿Acceso frecuente?"}
-    B -->|"Sí, latencia de ms"| S["S3 Standard<br>la clase por defecto"]
-    B -->|"Poco frecuente"| C{"¿Puedes perder una AZ?"}
-    C -->|"No"| IA["Standard-IA"]
-    C -->|"Sí, dato reproducible"| OZ["One Zone-IA<br>más barato"]
-    B -->|"Archivo a años"| G["Glacier IR, Flexible<br>o Deep Archive"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class Q,B,A amber
-    class S,IA,OZ,IT green
-    class C,G navy
-</div>
-<figcaption>Figura 1 — Árbol de decisión para elegir storage class: lo primero es el patrón de acceso, luego el costo de perder una AZ.</figcaption>
+  <img src="../assets/img/s3-storage-lifecycle.jpg" alt="Amazon S3: Clases de Almacenamiento, Ciclo de Vida y Replicación" loading="lazy">
+  <figcaption>Figura 1 — Amazon S3: Clases de Almacenamiento, Ciclo de Vida y Replicación. Panel superior: Matriz comparativa de Storage Classes (11 nueves de durabilidad, 99.999999999%), contrastando latencias (milisegundos vs minutos/horas o asíncrono con restore previo), disponibilidad SLA (99.99% en Standard hasta 99.5% en One Zone-IA), resiliencia multi-AZ frente a 1 sola AZ, tarifas de retrieval y compromiso de días mínimos facturados (30 días en IA, 90 días en Glacier Instant y Flexible, 180 días en Deep Archive). Panel inferior izquierdo: Pipeline automatizado de S3 Lifecycle con transiciones en cascada (Standard → IA → Glacier) y reglas de expiración permanente, previniendo penalizaciones por prorrateo de días restantes. Panel inferior derecho: Arquitectura de replicación asíncrona CRR (cross-region para resiliencia geográfica y cumplimiento) y SRR (same-region para agregación de logs multi-cuenta), destacando el requisito mandatorio de S3 Versioning activo en origen y destino, Owner Override, métricas S3 RTC (15 min) y soporte de cifrado KMS.</figcaption>
 </figure>
 
 <h2>Storage classes: la tabla más citada del examen</h2>

@@ -130,19 +130,8 @@
 <p>En el examen, ElastiCache aparece como <em>componente de una arquitectura</em>, casi nunca como tema aislado: la app hace <code>GET</code> a la caché, y solo en <span class="tag-en">cache miss</span> consulta la base de datos y recalcula. Las dos decisiones que debes dominar son el <strong>motor</strong> (Redis frente a Memcached) y la <strong>estrategia</strong> (<span class="tag-en">lazy loading</span> frente a <span class="tag-en">write-through</span>). Ambas son decisiones de trade-off — consistencia frente a simplicidad, acierto frente a costo de escritura — y los enunciados suelen describir el síntoma y esperar que tú nombres la cura.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-sequenceDiagram
-    participant App as Aplicación
-    participant C as ElastiCache
-    participant DB as Base de datos
-    App->>C: GET clave
-    C-->>App: cache miss
-    App->>DB: consulta original
-    DB-->>App: resultado
-    App->>C: SET clave con TTL
-    Note over App,C: la siguiente lectura de la clave<br>vuelve como cache hit
-</div>
-<figcaption>Figura 1 — Lazy loading: la caché se llena a demanda; solo se carga lo que de verdad se lee.</figcaption>
+  <img src="../assets/img/elasticache-estrategias-caching.jpg" alt="Estrategias de Caching en Amazon ElastiCache: Lazy Loading vs Write-Through y Topología Multi-AZ con Auto-Failover" loading="lazy">
+  <figcaption>Figura 1 — Estrategias de caching en memoria y arquitectura de alta disponibilidad en Amazon ElastiCache. Panel superior izquierdo: <em>Lazy Loading (Cache-Aside)</em>, patrón reactivo donde la aplicación orquesta el flujo consultando primero la caché (<code>GET key</code>); si ocurre un <em>Cache HIT</em>, ElastiCache responde con latencia sub-milisegundo (microsegundos) evitando toda consulta y costo sobre la base de datos subyacente (RDS o DynamoDB); ante un <em>Cache MISS</em>, la aplicación asume una penalización de tres saltos de red al consultar la base de datos y posteriormente poblar la clave en caché mediante <code>SET key</code> acompañado obligatoriamente de un <span class="tag-en">TTL (Time-To-Live)</span> para evitar la persistencia indefinida de datos obsoletos (<em>stale data</em>) tras mutaciones en backend, ofreciendo como virtud clave el ahorro de memoria RAM al almacenar exclusivamente los registros demandados. Panel superior derecho: <em>Write-Through</em>, patrón proactivo donde la aplicación escribe simultáneamente en la base de datos relacional/NoSQL y en ElastiCache en cada inserción o actualización (<code>INSERT/UPDATE</code> + <code>SET key</code> sincrónico), garantizando que la caché nunca contenga información desfasada y permitiendo que toda lectura posterior sea un <em>Cache HIT</em> instantáneo, asumiendo como compensación una mayor sobrecarga de latencia en escrituras e ineficiencia por registros cacheados que quizá nunca sean leídos (patrón recomendado en el examen SAA-C03: combinar <em>Write-Through</em> para escrituras con <em>Lazy Loading con TTL</em> para repoblación resiliente tras reinicios). Panel inferior: topología de alta disponibilidad <em>ElastiCache for Redis Multi-AZ con Auto-Failover</em>, estructurada con un Nodo Primario de lectura/escritura (R/W) en la Zona de Disponibilidad A conectado mediante replicación asíncrona continua (&lt; 1 segundo de desfase) a una Réplica de Lectura (Read Replica) en la Zona de Disponibilidad B que descarga tráfico analítico y es promovida automáticamente a primario ante incidentes de infraestructura en menos de 60 segundos sin modificar código (el CNAME DNS gestionado por AWS se actualiza de forma transparente), respaldada por snapshots RDB automáticos en Amazon S3 y escalado horizontal mediante <em>Cluster Mode</em> con hasta 500 shards, capacidades ausentes por diseño en clústeres volátiles y aislados de Memcached.</figcaption>
 </figure>
 
 <h2>Las dos estrategias: lazy loading y write-through</h2>

@@ -136,31 +136,8 @@
 <p>El patrón de examen es el <strong>organization trail</strong>: creado desde la cuenta de management de AWS Organizations, replica el trail en todas las cuentas miembro y centraliza los logs en un único bucket, de modo que ni los administradores de las cuentas hijas puedan borrar la evidencia. Dos endurecimientos clásicos: la <span class="tag-en">log file validation</span>, que firma cada archivo con hash para detectar manipulación del log, y los <span class="tag-en">Insights events</span>, que analizan la actividad de management inusual (picos de llamadas, errores de permisos masivos) para señalar actividad anómala. Desde el trail también se replica a CloudWatch Logs y EventBridge para alertar en (casi) tiempo real.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    subgraph USERS["Actividad en las cuentas"]
-        CONS["Consola"]
-        CLI["CLI y SDK"]
-        SVC["Servicios AWS"]
-    end
-    CT["CloudTrail<br>organization trail"]
-    S3["Bucket S3 central<br>con file validation"]
-    CW["CloudWatch Logs<br>o EventBridge"]
-    ALERT["Alertas y métricas<br>SNS o Lambda"]
-    CONS --> CT
-    CLI --> CT
-    SVC --> CT
-    CT -->|"log files"| S3
-    CT -->|"en tiempo casi real"| CW
-    CW --> ALERT
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class CONS,CLI,SVC navy
-    class CT green
-    class S3,CW,ALERT amber
-</div>
-<figcaption>Figura 1 — Organization trail: eventos de todas las cuentas hacia un bucket S3 central, con réplica a CloudWatch/EventBridge para alertar.</figcaption>
+<img src="../assets/img/cloudtrail-config-gobernanza.jpg" alt="Auditoría, Cumplimiento y Gobernanza en AWS: AWS CloudTrail y AWS Config" loading="lazy">
+<figcaption>Figura 1 — Auditoría, Cumplimiento y Gobernanza Continua en AWS: CloudTrail vs AWS Config. <em>Panel 1 (AWS CloudTrail - Auditoría de Llamadas API):</em> Registra quién realizó qué acción, en qué momento, desde qué IP y sobre qué recurso en el plano de control (Management Events) y datos (Data Events en S3/Lambda). En arquitecturas empresariales se implementa como <strong>Organization Trail</strong> desplegado desde la cuenta de gestión hacia todas las cuentas miembro, entregando registros cifrados a un bucket S3 centralizado con <strong>Log File Integrity Validation</strong> mediante digests criptográficos SHA-256 e Insights Events para detección de anomalías de invocación. <em>Panel 2 (AWS Config - Registro de Configuración y Compliance de Recursos):</em> Actúa como un historiador del estado de la infraestructura, capturando Configuration Items de recursos (Security Groups, EBS, S3, IAM) ante cada cambio. Evalúa el estado contra <strong>Config Rules</strong> gestionadas o personalizadas, empaquetadas en Conformance Packs (ej. CIS Benchmarks, PCI DSS), y ejecuta auto-remediación automática mediante SSM Automation Documents. <em>Panel 3 (Mnemotécnica y Disparo de Respuestas en Tiempo Real):</em> CloudTrail responde a "¿Quién hizo la llamada?" mientras Config responde a "¿Cómo está configurado el recurso y cómo ha cambiado su estado a lo largo del tiempo?". Ambos canalizan eventos críticos hacia <strong>Amazon EventBridge</strong> para orquestar alertas automáticas vía SNS o funciones AWS Lambda correctivas.</figcaption>
 </figure>
 
 <h2>AWS Config: el estado y el drift de cada recurso</h2>

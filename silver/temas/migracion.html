@@ -131,29 +131,8 @@
 <p>Cada decisión de migración se resuelve con tres variables: <em>qué</em> se mueve (¿solo datos, o servidores completos?), <em>cuánto downtime</em> tolera el corte final y <em>qué ancho de banda real</em> hay entre el datacenter y AWS. Sobre esas variables, el marco oficial de las <strong>6 R</strong> decide el estilo de la migración de cada aplicación, y los servicios de esta página ejecutan el plan. La regla que más se repite en el examen es de costo-eficiencia: si no hay razón para rediseñar, <span class="tag-en">rehost</span> con MGN es la salida más rápida y barata; rediseñar (refactor) solo se justifica cuando la aplicación necesita algo que la nube da y el datacenter no.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    M["Estrategias 6R<br>una por aplicacion"]
-    RH["Rehost<br>lift and shift"]
-    RP["Replatform<br>capa de datos o runtime"]
-    RF["Refactor<br>rediseno cloud native"]
-    RC["Repurchase<br>mover a SaaS"]
-    RT["Retire<br>apagar lo que sobra"]
-    RR["Retain<br>quedarse on-prem"]
-    M --> RH
-    M --> RP
-    M --> RF
-    M --> RC
-    M --> RT
-    M --> RR
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class M amber
-    class RH,RP,RF navy
-    class RC,RT,RR green
-</div>
-<figcaption>Figura 1 — Las 6 R: la estrategia se elige aplicación por aplicación, no para todo el portfolio.</figcaption>
+<img src="../assets/img/migracion-estrategias-6r.jpg" alt="Estrategias de Migración a AWS: El Marco de las 6 R y Herramientas de Transferencia y Modernización" loading="lazy">
+<figcaption>Figura 1 — Estrategias de Migración a AWS: El Marco de las 6 R y Herramientas de Ejecución. <em>Panel 1 (El Marco de las 6 R por Aplicación):</em> Clasificación metodológica según nivel de intervención: <strong>Rehost</strong> (Lift & Shift sin cambios de arquitectura hacia EC2), <strong>Replatform</strong> (Lift, Tinker & Shift con optimizaciones gestionadas a RDS/ECS), <strong>Refactor / Re-architect</strong> (Rediseño nativo serverless y microservicios con Lambda y DynamoDB), <strong>Repurchase</strong> (Sustitución por SaaS comercial), <strong>Retain</strong> (Permanencia on-premises por latencia o regulación) y <strong>Retire</strong> (Descomisión de cargas obsoletas). <em>Panel 2 (Servicios de Ejecución de Migración):</em> <strong>AWS Application Migration Service (MGN)</strong> para replicación continua a nivel de bloque de servidores físicos/VMs con cutover sin downtime; <strong>AWS Database Migration Service (DMS)</strong> junto a <strong>AWS Schema Conversion Tool (SCT)</strong> para migración homogénea o heterogénea de bases de datos con Continuous Data Capture (CDC); <strong>AWS DataSync</strong> para transferencia acelerada por red WAN de sistemas de archivos (NFS, SMB, S3); y <strong>AWS Snow Family</strong> para transferencia física masiva offline (Snowcone, Snowball Edge) cuando el ancho de banda es inviable. <em>Panel 3 (Matriz de Decisión Rápida para el Examen SAA-C03):</em> Mapeo de enunciados del examen según restricciones de tiempo de corte (Downtime), volumen de datos vs velocidad de enlace de red, y orquestación centralizada del portfolio con <strong>Migration Hub</strong> / <strong>Application Discovery Service</strong>.</figcaption>
 </figure>
 
 <h2>Las 6 R: el mapa de toda estrategia de migración</h2>

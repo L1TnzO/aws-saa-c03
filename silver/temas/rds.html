@@ -131,23 +131,8 @@
 <p>Para el examen, RDS no se pregunta como producto sino como <strong>arquitectura de despliegue</strong>. Hay dos palancas de diseño que el enunciado a menudo mezcla a propósito: <strong>Multi-AZ</strong>, que replica la instancia en otra Availability Zone para sobrevivir a fallos de infraestructura, y <strong>read replicas</strong>, que descargan las lecturas de la primaria para escalar horizontalmente. Se parecen en el nombre y se diferencian en todo lo demás: propósito, tipo de replicación, si sirven tráfico y si se pueden promover. Confundirlas es el error más caro de esta área del temario, así que esta página se construye alrededor de esa distinción.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    subgraph MAZ["Multi-AZ: alta disponibilidad"]
-        W1["Primaria<br>sirve escrituras"] -->|"réplica síncrona"| S1["Standby pasiva<br>no sirve lecturas"]
-    end
-    subgraph RR["Read replicas: escala de lectura"]
-        W2["Primaria<br>sirve escrituras"] -->|"réplica asíncrona"| R2["Réplica legible<br>sirve lecturas"]
-        W2 -->|"asíncrona"| R3["Réplica en<br>otra región"]
-    end
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class W1,W2 navy
-    class S1 amber
-    class R2,R3 green
-</div>
-<figcaption>Figura 1 — La distinción clave: la standby de Multi-AZ es pasiva y síncrona; la read replica sirve lecturas y es asíncrona.</figcaption>
+  <img src="../assets/img/rds-multiaz-replicas-proxy.jpg" alt="Amazon RDS: Multi-AZ, Read Replicas y RDS Proxy — Alta Disponibilidad vs Escalabilidad de Lectura y Connection Pooling" loading="lazy">
+  <figcaption>Figura 1 — Comparativa arquitectónica fundamental en Amazon RDS para el examen SAA-C03. <strong>Panel 1 (Multi-AZ · Alta Disponibilidad):</strong> Réplica standby síncrona a nivel de bloque en una segunda Availability Zone (RPO ≈ 0). Ante fallo de hardware o corte de AZ, RDS ejecuta failover automático conmutando el CNAME de DNS en &lt; 60–120 s de forma transparente. La standby es estrictamente pasiva y no atiende tráfico de lectura (la opción <em>Multi-AZ DB Cluster</em> añade 2 réplicas legibles en 3 AZs). <strong>Panel 2 (Read Replicas · Escalabilidad):</strong> Hasta 15 réplicas asíncronas con replication lag eventual en la misma AZ, cross-AZ o cross-Region con endpoints de solo lectura independientes para descargar consultas <code>SELECT</code> y analíticas; son promocionables manualmente a base de datos independiente (Standalone DB) para Disaster Recovery y migraciones sin downtime (¡no conmutan solas!). <strong>Panel 3 (Amazon RDS Proxy · Resiliencia Serverless):</strong> Pool de conexiones gestionado que multiplexa miles de conexiones de clientes elásticos (AWS Lambda, ECS) sobre un pool persistente a la BD, integrando autenticación IAM y AWS Secrets Manager, y reduciendo el tiempo de failover Multi-AZ hasta en un 66% preservando los sockets de cliente abiertos. La <strong>Matriz inferior</strong> consolida los criterios clave de decisión arquitectónica para preguntas de examen.</figcaption>
 </figure>
 
 <h2>Multi-AZ: alta disponibilidad con standby síncrona</h2>

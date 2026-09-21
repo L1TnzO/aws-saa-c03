@@ -130,27 +130,8 @@
 <p>El examen premia esta pareja con dos palabras mágicas que aparecen una y otra vez en las opciones correctas: <span class="tag-en">repeatable</span> y <span class="tag-en">least operational overhead</span>. CloudFormation responde a la primera (el mismo template despliega el mismo resultado, siempre) y SSM a la segunda (una flota gestionada desde un punto central, con sesiones auditadas). Entre ambos cubren el ciclo completo de vida de la infraestructura: nacer de un template, cambiar con change sets, vigilarse contra el drift y operarse a escala. Esta página recorre ese ciclo en orden.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    G["Template YAML o JSON<br>versionado en Git"]
-    CS["Change set<br>vista previa de cambios"]
-    ST["Stack<br>creacion o actualizacion"]
-    R["Recursos AWS<br>EC2 RDS ELB S3"]
-    DD["Drift detection<br>auditoria continua"]
-    G -->|"pipeline"| CS
-    CS -->|"aprobacion"| ST
-    ST --> R
-    R -.->|"cambios manuales"| DD
-    DD -.->|"corregir template"| G
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class G,ST navy
-    class CS amber
-    class R green
-    class DD amber
-</div>
-<figcaption>Figura 1 — El ciclo IaC: template → change set → stack → recursos, con drift detection devolviendo la verdad al template.</figcaption>
+<img src="../assets/img/cloudformation-iac-arquitectura.jpg" alt="Infraestructura como Código con AWS CloudFormation: Stacks, StackSets, Change Sets y Drift Detection" loading="lazy">
+<figcaption>Figura 1 — Arquitectura Integral de Infraestructura como Código (IaC) con AWS CloudFormation. <em>Panel 1 (Anatomía del Template y Parámetros):</em> Estructura declarativa en YAML/JSON compuesta por Parameters (entradas dinámicas), Mappings (tablas de búsqueda como AMIs por región), Conditions (despliegues condicionales dev/prod), Resources (bloque mandatorio) y Outputs con exportación de valores mediante <code>Fn::ImportValue</code> para cross-stack references. Uso de funciones intrínsecas (<code>Ref</code>, <code>Fn::GetAtt</code>, <code>Fn::Sub</code>) y pseudoparámetros (<code>AWS::Region</code>, <code>AWS::AccountId</code>). <em>Panel 2 (Topologías de Despliegue: Stacks, Nested Stacks y StackSets):</em> Despliegue atómico de recursos en Standard Stacks; desacoplamiento y reutilización mediante Nested Stacks (ej. VPC compartida o capas de backend) con el recurso <code>AWS::CloudFormation::Stack</code>; y aprovisionamiento simultáneo multi-cuenta y multi-región mediante <strong>CloudFormation StackSets</strong> gobernado centralmente por AWS Organizations. <em>Panel 3 (Gobernanza, Ciclo de Vida y Resiliencia):</em> Control preventivo con <strong>Change Sets</strong> (vista previa antes de mutar recursos), detección de modificaciones manuales no autorizadas con <strong>Drift Detection</strong>, protección de datos críticos ante borrado de stack con <code>DeletionPolicy: Retain</code>, y confirmación de arranque de instancias EC2 con <code>cfn-init</code>, <code>cfn-signal</code> y <code>CreationPolicy</code>.</figcaption>
 </figure>
 
 <h2>Templates y stacks: gestionar cien recursos como uno</h2>

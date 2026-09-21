@@ -130,24 +130,8 @@
 <p>El problema que resuelve es el que aparece en mitad de todo proyecto con Lambda: encadenar funciones una tras otra acaba en código de orquestación frágil — una Lambda que llama a otra, reintentos escritos a mano, timeouts mal repartidos y cero visibilidad de por dónde se quedó el flujo. Step Functions externaliza esa lógica: la secuencia, las ramas, los <span class="tag-en">retries</span> y la compensación de errores viven en la definición del workflow, no en tu código. Para el examen, es la respuesta cuando aparecen las palabras <em>orchestrate</em>, <em>multi-step workflow</em>, <em>retry with backoff</em> o <em>visual workflow</em> junto a Lambda.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    A["Start<br>pedido recibido"] --> B["Task<br>cobrar con Lambda"]
-    B --> C{"Choice<br>¿pago aprobado?"}
-    C -->|"sí"| D["Parallel<br>factura y email"]
-    C -->|"no"| E["Wait<br>reintentar luego"]
-    E --> B
-    D --> F["Map<br>procesa cada item"]
-    F --> G["Task - guardar<br>en DynamoDB"]
-    G --> H["End - éxito"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class A,H navy
-    class B,D,F,G green
-    class C,E amber
-</div>
-<figcaption>Figura 1 — Un workflow de pedido como máquina de estados: Task, Choice, Wait, Parallel y Map encadenados; la consola muestra este grafo con su estado en vivo.</figcaption>
+  <img src="../assets/img/step-functions-workflows-estados.jpg" alt="Orquestación Serverless con AWS Step Functions: Standard vs Express Workflows, Anatomía de Estados y Resiliencia con Retry/Catch" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura integral de AWS Step Functions: (1) Modelos de Workflow (Standard para ejecuciones de hasta 1 año con semántica exactly-once, auditoría visual y costo por transición vs. Express para alta frecuencia de más de 100.000 ops/s, hasta 5 min y tarificación por GB-segundo); (2) Anatomía de la máquina de estados en Amazon States Language (ASL) con integraciones directas SDK sin glue code (Task, Choice, Parallel con sincronización, Map concurrente, Wait sin costo de cómputo, Pass y terminales Succeed/Fail); y (3) Resiliencia declarativa mediante políticas de Retry con backoff exponencial y jitter, bloques Catch para desvío seguro a rollback transaccional (patrón SAGA) o colas Dead-Letter (SQS/SNS).</figcaption>
 </figure>
 
 <h2>Los estados que debes reconocer al vuelo</h2>

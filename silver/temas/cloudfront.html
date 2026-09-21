@@ -137,19 +137,8 @@
 <p>El segundo beneficio es estructural: como copias de tus objetos (caché) viven en múltiples edge locations, ganas <strong>fiabilidad y disponibilidad</strong> — el fallo de un camino de red no derriba el servicio, y los picos de demanda se absorben en el borde. El contenido estático es el caso perfecto (assets, imágenes, vídeos, paquetes de software); el dinámico también se beneficia de la ruta optimizada y de la reutilización de conexiones TLS hacia el origin. La vida útil de cada objeto en caché la gobierna el <span class="tag-en">TTL</span> — y cuando publicas algo urgente, la invalidación de caché echa abajo el objeto antes de que expire. Para orígenes S3, el patrón de examen manda mantener el bucket privado y permitir el acceso solo desde CloudFront, de modo que nadie bypase la CDN.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    U["Usuario"] -->|"peticion"| E["Edge location<br>mas cercana"]
-    E -->|"cache MISS<br>recupera"| O["Origin<br>S3 · HTTP server"]
-    O -->|"responde y se cachea"| E
-    E -->|"cache HIT<br>entrega inmediata"| U
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class U,O navy
-    class E green
-</div>
-<figcaption>Figura 1 — Edge caching: la petición llega a la edge location con menor latencia; MISS recupera del origin y cachea, HIT entrega al instante.</figcaption>
+  <img src="../assets/img/cloudfront-vs-accelerator.jpg" alt="Amazon CloudFront vs AWS Global Accelerator: Comparativa Arquitectural de Servicios de Borde y Aceleración Global" loading="lazy">
+  <figcaption>Figura 1 — Amazon CloudFront vs AWS Global Accelerator: Panel A muestra CloudFront optimizando contenido web y APIs (Capa 7) mediante Edge Caching (Cache HIT con entrega directa en milisegundos desde el PoP, y Cache MISS recuperando objetos de orígenes privados como S3 protegido con OAC o ALB a través del backbone troncal de AWS) junto con protección perimetral WAF. Panel B ilustra AWS Global Accelerator optimizando rutas Anycast de red (Capa 4/7) mediante 2 direcciones IP anycast estáticas inmutables, inyectando tráfico TCP/UDP directamente a la fibra privada de AWS hacia endpoints multi-región con failover automático por health checks sin alterar las direcciones IP de entrada.</figcaption>
 </figure>
 
 <h2>Global Accelerator: IPs anycast sobre la red global</h2>

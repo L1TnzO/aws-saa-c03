@@ -130,25 +130,8 @@
 <p>El whitepaper oficial de AWS ordena las estrategias de DR en la nube en una escalera de cuatro peldaños: <span class="tag-en">backup and restore</span>, <span class="tag-en">pilot light</span>, <span class="tag-en">warm standby</span> y <span class="tag-en">multi-site active/active</span>. Las tres primeras son patrones <em>activo/pasivo</em>: una Región activa sirve el tráfico y la pasiva no atiende nada hasta que se dispara un <em>failover</em>; la cuarta es <em>activo/activo</em> y ambas Regiones sirven tráfico simultáneamente. A cada paso hacia la derecha el RTO y el RPO se reducen y el costo sube, así que la regla de diseño es una sola: elige el peldaño más bajo que cumpla los requisitos del negocio. Aplicada a una tabla de cuatro filas, esa regla responde media docena de preguntas del examen.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    subgraph AP["Estrategias activo/pasivo"]
-        BR["Backup and Restore<br>solo copias en S3"]
-        PL["Pilot Light<br>nucleo minimo encendido"]
-        WS["Warm Standby<br>copia reducida activa"]
-    end
-    subgraph ACT["Estrategia activo/activo"]
-        AA["Multi-site Active-Active<br>dos regiones en trafico"]
-    end
-    BR --> PL
-    PL --> WS
-    WS --> AA
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    class BR,PL,WS navy
-    class AA green
-</div>
-<figcaption>Figura 1 — La escalera de DR del whitepaper oficial: hacia la derecha el costo y la complejidad suben mientras RTO y RPO bajan.</figcaption>
+  <img src="../assets/img/estrategias-dr-aws.jpg" alt="Estrategias de Disaster Recovery (DR) en AWS: Backup & Restore, Pilot Light, Warm Standby y Multi-Site Active/Active" loading="lazy">
+  <figcaption>Figura 1 — La escalera de Disaster Recovery en AWS: las 4 estrategias oficiales comparadas por estado de datos, cómputo activo, métricas RTO/RPO y costo relativo. Hacia la derecha, la recuperación es más rápida a cambio de mayor inversión y complejidad.</figcaption>
 </figure>
 
 <h2>RTO y RPO: los dos números que gobiernan el diseño</h2>

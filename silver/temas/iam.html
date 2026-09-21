@@ -130,31 +130,8 @@
 <p>El examen no pregunta pantallas de la consola: pregunta decisiones de diseño. La regla número uno que debes interiorizar se llama <span class="tag-en">least privilege</span> (principio de mínimo privilegio): cada identidad debe poder hacer exactamente lo que necesita y nada más. La segunda regla es que las aplicaciones <strong>nunca</strong> usan usuarios IAM con access keys: usan <strong>roles</strong>, porque sus credenciales son temporales y rotan automáticamente vía <span class="tag-en">AWS STS</span>.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    ACC["Cuenta AWS<br>(root user + MFA)"]
-    subgraph IDS["Identidades IAM"]
-        GRP["Grupos<br>(departamentos)"]
-        USR["Usuarios IAM<br>(humanos, con MFA)"]
-        ROL["Roles IAM<br>(credenciales temporales)"]
-    end
-    subgraph PERM["Autorización"]
-        POL["Políticas IAM<br>(JSON: Allow / Deny)"]
-    end
-    ACC --> GRP
-    GRP --> USR
-    USR --> ROL
-    ROL --> PERM
-    STS["AWS STS<br>(tokens temporales)"] -.-> ROL
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class ACC navy
-    class GRP,USR,ROL green
-    class POL amber
-    class STS navy
-</div>
-<figcaption>Figura 1 — Mapa de IAM: identidades (verde), políticas (ámbar) y STS emitiendo credenciales temporales.</figcaption>
+  <img src="../assets/img/iam-identidades-mapa.jpg" alt="Anatomía y Mapa de Identidades IAM: Usuarios, Grupos, Roles y Políticas" loading="lazy">
+  <figcaption>Figura 1 — Anatomía y mapa de identidades en AWS IAM: el Root User reservado exclusivamente para emergencias (break-glass) con MFA; Usuarios IAM para identidades permanentes humanas y Grupos para asignación colectiva de permisos; Roles IAM asumidos dinámicamente por servicios (EC2/Lambda), identidades federadas o accesos cross-account mediante AWS STS (credenciales temporales); y el modelo de autorización con Políticas de Identidad (Identity-based) y de Recurso (Resource-based) gobernadas por el principio de menor privilegio donde un Explicit Deny siempre prevalece.</figcaption>
 </figure>
 
 <h2>Los cuatro objetos de IAM que debes dominar</h2>
@@ -185,17 +162,8 @@ Si el escenario habla de una aplicación en EC2 o Lambda que necesita acceder a 
 <p>Cuando varias cuentas AWS necesitan colaborar (producción, desarrollo, seguridad), el patrón oficial es el <span class="tag-en">role switching</span>: la cuenta A confía (<em>trust policy</em>) en usuarios de la cuenta B para asumir un rol. El usuario de B solicita credenciales temporales a <strong>AWS STS</strong> (<code>AssumeRole</code>), recibe un token de hasta 12 horas, y opera en A con los permisos del rol. Este flujo aparece en preguntas de multi-cuenta (que se resuelven junto a AWS Organizations y SCPs) y es la base de la federación con directorios corporativos.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-sequenceDiagram
-    participant Dev as Usuario en cuenta Dev
-    participant STS as AWS STS
-    participant Prod as Rol en cuenta Prod
-    Dev->>STS: AssumeRole (arn:rol-en-prod)
-    STS->>Dev: credenciales temporales (1-12 h)
-    Dev->>Prod: opera con permisos del rol
-    Note over Dev,Prod: La trust policy del rol define quién puede asumirlo
-</div>
-<figcaption>Figura 2 — Cross-account access con STS: credenciales temporales en lugar de keys permanentes.</figcaption>
+  <img src="../assets/img/iam-cross-account.jpg" alt="Acceso Cross-Account y Role Switching con AWS STS (AssumeRole)" loading="lazy">
+  <figcaption>Figura 2 — Acceso Cross-Account y Role Switching con AWS STS: un usuario o servicio en la cuenta origen (Dev) invoca <code>sts:AssumeRole</code> apuntando al ARN del rol en la cuenta destino (Prod). AWS STS valida la <em>Trust Policy</em> del rol y retorna credenciales efímeras (Access Key, Secret Key y Session Token válidos de 1 a 12 horas). Con esas credenciales temporales, el usuario opera directamente sobre los recursos autorizados en producción (Amazon S3, DynamoDB) según la <em>Permissions Policy</em>, evitando claves permanentes y reduciendo la superficie de ataque.</figcaption>
 </figure>
 
 <h2>Cómo cae en el examen: señales y trampas</h2>

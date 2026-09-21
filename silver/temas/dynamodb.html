@@ -131,21 +131,8 @@
 <p>El modelo de datos es <span class="tag-en">key-value and document</span>: tablas de <em>items</em> con atributos, donde la clave primaria puede ser solo una <strong>partition key</strong> o la combinación <strong>partition key + sort key</strong>. No hay JOIN: la guía oficial recomienda <span class="tag-en">denormalizar</span> el modelo para responder con una sola consulta, aunque DynamoDB sí ofrece <strong>transacciones ACID</strong> entre items y tablas. Para consultar por atributos que no forman la clave existen los <strong>índices secundarios globales (GSI)</strong> y <strong>locales (LSI)</strong>. Las lecturas pueden ser eventualmente consistentes (por defecto) o <span class="tag-en">strongly consistent</span> si lo pides por operación.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    T["Tabla DynamoDB<br>ítems con partition key"] --> H["Función hash<br>sobre la partition key"]
-    H --> P1["Partición 1<br>SSD, replicada en 3 AZ"]
-    H --> P2["Partición 2"]
-    H --> P3["Partición 3"]
-    H --> HT["Partición saturada<br>riesgo de hot key"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class T,H navy
-    class P1,P2,P3 green
-    class HT amber
-</div>
-<figcaption>Figura 1 — Distribución de datos: el hash de la partition key decide la partición; una clave desequilibrada concentra todo el tráfico.</figcaption>
+  <img src="../assets/img/dynamodb-arquitectura-dax.jpg" alt="Arquitectura de Amazon DynamoDB: Particionamiento, Acelerador DAX y Global Tables" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura de Amazon DynamoDB: Mecanismos de particionamiento interno, aceleración en memoria y replicación multi-región global. A nivel de almacenamiento físico, la Partition Key es procesada por una función hash interna para dispersar uniformemente los ítems entre particiones SSD independientes (hasta 10 GB y 1,000 WCU / 3,000 RCU por partición, replicadas en 3 AZs) con Sort Key opcional para búsquedas de rango, evitando el riesgo de particiones calientes (hot partitions y throttling) mediante claves de alta cardinalidad. Como capa de aceleración, Amazon DynamoDB Accelerator (DAX) proporciona un clúster de caché en memoria multi-nodo totalmente gestionado en VPC, 100% compatible con la API de DynamoDB a nivel de SDK sin reescribir consultas, reduciendo la latencia de milisegundos a microsegundos (µs) para lecturas repetidas eventualmente consistentes (Item y Query cache). Para resiliencia y presencia internacional, DynamoDB Global Tables implementa replicación Active-Active bidireccional completamente gestionada sobre DynamoDB Streams con resolución de conflictos de último escritor (Last-Writer-Wins, LWW), permitiendo lecturas y escrituras locales con latencia de milisegundos en cualquier continente y alcanzando un SLA de disponibilidad del 99.999% con RTO/RPO cercano a cero ante contingencias regionales.</figcaption>
 </figure>
 
 <h2>Capacidad: provisioned con RCU/WCU frente a on-demand</h2>

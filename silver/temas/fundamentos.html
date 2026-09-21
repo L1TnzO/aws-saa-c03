@@ -131,24 +131,8 @@
 <p>El whitepaper <em>Overview of Amazon Web Services</em> (fuentes FND-01 y FND-02) resume la propuesta de valor oficial: AWS comenzó en 2006 ofreciendo infraestructura de IT como servicios web, hoy supera los <strong>200 servicios</strong> disponibles <span class="tag-en">on-demand</span> en segundos con precios <span class="tag-en">pay-as-you-go</span>, y da servicio a cientos de miles de empresas en <strong>190 países</strong>. La consecuencia de examen es directa: reemplazas gastos de capital fijos y anticipados por costes variables que escalan con el negocio — el argumento que justifica media sección del dominio de costes. Antes de diseñar nada, fija el vocabulario exacto en inglés: el enunciado dirá <span class="tag-en">Region</span>, <span class="tag-en">Availability Zone</span> y <span class="tag-en">edge location</span> sin traducirlos.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    R["Region eu-west-1<br>conjunto de AZs"]
-    subgraph AZS["Availability Zones"]
-        A["AZ-a<br>uno o mas data centers"]
-        B["AZ-b<br>energia y red redundantes"]
-        C["AZ-c<br>separadas fisicamente"]
-    end
-    R --> AZS
-    EDGE["Edge locations<br>CloudFront y Route 53"] -.->|"servicio de borde"| R
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class R navy
-    class A,B,C green
-    class EDGE amber
-</div>
-<figcaption>Figura 1 — De la Region a las AZs: cada AZ es un grupo de data centers aislados e interconectados; la edge network sirve contenido y DNS cerca de los usuarios.</figcaption>
+  <img src="../assets/img/infraestructura-global-aws.jpg" alt="Infraestructura Global de AWS: Regiones, Zonas de Disponibilidad (AZs) y Red de Borde (Edge Network)" loading="lazy">
+  <figcaption>Figura 1 — Relación jerárquica, aislamiento físico y latencias en la infraestructura global de AWS. En el perímetro exterior, la red de borde con más de 600 Edge Locations (CloudFront y Route 53) acerca la caché y el DNS con latencias de &lt;10-30 ms, complementada por Local Zones y Wavelength (&lt;10 ms). En el núcleo, cada Region conforma una frontera geográfica autónoma que alberga múltiples Availability Zones (AZs) físicamente separadas (&gt;10-50 km), con subestaciones y refrigeración independientes (blast radius aislado), e interconectadas mediante un anillo de fibra metro DWDM dedicado de ultra-baja latencia (&lt;1-2 ms) que permite replicación síncrona de datos sin transitar por la internet pública.</figcaption>
 </figure>
 
 <h2>La cuenta AWS: la unidad de aislamiento, identidad y facturación</h2>

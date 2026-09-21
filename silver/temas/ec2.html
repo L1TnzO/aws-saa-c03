@@ -203,23 +203,8 @@ Cuando el escenario menciona el tipo de recurso que "se queda corto" (CPU, memor
 <p>Tres matices de la documentación oficial que caen en preguntas. Primero, el <strong>Spot price</strong> se ajusta gradualmente según la oferta y demanda a largo plazo, y es distinto por tipo de instancia y por AZ. Segundo, AWS te avisa de una <span class="tag-en">Spot interruption</span> con <strong>2 minutos de antelación</strong>; puedes elegir que la instancia se termine, se pare o hiberne, y existe además la señal de <span class="tag-en">instance rebalance recommendation</span> que llega antes del aviso formal, para rebalancear tareas proactivamente. Tercero — y este es un distractor favorito — el gasto en Spot <strong>no cuenta para los compromisos de Savings Plans</strong> ni recibe descuento adicional de ellos: la pregunta "¿combino Spot con Savings Plans para ahorrar más?" tiene respuesta "no, son ahorros independientes".</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    A["Necesito una instancia"] --> B{"¿Puede interrumpirse?"}
-    B -->|"Sí"| SPOT["Spot<br>descuento máximo"]
-    B -->|"No"| C{"¿Uso continuo 24/7?"}
-    C -->|"No"| OD["On-Demand<br>sin compromiso"]
-    C -->|"Sí"| D{"¿Necesito flexibility?"}
-    D -->|"Cambiar familia o región"| CSP["Compute Savings Plan<br>cubre EC2 Fargate Lambda"]
-    D -->|"Familia fija y zonal"| RI["Reserved Instance<br>zonal reserva capacidad"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class A,B,C,D navy
-    class SPOT green
-    class OD,CSP,RI amber
-</div>
-<figcaption>Figura 2 — Árbol de decisión de compra: interrumpibilidad y predecibilidad primero, flexibilidad después.</figcaption>
+  <img src="../assets/img/ec2-opciones-compra.jpg" alt="Opciones de Compra en Amazon EC2: Modelos de Costo y Flexibilidad" loading="lazy">
+  <figcaption>Figura 2 — Opciones de Compra en Amazon EC2: Árbol de Decisión y Modelos de Costo. El panel superior traza la secuencia de evaluación recomendada para el examen SAA-C03 (interrumpibilidad de la carga ➔ predecibilidad temporal 24/7 ➔ exigencias normativas o de licencias por socket/core ➔ flexibilidad pura). La matriz inferior contrasta los cuatro modelos de adquisición: On-Demand (sin compromiso, pago por segundo para picos impredecibles y desarrollo), Savings Plans y Reserved Instances (hasta 72% de ahorro para cargas continuas en estado estable con Compute SP extensible a Fargate y Lambda), Spot Instances (hasta 90% de descuento aprovechando capacidad ociosa con preaviso de interrupción de 2 minutos vía EventBridge/Metadata para cargas batch o contenedores stateless) y Dedicated Hosts / Instances (servidor físico exclusivo imprescindible para licencias BYOL por socket/core o aislamiento normativo estricto). En la base se destaca el patrón FinOps de Auto Scaling Groups con Mixed Instances Policy.</figcaption>
 </figure>
 
 <h2>Placement groups: el control físico de la colocación</h2>

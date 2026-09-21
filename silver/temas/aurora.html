@@ -131,20 +131,8 @@
 <p>La diferencia estructural está en el <span class="tag-en">storage subsystem</span>: en RDS clásico cada instancia tiene su volumen EBS y la réplica duplica todo; en Aurora, <strong>el almacenamiento es un cluster volume compartido</strong> por todas las instancias, que crece automáticamente hasta 256 TiB. La consecuencia de diseño es doble: escribir una vez es visible para todas las réplicas (la replicación es rapidísima porque no copia bloques entre instancias), y el cluster se separa en rol <strong>writer</strong> y roles <strong>reader</strong>, cada uno con sus endpoints. Esa separación compute/storage es exactamente el argumento que el examen espera cuando compara Aurora contra RDS Multi-AZ.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    APP["Aplicación"] --> WE["Writer endpoint<br>una instancia primaria"]
-    APP --> RE["Reader endpoint<br>réplicas de lectura"]
-    WE -->|"escribe"| ST["Cluster volume<br>6 copias en 3 AZ<br>hasta 256 TiB"]
-    RE -->|"lee"| ST
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class APP navy
-    class WE,RE green
-    class ST amber
-</div>
-<figcaption>Figura 1 — Arquitectura de un Aurora DB cluster: escritura y lectura son endpoints distintos sobre un volumen compartido y redundante.</figcaption>
+  <img src="../assets/img/aurora-arquitectura-cluster.jpg" alt="Arquitectura de Amazon Aurora: Cluster Volume Compartido, Separación Cómputo/Almacenamiento, Endpoints y Global Database" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura de Amazon Aurora: separación radical de cómputo y almacenamiento distribuido Multi-AZ. La capa de cómputo gestiona la instancia Writer primaria (escrituras exclusivas enrutadas por el Writer/Cluster Endpoint con conmutación por error automática en menos de 30 segundos) y hasta 15 Aurora Replicas (balanceo de consultas de solo lectura mediante el Reader Endpoint con latencias inferiores a 10–20 ms al compartir directamente el volumen sin replicación de bloques inter-instancia). La capa de almacenamiento virtualizado distribuye 6 copias de cada bloque de datos entre 3 Availability Zones (2 copias por AZ) con quorum de 4/6 para escrituras y 3/6 para lecturas, auto-escalado elástico hasta 256 TiB en segmentos de 10 GiB y auto-reparación continua en segundo plano sin downtime. En el lateral, Aurora Global Database extiende la resiliencia replicando a nivel de storage físico hacia hasta 10 regiones secundarias con latencia sub-segundo (&lt; 1 s) y RTO inferior a 1 minuto sin sobrecargar la CPU del clúster primario.</figcaption>
 </figure>
 
 <h2>El storage distribuido: 6 copias en 3 AZs</h2>

@@ -130,23 +130,8 @@
 <p>La anatomía que importa: un volumen EBS se replica automáticamente <strong>entre servidores dentro de su AZ</strong> para protegerte del fallo de un componente; el EC2 y el EBS deben estar en la misma AZ para adjuntarse; y puedes modificar tamaño y rendimiento en caliente (<span class="tag-en">Elastic Volumes</span>) sin detener la instancia. Los dos objetos que gestiona el servicio son los <strong>volúmenes</strong> y los <strong>snapshots</strong> (backups point-in-time que persisten independientemente del volumen). Elegir bien el tipo de volumen y automatizar sus backups son las dos decisiones que caen en el examen.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    subgraph AZ1["Availability Zone"]
-        EC2["Instancia EC2"]
-        V["Volumen EBS<br>replicado en la AZ"]
-        EC2 -- "adjunta<br>bloques" --> V
-    end
-    V -- "snapshot<br>incremental" --> SN["Snapshots en S3<br>no accesibles directo"]
-    SN -- "restore" --> V2["Nuevo volumen<br>en otra AZ o región"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class EC2,V green
-    class SN amber
-    class V2 navy
-</div>
-<figcaption>Figura 1 — El ciclo EBS: volumen atado a su AZ, snapshots en S3 como puente entre AZ y regiones.</figcaption>
+  <img src="../assets/img/ebs-tipos-ciclo.jpg" alt="Amazon EBS: Tipos de Volúmenes (SSD vs HDD) y Ciclo de Vida con Snapshots en Amazon S3" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura de Amazon EBS: clasificación de volúmenes y ciclo de persistencia de snapshots. Panel izquierdo: bifurcación de cargas transaccionales con SSD (gp3 con baseline gratuito de 3.000 IOPS / 125 MiB/s escalables independientemente vs. io2 Block Express de misión crítica con latencia sub-milisegundo &lt;500 µs, hasta 256.000 IOPS, 99.999% de durabilidad y soporte Multi-Attach para clústeres en la misma AZ) frente a cargas secuenciales con HDD (st1 optimizado para throughput de big data/logs y sc1 para archivo frío al menor costo, recordando que los HDD nunca pueden ser volúmenes de arranque/boot). Panel derecho: ciclo de vida de snapshots incrementales point-in-time respaldados en Amazon S3 (gestionado internamente con 11 nueves de durabilidad, no accesible vía S3 API directa), donde eliminar un snapshot no borra datos referenciados por snapshots posteriores, permitiendo la restauración instantánea en cualquier AZ de la región (vía Fast Snapshot Restore) o la replicación cross-region para Disaster Recovery con re-cifrado KMS.</figcaption>
 </figure>
 
 <h2>Tipos de volumen: SSD para IOPS, HDD para throughput</h2>

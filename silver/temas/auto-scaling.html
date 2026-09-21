@@ -130,28 +130,8 @@
 <p>Lo que el examen evalúa no es crear el ASG sino las decisiones alrededor: qué política de escalado encaja con cada patrón de tráfico, cómo se comporta el grupo multi-AZ, qué pasa cuando una Spot se interrumpe (el grupo intenta lanzar reemplazo para mantener la capacidad) y qué health check detecta qué tipo de fallo. La pieza previa obligatoria es la <strong>launch template</strong>: la plantilla reutilizable (AMI, instance type, security groups, options de compra) de la que el ASG fabrica instancias idénticas — y que, además, es lo único que permite mezclar On-Demand y Spot dentro del mismo grupo.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    LT["Launch template<br>AMI + tipo + compra"]
-    ASG["Auto Scaling group<br>min 2 · desired 4 · max 8"]
-    subgraph ZONA["Región multi-AZ"]
-        AZA["AZ a<br>2 instancias"]
-        AZB["AZ b<br>2 instancias"]
-    end
-    HC["Health checks<br>EC2 + ELB"]
-    REP["Reemplazo<br>termina y relanza"]
-    LT --> ASG
-    ASG --> ZONA
-    HC -- "unhealthy" --> ASG
-    ASG --> REP
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class LT,ASG green
-    class AZA,AZB navy
-    class HC,REP amber
-</div>
-<figcaption>Figura 1 — ASG multi-AZ: la capacidad deseada se reparte entre AZ y los health checks disparan reemplazos.</figcaption>
+  <img src="../assets/img/auto-scaling-arquitectura.jpg" alt="Arquitectura de Amazon EC2 Auto Scaling Multi-AZ: Distribución balanceada, Launch Templates, Políticas de Escalado y Autorrecuperación" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura de Amazon EC2 Auto Scaling Multi-AZ: aprovisionamiento consistente mediante Launch Templates (combinando instancias On-Demand para carga base y Spot para optimización de costos de hasta el 90%), distribución uniforme y rebalanceo automático de capacidad (Min, Desired, Max) entre Availability Zones, monitoreo de salud dual (EC2 Status Checks a nivel hipervisor y ELB Health Checks a nivel de aplicación HTTP) con autorrecuperación continua, y políticas de escalado dinámicas integradas con Amazon CloudWatch (Target Tracking, Step Scaling, Scheduled y Predictive Scaling).</figcaption>
 </figure>
 
 <h2>Anatomía del grupo: capacidad, salud y equilibrio</h2>

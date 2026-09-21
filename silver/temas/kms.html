@@ -130,23 +130,8 @@
 <p>El examen no pide criptografía matemática: pide decisiones. ¿Quién gestiona la llave? ¿Cómo rota? ¿Qué pasa con la auditoría de cada uso de la llave? ¿Y el tráfico entre el usuario y tu aplicación? Para eso entran en escena ACM (certificados TLS que se renuevan solos), CloudHSM (HSM de un solo inquilino para compliance estricto) y Artifact (reportes de compliance listos para tus auditores). En esta página juntamos las cuatro piezas y las convertimos en una tabla de decisiones.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    KMS["AWS KMS<br>HSM FIPS 140-3 Level 3"]
-    ROOT["KMS key o root key<br>rotación automática"]
-    DK["Data keys<br>por objeto o volumen"]
-    DATA["Datos cifrados<br>en S3 EBS RDS"]
-    KMS -->|"custodia"| ROOT
-    ROOT -->|"cifra"| DK
-    DK -->|"cifra"| DATA
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class KMS navy
-    class ROOT green
-    class DK,DATA amber
-</div>
-<figcaption>Figura 1 — Jerarquía de llaves: la KMS key nunca sale del servicio; las data keys cifran los datos directamente.</figcaption>
+<img src="../assets/img/kms-envelope-encryption.jpg" alt="Cifrado y Jerarquía de Llaves en AWS KMS: Envelope Encryption, Tipos de Llaves y Auditoría con CloudTrail" loading="lazy">
+<figcaption>Figura 1 — Arquitectura Integral de Cifrado con AWS KMS: Tipos de Llaves, Mecánica de Envelope Encryption y Auditoría. <em>Panel 1 (Jerarquía y Tipos de Llaves):</em> Clasificación de llaves según propiedad y gobierno: AWS Owned Keys (operadas internamente por AWS, gratuitas), AWS Managed Keys (ej. <code>aws/s3</code>, <code>aws/ebs</code>, rotación automática anual inmutable), Customer Managed Keys (CMKs / KMS Keys con control total de Key Policies, rotación programable de 90 a 2560 días y soporte multi-región) y AWS CloudHSM (módulos dedicados FIPS 140-3 Nivel 3 para cumplimiento regulatorio extremo). <em>Panel 2 (Mecánica de Envelope Encryption):</em> Flujo en dos tiempos para evitar transferir grandes volúmenes de datos por la API de KMS: 1. La aplicación invoca <code>kms:GenerateDataKey</code> especificando la KMS Key custodiada dentro del HSM; 2. KMS genera y devuelve dos copias: la Plaintext Data Key (en memoria) y la Encrypted Data Key (cifrada con la KMS key); 3. La aplicación cifra localmente el dato en milisegundos con AES-256 usando la Plaintext Data Key; 4. La Plaintext Data Key se purga inmediatamente de memoria y se almacena el dato cifrado junto con la Encrypted Data Key; 5. Para descifrar, la aplicación remite la Encrypted Data Key a <code>kms:Decrypt</code>, KMS la descifra internamente en el HSM y devuelve la Plaintext Data Key para recuperar el dato original. <em>Panel 3 (Gobierno, Seguridad y Auditoría):</em> Control de acceso gobernado por la Key Policy (sin la cual ni el root de la cuenta tiene acceso), concesión de permisos temporales mediante Grants y trazabilidad absoluta donde cada invocación de API (GenerateDataKey, Decrypt) emite un evento inmutable en AWS CloudTrail con identidad, timestamp, IP y ARN de la llave.</figcaption>
 </figure>
 
 <h2>Envelope encryption: la idea central de KMS</h2>

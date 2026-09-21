@@ -130,27 +130,8 @@
 <p>A esa capa pertenece <strong>AWS Control Tower</strong>, que orquesta Organizations, Service Catalog e IAM Identity Center para montar una <span class="tag-en">landing zone</span> — un entorno multi-cuenta basado en best practices — en menos de una hora, con recursos creados y gestionados en tu nombre. Sobre la landing plane vigilan los <strong>controles</strong> (también llamados <span class="tag-en">guardrails</span>): reglas expresadas en lenguaje claro que mantienen las cuentas dentro de las best practices y detectan desviaciones (<span class="tag-en">drift</span>). Completando el ecosistema, <strong>AWS RAM</strong> comparte recursos entre cuentas para no duplicar infraestructura. Cuatro piezas, un objetivo: gobernar muchas cuentas como si fueran una.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    M["Management account<br>pago consolidado"]
-    subgraph PROD["OU Produccion · SCP aplicado"]
-        P1["Cuenta app"]
-        P2["Cuenta datos"]
-    end
-    subgraph SAND["OU Sandbox · SCP restrictivo"]
-        S1["Cuenta dev"]
-    end
-    M --> PROD
-    M --> SAND
-    CT["AWS Control Tower<br>landing zone y controles"] -.->|"gobierna"| M
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class M navy
-    class P1,P2,S1 green
-    class CT amber
-</div>
-<figcaption>Figura 1 — Organización multi-cuenta: OUs anidadas con cuentas, SCPs por OU y Control Tower gobernando el conjunto desde la management account.</figcaption>
+  <img src="../assets/img/gobierno-multi-cuenta.png" alt="Gobierno multi-cuenta en AWS: Control Tower, Landing Zone, Organizations, Service Catalog, IAM Identity Center y Controles" loading="lazy">
+  <figcaption>Figura 1 — Gobierno multi-cuenta en AWS: AWS Control Tower orquesta la Landing Zone integrando AWS Organizations (OUs y cuentas), AWS Service Catalog (Account Factory) e IAM Identity Center (SSO), con controles (guardrails preventivos y detectivos) aplicados globalmente y AWS RAM compartiendo recursos cross-account.</figcaption>
 </figure>
 
 <h2>Organizations: qué gestiona exactamente</h2>
@@ -179,17 +160,8 @@ flowchart TB
 </div>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    S["Limites SCP y RCP<br>de la organizacion"] --> E["Permisos efectivos<br>interseccion"]
-    P["Politicas IAM<br>identity y resource"] --> E
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class S,P green
-    class E amber
-</div>
-<figcaption>Figura 2 — Permisos efectivos = intersección de guardrails (SCPs/RCPs) y políticas IAM: el más restrictivo siempre gana.</figcaption>
+  <img src="../assets/img/evaluacion-scps-iam.jpg" alt="Evaluación de Políticas e Intersección de Permisos en AWS: SCPs y Políticas IAM" loading="lazy">
+  <figcaption>Figura 2 — Evaluación de políticas e intersección de permisos: los permisos efectivos son la intersección estricta entre los guardrails de la organización (SCPs/RCPs) y las políticas IAM (identidad/recurso). Un Explicit Deny siempre prevalece.</figcaption>
 </figure>
 
 <h2>Control Tower: la landing zone gestionada</h2>

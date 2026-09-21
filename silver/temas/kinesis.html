@@ -130,40 +130,8 @@
 <p>El examen SAA-C03 usa Kinesis en escenarios de "real-time analytics", "clickstream", "log ingestion" y "hot data". La decisión que te piden no es operar Kafka: es elegir entre <strong>Data Streams</strong> (quieres procesar al vuelo, con consumidores que analizan), <strong>Firehose</strong> (solo quieres cargar el flujo a S3/Redshift/OpenSearch sin escribir código) o <strong>SQS</strong> (los datos no son un flujo continuo, sino unidades de trabajo). Cerca aparece <strong>Amazon MSK</strong> como alternativa gestionada de Apache Kafka para equipos que ya viven en ese ecosistema. Esta página ordena las cuatro opciones.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    subgraph PRO["Producers"]
-        P1["Logs de apps<br>y clickstream"]
-        P2["IoT, métricas<br>y eventos"]
-    end
-    KDS["Kinesis Data Streams<br>shards y partition keys"]
-    subgraph CONS["Consumidores paralelos"]
-        A1["Lambda o EC2<br>con KCL"]
-        A2["App de agregación<br>en paralelo"]
-    end
-    FH["Firehose<br>entrega gestionada"]
-    subgraph DEST["Destinos"]
-        S3["S3"]
-        RS["Redshift"]
-        OS["OpenSearch"]
-    end
-    P1 --> KDS
-    P2 --> KDS
-    KDS --> A1
-    KDS --> A2
-    KDS --> FH
-    FH --> S3
-    FH --> RS
-    FH --> OS
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class P1,P2 navy
-    class KDS,FH amber
-    class A1,A2 green
-    class S3,RS,OS navy
-</div>
-<figcaption>Figura 1 — Pipeline de streaming: producers → Data Streams (con Firehose leyendo del stream) → consumidores analíticos y destinos finales.</figcaption>
+  <img src="../assets/img/kinesis-streaming-arquitectura.jpg" alt="Arquitectura de Amazon Kinesis: Data Streams, Data Firehose y Managed Apache Flink" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura Integral de Streaming y Analítica en AWS: Kinesis Data Streams (KDS), Amazon Data Firehose, Apache Flink y Amazon MSK. A nivel de ingesta y transporte continuo (Panel 1), KDS opera con latencias sub-segundo (&lt;200 ms) particionando el flujo mediante shards calculados con funciones hash MD5 a partir de la Partition Key, lo que garantiza el orden estricto de lectura por clave (ej. usuario o dispositivo) y ofrece dos modelos operativos: Provisioned Mode (1 MB/s o 1.000 registros/s de entrada y 2 MB/s de salida por shard, con re-sharding manual) y On-Demand Mode (autoescalado transparente sin gestión de capacidad para tráfico impredecible); además, su buffer inmutable retiene datos de 24 horas a 365 días permitiendo replay desacoplado para múltiples consumidores independientes sin destrucción de datos. Para la entrega y carga directa (Panel 2), Amazon Data Firehose proporciona un pipeline completamente serverless que ingiere directamente o lee desde KDS sin código, agrupando registros en memoria según umbrales de tamaño (1-128 MB) o tiempo (60-900 s) bajo una regla OR (entrega al cumplirse la primera condición), ejecutando transformaciones síncronas al vuelo mediante AWS Lambda (con respaldo de datos crudos en S3) y conversión columnar a Parquet/ORC antes de persistir en Amazon S3, Redshift, OpenSearch, Splunk o HTTP endpoints. En la capa de cómputo y consumo analítico (Panel 3), Amazon Managed Service for Apache Flink ejecuta procesamiento con estado en tiempo real (consultas ANSI SQL y lógica Java/Scala sobre ventanas Tumbling, Sliding y de Sesión), mientras que los modos de consumo de KDS diferencian entre Standard Consumer (2 MB/s compartidos por shard mediante polling HTTP GET) y Enhanced Fan-Out (EFO, con 2 MB/s dedicados por shard y latencia ultra baja de ~70 ms vía HTTP/2 Push). Finalmente, Amazon MSK ofrece clústeres gestionados de Apache Kafka para escenarios donde se requiera compatibilidad nativa con herramientas del ecosistema open-source sin modificar el código de aplicaciones existentes.</figcaption>
 </figure>
 
 <h2>Kinesis Data Streams: el río con carriles</h2>

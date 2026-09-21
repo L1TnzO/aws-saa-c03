@@ -131,42 +131,8 @@
 <p>Alrededor de la tríada trabajan tres servicios que el examen menciona como piezas de gobierno y presentación: <strong>AWS Lake Formation</strong> añade la capa de permisos finos sobre el catálogo y el lake; <strong>Amazon QuickSight</strong> convierte los datos en dashboards de BI; y <strong>Amazon OpenSearch Service</strong> cubre búsqueda e índices y el análisis de logs. La pregunta de examen no es "describe each service": es <em>qué servicio encaja en qué eslabón del pipeline</em> y, sobre todo, la decisión Athena vs Redshift. Esta página recorre el flujo completo de extremo a extremo y termina en esa tabla de decisión.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    subgraph ING["Ingesta"]
-        P1["Apps, logs<br>y streams"]
-        P2["Firehose o<br>jobs de Glue"]
-    end
-    RAW["S3 lake<br>zona cruda csv"]
-    GLU["AWS Glue<br>crawlers y ETL"]
-    CAT["Glue Data Catalog<br>esquemas y tablas"]
-    CUR["S3 zona curada<br>formato parquet"]
-    subgraph ANA["Consumo"]
-        ATH["Athena<br>SQL ad-hoc"]
-        RS["Redshift<br>warehouse"]
-    end
-    QS["QuickSight<br>dashboards BI"]
-    P1 --> RAW
-    P2 --> RAW
-    RAW --> GLU
-    GLU --> CAT
-    GLU --> CUR
-    CAT -.-> ATH
-    CAT -.-> RS
-    CUR --> ATH
-    CUR --> RS
-    ATH --> QS
-    RS --> QS
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class P1,P2 navy
-    class RAW,CUR navy
-    class GLU,CAT amber
-    class ATH,RS green
-    class QS navy
-</div>
-<figcaption>Figura 1 — Pipeline end-to-end del data lake: ingesta a S3, catálogo y ETL con Glue, consumo con Athena/Redshift y visualización con QuickSight.</figcaption>
+  <img src="../assets/img/analitica-data-lake-arquitectura.jpg" alt="Ecosistema de Analítica de Datos en AWS: S3 Data Lake, Glue Data Catalog/ETL, Athena y Amazon Redshift" loading="lazy">
+  <figcaption>Figura 1 — Ecosistema integral de analítica de datos en AWS: De S3 Data Lake a SQL serverless y Data Warehousing empresarial. Panel 1 (Ingesta y S3 Data Lake Central): Los datos heterogéneos son ingeridos de forma continua mediante canales gestionados serverless — streaming masivo de logs e IoT con Amazon Kinesis Data Firehose, replicación continua de bases de datos operacionales (Change Data Capture, CDC) mediante AWS Database Migration Service (DMS), y sincronización de aplicaciones SaaS empresariales con AWS AppFlow — aterrizando en un lago de datos central desacoplado en Amazon S3 (durabilidad de 99.999999999% / 11 nueves). La arquitectura se organiza en tres zonas progresivas (patrón Medallion): la Capa Raw/Bronce almacena la fuente inmutable de la verdad en formatos crudos (JSON, CSV, logs) con políticas de ciclo de vida hacia S3 Glacier Deep Archive para retención a costo mínimo; la Capa Processed/Plata aloja datos limpios, validados, deduplicados y particionados temporalmente (<code>year=YYYY/month=MM/day=DD/</code>) para permitir poda de particiones (<span class="tag-en">partition pruning</span>); y la Capa Curated/Oro consolida los datasets de analítica y negocio transformados al formato columnar optimizado Apache Parquet con compresión Snappy, reduciendo el volumen de almacenamiento hasta un 85-90% y acelerando radicalmente la velocidad de lectura analítica al proyectar únicamente las columnas consultadas. Panel 2 (Catalogación, Gobernanza y ETL Serverless): AWS Glue Crawlers inspeccionan periódicamente los prefijos de S3 para inferir automáticamente esquemas, tipos y particiones, detectando su evolución sin intervención humana; estos esquemas lógicos se registran en el AWS Glue Data Catalog, repositorio central unificado y compatible con Apache Hive Metastore que expone tablas y bases de datos lógicas sobre los archivos de S3 a múltiples motores de cómputo (Athena, Redshift Spectrum, EMR). La transformación de datos entre zonas se ejecuta mediante AWS Glue ETL Jobs, un motor distribuido serverless basado en Apache Spark con escalado automático por DPUs (Data Processing Units) y soporte de DynamicFrames para manejar esquemas divergentes sin interrupciones. A su vez, AWS Lake Formation proporciona gobernanza y seguridad centralizada sobre el catálogo y el lake mediante control de acceso granular a nivel de fila (<span class="tag-en">row-level security</span>) y columna (<span class="tag-en">column-level security</span>), además de control de acceso basado en etiquetas (LF-Tags), permitiendo enmascarar u ocultar atributos sensibles (PII, tarjetas de crédito) según el rol de IAM sin necesidad de duplicar datos en S3. Panel 3 (Consulta Interactiva y Data Warehousing): Amazon Athena ofrece consultas SQL interactivas (ANSI) 100% serverless basadas en Presto/Trino directamente sobre los datos en S3 Curated, sin infraestructura ni mantenimiento y con facturación de $5.00 por TB escaneado (minimizada drásticamente en un 90-95% al combinar formato Parquet con particionado, limitando el escaneo a pocos megabytes/gigabytes). En contraste, Amazon Redshift es el Data Warehouse columnar a escala de petabytes diseñado para cargas analíticas intensivas, reportes complejos de BI corporativo con JOINs masivos y alta concurrencia; incorpora arquitectura de nodos RA3 con Redshift Managed Storage (RMS) que desacopla cómputo de almacenamiento respaldado automáticamente en S3, capacidades de Redshift Spectrum para consultar petabytes en S3 Data Lake sin cargarlos al clúster, y Redshift Serverless para escalado dinámico en RPUs (Redshift Processing Units) con facturación por segundo. Finalmente, Amazon QuickSight provee visualización interactiva y cuadros de mando analíticos sobre Athena, Redshift, RDS y S3, impulsado por su motor de cálculo columnar en memoria SPICE (<span class="tag-en">Super-fast, Parallel, In-memory Calculation Engine</span>) y tarificación por sesiones de lector para distribución ejecutiva masiva costo-eficiente.</figcaption>
 </figure>
 
 <h2>El data lake en S3 y el catálogo de Glue</h2>

@@ -169,29 +169,8 @@
 <p>Los servicios Fargate soportan ALB (HTTP/HTTPS, capa 7), NLB (TCP/UDP, capa 4) y Gateway Load Balancer. Las versiones de plataforma definen el runtime (Amazon Linux 2 1.3.0, Bottlerocket 1.4.0, Windows 2019) y cada task nueva corre siempre en la revisión parcheada más reciente. Para trabajo interrumpible existe <span class="tag-en">Fargate Spot</span>: tasks sobre capacidad sobrante con descuento, interrumpibles con <strong>aviso de dos minutos</strong> — el primo de EC2 Spot para contenedores. Y como el consumo se factura por vCPU y memoria, Fargate es la respuesta natural a "cargas esporádicas sin costo de capacidad ociosa".</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    ECR["Amazon ECR<br>imágenes privadas"]
-    TD["Task definition<br>CPU + memoria + imagen"]
-    SVC["ECS Service<br>tareas deseadas"]
-    subgraph FAR["AWS Fargate"]
-        T1["Task 1<br>kernel propio<br>ENI propia"]
-        T2["Task 2<br>aislamiento total"]
-    end
-    ALB["Application Load Balancer<br>target type ip"]
-    ECR -- "pull de imagen" --> TD
-    TD --> SVC
-    SVC --> FAR
-    ALB -- "trafico HTTP" --> FAR
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class ECR amber
-    class TD,SVC green
-    class T1,T2 navy
-    class ALB amber
-</div>
-<figcaption>Figura 1 — Arquitectura de una Fargate task: la imagen sale de ECR, cada task aterriza con kernel y ENI propios, y el ALB apunta a IPs.</figcaption>
+  <img src="../assets/img/contenedores-ecs-eks-fargate.jpg" alt="Ecosistema de Contenedores en AWS: ECS, EKS y AWS Fargate" loading="lazy">
+  <figcaption>Figura 1 — Ecosistema de Contenedores en AWS: Arquitectura integral en tres capas. Capa 1 (Almacenamiento): Amazon ECR proporciona repositorios públicos y privados con escaneo automático de vulnerabilidades y permisos IAM basados en recursos para extracción autenticada. Capa 2 (Orquestación): Amazon ECS ofrece simplicidad nativa y mínima sobrecarga operativa mediante Task Definitions y Services, mientras que Amazon EKS brinda compatibilidad 100% estándar con Kubernetes (CNCF) para portabilidad multicloud. Capa 3 (Cómputo / Launch Types): AWS Fargate ejecuta contenedores de forma serverless con aislamiento dedicado por micro-VM (kernel propio y ENI dedicada en modo awsvpc con Target Group ALB tipo IP), frente al Launch Type Amazon EC2 que permite control total del sistema operativo, almacenamiento NVMe local y uso de instancias Spot para máximo ahorro.</figcaption>
 </figure>
 
 <h2>ECR: el registro privado de imágenes</h2>

@@ -130,21 +130,8 @@
 <p>El tercer actor de la página es el <strong>NAT gateway</strong>: la puerta unidireccional que permite a las instancias de subnets privadas iniciar conexiones hacia fuera (internet, otras redes) impidiendo que el exterior inicie conexiones hacia ellas — la definición oficial es exactamente esa. El examen mezcla los tres conceptos en escenarios de "instance in a private subnet cannot reach the internet" y "block a malicious IP address": la primera se resuelve con ruta a NAT, la segunda exige una NACL con regla deny, porque los security groups no saben denegar. Domina el vocabulario en inglés: <span class="tag-en">stateful</span>, <span class="tag-en">stateless</span>, <span class="tag-en">inbound/outbound rules</span>, <span class="tag-en">allow/deny</span>.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    INET["Internet"] -->|"llegada"| NACL["NACL de la subnet<br>stateless"]
-    NACL -->|"pasa las reglas"| SGA["Security group<br>stateful"]
-    SGA --> EC2["Recurso EC2"]
-    EC2 -.->|"la respuesta pasa"| SGA
-    SGA -.->|"SG recuerda la entrada<br>NACL reevalua salida"| INET
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class INET,EC2 navy
-    class SGA green
-    class NACL amber
-</div>
-<figcaption>Figura 1 — Las dos capas de filtrado: la NACL vigila la frontera de la subnet (ámbar) y el security group la del recurso (verde); el tráfico de vuelta confirma la diferencia stateful/stateless.</figcaption>
+  <img src="../assets/img/seguridad-red-sg-nacl.jpg" alt="Seguridad de Red en VPC: Security Groups vs Network ACLs" loading="lazy">
+  <figcaption>Figura 1 — Capas de filtrado de red y defensa en profundidad en VPC. En el perímetro exterior de la subnet, la Network ACL (NACL) actúa como firewall stateless que evalúa reglas numeradas (1-32766) de menor a mayor (first-match) con soporte explícito de ALLOW y DENY (bloqueo de IPs maliciosas), requiriendo regla outbound para puertos efímeros (TCP 1024-65535) en las respuestas. En el perímetro interno del recurso / ENI, el Security Group opera como firewall virtual stateful que solo admite reglas ALLOW evaluadas en conjunto, recordando la conexión para permitir el retorno automático, y soportando referencias entre SGs (como sg-alb como origen de sg-app) para garantizar el principio de mínimo privilegio sin depender de IPs estáticas.</figcaption>
 </figure>
 
 <h2>Security groups: el firewall stateful de instancia</h2>

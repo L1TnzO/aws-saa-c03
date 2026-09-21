@@ -136,19 +136,8 @@
 <p>Con ese sensor, las políticas cobran vida: la consulta DNS no solo consulta la tabla, sino que consulta la tabla <em>y el estado del mundo</em>. En failover, el registro primario solo se sirve mientras su health check está sano; en multivalue, solo se devuelven registros healthy; en weighted, cada peso mantiene su proporción pero los endpoints caídos se excluyen. Un detalle práctico que cae en el examen: la política <strong>simple</strong> devuelve los valores del registro sin health checks ni política de selección — Route 53 no elige por ti; si el registro lista varias IPs, el comportamiento es devolverlas y que el cliente (o el balanceador de la otra punta) decida.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    U["Usuarios"] --> R["Route 53<br>registro failover"]
-    R -->|"health check sano"| A["Registro primario<br>Region principal"]
-    R -->|"primario unhealthy"| B["Registro secundario<br>Region de DR"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class U,R navy
-    class A green
-    class B amber
-</div>
-<figcaption>Figura 1 — Failover activo-pasivo: mientras el health check del primario está sano, las consultas van a la Region principal; al fallar, Route 53 sirve el registro secundario.</figcaption>
+  <img src="../assets/img/route53-dns-failover.jpg" alt="Disaster Recovery y Failover Multi-Región con Amazon Route 53" loading="lazy">
+  <figcaption>Figura 1 — Failover activo-pasivo con Route 53: mientras el Health Check del primario (us-east-1) responde sano, las consultas DNS se dirigen al stack principal (ALB + Auto Scaling EC2 + RDS Primary). Si el health check falla, Route 53 conmuta automáticamente el tráfico DNS hacia la región secundaria de DR (us-west-2).</figcaption>
 </figure>
 
 <h2>Las ocho routing policies: definiciones y casos</h2>

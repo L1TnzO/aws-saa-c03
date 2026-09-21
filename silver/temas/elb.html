@@ -131,25 +131,8 @@
 <p>La familia actual tiene tres miembros — y elegirlos es la pregunta. El <strong>Application Load Balancer</strong> (ALB) opera en la capa 7 y entiende HTTP: rutas, hosts, headers. El <strong>Network Load Balancer</strong> (NLB) opera en la capa 4, mueve <span class="tag-en">millones de peticiones por segundo</span> y reparte por direcciones y puertos. El <strong>Gateway Load Balancer</strong> (GWLB) opera en la capa 3 y se incrusta <em>en el camino</em> del tráfico para repartirlo entre appliances virtuales — firewalls, IDS/IPS, deep packet inspection. El <strong>Classic Load Balancer</strong> es la generación anterior y la documentación recomienda migrar a los actuales. ELB trabaja además con el ecosistema: Auto Scaling registra/desregistra instancias automáticamente, ACM provee los certificados de los listeners HTTPS, CloudWatch lo monitorea y Route 53 lo apunta por DNS.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    C["Clientes"] --> ALB["ALB listener<br>reglas por path y host"]
-    ALB -->|"/api"| TA["Target group<br>servicio API"]
-    ALB -->|"default"| TB["Target group<br>servicio web"]
-    subgraph AZS["Dos AZs con targets sanos"]
-        T1["Target en AZ A"]
-        T2["Target en AZ B"]
-    end
-    TA --> T1
-    TB --> T2
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class C,ALB navy
-    class TA,TB green
-    class T1,T2 amber
-</div>
-<figcaption>Figura 1 — ALB: un listener con reglas enruta a dos target groups (API y web) con targets saludables repartidos entre AZs.</figcaption>
+  <img src="../assets/img/alb-routing-l7.jpg" alt="Enrutamiento Capa 7 con Application Load Balancer (ALB)" loading="lazy">
+  <figcaption>Figura 1 — Enrutamiento Capa 7 con Application Load Balancer: el listener procesa peticiones HTTPS entrantes y evalúa reglas basadas en path (/api/*, /app/*) o host para dirigir el tráfico al Target Group correspondiente (tareas ECS o instancias Auto Scaling EC2) distribuidas en múltiples Availability Zones con health checks independientes.</figcaption>
 </figure>
 
 <h2>Conceptos comunes: listener, target group, health check</h2>

@@ -179,21 +179,8 @@ flowchart TB
 </div>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    Q{"¿Qué necesitan tus cargas?"}
-    Q -->|"NFS, Linux, POSIX"| E["Amazon EFS<br>serverless elástico"]
-    Q -->|"SMB y Active Directory"| W["FSx Windows<br>SMB nativo"]
-    Q -->|"HPC con datasets en S3"| L["FSx Lustre<br>latencia sub-ms"]
-    Q -->|"Solo objetos vía API"| S["Amazon S3<br>otra página del pack"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class Q navy
-    class E,W,L green
-    class S amber
-</div>
-<figcaption>Figura 2 — Árbol de decisión de file storage: el protocolo y el tipo de workload deciden el servicio.</figcaption>
+  <img src="../assets/img/efs-vs-fsx-comparativa.jpg" alt="Almacenamiento de Archivos en AWS: Amazon EFS vs Amazon FSx" loading="lazy">
+  <figcaption>Figura 2 — Matriz arquitectónica y de decisión para almacenamiento de archivos compartido en AWS: Amazon EFS frente a la familia Amazon FSx. Panel 1 (Amazon EFS): sistema de archivos NFSv4.1/4.0 serverless y elástico hasta petabytes para entornos Linux y POSIX, desplegado en modo Regional Multi-AZ con Mount Targets redundantes por Availability Zone para atender concurrentemente a instancias EC2, clústeres de contenedores ECS/EKS y funciones AWS Lambda sin tráfico inter-AZ, incorporando gestión de ciclo de vida automático hacia niveles Infrequent Access (IA) y Archive. Panel 2 (Amazon FSx for Windows File Server): almacenamiento empresarial nativo Windows basado en protocolo SMB (2.0–3.1.1) y NTFS con integración directa en Microsoft Active Directory, soporte para DFS Namespaces y DFS Replication, arquitectura Multi-AZ con réplica síncrona y failover automático en segundos, provisión independiente de SSD/HDD y respaldos consistentes diarios mediante VSS. Panel 3 (Amazon FSx for Lustre): sistema de archivos POSIX masivamente paralelo diseñado para HPC, renderizado y entrenamiento de Machine Learning, con latencia sub-milisegundo, millones de IOPS y cientos de GB/s, sincronizado de forma bidireccional y transparente con buckets de Amazon S3 en modos Scratch (efímero) o Persistent (alta durabilidad). Panel 4 (Amazon FSx for NetApp ONTAP): almacenamiento multi-protocolo unificado (NFS, SMB y bloques iSCSI) con deduplicación, compresión y compactación de datos integrada (hasta 65% de reducción en almacenamiento), migración y réplica híbrida con NetApp SnapMirror on-premises y tiering automático inteligente entre SSD primario y pools de capacidad fríos.</figcaption>
 </figure>
 
 <div class="table-wrap">

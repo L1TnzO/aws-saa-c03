@@ -156,20 +156,8 @@
 </div>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    APP["App web o móvil"] --> UP["Cognito user pool<br>sign-in MFA"]
-    UP -->|"JWT access token"| API["API Gateway<br>JWT authorizer"]
-    API -->|"headers con token"| BE["Backend Lambda<br>o contenedores"]
-    UP -.->|"federación"| IDP["Google Facebook<br>SAML u OIDC"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class APP,API navy
-    class UP green
-    class BE,IDP amber
-</div>
-<figcaption>Figura 1 — Flujo clásico de examen: la app se autentica en el user pool y usa el JWT ante API Gateway (o un ALB con authenticate-cognito).</figcaption>
+  <img src="../assets/img/cognito-user-vs-identity-pools.jpg" alt="Amazon Cognito: User Pools (Autenticación e Identidad) vs Identity Pools (Autorización y Credenciales AWS STS)" loading="lazy">
+  <figcaption>Figura 1 — Amazon Cognito: arquitectura comparativa y complementaria entre User Pools e Identity Pools. <em>Panel 1 (Cognito User Pools - Autenticación):</em> Actúa como el directorio gestionado de identidades para aplicaciones web y móviles, administrando sign-up, sign-in, recuperación autoservicio de contraseñas, MFA obligatorio u opcional (SMS/TOTP), autenticación adaptativa contra riesgos de contexto y la Hosted UI personalizable sin desarrollo frontend; soporta federación social (Google, Apple, Facebook, Amazon) y corporativa (SAML 2.0 y OIDC) con aprovisionamiento Just-in-Time; tras el login emite la tríada de JSON Web Tokens (JWT): el <strong>ID Token</strong> con atributos de perfil del usuario (<code>sub</code>, <code>email</code>), el <strong>Access Token</strong> con scopes OAuth y grupos para autorización en APIs, y el <strong>Refresh Token</strong> para renovación silenciosa de sesión; estos tokens son validados de forma nativa y sin servidor por <strong>Amazon API Gateway</strong> (JWT Authorizer nativo) o <strong>Application Load Balancer</strong> (regla con acción <code>authenticate-cognito</code>). <em>Panel 2 (Cognito Identity Pools - Autorización AWS):</em> Actúa como un traductor de identidades externas a permisos temporales de IAM sin almacenar credenciales de usuario; confía en múltiples IdPs (Cognito User Pools, Google, Apple, SAML u OIDC) y soporta acceso anónimo con el rol <strong>unauthenticated</strong> (Guest access); mediante las APIs <code>GetId</code> y <code>GetCredentialsForIdentity</code> invoca internamente <code>sts:AssumeRoleWithWebIdentity</code> para emitir credenciales temporales de AWS (Access Key, Secret Key y Session Token); esto permite a los SDKs de AWS en clientes móviles y Single Page Applications interactuar directamente con <strong>Amazon S3</strong> (subida y descarga de objetos masivos), <strong>Amazon DynamoDB</strong> o servicios de IA sin sobrecargar ni pagar por servidores backend intermediarios. <em>Panel 3 (Mapeo de Roles, Seguridad Multi-Tenant y Comparativa Clave):</em> Soporta <strong>Role Mapping</strong> inteligente por grupos (el grupo 'Admins' asume un rol IAM con privilegios elevados; 'Users' asume un rol restringido) o reglas condicionales de claims; implementa aislamiento multi-tenant en S3 mediante la variable de política IAM <code>${cognito-identity.amazonaws.com:sub}</code> para confinar a cada usuario estrictamente a su carpeta personal; y resume la distinción esencial para el examen: User Pools responde a '¿quién es el usuario?' entregando JWTs, mientras que Identity Pools responde a '¿qué recursos de AWS puede manipular?' entregando credenciales STS temporales firmadas.</figcaption>
 </figure>
 
 <h2>Federación: usuarios que ya tienen identidad en otra parte</h2>

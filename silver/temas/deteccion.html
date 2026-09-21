@@ -143,38 +143,8 @@
 </div>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    subgraph SRC["Fuentes de datos"]
-        CT["CloudTrail<br>management events"]
-        FL["VPC flow logs<br>y DNS logs"]
-        S3D["Contenido e inventario<br>de S3"]
-        WK["Workloads<br>EC2 ECR Lambda"]
-    end
-    subgraph DET["Servicios de detección"]
-        GD["GuardDuty"]
-        MC["Macie"]
-        INS["Inspector"]
-    end
-    SH["Security Hub<br>aggregator"]
-    EB["EventBridge<br>respuesta"]
-    CT --> GD
-    FL --> GD
-    S3D --> MC
-    WK --> INS
-    GD --> SH
-    MC --> SH
-    INS --> SH
-    SH --> EB
-    EB -->|"Lambda o ticket"| REM["Remediación<br>automática"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class CT,FL,S3D,WK navy
-    class GD,MC,INS green
-    class SH,EB,REM amber
-</div>
-<figcaption>Figura 1 — Pipeline de detección: fuentes → detectores → Security Hub (aggregación en ASFF) → EventBridge → remediación.</figcaption>
+  <img src="../assets/img/seguridad-deteccion-pipeline.jpg" alt="Pipeline de Detección de Amenazas y Seguridad en AWS: GuardDuty, Macie, Inspector, Security Hub y Remediación Automatizada" loading="lazy">
+  <figcaption>Figura 1 — Pipeline Integral de Detección de Amenazas, Clasificación de Datos, Gestión de Vulnerabilidades y Remediación Automatizada en AWS. En la capa de telemetría e ingesta (Panel 1), la arquitectura desacopla completamente la recolección de datos del rendimiento de los workloads: Amazon GuardDuty ingiere de forma nativa y sin agentes los flujos fundacionales a nivel del hipervisor y plano de control (VPC Flow Logs, DNS Query Logs de Route 53 Resolver, CloudTrail Management y S3 Data Events) sin necesidad de habilitar registros adicionales en CloudWatch ni generar sobrecostes de transferencia de red, complementándose con EKS Audit Logs y Runtime Monitoring en EC2 y Lambda para visibilidad a nivel de procesos del sistema operativo. En la capa de motores especializados (Panel 2), cada servicio responde a preguntas de seguridad específicas: <strong>Amazon GuardDuty</strong> aplica algoritmos de Machine Learning no supervisado y cruce continuo con Threat Intelligence (de AWS y líderes de la industria) para identificar anomalías de comportamiento, credenciales IAM comprometidas utilizadas desde IPs remotas, cryptomining en cómputo, ataques de fuerza bruta SSH/RDP, perfiles inusuales en RDS/Aurora y análisis de malware en volúmenes EBS; <strong>Amazon Macie</strong> escanea el patrimonio de datos en Amazon S3 empleando pattern matching y ML para clasificar PII, registros financieros (PCI-DSS), credenciales y secretos expuestos mediante identificadores gestionados y regex personalizados (Discovery Jobs y Automated Discovery), además de auditar la exposición pública de buckets; y <strong>Amazon Inspector</strong> gestiona vulnerabilidades de forma continua analizando paquetes de software instalados contra bases de datos de CVEs y evaluando la exposición no intencionada de red (Unintended Network Exposure) en instancias Amazon EC2, imágenes en Amazon ECR al hacer push y funciones serverless AWS Lambda, contextualizando su severidad mediante el Inspector Risk Score. Finalmente, en la capa de agregación, investigación y remediación (Panel 3), <strong>AWS Security Hub</strong> opera como panel unificado (Single Pane of Glass) normalizando todos los hallazgos al formato estándar ASFF (AWS Security Finding Format) y evaluando la postura de cumplimiento (CSPM) en tiempo real contra estándares como CIS AWS Foundations, PCI DSS y AWS FSBP en entornos multi-cuenta con AWS Organizations; <strong>Amazon Detective</strong> entra en la fase post-detección facilitando el análisis forense y de causa raíz mediante grafos visuales de comportamiento (Behavior Graph) con hasta un año de retención histórica; y la arquitectura de <strong>Remediación Automatizada</strong> canaliza los eventos en tiempo real hacia <strong>Amazon EventBridge</strong> para orquestar respuestas inmediatas sin intervención humana mediante funciones AWS Lambda o SSM Automation Runbooks (como aislar instancias en Security Groups de cuarentena, revocar sesiones IAM activas o actualizar listas de bloqueo en AWS WAF y NACLs).</figcaption>
 </figure>
 
 <h2>GuardDuty: detección de amenazas sin agentes</h2>

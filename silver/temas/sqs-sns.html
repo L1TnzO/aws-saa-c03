@@ -173,7 +173,7 @@ flowchart LR
 <tbody>
 <tr><td>Orden de mensajes</td><td>No garantizado (best effort)</td><td>Garantizado dentro de cada <span class="tag-en">message group</span></td></tr>
 <tr><td>Entrega</td><td><span class="tag-en">at-least-once</span> — pueden llegar duplicados</td><td><span class="tag-en">exactly-once processing</span> — sin duplicados</td></tr>
-<tr><td>Throughput</td><td>Escala transparente, prácticamente sin límite operativo</td><td>Limitado; existe modo <span class="tag-en">high-throughput FIFO</span></td></tr>
+<tr><td>Throughput</td><td>Prácticamente ilimitado (escala transparente a decenas de miles de msg/s)</td><td><strong>300 msg/s</strong> (sin batching) · hasta <strong>3.000 msg/s</strong> con batching · modo <span class="tag-en">high-throughput FIFO</span> hasta <strong>70.000 msg/s</strong></td></tr>
 <tr><td>Caso típico</td><td>Decoupling, buffering de picos, nivelado de carga</td><td>Transacciones bancarias, replicación de datos, cualquier flujo donde el orden sea ley</td></tr>
 </tbody>
 </table>
@@ -215,24 +215,8 @@ flowchart LR
 <p>SNS invierte el modelo: en lugar de que el consumidor tire de la cola, el <span class="tag-en">topic</span> empuja el mensaje hacia los suscriptores. La documentación lo define como servicio gestionado de entrega de mensajes de publishers a subscribers, con el topic como canal lógico de comunicación. Soporta mensajería <span class="tag-en">A2A</span> (aplicación a aplicación: SQS, Lambda, Firehose, endpoints HTTP/S) y <span class="tag-en">A2P</span> (aplicación a persona: email, SMS, push móvil). Un mensaje publicado llega a <strong>todos</strong> los suscriptores — cada uno recibe su copia.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    APP["Aplicación<br>e-commerce"] --> T["SNS Topic<br>evento de pedido"]
-    T --> Q1["SQS cola<br>de pagos"]
-    T --> Q2["SQS cola<br>de envíos"]
-    T --> Q3["SQS cola<br>de analítica"]
-    Q1 --> L1["Lambda<br>cobra el pedido"]
-    Q2 --> L2["Equipo de<br>logística"]
-    Q3 --> L3["Firehose<br>hacia S3"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class APP navy
-    class T amber
-    class Q1,Q2,Q3 green
-    class L1,L2,L3 navy
-</div>
-<figcaption>Figura 3 — SNS fan-out: un evento publicado se replica a N colas SQS; cada equipo consume a su ritmo, con su propia DLQ.</figcaption>
+  <img src="../assets/img/sns-sqs-fanout.jpg" alt="Patrón Fan-Out Asíncrono con Amazon SNS y Amazon SQS" loading="lazy">
+  <figcaption>Figura 3 — Patrón Fan-Out con SNS y SQS: un evento publicado por el productor en un único SNS Topic se replica en paralelo a múltiples colas SQS independientes (pagos con Lambda, envíos con EC2, analítica con Firehose y S3). Cada cola aísla el ritmo de consumo, escala de forma desacoplada y cuenta con su propia Dead-Letter Queue (DLQ).</figcaption>
 </figure>
 
 <p>El patrón estrella — <span class="tag-en">fan-out</span> — combina ambos servicios: el producer publica en el topic; el topic entrega copias a varias colas SQS; cada cola alimenta a su equipo o microservicio con su propio ritmo, reintentos y DLQ. La documentación oficial lo describe como fórmula para "fanning out" a colas de forma asíncrona. Ganas lo mejor de los dos mundos: la difusión uno-a-muchos de SNS y la durabilidad, el buffer y el procesamiento pull de SQS. Además, los suscriptores de cola pueden filtrarse con <span class="tag-en">subscription filter policies</span> (solo reciben los mensajes que cumplen un atributo), y si el suscriptor HTTP falla, SNS aplica su política de reintentos antes de mandar el mensaje a una DLQ de suscripción.</p>

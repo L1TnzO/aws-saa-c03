@@ -131,29 +131,8 @@
 <p>El patrón mental es <span class="tag-en">event-driven</span>: algo ocurre (un objeto aterriza en S3, llega una petición a API Gateway, un mensaje entra en SQS, EventBridge dispara un horario) y Lambda reacciona. Cada invocación corre <strong>de forma independiente y sin estado compartido</strong>: la función escala horizontalmente porque no hay nada que "arrastre" entre ejecuciones. Esa independencia es también la fuente de la pregunta favorita del examen: ¿tu workload encaja en los límites de Lambda (tiempo, memoria, concurrencia) o necesita otro servicio? El 15% del SAA-C03 que corresponde a "cómputo sin servidores" se decide con esas tres cifras.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    S3["Amazon S3<br>nuevo objeto"]
-    API["API Gateway<br>petición HTTP"]
-    SQS["Amazon SQS<br>cola de mensajes"]
-    EB["EventBridge<br>regla o horario"]
-    L["AWS Lambda<br>handler sin estado"]
-    DD["DynamoDB<br>persistencia"]
-    SN["SNS / Step Functions<br>siguiente paso"]
-    S3 -- "evento" --> L
-    API -- "invocación" --> L
-    SQS -- "batch" --> L
-    EB -- "trigger" --> L
-    L --> DD
-    L --> SN
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class S3,API,SQS,EB amber
-    class L green
-    class DD,SN navy
-</div>
-<figcaption>Figura 1 — Lambda event-driven: más de 200 servicios pueden disparar la función; el estado vive fuera, en DynamoDB o colas.</figcaption>
+  <img src="../assets/img/lambda-serverless.jpg" alt="Arquitectura Serverless Event-Driven con AWS Lambda" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura Serverless Event-Driven con AWS Lambda: las fuentes de eventos (API Gateway, S3, SQS, EventBridge) invocan handlers sin estado de ejecución efímera; el estado y los resultados se persisten en DynamoDB, S3 o se encadenan mediante Step Functions.</figcaption>
 </figure>
 
 <h2>Límites clave: las cifras que resuelven preguntas</h2>

@@ -130,29 +130,8 @@
 <p>El examen suele preguntarlo como un matching: dado un ataque o un requisito, ¿qué capa lo resuelve? La regla de oro es distinguir <strong>layer</strong> (¿L7 HTTP o L3/L4 paquetes?), <strong>scope</strong> (¿una aplicación o toda la VPC?) y <strong>administración</strong> (¿una cuenta o toda la organización?). Fíjate además en qué es gratis y automático (Shield Standard) y qué es de pago con soporte humano (Shield Advanced): esa distinción paga preguntas enteras.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    subgraph EDGE["Edge global"]
-        SH["AWS Shield<br>Standard o Advanced"]
-        CF["CloudFront más WAF<br>inspección L7"]
-    end
-    subgraph VPC["Borde de la VPC"]
-        NF["Network Firewall<br>L3 y L4 con Suricata"]
-        SG["Security groups<br>y NACLs"]
-    end
-    APP["Aplicación<br>ALB o API Gateway<br>con autenticación"]
-    SH --> CF
-    CF --> NF
-    NF --> SG
-    SG --> APP
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class SH,CF navy
-    class NF,SG green
-    class APP amber
-</div>
-<figcaption>Figura 1 — Capas de defensa L3 a L7: del edge global (Shield + WAF) al interior de la VPC (Network Firewall, SG/NACL) y la aplicación.</figcaption>
+<img src="../assets/img/waf-shield-ddos-arquitectura.jpg" alt="Protección contra Amenazas Web y Mitigación Anti-DDoS en AWS: Shield Standard, Shield Advanced y AWS WAF" loading="lazy">
+<figcaption>Figura 1 — Arquitectura de Defensa en Profundidad Perimetral y Capa 7 en AWS. <em>Panel 1 (AWS Shield - Mitigación Anti-DDoS L3/L4):</em> Protección en capas de red y transporte. <strong>Shield Standard</strong> está habilitado por defecto y sin costo para todos los clientes en CloudFront, Route 53, ALB y Elastic IPs, neutralizando ataques volumétricos comunes (SYN floods, UDP reflection). <strong>Shield Advanced</strong> ($3.000/mes para toda la organización) añade soporte 24/7 del AWS Shield Response Team (SRT), mitigación automática proactiva en Capa 7, protección contra picos de costos por sobreconsumo derivado de ataques DDoS (Bill Spike Protection) e incluye reglas de AWS WAF sin costo adicional. <em>Panel 2 (AWS WAF - Inspección y Filtrado en Capa 7 HTTP/HTTPS):</em> Desplegado en CloudFront (Edge), ALB, API Gateway, AppSync y Cognito. Aplica Web ACLs con reglas gestionadas (AWS Managed Rules contra OWASP Top 10, SQLi, XSS, Bot Control y ATP contra account takeover) y reglas personalizadas con limitación de tasa por IP (Rate-based rules) y geobloqueo. <em>Panel 3 (AWS Network Firewall y Gobernanza con Firewall Manager):</em> Inspección con estado L3-L7 dentro de la VPC con motor Suricata para filtrado de dominios salientes e IDS/IPS; gobernado centralmente en multi-cuenta mediante <strong>AWS Firewall Manager</strong>.</figcaption>
 </figure>
 
 <h2>AWS WAF: firewall de capa 7 para HTTP</h2>

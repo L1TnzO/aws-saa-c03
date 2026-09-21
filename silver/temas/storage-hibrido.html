@@ -131,32 +131,8 @@
 <p>El examen rara vez pregunta por consolas: presenta un escenario híbrido y espera que identifiques el servicio por la necesidad subyacente. La heurística es memorizar tres verbos: <em>acceder de forma continua</em> = Storage Gateway; <em>mover o migrar datos</em> = DataSync; <em>recibir archivos de terceros por su protocolo</em> = Transfer Family. Un cuarto actor que aparece como distractor es la familia Snow (Snowball) para migraciones masivas sin red; si el enunciado insinúa lentitud de enlace o datos de decenas de TB en un plazo corto, esa es la pista hacia Snow, no hacia DataSync.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart LR
-    subgraph ONP["On-premises"]
-        DC["NAS, SMB<br>y biblioteca de cintas"]
-        GW["Storage Gateway<br>appliance virtual"]
-        AG["Agente DataSync"]
-        SF["Socios con cliente SFTP"]
-    end
-    subgraph AWS["AWS"]
-        S3["Amazon S3"]
-        FSX["EFS y FSx"]
-        TF["Transfer Family endpoint"]
-    end
-    DC --> GW
-    GW -->|"archivos, volúmenes, cintas"| S3
-    AG -->|"copias aceleradas"| S3
-    AG --> FSX
-    SF --> TF
-    TF --> S3
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class DC,GW,AG,SF navy
-    class S3,FSX,TF green
-</div>
-<figcaption>Figura 1 — Arquitectura híbrida de referencia: cada servicio conecta on-premises con un backend distinto de AWS.</figcaption>
+  <img src="../assets/img/storage-hibrido-arquitectura.jpg" alt="Arquitectura de Almacenamiento Híbrido y Transferencia de Datos en AWS: Storage Gateway, DataSync y Transfer Family" loading="lazy">
+  <figcaption>Figura 1 — Arquitectura técnica de almacenamiento híbrido y transferencia de datos en AWS. Integración integral entre el Datacenter On-Premises y la Nube de AWS a través de Direct Connect, VPN o endpoints privados. El panel superior detalla <strong>AWS Storage Gateway</strong> para acceso continuo y transparente con protocolos estándar: <em>S3 File Gateway</em> (expone NFS/SMB con caché local de baja latencia y persistencia directa 1:1 como objetos en Amazon S3 con versionado y lifecycle), <em>Volume Gateway</em> (bloques iSCSI, contrastando <em>Cached Volumes</em> con el 100% de los datos primarios en S3 y solo datos calientes en local para máximo ahorro, frente a <em>Stored Volumes</em> con copia íntegra local de baja latencia y snapshots asíncronos en S3 para DR) y <em>Tape Gateway (VTL)</em> (reemplazo directo de bibliotecas físicas de cintas iSCSI preservando el software de backup hacia S3 Glacier y Glacier Deep Archive con bloqueo WORM). El panel central ilustra <strong>AWS DataSync</strong> para transferencias masivas y programadas (TBs/PBs) mediante un agente on-premises con aceleración WAN multi-hilo (hasta 10x más rápido que rsync/scp), cifrado TLS y validación de integridad automática punto a punto con SHA checksum hacia S3, EFS o FSx. El panel inferior muestra <strong>AWS Transfer Family</strong> con endpoints serverless totalmente gestionados para SFTP, FTPS, FTP y AS2 que permiten a clientes externos y socios B2B leer y escribir directamente en Amazon S3 o Amazon EFS sin servidores intermedios, respaldado por autenticación IAM o Active Directory.</figcaption>
 </figure>
 
 <h2>Storage Gateway: el puente permanente</h2>

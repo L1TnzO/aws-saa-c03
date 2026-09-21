@@ -131,27 +131,8 @@
 <p>El examen rara vez pregunta "qué es X": pregunta qué opción cumple el requisito con menos fricción. Dos VPCs → peering. Decenas de VPCs o enrutado transitivo → Transit Gateway. Acceso privado a un servicio AWS o SaaS → PrivateLink. Enlace híbrido predecible → Direct Connect; rápido y barato → VPN, habitualmente como respaldo del DX. Las cifras ya están verificadas en la documentación: cada conexión VPN trae <strong>dos túneles</strong> por alta disponibilidad, un DX es un enlace de fibra <span class="tag-en">dedicated</span> que evita los ISPs, y el Transit Gateway soporta MTU de <strong>8500 bytes</strong> entre attachments.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    TGW["Transit Gateway<br>route tables"]
-    subgraph VPCS["Spokes: VPCs"]
-        V1["VPC A<br>10.0.0.0/16"]
-        V2["VPC B<br>10.1.0.0/16"]
-        V3["VPC C<br>10.2.0.0/16"]
-    end
-    TGW --- V1
-    TGW --- V2
-    TGW --- V3
-    ONP["Red on-premises"] -->|"Site-to-Site VPN<br>dos tuneles"| TGW
-    DXG["Direct Connect gateway<br>enlace dedicado"] -->|"virtual interface"| TGW
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class TGW navy
-    class V1,V2,V3 green
-    class ONP,DXG amber
-</div>
-<figcaption>Figura 1 — Hub-and-spoke con Transit Gateway: VPCs, VPN y Direct Connect gateway se attachan al hub, que enruta entre ellos según sus route tables.</figcaption>
+  <img src="../assets/img/transit-gateway-hub.jpg" alt="Topología Hub-and-Spoke con AWS Transit Gateway" loading="lazy">
+  <figcaption>Figura 1 — Topología Hub-and-Spoke con Transit Gateway: el hub central interconecta decenas o cientos de VPCs mediante enrutado transitivo y conecta la red on-premises mediante AWS Direct Connect Gateway (enlace dedicado) y AWS Site-to-Site VPN (túneles IPsec de respaldo), simplificando la topología frente a una malla compleja de VPC peering.</figcaption>
 </figure>
 
 <h2>VPC peering: la conexión punto a punto</h2>

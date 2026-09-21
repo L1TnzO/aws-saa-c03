@@ -190,27 +190,10 @@ flowchart TB
 <p>La <strong>Snow Family</strong> son dispositivos físicos de AWS para trabajar donde la red no llega: transferir cientos de terabytes o ejecutar cómputo en el <span class="tag-en">edge</span> (vehículos, barcos, minas, fábricas sin conectividad estable). Snow es el doble agente de esta historia: además de cómputo en el edge, <strong>es el servicio de migración física de datos</strong> — el dispositivo llega a tu datacenter, cargas los datos, se devuelve a AWS y se importan a S3 (y a la inversa para exportaciones). Ese papel de "migración" lo comparte con DataSync y la familia de transferencias, y cae con más fuerza en las preguntas del dominio de migración y D2/D4. Nota de vigencia importante tomada de la documentación oficial: <strong>Snowball Edge ya no está disponible para clientes nuevos</strong>, que son dirigidos a <strong>AWS DataSync</strong> para transferencias online, <strong>AWS Data Transfer Terminal</strong> para transferencias físicas seguras de alta velocidad, y <strong>AWS Outposts</strong> para cómputo en el edge — memorízalo porque convierte a "Snowball Edge" en distractor y a las tres alternativas en respuesta correcta en escenarios nuevos.</p>
 
 <figure class="diagram">
-<div class="mermaid">
-flowchart TB
-    Q["¿Qué necesito?"]
-    Q --> B{"Jobs por lotes repetitivos"}
-    B -->|"Sí"| BATCH["AWS Batch<br>queues + aprovisiona solo"]
-    B -->|"No"| D{"¿Big data frameworks?"}
-    D -->|"Spark / Hadoop"| EMR["Amazon EMR<br>clusters gestionados"]
-    D -->|"No"| W{"¿Solo desplegar código?"}
-    W -->|"PaaS con control"| EB["Elastic Beanstalk<br>EC2 + ALB + ASG por ti"]
-    W -->|"No"| E{"¿Bajo qué restricción?"}
-    E -->|"Latencia local / leyes"| OUT["AWS Outposts<br>subnets on-premises"]
-    E -->|"Sin red usable"| SNOW["Snow Family<br>dispositivo físico"]
-    classDef navy fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E293B
-    classDef green fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#1E293B
-    classDef amber fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#1E293B
-    class Q,B,D,W,E navy
-    class BATCH,EMR green
-    class EB,OUT,SNOW amber
-</div>
-<figcaption>Figura 2 — Árbol de decisión de los servicios especializados: patrón de workload primero, restricción física después.</figcaption>
+  <img src="../assets/img/otros-compute-servicios.jpg" alt="Servicios de Cómputo Especializado y Edge en AWS: Batch, EMR, Elastic Beanstalk, Outposts y Snow Family" loading="lazy">
+  <figcaption>Figura 2 — Modelos de servicio, arquitectura y matriz de decisión de cómputo especializado y edge en AWS. El bloque superior izquierdo contrasta <strong>AWS Batch</strong> (orquestación automática de jobs por lotes con <em>Job Queues</em> priorizadas, <em>Job Definitions</em> en Docker y <em>Compute Environments</em> con escalado dinámico a cero sobre EC2 On-Demand, Spot con hasta 90% de descuento o Fargate sin el límite de 15 min de Lambda) frente a <strong>Amazon EMR</strong> (clusters gestionados para frameworks de Big Data como Apache Spark, Hadoop MapReduce, Hive, Presto y HBase sobre petabytes desacoplados en Amazon S3 mediante EMRFS, optimizando costos con instancias Spot en <em>Task Nodes</em>). El bloque central detalla <strong>AWS Elastic Beanstalk</strong> (PaaS donde el desarrollador sube código en Java, .NET, Node.js, Python, PHP, Go o Docker y el servicio aprovisiona automáticamente ALB, Auto Scaling, CloudWatch y Security Groups reteniendo la propiedad total y transparente de los recursos EC2 subyacentes, diferenciando entre <em>Web Server Tier</em> para tráfico HTTP síncrono y <em>Worker Tier</em> desacoplado con colas Amazon SQS y daemon local <code>sqsd</code>, junto con sus políticas de despliegue). El bloque superior derecho compara <strong>AWS Outposts</strong> (rack físico en el datacenter local donde subnets de la VPC residen on-premises para latencia sub-milisegundo a PLCs y sistemas legacy bajo un plano de control unificado operado por la Región padre) con la <strong>AWS Snow Family</strong> (dispositivos físicos Snowcone y Snowball Edge para cómputo edge en entornos severamente desconectados y transferencia física masiva de datos; recordando que Snowball Edge ya no acepta clientes nuevos, recomendando DataSync, Data Transfer Terminal y Outposts). El panel inferior sintetiza la <strong>Matriz de Decisión Rápida para SAA-C03</strong> con las señales textuales clave del examen, el rol arquitectónico y los distractores o trampas comunes a evitar.</figcaption>
 </figure>
+
 
 <div class="table-wrap">
 <table class="data">
