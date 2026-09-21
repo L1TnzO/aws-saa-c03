@@ -73,4 +73,80 @@
       if (section) section.classList.toggle("collapsed");
     });
   });
+
+  // ----- Lightbox / Zoom de diagramas a pantalla completa -----
+  var lightbox = document.createElement("div");
+  lightbox.className = "diagram-lightbox";
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-label", "Zoom de diagrama");
+  lightbox.innerHTML =
+    '<button type="button" class="diagram-lightbox-close" aria-label="Cerrar">&times;</button>' +
+    '<div class="diagram-lightbox-container">' +
+    '  <img src="" alt="Diagrama ampliado">' +
+    '  <div class="diagram-lightbox-caption"></div>' +
+    '</div>';
+  document.body.appendChild(lightbox);
+
+  var lbImg = lightbox.querySelector("img");
+  var lbCaption = lightbox.querySelector(".diagram-lightbox-caption");
+  var lbClose = lightbox.querySelector(".diagram-lightbox-close");
+
+  function openLightbox(src, alt, captionHtml) {
+    lbImg.src = src;
+    lbImg.alt = alt || "Diagrama ampliado";
+    if (captionHtml && captionHtml.trim().length > 0) {
+      lbCaption.innerHTML = captionHtml;
+      lbCaption.style.display = "block";
+    } else {
+      lbCaption.style.display = "none";
+    }
+    lightbox.classList.add("active");
+    document.body.classList.add("lightbox-open");
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.classList.remove("lightbox-open");
+    setTimeout(function () {
+      if (!lightbox.classList.contains("active")) {
+        lbImg.src = "";
+      }
+    }, 250);
+  }
+
+  lbClose.addEventListener("click", function (e) {
+    e.stopPropagation();
+    closeLightbox();
+  });
+
+  lightbox.addEventListener("click", function (e) {
+    if (!e.target.closest(".diagram-lightbox-caption")) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && lightbox.classList.contains("active")) {
+      closeLightbox();
+    }
+  });
+
+  document.querySelectorAll(".diagram img").forEach(function (img) {
+    img.setAttribute("title", "Haz clic para ampliar a pantalla completa");
+
+    var figure = img.closest(".diagram");
+    if (figure && !figure.querySelector(".diagram-zoom-badge")) {
+      var badge = document.createElement("span");
+      badge.className = "diagram-zoom-badge";
+      badge.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg> Clic para ampliar';
+      figure.appendChild(badge);
+    }
+
+    img.addEventListener("click", function () {
+      var caption = figure ? figure.querySelector("figcaption") : null;
+      var captionHtml = caption ? caption.innerHTML : "";
+      openLightbox(img.src, img.alt, captionHtml);
+    });
+  });
 })();
